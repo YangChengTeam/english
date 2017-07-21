@@ -8,7 +8,7 @@ import com.yc.base.view.IView;
  */
 
 public interface MainContract {
-    interface View extends IView<Presenter> {
+    interface View extends IView {
         void show(String html);
     }
     interface Presenter extends IPresenter {

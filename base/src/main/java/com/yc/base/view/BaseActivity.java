@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.RxBus;
+import com.umeng.analytics.MobclickAgent;
 import com.yc.base.presenter.BasePresenter;
 
 import butterknife.ButterKnife;
@@ -15,7 +16,7 @@ import butterknife.ButterKnife;
  * Created by zhangkai on 2017/7/17.
  */
 
-public abstract class BaseActivity<P extends BasePresenter> extends FragmentActivity {
+public abstract class BaseActivity<P extends BasePresenter> extends FragmentActivity implements IView {
     protected P mPresenter;
 
     @Override
@@ -34,11 +35,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends FragmentActi
 
     }
 
-    public abstract void init();
-
-    public abstract int getLayoutID();
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -48,6 +44,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends FragmentActi
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
+
         if(EmptyUtils.isNotEmpty(mPresenter)) {
             mPresenter.subscribe();
         }
@@ -56,6 +54,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends FragmentActi
     @Override
     protected void onPause() {
         super.onPause();
+        MobclickAgent.onPause(this);
+
         if(EmptyUtils.isNotEmpty(mPresenter)) {
             mPresenter.unsubscribe();
         }

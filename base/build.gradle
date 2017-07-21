@@ -37,4 +37,6 @@ dependencies {
     compile 'com.hwangjr.rxbus:rxbus:1.0.6'
     compile project(':utils')
     compile project(':securityhttp')
+    compile 'com.umeng.analytics:analytics:latest.integration'
+
 }
