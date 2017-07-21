@@ -1,8 +1,9 @@
-package com.yc.english;
+package com.yc.english.view.activitys;
 
 import android.text.Html;
 import android.widget.TextView;
 
+import com.yc.english.R;
 import com.yc.english.contract.MainContract;
 import com.yc.english.presenter.MainPresenter;
 import com.yc.base.view.BaseActivity;

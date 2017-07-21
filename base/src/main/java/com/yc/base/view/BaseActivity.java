@@ -60,6 +60,4 @@ public abstract class BaseActivity<P extends BasePresenter> extends FragmentActi
             mPresenter.unsubscribe();
         }
     }
-
-
 }
