@@ -1,1 +1,1 @@
-include ':app', ':utils', ':securityhttp', ':base', ':reading', ':group', ':setting'
+include ':app', ':utils', ':securityhttp'

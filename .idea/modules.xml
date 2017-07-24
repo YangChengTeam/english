@@ -4,11 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/English.iml" filepath="$PROJECT_DIR$/English.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" />
-      <module fileurl="file://$PROJECT_DIR$/group/group.iml" filepath="$PROJECT_DIR$/group/group.iml" />
-      <module fileurl="file://$PROJECT_DIR$/reading/reading.iml" filepath="$PROJECT_DIR$/reading/reading.iml" />
       <module fileurl="file://$PROJECT_DIR$/securityhttp/securityhttp.iml" filepath="$PROJECT_DIR$/securityhttp/securityhttp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/setting/setting.iml" filepath="$PROJECT_DIR$/setting/setting.iml" />
       <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
     </modules>
   </component>
