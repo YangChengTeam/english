@@ -4,4 +4,10 @@
     <color name="primaryDark">#303F9F</color>
     <color name="accent">#FF4081</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="group_blue_21b5f8">#21b5f8</color>
+    <color name="group_gray_e6f2fb">#E6F2FB</color>
+    <color name="group_gray_999">#999999</color>
+    <color name="group_black_323232">#323232</color>
 </resources>
