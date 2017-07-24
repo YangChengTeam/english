@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">说说英语</string>
+
+    <!--read-->
+    <string name="read_next_unit_course_text">下一单元</string>
+    <string name="read_course_play_text">播放</string>
+    <string name="read_course_play_pause_text">暂停</string>
+    <string name="read_course_play_stop_text">停止</string>
+    <string name="read_course_language_blend_text">中英</string>
+    <string name="read_course_language_cn_text">中</string>
+    <string name="read_course_language_en_text">英</string>
 </resources>
