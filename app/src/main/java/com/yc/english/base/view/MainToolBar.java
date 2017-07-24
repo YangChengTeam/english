@@ -40,12 +40,12 @@ public class MainToolBar extends BaseView {
     }
 
     public void showNavigationIcon(){
-        mToolbar.setNavigationIcon(R.mipmap.back);
+        mToolbar.setNavigationIcon(R.mipmap.base_back);
         isShowNavigationIcon = true;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.view_toolbar;
+        return R.layout.base_view_toolbar;
     }
 }

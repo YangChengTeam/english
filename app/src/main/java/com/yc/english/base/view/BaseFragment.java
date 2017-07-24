@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseFragment extends Fragment implements IView {
-    private View mRootView;
+    protected View mRootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

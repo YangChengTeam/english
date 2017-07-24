@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">说说英语</string>
+
+    <string name="main_tab_index">首页</string>
+    <string name="main_tab_task">作业</string>
+    <string name="main_tab_my">我的</string>
 </resources>
