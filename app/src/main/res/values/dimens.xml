@@ -20,7 +20,7 @@
 
     <dimen name="toolbar_padding_top">25dp</dimen>
 
-    <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_1">1dp</dimen>git update-index --no-assume-unchanged path/to/file
     <dimen name="dp_2">2dp</dimen>
     <dimen name="dp_6">6dp</dimen>
     <dimen name="dp_8">8dp</dimen>
