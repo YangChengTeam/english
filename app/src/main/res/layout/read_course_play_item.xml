@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -18,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:visibility="invisible"
-            android:src="@mipmap/read_audio_default"/>
+            android:src="@mipmap/read_audio_default"
+            android:visibility="invisible"/>
     </LinearLayout>
 
     <LinearLayout
@@ -28,13 +28,15 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/layout_play"
         android:orientation="vertical"
-        android:padding="@dimen/dp_6">
+        android:gravity="center"
+        android:padding="6dp">
 
         <TextView
             android:id="@+id/tv_english_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="I am a hero"
+            android:textColor="#999999"
             android:textSize="@dimen/sp_16"/>
 
         <TextView
@@ -44,7 +46,8 @@
             android:layout_marginLeft="2dp"
             android:layout_marginTop="2dp"
             android:text="我是一个英雄"
+            android:textColor="#999999"
             android:textSize="@dimen/sp_14"/>
     </LinearLayout>
 
-</RelativeLayout>
+</FrameLayout>

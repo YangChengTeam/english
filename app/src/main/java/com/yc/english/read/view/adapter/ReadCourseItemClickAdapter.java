@@ -1,8 +1,10 @@
 package com.yc.english.read.view.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -12,11 +14,11 @@ import com.yc.english.read.domain.EnglishCourse;
 import java.util.List;
 
 
-public class ItemClickAdapter extends BaseMultiItemQuickAdapter<EnglishCourse, BaseViewHolder>  {
+public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<EnglishCourse, BaseViewHolder>  {
 
     private Context mContext;
 
-    public ItemClickAdapter(Context mContext, List<EnglishCourse> data) {
+    public ReadCourseItemClickAdapter(Context mContext, List<EnglishCourse> data) {
         super(data);
         this.mContext = mContext;
         addItemType(EnglishCourse.CLICK_ITEM_VIEW, R.layout.read_course_play_item);
@@ -30,6 +32,8 @@ public class ItemClickAdapter extends BaseMultiItemQuickAdapter<EnglishCourse, B
                 .addOnClickListener(R.id.layout_play);
         if(helper.getAdapterPosition() == 3){
             ((ImageView)helper.getView(R.id.iv_audio_play)).setVisibility(View.VISIBLE);
+            ((TextView)helper.getView(R.id.tv_chinese_title)).setTextColor(Color.parseColor("#333333"));
+            ((TextView)helper.getView(R.id.tv_english_title)).setTextColor(Color.parseColor("#333333"));
         }
     }
 
