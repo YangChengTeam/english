@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_tab_index">首页</string>
+    <string name="main_tab_task">作业</string>
+    <string name="main_tab_my">我的</string>
+</resources>
