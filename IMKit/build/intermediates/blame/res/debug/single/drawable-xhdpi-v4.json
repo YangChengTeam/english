@@ -520,12 +520,12 @@
         "source": "D:\\AndroidStudioProjects\\english\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f47f.png"
     },
     {
-        "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_ic_bubble_left.9.png",
-        "source": "D:\\AndroidStudioProjects\\english\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_bubble_left.9.png"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_fr_file_list_ad_icon_folder.png",
         "source": "D:\\AndroidStudioProjects\\english\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_fr_file_list_ad_icon_folder.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_ic_bubble_left.9.png",
+        "source": "D:\\AndroidStudioProjects\\english\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_bubble_left.9.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_voice_unread.png",

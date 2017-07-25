@@ -38,7 +38,7 @@ public class GroupApp {
             /**
              * IMKit SDK调用第一步 初始化
              */
-            RongIM.init(application, IMConstant.APP_KEY);
+            RongIM.init(application);
             setMyExtensionModule();
         }
         RongIMClient.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {

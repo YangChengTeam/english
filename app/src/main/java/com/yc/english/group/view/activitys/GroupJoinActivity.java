@@ -44,7 +44,7 @@ public class GroupJoinActivity extends FullScreenActivity {
     @Override
     public void init() {
         mToolbar.showNavigationIcon();
-        roundView.setImageBitmap(ImageUtils.toRound(BitmapFactory.decodeResource(getResources(), R.drawable.portial)));
+        roundView.setImageBitmap(ImageUtils.toRound(BitmapFactory.decodeResource(getResources(), R.mipmap.portial)));
         initListener();
     }
 

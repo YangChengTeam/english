@@ -39,8 +39,7 @@ public class TaskPlugin implements IPluginModule {
 
     @Override
     public Drawable obtainDrawable(Context context) {
-
-        return context.getResources().getDrawable(R.mipmap.ic_launcher_round);
+        return context.getResources().getDrawable(R.drawable.group_task_selector);
     }
 
     @Override
