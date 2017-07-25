@@ -1,7 +1,5 @@
 package com.yc.english.group.view.activitys;
 
-import android.content.res.Resources;
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -13,7 +11,6 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.view.widget.RoundView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/7/25 08:30.

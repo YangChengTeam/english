@@ -36,7 +36,7 @@ public class CoursePlayActivity extends BaseActivity {
 
     @Override
     public int getLayoutID() {
-        return R.layout.activity_course_play;
+        return R.layout.read_activity_course_play;
     }
 
     @Override
