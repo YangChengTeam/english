@@ -51,8 +51,7 @@
             android:id="@+id/roundView"
             android:layout_width="@dimen/group_distance_30"
             android:layout_height="@dimen/group_distance_30"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/portial" />
+            android:layout_gravity="center_vertical" />
 
         <TextView
             android:id="@+id/tv_class_name"
