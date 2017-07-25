@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.group.constant.IMConstant;
 import com.yc.english.group.plugin.GroupExtensionModule;
 
@@ -40,11 +41,10 @@ public class GroupApp {
             RongIM.init(application, IMConstant.APP_KEY);
             setMyExtensionModule();
         }
-
         RongIMClient.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
             @Override
             public boolean onReceived(Message message, int i) {
-                Log.e(TAG, "onReceived: " + message.getContent());
+                LogUtils.e(TAG, "onReceived: " + message.getContent());
                 return true;
             }
         });

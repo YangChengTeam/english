@@ -3,23 +3,6 @@
     <dimen name="toolbar_padding_top">25dp</dimen>
 
 
-    <dimen name="group_distance_10">10dp</dimen>
-    <dimen name="group_distance_20">20dp</dimen>
-    <dimen name="group_distance_30">30dp</dimen>
-    <dimen name="group_distance_40">40dp</dimen>
-    <dimen name="group_distance_45">45dp</dimen>
-    <dimen name="group_distance_1">1dp</dimen>
-    <dimen name="group_distance_05">0.5dp</dimen>
-    <dimen name="group_distance_15">15dp</dimen>
-    <dimen name="group_distance_5">5dp</dimen>
-
-
-
-
-    <dimen name="group_text_16">16sp</dimen>
-
-
-
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_2">2dp</dimen>
     <dimen name="dp_6">6dp</dimen>
