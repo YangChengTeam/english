@@ -1,5 +1,6 @@
 package com.yc.english.main.view.fragments;
 
+import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
 
 /**
@@ -14,6 +15,6 @@ public class IndexFragment extends BaseFragment {
 
     @Override
     public int getLayoutID() {
-        return 0;
+        return R.layout.main_fragment_index;
     }
 }
