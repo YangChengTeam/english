@@ -5,11 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.WindowManager;
 
-
 import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.base.view.BaseActivity;
-import com.yc.english.base.view.MainToolBar;
 
 import butterknife.BindView;
 
@@ -20,7 +17,7 @@ import butterknife.BindView;
 public abstract class FullScreenActivity<P extends BasePresenter> extends BaseActivity<P> {
 
     @BindView(R.id.toolbar)
-    protected MainToolBar mToolbar;
+    protected BaseToolBar mToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

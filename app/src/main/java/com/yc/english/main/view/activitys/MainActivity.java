@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
@@ -38,7 +37,6 @@ public class MainActivity extends FullScreenActivity<MainPresenter> implements M
     @Override
     public void init() {
         mPresenter = new MainPresenter(this, this);
-        mToolbar.showNavigationIcon();
         mTabBar.setOnTabSelectedListener(new TabBar.OnTabSelectedListener() {
             @Override
             public void onSelected(int idx) {
@@ -57,6 +55,7 @@ public class MainActivity extends FullScreenActivity<MainPresenter> implements M
                     return;
                 }
                 mCurrentIndex = position;
+                mToolbar.setTitle(mPresenter.getTitle(mCurrentIndex));
             }
 
             @Override
@@ -70,7 +69,6 @@ public class MainActivity extends FullScreenActivity<MainPresenter> implements M
             }
         });
     }
-
 
 
     class FragmentAdapter extends FragmentStatePagerAdapter {
@@ -108,10 +106,4 @@ public class MainActivity extends FullScreenActivity<MainPresenter> implements M
             return 3;
         }
     }
-
-    @Override
-    public void show(String html) {
-
-    }
-
 }

@@ -13,7 +13,7 @@
             android:id="@+id/tab_line"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/gray"></View>
+            android:background="@color/gray_ddd"></View>
 
         <LinearLayout
             android:layout_width="match_parent"

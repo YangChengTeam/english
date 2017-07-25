@@ -49,6 +49,6 @@ public class TabItem extends BaseView {
 
     public void normal(Drawable src) {
         ivIcon.setImageDrawable(src);
-        tvTitle.setTextColor(getResources().getColor(R.color.dark));
+        tvTitle.setTextColor(getResources().getColor(R.color.gray_999));
     }
 }
