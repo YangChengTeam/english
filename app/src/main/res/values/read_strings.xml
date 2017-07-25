@@ -5,6 +5,9 @@
     <string name="read_course_play_pause_text">暂停</string>
     <string name="read_course_play_stop_text">停止</string>
     <string name="read_course_language_blend_text">中英</string>
-    <string name="read_course_language_cn_text">中</string>
+    <string name="read_course_language_cn_text">中</string>我的教材
     <string name="read_course_language_en_text">英</string>
+    <!--book-->
+    <string name="read_my_book_text">我的教材</string>
+    <string name="read_book_edit_text">编辑</string>
 </resources>

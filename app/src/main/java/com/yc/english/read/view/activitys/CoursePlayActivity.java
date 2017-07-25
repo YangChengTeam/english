@@ -47,12 +47,11 @@ public class CoursePlayActivity extends BaseActivity {
         initData();
     }
 
-    public void initViews(){
-        StatusBarCompat.setStatusBarColor(CoursePlayActivity.this, ContextCompat.getColor(CoursePlayActivity.this,R.color.primary),100);
-        //StatusBarCompat.translucentStatusBar(CoursePlayActivity.this);
+    public void initViews() {
+        StatusBarCompat.setStatusBarColor(CoursePlayActivity.this, ContextCompat.getColor(CoursePlayActivity.this, R.color.read_total_bar_bg_color), 50);
     }
 
-    public void initData(){
+    public void initData() {
         mCourseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         datas = JsonTools.jsonData(CoursePlayActivity.this, "english_course.json");
         mItemAdapter = new ReadCourseItemClickAdapter(this, datas);

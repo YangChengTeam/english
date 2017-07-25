@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="font_larger">22sp</dimen>
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_big">16sp</dimen>
+    <dimen name="font_normal">15dp</dimen>
+    <dimen name="font_snormal">14dp</dimen>
+    <dimen name="font_small">12dp</dimen>
+    <dimen name="font_tiny">10dp</dimen>
+    <dimen name="font_stiny">8dp</dimen>
+
+    <dimen name="spacing_huge">40dp</dimen>
+    <dimen name="spacing_large">18dp</dimen>
+    <dimen name="spacing_big">14dp</dimen>
+    <dimen name="spacing_normal">10dp</dimen>
+    <dimen name="spacing_small">6dp</dimen>
+    <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="spacing_stiny">1dp</dimen>
+
     <dimen name="toolbar_padding_top">25dp</dimen>
+
+    <dimen name="group_distance_10">10dp</dimen>
+    <dimen name="group_distance_20">20dp</dimen>
+    <dimen name="group_distance_30">30dp</dimen>
+    <dimen name="group_distance_40">40dp</dimen>
+    <dimen name="group_distance_45">45dp</dimen>
+    <dimen name="group_distance_1">1dp</dimen>
+    <dimen name="group_distance_05">0.5dp</dimen>
+    <dimen name="group_distance_15">15dp</dimen>
+    <dimen name="group_distance_5">5dp</dimen>
+
+    <dimen name="group_text_16">16sp</dimen>
+
 </resources>

@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.blankj.utilcode.util.LogUtils;
-
 import butterknife.ButterKnife;
 
 /**

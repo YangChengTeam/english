@@ -5,50 +5,69 @@
               android:background="@mipmap/read_course_play_bg"
               android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Eighth Unit"
-            android:textColor="#000000"
-            android:textSize="16sp"/>
-    </LinearLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/layout_play_operation"
+            android:layout_above="@+id/layout_ap"
             android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginBottom="100dp"
             android:gravity="center">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_course_list"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/read_course_top_bg"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eighth Unit"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/layout_play_operation"
             android:layout_width="match_parent"
-            android:layout_height="157dp"
-            android:layout_alignParentBottom="true"
+            android:layout_height="183dp"
+            android:layout_gravity="center|bottom"
             android:background="@mipmap/read_operation_play_bg"
-            android:gravity="center"
+            android:gravity="center|bottom"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -98,7 +117,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="6dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -148,6 +170,6 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </RelativeLayout>
+    </FrameLayout>
 
 </LinearLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="read_total_bar_bg_color">#F1F1F1</color>
+
+    <color name="read_book_bg_color">#e6f2fb</color>
+</resources>
