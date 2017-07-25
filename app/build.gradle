@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -45,6 +46,15 @@ dependencies {
     compile 'com.squareup.sqlbrite2:sqlbrite:2.0.0'
     compile 'com.hwangjr.rxbus:rxbus:1.0.6'
     compile 'com.umeng.analytics:analytics:latest.integration'
+
+    compile project(':securityhttp')
+    compile files('libs/MiPush_SDK_Client_3_2_2.jar')
+
+    compile project(':IMKit')
+    compile project(':IMLib')
+//    compile 'com.mylib:comm-recyclviewadapter:1.0.9'
+
+
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 

@@ -4,9 +4,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.group.view.fragments.ClassMainFragment;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
 import com.yc.english.main.view.fragments.IndexFragment;
@@ -40,14 +42,14 @@ public class MainActivity extends FullScreenActivity<MainPresenter> implements M
         mTabBar.setOnTabSelectedListener(new TabBar.OnTabSelectedListener() {
             @Override
             public void onSelected(int idx) {
-                mViewPager.setCurrentItem(idx);
+                mViewPager.setCurrentItem(idx, false);
             }
         });
-        mTabBar.tab(0);
+        mTabBar.tab(mCurrentIndex);
 
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mFragmentAdapter);
-        mViewPager.setCurrentItem(1);
+        mViewPager.setCurrentItem(mCurrentIndex);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -69,9 +71,11 @@ public class MainActivity extends FullScreenActivity<MainPresenter> implements M
         });
     }
 
+
+
     class FragmentAdapter extends FragmentStatePagerAdapter {
         IndexFragment mIndexFragment;
-        IndexFragment mIndexFragment2;
+        ClassMainFragment mClassMainFragment;
         MyFragment mMyFragment;
 
         public FragmentAdapter(FragmentManager fm) {
@@ -86,10 +90,10 @@ public class MainActivity extends FullScreenActivity<MainPresenter> implements M
                 }
                 return mIndexFragment;
             } else if (position == 1) {
-                if (mIndexFragment2 == null) {
-                    mIndexFragment2 = new IndexFragment();
+                if (mClassMainFragment == null) {
+                    mClassMainFragment = new ClassMainFragment();
                 }
-                return mIndexFragment2;
+                return mClassMainFragment;
             } else if (position == 2) {
                 if (mMyFragment == null) {
                     mMyFragment = new MyFragment();

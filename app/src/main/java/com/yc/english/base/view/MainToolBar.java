@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.TextView;
 
 import com.yc.english.R;
 
@@ -20,6 +21,9 @@ public class MainToolBar extends BaseView {
 
     @BindView(R.id.toolbar_sub)
     Toolbar mToolbar;
+
+    @BindView(R.id.tv_tb_title)
+    TextView mTitleTextView;
 
     public MainToolBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -37,6 +41,10 @@ public class MainToolBar extends BaseView {
                 }
             });
         }
+    }
+
+    public void setTitle(String title){
+        mTitleTextView.setText(title);
     }
 
     public void showNavigationIcon(){
