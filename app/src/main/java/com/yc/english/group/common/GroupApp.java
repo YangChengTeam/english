@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.yc.english.group.constant.IMConstant;
 import com.yc.english.group.plugin.GroupExtensionModule;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class GroupApp {
             /**
              * IMKit SDK调用第一步 初始化
              */
-            RongIM.init(application);
+            RongIM.init(application, IMConstant.APP_KEY);
             setMyExtensionModule();
         }
 
