@@ -1,16 +1,16 @@
 package com.yc.english.group.view.fragments;
 
+import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
 
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
-import com.yc.english.base.view.MainToolBar;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.view.activitys.GroupCreateActivity;
+import com.yc.english.group.view.activitys.GroupJoinActivity;
 
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -18,18 +18,13 @@ import butterknife.OnClick;
  */
 
 public class ClassMainFragment extends BaseFragment {
-    @BindView(R.id.toolbar)
-    MainToolBar toolbar;
-    @BindView(R.id.btn_create_class)
-    Button btnCreateClass;
-    @BindView(R.id.btn_join_class)
-    Button btnJoinClass;
-
+    private static final String TAG = "ClassMainFragment";
     private List<ClassInfo> mlist;
 
 
     @Override
     public void init() {
+
     }
 
     @Override
@@ -46,8 +41,11 @@ public class ClassMainFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.btn_create_class:
 
+                startActivity(new Intent(getActivity(), GroupCreateActivity.class));
+
                 break;
             case R.id.btn_join_class:
+                startActivity(new Intent(getActivity(),GroupJoinActivity.class));
                 break;
 
         }

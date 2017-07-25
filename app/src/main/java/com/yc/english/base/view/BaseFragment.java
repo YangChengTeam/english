@@ -25,7 +25,7 @@ public abstract class BaseFragment extends Fragment implements IView {
         if (mRootView == null) {
             mRootView = View.inflate(getActivity(), getLayoutID(), null);
             try {
-                ButterKnife.bind(mRootView);
+                ButterKnife.bind(this,mRootView);
             } catch (Exception e) {
                 e.printStackTrace();
                 LogUtils.i(this.getClass().getSimpleName() + " initViews->初始化失败 原因:" + e);
