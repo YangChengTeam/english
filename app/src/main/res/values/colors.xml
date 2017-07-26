@@ -2,12 +2,14 @@
 <resources>
     <color name="primary">#21b5f8</color>
     <color name="primaryDark">#E6F2FB</color>
-    <color name="accent">#FF4081</color>
+    <color name="accent">#52dfa5</color>
+
 
     <color name="white">#FFFFFF</color>
     <color name="gray_eee">#eeeeee</color>
     <color name="gray_ddd">#dddddd</color>
     <color name="gray_999">#999999</color>
+    <color name="gray_aaa">#aaaaaa</color>
 
     <color name="black">#000000</color>
     <color name="black_333">#333333</color>
