@@ -6,8 +6,10 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.yc.english"
-        minSdkVersion 14
-        targetSdkVersion 25
+
+        minSdkVersion 15
+        targetSdkVersion 21
+
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -26,6 +28,11 @@ android {
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 
 }
 
@@ -42,7 +49,10 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+
     testCompile 'junit:junit:4.12'
+
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-annotations:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
@@ -51,11 +61,19 @@ dependencies {
     compile 'com.squareup.sqlbrite2:sqlbrite:2.0.0'
     compile 'com.hwangjr.rxbus:rxbus:1.0.6'
     compile 'com.umeng.analytics:analytics:latest.integration'
-    compile project(':securityhttp')
+
+    compile files('libs/MiPush_SDK_Client_3_2_2.jar')
+    compile project(':IMKit')
+    compile project(':IMLib')
+    compile 'com.mylib:comm-recyclviewadapter:1.1.0'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+
+
     compile project(':securityhttp')
     compile project(':IMKit')
     compile project(':IMLib')
-    compile files('libs/MiPush_SDK_Client_3_2_2.jar')
+
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.3'
     compile('com.github.niorgai:StatusBarCompat:2.1.4', {
         exclude group: 'com.android.support'
@@ -68,5 +86,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
     compile 'com.android.support:support-v4:25.3.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
-
+    compile files('libs/commons-codec-1.4.jar')
+    compile 'com.google.code.gson:gson:2.8.1'
 }

@@ -3,10 +3,11 @@ package com.yc.english.group.common;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
-import com.yc.english.group.constant.IMConstant;
+import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.group.plugin.GroupExtensionModule;
+import com.yc.english.group.view.provider.CustomMessage;
+import com.yc.english.group.view.provider.CustomMessageProvider;
 
 import java.util.List;
 
@@ -37,14 +38,15 @@ public class GroupApp {
             /**
              * IMKit SDK调用第一步 初始化
              */
-            RongIM.init(application, IMConstant.APP_KEY);
+            RongIM.init(application);
             setMyExtensionModule();
+            RongIM.registerMessageType(CustomMessage.class);
+            RongIM.getInstance().registerMessageTemplate(new CustomMessageProvider());
         }
-
         RongIMClient.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
             @Override
             public boolean onReceived(Message message, int i) {
-                Log.e(TAG, "onReceived: " + message.getContent());
+                LogUtils.e(TAG, "onReceived: " + message.getContent());
                 return true;
             }
         });
