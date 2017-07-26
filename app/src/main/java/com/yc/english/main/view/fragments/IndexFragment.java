@@ -76,21 +76,27 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mReadMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                startActivity(new Intent(getActivity(), BookActivity.class));
+                Intent intent = new Intent(getActivity(), BookActivity.class);
+                intent.putExtra("tag", "read");
+                startActivity(intent);
             }
         });
 
         RxView.clicks(mWordMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                startActivity(new Intent(getActivity(), BookActivity.class));
+                Intent intent = new Intent(getActivity(), BookActivity.class);
+                intent.putExtra("tag", "word");
+                startActivity(intent);
             }
         });
 
         RxView.clicks(mGameMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                startActivity(new Intent(getActivity(), BookActivity.class));
+                Intent intent = new Intent(getActivity(), BookActivity.class);
+                intent.putExtra("tag", "game");
+                startActivity(intent);
             }
         });
 

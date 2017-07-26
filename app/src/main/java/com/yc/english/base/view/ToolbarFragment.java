@@ -26,4 +26,7 @@ public abstract class ToolbarFragment extends BaseFragment {
         }
         mToolbar.init((AppCompatActivity) getActivity());
     }
+
+
+
 }

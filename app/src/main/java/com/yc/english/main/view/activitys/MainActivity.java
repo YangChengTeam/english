@@ -43,6 +43,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public void init() {
         mPresenter = new MainPresenter(this, this);
+
         mTabBar.setOnTabSelectedListener(new TabBar.OnTabSelectedListener() {
             @Override
             public void onSelected(int idx) {

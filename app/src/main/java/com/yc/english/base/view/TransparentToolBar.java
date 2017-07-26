@@ -20,4 +20,9 @@ public class TransparentToolBar extends BaseToolBar {
     public int getLayoutId() {
         return R.layout.base_tansparent_toolbar;
     }
+
+
+    public void setTitleColor(int color) {
+        mTitleTextView.setTextColor(color);
+    }
 }

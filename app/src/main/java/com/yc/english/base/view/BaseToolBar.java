@@ -25,7 +25,7 @@ public abstract class BaseToolBar extends BaseView {
     Toolbar mToolbar;
 
     @BindView(R.id.tv_tb_title)
-    TextView mTitleTextView;
+    protected TextView mTitleTextView;
 
     public BaseToolBar(Context context, AttributeSet attrs) {
         super(context, attrs);
