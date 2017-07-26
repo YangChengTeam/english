@@ -7,11 +7,10 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_sub"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="48dp"
         android:background="@mipmap/base_actionbar"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        style="@style/mToolbarStyle"
        >
         <TextView
             android:id="@+id/tv_tb_title"

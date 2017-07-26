@@ -1,11 +1,13 @@
 package com.yc.english.main.view.activitys;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.blankj.utilcode.util.BarUtils;
 import com.yc.english.R;
@@ -48,8 +50,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             }
         });
         mTabBar.tab(mCurrentIndex);
-        BarUtils.setTransparentStatusBar(MainActivity.this);
-        BarUtils.setStatusBarColor(this, Color.BLACK);
 
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mFragmentAdapter);
@@ -60,11 +60,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     return;
                 }
                 mCurrentIndex = position;
-                if (mCurrentIndex == 0) {
-                    BarUtils.setStatusBarColor(MainActivity.this, Color.BLACK);
-                } else {
-                    BarUtils.setTransparentStatusBar(MainActivity.this);
-                }
             }
 
             @Override
