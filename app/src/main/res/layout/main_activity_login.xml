@@ -91,6 +91,7 @@
             </RelativeLayout>
 
             <Button
+                android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/normal_height"
                 android:background="@drawable/group_btn_blue_bg"
@@ -98,6 +99,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_normal"/>
             <TextView
+                android:id="@+id/tv_register"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/normal_height"
                 android:gravity="center"

@@ -12,6 +12,5 @@ public interface MainContract {
     interface View extends IView {
     }
     interface Presenter extends IPresenter {
-        String getTitle(int String);
     }
 }

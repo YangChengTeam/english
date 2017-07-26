@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.yc.english.R;
-import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.BaseActivity;
 import com.yc.english.group.view.fragments.ClassMainFragment;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
@@ -17,7 +17,7 @@ import com.yc.english.setting.view.fragments.MyFragment;
 import butterknife.BindView;
 
 
-public class MainActivity extends FullScreenActivity<MainPresenter> implements MainContract.View {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 
     @BindView(R.id.tabbar)
     TabBar mTabBar;
@@ -37,6 +37,7 @@ public class MainActivity extends FullScreenActivity<MainPresenter> implements M
     @Override
     public void init() {
         mPresenter = new MainPresenter(this, this);
+
         mTabBar.setOnTabSelectedListener(new TabBar.OnTabSelectedListener() {
             @Override
             public void onSelected(int idx) {
@@ -47,7 +48,6 @@ public class MainActivity extends FullScreenActivity<MainPresenter> implements M
 
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mFragmentAdapter);
-        mViewPager.setCurrentItem(mCurrentIndex);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -55,7 +55,6 @@ public class MainActivity extends FullScreenActivity<MainPresenter> implements M
                     return;
                 }
                 mCurrentIndex = position;
-                mToolbar.setTitle(mPresenter.getTitle(mCurrentIndex));
             }
 
             @Override
@@ -68,6 +67,10 @@ public class MainActivity extends FullScreenActivity<MainPresenter> implements M
 
             }
         });
+    }
+
+    public void goToTask(){
+        mTabBar.tab(1);
     }
 
 

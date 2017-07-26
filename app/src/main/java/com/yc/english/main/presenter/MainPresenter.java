@@ -25,19 +25,4 @@ public class MainPresenter extends BasePresenter<MainEngin, MainContract.View> i
         if(!forceUpdate) return;
     }
 
-    @Override
-    public String getTitle(int index) {
-        String title = mContext.getResources().getString(R.string.main_tab_index);
-        switch (index){
-            case 1:
-                 title = mContext.getResources().getString(R.string.main_tab_grade);
-                 break;
-            case 2:
-                title = mContext.getResources().getString(R.string.main_tab_my);
-                break;
-            default:
-                break;
-        }
-        return title;
-    }
 }
