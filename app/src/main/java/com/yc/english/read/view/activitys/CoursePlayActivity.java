@@ -1,6 +1,5 @@
 package com.yc.english.read.view.activitys;
 
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,8 +9,8 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseActivity;
-import com.yc.english.read.domain.EnglishCourse;
+import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.read.model.domain.EnglishCourseInfo;
 import com.yc.english.read.test.JsonTools;
 import com.yc.english.read.view.adapter.ReadCourseItemClickAdapter;
 
@@ -19,9 +18,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import qiu.niorgai.StatusBarCompat;
 
-public class CoursePlayActivity extends BaseActivity {
+public class CoursePlayActivity extends FullScreenActivity {
 
 
     @BindView(R.id.layout_course_play)
@@ -32,7 +30,7 @@ public class CoursePlayActivity extends BaseActivity {
 
     ReadCourseItemClickAdapter mItemAdapter;
 
-    List<EnglishCourse> datas;
+    List<EnglishCourseInfo> datas;
 
     private int playPosition;
 
@@ -43,12 +41,9 @@ public class CoursePlayActivity extends BaseActivity {
 
     @Override
     public void init() {
-        initViews();
+        mToolbar.setTitle("Unit 1 Hello");
+        mToolbar.showNavigationIcon();
         initData();
-    }
-
-    public void initViews() {
-        StatusBarCompat.setStatusBarColor(CoursePlayActivity.this, ContextCompat.getColor(CoursePlayActivity.this, R.color.read_total_bar_bg_color), 50);
     }
 
     public void initData() {

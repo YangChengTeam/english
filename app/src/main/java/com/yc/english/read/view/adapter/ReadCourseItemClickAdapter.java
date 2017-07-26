@@ -9,23 +9,23 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
-import com.yc.english.read.domain.EnglishCourse;
+import com.yc.english.read.model.domain.EnglishCourseInfo;
 
 import java.util.List;
 
 
-public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<EnglishCourse, BaseViewHolder>  {
+public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<EnglishCourseInfo, BaseViewHolder>  {
 
     private Context mContext;
 
-    public ReadCourseItemClickAdapter(Context mContext, List<EnglishCourse> data) {
+    public ReadCourseItemClickAdapter(Context mContext, List<EnglishCourseInfo> data) {
         super(data);
         this.mContext = mContext;
-        addItemType(EnglishCourse.CLICK_ITEM_VIEW, R.layout.read_course_play_item);
+        addItemType(EnglishCourseInfo.CLICK_ITEM_VIEW, R.layout.read_course_play_item);
     }
 
     @Override
-    protected void convert(final BaseViewHolder helper, final EnglishCourse item) {
+    protected void convert(final BaseViewHolder helper, final EnglishCourseInfo item) {
 
         helper.setText(R.id.tv_chinese_title, item.getSubtitlecn())
                 .setText(R.id.tv_english_title, item.getSubtitle())

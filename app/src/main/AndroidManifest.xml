@@ -12,10 +12,7 @@
 
         <activity
             android:name=".main.view.activitys.MainActivity"
-            android:theme="@style/AppTheme" />
-
-
-        <activity android:name=".main.view.activitys.LoginActivity">
+            android:theme="@style/AppTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -24,10 +21,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".read.view.activitys.CoursePlayActivity"
-            android:theme="@style/ReadAppTheme"/>
-        <activity android:name=".read.view.activitys.BookActivity"
-                  android:theme="@style/ReadAppTheme"/>
+        <activity android:name=".read.view.activitys.BookActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".read.view.activitys.CoursePlayActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".read.view.activitys.AddBookActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".read.view.activitys.BookUnitActivity" android:theme="@style/AppTheme"/>
+
         <activity android:name=".group.view.activitys.GroupCreateActivity"/>
         <activity android:name=".group.view.activitys.GroupJoinActivity"/>
 

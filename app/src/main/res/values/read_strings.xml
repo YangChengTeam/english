@@ -5,9 +5,54 @@
     <string name="read_course_play_pause_text">暂停</string>
     <string name="read_course_play_stop_text">停止</string>
     <string name="read_course_language_blend_text">中英</string>
-    <string name="read_course_language_cn_text">中</string>我的教材
+    <string name="read_course_language_cn_text">中</string>
     <string name="read_course_language_en_text">英</string>
     <!--book-->
+    <string name="read_book_text">教材选择</string>
     <string name="read_my_book_text">我的教材</string>
     <string name="read_book_edit_text">编辑</string>
+
+    <string name="read_study_grade_text">在读年级</string>
+    <string name="read_book_version_text">教材版本</string>
+    <string name="read_book_unit_text">教材</string>
+    <string-array name="read_grade_list_text">
+        <item>一年级上</item>
+        <item>一年级下</item>
+        <item>二年级上</item>
+        <item>二年级下</item>
+        <item>三年级上</item>
+        <item>三年级下</item>
+        <item>四年级上</item>
+        <item>四年级下</item>
+        <item>五年级上</item>
+        <item>五年级下</item>
+        <item>六年级上</item>
+        <item>六年级下</item>
+        <item>七年级上</item>
+        <item>七年级下</item>
+        <item>八年级上</item>
+        <item>八年级下</item>
+        <item>九年级上</item>
+        <item>九年级下</item>
+    </string-array>
+
+    <string-array name="read_grade_book_version_text">
+        <item>人教PEP</item>
+        <item>牛津深圳版</item>
+        <item>人教新起点</item>
+        <item>湘少版</item>
+        <item>广东出版</item>
+        <item>人教精通</item>
+        <item>北京版</item>
+        <item>苏教牛津</item>
+        <item>人教PEP</item>
+        <item>牛津深圳版</item>
+        <item>人教新起点</item>
+        <item>湘少版</item>
+        <item>广东出版</item>
+        <item>人教精通</item>
+        <item>北京版</item>
+        <item>苏教牛津</item>
+    </string-array>
+
 </resources>
