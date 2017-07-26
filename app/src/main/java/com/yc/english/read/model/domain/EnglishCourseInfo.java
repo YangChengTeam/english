@@ -1,4 +1,4 @@
-package com.yc.english.read.domain;
+package com.yc.english.read.model.domain;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
  * 英语课程
  */
 
-public class EnglishCourse implements MultiItemEntity {
+public class EnglishCourseInfo implements MultiItemEntity {
 
     public static final int CLICK_ITEM_VIEW = 1;
 
@@ -24,7 +24,7 @@ public class EnglishCourse implements MultiItemEntity {
 
     private boolean isPlay = false;
 
-    public EnglishCourse(){
+    public EnglishCourseInfo(){
         super();
     }
 
@@ -110,7 +110,7 @@ public class EnglishCourse implements MultiItemEntity {
 
     public int Type;
 
-    public EnglishCourse(final int type) {
+    public EnglishCourseInfo(final int type) {
         Type = type;
     }
 

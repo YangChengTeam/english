@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="32dp"
+             android:gravity="center"
+             android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="73dp"
+        android:layout_height="110dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp">
+
+        <ImageView
+            android:id="@+id/iv_book_cover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/read_book_add"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_delete_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="6dp"
+        android:visibility="invisible"
+        android:src="@mipmap/read_delete_book"/>
+</FrameLayout>

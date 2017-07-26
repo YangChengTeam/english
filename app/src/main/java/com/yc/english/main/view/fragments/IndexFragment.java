@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.ImageUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
@@ -21,9 +20,6 @@ import com.yc.english.main.view.wdigets.IndexMenuView;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.youth.banner.Banner;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 

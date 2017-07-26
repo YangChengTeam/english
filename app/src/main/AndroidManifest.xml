@@ -11,28 +11,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".main.view.activitys.MainActivity"/>
+        <activity android:name=".main.view.activitys.MainActivity" android:theme="@style/AppTheme"/>
 
         <activity
             android:name=".main.view.activitys.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".main.view.activitys.ForgotActivity"/>
-        <activity android:name=".main.view.activitys.RegisterActivity"/>
 
-        <activity
-            android:name=".read.view.activitys.CoursePlayActivity"
-            android:theme="@style/ReadAppTheme"/>
-        <activity
-            android:name=".read.view.activitys.BookActivity"
-            android:theme="@style/ReadAppTheme"/>
+        <activity android:name=".read.view.activitys.BookActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".read.view.activitys.CoursePlayActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".read.view.activitys.AddBookActivity" android:theme="@style/AppTheme"/>
+        <activity android:name=".read.view.activitys.BookUnitActivity" android:theme="@style/AppTheme"/>
+
         <activity android:name=".group.view.activitys.GroupCreateActivity"/>
         <activity android:name=".group.view.activitys.GroupJoinActivity"/>
-
     </application>
 
 </manifest>

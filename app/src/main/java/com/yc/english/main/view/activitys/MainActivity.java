@@ -1,18 +1,12 @@
 package com.yc.english.main.view.activitys;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.view.WindowManager;
 
-import com.blankj.utilcode.util.BarUtils;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
-import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.view.fragments.ClassMainFragment;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;

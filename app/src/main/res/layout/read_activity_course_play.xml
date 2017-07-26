@@ -40,19 +40,12 @@
                 android:background="@mipmap/read_course_top_bg"/>
         </LinearLayout>
 
-        <LinearLayout
+        <com.yc.english.base.view.TransparentToolBar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Eighth Unit"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="16sp"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+        </com.yc.english.base.view.TransparentToolBar>
 
         <LinearLayout
             android:id="@+id/layout_play_operation"
