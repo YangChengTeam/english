@@ -4,25 +4,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.yc.english.R;
-import com.yc.english.group.common.GroupApp;
+import com.yc.english.group.rong.models.GroupInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.rong.imkit.RongIM;
-import io.rong.imkit.fragment.ConversationFragment;
-import io.rong.imkit.fragment.ConversationListFragment;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Conversation;
 
 
 /**
@@ -43,6 +36,8 @@ public class ChatActivity extends FragmentActivity {
     @BindView(R.id.rl)
     RelativeLayout rl;
 
+    private GroupInfo group;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +47,24 @@ public class ChatActivity extends FragmentActivity {
         ButterKnife.bind(this);
         initData();
 
-//        isReconnect();
+
     }
 
     private void initData() {
         Intent intent = getIntent();
         if (intent != null && intent.getData() != null && intent.getData().getScheme().equals("rong")) {
             //rong://com.yc.english/conversation/group?targetId=654321&title=%E9%BE%99
-
+            String groupId = null;
+            String title = null;
             Uri data = intent.getData();
             if (data.getQueryParameter("title") != null) {
-                String title = data.getQueryParameter("title");
+                title = data.getQueryParameter("title");
                 txt1.setText(title);
             }
+            if (data.getQueryParameter("targetId") != null) {
+                groupId = data.getQueryParameter("title");
+            }
+            group = new GroupInfo(groupId, title);
 
         }
 
@@ -78,6 +78,12 @@ public class ChatActivity extends FragmentActivity {
                 finish();
                 break;
             case R.id.img3:
+
+                Intent intent = new Intent(this, GroupMemberActivity.class);
+//                Bundle bundle =new Bundle();
+//                bundle.putSerializable("group",group);
+                intent.putExtra("group", group);
+                startActivity(intent);
                 break;
         }
     }

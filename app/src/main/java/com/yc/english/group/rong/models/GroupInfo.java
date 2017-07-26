@@ -1,9 +1,13 @@
 package com.yc.english.group.rong.models;
 
+import com.yc.english.group.rong.util.GsonUtil;
+
+import java.io.Serializable;
+
 /**
  * 群组信息。
  */
-public class GroupInfo {
+public class GroupInfo implements Serializable {
 	// 群组Id。
 	String id;
 	// 群组名称。
@@ -48,8 +52,8 @@ public class GroupInfo {
 		return name;
 	}
 	
-//	@Override
-//	public String toString() {
-//		return GsonUtil.toJson(this, GroupInfo.class);
-//	}
+	@Override
+	public String toString() {
+		return GsonUtil.toJson(this, GroupInfo.class);
+	}
 }

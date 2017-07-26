@@ -21,6 +21,8 @@
             android:layout_gravity="bottom"
             android:background="@drawable/group_input_bg"
             android:maxLines="4"
+            android:hint="输入新消息"
+            android:textColorHint="@color/group_gray_c9c9c9"
             android:paddingLeft="@dimen/group_distance_5"
             android:paddingTop="3dp"
             android:textSize="16sp" />

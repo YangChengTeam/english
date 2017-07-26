@@ -2,13 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/group_gray_e6f2fb"
     android:orientation="vertical">
 
-    <com.yc.english.base.view.MainToolBar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <include layout="@layout/group_actionbar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,8 +20,8 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:background="@null"
-            android:gravity="center"
-            android:hint="请输入班级名称（建议以学校和班级为名称）"
+            android:hint="请修改你的班群名称"
+            android:paddingLeft="@dimen/group_distance_10"
             android:textColor="@color/black"
             android:textColorHint="@color/group_gray_999"
             android:textSize="@dimen/group_text_16" />
@@ -49,5 +45,6 @@
         android:layout_marginLeft="@dimen/group_distance_15"
         android:layout_marginRight="@dimen/group_distance_15"
         android:layout_marginTop="@dimen/group_distance_10"
-        android:text="@string/create" />
+        android:text="@string/confirm" />
+
 </LinearLayout>

@@ -6,7 +6,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.yc.english"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -54,7 +54,7 @@ dependencies {
     compile files('libs/MiPush_SDK_Client_3_2_2.jar')
     compile project(':IMKit')
     compile project(':IMLib')
-//        compile 'com.mylib:comm-recyclviewadapter:1.0.9'
+    compile 'com.mylib:comm-recyclviewadapter:1.1.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 

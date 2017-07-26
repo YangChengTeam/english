@@ -6,4 +6,14 @@
     <string name="group_join_class">加入班级</string>
     <string name="create_group">创建班群</string>
     <string name="join_group">加入班群</string>
+    <string name="homework">家庭作业</string>
+    <string name="share_group">分享班群邀请同学</string>
+    <string name="resolving_group">解算班群</string>
+    <string name="group_manager">班群管理</string>
+    <string name="confirm">确认</string>
+    <string name="create">创建</string>
+    <string name="group_name">班群名称</string>
+
+
+
 </resources>
