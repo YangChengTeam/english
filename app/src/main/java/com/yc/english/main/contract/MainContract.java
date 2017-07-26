@@ -10,9 +10,8 @@ import com.yc.english.base.view.IView;
 
 public interface MainContract {
     interface View extends IView {
-        void show(String html);
     }
     interface Presenter extends IPresenter {
-        void loadData(boolean forceUpdate);
+        String getTitle(int String);
     }
 }

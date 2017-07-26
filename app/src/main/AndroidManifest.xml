@@ -12,7 +12,10 @@
 
         <activity
             android:name=".main.view.activitys.MainActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme" />
+
+
+        <activity android:name=".main.view.activitys.LoginActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
