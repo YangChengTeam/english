@@ -17,7 +17,6 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
     @Override
     public void init() {
         mToolbar.setTitle("登录帐号");
-        mToolbar.showNavigationIcon();
     }
 
     @Override

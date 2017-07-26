@@ -14,15 +14,14 @@
             android:name=".main.view.activitys.MainActivity"
             android:theme="@style/AppTheme" />
 
-
-        <activity android:name=".main.view.activitys.LoginActivity">
-
+        <activity android:name=".main.view.activitys.LoginActivity"  android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".main.view.activitys.ForgotActivity"/>
+        <activity android:name=".main.view.activitys.RegisterActivity"/>
 
         <activity android:name=".read.view.activitys.CoursePlayActivity"
             android:theme="@style/ReadAppTheme"/>
