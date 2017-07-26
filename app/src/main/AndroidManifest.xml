@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
     package="com.yc.english">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".EnglishApp"
@@ -13,7 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".main.view.activitys.MainActivity">
+        <activity
+            android:name=".main.view.activitys.MainActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity android:name=".main.view.activitys.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,9 +27,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".read.view.activitys.CoursePlayActivity">
+        <activity
+            android:name=".read.view.activitys.BookActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".read.view.activitys.CoursePlayActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".read.view.activitys.AddBookActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".read.view.activitys.BookUnitActivity"
+            android:theme="@style/AppTheme" />
 
-        </activity>
+
         <activity
             android:name=".group.view.activitys.GroupCreateActivity"
             android:screenOrientation="portrait"
@@ -70,7 +87,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".group.view.activitys.GroupMemberActivity" />
         <activity android:name=".group.view.activitys.GroupManagerActivity" />
-        <activity android:name=".group.view.activitys.GroupChangeNameActivity"/>
+        <activity android:name=".group.view.activitys.GroupChangeNameActivity" />
 
 
         <receiver
@@ -84,6 +101,7 @@
             </intent-filter>
 
         </receiver>
+
 
     </application>
 

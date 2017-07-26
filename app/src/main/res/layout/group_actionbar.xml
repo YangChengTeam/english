@@ -5,7 +5,6 @@
         android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="@dimen/group_distance_20"
         android:background="@color/white">
 
         <RelativeLayout

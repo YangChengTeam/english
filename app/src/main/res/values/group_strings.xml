@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
     <string name="group_create_class">创建班级</string>
     <string name="group_join_class">加入班级</string>
     <string name="create_group">创建班群</string>

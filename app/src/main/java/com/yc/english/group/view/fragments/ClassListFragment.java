@@ -7,6 +7,7 @@ import android.widget.Button;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.MainToolBar;
+import com.yc.english.base.view.ToolbarFragment;
 
 import butterknife.BindView;
 
@@ -16,7 +17,7 @@ import butterknife.BindView;
  * Created by wanglin  on 2017/7/24 10:20.
  */
 
-public class ClassListFragment extends BaseFragment {
+public class ClassListFragment extends ToolbarFragment {
 
 
     @BindView(R.id.toolbar)

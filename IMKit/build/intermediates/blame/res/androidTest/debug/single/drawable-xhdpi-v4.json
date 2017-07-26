@@ -136,16 +136,16 @@
         "source": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u1f4e2.png"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_voice_unread.png",
+        "source": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_voice_unread.png"
+    },
+    {
         "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f607.png",
         "source": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u1f607.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_radio_button_off.png",
         "source": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_radio_button_off.png"
-    },
-    {
-        "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_voice_unread.png",
-        "source": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_voice_unread.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f349.png",
@@ -848,12 +848,12 @@
         "source": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_cs_group_ok_disabled.png"
     },
     {
-        "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_cs_back_icon.png",
-        "source": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_cs_back_icon.png"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ac_file_preview.png",
         "source": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_ac_file_preview.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_cs_back_icon.png",
+        "source": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_cs_back_icon.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\english\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_cs_leave_message_bg_hover.png",

@@ -3,4 +3,29 @@
     <string name="main_tab_index">首页</string>
     <string name="main_tab_task">作业</string>
     <string name="main_tab_my">我的</string>
+    <string name="main_tab_grade">班级</string>
+
+    <string name="main_login_username">请输入手机号</string>
+    <string name="main_login_password">请输入密码</string>
+    <string name="main_login_forgot">忘记密码?</string>
+    <string name="main_login_btn">登录</string>
+    <string name="main_login_regiter">注册帐号</string>
+
+    <string name="main_read">教材点读</string>
+    <string name="main_task">在线作业</string>
+    <string name="main_game">趣味闯关</string>
+    <string name="main_word">单词宝典</string>
+
+    <string name="main_read_desc">教材随心读 学习好帮手</string>
+    <string name="main_task_desc">提高学习效果 智能学习工具</string>
+    <string name="main_game_desc">游戏学单词 拼读强记忆</string>
+    <string name="main_word_desc">闯关学单词 理解记句型</string>
+
+
+    <string name="main_share">分享</string>
+
+    <string name="main_china">全国已有</string>
+    <string name="main_teacher">名老师正在使用，</string>
+    <string name="main_student">名学生正在使用。</string>
+
 </resources>
