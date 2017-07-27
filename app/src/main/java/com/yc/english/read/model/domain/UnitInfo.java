@@ -13,6 +13,8 @@ public class UnitInfo implements MultiItemEntity {
 
     private String unitTotal;
 
+    private String reciteTotalPersion;
+
     public String getUnitTitle() {
         return unitTitle;
     }
@@ -27,6 +29,14 @@ public class UnitInfo implements MultiItemEntity {
 
     public void setUnitTotal(String unitTotal) {
         this.unitTotal = unitTotal;
+    }
+
+    public String getReciteTotalPersion() {
+        return reciteTotalPersion;
+    }
+
+    public void setReciteTotalPersion(String reciteTotalPersion) {
+        this.reciteTotalPersion = reciteTotalPersion;
     }
 
     public int Type;

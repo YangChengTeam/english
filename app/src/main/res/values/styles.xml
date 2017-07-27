@@ -4,6 +4,11 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
+    <style name="TaskToolBarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="actionMenuTextColor">@color/primary</item>
+    </style>
+
+
     <style name="group_btn_blue_style">
         <item name="android:background">@drawable/group_btn_blue_bg</item>
         <item name="android:textColor">@color/white</item>

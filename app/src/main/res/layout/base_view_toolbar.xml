@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_sub"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@mipmap/base_actionbar"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+
+
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-       >
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
         <TextView
             android:id="@+id/tv_tb_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:singleLine="true"
+            android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_large"
-            android:text="@string/app_name"/>
+            android:textSize="@dimen/font_large" />
+
     </android.support.v7.widget.Toolbar>
 </FrameLayout>

@@ -6,11 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.read.model.domain.UnitInfo;
 import com.yc.english.read.view.adapter.ReadBookUnitItemClickAdapter;
+import com.yc.english.read.view.wdigets.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +47,7 @@ public class BookUnitActivity extends FullScreenActivity {
         mBookUnitRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mItemAdapter = new ReadBookUnitItemClickAdapter(this, mBookDatas);
         mBookUnitRecyclerView.setAdapter(mItemAdapter);
-
+        mBookUnitRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(10)));
         mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

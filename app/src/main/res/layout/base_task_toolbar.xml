@@ -10,9 +10,9 @@
         android:id="@+id/toolbar_sub"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        app:theme="@style/TaskToolBarStyle"
         android:background="@color/white"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
         <TextView
             android:id="@+id/tv_tb_title"

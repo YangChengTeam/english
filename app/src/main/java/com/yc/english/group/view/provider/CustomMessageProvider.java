@@ -1,0 +1,77 @@
+package com.yc.english.group.view.provider;
+
+import android.content.Context;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.yc.english.R;
+
+import io.rong.imkit.model.ProviderTag;
+import io.rong.imkit.model.UIMessage;
+import io.rong.imkit.widget.provider.IContainerItemProvider;
+import io.rong.imlib.model.Message;
+import io.rong.message.RichContentMessage;
+
+/**
+ * Created by wanglin  on 2017/7/26 08:34.
+ * 自定义消息以及消息展示
+ */
+@ProviderTag(messageContent = RichContentMessage.class)
+public class CustomMessageProvider extends IContainerItemProvider.MessageProvider<RichContentMessage> {
+    //初始化 View。
+    @Override
+    public View newView(Context context, ViewGroup viewGroup) {
+        View view = LayoutInflater.from(context).inflate(R.layout.group_custom_message, null);
+        ViewHolder holder = new ViewHolder(view);
+        holder.message = (TextView) view.findViewById(R.id.tv_message_content);
+        holder.title = (TextView) view.findViewById(R.id.tv_message_title);
+        holder.llMessage = (LinearLayout) view.findViewById(R.id.ll_message);
+        view.setTag(holder);
+        return view;
+    }
+
+    // 将数据填充 View 上。
+    @Override
+    public void bindView(View v, int i, RichContentMessage customMessage, UIMessage uiMessage) {
+        ViewHolder holder = (ViewHolder) v.getTag();
+
+        if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {//消息方向，自己发送的
+            holder.llMessage.setBackgroundResource(R.mipmap.group_message_bg);
+        } else {
+            holder.llMessage.setBackgroundResource(io.rong.imkit.R.drawable.rc_ic_bubble_left);
+        }
+        holder.message.setText(customMessage.getContent());
+        holder.title.setText(customMessage.getTitle());
+//        AndroidEmoji.ensure((Spannable) holder.message.getText());//显示消息中的 Emoji 表情。
+    }
+
+    //该条消息为该会话的最后一条消息时，会话列表要显示的内容，通过该方法进行定义。
+    @Override
+    public Spannable getContentSummary(RichContentMessage customMessage) {
+        return new SpannableString("这是一条自定义消息CustomizeMessage");
+    }
+
+
+    @Override
+    public void onItemClick(View view, int i, RichContentMessage richContentMessage, UIMessage uiMessage) {
+
+    }
+
+    private class ViewHolder {
+        TextView message;
+        TextView title;
+        View view;
+        LinearLayout llMessage;
+
+        public ViewHolder(View view) {
+            this.view = view;
+        }
+    }
+
+
+}

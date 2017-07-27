@@ -2,6 +2,8 @@ package com.yc.english;
 
 import android.app.Application;
 
+
+import com.blankj.utilcode.util.Utils;
 import com.yc.english.group.common.GroupApp;
 
 /**
@@ -13,6 +15,7 @@ public class EnglishApp extends Application {
     public void onCreate() {
         super.onCreate();
         GroupApp.init(this);
+        Utils.init(this);
     }
 
 

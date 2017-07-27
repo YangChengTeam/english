@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 
+import com.yc.english.R;
+
 import io.rong.imkit.RongExtension;
 import io.rong.imkit.plugin.IPluginModule;
 
@@ -15,7 +17,7 @@ import io.rong.imkit.plugin.IPluginModule;
 public class PicturePlugin implements IPluginModule {
     @Override
     public Drawable obtainDrawable(Context context) {
-        return null;
+        return  context.getResources().getDrawable(R.drawable.group_picture_selector) ;
     }
 
     @Override

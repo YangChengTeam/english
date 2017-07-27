@@ -71,8 +71,13 @@ public class BookActivity extends FullScreenActivity {
                     Intent intent = new Intent(BookActivity.this, AddBookActivity.class);
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(BookActivity.this, BookUnitActivity.class);
-                    startActivity(intent);
+                    if(viewType == 1){
+                        Intent intent = new Intent(BookActivity.this, BookUnitActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(BookActivity.this, WordUnitActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });

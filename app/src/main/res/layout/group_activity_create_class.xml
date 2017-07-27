@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/delete"
+            android:background="@mipmap/delete"
             android:visibility="gone" />
     </RelativeLayout>
 
@@ -49,5 +49,5 @@
         android:layout_marginLeft="@dimen/group_distance_15"
         android:layout_marginRight="@dimen/group_distance_15"
         android:layout_marginTop="@dimen/group_distance_10"
-        android:text="创建" />
+        android:text="@string/create" />
 </LinearLayout>
