@@ -11,7 +11,7 @@ public class MyFragment extends ToolbarFragment {
     @Override
     public void init() {
         super.init();
-        mToolbar.setTitle("我的");
+        mToolbar.setTitle("用户中心");
     }
 
     @Override

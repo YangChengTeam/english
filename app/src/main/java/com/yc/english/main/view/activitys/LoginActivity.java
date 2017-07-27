@@ -1,14 +1,12 @@
 package com.yc.english.main.view.activitys;
 
-
 import android.content.Intent;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.widget.Button;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.main.contract.LoginContract;
 import com.yc.english.main.presenter.LoginPresenter;
@@ -30,14 +28,14 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
     @Override
     public void init() {
         mToolbar.setTitle("登录帐号");
-        mToolbar.setMenuTitle("注册");
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        mToolbar.setmMenuTitle("注册");
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                ToastUtils.showLong("1111");
-                return false;
+            public void onClick() {
+                ToastUtils.showLong("aaaa");
             }
         });
+
         RxView.clicks(mLoginButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
