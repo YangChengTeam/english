@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/group_distance_55"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/group_distance_10"
+        android:paddingRight="@dimen/group_distance_30">
+
+        <ImageButton
+            android:id="@+id/ib_delete_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/group_distance_20"
+            android:background="@drawable/group_delete_member_selector"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_member_img"
+            android:layout_width="@dimen/group_distance_40"
+            android:layout_height="@dimen/group_distance_40"
+            android:src="@mipmap/portial" />
+
+        <TextView
+            android:id="@+id/tv_member_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/group_distance_15"
+            android:layout_weight="1"
+            android:text="蔡同学"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/group_text_16" />
+
+        <TextView
+            android:id="@+id/tv_member_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="群主"
+            android:textColor="@color/group_gray_999"
+            android:textSize="@dimen/group_text_14" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

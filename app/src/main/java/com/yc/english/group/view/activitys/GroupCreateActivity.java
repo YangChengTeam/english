@@ -2,7 +2,6 @@ package com.yc.english.group.view.activitys;
 
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,12 +11,8 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.constant.IMConstant;
 import com.yc.english.group.rong.ImUtils;
-import com.yc.english.group.rong.RongCloud;
 import com.yc.english.group.rong.models.CodeSuccessResult;
-import com.yc.english.group.rong.models.GroupInfo;
-import com.yc.english.group.rong.models.GroupUserQueryResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,10 +21,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by wanglin  on 2017/7/24 18:36.

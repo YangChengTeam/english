@@ -9,9 +9,12 @@
     <string name="resolving_group">解算班群</string>
     <string name="group_manager">班群管理</string>
     <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
     <string name="create">创建</string>
     <string name="group_name">班群名称</string>
+    <string name="delete_member">删除成员</string>
 
+    <string name="confirm_delete">确定移除（1%$d个）</string>
 
 
 </resources>

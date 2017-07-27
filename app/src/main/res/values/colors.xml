@@ -27,7 +27,8 @@
     <color name="group_gary_ddd">#DDDDDD</color>
     <color name="group_gray_c9c9c9">#C9C9C9</color>
     <color name="group_yellow_fffdeb">#FFFDEB</color>
-    <color name="group_res_fe908c">#FE908C</color>
+    <color name="group_red_fe908c">#FE908C</color>
+    <color name="group_gray_aaa">#AAAAAA</color>
 
 
 </resources>
