@@ -34,3 +34,4 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         mView.showBanner(images);
     }
 }
+

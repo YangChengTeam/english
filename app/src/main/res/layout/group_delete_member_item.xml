@@ -4,22 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/group_distance_05"
+        android:background="@color/group_gary_ddd" />
+
 
     <LinearLayout
+        android:id="@+id/ll_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/group_distance_55"
         android:background="@color/white"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/group_distance_10"
+        android:paddingLeft="@dimen/group_distance_15"
         android:paddingRight="@dimen/group_distance_30">
 
-        <ImageButton
-            android:id="@+id/ib_delete_select"
+        <CheckBox
+            android:id="@+id/cb_delete_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/group_distance_20"
-            android:background="@drawable/group_delete_member_selector"
-            android:visibility="gone" />
+            android:button="@drawable/group_delete_member_selector"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/iv_member_img"

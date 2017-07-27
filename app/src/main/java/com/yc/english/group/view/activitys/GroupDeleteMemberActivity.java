@@ -2,12 +2,16 @@ package com.yc.english.group.view.activitys;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseActivity;
+import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.model.bean.GroupMemberInfo;
 import com.yc.english.group.view.adapter.GroupDeleteAdapter;
 
@@ -20,17 +24,12 @@ import butterknife.BindView;
  * Created by wanglin  on 2017/7/27 08:44.
  */
 
-public class GroupDeleteMemberActivity extends BaseActivity {
-    @BindView(R.id.img1)
-    ImageView img1;
-    @BindView(R.id.txt1)
-    TextView txt1;
-    @BindView(R.id.tv_manager)
-    TextView tvManager;
-    @BindView(R.id.img3)
-    ImageView img3;
+public class GroupDeleteMemberActivity extends FullScreenActivity implements GroupDeleteAdapter.onItemClickListener, Toolbar.OnMenuItemClickListener {
+
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.tv_confirm_delete_group)
+    TextView tvConfirmDeleteGroup;
 
 
     private List<GroupMemberInfo> memberInfoList = new ArrayList<>();
@@ -38,16 +37,22 @@ public class GroupDeleteMemberActivity extends BaseActivity {
 
     @Override
     public void init() {
-        txt1.setText(getResources().getString(R.string.delete_member));
-        img3.setVisibility(View.GONE);
-        tvManager.setVisibility(View.VISIBLE);
-        tvManager.setText(getResources().getString(R.string.cancel));
-        tvManager.setTextColor(getResources().getColor(R.color.group_gray_aaa));
+        mToolbar.showNavigationIcon();
+        mToolbar.setTitle(getResources().getString(R.string.delete_member));
+        mToolbar.setMenuTitle(getResources().getString(R.string.cancel));
+//        mToolbar.getMenuTitle()
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupDeleteAdapter(this, null);
         recyclerView.setAdapter(adapter);
         initData();
+        initListener();
+
+    }
+
+    private void initListener() {
+        adapter.setListener(this);
+        mToolbar.setOnMenuItemClickListener(this);
 
     }
 
@@ -69,5 +74,39 @@ public class GroupDeleteMemberActivity extends BaseActivity {
         return R.layout.group_activity_delete_member;
     }
 
+    private int count;//计数
+    private List<CompoundButton> buttons = new ArrayList<>();
 
+
+    @Override
+    public void onItemClick(int position, CompoundButton buttonView, boolean isChecked) {
+
+        if (isChecked) {
+            count++;
+            buttons.add(buttonView);
+        } else {
+            count--;
+            buttons.remove(buttonView);
+        }
+        LogUtils.e(position + "---" + isChecked + "----" + count);
+
+        tvConfirmDeleteGroup.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+
+        tvConfirmDeleteGroup.setText(String.format(getResources().getString(R.string.confirm_delete), count));
+    }
+
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if (buttons.size() > 0) {
+
+            for (Object o : buttons.toArray()) {
+                ((CompoundButton) o).setChecked(false);
+            }
+            buttons.clear();
+        } else {
+            ToastUtils.showShort("你没有要取消的成员");
+        }
+        return false;
+    }
 }

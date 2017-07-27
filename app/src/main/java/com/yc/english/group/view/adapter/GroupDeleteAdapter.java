@@ -4,10 +4,13 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ImageUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
@@ -25,15 +28,27 @@ public class GroupDeleteAdapter extends BaseAdapter<GroupMemberInfo> {
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, int position) {
+    protected void convert(BaseViewHolder holder, final int position) {
         GroupMemberInfo memberInfo = mList.get(position);
         if (position == 0) {
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.itemView.getLayoutParams();
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.getView(R.id.ll_container).getLayoutParams();
             layoutParams.bottomMargin = ConvertUtils.dp2px(10);
             holder.itemView.setLayoutParams(layoutParams);
-            holder.getView(R.id.ib_delete_select).setVisibility(View.GONE);
+            holder.getView(R.id.cb_delete_select).setVisibility(View.GONE);
         } else {
-            holder.getView(R.id.ib_delete_select).setVisibility(View.VISIBLE);
+            holder.getView(R.id.cb_delete_select).setVisibility(View.VISIBLE);
+
+
+
+            ((CheckBox) holder.getView(R.id.cb_delete_select)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (listener != null) {
+                        listener.onItemClick(position,buttonView,isChecked);
+                    }
+                }
+            });
+
         }
         holder.setImageBitmap(R.id.iv_member_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.portial)));
         holder.setText(R.id.tv_member_name, memberInfo.getName());
@@ -44,5 +59,15 @@ public class GroupDeleteAdapter extends BaseAdapter<GroupMemberInfo> {
     @Override
     public int getLayoutID(int viewType) {
         return R.layout.group_delete_member_item;
+    }
+
+    private onItemClickListener listener;
+
+    public void setListener(onItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface onItemClickListener {
+        void onItemClick(int position,CompoundButton buttonView,boolean isChecked);
     }
 }
