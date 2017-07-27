@@ -39,4 +39,13 @@
     <string name="setting_share">好友分享</string>
     <string name="setting_setting">设置</string>
 
+    <string name="setting_complete">完成</string>
+
+    <string name="setting_old_password">请输入原始密码</string>
+    <string name="setting_new_password">请输入新密码</string>
+    <string name="setting_ok_password">确认新密码</string>
+
+    <string name="setting_hint_feedback">请输入你的意见和建议</string>
+
+
 </resources>

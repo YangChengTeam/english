@@ -1,18 +1,13 @@
 package com.yc.english.base.view;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.umeng.analytics.MobclickAgent;
-import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
 
 import butterknife.ButterKnife;
@@ -28,7 +23,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RxBus.get().register(this);
-        BarUtils.setStatusBarColor(this, Color.BLACK);
         try {
             setContentView(getLayoutID());
             ButterKnife.bind(this);
