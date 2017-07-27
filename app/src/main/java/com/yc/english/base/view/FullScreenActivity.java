@@ -1,11 +1,9 @@
 package com.yc.english.base.view;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
@@ -43,13 +41,14 @@ public abstract class FullScreenActivity<P extends BasePresenter> extends BaseAc
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean result = super.onPrepareOptionsMenu(menu);
         if (mToolbar.isHasMenu()) {
             MenuItem menuItem = menu.findItem(R.id.action);
-            menuItem.setTitle(mToolbar.getMenuTitle());
-            if (mToolbar.getIconResid() != 0) {
-                menuItem.setIcon(mToolbar.getIconResid());
+            menuItem.setTitle(mToolbar.getmMenuTitle());
+            if (mToolbar.getmIconResid() != 0) {
+                menuItem.setIcon(mToolbar.getmIconResid());
             }
         }
-        return super.onPrepareOptionsMenu(menu);
+        return result;
     }
 }
