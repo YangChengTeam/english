@@ -40,13 +40,14 @@
                     />
 
                 <EditText
-                    android:id="@+id/tv_username"
+                    android:id="@+id/et_username"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/spacing_normal"
                     android:layout_marginRight="@dimen/spacing_normal"
                     android:background="#00000000"
                     android:hint="@string/main_login_username"
+                    android:inputType="number"
                     android:singleLine="true"
                     android:textSize="@dimen/font_normal"/>
             </LinearLayout>
@@ -66,13 +67,14 @@
                     />
 
                 <EditText
-                    android:id="@+id/tv_password"
+                    android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/spacing_normal"
                     android:layout_marginRight="@dimen/spacing_normal"
                     android:background="#00000000"
                     android:hint="@string/main_login_password"
+                    android:inputType="textPassword"
                     android:singleLine="true"
                     android:textSize="@dimen/font_normal"/>
             </LinearLayout>
@@ -83,6 +85,7 @@
                 android:layout_marginTop="@dimen/spacing_small"
                 android:layout_marginBottom="@dimen/spacing_small">
                 <TextView
+                    android:id="@+id/tv_forgot"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"

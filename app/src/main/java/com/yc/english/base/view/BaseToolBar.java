@@ -101,7 +101,9 @@ public abstract class BaseToolBar extends BaseView {
         this.onItemClickLisener = onItemClickLisener;
     }
 
-    public void setMenuTitleColor(int color) {}
+    public  void setMenuTitleColor(int color){
+
+    }
 
     public interface OnItemClickLisener {
             void onClick();

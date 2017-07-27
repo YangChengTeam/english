@@ -51,6 +51,7 @@ public class TaskToolBar extends BaseToolBar {
         ((View)mMenuTextView.getParent()).setVisibility(View.GONE);
     }
 
+    @Override
     public void setMenuTitleColor(int color) {
         mMenuTextView.setTextColor(color);
     }

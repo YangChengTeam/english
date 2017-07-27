@@ -2,8 +2,9 @@ package com.yc.english.main.view.activitys;
 
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
@@ -25,6 +26,18 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
     @BindView(R.id.btn_login)
     Button mLoginButton;
 
+    @BindView(R.id.et_username)
+    EditText mUsernameEditText;
+
+    @BindView(R.id.et_password)
+    EditText mPassEditText;
+
+    @BindView(R.id.tv_forgot)
+    TextView mForgotTextView;
+
+    @BindView(R.id.tv_register)
+    TextView mRegisterTextView;
+
     @Override
     public void init() {
         mToolbar.setTitle("登录帐号");
@@ -32,7 +45,8 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
-                ToastUtils.showLong("aaaa");
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -40,6 +54,20 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
             @Override
             public void call(Void aVoid) {
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            }
+        });
+
+        RxView.clicks(mForgotTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                startActivity(new Intent(LoginActivity.this, ForgotActivity.class));
+            }
+        });
+
+        RxView.clicks(mRegisterTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }

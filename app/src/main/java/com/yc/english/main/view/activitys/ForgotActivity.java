@@ -12,7 +12,8 @@ import com.yc.english.main.presenter.ForgotPresenter;
 public class ForgotActivity extends FullScreenActivity<ForgotPresenter> implements ForgotContract.View {
     @Override
     public void init() {
-
+        mToolbar.setTitle("忘记密码");
+        mToolbar.showNavigationIcon();
     }
 
     @Override
