@@ -74,6 +74,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), BookActivity.class);
                 intent.putExtra("tag", "read");
+                intent.putExtra("view_type",1);
                 startActivity(intent);
             }
         });
@@ -83,6 +84,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), BookActivity.class);
                 intent.putExtra("tag", "word");
+                intent.putExtra("view_type",2);
                 startActivity(intent);
             }
         });

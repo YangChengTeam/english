@@ -6,7 +6,7 @@ import com.yc.english.base.view.FullScreenActivity;
  * Created by admin on 2017/7/26.
  */
 
-public class BookContentActivity extends FullScreenActivity {
+public class WordUnitActivity extends FullScreenActivity {
 
     @Override
     public int getLayoutID() {

@@ -57,9 +57,7 @@ dependencies {
     compile project(':IMLib')
     compile files('libs/MiPush_SDK_Client_3_2_2.jar')
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.3'
-    compile('com.github.niorgai:StatusBarCompat:2.1.4', {
-        exclude group: 'com.android.support'
-    })
+
     compile 'com.jakewharton.rxbinding:rxbinding:+'
     compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:+'
     compile 'com.jakewharton.rxbinding:rxbinding-design:+'

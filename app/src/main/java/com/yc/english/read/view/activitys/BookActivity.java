@@ -1,6 +1,7 @@
 package com.yc.english.read.view.activitys;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -35,6 +36,12 @@ public class BookActivity extends FullScreenActivity {
 
     private List<BookInfo> mBookDatas;
 
+    /**
+     * 页面展示数据类型
+     * 1:课本点读，2:单词宝典
+     */
+    private int viewType = 1;
+
     @Override
     public int getLayoutID() {
         return R.layout.read_activity_book;
@@ -44,7 +51,12 @@ public class BookActivity extends FullScreenActivity {
     public void init() {
         initData();
 
-        mToolbar.setTitle(getString(R.string.read_book_text));
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            viewType = bundle.getInt("view_type",1);
+        }
+
+        mToolbar.setTitle(viewType == 1 ? getString(R.string.read_book_text) : getString(R.string.word_book_text));
         mToolbar.showNavigationIcon();
 
         mBookRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));

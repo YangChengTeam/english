@@ -55,4 +55,6 @@
         <item>苏教牛津</item>
     </string-array>
 
+    <!--word-->
+    <string name="word_book_text">单词宝典</string>
 </resources>
