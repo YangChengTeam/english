@@ -73,6 +73,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mTabBar.tab(1);
     }
 
+    public void goToMy(){
+        mTabBar.tab(2);
+    }
+
 
     class FragmentAdapter extends FragmentStatePagerAdapter {
         IndexFragment mIndexFragment;

@@ -1,8 +1,6 @@
 package com.yc.english.base.view;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
@@ -10,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.BarUtils;
 import com.yc.english.R;
 
 import butterknife.BindView;
@@ -47,21 +44,21 @@ public abstract class BaseToolBar extends BaseView {
         }
     }
 
-    private Toolbar.OnMenuItemClickListener onMenuItemClickListener;
 
     public void setOnMenuItemClickListener() {
-        if(onMenuItemClickListener != null) {
-            mToolbar.setOnMenuItemClickListener(onMenuItemClickListener);
+        if(onItemClickLisener != null) {
+            mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    onItemClickLisener.onClick();
+                    return false;
+                }
+            });
         }
     }
 
-    public void setOnMenuItemClickListener(Toolbar.OnMenuItemClickListener onMenuItemClickListener) {
-        this.onMenuItemClickListener = onMenuItemClickListener;
-    }
-
-
     public void setTitle(String title) {
-        mTitleTextView.setTypeface(null, Typeface.BOLD);
+//        mTitleTextView.setTypeface(null, Typeface.BOLD);
         mTitleTextView.setText(title);
     }
 
@@ -70,31 +67,47 @@ public abstract class BaseToolBar extends BaseView {
         isShowNavigationIcon = true;
     }
 
-    private boolean hasMenu;
+    protected boolean hasMenu;
 
-    private int iconResid;
+    protected int mIconResid = 0;
 
-    private String menuTitle;
+    protected String mMenuTitle;
 
-    public int getIconResid() {
-        return iconResid;
+    private OnItemClickLisener onItemClickLisener;
+
+    public int getmIconResid() {
+        return mIconResid;
     }
 
-    public void setIconResid(int iconResid) {
+    public void setMenuIcon(int iconResid) {
         hasMenu = true;
-        this.iconResid = iconResid;
+        this.mIconResid = iconResid;
     }
 
     public String getMenuTitle() {
-        return menuTitle;
+        return mMenuTitle;
     }
 
-    public void setMenuTitle(String menuTitle) {
+    public void setMenuTitle(String mMenuTitle) {
         hasMenu = true;
-        this.menuTitle = menuTitle;
+        this.mMenuTitle = mMenuTitle;
     }
 
     public boolean isHasMenu() {
         return hasMenu;
     }
+
+    public void setOnItemClickLisener(OnItemClickLisener onItemClickLisener) {
+        this.onItemClickLisener = onItemClickLisener;
+    }
+
+    public  void setMenuTitleColor(int color){
+
+    }
+
+    public interface OnItemClickLisener {
+            void onClick();
+    }
+
+
 }

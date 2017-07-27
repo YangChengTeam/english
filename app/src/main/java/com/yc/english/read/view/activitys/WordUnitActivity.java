@@ -3,13 +3,12 @@ package com.yc.english.read.view.activitys;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
+import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.read.model.domain.UnitInfo;
 import com.yc.english.read.view.adapter.ReadWordUnitItemClickAdapter;
@@ -43,12 +42,11 @@ public class WordUnitActivity extends FullScreenActivity {
         mToolbar.setTitle(getString(R.string.read_book_unit_text));
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitle(getString(R.string.word_book_change_text));
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
+            public void onClick() {
                 Intent intent = new Intent(WordUnitActivity.this, AddBookActivity.class);
                 startActivity(intent);
-                return false;
             }
         });
 

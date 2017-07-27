@@ -6,9 +6,11 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
@@ -19,6 +21,7 @@ import com.yc.english.main.view.activitys.MainActivity;
 import com.yc.english.main.view.wdigets.IndexMenuView;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -41,8 +44,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @BindView(R.id.iv_avatar)
     ImageView mAvatarImageView;
 
-    @BindView(R.id.iv_share)
-    ImageView mShareImageView;
+    @BindView(R.id.ll_share)
+    LinearLayout mShareLinearLayout;
 
     @BindView(R.id.im_read)
     IndexMenuView mReadMenuView;
@@ -105,6 +108,29 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 mainActivity.goToTask();
             }
         });
+
+        RxView.clicks(mAvatarImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                MainActivity mainActivity = (MainActivity)getActivity();
+                mainActivity.goToMy();
+            }
+        });
+
+        RxView.clicks(mShareLinearLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                ToastUtils.showLong("点击了分享");
+            }
+        });
+
+        mBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                ToastUtils.showLong("点击了第" + position + "图片");
+            }
+        });
+
     }
 
 

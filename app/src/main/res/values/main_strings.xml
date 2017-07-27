@@ -7,9 +7,14 @@
 
     <string name="main_login_username">请输入手机号</string>
     <string name="main_login_password">请输入密码</string>
+    <string name="main_check_code">请输入验证码</string>
     <string name="main_login_forgot">忘记密码?</string>
     <string name="main_login_btn">登录</string>
     <string name="main_login_regiter">注册帐号</string>
+    <string name="main_regiter">注册</string>
+
+    <string name="main_checkcode">获取验证码</string>
+    <string name="main_ok">确认</string>
 
     <string name="main_read">教材点读</string>
     <string name="main_task">在线作业</string>
@@ -27,5 +32,11 @@
     <string name="main_china">全国已有</string>
     <string name="main_teacher">名老师正在使用，</string>
     <string name="main_student">名学生正在使用。</string>
+
+    <string name="setting_weixin">关注微信公众号</string>
+    <string name="setting_qq">说说英语QQ群</string>
+    <string name="setting_feedback">意见反馈</string>
+    <string name="setting_share">好友分享</string>
+    <string name="setting_setting">设置</string>
 
 </resources>
