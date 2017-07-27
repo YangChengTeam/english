@@ -38,7 +38,7 @@ public class TaskToolBar extends BaseToolBar {
     }
 
     @Override
-    public void setmMenuTitle(String mMenuTitle) {
+    public void setMenuTitle(String mMenuTitle) {
         hasMenu = hasMenu ? hasMenu : false;
         this.mMenuTitle = mMenuTitle;
         ((View)mMenuTextView.getParent()).setVisibility(View.VISIBLE);

@@ -44,7 +44,7 @@ public abstract class FullScreenActivity<P extends BasePresenter> extends BaseAc
         boolean result = super.onPrepareOptionsMenu(menu);
         if (mToolbar.isHasMenu()) {
             MenuItem menuItem = menu.findItem(R.id.action);
-            menuItem.setTitle(mToolbar.getmMenuTitle());
+            menuItem.setTitle(mToolbar.getMenuTitle());
             if (mToolbar.getmIconResid() != 0) {
                 menuItem.setIcon(mToolbar.getmIconResid());
             }

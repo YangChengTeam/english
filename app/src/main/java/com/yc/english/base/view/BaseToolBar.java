@@ -84,11 +84,11 @@ public abstract class BaseToolBar extends BaseView {
         this.mIconResid = iconResid;
     }
 
-    public String getmMenuTitle() {
+    public String getMenuTitle() {
         return mMenuTitle;
     }
 
-    public void setmMenuTitle(String mMenuTitle) {
+    public void setMenuTitle(String mMenuTitle) {
         hasMenu = true;
         this.mMenuTitle = mMenuTitle;
     }
