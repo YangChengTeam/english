@@ -46,6 +46,9 @@
         <activity
             android:name=".read.view.activitys.ReadWordActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".read.view.activitys.WordPracticeActivity"
+            android:theme="@style/AppTheme" android:windowSoftInputMode="stateHidden|adjustPan"/>
 
         <activity
             android:name=".group.view.activitys.GroupCreateActivity"
