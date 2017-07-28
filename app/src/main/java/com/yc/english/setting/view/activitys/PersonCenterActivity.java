@@ -79,7 +79,7 @@ public class PersonCenterActivity extends FullScreenActivity {
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.setting_person_center_activity;
     }
 }

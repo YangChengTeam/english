@@ -20,7 +20,7 @@ public class RegisterActivity extends FullScreenActivity<RegisterPresenter> impl
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.main_activity_register;
     }
 }

@@ -35,7 +35,7 @@ public class CoursePlayActivity extends FullScreenActivity {
     private int playPosition;
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.read_activity_course_play;
     }
 

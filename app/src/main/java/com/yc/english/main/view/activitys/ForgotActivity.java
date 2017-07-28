@@ -32,7 +32,7 @@ public class ForgotActivity extends FullScreenActivity<ForgotPresenter> implemen
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.main_activity_forgot;
     }
 }

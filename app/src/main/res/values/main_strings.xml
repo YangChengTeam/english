@@ -56,4 +56,16 @@
     <string name="setting_push">推送接受消息</string>
     <string name="setting_play">允许后台播放</string>
     <string name="setting_cache">清除缓存</string>
+
+    <string name="share_cancel">取消</string>
+    <string name="share_share">分享到:</string>
+
+    <string name="share_weixin_friend">微信</string>
+    <string name="share_weibo">微博</string>
+    <string name="share_qq">QQ</string>
+    <string name="share_weixin_line">朋友圈</string>
+    <string name="share_qzone">QQ空间</string>
+    <string name="share_class">班群</string>
+
+
 </resources>

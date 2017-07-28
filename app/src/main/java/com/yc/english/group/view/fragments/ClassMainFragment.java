@@ -28,7 +28,7 @@ public class ClassMainFragment extends BaseFragment {
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         if (mlist == null) {
             return R.layout.group_fragment_class_start;
         } else {

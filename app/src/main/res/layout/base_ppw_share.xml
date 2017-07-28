@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:eng="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="235dp"
+            android:layout_above="@+id/tv_cancel"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/setting_item_bg"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/read_book_left_top_icon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/share_share"
+                    android:textColor="@color/black_333"
+                    android:textSize="@dimen/font_snormal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <com.yc.english.base.view.ShareItemView
+                    android:id="@+id/si_weixin_friend"
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    eng:src="@mipmap/share_weixin_friend"
+                    eng:text="@string/share_weixin_friend"
+                    ></com.yc.english.base.view.ShareItemView>
+
+                <com.yc.english.base.view.ShareItemView
+                    android:id="@+id/si_share_weibo"
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    eng:src="@mipmap/share_weibo"
+                    eng:text="@string/share_weibo"
+                    ></com.yc.english.base.view.ShareItemView>
+
+                <com.yc.english.base.view.ShareItemView
+                    android:id="@+id/si_share_qq"
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    eng:src="@mipmap/share_qq"
+                    eng:text="@string/share_qq"
+                    ></com.yc.english.base.view.ShareItemView>
+
+                <com.yc.english.base.view.ShareItemView
+                    android:id="@+id/si_weixin_line"
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    eng:src="@mipmap/share_weixin_line"
+                    eng:text="@string/share_weixin_line"
+                    ></com.yc.english.base.view.ShareItemView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <com.yc.english.base.view.ShareItemView
+                    android:id="@+id/si_share_qzone"
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    eng:src="@mipmap/share_qzone"
+                    eng:text="@string/share_qzone"
+                    ></com.yc.english.base.view.ShareItemView>
+
+                <com.yc.english.base.view.ShareItemView
+                    android:id="@+id/si_share_class"
+                    android:layout_width="70dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center"
+                    eng:src="@mipmap/share_class"
+                    eng:text="@string/share_class"
+                    ></com.yc.english.base.view.ShareItemView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/setting_item_bg"
+            android:gravity="center"
+            android:text="@string/share_cancel"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/font_normal"
+            ></TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            ></View>
+    </LinearLayout>
+</RelativeLayout>

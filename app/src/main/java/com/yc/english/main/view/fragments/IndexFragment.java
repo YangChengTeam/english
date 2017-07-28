@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
+import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.presenter.IndexPresenter;
@@ -120,7 +122,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mShareLinearLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                ToastUtils.showLong("点击了分享");
+                SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
+                sharePopupWindow.show(mRootView);
             }
         });
 
@@ -147,7 +150,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.main_fragment_index;
     }
 

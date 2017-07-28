@@ -23,16 +23,16 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RxBus.get().register(this);
+        setContentView(getLayoutId());
+
         try {
-            setContentView(getLayoutID());
             ButterKnife.bind(this);
-            init();
         } catch (Exception e) {
             e.printStackTrace();
-            LogUtils.i(this.getClass().getSimpleName() + " init->初始化失败 原因:" + e);
+            LogUtils.i(this.getClass().getSimpleName() + " ButterKnife->初始化失败 原因:" + e);
         }
 
-
+        init();
     }
 
     @Override

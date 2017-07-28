@@ -11,26 +11,29 @@ import butterknife.ButterKnife;
  * Created by zhangkai on 2017/7/24.
  */
 
-public abstract class BaseView extends FrameLayout {
+public abstract class BaseView extends FrameLayout implements IView {
     public BaseView(Context context) {
         super(context);
     }
 
     public BaseView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
-    }
+        inflate(context, getLayoutId(), this);
 
-    public void init(Context context) {
         try {
-            inflate(context, getLayoutId(), this);
             ButterKnife.bind(this);
         } catch (Exception e) {
             e.printStackTrace();
-            LogUtils.i("baseView初始化失败->" + e);
+            LogUtils.i(this.getClass().getSimpleName() + " ButterKnife->初始化失败 原因:" + e);
         }
+
+        init();
     }
 
-    public abstract int getLayoutId();
+    @Override
+    public void init() {
+
+    }
+
 }
 

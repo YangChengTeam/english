@@ -38,7 +38,7 @@ public class AddBookActivity extends FullScreenActivity {
     private List<CommonInfo> mGradeBookDatas;
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.read_activity_add_book;
     }
 

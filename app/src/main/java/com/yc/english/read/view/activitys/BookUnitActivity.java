@@ -33,7 +33,7 @@ public class BookUnitActivity extends FullScreenActivity {
     private List<UnitInfo> mBookDatas;
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.read_activity_book_unit;
     }
 

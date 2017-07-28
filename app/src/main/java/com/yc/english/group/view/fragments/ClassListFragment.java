@@ -38,7 +38,7 @@ public class ClassListFragment extends ToolbarFragment {
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.group_fragment_class_list;
     }
 

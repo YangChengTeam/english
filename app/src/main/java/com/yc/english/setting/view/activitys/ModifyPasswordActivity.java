@@ -15,7 +15,7 @@ public class ModifyPasswordActivity extends FullScreenActivity{
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.setting_activity_modify_password;
     }
 }

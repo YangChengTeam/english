@@ -29,7 +29,7 @@ public class GroupChangeNameActivity extends BaseActivity {
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.group_activity_change_class;
     }
 

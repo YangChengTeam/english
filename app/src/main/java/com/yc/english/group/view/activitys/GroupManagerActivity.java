@@ -55,7 +55,7 @@ public class GroupManagerActivity extends BaseActivity {
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.group_activity_group_manager;
     }
 

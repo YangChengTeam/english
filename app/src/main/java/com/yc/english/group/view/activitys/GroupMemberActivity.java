@@ -80,7 +80,7 @@ public class GroupMemberActivity extends BaseActivity {
 
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.group_activity_class_manager;
     }
 

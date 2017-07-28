@@ -31,7 +31,7 @@ public class WordUnitActivity extends FullScreenActivity {
     private List<UnitInfo> mBookDatas;
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.read_activity_word_unit;
     }
 

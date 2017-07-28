@@ -43,7 +43,7 @@ public class BookActivity extends FullScreenActivity {
     private int viewType = 1;
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.read_activity_book;
     }
 
