@@ -1,6 +1,7 @@
 package com.yc.english.group.view.activitys;
 
 import android.text.TextUtils;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,6 +34,8 @@ public class GroupTransferActivity extends FullScreenActivity {
         mToolbar.setTitle(getResources().getString(R.string.transfer_group));
         mToolbar.showNavigationIcon();
         btnCreate.setText(getResources().getString(R.string.confirm_transfer));
+        etClassGroup.setHint(getResources().getString(R.string.recevicer_phone));
+        etClassGroup.setInputType(EditorInfo.TYPE_CLASS_PHONE);
         initListener();
     }
 

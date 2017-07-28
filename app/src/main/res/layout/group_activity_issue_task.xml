@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.yc.english.base.view.TaskToolBar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/group_gray_e6f2fb"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/group_distance_15"
+            android:layout_marginRight="@dimen/group_distance_15"
+            android:layout_marginTop="@dimen/group_distance_10"
+            android:background="@drawable/group_group_manager_bg"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/m_et_issue_task"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_95"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="发布你要布置的作业"
+                android:paddingLeft="@dimen/group_distance_15"
+                android:paddingTop="@dimen/group_distance_15"
+                android:textColor="@color/black_333333"
+                android:textColorHint="@color/group_gray_999"
+                android:textSize="@dimen/group_text_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_05"
+                android:background="@color/group_gary_ddd" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_50"
+                android:paddingLeft="@dimen/group_distance_15">
+
+                <ImageView
+                    android:id="@+id/m_iv_issue_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/group25" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/group_distance_15">
+
+                    <ImageView
+                        android:id="@+id/m_iv_issue_result_picture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/group58" />
+
+                    <ImageView
+                        android:id="@+id/m_iv_issue_picture_delete"
+                        android:layout_width="@dimen/group_distance_10"
+                        android:layout_height="@dimen/group_distance_10"
+                        android:layout_gravity="top|right"
+                        android:layout_marginTop="@dimen/group_distance_5"
+                        android:src="@mipmap/group28" />
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_05"
+                android:background="@color/group_gary_ddd" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_50"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/group_distance_15"
+                android:paddingRight="@dimen/group_distance_25">
+
+                <ImageView
+                    android:id="@+id/m_iv_issue_voice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/group26" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/group_distance_15"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/group59" />
+
+                    <TextView
+                        android:id="@+id/m_tv_issue_result_voice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/group_distance_15"
+                        android:text="03'24"
+                        android:textSize="@dimen/group_text_14" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/m_iv_issue_voice_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/group28" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_05"
+                android:background="@color/group_gary_ddd" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_50"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/group_distance_15"
+                android:paddingRight="@dimen/group_distance_25">
+
+                <ImageView
+                    android:id="@+id/m_iv_issue_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/group27" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/group_distance_15"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/group29" />
+
+                    <TextView
+                        android:id="@+id/m_tv_issue_result_file_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/group_distance_15"
+                        android:text="单元测试卷"
+                        android:textSize="@dimen/group_text_14" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/m_iv_issue_file_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/group28" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/m_rl_async_to_other"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/group_distance_45"
+            android:layout_marginLeft="@dimen/group_distance_15"
+            android:layout_marginRight="@dimen/group_distance_15"
+            android:layout_marginTop="@dimen/group_distance_10"
+            android:background="@drawable/group_group_manager_bg"
+            android:paddingLeft="@dimen/group_distance_15"
+            android:paddingRight="@dimen/group_distance_15">
+
+            <TextView
+                android:id="@+id/m_tv_sync_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/async_other_class"
+                android:textColor="@color/black_333333"
+                android:textSize="@dimen/group_text_16" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/group4" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/m_btn_submit"
+            style="@style/group_btn_blue_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/group_distance_40"
+            android:layout_marginLeft="@dimen/group_distance_15"
+            android:layout_marginRight="@dimen/group_distance_15"
+            android:layout_marginTop="@dimen/group_distance_10"
+            android:text="@string/submit" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -23,12 +23,12 @@
     <color name="group_blue_21b5f8">#21b5f8</color>
     <color name="group_gray_e6f2fb">#E6F2FB</color>
     <color name="group_gray_999">#999999</color>
-    <color name="group_black_323232">#323232</color>
     <color name="group_gary_ddd">#DDDDDD</color>
     <color name="group_gray_c9c9c9">#C9C9C9</color>
     <color name="group_yellow_fffdeb">#FFFDEB</color>
     <color name="group_red_fe908c">#FE908C</color>
     <color name="group_gray_aaa">#AAAAAA</color>
+    <color name="listDivider">#DDDDDD</color>
 
 
 </resources>

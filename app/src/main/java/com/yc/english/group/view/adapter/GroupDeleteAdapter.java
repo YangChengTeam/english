@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
+import com.yc.english.group.listener.onCheckedChangeListener;
 import com.yc.english.group.model.bean.GroupMemberInfo;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class GroupDeleteAdapter extends BaseAdapter<GroupMemberInfo> {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (listener != null) {
-                        listener.onItemClick(position,buttonView,isChecked);
+                        listener.onCheckedChange(position,buttonView,isChecked);
                     }
                 }
             });
@@ -61,13 +62,10 @@ public class GroupDeleteAdapter extends BaseAdapter<GroupMemberInfo> {
         return R.layout.group_delete_member_item;
     }
 
-    private onItemClickListener listener;
+    private onCheckedChangeListener listener;
 
-    public void setListener(onItemClickListener listener) {
+
+    public void setListener(onCheckedChangeListener listener) {
         this.listener = listener;
-    }
-
-    public interface onItemClickListener {
-        void onItemClick(int position,CompoundButton buttonView,boolean isChecked);
     }
 }

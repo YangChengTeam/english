@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.yc.english.R;
+import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.model.bean.GroupMemberInfo;
 import com.yc.english.group.rong.models.GroupInfo;
@@ -47,13 +48,12 @@ public class GroupMemberActivity extends FullScreenActivity {
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
 
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
+            public void onClick() {
                 Intent intent = new Intent(GroupMemberActivity.this, GroupManagerActivity.class);
                 intent.putExtra("group", groupInfo);
                 startActivity(intent);
-                return false;
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -88,4 +88,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
     compile files('libs/commons-codec-1.4.jar')
     compile 'com.google.code.gson:gson:2.8.1'
+
+    compile 'com.github.hackware1993:MagicIndicator:1.5.0'
 }

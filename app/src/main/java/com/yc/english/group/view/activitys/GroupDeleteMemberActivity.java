@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.yc.english.R;
+import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.group.listener.onCheckedChangeListener;
 import com.yc.english.group.model.bean.GroupMemberInfo;
 import com.yc.english.group.view.adapter.GroupDeleteAdapter;
 
@@ -24,7 +26,7 @@ import butterknife.BindView;
  * Created by wanglin  on 2017/7/27 08:44.
  */
 
-public class GroupDeleteMemberActivity extends FullScreenActivity implements GroupDeleteAdapter.onItemClickListener, Toolbar.OnMenuItemClickListener {
+public class GroupDeleteMemberActivity extends FullScreenActivity implements BaseToolBar.OnItemClickLisener, onCheckedChangeListener {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -40,8 +42,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity implements Gro
         mToolbar.showNavigationIcon();
         mToolbar.setTitle(getResources().getString(R.string.delete_member));
         mToolbar.setMenuTitle(getResources().getString(R.string.cancel));
-//        mToolbar.getMenuTitle()
-
+        mToolbar.setMenuTitleColor(getResources().getColor(R.color.gray_aaa));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupDeleteAdapter(this, null);
         recyclerView.setAdapter(adapter);
@@ -52,7 +53,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity implements Gro
 
     private void initListener() {
         adapter.setListener(this);
-        mToolbar.setOnMenuItemClickListener(this);
+        mToolbar.setOnItemClickLisener(this);
 
     }
 
@@ -77,10 +78,8 @@ public class GroupDeleteMemberActivity extends FullScreenActivity implements Gro
     private int count;//计数
     private List<CompoundButton> buttons = new ArrayList<>();
 
-
     @Override
-    public void onItemClick(int position, CompoundButton buttonView, boolean isChecked) {
-
+    public void onCheckedChange(int position, CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             count++;
             buttons.add(buttonView);
@@ -91,13 +90,13 @@ public class GroupDeleteMemberActivity extends FullScreenActivity implements Gro
         LogUtils.e(position + "---" + isChecked + "----" + count);
 
         tvConfirmDeleteGroup.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+        mToolbar.setMenuTitleColor(count > 0 ? getResources().getColor(R.color.primary) : getResources().getColor(R.color.gray_aaa));
 
         tvConfirmDeleteGroup.setText(String.format(getResources().getString(R.string.confirm_delete), count));
     }
 
-
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
+    public void onClick() {
         if (buttons.size() > 0) {
 
             for (Object o : buttons.toArray()) {
@@ -107,6 +106,6 @@ public class GroupDeleteMemberActivity extends FullScreenActivity implements Gro
         } else {
             ToastUtils.showShort("你没有要取消的成员");
         }
-        return false;
     }
+
 }

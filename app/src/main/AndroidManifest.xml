@@ -90,6 +90,11 @@
         <activity android:name=".group.view.activitys.GroupChangeNameActivity" />
         <activity android:name=".group.view.activitys.GroupDeleteMemberActivity" />
         <activity android:name=".group.view.activitys.GroupTransferActivity" />
+        <activity android:name=".group.view.activitys.GroupIssueTaskActivity" />
+        <activity android:name=".group.view.activitys.GroupSyncListActivity" />
+        <activity android:name=".group.view.activitys.GroupTaskDetailActivity" />
+        <activity android:name=".group.view.activitys.GroupPublishTaskListActivity" />
+        <activity android:name=".group.view.activitys.GroupTaskItemActivity"/>
 
 
         <receiver

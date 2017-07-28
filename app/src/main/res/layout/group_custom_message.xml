@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:id="@+id/ll_message"
         android:layout_width="200dp"
@@ -23,17 +22,17 @@
             android:textColor="@color/black_333333"
             android:textSize="@dimen/group_text_16" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/group_distance_10">
 
             <TextView
                 android:id="@+id/tv_message_content"
-                android:layout_width="wrap_content"
-
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+
+                android:layout_centerVertical="true"
                 android:text="知识点考察：Star teacher\nUnit 1Good momn"
                 android:textColor="@color/group_gray_999"
                 android:textSize="@dimen/group_text_12" />
@@ -41,9 +40,10 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/group_distance_5"
                 android:src="@mipmap/group_message_icon" />
-        </LinearLayout>
+        </RelativeLayout>
 
 
     </LinearLayout>
