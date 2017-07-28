@@ -58,7 +58,6 @@ public abstract class BaseToolBar extends BaseView {
     }
 
     public void setTitle(String title) {
-//        mTitleTextView.setTypeface(null, Typeface.BOLD);
         mTitleTextView.setText(title);
     }
 
@@ -101,7 +100,9 @@ public abstract class BaseToolBar extends BaseView {
         this.onItemClickLisener = onItemClickLisener;
     }
 
-    public void setMenuTitleColor(int color) {}
+    public  void setMenuTitleColor(int color){
+
+    }
 
     public interface OnItemClickLisener {
             void onClick();

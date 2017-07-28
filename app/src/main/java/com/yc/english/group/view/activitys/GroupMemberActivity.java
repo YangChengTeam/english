@@ -81,7 +81,7 @@ public class GroupMemberActivity extends FullScreenActivity {
 
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.group_activity_class_manager;
     }
 

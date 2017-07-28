@@ -55,4 +55,7 @@
         <item>苏教牛津</item>
     </string-array>
 
+    <!--word-->
+    <string name="word_book_text">单词宝典</string>
+    <string name="word_book_change_text">教材切换</string>
 </resources>

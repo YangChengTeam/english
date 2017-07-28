@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.main_activity_main;
     }
 
@@ -71,6 +71,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     public void goToTask(){
         mTabBar.tab(1);
+    }
+
+    public void goToMy(){
+        mTabBar.tab(2);
     }
 
 

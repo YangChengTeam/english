@@ -7,9 +7,14 @@
 
     <string name="main_login_username">请输入手机号</string>
     <string name="main_login_password">请输入密码</string>
+    <string name="main_check_code">请输入验证码</string>
     <string name="main_login_forgot">忘记密码?</string>
     <string name="main_login_btn">登录</string>
     <string name="main_login_regiter">注册帐号</string>
+    <string name="main_regiter">注册</string>
+
+    <string name="main_checkcode">获取验证码</string>
+    <string name="main_ok">确认</string>
 
     <string name="main_read">教材点读</string>
     <string name="main_task">在线作业</string>
@@ -27,5 +32,40 @@
     <string name="main_china">全国已有</string>
     <string name="main_teacher">名老师正在使用，</string>
     <string name="main_student">名学生正在使用。</string>
+
+    <string name="setting_weixin">关注微信公众号</string>
+    <string name="setting_qq">说说英语QQ群</string>
+    <string name="setting_feedback">意见反馈</string>
+    <string name="setting_share">好友分享</string>
+    <string name="setting_setting">设置</string>
+
+    <string name="setting_complete">完成</string>
+
+    <string name="setting_old_password">请输入原始密码</string>
+    <string name="setting_new_password">请输入新密码</string>
+    <string name="setting_ok_password">确认新密码</string>
+
+    <string name="setting_hint_feedback">请输入你的意见和建议</string>
+
+    <string name="setting_change_avatar">更换头像</string>
+    <string name="setting_name">姓名</string>
+    <string name="setting_school">学校</string>
+    <string name="setting_phone">手机号码</string>
+    <string name="setting_modify_password">修改密码</string>q
+
+    <string name="setting_push">推送接受消息</string>
+    <string name="setting_play">允许后台播放</string>
+    <string name="setting_cache">清除缓存</string>
+
+    <string name="share_cancel">取消</string>
+    <string name="share_share">分享到:</string>
+
+    <string name="share_weixin_friend">微信</string>
+    <string name="share_weibo">微博</string>
+    <string name="share_qq">QQ</string>
+    <string name="share_weixin_line">朋友圈</string>
+    <string name="share_qzone">QQ空间</string>
+    <string name="share_class">班群</string>
+
 
 </resources>

@@ -26,15 +26,17 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RxBus.get().register(this);
         if (mRootView == null) {
-            mRootView = View.inflate(getActivity(), getLayoutID(), null);
-            try {
-                ButterKnife.bind(this,mRootView);
-                init();
-            } catch (Exception e) {
-                e.printStackTrace();
-                LogUtils.i(this.getClass().getSimpleName() + " initViews->初始化失败 原因:" + e);
-            }
+            mRootView = View.inflate(getActivity(), getLayoutId(), null);
         }
+
+        try {
+            ButterKnife.bind(this,mRootView);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtils.i(this.getClass().getSimpleName() + " init->初始化失败 原因:" + e);
+        }
+        init();
+
         return mRootView;
     }
 
