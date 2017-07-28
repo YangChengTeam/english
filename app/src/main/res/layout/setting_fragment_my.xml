@@ -107,7 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/setting_menu_item_bg"
+            android:background="@drawable/setting_item_bg"
             >
 
             <com.yc.english.setting.view.widgets.MenuItemView

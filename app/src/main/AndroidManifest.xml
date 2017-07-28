@@ -38,8 +38,14 @@
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".read.view.activitys.BookUnitActivity"
-            android:theme="@style/AppTheme"/>
 
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".read.view.activitys.WordUnitActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".read.view.activitys.ReadWordActivity"
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name=".group.view.activitys.GroupCreateActivity"
@@ -108,7 +114,8 @@
         <activity android:name=".setting.view.activitys.PersonCenterActivity"/>
         <activity android:name=".main.view.activitys.RegisterActivity"/>
         <activity android:name=".main.view.activitys.ForgotActivity"/>
-
+        <activity android:name=".setting.view.activitys.ModifyPasswordActivity"/>
+        <activity android:name=".setting.view.activitys.NameSettingActivity"/>
     </application>
 
 </manifest>

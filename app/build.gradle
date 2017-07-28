@@ -66,18 +66,12 @@ dependencies {
     compile project(':IMKit')
     compile project(':IMLib')
     compile 'com.mylib:comm-recyclviewadapter:1.1.0'
-    testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 
 
     compile project(':securityhttp')
-    compile project(':IMKit')
-    compile project(':IMLib')
 
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.3'
-    compile('com.github.niorgai:StatusBarCompat:2.1.4', {
-        exclude group: 'com.android.support'
-    })
+
     compile 'com.jakewharton.rxbinding:rxbinding:+'
     compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:+'
     compile 'com.jakewharton.rxbinding:rxbinding-design:+'

@@ -29,7 +29,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             init();
         } catch (Exception e) {
             e.printStackTrace();
-            LogUtils.i(this.getClass().getSimpleName() + " initViews->初始化失败 原因:" + e);
+            LogUtils.i(this.getClass().getSimpleName() + " init->初始化失败 原因:" + e);
         }
 
 

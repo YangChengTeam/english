@@ -15,8 +15,6 @@ public class ReadBookUnitItemClickAdapter extends BaseMultiItemQuickAdapter<Unit
 
     private Context mContext;
 
-    private boolean isEdit = false;
-
     public ReadBookUnitItemClickAdapter(Context mContext, List<UnitInfo> data) {
         super(data);
         this.mContext = mContext;
@@ -26,7 +24,6 @@ public class ReadBookUnitItemClickAdapter extends BaseMultiItemQuickAdapter<Unit
     @Override
     protected void convert(final BaseViewHolder helper, final UnitInfo item) {
         helper.setText(R.id.tv_book_unit_name, item.getUnitTitle())
-                .setText(R.id.tv_book_unit_total, item.getUnitTotal())
-                .addOnClickListener(R.id.iv_delete_book);
+                .setText(R.id.tv_book_unit_total, item.getUnitTotal());
     }
 }

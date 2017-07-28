@@ -18,10 +18,10 @@ public abstract class BaseView extends FrameLayout {
 
     public BaseView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initViews(context);
+        init(context);
     }
 
-    public void initViews(Context context) {
+    public void init(Context context) {
         try {
             inflate(context, getLayoutId(), this);
             ButterKnife.bind(this);

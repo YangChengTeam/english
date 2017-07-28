@@ -32,7 +32,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
                 init();
             } catch (Exception e) {
                 e.printStackTrace();
-                LogUtils.i(this.getClass().getSimpleName() + " initViews->初始化失败 原因:" + e);
+                LogUtils.i(this.getClass().getSimpleName() + " init->初始化失败 原因:" + e);
             }
         }
         return mRootView;

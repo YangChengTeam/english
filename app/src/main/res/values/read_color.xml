@@ -7,4 +7,10 @@
     <color name="read_book_edit_color">#3cbcf8</color>
 
     <color name="read_book_grade_version_color">#aaaaaa</color>
+    <color name="read_word_share_btn_color">#ff7877</color>
+
+    <color name="read_all_word_color">#73da67</color>
+    <color name="read_word_spell_color">#59ccfe</color>
+    <color name="read_word_pass_color">#fe8988</color>
+
 </resources>

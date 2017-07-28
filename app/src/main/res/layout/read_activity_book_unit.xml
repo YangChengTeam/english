@@ -93,8 +93,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/layout_book_unit_list"
         android:layout_gravity="center"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:gravity="center">
 
         <android.support.v7.widget.RecyclerView

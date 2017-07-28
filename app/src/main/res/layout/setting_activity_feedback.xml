@@ -17,14 +17,14 @@
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
     android:paddingBottom="15dp"
-    android:background="@drawable/setting_menu_item_bg"
+    android:background="@drawable/setting_item_bg"
     android:inputType="textMultiLine"
     android:paddingTop="10dp"
     android:maxLines="6"
     android:gravity="top|left"
     android:hint="@string/setting_hint_feedback"
     android:layout_marginRight="15dp"
-    android:layout_marginLeft="15dp"不行
+    android:layout_marginLeft="15dp"
     android:textSize="@dimen/font_normal"
     android:layout_marginTop="10dp"/>
 
