@@ -59,7 +59,7 @@ public class GroupUnFinishTaskFragment extends BaseFragment {
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.group_fragment_task;
     }
 

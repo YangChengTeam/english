@@ -73,7 +73,7 @@ public class GroupSyncListActivity extends FullScreenActivity implements onCheck
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.group_activity_group_list;
     }
 
