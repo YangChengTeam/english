@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:gravity="center_vertical|center_horizontal"
+              android:id="@+id/ll_bg"
+              >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/base_bg_loadview_progress_transparent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:id="@+id/loading"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible"
+                android:indeterminateDuration="800"
+                android:indeterminateDrawable="@drawable/base_loading_progressbar" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/font_snormal"
+            android:padding="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/tv_loading_message"
+            android:text="message"/>
+    </LinearLayout>
+
+
+</LinearLayout>
+

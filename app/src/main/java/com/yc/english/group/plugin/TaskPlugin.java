@@ -12,6 +12,9 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.yc.english.R;
+import com.yc.english.group.view.activitys.FileActivity;
+import com.yc.english.group.view.activitys.GroupIssueTaskActivity;
+import com.yc.english.group.view.activitys.GroupTaskDetailActivity;
 import com.yc.english.group.view.provider.CustomMessage;
 
 import java.util.HashSet;
@@ -57,37 +60,48 @@ public class TaskPlugin implements IPluginModule {
         //示例获取 会话类型、targetId、Context,此处可根据产品需求自定义逻辑，如:开启新的 Activity 等。
         conversationType = rongExtension.getConversationType();
         targetId = rongExtension.getTargetId();
-//        Message message = Message.obtain(targetId, conversationType, TextMessage.obtain("示例插件功能"));
-        RichContentMessage customMessage = RichContentMessage.obtain("家庭作业", "今天读一百个单词", "");
-//
-        Message message = Message.obtain(targetId, conversationType, customMessage);
-//        Message message = Message.obtain("654321", conversationType, CustomMessage.obtain("家庭作业", "今天读一百个单词", ""));
-        RongIM.getInstance().sendMessage(message, null, null, new IRongCallback.ISendMessageCallback() {
+        activity = fragment.getActivity();
+        String[] permissions = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
+        if (PermissionCheckUtil.requestPermissions(fragment, permissions)) {
+//            Intent intent = new Intent(fragment.getActivity(), GroupIssueTaskActivity.class);
+            Intent intent = new Intent(fragment.getActivity(), GroupTaskDetailActivity.class);
 
-
-            @Override
-            public void onAttached(Message message) {
-
-            }
-
-            @Override
-            public void onSuccess(Message message) {
-                Toast.makeText(fragment.getActivity(), "消息发送成功, 示例获取 Context", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-
-            }
-        });
-
+            rongExtension.startActivityForPluginResult(intent, 100, this);
+        }
 
 
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == 100 && resultCode == 700 && intent != null) {
+            String task = intent.getStringExtra("task");
+
+            //        Message message = Message.obtain(targetId, conversationType, TextMessage.obtain("示例插件功能"));
+            RichContentMessage customMessage = RichContentMessage.obtain("家庭作业", task, "");
 //
+            Message message = Message.obtain(targetId, conversationType, customMessage);
+//        Message message = Message.obtain("654321", conversationType, CustomMessage.obtain("家庭作业", "今天读一百个单词", ""));
+            RongIM.getInstance().sendMessage(message, null, null, new IRongCallback.ISendMessageCallback() {
+
+
+                @Override
+                public void onAttached(Message message) {
+
+                }
+
+                @Override
+                public void onSuccess(Message message) {
+                    Toast.makeText(activity, "消息发送成功, 示例获取 Context", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+
+                }
+            });
+
+        }
 
     }
 }

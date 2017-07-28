@@ -69,7 +69,7 @@ public class GroupJoinActivity extends FullScreenActivity {
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.group_activity_join_class;
     }
 

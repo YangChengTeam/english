@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:eng="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/primaryDark"
@@ -10,4 +11,76 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></com.yc.english.base.view.MainToolBar>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/setting_item_bg"
+        android:orientation="vertical">
+
+        <com.yc.english.setting.view.widgets.SettingItemView
+            android:id="@+id/si_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            eng:text="@string/setting_change_avatar">
+        </com.yc.english.setting.view.widgets.SettingItemView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/primaryDark"></View>
+
+        <com.yc.english.setting.view.widgets.SettingItemView
+            android:id="@+id/si_name"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            eng:desc="萌了个萌"
+            eng:text="@string/setting_name">
+        </com.yc.english.setting.view.widgets.SettingItemView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/primaryDark"></View>
+
+        <com.yc.english.setting.view.widgets.SettingItemView
+            android:id="@+id/si_school"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            eng:desc="洪山区第一小学"
+            eng:text="@string/setting_school">
+        </com.yc.english.setting.view.widgets.SettingItemView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:background="@drawable/setting_item_bg">
+
+        <com.yc.english.setting.view.widgets.SettingItemView
+            android:id="@+id/si_phone"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            eng:desc="15902745869"
+            eng:text="@string/setting_phone">
+        </com.yc.english.setting.view.widgets.SettingItemView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/primaryDark"></View>
+
+        <com.yc.english.setting.view.widgets.SettingItemView
+            android:id="@+id/si_password"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            eng:text="@string/setting_modify_password"></com.yc.english.setting.view.widgets.SettingItemView>
+    </LinearLayout>
 </LinearLayout>

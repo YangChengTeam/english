@@ -58,7 +58,6 @@ public abstract class BaseToolBar extends BaseView {
     }
 
     public void setTitle(String title) {
-//        mTitleTextView.setTypeface(null, Typeface.BOLD);
         mTitleTextView.setText(title);
     }
 

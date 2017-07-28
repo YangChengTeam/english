@@ -12,7 +12,6 @@ import com.yc.english.base.view.ToolbarFragment;
 import butterknife.BindView;
 
 
-
 /**
  * Created by wanglin  on 2017/7/24 10:20.
  */
@@ -32,13 +31,13 @@ public class ClassListFragment extends ToolbarFragment {
 
     @Override
     public void init() {
-        LinearLayoutManager linearLayoutManager =new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.group_fragment_class_list;
     }
 

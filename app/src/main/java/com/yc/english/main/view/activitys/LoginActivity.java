@@ -6,9 +6,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.LoadingDialog;
 import com.yc.english.main.contract.LoginContract;
 import com.yc.english.main.presenter.LoginPresenter;
 
@@ -53,7 +55,17 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
         RxView.clicks(mLoginButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                LoadingDialog loadingDialog = new LoadingDialog(LoginActivity.this);
+                loadingDialog.setMessage("请稍后");
+                loadingDialog.show();
+
+                UIUitls.postDelayed(1000, new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    }
+                });
             }
         });
 
@@ -73,7 +85,7 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.main_activity_login;
     }
 }

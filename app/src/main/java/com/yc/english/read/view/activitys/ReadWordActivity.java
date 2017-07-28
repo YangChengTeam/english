@@ -36,7 +36,7 @@ public class ReadWordActivity extends FullScreenActivity {
     List<MultiItemEntity> mDatas;
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.read_activity_word_play;
     }
 

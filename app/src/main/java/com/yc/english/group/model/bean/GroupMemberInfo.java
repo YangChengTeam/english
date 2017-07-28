@@ -10,6 +10,7 @@ public class GroupMemberInfo {
     private String imgUrl;
     private boolean isGroupOwner;//是否是群主
 
+
     public GroupMemberInfo() {
     }
 

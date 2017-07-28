@@ -66,12 +66,9 @@ dependencies {
     compile project(':IMKit')
     compile project(':IMLib')
     compile 'com.mylib:comm-recyclviewadapter:1.1.0'
-    testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+
 
     compile project(':securityhttp')
-    compile project(':IMKit')
-    compile project(':IMLib')
 
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.3'
 
@@ -85,4 +82,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
     compile files('libs/commons-codec-1.4.jar')
     compile 'com.google.code.gson:gson:2.8.1'
+
+    compile 'com.github.hackware1993:MagicIndicator:1.5.0'
 }

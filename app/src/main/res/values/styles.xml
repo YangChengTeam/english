@@ -8,6 +8,10 @@
         <item name="actionMenuTextColor">@color/primary</item>
     </style>
 
+    <style name="share_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/tup</item>
+        <item name="android:windowExitAnimation">@anim/tdown</item>
+    </style>
 
     <style name="group_btn_blue_style">
         <item name="android:background">@drawable/group_btn_blue_bg</item>
@@ -19,6 +23,13 @@
         <item name="android:background">@drawable/group_btn_white_bg</item>
         <item name="android:textColor">@color/group_blue_21b5f8</item>
         <item name="android:textSize">@dimen/group_text_16</item>
+    </style>
+
+    <style name="customDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
     </style>
 
 </resources>

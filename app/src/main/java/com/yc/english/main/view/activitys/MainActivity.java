@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.main_activity_main;
     }
 

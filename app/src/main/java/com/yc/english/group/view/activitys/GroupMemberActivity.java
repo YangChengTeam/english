@@ -3,13 +3,14 @@ package com.yc.english.group.view.activitys;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yc.english.R;
-import com.yc.english.base.view.BaseActivity;
+import com.yc.english.base.view.BaseToolBar;
+import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.model.bean.GroupMemberInfo;
 import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.adapter.GroupMemberAdapter;
@@ -24,19 +25,9 @@ import butterknife.OnClick;
  * Created by wanglin  on 2017/7/26 14:41.
  */
 
-public class GroupMemberActivity extends BaseActivity {
-    @BindView(R.id.img1)
-    ImageView img1;
-    @BindView(R.id.txt1)
-    TextView txt1;
-    @BindView(R.id.back)
-    RelativeLayout back;
-    @BindView(R.id.tv_manager)
-    TextView tvManager;
-    @BindView(R.id.img3)
-    ImageView img3;
-    @BindView(R.id.rl)
-    RelativeLayout rl;
+public class GroupMemberActivity extends FullScreenActivity {
+
+
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.tv_share_group)
@@ -51,10 +42,20 @@ public class GroupMemberActivity extends BaseActivity {
     public void init() {
         if (getIntent() != null) {
             groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
-            txt1.setText(groupInfo.getName());
+            mToolbar.setTitle(groupInfo.getName());
+
         }
-        tvManager.setVisibility(View.VISIBLE);
-        img3.setVisibility(View.GONE);
+        mToolbar.showNavigationIcon();
+        mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
+
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
+            @Override
+            public void onClick() {
+                Intent intent = new Intent(GroupMemberActivity.this, GroupManagerActivity.class);
+                intent.putExtra("group", groupInfo);
+                startActivity(intent);
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupMemberAdapter(this, null);
         recyclerView.setAdapter(adapter);
@@ -80,21 +81,13 @@ public class GroupMemberActivity extends BaseActivity {
 
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.group_activity_class_manager;
     }
 
-    @OnClick({R.id.img1, R.id.tv_manager, R.id.tv_share_group})
+    @OnClick({R.id.tv_share_group})
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.img1:
-                finish();
-                break;
-            case R.id.tv_manager:
-                Intent intent = new Intent(this, GroupManagerActivity.class);
-                intent.putExtra("group", groupInfo);
-                startActivity(intent);
-                break;
             case R.id.tv_share_group:
                 break;
         }

@@ -102,7 +102,7 @@ public class MyFragment extends ToolbarFragment {
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.setting_fragment_my;
     }
 }

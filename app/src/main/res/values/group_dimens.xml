@@ -22,4 +22,10 @@
     <dimen name="group_text_16">16sp</dimen>
     <dimen name="group_text_14">14sp</dimen>
     <dimen name="group_text_12">12sp</dimen>
+    <dimen name="group_distance_95">95dp</dimen>
+    <dimen name="group_distance_50">50dp</dimen>
+    <dimen name="group_distance_160">160dp</dimen>
+    <dimen name="group_distance_210">210dp</dimen>
+    <dimen name="group_distance_75">75dp</dimen>
+    <dimen name="group_distance_2">2dp</dimen>
 </resources>

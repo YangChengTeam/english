@@ -6,5 +6,5 @@ package com.yc.english.base.view;
 
 public interface IView {
     void init();
-    int getLayoutID();
+    int getLayoutId();
 }

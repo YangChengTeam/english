@@ -9,9 +9,33 @@
     <string name="resolving_group">解算班群</string>
     <string name="group_manager">班群管理</string>
     <string name="confirm">确认</string>
+    <string name="submit">提交</string>
+    <string name="cancel">取消</string>
     <string name="create">创建</string>
     <string name="group_name">班群名称</string>
+    <string name="delete_member">删除成员</string>
 
+    <string name="confirm_delete">确定移除（%1$d个）</string>
+    <string name="confirm_sync">确定同步（%1$d个）</string>
+    <string name="transfer_group">转让班级</string>
+    <string name="confirm_transfer">确认转让</string>
+    <string name="recevicer_phone">请填写接受老师的手机号</string>
+    <string name="async_other_class">同步到我其他班级</string>
+    <string name="issue_task">发布作业</string>
+    <string name="group_list">群列表</string>
+    <string name="submit_task">交作业</string>
+    <string name="issue_time">发布时间</string>
+    <string name="task_detail">作业详情</string>
+    <string name="all_task">全部作业</string>
+    <string name="finish_task">完成的作业</string>
+    <string name="my_publish">我发布的</string>
+    <string name="i_want_to_publish">我要发布</string>
+    <string name="grade">快来打个分吧!</string>
+
+    <string-array name="task_finish_result">
+        <item>已完成（%1$d）</item>
+        <item>未完成（%1$d）</item>
+    </string-array>
 
 
 </resources>
