@@ -70,7 +70,7 @@ public class WordPracticeActivity extends FullScreenActivity {
     private List<LetterInfo> mLetterDatas;
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.read_activity_word_practice;
     }
 
