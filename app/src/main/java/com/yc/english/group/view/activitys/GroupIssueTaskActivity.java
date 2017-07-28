@@ -86,7 +86,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.group_activity_issue_task;
     }
 

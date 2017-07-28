@@ -56,7 +56,7 @@ public class GroupTaskItemActivity extends FullScreenActivity {
 
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.group_activity_task_item_detail;
     }
 
