@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 
 import com.yc.english.R;
+import com.yc.english.group.view.activitys.GroupPublishTaskListActivity;
 
 import io.rong.imkit.RongExtension;
 import io.rong.imkit.plugin.IPluginModule;
@@ -28,6 +29,8 @@ public class VoicePlugin implements IPluginModule {
 
     @Override
     public void onClick(Fragment fragment, RongExtension rongExtension) {
+        Intent intent = new Intent(fragment.getActivity(), GroupPublishTaskListActivity.class);
+        rongExtension.startActivityForPluginResult(intent,200,this);
 
     }
 

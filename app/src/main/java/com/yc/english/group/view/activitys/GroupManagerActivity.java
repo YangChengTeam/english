@@ -72,12 +72,12 @@ public class GroupManagerActivity extends BaseActivity {
                 startActivity(new Intent(this,GroupChangeNameActivity.class));
                 break;
             case R.id.rl_group_delete_member:
-                break;
-            case R.id.tv_permission_check:
+                startActivity(new Intent(this,GroupDeleteMemberActivity.class));
                 break;
             case R.id.rl_group_check:
                 break;
             case R.id.rl_group_transfer:
+                startActivity(new Intent(this,GroupTransferActivity.class));
                 break;
             case R.id.btn_resolving_group:
                 break;

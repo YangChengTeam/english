@@ -59,7 +59,7 @@ public class GroupMemberAdapter extends BaseAdapter<GroupMemberInfo> {
     }
 
     @Override
-    public int getLayoutID(int viewType) {
+    public int getLayoutId(int viewType) {
         return R.layout.group_member_item;
     }
 
