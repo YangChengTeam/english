@@ -26,6 +26,8 @@ public abstract class BaseToolBar extends BaseView {
     @BindView(R.id.tv_tb_title)
     protected TextView mTitleTextView;
 
+    private  boolean isUseBackDefaultListerner = true;
+
     public BaseToolBar(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -34,7 +36,7 @@ public abstract class BaseToolBar extends BaseView {
         mToolbar.setTitle("");
         mActivity = activity;
         activity.setSupportActionBar(mToolbar);
-        if (isShowNavigationIcon) {
+        if (isShowNavigationIcon && isUseBackDefaultListerner) {
             mToolbar.setNavigationOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -45,6 +47,7 @@ public abstract class BaseToolBar extends BaseView {
     }
 
     public void setBackOnClickListener(final OnClickListener onClickListener) {
+        isUseBackDefaultListerner = false;
         mToolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
