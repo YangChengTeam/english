@@ -45,6 +45,7 @@ public abstract class BaseToolBar extends BaseView {
     }
 
 
+
     public void setOnMenuItemClickListener() {
         if(onItemClickLisener != null) {
             mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -64,6 +65,10 @@ public abstract class BaseToolBar extends BaseView {
     public void showNavigationIcon() {
         mToolbar.setNavigationIcon(R.mipmap.base_back);
         isShowNavigationIcon = true;
+    }
+
+    public void clear(){
+        mToolbar.getMenu().clear();
     }
 
     protected boolean hasMenu;
@@ -92,6 +97,10 @@ public abstract class BaseToolBar extends BaseView {
         this.mMenuTitle = mMenuTitle;
     }
 
+    public void setTitleColor(int color){
+        mTitleTextView.setTextColor(color);
+    }
+
     public boolean isHasMenu() {
         return hasMenu;
     }
@@ -107,6 +116,7 @@ public abstract class BaseToolBar extends BaseView {
     public interface OnItemClickLisener {
             void onClick();
     }
+
 
 
 }

@@ -133,7 +133,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 ToastUtils.showLong("点击了第" + position + "图片");
             }
         });
-
     }
 
 

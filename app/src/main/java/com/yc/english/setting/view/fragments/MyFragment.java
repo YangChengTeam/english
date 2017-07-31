@@ -54,6 +54,7 @@ public class MyFragment extends ToolbarFragment {
         super.init();
         mToolbar.setTitle("用户中心");
 
+
         RxView.clicks(mAvatarImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -99,6 +100,11 @@ public class MyFragment extends ToolbarFragment {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean isInstallToolbar() {
+        return false;
     }
 
     @Override
