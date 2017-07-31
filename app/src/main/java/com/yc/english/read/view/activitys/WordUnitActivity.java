@@ -1,6 +1,7 @@
 package com.yc.english.read.view.activitys;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -30,6 +31,8 @@ public class WordUnitActivity extends FullScreenActivity {
 
     private List<UnitInfo> mBookDatas;
 
+    private int viewType = 1;
+
     @Override
     public int getLayoutId() {
         return R.layout.read_activity_word_unit;
@@ -38,6 +41,11 @@ public class WordUnitActivity extends FullScreenActivity {
     @Override
     public void init() {
         initData();
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            viewType = bundle.getInt("view_type",1);
+        }
 
         mToolbar.setTitle(getString(R.string.read_book_unit_text));
         mToolbar.showNavigationIcon();
@@ -59,8 +67,14 @@ public class WordUnitActivity extends FullScreenActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtils.e("position --->" + position);
-                Intent intent = new Intent(WordUnitActivity.this, ReadWordActivity.class);
-                startActivity(intent);
+
+                if(viewType == 2){
+                    Intent intent = new Intent(WordUnitActivity.this, ReadWordActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(WordUnitActivity.this, WordPracticeActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }

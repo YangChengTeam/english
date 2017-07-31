@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
-import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -99,6 +98,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), BookActivity.class);
                 intent.putExtra("tag", "game");
+                intent.putExtra("view_type",3);
                 startActivity(intent);
             }
         });

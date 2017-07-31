@@ -47,7 +47,9 @@ public class ReadBookItemClickAdapter extends BaseMultiItemQuickAdapter<BookInfo
         }
 
         if (this.isEdit) {
-            mDeleteBook.setVisibility(View.VISIBLE);
+            if (helper.getAdapterPosition() > 0) {
+                mDeleteBook.setVisibility(View.VISIBLE);
+            }
         } else {
             mDeleteBook.setVisibility(View.INVISIBLE);
         }
