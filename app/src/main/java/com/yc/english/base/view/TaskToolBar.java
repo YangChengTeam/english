@@ -58,6 +58,7 @@ public class TaskToolBar extends BaseToolBar {
 
     @Override
     public void setOnItemClickLisener(final OnItemClickLisener onItemClickLisener) {
+        super.setOnItemClickLisener(onItemClickLisener);
         RxView.clicks(mMenuTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {

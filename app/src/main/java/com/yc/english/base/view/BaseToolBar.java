@@ -44,7 +44,7 @@ public abstract class BaseToolBar extends BaseView {
         }
     }
 
-    public void setBackOnClickListener(final OnClickListener onClickListener){
+    public void setBackOnClickListener(final OnClickListener onClickListener) {
         mToolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +54,7 @@ public abstract class BaseToolBar extends BaseView {
     }
 
     public void setOnMenuItemClickListener() {
-        if(onItemClickLisener != null) {
+        if (onItemClickLisener != null) {
             mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -74,7 +74,7 @@ public abstract class BaseToolBar extends BaseView {
         isShowNavigationIcon = true;
     }
 
-    public void clear(){
+    public void clear() {
         mToolbar.getMenu().clear();
     }
 
@@ -104,7 +104,7 @@ public abstract class BaseToolBar extends BaseView {
         this.mMenuTitle = mMenuTitle;
     }
 
-    public void setTitleColor(int color){
+    public void setTitleColor(int color) {
         mTitleTextView.setTextColor(color);
     }
 
@@ -116,14 +116,13 @@ public abstract class BaseToolBar extends BaseView {
         this.onItemClickLisener = onItemClickLisener;
     }
 
-    public  void setMenuTitleColor(int color){
+    public void setMenuTitleColor(int color) {
 
     }
 
     public interface OnItemClickLisener {
-            void onClick();
+        void onClick();
     }
-
 
 
 }

@@ -4,9 +4,13 @@ import android.app.Application;
 import android.os.Build;
 
 
+import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.Utils;
 import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.kk.utils.PathUtils;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.game.UMGameAgent;
 import com.yc.english.group.common.GroupApp;
 
 import java.util.HashMap;
@@ -26,6 +30,18 @@ public class EnglishApp extends Application {
     }
 
     private void init(){
+        //错误捕获
+        CrashUtils.init(PathUtils.makeConfigDir(getApplicationContext()) + "/crash.log");
+
+        //友盟统计
+        UMGameAgent.setDebugMode(true);
+        UMGameAgent.init(this);
+        UMGameAgent.setPlayerLevel(1);
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+
+        //全局信息初始化
+        GoagalInfo.get().init(getApplicationContext());
+
         //设置http默认参数
         String agent_id = "1";
         Map<String, String> params = new HashMap<>();
@@ -41,7 +57,6 @@ public class EnglishApp extends Application {
                 .os.Build.VERSION.RELEASE : Build.BRAND + " " + android
                 .os.Build.MODEL + " " + android.os.Build.VERSION.RELEASE;
         params.put("sv", sv);
-        params.put("device_type", "2");
         if (GoagalInfo.get().appInfo != null) {
             params.put("app_version", GoagalInfo.get().appInfo.getVersionName() + "");
         }
