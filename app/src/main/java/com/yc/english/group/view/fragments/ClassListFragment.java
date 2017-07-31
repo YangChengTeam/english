@@ -31,9 +31,16 @@ public class ClassListFragment extends ToolbarFragment {
 
     @Override
     public void init() {
+        super.init();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
+
+    }
+
+    @Override
+    public boolean isInstallToolbar() {
+        return true;
     }
 
     @Override

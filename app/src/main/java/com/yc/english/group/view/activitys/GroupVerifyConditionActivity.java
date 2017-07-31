@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
@@ -33,12 +34,12 @@ public class GroupVerifyConditionActivity extends FullScreenActivity implements 
     public void init() {
         mToolbar.setTitle(getString(R.string.join_verify));
         mToolbar.showNavigationIcon();
-mToolbar.setBackOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
+        mToolbar.setBackOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    }
-});
+            }
+        });
         initListener();
 
     }
@@ -80,6 +81,7 @@ mToolbar.setBackOnClickListener(new View.OnClickListener() {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        LogUtils.e("onBackPressed");
         Intent intent = new Intent();
         intent.putExtra("condition", currentConditon);
         setResult(RESULT_OK, intent);

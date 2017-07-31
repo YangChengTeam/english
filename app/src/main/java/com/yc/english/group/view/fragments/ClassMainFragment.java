@@ -11,11 +11,13 @@ import android.widget.Button;
 
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
+import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.MainToolBar;
 import com.yc.english.base.view.ToolbarFragment;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.view.activitys.GroupCreateActivity;
 import com.yc.english.group.view.activitys.GroupJoinActivity;
+import com.yc.english.group.view.activitys.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 
 import java.util.ArrayList;
@@ -47,10 +49,16 @@ public class ClassMainFragment extends ToolbarFragment {
 
     @Override
     public void init() {
+        super.init();
         mToolbar.setTitle(getString(R.string.group));
 
         mToolbar.setMenuIcon(R.mipmap.group57);
-        mToolbar.setMenuTitle("");
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
+            @Override
+            public void onClick() {
+                startActivity(new Intent(getActivity(), GroupVerifyActivity.class));
+            }
+        });
 
 
         if (mlist != null) {
@@ -65,6 +73,11 @@ public class ClassMainFragment extends ToolbarFragment {
 
         }
 
+    }
+
+    @Override
+    public boolean isInstallToolbar() {
+        return true;
     }
 
     private void initData() {
