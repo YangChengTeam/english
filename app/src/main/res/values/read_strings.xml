@@ -58,4 +58,12 @@
     <!--word-->
     <string name="word_book_text">单词宝典</string>
     <string name="word_book_change_text">教材切换</string>
+
+    <string name="read_word_check_text">检查</string>
+    <string name="read_word_right_text">太棒了，你答对了!</string>
+    <string name="read_word_next_text">下一题</string>
+
+    <string name="read_word_remind_text">正确答案：</string>
+    <string name="read_word_again_text">好可惜，你答错了再来试试!</string>
+    <string name="read_word_again_btn_text">再做一遍</string>
 </resources>

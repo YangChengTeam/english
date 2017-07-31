@@ -1,7 +1,9 @@
 package com.yc.english.read.view.activitys;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.yc.english.R;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by admin on 2017/7/27.
@@ -24,6 +27,9 @@ public class ReadWordActivity extends FullScreenActivity {
 
     @BindView(R.id.rv_word_list)
     RecyclerView mReadWordRecyclerView;
+
+    @BindView(R.id.btn_word_practice)
+    Button mWordPracticeButton;
 
     ReadWordItemClickAdapter mReadWordItemClickAdapter;
 
@@ -52,4 +58,11 @@ public class ReadWordActivity extends FullScreenActivity {
         mReadWordRecyclerView.setAdapter(mReadWordItemClickAdapter);
         mReadWordRecyclerView.addItemDecoration(new SpaceItemDecoration(1));
     }
+
+    @OnClick(R.id.btn_word_practice)
+    public void wordPractice() {
+        Intent intent = new Intent(ReadWordActivity.this, WordPracticeActivity.class);
+        startActivity(intent);
+    }
+
 }
