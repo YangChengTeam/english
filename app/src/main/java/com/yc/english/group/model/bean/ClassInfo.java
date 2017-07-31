@@ -38,6 +38,13 @@ public class ClassInfo implements Parcelable {
         this.groupId = groupId;
     }
 
+    public ClassInfo(String imageUrl, String className, Integer count, int groupId) {
+        this.imageUrl = imageUrl;
+        this.className = className;
+        this.count = count;
+        this.groupId = groupId;
+    }
+
     public ClassInfo(Parcel source) {
         imageUrl = source.readString();
         className = source.readString();

@@ -101,6 +101,8 @@
         <activity android:name=".group.view.activitys.GroupTaskDetailActivity" />
         <activity android:name=".group.view.activitys.GroupPublishTaskListActivity" />
         <activity android:name=".group.view.activitys.GroupTaskItemActivity" />
+        <activity android:name=".group.view.activitys.GroupVerifyActivity" />
+        <activity android:name=".group.view.activitys.GroupVerifyConditionActivity" />
 
 
         <receiver

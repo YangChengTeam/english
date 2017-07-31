@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/group_distance_60"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/group_distance_15"
+            android:paddingRight="@dimen/group_distance_15">
+
+            <ImageView
+                android:id="@+id/m_iv_join_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/groupicon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/group_distance_15"
+                android:layout_toRightOf="@id/m_iv_join_img"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/m_tv_join_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="艾同学"
+                    android:textColor="@color/black_333333"
+                    android:textSize="@dimen/group_text_16" />
+
+
+                <TextView
+                    android:id="@+id/m_tv_join_class"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="申请加入：街道口小学一年级5班"
+                    android:textColor="@color/group_gray_999"
+                    android:textSize="@dimen/group_text_12" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    style="@style/group_btn_blue_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/group_distance_5"
+                    android:paddingLeft="@dimen/group_distance_10"
+                    android:paddingRight="@dimen/group_distance_10"
+                    android:paddingTop="@dimen/group_distance_5"
+                    android:text="@string/accept"
+                    android:textSize="@dimen/group_text_12" />
+
+                <TextView
+                    android:id="@+id/m_tv_already_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/already_add"
+                    android:textColor="@color/gray_aaa"
+                    android:textSize="@dimen/group_text_12"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/group_distance_05"
+            android:layout_marginLeft="68dp"
+            android:background="@color/group_gary_ddd" />
+
+    </LinearLayout>
+
+</LinearLayout>

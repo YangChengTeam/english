@@ -3,16 +3,14 @@ package com.yc.english.group.view.activitys;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
+import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.rong.models.GroupInfo;
 
 import butterknife.BindView;
@@ -35,12 +33,13 @@ public class GroupManagerActivity extends BaseActivity {
     @BindView(R.id.img3)
     ImageView img3;
 
-
     @BindView(R.id.iv_group_image)
     ImageView ivGroupImage;
 
     @BindView(R.id.tv_group_name)
     TextView tvGroupName;
+    @BindView(R.id.tv_permission_check)
+    TextView tvPermissionCheck;
 
     @Override
     public void init() {
@@ -69,18 +68,40 @@ public class GroupManagerActivity extends BaseActivity {
             case R.id.rl_group_image:
                 break;
             case R.id.rl_group_name:
-                startActivity(new Intent(this,GroupChangeNameActivity.class));
+                startActivity(new Intent(this, GroupChangeNameActivity.class));
                 break;
             case R.id.rl_group_delete_member:
-                startActivity(new Intent(this,GroupDeleteMemberActivity.class));
+                startActivity(new Intent(this, GroupDeleteMemberActivity.class));
                 break;
             case R.id.rl_group_check:
+                startActivityForResult(new Intent(this, GroupVerifyConditionActivity.class), 200);
                 break;
             case R.id.rl_group_transfer:
-                startActivity(new Intent(this,GroupTransferActivity.class));
+                startActivity(new Intent(this, GroupTransferActivity.class));
                 break;
             case R.id.btn_resolving_group:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
+            int condition = data.getIntExtra("condition", 0);
+            switch (condition) {
+                case GroupConstant.CONDITION_ALL_ALLOW:
+                    tvPermissionCheck.setText(getString(R.string.all_allow));
+                    break;
+                case GroupConstant.CONDITION_ALL_FORBID:
+                    tvPermissionCheck.setText(getString(R.string.all_forbid));
+                    break;
+                case GroupConstant.CONDITION_VERIFYJOIN:
+                    tvPermissionCheck.setText(getString(R.string.verify_join));
+                    break;
+
+            }
+
         }
     }
 

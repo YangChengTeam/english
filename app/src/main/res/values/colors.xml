@@ -29,6 +29,8 @@
     <color name="group_red_fe908c">#FE908C</color>
     <color name="group_gray_aaa">#AAAAAA</color>
     <color name="listDivider">#DDDDDD</color>
+    <color name="group_red_fb4c30">#FB4C30</color>
+    <color name="group_orange_ff9a00">#FF9A00</color>
 
 
 </resources>

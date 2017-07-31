@@ -37,7 +37,7 @@ public class GroupCreateActivity extends FullScreenActivity {
     private String username = "username";
     private String userId = "userId1";
     private String userPorait = "http://www.rongcloud.cn/images/logo.png";
-    private int groupId = 654321;
+    private int groupId = 456666;
 
     @Override
     public void init() {
@@ -100,7 +100,9 @@ public class GroupCreateActivity extends FullScreenActivity {
                     public void call(CodeSuccessResult codeSuccessResult) {
                         if (codeSuccessResult.getCode() == 200) {
 
-                            RongIM.getInstance().startGroupChat(GroupCreateActivity.this, groupId + "", groupName);
+                            finish();
+
+//
 
 //                            ImUtils.queryGroup(groupId + "").observeOn(AndroidSchedulers.mainThread())
 //                                    .subscribe(new Action1<GroupUserQueryResult>() {

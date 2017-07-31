@@ -8,6 +8,7 @@ package com.yc.english.group.model.bean;
 public class GroupMemberInfo {
     private String name;
     private String imgUrl;
+    private String groupName;//哪个学校
     private boolean isGroupOwner;//是否是群主
 
 
@@ -18,6 +19,12 @@ public class GroupMemberInfo {
         this.name = name;
         this.imgUrl = imgUrl;
         this.isGroupOwner = isGroupOwner;
+    }
+
+    public GroupMemberInfo(String name, String imgUrl, String groupName) {
+        this.name = name;
+        this.imgUrl = imgUrl;
+        this.groupName = groupName;
     }
 
     public String getName() {
@@ -42,5 +49,13 @@ public class GroupMemberInfo {
 
     public void setGroupOwner(boolean groupOwner) {
         isGroupOwner = groupOwner;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 }

@@ -6,8 +6,10 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 
 import com.yc.english.R;
+import com.yc.english.group.view.activitys.GroupVerifyActivity;
 
 import io.rong.imkit.RongExtension;
+import io.rong.imkit.RongIM;
 import io.rong.imkit.plugin.IPluginModule;
 
 /**
@@ -27,7 +29,8 @@ public class PicturePlugin implements IPluginModule {
 
     @Override
     public void onClick(Fragment fragment, RongExtension rongExtension) {
-
+        Intent intent =new Intent(fragment.getActivity(), GroupVerifyActivity.class);
+        rongExtension.startActivityForPluginResult(intent, 100, this);
     }
 
     @Override
