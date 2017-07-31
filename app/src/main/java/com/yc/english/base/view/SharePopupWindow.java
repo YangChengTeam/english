@@ -54,7 +54,7 @@ public class SharePopupWindow extends BasePopupWindow {
         RxView.clicks(mCancelTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-               dismiss();
+                dismiss();
             }
         });
 
@@ -66,12 +66,13 @@ public class SharePopupWindow extends BasePopupWindow {
         shareItemViews.add(mQzoneFriendShareItemView);
         shareItemViews.add(mClassFriendShareItemView);
 
-        for(int i = 0 ; i < shareItemViews.size() ; i++) {
-            final  ShareItemView shareItemView = shareItemViews.get(i);
+        for (int i = 0; i < shareItemViews.size(); i++) {
+            final int tmpI = i;
+            final ShareItemView shareItemView = shareItemViews.get(i);
             RxView.clicks(shareItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
                 public void call(Void aVoid) {
-                    shareItemView.setTag(0);
+                    shareItemView.setTag(tmpI + "");
                     if (onShareItemClickListener != null) {
                         onShareItemClickListener.onClick(shareItemView);
                     }
@@ -81,6 +82,7 @@ public class SharePopupWindow extends BasePopupWindow {
         }
 
     }
+
     private OnShareItemClickListener onShareItemClickListener;
 
     public OnShareItemClickListener getOnShareItemClickListener() {
@@ -100,10 +102,9 @@ public class SharePopupWindow extends BasePopupWindow {
         return R.layout.base_ppw_share;
     }
 
-    public void show(View view){
+    public void show(View view) {
         showAtLocation(view, Gravity.BOTTOM, 0, 0);
     }
-
 
 
     @Override

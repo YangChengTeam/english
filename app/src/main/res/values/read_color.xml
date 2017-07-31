@@ -13,4 +13,14 @@
     <color name="read_word_spell_color">#59ccfe</color>
     <color name="read_word_pass_color">#fe8988</color>
 
+    <color name="read_word_check_color">#21b5f8</color>
+
+    <color name="read_letter_color_col1">#ff9a99</color>
+    <color name="read_letter_color_col2">#fae698</color>
+    <color name="read_letter_color_col3">#b6f2df</color>
+    <color name="read_letter_color_col4">#bce5fa</color>
+    <color name="read_letter_color_col5">#f0ccf7</color>
+
+    <color name="right_word_color">#5ace38</color>
+    <color name="right_word_btn_again_color">#ff9a00</color>
 </resources>

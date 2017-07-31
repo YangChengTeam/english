@@ -45,6 +45,7 @@
     <string name="verify_join">通过验证才能加入</string>
 
 
+
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>
         <item>未完成（%1$d）</item>

@@ -1,0 +1,224 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/read_book_bg_color"
+              android:orientation="vertical">
+
+    <com.yc.english.base.view.MainToolBar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+    </com.yc.english.base.view.MainToolBar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="top|center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_word_info"
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_audio_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:src="@mipmap/read_audio_stop"/>
+
+            <TextView
+                android:id="@+id/tv_cn_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="书，书本"
+                android:textColor="@color/gray_aaa"
+                android:textSize="@dimen/sp_16"/>
+
+            <TextView
+                android:id="@+id/tv_word_count_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center"
+                android:gravity="center"
+                android:text="02:00"
+                android:textColor="@color/gray_999"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/layout_word_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_word_info">
+
+            <TextView
+                android:id="@+id/et_word_input"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textColor="@color/black_333"
+                android:background="@drawable/read_word_input_bg"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="40dp"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/iv_word_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/read_word_input_delete"
+                android:visibility="invisible"/>
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_letter_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout_word_input"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_letter_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="72dp"
+                android:layout_marginTop="53dp">
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="27dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_check_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/read_word_check_btn"
+                    android:text="@string/read_word_check_text"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_16"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout_word_input"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/read_word_right_text"
+                    android:textColor="@color/gray_999"
+                    android:textSize="@dimen/sp_16"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_right_next_word"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="27dp"
+                android:background="@drawable/read_word_check_btn"
+                android:text="@string/read_word_next_text"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout_word_input"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_right_remind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/read_word_remind_text"
+                    android:textColor="@color/black_333"
+                    android:textSize="@dimen/sp_16"/>
+
+                <TextView
+                    android:id="@+id/tv_right_remind_word"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Book"
+                    android:textColor="@color/right_word_color"
+                    android:textSize="@dimen/sp_16"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_right_remind"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/read_word_again_text"
+                android:textColor="@color/gray_999"
+                android:textSize="@dimen/sp_14"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="27dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_error_again_word"
+                    android:layout_width="160dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/read_word_check_btn"
+                    android:text="@string/read_word_again_btn_text"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_16"/>
+
+                <Button
+                    android:id="@+id/btn_error_next_word"
+                    android:layout_width="160dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/read_word_check_btn"
+                    android:text="@string/read_word_next_text"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_16"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
+

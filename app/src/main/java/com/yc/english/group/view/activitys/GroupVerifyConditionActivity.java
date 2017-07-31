@@ -2,6 +2,7 @@ package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
 import android.service.notification.Condition;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
@@ -32,7 +33,12 @@ public class GroupVerifyConditionActivity extends FullScreenActivity implements 
     public void init() {
         mToolbar.setTitle(getString(R.string.join_verify));
         mToolbar.showNavigationIcon();
+mToolbar.setBackOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
 
+    }
+});
         initListener();
 
     }
