@@ -3,6 +3,7 @@ package com.yc.english.base.view;
 import android.support.v7.app.AppCompatActivity;
 
 import com.yc.english.R;
+import com.yc.english.base.presenter.BasePresenter;
 
 import butterknife.BindView;
 
@@ -10,7 +11,7 @@ import butterknife.BindView;
  * Created by zhangkai on 2017/7/26.
  */
 
-public abstract class ToolbarFragment extends BaseFragment {
+public abstract class ToolbarFragment<P extends BasePresenter> extends BaseFragment<P> {
 
     @BindView(R.id.toolbar)
     protected BaseToolBar mToolbar;

@@ -113,10 +113,10 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.yc.english.base.view.TransparentToolBar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        ></com.yc.english.base.view.TransparentToolBar>
+    <!--<com.yc.english.base.view.TransparentToolBar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--&gt;</com.yc.english.base.view.TransparentToolBar>-->
 </RelativeLayout>

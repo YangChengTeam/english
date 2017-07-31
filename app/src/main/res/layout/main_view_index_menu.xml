@@ -5,8 +5,8 @@
 
     <RelativeLayout
         android:id="@+id/rl_menu"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
         android:layout_alignParentLeft="true"
         android:background="@drawable/main_index_btn_bg">
 
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:id="@+id/tv_title"
@@ -36,7 +36,7 @@
             android:layout_marginTop="4dp"
             android:gravity="center_vertical"
             android:textColor="@color/gray_999"
-            android:textSize="9sp"
+            android:textSize="12sp"
             />
     </RelativeLayout>
 </FrameLayout>

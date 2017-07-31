@@ -22,7 +22,7 @@
     <string name="main_word">单词宝典</string>
 
     <string name="main_read_desc">教材随心读 学习好帮手</string>
-    <string name="main_task_desc">提高学习效果 智能学习工具</string>
+    <string name="main_task_desc">名师手牵手 学习成绩佳</string>
     <string name="main_game_desc">游戏学单词 拼读强记忆</string>
     <string name="main_word_desc">闯关学单词 理解记句型</string>
 
@@ -30,8 +30,8 @@
     <string name="main_share">分享</string>
 
     <string name="main_china">全国已有</string>
-    <string name="main_teacher">名老师正在使用，</string>
-    <string name="main_student">名学生正在使用。</string>
+    <string name="main_teacher">位老师正在使用，</string>
+    <string name="main_student">位学生正在使用。</string>
 
     <string name="setting_weixin">关注微信公众号</string>
     <string name="setting_qq">说说英语QQ群</string>
