@@ -22,7 +22,6 @@ public abstract class FullScreenActivity<P extends BasePresenter> extends BaseAc
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (mToolbar == null) {
             throw new NullPointerException("error, please set com.yc.english.main.view.MainToolBar id -> toolbar.");
         }
