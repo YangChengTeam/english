@@ -3,13 +3,21 @@ package com.yc.english.group.model.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Transient;
+import org.greenrobot.greendao.annotation.Generated;
+
 /**
  * Created by wanglin  on 2017/7/24 18:03.
  * 班级信息
  */
 
+@Entity
 public class ClassInfo implements Parcelable {
 
+    @Id(autoincrement = true)
+    private Long id;
     private String imageUrl;
     private String className;
     private Integer count;
@@ -32,6 +40,15 @@ public class ClassInfo implements Parcelable {
     public ClassInfo() {
     }
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public ClassInfo(String imageUrl, String className, int groupId) {
         this.imageUrl = imageUrl;
         this.className = className;
@@ -49,6 +66,16 @@ public class ClassInfo implements Parcelable {
         imageUrl = source.readString();
         className = source.readString();
         groupId = source.readInt();
+    }
+
+
+    @Generated(hash = 1090009529)
+    public ClassInfo(Long id, String imageUrl, String className, Integer count, int groupId) {
+        this.id = id;
+        this.imageUrl = imageUrl;
+        this.className = className;
+        this.count = count;
+        this.groupId = groupId;
     }
 
     public String getImageUrl() {

@@ -5,9 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 
 import com.yc.english.R;
-import com.yc.english.base.view.BaseFragment;
+import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.view.MainToolBar;
 import com.yc.english.base.view.ToolbarFragment;
+import com.yc.english.group.contract.GroupListContract;
+import com.yc.english.group.model.engin.GroupListEngine;
 
 import butterknife.BindView;
 
