@@ -32,8 +32,8 @@ import butterknife.Unbinder;
  * Created by wanglin  on 2017/7/24 17:59.
  */
 
-public class ClassMainFragment extends ToolbarFragment {
-    private static final String TAG = "ClassMainFragment";
+public class GroupMainFragment extends ToolbarFragment {
+    private static final String TAG = "GroupMainFragment";
 
     @BindView(R.id.btn_create_class)
     Button btnCreateClass;
@@ -72,6 +72,9 @@ public class ClassMainFragment extends ToolbarFragment {
         } else {
 
         }
+
+
+
 
     }
 

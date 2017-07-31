@@ -102,8 +102,6 @@ public class GroupCreateActivity extends FullScreenActivity {
 
                             finish();
 
-//
-
 //                            ImUtils.queryGroup(groupId + "").observeOn(AndroidSchedulers.mainThread())
 //                                    .subscribe(new Action1<GroupUserQueryResult>() {
 //                                        @Override

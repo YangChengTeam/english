@@ -16,7 +16,7 @@ import butterknife.BindView;
  * Created by wanglin  on 2017/7/24 10:20.
  */
 
-public class ClassListFragment extends ToolbarFragment {
+public class GroupListFragment extends ToolbarFragment {
 
 
     @BindView(R.id.toolbar)
