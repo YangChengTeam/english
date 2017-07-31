@@ -51,7 +51,6 @@ public class ChatActivity extends FullScreenActivity implements BaseToolBar.OnIt
 
 
         mToolbar.setOnItemClickLisener(this);
-        mToolbar.setOnMenuItemClickListener();
 
     }
 

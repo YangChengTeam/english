@@ -1,12 +1,13 @@
 package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
-import android.service.notification.Condition;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
@@ -37,9 +38,12 @@ public class GroupVerifyConditionActivity extends FullScreenActivity implements 
         mToolbar.setBackOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                back();
             }
         });
+        int verify_result = SPUtils.getInstance().getInt(GroupConstant.VERIFY_RESULT);
+        setVerifyResult(verify_result);
+
         initListener();
 
     }
@@ -72,7 +76,7 @@ public class GroupVerifyConditionActivity extends FullScreenActivity implements 
             } else if (buttonView == mRbVerifyJoin) {
                 mRbAllForbid.setChecked(false);
                 mRbAllAllow.setChecked(false);
-                currentConditon = GroupConstant.CONDITION_VERIFYJOIN;
+                currentConditon = GroupConstant.CONDITION_VERIFY_JOIN;
             }
         }
 
@@ -80,12 +84,34 @@ public class GroupVerifyConditionActivity extends FullScreenActivity implements 
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        LogUtils.e("onBackPressed");
-        Intent intent = new Intent();
+//        super.onBackPressed();
+        back();
+
+    }
+
+    private void back() {
+        SPUtils.getInstance().put(GroupConstant.VERIFY_RESULT, currentConditon);
+        Intent intent = getIntent();
         intent.putExtra("condition", currentConditon);
         setResult(RESULT_OK, intent);
         finish();
+    }
 
+    private void setVerifyResult(int code) {
+
+        if (code == 0) {
+            mRbAllAllow.setChecked(true);
+        }
+        switch (code) {
+            case GroupConstant.CONDITION_ALL_ALLOW:
+                mRbAllAllow.setChecked(true);
+                break;
+            case GroupConstant.CONDITION_ALL_FORBID:
+                mRbAllForbid.setChecked(true);
+                break;
+            case GroupConstant.CONDITION_VERIFY_JOIN:
+                mRbVerifyJoin.setChecked(true);
+                break;
+        }
     }
 }

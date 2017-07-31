@@ -2,19 +2,18 @@ package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.rong.models.GroupInfo;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -51,6 +50,10 @@ public class GroupManagerActivity extends BaseActivity {
             GroupInfo groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
             tvGroupName.setText(groupInfo.getName());
         }
+
+        int condition = SPUtils.getInstance().getInt(GroupConstant.VERIFY_RESULT);
+        setVerify_reslut(condition);
+
     }
 
     @Override
@@ -89,19 +92,21 @@ public class GroupManagerActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
             int condition = data.getIntExtra("condition", 0);
-            switch (condition) {
-                case GroupConstant.CONDITION_ALL_ALLOW:
-                    tvPermissionCheck.setText(getString(R.string.all_allow));
-                    break;
-                case GroupConstant.CONDITION_ALL_FORBID:
-                    tvPermissionCheck.setText(getString(R.string.all_forbid));
-                    break;
-                case GroupConstant.CONDITION_VERIFYJOIN:
-                    tvPermissionCheck.setText(getString(R.string.verify_join));
-                    break;
+            setVerify_reslut(condition);
+        }
+    }
 
-            }
-
+    private void setVerify_reslut(int code) {
+        switch (code) {
+            case GroupConstant.CONDITION_ALL_ALLOW:
+                tvPermissionCheck.setText(getString(R.string.all_allow));
+                break;
+            case GroupConstant.CONDITION_ALL_FORBID:
+                tvPermissionCheck.setText(getString(R.string.all_forbid));
+                break;
+            case GroupConstant.CONDITION_VERIFY_JOIN:
+                tvPermissionCheck.setText(getString(R.string.verify_join));
+                break;
         }
     }
 

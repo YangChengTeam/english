@@ -10,5 +10,9 @@ public interface GroupConstant {
      */
     int CONDITION_ALL_ALLOW = 1;//允许所有人加入
     int CONDITION_ALL_FORBID = 2;//不允许任何人加入
-    int CONDITION_VERIFYJOIN = 3;//通过验证才能加入
+    int CONDITION_VERIFY_JOIN = 3;//通过验证才能加入
+
+
+    String VERIFY_RESULT = "verify_result";
+
 }

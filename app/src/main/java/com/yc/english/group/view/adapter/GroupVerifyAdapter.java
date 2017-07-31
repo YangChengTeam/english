@@ -1,6 +1,7 @@
 package com.yc.english.group.view.adapter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
@@ -28,6 +29,13 @@ public class GroupVerifyAdapter extends BaseAdapter<GroupMemberInfo> {
         }else {
             holder.setVisible(R.id.view_divider, true);
         }
+
+        holder.setOnClickListener(R.id.m_tv_accept, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
