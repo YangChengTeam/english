@@ -58,7 +58,7 @@ public class GroupDeleteAdapter extends BaseAdapter<GroupMemberInfo> {
     }
 
     @Override
-    public int getLayoutId(int viewType) {
+    public int getLayoutID(int viewType) {
         return R.layout.group_delete_member_item;
     }
 

@@ -31,6 +31,8 @@
     <string name="my_publish">我发布的</string>
     <string name="i_want_to_publish">我要发布</string>
     <string name="grade">快来打个分吧!</string>
+    <string name="group">班级</string>
+
 
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>

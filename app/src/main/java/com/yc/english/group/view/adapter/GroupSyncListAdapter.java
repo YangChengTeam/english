@@ -39,7 +39,7 @@ public class GroupSyncListAdapter extends BaseAdapter<ClassInfo> {
     }
 
     @Override
-    public int getLayoutId(int viewType) {
+    public int getLayoutID(int viewType) {
         return R.layout.group_sync_list_item;
     }
 

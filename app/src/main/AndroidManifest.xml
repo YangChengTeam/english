@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<manifest package="com.yc.english"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
-          xmlns:android="http://schemas.android.com/apk/res/android">
+    package="com.yc.english">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".EnglishApp"
@@ -17,25 +17,25 @@
 
         <activity
             android:name=".main.view.activitys.MainActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
 
         <activity android:name=".main.view.activitys.LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".read.view.activitys.BookActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".read.view.activitys.CoursePlayActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".read.view.activitys.AddBookActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".read.view.activitys.BookUnitActivity"
 
@@ -50,8 +50,8 @@
         <activity
             android:name=".group.view.activitys.GroupCreateActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
-        <activity android:name=".group.view.activitys.GroupJoinActivity"/>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".group.view.activitys.GroupJoinActivity" />
 
         <!--会话界面-->
         <activity
@@ -60,14 +60,14 @@
             android:windowSoftInputMode="stateHidden|adjustPan">
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.yc.english"
                     android:pathPrefix="/conversation/"
-                    android:scheme="rong"/>
+                    android:scheme="rong" />
             </intent-filter>
         </activity>
         <!--会话列表-->
@@ -77,14 +77,14 @@
             android:windowSoftInputMode="stateHidden|adjustResize">
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.yc.english"
                     android:pathPrefix="/conversationlist"
-                    android:scheme="rong"/>
+                    android:scheme="rong" />
             </intent-filter>
         </activity>
         <activity
@@ -100,29 +100,29 @@
         <activity android:name=".group.view.activitys.GroupSyncListActivity" />
         <activity android:name=".group.view.activitys.GroupTaskDetailActivity" />
         <activity android:name=".group.view.activitys.GroupPublishTaskListActivity" />
-        <activity android:name=".group.view.activitys.GroupTaskItemActivity"/>
+
 
 
         <receiver
             android:name=".group.view.receiver.GroupNotificationReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED"/>
-                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED"/>
-                <action android:name="io.rong.push.intent.MESSAGE_CLICKED"/>
-                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED"/>
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
             </intent-filter>
 
         </receiver>
 
 
-        <activity android:name=".setting.view.activitys.SettingActivity"/>
-        <activity android:name=".setting.view.activitys.FeedbackActivity"/>
-        <activity android:name=".setting.view.activitys.PersonCenterActivity"/>
-        <activity android:name=".main.view.activitys.RegisterActivity"/>
-        <activity android:name=".main.view.activitys.ForgotActivity"/>
-        <activity android:name=".setting.view.activitys.ModifyPasswordActivity"/>
-        <activity android:name=".setting.view.activitys.NameSettingActivity"/>
+        <activity android:name=".setting.view.activitys.SettingActivity" />
+        <activity android:name=".setting.view.activitys.FeedbackActivity" />
+        <activity android:name=".setting.view.activitys.PersonCenterActivity" />
+        <activity android:name=".main.view.activitys.RegisterActivity" />
+        <activity android:name=".main.view.activitys.ForgotActivity" />
+        <activity android:name=".setting.view.activitys.ModifyPasswordActivity" />
+        <activity android:name=".setting.view.activitys.NameSettingActivity" />
     </application>
 
 </manifest>
