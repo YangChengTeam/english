@@ -43,7 +43,7 @@ repositories{
 }
 
 apply plugin: 'com.jakewharton.butterknife'
-
+apply plugin: 'org.greenrobot.greendao'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -58,7 +58,6 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.jakewharton:butterknife:8.7.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
-    compile 'com.squareup.sqlbrite2:sqlbrite:2.0.0'
     compile 'com.hwangjr.rxbus:rxbus:1.0.6'
     compile 'com.umeng.analytics:analytics:latest.integration'
 
@@ -84,4 +83,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.1'
 
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'
+    compile 'org.greenrobot:greendao:3.2.2'
 }

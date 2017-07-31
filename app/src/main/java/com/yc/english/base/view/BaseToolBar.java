@@ -44,7 +44,14 @@ public abstract class BaseToolBar extends BaseView {
         }
     }
 
-
+    public void setBackOnClickListener(final OnClickListener onClickListener){
+        mToolbar.setNavigationOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListener.onClick(v);
+            }
+        });
+    }
 
     public void setOnMenuItemClickListener() {
         if(onItemClickLisener != null) {
