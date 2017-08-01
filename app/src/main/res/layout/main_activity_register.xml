@@ -69,7 +69,7 @@
 
                 <EditText
                     android:id="@+id/et_checkcode"
-                    android:layout_width="170dp"
+                    android:layout_width="160dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/spacing_normal"
                     android:layout_marginRight="@dimen/spacing_normal"
@@ -81,13 +81,10 @@
 
                 <TextView
                     android:id="@+id/tv_checkcode"
-                    android:layout_width="wrap_content"
+                    android:layout_width="85dp"
                     android:layout_height="25dp"
-                    android:layout_marginRight="10dp"
                     android:background="@color/primary"
                     android:gravity="center"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
                     android:singleLine="true"
                     android:text="@string/main_checkcode"
                     android:textColor="@color/white"
