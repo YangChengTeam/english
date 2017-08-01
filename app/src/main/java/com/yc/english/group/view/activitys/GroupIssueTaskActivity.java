@@ -20,6 +20,7 @@ import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.view.adapter.GroupPictureAdapter;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -65,6 +66,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
 
     @BindView(R.id.m_btn_submit)
     Button mBtnSubmit;
+    private GroupPictureAdapter adapter;
 
     @Override
     public void init() {
@@ -72,13 +74,12 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitle(getString(R.string.all_task));
         recyclerViewPicture.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-
+        adapter = new GroupPictureAdapter(this, null);
+        recyclerViewPicture.setAdapter(adapter);
         initListener();
     }
 
     private void initListener() {
-
 
         RxView.clicks(mBtnSubmit).filter(new Func1<Void, Boolean>() {
             @Override
@@ -121,8 +122,6 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
             case R.id.m_iv_issue_picture:
                 startActivityForResult(new Intent(this, PictureSelectorActivity.class), 300);
                 break;
-
-
         }
 
     }
@@ -147,12 +146,14 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
         if (requestCode == 300 && resultCode == -1 && data != null) {
 
             ArrayList<Uri> list = data.getParcelableArrayListExtra("android.intent.extra.RETURN_RESULT");
+
+
             if (list != null && list.size() > 0) {
-//                mIvIssueResultPicture.setImageURI(list.get(0));
+                adapter.setData(list);
+                recyclerViewPicture.setVisibility(View.VISIBLE);
+            }else {
+                recyclerViewPicture.setVisibility(View.GONE);
             }
-
-            LogUtils.e(list);
-
         }
 
 

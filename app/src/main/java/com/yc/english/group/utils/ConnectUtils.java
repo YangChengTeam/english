@@ -17,7 +17,6 @@ import io.rong.imlib.RongIMClient;
 public class ConnectUtils {
     private static final String TAG = "ConnectUtils";
 
-
     public static void contact(Context context, final TokenInfo tokenInfo) {
         try {
             SPUtils.getInstance().put("TOKEN", tokenInfo.getToken());

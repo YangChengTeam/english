@@ -28,6 +28,7 @@ public class GroupListJoinActivity extends FullScreenActivity<GroupListPresenter
 
     @Override
     public void init() {
+        mPresenter = new GroupListPresenter(this, this);
         mToolbar.setTitle(getString(R.string.teacher_education));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
