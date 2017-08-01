@@ -9,8 +9,6 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
-import com.yc.english.base.view.BaseToolBar;
-import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.LoadingDialog;
 import com.yc.english.main.contract.LoginContract;
 import com.yc.english.main.presenter.LoginPresenter;

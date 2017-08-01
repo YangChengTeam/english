@@ -3,6 +3,7 @@ package com.yc.english.base.view;
 import android.app.Activity;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
@@ -81,6 +82,8 @@ public class SharePopupWindow extends BasePopupWindow {
             });
         }
 
+        this.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
     }
 
     private OnShareItemClickListener onShareItemClickListener;
@@ -105,7 +108,6 @@ public class SharePopupWindow extends BasePopupWindow {
     public void show(View view) {
         showAtLocation(view, Gravity.BOTTOM, 0, 0);
     }
-
 
     @Override
     public int getAnimationID() {

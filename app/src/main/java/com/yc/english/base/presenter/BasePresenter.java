@@ -11,7 +11,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by zhangkai on 2017/7/20.
  */
 
-public abstract class BasePresenter<M extends BaseEngin, V extends IView> implements IPresenter {
+public abstract class BasePresenter<M, V extends IView> implements IPresenter {
     @NonNull
     protected CompositeSubscription mSubscriptions;
     protected boolean mFirstLoad = true;

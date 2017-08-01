@@ -28,7 +28,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/normal_height"
-
                 android:layout_marginTop="@dimen/spacing_big"
                 android:background="@drawable/main_editview_bg">
 
@@ -56,7 +55,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/normal_height"
-
                 android:layout_marginTop="@dimen/spacing_big"
                 android:background="@drawable/main_editview_bg"
                 android:orientation="horizontal">
@@ -82,10 +80,15 @@
                     android:textSize="@dimen/font_normal"/>
 
                 <TextView
-                    android:layout_width="75dp"
+                    android:id="@+id/tv_checkcode"
+                    android:layout_width="wrap_content"
                     android:layout_height="25dp"
+                    android:layout_marginRight="10dp"
                     android:background="@color/primary"
                     android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:singleLine="true"
                     android:text="@string/main_checkcode"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_small"/>
@@ -117,7 +120,6 @@
                     android:inputType="textPassword"
                     android:singleLine="true"
                     android:textSize="@dimen/font_normal"/>
-
 
             </LinearLayout>
 
