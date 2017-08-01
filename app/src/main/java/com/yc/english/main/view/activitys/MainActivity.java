@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseToolBar;
@@ -18,11 +17,7 @@ import com.yc.english.main.view.fragments.IndexFragment;
 import com.yc.english.main.view.wdigets.TabBar;
 import com.yc.english.setting.view.fragments.MyFragment;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import butterknife.BindView;
-import rx.functions.Action1;
 
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {

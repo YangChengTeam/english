@@ -5,14 +5,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
-import com.yc.english.base.view.BaseToolBar;
-import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.base.view.LoadingDialog;
 import com.yc.english.main.contract.LoginContract;
+import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.presenter.LoginPresenter;
 
 import java.util.concurrent.TimeUnit;
@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     EditText mUsernameEditText;
 
     @BindView(R.id.et_password)
-    EditText mPassEditText;
+    EditText mPasswordEditText;
 
     @BindView(R.id.tv_forgot)
     TextView mForgotTextView;
@@ -43,30 +43,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void init() {
-//        mToolbar.setTitle("登录帐号");
-//        mToolbar.setMenuTitle("注册");
-//        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-//            @Override
-//            public void onClick() {
-//                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        mPresenter = new LoginPresenter(this, this);
 
         RxView.clicks(mLoginButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-
-                LoadingDialog loadingDialog = new LoadingDialog(LoginActivity.this);
-                loadingDialog.setMessage("请稍后");
-                loadingDialog.show();
-
-                UIUitls.postDelayed(1000, new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    }
-                });
+                CharSequence phone = mUsernameEditText.getText().toString();
+                CharSequence password = mPasswordEditText.getText().toString();
+                mPresenter.login(phone.toString(), password.toString());
             }
         });
 
@@ -88,5 +72,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public int getLayoutId() {
         return R.layout.main_activity_login;
+    }
+
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.MAIN)
+            }
+    )
+    public void gotoMain(Boolean flag) {
+        if (flag) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }
     }
 }
