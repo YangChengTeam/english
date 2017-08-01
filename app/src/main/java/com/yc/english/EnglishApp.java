@@ -39,6 +39,7 @@ public class EnglishApp extends Application {
         //错误捕获
         CrashUtils.init(new File(PathUtils.makeConfigDir(getApplicationContext()), "crash.log"));
 
+
         //友盟统计
         UMGameAgent.setDebugMode(true);
         UMGameAgent.init(this);

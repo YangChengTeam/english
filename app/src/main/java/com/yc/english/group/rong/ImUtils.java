@@ -28,7 +28,6 @@ public class ImUtils {
      */
     public static Observable<String> login(final String userName, final String userId, final String userPorait) {
 
-
         return Observable.just("").subscribeOn(Schedulers.io()).map(new Func1<String, String>() {
             @Override
             public String call(String s) {
@@ -92,5 +91,40 @@ public class ImUtils {
         });
 
     }
+
+    /**
+     * 加入群组并同步群组
+     *
+     * @param userIds
+     * @param groupId
+     * @param groupName
+     * @return
+     */
+    public static Observable<CodeSuccessResult> joinGroup(final String[] userIds, final String groupId, final String groupName) {
+        return Observable.just("").subscribeOn(Schedulers.io()).map(new Func1<String, CodeSuccessResult>() {
+            @Override
+            public CodeSuccessResult call(String s) {
+                try {
+                    CodeSuccessResult codeSuccessResult = rongCloud.group.join(userIds, groupId, groupName);
+
+                    if (codeSuccessResult.getCode() == 200) {
+                        GroupInfo groupInfo = new GroupInfo(groupId, groupName);
+                        final GroupInfo[] groupSyncGroupInfo = {groupInfo};
+
+                        return rongCloud.group.sync(userIds[0], groupSyncGroupInfo);
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+        });
+
+
+    }
+
 
 }

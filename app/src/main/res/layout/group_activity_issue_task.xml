@@ -202,11 +202,27 @@
                 android:textSize="@dimen/group_text_16" />
 
             <ImageView
+                android:id="@+id/m_iv_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@mipmap/group4" />
+
+            <TextView
+                android:id="@+id/m_tv_sync_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/group_distance_5"
+                android:layout_toLeftOf="@id/m_iv_right"
+                android:background="@drawable/group_notification_circle_bg"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/group_text_12"
+                android:visibility="gone" />
+
 
         </RelativeLayout>
 

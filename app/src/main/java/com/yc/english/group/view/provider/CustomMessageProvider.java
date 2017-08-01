@@ -1,6 +1,7 @@
 package com.yc.english.group.view.provider;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
@@ -9,7 +10,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.yc.english.R;
+import com.yc.english.group.view.activitys.GroupPublishTaskListActivity;
+import com.yc.english.group.view.activitys.GroupTaskItemActivity;
 
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
@@ -23,9 +28,12 @@ import io.rong.message.RichContentMessage;
  */
 @ProviderTag(messageContent = RichContentMessage.class)
 public class CustomMessageProvider extends IContainerItemProvider.MessageProvider<RichContentMessage> {
+    private Context mContext;
+
     //初始化 View。
     @Override
     public View newView(Context context, ViewGroup viewGroup) {
+        this.mContext = context;
         View view = LayoutInflater.from(context).inflate(R.layout.group_custom_message, null);
         ViewHolder holder = new ViewHolder(view);
         holder.message = (TextView) view.findViewById(R.id.tv_message_content);
@@ -47,6 +55,8 @@ public class CustomMessageProvider extends IContainerItemProvider.MessageProvide
         }
         holder.message.setText(customMessage.getContent());
         holder.title.setText(customMessage.getTitle());
+
+
 //        AndroidEmoji.ensure((Spannable) holder.message.getText());//显示消息中的 Emoji 表情。
     }
 
@@ -58,7 +68,14 @@ public class CustomMessageProvider extends IContainerItemProvider.MessageProvide
 
 
     @Override
-    public void onItemClick(View view, int i, RichContentMessage richContentMessage, UIMessage uiMessage) {
+    public void onItemClick(View view, int position, RichContentMessage richContentMessage, UIMessage uiMessage) {
+//        ToastUtils.showShort(richContentMessage.getContent());
+        LogUtils.e(position);
+        Intent intent = new Intent(mContext, GroupTaskItemActivity.class);
+//        rongExtension.startActivityForPluginResult(intent,200,this);
+        mContext.startActivity(intent);
+
+
 
     }
 

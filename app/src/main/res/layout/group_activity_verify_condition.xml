@@ -47,7 +47,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:button="@drawable/group_delete_member_selector" />
+                    android:button="@drawable/group_delete_member_selector"
+                    android:checked="true" />
 
             </RelativeLayout>
 

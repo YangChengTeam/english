@@ -36,11 +36,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@mipmap/delete"
+            android:background="@mipmap/group6"
             android:visibility="gone" />
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/m_tv_tint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/group_distance_15"

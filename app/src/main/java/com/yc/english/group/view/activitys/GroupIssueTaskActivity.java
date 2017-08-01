@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.model.bean.ClassInfo;
 
@@ -55,11 +56,14 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
     Button mBtnSubmit;
     @BindView(R.id.m_tv_sync_group)
     TextView mTvSyncGroup;
+    @BindView(R.id.m_tv_sync_count)
+    TextView mTvSyncCount;
 
     @Override
     public void init() {
         mToolbar.setTitle(getResources().getString(R.string.issue_task));
         mToolbar.showNavigationIcon();
+        mToolbar.setMenuTitle(getString(R.string.all_task));
         initListener();
     }
 
@@ -69,7 +73,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
         RxView.clicks(mBtnSubmit).filter(new Func1<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {
-                ToastUtils.showShort("call");
+
                 return !TextUtils.isEmpty(mEtIssueTask.getText().toString().trim());
             }
         }).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -83,6 +87,14 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
 
             }
         });
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
+            @Override
+            public void onClick() {
+                Intent intent = new Intent(GroupIssueTaskActivity.this, GroupPublishTaskListActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -106,14 +118,15 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
         if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
 
             ArrayList<ClassInfo> classInfoList = data.getParcelableArrayListExtra("selectedList");
-            if (classInfoList != null && classInfoList.size() > 0) {
-                StringBuilder sb = new StringBuilder();
-                for (ClassInfo classInfo : classInfoList) {
-                    sb.append(classInfo.getClassName()).append(",");
-                }
-                sb.deleteCharAt(sb.length() - 1);
-                mTvSyncGroup.setText(sb.toString());
 
+
+            if (classInfoList != null && classInfoList.size() > 0) {
+
+                mTvSyncCount.setText(String.valueOf(classInfoList.size()));
+                mTvSyncCount.setVisibility(View.VISIBLE);
+
+            } else {
+                mTvSyncCount.setVisibility(View.GONE);
             }
 
         }

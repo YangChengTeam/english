@@ -7,7 +7,12 @@ import android.view.WindowManager;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.group.contract.GroupListContract;
+import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.presenter.GroupListPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
+
+import java.util.List;
 
 
 /**
@@ -46,10 +51,10 @@ public class ChatActivity extends FullScreenActivity implements BaseToolBar.OnIt
     public void init() {
 
         initData();
+
+
         mToolbar.showNavigationIcon();
         mToolbar.setMenuIcon(R.mipmap.group9);
-
-
         mToolbar.setOnItemClickLisener(this);
 
     }

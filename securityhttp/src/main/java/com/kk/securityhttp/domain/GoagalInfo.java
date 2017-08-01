@@ -26,6 +26,7 @@ import java.util.zip.ZipFile;
  */
 public class GoagalInfo {
 
+
     @JSONField(name = "public_key")
     public String publicKey = "-----BEGIN PUBLIC KEY-----\n" +
             "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAunGsieRPZ+jSZaK0hFjC\n" +
@@ -41,6 +42,7 @@ public class GoagalInfo {
             "TVHjxxLAN8sWy7le8vkWSNPwxmm9aJtjbvXuSYzohQvB4M95IVFaM4AKxf9HU0x8\n" +
             "E5MXnkjxSEogMwjH0r/Fqm8CAwEAAQ==\n" +
             "-----END PUBLIC KEY-----";
+
 
     public ChannelInfo channelInfo = null;
     public AppUtils.AppInfo appInfo = null;

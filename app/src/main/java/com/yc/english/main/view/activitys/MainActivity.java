@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseToolBar;
-import com.yc.english.group.view.fragments.ClassMainFragment;
+import com.yc.english.group.view.fragments.GroupMainFragment;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
 import com.yc.english.main.view.fragments.IndexFragment;
@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
 
     private IndexFragment mIndexFragment;
-    private ClassMainFragment mClassMainFragment;
+    private GroupMainFragment mClassMainFragment;
     private MyFragment mMyFragment;
     class FragmentAdapter extends FragmentStatePagerAdapter {
         public FragmentAdapter(FragmentManager fm) {
@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mIndexFragment;
             } else if (position == 1) {
                 if (mClassMainFragment == null) {
-                    mClassMainFragment = new ClassMainFragment();
+                    mClassMainFragment = new GroupMainFragment();
                 }
                 return mClassMainFragment;
             } else if (position == 2) {

@@ -21,14 +21,14 @@ public abstract class ToolbarFragment<P extends BasePresenter> extends BaseFragm
         if (mToolbar == null) {
             throw new NullPointerException("error, please set com.yc.english.main.view.MainToolBar id -> toolbar.");
         }
-        if(isInstallToolbar()) {
+        if (isInstallToolbar()) {
             mToolbar.init((AppCompatActivity) getActivity());
             getActivity().invalidateOptionsMenu();
         }
     }
 
 
-    public BaseToolBar getToolbar(){
+    public BaseToolBar getToolbar() {
         return mToolbar;
     }
 
