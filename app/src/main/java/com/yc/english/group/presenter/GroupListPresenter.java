@@ -2,6 +2,7 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
+import com.kk.utils.UIUitls;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupListContract;
 import com.yc.english.group.model.bean.ClassInfo;
@@ -42,8 +43,13 @@ public class GroupListPresenter extends BasePresenter<GroupListEngine, GroupList
             }
 
             @Override
-            public void onNext(List<ClassInfo> classInfos) {
-                mView.showGroupList(classInfos);
+            public void onNext(final List<ClassInfo> classInfos) {
+                UIUitls.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.showGroupList(classInfos);
+                    }
+                });
             }
         });
 

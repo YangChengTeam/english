@@ -1,11 +1,13 @@
 package com.yc.english.group.view.activitys;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yc.english.R;
+import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.view.adapter.CommonAdapter;
 import com.yc.english.group.view.adapter.GroupPageAdapter;
@@ -52,6 +54,22 @@ public class GroupTaskItemActivity extends FullScreenActivity {
         mViewPager.setAdapter(new GroupPageAdapter(getSupportFragmentManager(), fragments));
 
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
+
+        initListener();
+
+
+    }
+
+    private void initListener() {
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
+            @Override
+            public void onClick() {
+                Intent intent = new Intent(GroupTaskItemActivity.this, GroupPublishTaskListActivity.class);
+//        rongExtension.startActivityForPluginResult(intent,200,this);
+                startActivity(intent);
+            }
+        });
+
     }
 
 

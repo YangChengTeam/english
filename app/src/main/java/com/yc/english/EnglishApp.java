@@ -31,7 +31,7 @@ public class EnglishApp extends Application {
 
     private void init(){
         //错误捕获
-        CrashUtils.init(PathUtils.makeConfigDir(getApplicationContext()) + "/crash.log");
+        //CrashUtils.init(PathUtils.makeConfigDir(getApplicationContext()) + "/crash.log");
 
         //友盟统计
         UMGameAgent.setDebugMode(true);

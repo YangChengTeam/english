@@ -41,6 +41,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/m_tv_tint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/group_distance_15"

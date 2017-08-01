@@ -6,8 +6,20 @@ package com.yc.english.group.constant;
  */
 
 public interface NetConstan {
+
+    String baser_url = "http://en.qqtn.com/api/";
     /**
      * 获取token
      */
-    String get_token = "http://en.qqtn.com/api/index/get_token";
+
+
+    String get_token = baser_url + "rc/get_token";
+
+
+    /**
+     * 创建班群
+     */
+    String create_group = baser_url + "class/create";
+
+
 }

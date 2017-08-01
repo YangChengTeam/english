@@ -82,19 +82,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginTop="24dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="125dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
 
                         <com.yc.english.main.view.wdigets.IndexMenuView
                             android:id="@+id/im_read"
@@ -120,11 +120,11 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="125dp">
+                    android:layout_height="wrap_content">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
 
                         <com.yc.english.main.view.wdigets.IndexMenuView
                             android:id="@+id/im_word"
@@ -156,13 +156,13 @@
 
                     <TextView
                         android:id="@+id/tv_china"
-                        android:layout_width="50dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:gravity="center_vertical"
                         android:text="@string/main_china"
                         android:textColor="@color/gray_999"
-                        android:textSize="@dimen/font_small"
+                        android:textSize="@dimen/font_snormal"
                         />
 
                     <TextView
@@ -190,7 +190,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/main_teacher"
                         android:textColor="@color/gray_999"
-                        android:textSize="@dimen/font_small"/>
+                        android:textSize="@dimen/font_snormal"/>
 
                     <TextView
                         android:id="@+id/tv_student_number"
@@ -215,7 +215,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/main_student"
                         android:textColor="@color/gray_999"
-                        android:textSize="@dimen/font_small"/>
+                        android:textSize="@dimen/font_snormal"/>
 
                 </RelativeLayout>
             </LinearLayout>

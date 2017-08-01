@@ -2,6 +2,7 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
+import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.presenter.BasePresenter;
@@ -18,20 +19,21 @@ import rx.Subscription;
 
 public class TokenPresenter extends BasePresenter<TokenEngine, TokenContract.View> implements TokenContract.Presenter {
 
-    public TokenPresenter(Context context,TokenContract.View view) {
+    public TokenPresenter(Context context, TokenContract.View view) {
         super(view);
-        mEngin=new TokenEngine(context);
+        mEngin = new TokenEngine(context);
     }
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
-         if(!forceUpdate) return;
+        if (!forceUpdate) return;
         getToken();
     }
 
     @Override
     public void getToken() {
-        Subscription subscription = mEngin.getTokenInfo("1").subscribe(new Subscriber<ResultInfo<TokenInfo>>() {
+
+        Subscription subscription = mEngin.getTokenInfo("5").subscribe(new Subscriber<ResultInfo<TokenInfo>>() {
             @Override
             public void onCompleted() {
 
@@ -44,7 +46,7 @@ public class TokenPresenter extends BasePresenter<TokenEngine, TokenContract.Vie
 
             @Override
             public void onNext(ResultInfo<TokenInfo> tokenInfoResultInfo) {
-                if(tokenInfoResultInfo.code == HttpConfig.STATUS_OK) {
+                if (tokenInfoResultInfo.code == HttpConfig.STATUS_OK) {
                     mView.contact(tokenInfoResultInfo.data);
                 }
             }
