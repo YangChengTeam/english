@@ -25,8 +25,6 @@ public class TabBar extends BaseView {
     @BindView(R.id.item_my)
     TabItem mMyItem;
 
-
-
     public TabBar(Context context, AttributeSet attrs) {
         super(context, attrs);
 

@@ -1,5 +1,6 @@
 package com.yc.english.base.presenter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.EmptyUtils;
@@ -21,6 +22,7 @@ public abstract class BasePresenter<M, V extends IView> implements IPresenter {
 
     protected M mEngin;
     protected V mView;
+    protected Context mContext;
 
     public BasePresenter(V v) {
         mSubscriptions = new CompositeSubscription();
