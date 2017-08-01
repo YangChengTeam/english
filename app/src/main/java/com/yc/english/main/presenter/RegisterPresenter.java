@@ -5,9 +5,12 @@ import android.content.Context;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.contract.RegisterContract;
+import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.engin.RegisterEngin;
 
 import rx.Subscriber;
@@ -52,16 +55,16 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
 
             @Override
             public void onNext(ResultInfo<String> resultInfo) {
-
+                if (EmptyUtils.isEmpty(resultInfo) || resultInfo.code != HttpConfig.STATUS_OK) {
+                    ToastUtils.showShort(resultInfo.message);
+                }
             }
         });
-
         mSubscriptions.add(subscription);
     }
 
     @Override
     public void register(String mobile, String pwd, String code) {
-
         if (!RegexUtils.isMobileSimple(mobile)) {
             ToastUtils.showShort("手机号填写不正确");
             return;
@@ -73,24 +76,28 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
         }
 
         if (EmptyUtils.isEmpty(pwd) && pwd.length() < 6) {
-            ToastUtils.showShort("密码不正确");
+            ToastUtils.showShort("密码不能少于6位");
             return;
         }
 
+        mView.showLoadingDialog("正在注册, 请稍后");
         Subscription subscription = mEngin.register(mobile, pwd, code).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
-
+                mView.dismissLoadingDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-
+                mView.dismissLoadingDialog();
             }
 
             @Override
             public void onNext(ResultInfo<String> resultInfo) {
-
+                if (!EmptyUtils.isEmpty(resultInfo) && resultInfo.code == HttpConfig.STATUS_OK) {
+                    mView.finish();
+                    RxBus.get().post(Constant.MAIN, true);
+                }
             }
         });
         mSubscriptions.add(subscription);

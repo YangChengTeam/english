@@ -42,12 +42,11 @@ public class RegisterActivity extends FullScreenActivity<RegisterPresenter> impl
     @BindView(R.id.tv_checkcode)
     TextView mCheckCodeTextView;
 
-    private LoadingDialog mLoadingDialog;
+
     private int mSecondes;
 
     @Override
     public void init() {
-        mLoadingDialog = new LoadingDialog(this);
         mPresenter = new RegisterPresenter(this, this);
 
         mToolbar.setTitle("注册帐号");
@@ -59,7 +58,7 @@ public class RegisterActivity extends FullScreenActivity<RegisterPresenter> impl
                 CharSequence phone = mUsernameEditText.getText().toString();
                 CharSequence checkCode = mCheckCodeEditText.getText().toString();
                 CharSequence password = mPasswordEditText.getText().toString();
-                mPresenter.register(phone.toString(), checkCode.toString(), password.toString());
+                mPresenter.register(phone.toString(), password.toString(), checkCode.toString());
             }
         });
 
@@ -75,22 +74,6 @@ public class RegisterActivity extends FullScreenActivity<RegisterPresenter> impl
     @Override
     public int getLayoutId() {
         return R.layout.main_activity_register;
-    }
-
-    @Override
-    public void showLoadingDialog(String msg) {
-        mLoadingDialog.setMessage(msg);
-        mLoadingDialog.show();
-    }
-
-    @Override
-    public void dismissLoadingDialog() {
-        UIUitls.post(new Runnable() {
-            @Override
-            public void run() {
-                mLoadingDialog.dismiss();
-            }
-        });
     }
 
     @Override

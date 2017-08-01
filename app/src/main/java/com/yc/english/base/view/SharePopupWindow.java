@@ -113,4 +113,5 @@ public class SharePopupWindow extends BasePopupWindow {
     public int getAnimationID() {
         return R.style.share_anim;
     }
+
 }
