@@ -26,20 +26,37 @@ import java.util.zip.ZipFile;
  */
 public class GoagalInfo {
 
+//    @JSONField(name = "pub_key")
+//    public String publicKey = "-----BEGIN PUBLIC KEY-----" +
+//            "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEApcW/nMMsLOo8jg6PoY0F"
+//            + "YBOlFdST4sqRx8cMOYIbdXDDdjsxIMI2lN7skoielHELQB+LzaI8kURg2bHfLxOr"
+//            + "wGJAVKxEt7+GwNe1ZxEeSL7SxFCgvVYI088W/ElSXHiq57p9SFpVccwY+JmjyL/U"
+//            + "gX1OSoemNAKkys64NhEMm9C8Lrs/+N4nilzW2A6hSlgVtjbjMry8M6lSjB63xvQg"
+//            + "wu+u6GfWpx0/TM69gg5o0ytBxl6BEtcFXujeQoR6JY6MrPggLy4/FLIxxivHTX6s"
+//            + "Ae1W0/Go7bORbhELNfUP0OsYbDD3d4AF/E0rV9J1Nj/wXvTxn7mQQD9n8S+zrKP6"
+//            + "CJ4jirfEzlFxda1Wtk0Orxy+mMlT4WPaj/aYgHwZ/QeId00zoxwrJoCbxSjqhTjg"
+//            + "rVHdsoX5J+pspEENB9CHDu1AKGRwXn2525HqUVAwZoTL5q2Al0LoKA1NeEwEE8So"
+//            + "W9Mr/RdvQg9W674wc9hKNBZFJx6scei7Pq4JB62jOiEi7nCmIYNQUEMI1MtSsLJl"
+//            + "Un6E2pIu4pohlUm/vGghBrgZvT9fZhtRtBRCBCht+mrkG7IqhLVq3ZAcO9UQnGrW"
+//            + "bMQWqbDut1KV8Vh4B5tiaOoiswTZB5Nk4pMF2cCXWPDvNNjCRXkr0NYSK6vasZFp"
+//            + "WYe9pakq6ocysaPXT6+Gbi0CAwEAAQ=="
+//            + "-----END PUBLIC KEY-----";
+
+
     @JSONField(name = "pub_key")
     public String publicKey = "-----BEGIN PUBLIC KEY-----" +
-            "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEApcW/nMMsLOo8jg6PoY0F"
-            + "YBOlFdST4sqRx8cMOYIbdXDDdjsxIMI2lN7skoielHELQB+LzaI8kURg2bHfLxOr"
-            + "wGJAVKxEt7+GwNe1ZxEeSL7SxFCgvVYI088W/ElSXHiq57p9SFpVccwY+JmjyL/U"
-            + "gX1OSoemNAKkys64NhEMm9C8Lrs/+N4nilzW2A6hSlgVtjbjMry8M6lSjB63xvQg"
-            + "wu+u6GfWpx0/TM69gg5o0ytBxl6BEtcFXujeQoR6JY6MrPggLy4/FLIxxivHTX6s"
-            + "Ae1W0/Go7bORbhELNfUP0OsYbDD3d4AF/E0rV9J1Nj/wXvTxn7mQQD9n8S+zrKP6"
-            + "CJ4jirfEzlFxda1Wtk0Orxy+mMlT4WPaj/aYgHwZ/QeId00zoxwrJoCbxSjqhTjg"
-            + "rVHdsoX5J+pspEENB9CHDu1AKGRwXn2525HqUVAwZoTL5q2Al0LoKA1NeEwEE8So"
-            + "W9Mr/RdvQg9W674wc9hKNBZFJx6scei7Pq4JB62jOiEi7nCmIYNQUEMI1MtSsLJl"
-            + "Un6E2pIu4pohlUm/vGghBrgZvT9fZhtRtBRCBCht+mrkG7IqhLVq3ZAcO9UQnGrW"
-            + "bMQWqbDut1KV8Vh4B5tiaOoiswTZB5Nk4pMF2cCXWPDvNNjCRXkr0NYSK6vasZFp"
-            + "WYe9pakq6ocysaPXT6+Gbi0CAwEAAQ=="
+            "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAy/M1AxLZjZOyJToExpn1"
+            + "hudAWySRzS+aGwNVdX9QX6vK38O7WUA7h/bYqBu+6tTRC6RnL9BksMrIf5m6D3rt"
+            + "faYYmxfe/FI4ZD5ybIhFuRUi95e/J2vQVElsSNqSz7ewXquZpKZAqlzH4hGgOqmO"
+            + "THlrwiQwX66bS7x7kDmvxMd5ZRGhTvz62kpKb/orcnWQ1KElNc/bIzTtv3jsrMgH"
+            + "FVdFZfev91ew4Kf1YJbqGBGKslBsIoGsgTxI94T6d6XEFxSzdvrRwKhOobXIaOhZ"
+            + "o3GBCZIA/1ZOwLK6RyrWdprz+60xifcYIkILdZ7yPazSfHCVHFY6o/fQjK4dxQDW"
+            + "Gw0fxN9QX+v3+48nW7QIBx4KNYNIW/eetGhXpOwV4PjNt15fcwJkKsx2W3VQuh93"
+            + "jdYB4xMyDUnRwb9np/QR1rmbzSm5ySGkmD7NAj03V+O82Nx4uxsdg2H7EQdVcY7e"
+            + "6dEdpLYp2p+VkDd9t/5y1D8KtC35yDwraaxXveTMfLk8SeI/Yz4QaX6dolZEuUWa"
+            + "tLaye2uA0w25Ee35irmaNDLhDr804B7U7M4kkbwY7ijvvhnfb1NwFY5lw/2/dZqJ"
+            + "x2gH3lXVs6AM4MTDLs4BfCXiq2WO15H8/4Gg/2iEk8QhOWZvWe/vE8/ciB2ABMEM"
+            + "vvSb829OOi6npw9i9pJ8CwMCAwEAAQ=="
             + "-----END PUBLIC KEY-----";
 
     public ChannelInfo channelInfo = null;
