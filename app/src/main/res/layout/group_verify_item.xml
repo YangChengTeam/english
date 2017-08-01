@@ -58,8 +58,8 @@
                 <TextView
                     android:id="@+id/m_tv_accept"
                     style="@style/group_btn_blue_style"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/group_distance_45"
+                    android:layout_height="@dimen/group_distance_30"
                     android:gravity="center"
                     android:paddingBottom="@dimen/group_distance_5"
                     android:paddingLeft="@dimen/group_distance_10"

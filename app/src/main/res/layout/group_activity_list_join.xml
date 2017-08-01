@@ -28,7 +28,7 @@
 
 
         <Button
-            android:id="@+id/btn_join_class1"
+            android:id="@+id/btn_join_class"
             style="@style/group_btn_white_style"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

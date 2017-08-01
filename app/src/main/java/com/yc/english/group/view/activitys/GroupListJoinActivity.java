@@ -22,8 +22,8 @@ import butterknife.BindView;
 public class GroupListJoinActivity extends FullScreenActivity<GroupListPresenter> implements GroupListContract.View {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.btn_join_class1)
-    Button btnJoinClass1;
+    @BindView(R.id.btn_join_class)
+    Button btnJoinClass;
     private GroupGroupAdapter adapter;
 
     @Override
