@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.UIUitls;
 import com.yc.english.R;
+import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.LoadingDialog;
@@ -23,7 +24,7 @@ import rx.functions.Action1;
  * Created by zhangkai on 2017/7/21.
  */
 
-public class LoginActivity extends FullScreenActivity<LoginPresenter> implements LoginContract.View {
+public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
 
     @BindView(R.id.btn_login)
     Button mLoginButton;
@@ -42,15 +43,15 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
 
     @Override
     public void init() {
-        mToolbar.setTitle("登录帐号");
-        mToolbar.setMenuTitle("注册");
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
+//        mToolbar.setTitle("登录帐号");
+//        mToolbar.setMenuTitle("注册");
+//        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
+//            @Override
+//            public void onClick() {
+//                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         RxView.clicks(mLoginButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override

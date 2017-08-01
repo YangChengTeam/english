@@ -47,6 +47,12 @@ public class CoursePlayActivity extends FullScreenActivity {
     @BindView(R.id.iv_course_play)
     ImageView mCoursePlayImageView;
 
+    @BindView(R.id.layout_language_change)
+    LinearLayout mLanguageChangeLayout;
+
+    @BindView(R.id.tv_language)
+    TextView mLanguageTextView;
+
     ReadCourseItemClickAdapter mItemAdapter;
 
     List<EnglishCourseInfo> datas;
@@ -78,6 +84,8 @@ public class CoursePlayActivity extends FullScreenActivity {
 
     private boolean isCountinue = false;
 
+    private int languageType = 1; //1:中英,2:英,3:中
+
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -102,7 +110,7 @@ public class CoursePlayActivity extends FullScreenActivity {
     public void init() {
         mToolbar.setTitle("Unit 1 Hello");
         mToolbar.showNavigationIcon();
-        //mToolbar.setMenuTitleColor(ContextCompat.getColor(this,R.color.black_333));
+        mToolbar.setTitleColor(ContextCompat.getColor(this, R.color.black_333));
         initData();
     }
 
@@ -210,6 +218,35 @@ public class CoursePlayActivity extends FullScreenActivity {
         //标记未连续播放
         isCountinue = true;
         startPlaySynthesizer();
+    }
+
+
+    @OnClick(R.id.layout_language_change)
+    public void languageChange() {
+
+        languageType++;
+
+        if (languageType > 3) {
+            languageType = 1;
+        }
+
+        switch (languageType) {
+            case 1:
+                mLanguageTextView.setText(getString(R.string.read_course_language_blend_text));
+                break;
+            case 2:
+                mLanguageTextView.setText(getString(R.string.read_course_language_en_text));
+                break;
+            case 3:
+                mLanguageTextView.setText(getString(R.string.read_course_language_cn_text));
+                break;
+            default:
+                break;
+        }
+
+        mItemAdapter.setLanguageType(languageType);
+        mItemAdapter.notifyDataSetChanged();
+
     }
 
     /**
@@ -330,12 +367,12 @@ public class CoursePlayActivity extends FullScreenActivity {
                     playPosition++;
 
                     if (playPosition > 2) {
-                        mCourseRecyclerView.scrollToPosition(playPosition+2);
+                        mCourseRecyclerView.scrollToPosition(playPosition + 2);
                     }
 
-                    try{
+                    try {
                         Thread.sleep(800);
-                    }catch (InterruptedException e){
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 

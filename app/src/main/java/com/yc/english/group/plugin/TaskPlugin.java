@@ -63,8 +63,8 @@ public class TaskPlugin implements IPluginModule {
         activity = fragment.getActivity();
         String[] permissions = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
         if (PermissionCheckUtil.requestPermissions(fragment, permissions)) {
-//            Intent intent = new Intent(fragment.getActivity(), GroupIssueTaskActivity.class);
-            Intent intent = new Intent(fragment.getActivity(), GroupTaskDetailActivity.class);
+            Intent intent = new Intent(fragment.getActivity(), GroupIssueTaskActivity.class);
+//            Intent intent = new Intent(fragment.getActivity(), GroupTaskDetailActivity.class);
 
             rongExtension.startActivityForPluginResult(intent, 100, this);
         }

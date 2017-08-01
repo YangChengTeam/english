@@ -14,6 +14,16 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
 
     private Context mContext;
 
+    private int languageType = 1;
+
+    public int getLanguageType() {
+        return languageType;
+    }
+
+    public void setLanguageType(int languageType) {
+        this.languageType = languageType;
+    }
+
     public ReadCourseItemClickAdapter(Context mContext, List<EnglishCourseInfo> data) {
         super(data);
         this.mContext = mContext;
@@ -26,6 +36,21 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
         helper.setText(R.id.tv_chinese_title, item.getSubtitlecn())
                 .setText(R.id.tv_english_title, item.getSubtitle())
                 .addOnClickListener(R.id.layout_play);
+
+        switch (languageType) {
+            case 1:
+                helper.setVisible(R.id.tv_chinese_title,true).setVisible(R.id.tv_english_title,true);
+                break;
+            case 2:
+                helper.setVisible(R.id.tv_chinese_title,false).setVisible(R.id.tv_english_title,true);
+                break;
+            case 3:
+                helper.setVisible(R.id.tv_chinese_title,true).setVisible(R.id.tv_english_title,false);
+                break;
+            default:
+                break;
+        }
+
     }
 
 }

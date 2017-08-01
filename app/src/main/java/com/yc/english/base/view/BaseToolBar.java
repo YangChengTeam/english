@@ -42,11 +42,25 @@ public abstract class BaseToolBar extends BaseView {
                 }
             });
         }
+
+        if (backClickListener != null) {
+            mToolbar.setNavigationOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    backClickListener.onClick(v);
+                }
+            });
+        }
     }
 
+    private OnClickListener backClickListener;
+
+    public void setBackOnClickListener(final OnClickListener onClickListener) {
+        backClickListener = onClickListener;
+    }
 
     public void setOnMenuItemClickListener() {
-        if(onItemClickLisener != null) {
+        if (onItemClickLisener != null) {
             mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -64,6 +78,10 @@ public abstract class BaseToolBar extends BaseView {
     public void showNavigationIcon() {
         mToolbar.setNavigationIcon(R.mipmap.base_back);
         isShowNavigationIcon = true;
+    }
+
+    public void clear() {
+        mToolbar.getMenu().clear();
     }
 
     protected boolean hasMenu;
@@ -92,6 +110,10 @@ public abstract class BaseToolBar extends BaseView {
         this.mMenuTitle = mMenuTitle;
     }
 
+    public void setTitleColor(int color) {
+        mTitleTextView.setTextColor(color);
+    }
+
     public boolean isHasMenu() {
         return hasMenu;
     }
@@ -100,12 +122,12 @@ public abstract class BaseToolBar extends BaseView {
         this.onItemClickLisener = onItemClickLisener;
     }
 
-    public  void setMenuTitleColor(int color){
+    public void setMenuTitleColor(int color) {
 
     }
 
     public interface OnItemClickLisener {
-            void onClick();
+        void onClick();
     }
 
 

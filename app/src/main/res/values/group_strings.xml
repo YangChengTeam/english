@@ -32,6 +32,19 @@
     <string name="i_want_to_publish">我要发布</string>
     <string name="grade">快来打个分吧!</string>
     <string name="group">班级</string>
+    <string name="member_count">人数：%1$d</string>
+    <string name="groupId">群号：%1$d</string>
+    <string name="accept">接受</string>
+    <string name="already_add">已添加</string>
+    <string name="friend_verify">好友验证</string>
+
+    <string name="apply_join">申请加入：%1$s</string>
+    <string name="join_verify">加入验证</string>
+    <string name="all_allow">允许所有人加入</string>
+    <string name="all_forbid">不允许任何人加入</string>
+    <string name="verify_join">通过验证才能加入</string>
+
+
 
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>
