@@ -26,7 +26,7 @@ import java.util.zip.ZipFile;
  */
 public class GoagalInfo {
 
-    @JSONField(name = "pub_key")
+    @JSONField(name = "public_key")
     public String publicKey = "-----BEGIN PUBLIC KEY-----\n" +
             "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAunGsieRPZ+jSZaK0hFjC\n" +
             "EwbeoIv6D7sQR8IVCJKzkGklBEAw8hENPz/hyBcvaBjGt6ladFvNMWGdMRMr2QwM\n" +

@@ -97,8 +97,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mGameMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), BookActivity.class);
-                intent.putExtra("tag", "game");
+                Intent intent = new Intent(getActivity(), GroupListJoinActivity.class);
                 startActivity(intent);
             }
         });
