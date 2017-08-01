@@ -13,13 +13,13 @@
         <item name="android:windowExitAnimation">@anim/tdown</item>
     </style>
 
-    <style name="group_btn_blue_style">
+    <style name="group_btn_blue_style" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:background">@drawable/group_btn_blue_bg</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/group_text_16</item>
     </style>
 
-    <style name="group_btn_white_style">
+    <style name="group_btn_white_style"  parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:background">@drawable/group_btn_white_bg</item>
         <item name="android:textColor">@color/group_blue_21b5f8</item>
         <item name="android:textSize">@dimen/group_text_16</item>
