@@ -4,7 +4,8 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
 
-    defaultConfig {git
+
+    defaultConfig {
         minSdkVersion 9
         targetSdkVersion 19
         versionCode 1
@@ -13,7 +14,7 @@ android {
 
     sourceSets {
         main {
-            manifest.srcFile 'AndroidManifest.xml'git
+            manifest.srcFile 'AndroidManifest.xml'
             res.srcDirs = ['res']
             jniLibs.srcDirs = ['libs']
         }
