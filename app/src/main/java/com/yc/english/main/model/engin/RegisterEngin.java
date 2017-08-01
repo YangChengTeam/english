@@ -7,6 +7,7 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.BaseEngin;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.main.model.domain.URLConfig;
+import com.yc.english.main.model.domain.UserInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class RegisterEngin {
     }
 
 
-    public Observable<ResultInfo<String>> register(String mobile, String pwd, String code){
+    public Observable<ResultInfo<UserInfo>> register(String mobile, String pwd, String code){
         Map<String, String> params = new HashMap<>();
         params.put("mobile", mobile);
         params.put("pwd", pwd);

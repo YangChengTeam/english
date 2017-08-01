@@ -62,14 +62,15 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
             }
 
             @Override
-            public void onNext(ResultInfo<UserInfo> resultInfo) {
-                if (!EmptyUtils.isEmpty(resultInfo) && resultInfo.code == HttpConfig.STATUS_OK) {
-                    UserInfoHelper.saveUserInfo(resultInfo.data);
-                    mView.finish();
-                    RxBus.get().post(Constant.MAIN, true);
-                } else {
-                    ToastUtils.showShort(resultInfo.message);
-                }
+            public void onNext(final ResultInfo<UserInfo> resultInfo) {
+                handleResultInfo(resultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        UserInfoHelper.saveUserInfo(resultInfo.data);
+                        RxBus.get().post(Constant.MAIN, true);
+                        mView.finish();
+                    }
+                });
             }
         });
         mSubscriptions.add(subscription);

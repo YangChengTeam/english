@@ -10,7 +10,9 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.contract.RegisterContract;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
+import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.model.engin.RegisterEngin;
 
 import rx.Subscriber;
@@ -54,10 +56,8 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
             }
 
             @Override
-            public void onNext(ResultInfo<String> resultInfo) {
-                if (EmptyUtils.isEmpty(resultInfo) || resultInfo.code != HttpConfig.STATUS_OK) {
-                    ToastUtils.showShort(resultInfo.message);
-                }
+            public void onNext(final ResultInfo<String> resultInfo) {
+                handleResultInfo(resultInfo);
             }
         });
         mSubscriptions.add(subscription);
@@ -81,7 +81,7 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
         }
 
         mView.showLoadingDialog("正在注册, 请稍后");
-        Subscription subscription = mEngin.register(mobile, pwd, code).subscribe(new Subscriber<ResultInfo<String>>() {
+        Subscription subscription = mEngin.register(mobile, pwd, code).subscribe(new Subscriber<ResultInfo<UserInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -93,11 +93,15 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
             }
 
             @Override
-            public void onNext(ResultInfo<String> resultInfo) {
-                if (!EmptyUtils.isEmpty(resultInfo) && resultInfo.code == HttpConfig.STATUS_OK) {
-                    mView.finish();
-                    RxBus.get().post(Constant.MAIN, true);
-                }
+            public void onNext(final ResultInfo<UserInfo> resultInfo) {
+                handleResultInfo(resultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        UserInfoHelper.saveUserInfo(resultInfo.data);
+                        RxBus.get().post(Constant.MAIN, true);
+                        mView.finish();
+                    }
+                });
             }
         });
         mSubscriptions.add(subscription);
