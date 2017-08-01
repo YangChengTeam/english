@@ -2,6 +2,7 @@ package com.yc.english.group.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -17,7 +18,11 @@ import io.rong.imlib.RongIMClient;
 public class ConnectUtils {
     private static final String TAG = "ConnectUtils";
 
+<<<<<<< HEAD
+    public static void contact(final Context context, final TokenInfo tokenInfo) {
+=======
     public static void contact(Context context, final TokenInfo tokenInfo) {
+>>>>>>> 383b22a2c69044a822964dca3f3448dcd3c2146e
         try {
             SPUtils.getInstance().put("TOKEN", tokenInfo.getToken());
             final String packageName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).packageName;//获取包对象信息;)
@@ -42,7 +47,7 @@ public class ConnectUtils {
 
                         //成功保存用户ID
                         SPUtils.getInstance().put("user_id", userid);
-//                        Toast.makeText(GroupCreateActivity.this, "连接成功", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(context, "连接成功", Toast.LENGTH_SHORT).show();
                     }
 
                     /**

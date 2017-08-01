@@ -44,7 +44,6 @@ public class TokenPresenter extends BasePresenter<TokenEngine, TokenContract.Vie
 
     @Override
     public void getToken() {
-
         Subscription subscription = mEngin.getTokenInfo("5").subscribe(new Subscriber<ResultInfo<TokenInfo>>() {
             @Override
             public void onCompleted() {
