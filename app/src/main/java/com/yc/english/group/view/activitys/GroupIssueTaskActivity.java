@@ -1,14 +1,19 @@
 package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
@@ -22,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imkit.plugin.image.PictureSelectorActivity;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
@@ -31,14 +37,14 @@ import rx.functions.Func1;
  */
 
 public class GroupIssueTaskActivity extends FullScreenActivity {
+
+
     @BindView(R.id.m_et_issue_task)
     EditText mEtIssueTask;
     @BindView(R.id.m_iv_issue_picture)
     ImageView mIvIssuePicture;
-    @BindView(R.id.m_iv_issue_result_picture)
-    ImageView mIvIssueResultPicture;
-    @BindView(R.id.m_iv_issue_picture_delete)
-    ImageView mIvIssuePictureDelete;
+    @BindView(R.id.recyclerView_picture)
+    RecyclerView recyclerViewPicture;
     @BindView(R.id.m_iv_issue_voice)
     ImageView mIvIssueVoice;
     @BindView(R.id.m_tv_issue_result_voice)
@@ -51,19 +57,23 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
     TextView mTvIssueResultFileTitle;
     @BindView(R.id.m_iv_issue_file_delete)
     ImageView mIvIssueFileDelete;
+    @BindView(R.id.m_tv_sync_group)
+    TextView mTvSyncGroup;
+
+    @BindView(R.id.m_tv_sync_count)
+    TextView mTvSyncCount;
 
     @BindView(R.id.m_btn_submit)
     Button mBtnSubmit;
-    @BindView(R.id.m_tv_sync_group)
-    TextView mTvSyncGroup;
-    @BindView(R.id.m_tv_sync_count)
-    TextView mTvSyncCount;
 
     @Override
     public void init() {
         mToolbar.setTitle(getResources().getString(R.string.issue_task));
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitle(getString(R.string.all_task));
+        recyclerViewPicture.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+
         initListener();
     }
 
@@ -102,12 +112,17 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
         return R.layout.group_activity_issue_task;
     }
 
-    @OnClick({R.id.m_rl_async_to_other})
+    @OnClick({R.id.m_rl_async_to_other, R.id.m_iv_issue_picture})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.m_rl_async_to_other:
                 startActivityForResult(new Intent(this, GroupSyncListActivity.class), 200);
                 break;
+            case R.id.m_iv_issue_picture:
+                startActivityForResult(new Intent(this, PictureSelectorActivity.class), 300);
+                break;
+
+
         }
 
     }
@@ -119,9 +134,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
 
             ArrayList<ClassInfo> classInfoList = data.getParcelableArrayListExtra("selectedList");
 
-
             if (classInfoList != null && classInfoList.size() > 0) {
-
                 mTvSyncCount.setText(String.valueOf(classInfoList.size()));
                 mTvSyncCount.setVisibility(View.VISIBLE);
 
@@ -130,7 +143,26 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
             }
 
         }
+
+        if (requestCode == 300 && resultCode == -1 && data != null) {
+
+            ArrayList<Uri> list = data.getParcelableArrayListExtra("android.intent.extra.RETURN_RESULT");
+            if (list != null && list.size() > 0) {
+//                mIvIssueResultPicture.setImageURI(list.get(0));
+            }
+
+            LogUtils.e(list);
+
+        }
+
+
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }
