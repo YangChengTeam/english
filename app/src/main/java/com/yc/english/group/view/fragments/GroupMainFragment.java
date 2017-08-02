@@ -18,8 +18,8 @@ import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupListContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.presenter.GroupListPresenter;
-import com.yc.english.group.view.activitys.GroupCreateActivity;
-import com.yc.english.group.view.activitys.GroupJoinActivity;
+import com.yc.english.group.view.activitys.teacher.GroupCreateActivity;
+import com.yc.english.group.view.activitys.student.GroupJoinActivity;
 import com.yc.english.group.view.activitys.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 

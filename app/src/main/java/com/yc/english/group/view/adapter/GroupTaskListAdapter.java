@@ -10,7 +10,7 @@ import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.group.model.bean.TaskItem;
-import com.yc.english.group.view.activitys.GroupTaskItemActivity;
+import com.yc.english.group.view.activitys.teacher.GroupTaskFinishAndUnfinshActivity;
 
 import java.util.List;
 
@@ -104,7 +104,7 @@ public class GroupTaskListAdapter extends BaseAdapter<TaskItem> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, GroupTaskItemActivity.class));
+                mContext.startActivity(new Intent(mContext, GroupTaskFinishAndUnfinshActivity.class));
             }
         });
 

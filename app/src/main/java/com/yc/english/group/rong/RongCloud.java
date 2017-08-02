@@ -19,8 +19,6 @@ import com.yc.english.group.rong.methods.Wordfilter;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-
-
 public class RongCloud {
 
 	private static ConcurrentHashMap<String, RongCloud> rongCloud = new ConcurrentHashMap<String,RongCloud>();

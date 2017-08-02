@@ -1,27 +1,20 @@
 package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.common.GroupApp;
-import com.yc.english.group.contract.GroupListContract;
 import com.yc.english.group.dao.ClassInfoDao;
 import com.yc.english.group.model.bean.ClassInfo;
-import com.yc.english.group.presenter.GroupListPresenter;
-import com.yc.english.group.rong.methods.Group;
 import com.yc.english.group.rong.models.GroupInfo;
-
-import java.util.List;
-
-import butterknife.BindView;
-import io.rong.imkit.fragment.ConversationFragment;
+import com.yc.english.group.view.activitys.teacher.GroupMemberActivity;
 
 
 /**

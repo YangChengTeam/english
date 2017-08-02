@@ -86,8 +86,4 @@ dependencies {
     compile files('libs/Sunflower.jar')
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.facebook.stetho:stetho:1.5.0'
-
-
-    compile project(':CallKit')
-    compile project(':CallLib')
 }

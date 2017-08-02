@@ -5,17 +5,13 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.yc.english.R;
-import com.yc.english.group.view.activitys.GroupIssueTaskActivity;
-import com.yc.english.group.view.activitys.GroupMyTaskListActivity;
-import com.yc.english.group.view.activitys.GroupPublishTaskListActivity;
+import com.yc.english.group.view.activitys.student.GroupMyTaskListActivity;
 
 import io.rong.imkit.RongExtension;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.plugin.IPluginModule;
-import io.rong.imkit.utilities.PermissionCheckUtil;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;

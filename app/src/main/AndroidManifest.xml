@@ -56,10 +56,10 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <activity
-            android:name=".group.view.activitys.GroupCreateActivity"
+            android:name=".group.view.activitys.teacher.GroupCreateActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".group.view.activitys.GroupJoinActivity" />
+        <activity android:name=".group.view.activitys.student.GroupJoinActivity" />
 
         <!--会话界面-->
         <activity
@@ -99,22 +99,22 @@
             android:name=".group.view.activitys.FileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".group.view.activitys.GroupMemberActivity" />
-        <activity android:name=".group.view.activitys.GroupManagerActivity" />
-        <activity android:name=".group.view.activitys.GroupChangeNameActivity" />
-        <activity android:name=".group.view.activitys.GroupDeleteMemberActivity" />
-        <activity android:name=".group.view.activitys.GroupTransferActivity" />
-        <activity android:name=".group.view.activitys.GroupIssueTaskActivity" />
-        <activity android:name=".group.view.activitys.GroupSyncListActivity" />
-        <activity android:name=".group.view.activitys.GroupMyTaskDetailActivity" />
-        <activity android:name=".group.view.activitys.GroupPublishTaskListActivity" />
-        <activity android:name=".group.view.activitys.GroupTaskItemActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupMemberActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupManagerActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupChangeNameActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupDeleteMemberActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupTransferActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupIssueTaskActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupSyncGroupListActivity" />
+        <activity android:name=".group.view.activitys.student.GroupMyTaskDetailActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupPublishTaskListActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupTaskFinishAndUnfinshActivity" />
         <activity android:name=".group.view.activitys.GroupVerifyActivity" />
-        <activity android:name=".group.view.activitys.GroupVerifyConditionActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupVerifyConditionActivity" />
         <activity android:name=".group.view.activitys.GroupListJoinActivity" />
-        <activity android:name=".group.view.activitys.GroupTaskFinishDetailActivity" />
-        <activity android:name=".group.view.activitys.GroupTaskItemLookActivity" />
-        <activity android:name=".group.view.activitys.GroupMyTaskListActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupTaskFinishDetailActivity" />
+        <activity android:name=".group.view.activitys.student.GroupMyTaskListActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupTaskLookAndUnLookActivity"/>
 
         <receiver
             android:name=".group.view.receiver.GroupNotificationReceiver"

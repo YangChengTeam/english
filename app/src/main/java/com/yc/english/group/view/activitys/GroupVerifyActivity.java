@@ -15,6 +15,7 @@ import butterknife.BindView;
 
 /**
  * Created by wanglin  on 2017/7/29 11:58.
+ * 好友验证
  */
 
 public class GroupVerifyActivity extends FullScreenActivity {
