@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.yc.english.R;
 import com.yc.english.group.view.activitys.GroupPublishTaskListActivity;
 import com.yc.english.group.view.activitys.GroupTaskItemActivity;
+import com.yc.english.group.view.activitys.GroupTaskItemLookActivity;
 
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
@@ -71,11 +72,9 @@ public class CustomMessageProvider extends IContainerItemProvider.MessageProvide
     public void onItemClick(View view, int position, RichContentMessage richContentMessage, UIMessage uiMessage) {
 //        ToastUtils.showShort(richContentMessage.getContent());
         LogUtils.e(position);
-        Intent intent = new Intent(mContext, GroupTaskItemActivity.class);
+        Intent intent = new Intent(mContext, GroupTaskItemLookActivity.class);
 //        rongExtension.startActivityForPluginResult(intent,200,this);
         mContext.startActivity(intent);
-
-
 
     }
 

@@ -1,14 +1,10 @@
 package com.yc.english.group.view.activitys;
 
-import android.content.pm.PackageManager;
-import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
@@ -16,33 +12,28 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupCreateContract;
-import com.yc.english.group.contract.TokenContract;
 import com.yc.english.group.dao.ClassInfoDao;
 import com.yc.english.group.model.bean.ClassInfo;
-import com.yc.english.group.model.bean.TokenInfo;
 import com.yc.english.group.presenter.GroupCreatePresenter;
-import com.yc.english.group.presenter.TokenPresenter;
 import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
  * Created by wanglin  on 2017/7/24 18:36.
  */
 
-public class GroupCreateActivity extends FullScreenActivity<TokenPresenter> implements TokenContract.View {
+public class GroupCreateActivity extends FullScreenActivity<GroupCreatePresenter> implements GroupCreateContract.View {
 
     private static final String TAG = "GroupCreateActivity";
     @BindView(R.id.et_class_group)
@@ -57,12 +48,14 @@ public class GroupCreateActivity extends FullScreenActivity<TokenPresenter> impl
 
     @Override
     public void init() {
-        mPresenter = new TokenPresenter(this, this);
-//        mPresenter = new GroupCreatePresenter(this, this);
+
+        mPresenter = new GroupCreatePresenter(this, this);
 
         mToolbar.showNavigationIcon();
         mToolbar.setTitle(getResources().getString(R.string.create_group));
         classInfoDao = GroupApp.getmDaoSession().getClassInfoDao();
+
+        initListener();
 
 //        ImUtils.login(username, GoagalInfo.get().uuid, userPorait).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
 //            @Override
@@ -82,152 +75,29 @@ public class GroupCreateActivity extends FullScreenActivity<TokenPresenter> impl
 //        });
     }
 
+    private void initListener() {
+        LogUtils.e(TAG, "initListener:" + UserInfoHelper.getUserInfo().getUid());
+
+        RxView.clicks(btnCreate).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                mPresenter.createGroup(UserInfoHelper.getUserInfo().getUid(), etClassGroup.getText().toString().trim(), "");
+            }
+        });
+
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.group_activity_create_class;
     }
 
 
-    public void click(final String user_id) {
 
-        RxView.clicks(btnCreate).filter(new Func1<Void, Boolean>() {
-
-            @Override
-            public Boolean call(Void aVoid) {
-                ToastUtils.showShort("请输入班级名称...");
-                return !TextUtils.isEmpty(etClassGroup.getText().toString().trim());
-            }
-        }).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                createGroup(etClassGroup.getText().toString().trim(), user_id);
-            }
-        });
-    }
-
-    private boolean isExist;
-
-    /**
-     * 创建班级
-     */
-    private void createGroup(final String groupName, String user_id) {
-        String otherId = null;
-        if (user_id.equals("1")) {
-            otherId = "5";
-        } else if (user_id.equals("5")) {
-            otherId = "1";
-        }
-
-        final String[] userIds = new String[]{user_id, otherId};
-        final int groupId = new Random().nextInt(1000000);
-
-        ImUtils.createGroup(userIds, groupId + "", groupName).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<CodeSuccessResult>() {
-                    @Override
-                    public void call(CodeSuccessResult codeSuccessResult) {
-                        if (codeSuccessResult.getCode() == 200) {
-
-                            Observable.just("").subscribeOn(Schedulers.io()).subscribe(new Action1<String>() {
-                                private ClassInfo info;
-
-                                @Override
-                                public void call(String s) {
-                                    List<ClassInfo> classInfos = classInfoDao.queryBuilder().build().list();
-                                    if (classInfos != null && classInfos.size() > 0) {
-                                        for (ClassInfo classInfo : classInfos) {
-                                            if (classInfo.getGroupId() == groupId) {
-                                                isExist = true;
-                                                break;
-                                            }
-                                        }
-                                        if (!isExist) {
-                                            info = new ClassInfo("", groupName, userIds.length, groupId);
-                                            classInfoDao.insert(info);
-                                        }
-                                    } else {
-                                        info = new ClassInfo("", groupName, userIds.length, groupId);
-                                        classInfoDao.insert(info);
-                                    }
-                                    RxBus.get().post(BusAction.GROUPLIST, "xx");
-                                }
-                            });
-
-                            finish();
-//                            ImUtils.queryGroup(groupId + "").observeOn(AndroidSchedulers.mainThread())
-//                                    .subscribe(new Action1<GroupUserQueryResult>() {
-//                                        @Override
-//                                        public void call(GroupUserQueryResult groupUserQueryResult) {
-//                                            LogUtils.e(TAG, "call: " + groupUserQueryResult.toString());
-//                                        }
-//                                    });
-
-
-                        }
-                    }
-                });
-
-    }
-
-    /**
-     * <p>连接服务器，在整个应用程序全局，只需要调用一次，需在 {@link #} 之后调用。</p>
-     * <p>如果调用此接口遇到连接失败，SDK 会自动启动重连机制进行最多10次重连，分别是1, 2, 4, 8, 16, 32, 64, 128, 256, 512秒后。
-     * 在这之后如果仍没有连接成功，还会在当检测到设备网络状态变化时再次进行重连。</p>
-     *
-     * @param tokenInfo 从服务端获取的用户身份令牌（Token）。
-     * @param
-     * @return RongIM  客户端核心类的实例。
-     */
     @Override
-    public void contact(final TokenInfo tokenInfo) {
-        try {
-            SPUtils.getInstance().put("TOKEN", tokenInfo.getToken());
-            final String packageName = getPackageManager().getPackageInfo(getPackageName(), 0).packageName;//获取包对象信息;)
-            if (getApplicationInfo().packageName.equals(packageName)) {
-                RongIM.connect(tokenInfo.getToken(), new RongIMClient.ConnectCallback() {
-
-                    /**
-                     * Token 错误。可以从下面两点检查 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
-                     *                  2.  token 对应的 appKey 和工程里设置的 appKey 是否一致
-                     */
-                    @Override
-                    public void onTokenIncorrect() {
-                        LogUtils.e(TAG, "onTokenIncorrect: ");
-                    }
-
-                    /**
-                     * 连接融云成功
-                     * @param userid 当前 token 对应的用户 id
-                     */
-                    @Override
-                    public void onSuccess(String userid) {
-
-                        click(userid);
-
-
-                        LogUtils.d(TAG, "--onSuccess ---  " + userid);
-                        Toast.makeText(GroupCreateActivity.this, "连接成功", Toast.LENGTH_SHORT).show();
-                    }
-
-                    /**
-                     * 连接融云失败
-                     * @param errorCode 错误码，可到官网 查看错误码对应的注释
-                     */
-                    @Override
-                    public void onError(RongIMClient.ErrorCode errorCode) {
-                        LogUtils.e(TAG, "onError: " + errorCode.getMessage());
-
-                    }
-                });
-            }
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+    public void showCreateResult(ClassInfo data) {
+        LogUtils.e(data.getGroupId());
     }
 
 
-//    @Override
-//    public void showCreateResult(ClassInfo data) {
-//
-//    }
 }

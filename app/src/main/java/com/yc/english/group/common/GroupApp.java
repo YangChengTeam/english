@@ -49,17 +49,16 @@ public class GroupApp {
              * IMKit SDK调用第一步 初始化
              */
             RongIM.init(application);
-            setMyExtensionModule();
             RongIM.registerMessageType(CustomMessage.class);
             RongIM.getInstance().registerMessageTemplate(new CustomMessageProvider());
         }
-        RongIMClient.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
-            @Override
-            public boolean onReceived(Message message, int i) {
-                LogUtils.e(TAG, "onReceived: " + message.getContent());
-                return true;
-            }
-        });
+//        RongIMClient.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
+//            @Override
+//            public boolean onReceived(Message message, int i) {
+//                LogUtils.e(TAG, "onReceived: " + message.getContent());
+//                return true;
+//            }
+//        });
 
         setDatabase(application);
         Stetho.initializeWithDefaults(application);
@@ -89,7 +88,7 @@ public class GroupApp {
         return null;
     }
 
-    private static void setMyExtensionModule() {
+    public static void setMyExtensionModule(boolean isMaster) {
         List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
         IExtensionModule defaultModule = null;
         if (moduleList != null) {
@@ -101,7 +100,7 @@ public class GroupApp {
             }
             if (defaultModule != null) {
                 RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule);
-                RongExtensionManager.getInstance().registerExtensionModule(new GroupExtensionModule());
+                RongExtensionManager.getInstance().registerExtensionModule(new GroupExtensionModule(isMaster));
             }
         }
     }

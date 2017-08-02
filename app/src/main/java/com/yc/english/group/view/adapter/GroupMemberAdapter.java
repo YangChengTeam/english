@@ -38,7 +38,7 @@ public class GroupMemberAdapter extends BaseAdapter<GroupMemberInfo> {
         holder.setText(R.id.tv_member_name, groupMemberInfo.getName());
 //        holder.setImageUrl(mContext,R.id.iv_member_img,groupMemberInfo.getImgUrl());
         holder.setImageBitmap(R.id.iv_member_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.portial)));
-        holder.setText(R.id.tv_member_owner, groupMemberInfo.isGroupOwner() ? "群主" : "");
+        holder.setText(R.id.tv_member_owner, groupMemberInfo.isGroupOwner() ? "老师" : "");
         String firstLetter = PinyinUtils.getSurnameFirstLetter(groupMemberInfo.getName());
 
         holder.setText(R.id.tv_first_word, firstLetter.toUpperCase());

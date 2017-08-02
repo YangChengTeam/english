@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.group.contract.GroupListContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.GroupMemberInfo;
@@ -93,6 +94,8 @@ public class GroupMemberActivity extends FullScreenActivity<GroupListPresenter> 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_share_group:
+                SharePopupWindow sharePopupWindow =new SharePopupWindow(this);
+                sharePopupWindow.show(getWindow().getDecorView());
 
                 break;
         }

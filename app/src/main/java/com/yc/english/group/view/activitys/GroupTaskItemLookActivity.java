@@ -25,10 +25,10 @@ import butterknife.BindView;
 
 /**
  * Created by wanglin  on 2017/7/28 12:55.
- * 已完成 未完成
+ * 已查阅 未查阅
  */
 
-public class GroupTaskItemActivity extends FullScreenActivity {
+public class GroupTaskItemLookActivity extends FullScreenActivity {
     @BindView(R.id.m_tv_issue_time)
     TextView mTvIssueTime;
     @BindView(R.id.m_ll_task_detail)
@@ -45,7 +45,7 @@ public class GroupTaskItemActivity extends FullScreenActivity {
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitle(getString(R.string.all_task));
         CommonNavigator commonNavigator = new CommonNavigator(this);
-        commonNavigator.setAdapter(new CommonAdapter(this, 1, mViewPager, 3, 17));
+        commonNavigator.setAdapter(new CommonAdapter(this, 2, mViewPager, 3, 17));
 
         commonNavigator.setAdjustMode(true);
         mMagicIndicator.setNavigator(commonNavigator);
@@ -65,7 +65,7 @@ public class GroupTaskItemActivity extends FullScreenActivity {
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
-                Intent intent = new Intent(GroupTaskItemActivity.this, GroupPublishTaskListActivity.class);
+                Intent intent = new Intent(GroupTaskItemLookActivity.this, GroupPublishTaskListActivity.class);
 //        rongExtension.startActivityForPluginResult(intent,200,this);
                 startActivity(intent);
             }

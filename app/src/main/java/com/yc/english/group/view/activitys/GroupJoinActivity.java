@@ -1,5 +1,6 @@
 package com.yc.english.group.view.activitys;
 
+import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,8 +21,10 @@ import com.kk.securityhttp.domain.GoagalInfo;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.common.GroupApp;
+import com.yc.english.group.contract.GroupJoinContract;
 import com.yc.english.group.dao.ClassInfoDao;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.presenter.GroupJoinPresenter;
 import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.GroupUser;
@@ -49,7 +52,7 @@ import rx.schedulers.Schedulers;
  * Created by wanglin  on 2017/7/25 08:30.
  */
 
-public class GroupJoinActivity extends FullScreenActivity {
+public class GroupJoinActivity extends FullScreenActivity<GroupJoinPresenter> implements GroupJoinContract.View {
     private static final String TAG = "GroupJoinActivity";
     @BindView(R.id.et_class_group)
     EditText etClassGroup;
@@ -71,7 +74,10 @@ public class GroupJoinActivity extends FullScreenActivity {
 
     @Override
     public void init() {
+        mPresenter = new GroupJoinPresenter(this, this);
         mToolbar.showNavigationIcon();
+        mToolbar.setTitle(getString(R.string.group_join_class));
+
         roundView.setImageBitmap(ImageUtils.toRound(BitmapFactory.decodeResource(getResources(), R.mipmap.portial)));
         initListener();
     }
@@ -91,7 +97,6 @@ public class GroupJoinActivity extends FullScreenActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 showOrHideView(s);
-
             }
         });
 
@@ -106,7 +111,8 @@ public class GroupJoinActivity extends FullScreenActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_join:
-                joinGroup(currentGroupId + "", tvClassName.getText().toString());
+                String groupId = etClassGroup.getText().toString();
+                mPresenter.joinGroup(groupId + "", tvClassName.getText().toString());
                 break;
             case R.id.ib_delete:
                 etClassGroup.setText("");
@@ -132,8 +138,6 @@ public class GroupJoinActivity extends FullScreenActivity {
 
     }
 
-    private int currentGroupId;
-
     /**
      * 根据群号查询班群
      *
@@ -147,7 +151,7 @@ public class GroupJoinActivity extends FullScreenActivity {
             public void call(Integer integer) {
                 ClassInfo classInfo = infoDao.queryBuilder().where(ClassInfoDao.Properties.GroupId.eq(integer)).unique();
                 if (classInfo != null) {
-                    currentGroupId = groupId;
+
                     tvClassName.setText(classInfo.getClassName());
                     llClassName.setVisibility(View.VISIBLE);
                     btnJoin.setVisibility(View.VISIBLE);
@@ -162,60 +166,11 @@ public class GroupJoinActivity extends FullScreenActivity {
         });
     }
 
-    public void joinGroup(final String groupId, final String groupName) {
-        final String[] userIds = new String[]{GoagalInfo.get().uuid};
 
-        ContactNotificationMessage contactNotificationMessage = ContactNotificationMessage.obtain(ContactNotificationMessage.CONTACT_OPERATION_REQUEST, "", groupId, "加一下好友");
-        Message message = Message.obtain(groupId, null, contactNotificationMessage);
-
-        RongIM.getInstance().sendMessage(message, null, null, new IRongCallback.ISendMessageCallback() {
-
-
-            @Override
-            public void onAttached(Message message) {
-
-            }
-
-            @Override
-            public void onSuccess(Message message) {
-                LogUtils.e(message.getContent());
-            }
-
-            @Override
-            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-
-            }
-        });
-
-
-//        ImUtils.queryGroup(groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<GroupUserQueryResult>() {
-//            @Override
-//            public void call(GroupUserQueryResult groupUserQueryResult) {
-//                if (groupUserQueryResult.getCode() == 200) {
-//                    final List<GroupUser> users = groupUserQueryResult.getUsers();
-//                    ImUtils.joinGroup(userIds, groupId, groupName).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<CodeSuccessResult>() {
-//                        @Override
-//                        public void call(CodeSuccessResult codeSuccessResult) {
-//                            if (codeSuccessResult.getCode() == 200) {//加入成功
-//
-//                                ToastUtils.showShort("加入成功");
-//                                RongIM.getInstance().startGroupChat(GroupJoinActivity.this, groupId, groupName);
-//
-//                                ClassInfo info = new ClassInfo("", groupName, users.size(), Integer.parseInt(groupId));
-//                                infoDao.insert(info);
-//
-//                            }
-//                        }
-//                    });
-//
-//
-//                } else {
-//                    ToastUtils.showShort("没有该群组，请重新输入");
-//                }
-//            }
-//        });
-
+    @Override
+    public void startGroupChat(String groupId, String groupName) {
+        GroupApp.setMyExtensionModule(false);
+        RongIM.getInstance().startGroupChat(this, groupId, groupName);
+        finish();
     }
-
-
 }

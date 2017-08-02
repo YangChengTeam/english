@@ -18,11 +18,18 @@ import io.rong.imlib.RongIMClient;
 public class ConnectUtils {
     private static final String TAG = "ConnectUtils";
 
-<<<<<<< HEAD
+
+    /**
+     * <p>连接服务器，在整个应用程序全局，只需要调用一次，需在 {@link #} 之后调用。</p>
+     * <p>如果调用此接口遇到连接失败，SDK 会自动启动重连机制进行最多10次重连，分别是1, 2, 4, 8, 16, 32, 64, 128, 256, 512秒后。
+     * 在这之后如果仍没有连接成功，还会在当检测到设备网络状态变化时再次进行重连。</p>
+     *
+     * @param tokenInfo 从服务端获取的用户身份令牌（Token）。
+     * @param
+     * @return RongIM  客户端核心类的实例。
+     */
     public static void contact(final Context context, final TokenInfo tokenInfo) {
-=======
-    public static void contact(Context context, final TokenInfo tokenInfo) {
->>>>>>> 383b22a2c69044a822964dca3f3448dcd3c2146e
+
         try {
             SPUtils.getInstance().put("TOKEN", tokenInfo.getToken());
             final String packageName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).packageName;//获取包对象信息;)
@@ -47,7 +54,8 @@ public class ConnectUtils {
 
                         //成功保存用户ID
                         SPUtils.getInstance().put("user_id", userid);
-                       Toast.makeText(context, "连接成功", Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(context, "连接成功", Toast.LENGTH_SHORT).show();
                     }
 
                     /**

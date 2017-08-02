@@ -6,7 +6,7 @@
     <string name="join_group">加入班群</string>
     <string name="homework">家庭作业</string>
     <string name="share_group">分享班群邀请同学</string>
-    <string name="resolving_group">解算班群</string>
+    <string name="resolving_group">解散班群</string>
     <string name="group_manager">班群管理</string>
     <string name="confirm">确认</string>
     <string name="submit">提交</string>
@@ -44,12 +44,18 @@
     <string name="all_forbid">不允许任何人加入</string>
     <string name="verify_join">通过验证才能加入</string>
     <string name="teacher_education">名师辅导</string>
+    <string name="task">作业</string>
 
 
 
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>
         <item>未完成（%1$d）</item>
+    </string-array>
+    <string-array name="task_look">
+        <item>已查阅（%1$d）</item>
+        <item>未查阅（%1$d）</item>
+
     </string-array>
 
 

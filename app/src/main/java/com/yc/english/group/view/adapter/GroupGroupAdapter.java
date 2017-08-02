@@ -2,12 +2,14 @@ package com.yc.english.group.view.adapter;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.ImageUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
+import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.model.bean.ClassInfo;
 
 import java.util.List;
@@ -28,12 +30,19 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
         final ClassInfo classInfo = mList.get(position);
         holder.setImageBitmap(R.id.m_iv_group_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.portial)));
         holder.setText(R.id.m_tv_group_name, classInfo.getClassName());
-        holder.setText(R.id.m_tv_member_count, String.format(mContext.getString(R.string.member_count), classInfo.getCount()));
+        holder.setText(R.id.m_tv_member_count, String.format(mContext.getString(R.string.member_count), Integer.parseInt(classInfo.getCount())));
         holder.setText(R.id.m_tv_group_number, String.format(mContext.getString(R.string.groupId), classInfo.getGroupId()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!TextUtils.isEmpty(classInfo.getMaster_id())) {
+
+                    GroupApp.setMyExtensionModule(true);
+                } else {
+                    GroupApp.setMyExtensionModule(false);
+                }
                 RongIM.getInstance().startGroupChat(mContext, classInfo.getGroupId() + "", classInfo.getClassName());
             }
         });
