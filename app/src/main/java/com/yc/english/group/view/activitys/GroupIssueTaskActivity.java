@@ -147,7 +147,6 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
 
             ArrayList<Uri> list = data.getParcelableArrayListExtra("android.intent.extra.RETURN_RESULT");
 
-
             if (list != null && list.size() > 0) {
                 adapter.setData(list);
                 recyclerViewPicture.setVisibility(View.VISIBLE);
@@ -156,14 +155,6 @@ public class GroupIssueTaskActivity extends FullScreenActivity {
             }
         }
 
-
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

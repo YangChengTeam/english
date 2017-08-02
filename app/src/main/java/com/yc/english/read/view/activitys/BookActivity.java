@@ -56,7 +56,16 @@ public class BookActivity extends FullScreenActivity {
             viewType = bundle.getInt("view_type",1);
         }
 
-        mToolbar.setTitle(viewType == 1 ? getString(R.string.read_book_text) : getString(R.string.word_book_text));
+        String titleName = getString(R.string.read_book_text);
+        if(viewType == 1){
+            titleName = getString(R.string.read_book_text);
+        }else if(viewType == 2){
+            titleName = getString(R.string.word_book_text);
+        }else{
+            titleName = getString(R.string.word_game_text);
+        }
+
+        mToolbar.setTitle(titleName);
         mToolbar.showNavigationIcon();
 
         mBookRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
@@ -67,16 +76,20 @@ public class BookActivity extends FullScreenActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtils.e("position --->" + position);
-                if (position == 0) {
-                    Intent intent = new Intent(BookActivity.this, AddBookActivity.class);
-                    startActivity(intent);
-                } else {
-                    if(viewType == 1){
-                        Intent intent = new Intent(BookActivity.this, BookUnitActivity.class);
+
+                if(!mItemAdapter.getEditState()){
+                    if (position == 0) {
+                        Intent intent = new Intent(BookActivity.this, AddBookActivity.class);
                         startActivity(intent);
-                    }else{
-                        Intent intent = new Intent(BookActivity.this, WordUnitActivity.class);
-                        startActivity(intent);
+                    } else {
+                        if(viewType == 1){
+                            Intent intent = new Intent(BookActivity.this, BookUnitActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Intent intent = new Intent(BookActivity.this, WordUnitActivity.class);
+                            intent.putExtra("view_type",viewType);
+                            startActivity(intent);
+                        }
                     }
                 }
             }
@@ -86,7 +99,7 @@ public class BookActivity extends FullScreenActivity {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 mBookDatas.remove(position);
-                mItemAdapter.setEditState(false);
+                //mItemAdapter.setEditState(false);
                 mItemAdapter.notifyDataSetChanged();
                 return false;
             }
@@ -106,7 +119,13 @@ public class BookActivity extends FullScreenActivity {
     @OnClick(R.id.btn_edit_books)
     public void editBooks() {
         boolean editState = mItemAdapter.getEditState();
+
         mItemAdapter.setEditState(!editState);
         mItemAdapter.notifyDataSetChanged();
+        if(mItemAdapter.getEditState()){
+            mEditBooksButton.setText(getString(R.string.read_book_edit_done_text));
+        }else{
+            mEditBooksButton.setText(getString(R.string.read_book_edit_text));
+        }
     }
 }

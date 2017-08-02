@@ -7,7 +7,10 @@ import android.util.Log;
 
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.LogUtils;
+
 import com.blankj.utilcode.util.Utils;
+import com.iflytek.cloud.SpeechUtility;
+
 import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.PathUtils;
@@ -32,6 +35,9 @@ public class EnglishApp extends Application {
         super.onCreate();
         GroupApp.init(this);
         Utils.init(this);
+
+        SpeechUtility.createUtility(EnglishApp.this, "appid=" + getString(R.string.app_id));
+
         init();
     }
 

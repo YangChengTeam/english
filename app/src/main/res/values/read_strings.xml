@@ -1,4 +1,8 @@
 <resources>
+
+    <!-- 科大讯飞APPID -->
+    <string name="app_id">59770caa</string>
+
     <!--read-values-->
     <string name="read_next_unit_course_text">下一单元</string>
     <string name="read_course_play_text">播放</string>
@@ -11,6 +15,7 @@
     <string name="read_book_text">教材选择</string>
     <string name="read_my_book_text">我的教材</string>
     <string name="read_book_edit_text">编辑</string>
+    <string name="read_book_edit_done_text">完成</string>
 
     <string name="read_study_grade_text">在读年级</string>
     <string name="read_book_version_text">教材版本</string>
@@ -58,6 +63,7 @@
     <!--word-->
     <string name="word_book_text">单词宝典</string>
     <string name="word_book_change_text">教材切换</string>
+    <string name="word_game_text">趣味闯关</string>
 
     <string name="read_word_check_text">检查</string>
     <string name="read_word_right_text">太棒了，你答对了!</string>

@@ -22,6 +22,16 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
 
     private Context mContext;
 
+    public interface ItemDetailClick {
+        public void detailClick(int position);
+    }
+
+    ItemDetailClick itemDetailClick;
+
+    public void setItemDetailClick(ItemDetailClick itemDetailClick) {
+        this.itemDetailClick = itemDetailClick;
+    }
+
     public ReadWordItemClickAdapter(Context mContext, List<MultiItemEntity> data) {
         super(data);
         this.mContext = mContext;
@@ -35,7 +45,10 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
             case TYPE_LEVEL_0:
 
                 final WordInfo wordInfo = (WordInfo) item;
-                helper.setText(R.id.tv_word_number, (helper.getAdapterPosition() + 1) + "").setText(R.id.tv_en_word, wordInfo.getWordName()).setText(R.id.tv_cn_word, wordInfo.getWordCnName());
+                helper.setText(R.id.tv_word_number, (helper.getAdapterPosition() + 1) + "")
+                        .setText(R.id.tv_en_word, wordInfo.getWord())
+                        .setText(R.id.tv_cn_word, wordInfo.getMeans())
+                        .addOnClickListener(R.id.layout_read_word_audio);
                 int pos = helper.getAdapterPosition();
                 if (wordInfo.isExpanded()) {
                     helper.itemView.setBackgroundResource(R.mipmap.read_word_item_selected);
@@ -61,6 +74,14 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
             case TYPE_LEVEL_1:
                 final WordDetailInfo wordDetailInfo = (WordDetailInfo) item;
                 helper.setText(R.id.tv_en_word_detail, wordDetailInfo.getWordExample()).setText(R.id.tv_cn_word_detail, wordDetailInfo.getWordCnExample());
+
+                helper.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemDetailClick.detailClick(helper.getAdapterPosition());
+                    }
+                });
+
                 break;
         }
     }

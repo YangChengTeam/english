@@ -30,6 +30,7 @@ public class GroupListJoinActivity extends FullScreenActivity<GroupListPresenter
     public void init() {
         mPresenter = new GroupListPresenter(this, this);
         mToolbar.setTitle(getString(R.string.teacher_education));
+        mToolbar.showNavigationIcon();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, null);
