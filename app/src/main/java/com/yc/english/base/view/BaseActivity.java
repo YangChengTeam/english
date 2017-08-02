@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.RxBus;
+import com.kk.utils.UIUitls;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.base.presenter.BasePresenter;
 
@@ -16,8 +17,9 @@ import butterknife.ButterKnife;
  * Created by zhangkai on 2017/7/17.
  */
 
-public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IView {
+public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IView, IDialog {
     protected P mPresenter;
+    private LoadingDialog mLoadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,13 +27,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         RxBus.get().register(this);
         setContentView(getLayoutId());
 
+        mLoadingDialog = new LoadingDialog(this);
         try {
             ButterKnife.bind(this);
         } catch (Exception e) {
             e.printStackTrace();
             LogUtils.i(this.getClass().getSimpleName() + " ButterKnife->初始化失败 原因:" + e);
         }
-
         init();
     }
 
@@ -61,5 +63,21 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         }
     }
 
+
+    @Override
+    public void showLoadingDialog(String msg) {
+        mLoadingDialog.setMessage(msg);
+        mLoadingDialog.show();
+    }
+
+    @Override
+    public void dismissLoadingDialog() {
+        UIUitls.post(new Runnable() {
+            @Override
+            public void run() {
+                mLoadingDialog.dismiss();
+            }
+        });
+    }
 
 }

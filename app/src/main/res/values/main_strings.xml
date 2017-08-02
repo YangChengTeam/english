@@ -18,12 +18,12 @@
 
     <string name="main_read">教材点读</string>
     <string name="main_task">在线作业</string>
-    <string name="main_game">趣味闯关</string>
+    <string name="main_game">名师辅导</string>
     <string name="main_word">单词宝典</string>
 
     <string name="main_read_desc">教材随心读 学习好帮手</string>
-    <string name="main_task_desc">名师手牵手 学习成绩佳</string>
-    <string name="main_game_desc">游戏学单词 拼读强记忆</string>
+    <string name="main_task_desc">听说读写背 学习成绩佳</string>
+    <string name="main_game_desc">教材同步行 助学考高分</string>
     <string name="main_word_desc">闯关学单词 理解记句型</string>
 
 

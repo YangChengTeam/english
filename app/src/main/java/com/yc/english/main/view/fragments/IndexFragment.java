@@ -15,6 +15,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SharePopupWindow;
+import com.yc.english.group.view.activitys.GroupListJoinActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.presenter.IndexPresenter;
@@ -96,9 +97,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mGameMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), BookActivity.class);
-                intent.putExtra("tag", "game");
-                intent.putExtra("view_type",3);
+                Intent intent = new Intent(getActivity(), GroupListJoinActivity.class);
                 startActivity(intent);
             }
         });

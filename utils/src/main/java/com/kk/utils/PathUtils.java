@@ -16,7 +16,7 @@ public class PathUtils {
 
     public static String makeDir(Context context, String dirName) {
         String baseDir = makeBaseDir(context);
-        File dir = new File(baseDir + dirName);
+        File dir = new File(baseDir + "/" + dirName);
         if (!dir.exists()) {
             dir.mkdir();
         }

@@ -3,35 +3,22 @@ package com.yc.english.group.plugin;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
-
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.yc.english.R;
-import com.yc.english.group.view.activitys.FileActivity;
 import com.yc.english.group.view.activitys.GroupIssueTaskActivity;
-import com.yc.english.group.view.activitys.GroupTaskDetailActivity;
-import com.yc.english.group.view.provider.CustomMessage;
-
-import java.util.HashSet;
-import java.util.Iterator;
 
 import io.rong.imkit.RongExtension;
 import io.rong.imkit.RongIM;
-import io.rong.imkit.model.FileInfo;
 import io.rong.imkit.plugin.IPluginModule;
 import io.rong.imkit.utilities.PermissionCheckUtil;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
-import io.rong.message.FileMessage;
 import io.rong.message.RichContentMessage;
-import io.rong.message.TextMessage;
 
 
 /**
@@ -92,7 +79,7 @@ public class TaskPlugin implements IPluginModule {
 
                 @Override
                 public void onSuccess(Message message) {
-                    Toast.makeText(activity, "消息发送成功, 示例获取 Context", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(activity, "消息发送成功, 示例获取 Context", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

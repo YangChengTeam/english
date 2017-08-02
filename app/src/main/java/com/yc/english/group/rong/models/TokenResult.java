@@ -4,7 +4,7 @@ package com.yc.english.group.rong.models;
 import com.yc.english.group.rong.util.GsonUtil;
 
 /**
- * getToken 返回结果
+ * connect 返回结果
  */
 public class TokenResult {
 	// 返回码，200 为正常.如果您正在使用开发环境的 AppKey，您的应用只能注册 100 名用户，达到上限后，将返回错误码 2007.如果您需要更多的测试账户数量，您需要在应用配置中申请“增加测试人数”。

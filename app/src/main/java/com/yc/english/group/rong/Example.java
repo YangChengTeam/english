@@ -55,7 +55,7 @@ public class Example {
 		System.out.println("************************User********************");
 		// 获取 Token 方法 
 		TokenResult userGetTokenResult = rongCloud.user.getToken("userId1", "username", "http://www.rongcloud.cn/images/logo.png");
-		System.out.println("getToken:  " + userGetTokenResult.toString());
+		System.out.println("connect:  " + userGetTokenResult.toString());
 		
 		// 刷新用户信息方法 
 		CodeSuccessResult userRefreshResult = rongCloud.user.refresh("userId1", "username", "http://www.rongcloud.cn/images/logo.png");

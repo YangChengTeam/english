@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
     compileSdkVersion 25
@@ -15,7 +15,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
-
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
 
     }
     buildTypes {
@@ -36,8 +38,15 @@ android {
 
 }
 
-repositories{
-    flatDir{
+
+greendao {
+    schemaVersion 1
+    daoPackage 'com.yc.english.group.dao'
+    targetGenDir 'src/main/java'
+}
+
+repositories {
+    flatDir {
         dirs 'libs'
     }
 }
@@ -76,4 +85,9 @@ dependencies {
     compile files('libs/Msc.jar')
     compile files('libs/Sunflower.jar')
     compile 'org.greenrobot:greendao:3.2.2'
+    compile 'com.facebook.stetho:stetho:1.5.0'
+
+
+    compile project(':CallKit')
+    compile project(':CallLib')
 }

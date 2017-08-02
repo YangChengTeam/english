@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.RxBus;
+import com.kk.utils.UIUitls;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.base.presenter.BasePresenter;
 
@@ -22,6 +23,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     protected View mRootView;
     protected P mPresenter;
 
+    private LoadingDialog mLoadingDialog;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RxBus.get().register(this);
@@ -30,7 +34,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         }
 
         try {
-            ButterKnife.bind(this,mRootView);
+            ButterKnife.bind(this, mRootView);
         } catch (Exception e) {
             e.printStackTrace();
             LogUtils.i(this.getClass().getSimpleName() + " init->初始化失败 原因:" + e);
@@ -44,16 +48,16 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     public void onResume() {
         super.onResume();
         MobclickAgent.onPageStart(this.getClass().getSimpleName());
-        if(EmptyUtils.isNotEmpty(mPresenter))
-             mPresenter.subscribe();
+        if (EmptyUtils.isNotEmpty(mPresenter))
+            mPresenter.subscribe();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd(this.getClass().getSimpleName());
-        if(EmptyUtils.isNotEmpty(mPresenter))
-             mPresenter.unsubscribe();
+        if (EmptyUtils.isNotEmpty(mPresenter))
+            mPresenter.unsubscribe();
     }
 
     @Override
@@ -61,4 +65,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         super.onDestroy();
         RxBus.get().unregister(this);
     }
+
+
+
 }

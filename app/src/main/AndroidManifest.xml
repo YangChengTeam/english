@@ -20,12 +20,16 @@
             android:name=".main.view.activitys.MainActivity"
             android:theme="@style/AppTheme"/>
 
-        <activity android:name=".main.view.activitys.LoginActivity">
+        <activity android:name=".main.view.activitys.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <activity android:name=".main.view.activitys.LoginActivity">
+
         </activity>
 
         <activity
@@ -39,7 +43,6 @@
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".read.view.activitys.BookUnitActivity"
-
             android:theme="@style/AppTheme"/>
         <activity
             android:name=".read.view.activitys.WordUnitActivity"
@@ -95,22 +98,20 @@
         <activity
             android:name=".group.view.activitys.FileActivity"
             android:screenOrientation="portrait"
-
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".group.view.activitys.GroupMemberActivity" />
-        <activity android:name=".group.view.activitys.GroupManagerActivity" />
-        <activity android:name=".group.view.activitys.GroupChangeNameActivity" />
-        <activity android:name=".group.view.activitys.GroupDeleteMemberActivity" />
-        <activity android:name=".group.view.activitys.GroupTransferActivity" />
-        <activity android:name=".group.view.activitys.GroupIssueTaskActivity" />
-        <activity android:name=".group.view.activitys.GroupSyncListActivity" />
-        <activity android:name=".group.view.activitys.GroupTaskDetailActivity" />
-        <activity android:name=".group.view.activitys.GroupPublishTaskListActivity" />
-        <activity android:name=".group.view.activitys.GroupTaskItemActivity" />
-        <activity android:name=".group.view.activitys.GroupVerifyActivity" />
-        <activity android:name=".group.view.activitys.GroupVerifyConditionActivity" />
-
-
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".group.view.activitys.GroupMemberActivity"/>
+        <activity android:name=".group.view.activitys.GroupManagerActivity"/>
+        <activity android:name=".group.view.activitys.GroupChangeNameActivity"/>
+        <activity android:name=".group.view.activitys.GroupDeleteMemberActivity"/>
+        <activity android:name=".group.view.activitys.GroupTransferActivity"/>
+        <activity android:name=".group.view.activitys.GroupIssueTaskActivity"/>
+        <activity android:name=".group.view.activitys.GroupSyncListActivity"/>
+        <activity android:name=".group.view.activitys.GroupTaskDetailActivity"/>
+        <activity android:name=".group.view.activitys.GroupPublishTaskListActivity"/>
+        <activity android:name=".group.view.activitys.GroupTaskItemActivity"/>
+        <activity android:name=".group.view.activitys.GroupVerifyActivity"/>
+        <activity android:name=".group.view.activitys.GroupVerifyConditionActivity"/>
+        <activity android:name=".group.view.activitys.GroupListJoinActivity"/>
 
         <receiver
             android:name=".group.view.receiver.GroupNotificationReceiver"
@@ -121,7 +122,6 @@
                 <action android:name="io.rong.push.intent.MESSAGE_CLICKED"/>
                 <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED"/>
             </intent-filter>
-
         </receiver>
 
         <activity android:name=".setting.view.activitys.SettingActivity"/>

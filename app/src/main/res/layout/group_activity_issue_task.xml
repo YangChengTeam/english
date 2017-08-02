@@ -45,6 +45,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/group_distance_50"
+                android:orientation="horizontal"
                 android:paddingLeft="@dimen/group_distance_15">
 
                 <ImageView
@@ -54,28 +55,12 @@
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/group25" />
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_picture"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/group_distance_15">
-
-                    <ImageView
-                        android:id="@+id/m_iv_issue_result_picture"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:src="@mipmap/group58" />
-
-                    <ImageView
-                        android:id="@+id/m_iv_issue_picture_delete"
-                        android:layout_width="@dimen/group_distance_10"
-                        android:layout_height="@dimen/group_distance_10"
-                        android:layout_gravity="top|right"
-                        android:layout_marginTop="@dimen/group_distance_5"
-                        android:src="@mipmap/group28" />
-
-                </FrameLayout>
-
+                    android:layout_marginLeft="@dimen/group_distance_15"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -202,11 +187,27 @@
                 android:textSize="@dimen/group_text_16" />
 
             <ImageView
+                android:id="@+id/m_iv_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@mipmap/group4" />
+
+            <TextView
+                android:id="@+id/m_tv_sync_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/group_distance_5"
+                android:layout_toLeftOf="@id/m_iv_right"
+                android:background="@drawable/group_notification_circle_bg"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/group_text_12"
+                android:visibility="gone" />
+
 
         </RelativeLayout>
 

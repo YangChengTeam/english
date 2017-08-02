@@ -14,15 +14,17 @@ import io.rong.imlib.model.Conversation;
 
 public class GroupExtensionModule extends DefaultExtensionModule {
 
+
     @Override
     public List<IPluginModule> getPluginModules(Conversation.ConversationType conversationType) {
         super.getPluginModules(conversationType);
-        List<IPluginModule> pluginModules = new ArrayList<>();
 
+        List<IPluginModule> pluginModules = new ArrayList<>();
         pluginModules.add(new TaskPlugin());
         pluginModules.add(new PicturePlugin());
         pluginModules.add(new VoicePlugin());
         pluginModules.add(new FilePlugin());
+
         return pluginModules;
     }
 
@@ -30,4 +32,5 @@ public class GroupExtensionModule extends DefaultExtensionModule {
     public List<IEmoticonTab> getEmoticonTabs() {
         return super.getEmoticonTabs();
     }
+
 }

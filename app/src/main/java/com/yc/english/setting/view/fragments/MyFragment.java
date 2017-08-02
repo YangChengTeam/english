@@ -7,7 +7,10 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.view.ToolbarFragment;
+import com.yc.english.group.contract.GroupListContract;
+import com.yc.english.group.model.engin.GroupListEngine;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
 import com.yc.english.setting.view.activitys.SettingActivity;
@@ -22,7 +25,7 @@ import rx.functions.Action1;
  * Created by zhangkai on 2017/7/24.
  */
 
-public class MyFragment extends ToolbarFragment {
+public class MyFragment extends ToolbarFragment{
 
     @BindView(R.id.iv_avatar)
     ImageView mAvatarImageView;
@@ -52,8 +55,8 @@ public class MyFragment extends ToolbarFragment {
     @Override
     public void init() {
         super.init();
-        mToolbar.setTitle("用户中心");
 
+        mToolbar.setTitle("用户中心");
 
         RxView.clicks(mAvatarImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override

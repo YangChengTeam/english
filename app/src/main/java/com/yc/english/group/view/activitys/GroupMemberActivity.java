@@ -11,7 +11,10 @@ import android.widget.TextView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.group.contract.GroupListContract;
+import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.GroupMemberInfo;
+import com.yc.english.group.presenter.GroupListPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.adapter.GroupMemberAdapter;
 
@@ -25,7 +28,7 @@ import butterknife.OnClick;
  * Created by wanglin  on 2017/7/26 14:41.
  */
 
-public class GroupMemberActivity extends FullScreenActivity {
+public class GroupMemberActivity extends FullScreenActivity<GroupListPresenter> implements  GroupListContract.View {
 
 
     @BindView(R.id.recyclerView)
@@ -40,6 +43,7 @@ public class GroupMemberActivity extends FullScreenActivity {
 
     @Override
     public void init() {
+        mPresenter = new GroupListPresenter(this, this);
         if (getIntent() != null) {
             groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
             mToolbar.setTitle(groupInfo.getName());
@@ -89,8 +93,14 @@ public class GroupMemberActivity extends FullScreenActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_share_group:
+
                 break;
         }
     }
 
+    @Override
+    public void showGroupList(List<ClassInfo> classInfos) {
+
+
+    }
 }

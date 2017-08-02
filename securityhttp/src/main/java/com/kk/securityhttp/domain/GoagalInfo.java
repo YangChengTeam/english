@@ -26,21 +26,23 @@ import java.util.zip.ZipFile;
  */
 public class GoagalInfo {
 
-    @JSONField(name = "pub_key")
-    public String publicKey = "-----BEGIN PUBLIC KEY-----" +
-            "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEApcW/nMMsLOo8jg6PoY0F"
-            + "YBOlFdST4sqRx8cMOYIbdXDDdjsxIMI2lN7skoielHELQB+LzaI8kURg2bHfLxOr"
-            + "wGJAVKxEt7+GwNe1ZxEeSL7SxFCgvVYI088W/ElSXHiq57p9SFpVccwY+JmjyL/U"
-            + "gX1OSoemNAKkys64NhEMm9C8Lrs/+N4nilzW2A6hSlgVtjbjMry8M6lSjB63xvQg"
-            + "wu+u6GfWpx0/TM69gg5o0ytBxl6BEtcFXujeQoR6JY6MrPggLy4/FLIxxivHTX6s"
-            + "Ae1W0/Go7bORbhELNfUP0OsYbDD3d4AF/E0rV9J1Nj/wXvTxn7mQQD9n8S+zrKP6"
-            + "CJ4jirfEzlFxda1Wtk0Orxy+mMlT4WPaj/aYgHwZ/QeId00zoxwrJoCbxSjqhTjg"
-            + "rVHdsoX5J+pspEENB9CHDu1AKGRwXn2525HqUVAwZoTL5q2Al0LoKA1NeEwEE8So"
-            + "W9Mr/RdvQg9W674wc9hKNBZFJx6scei7Pq4JB62jOiEi7nCmIYNQUEMI1MtSsLJl"
-            + "Un6E2pIu4pohlUm/vGghBrgZvT9fZhtRtBRCBCht+mrkG7IqhLVq3ZAcO9UQnGrW"
-            + "bMQWqbDut1KV8Vh4B5tiaOoiswTZB5Nk4pMF2cCXWPDvNNjCRXkr0NYSK6vasZFp"
-            + "WYe9pakq6ocysaPXT6+Gbi0CAwEAAQ=="
-            + "-----END PUBLIC KEY-----";
+
+    @JSONField(name = "public_key")
+    public String publicKey = "-----BEGIN PUBLIC KEY-----\n" +
+            "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAunGsieRPZ+jSZaK0hFjC\n" +
+            "EwbeoIv6D7sQR8IVCJKzkGklBEAw8hENPz/hyBcvaBjGt6ladFvNMWGdMRMr2QwM\n" +
+            "EJN9fE32Cij5WgEvAgEHEAdb5pFoQ1gRpyRT5bu/xPWW/xVef9yB/mpXJGlqD5kq\n" +
+            "6rHkDrsaW+dfr3jhYlvc64FwFVE2KKNc2BKTYc84gBza0yxjZsK1PTvjLovdxpFD\n" +
+            "l7TXLS7zN6B+KQsrd6z2IZjMbuA6R0PaFhNL4IAYoBLIci51AdoRg6T6jLHU6SI2\n" +
+            "evCm3G43Qihkj8flOW9wnoa7dHayWjOciTnMjzypWgGEr4Da7WVb2pcPHWU9Cqux\n" +
+            "o5aPe+N0gZzd8pV8/VosCYsDwSkKbR12BK/eXmHAtyuRwaeDqY/ttoSES3oePtWV\n" +
+            "jf2CdMfAk1Q8KWNzt3P5+5OMsgI532WrHn4RCXB0jwUTN7VGTp+FZQfavN3vsy+X\n" +
+            "txd7DgXJUjs2B2DVPC3nu5+fj21b0C56Yksuq02bbb5LeIIqn2h6pYPYTDgO9olC\n" +
+            "w34vJGFeBEZJLZKjbR0edR6kPAjjZghCL8q5auJF0B2sJIOE3Yc7AB8BAS5Yxca/\n" +
+            "TVHjxxLAN8sWy7le8vkWSNPwxmm9aJtjbvXuSYzohQvB4M95IVFaM4AKxf9HU0x8\n" +
+            "E5MXnkjxSEogMwjH0r/Fqm8CAwEAAQ==\n" +
+            "-----END PUBLIC KEY-----";
+
 
     public ChannelInfo channelInfo = null;
     public AppUtils.AppInfo appInfo = null;
