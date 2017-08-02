@@ -129,6 +129,12 @@ public class CoursePlayActivity extends FullScreenActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, final View view, int position) {
 
+                //将正在播放的停止
+                if(isPlay){
+                    isPlay = false;
+                    mTts.stopSpeaking();
+                }
+
                 showCurrentItemView(view);
 
                 if (position != playPosition && lastView != null) {
