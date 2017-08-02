@@ -8,14 +8,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -123,13 +121,22 @@ public class ReadWordActivity extends FullScreenActivity implements ReadWordItem
 
                         View view = linearLayoutManager.findViewByPosition(currentIndex);
                         if (view != null) {
-                            if(lastView != view){
+                            /*if(lastView != null && lastView != view){
                                 ((TextView) lastView.findViewById(R.id.tv_word_number)).setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.gray_aaa));
                                 lastView = view;
                             }
                             TextView mNumberTv = (TextView) view.findViewById(R.id.tv_word_number);
-                            mNumberTv.setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.read_word_share_btn_color));
-                            startSynthesizer(((WordInfo) mDatas.get(currentIndex)).getWord());
+                            if(mNumberTv != null){
+                                mNumberTv.setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.read_word_share_btn_color));
+                            }*/
+
+                            if(mDatas.get(currentIndex) instanceof WordInfo){
+                                startSynthesizer(((WordInfo) mDatas.get(currentIndex)).getWord());
+                            }
+                            if(mDatas.get(currentIndex) instanceof WordDetailInfo){
+                                startSynthesizer(((WordDetailInfo) mDatas.get(currentIndex)).getWordExample());
+                            }
+
                         }else{
                             isPlay = false;
                             mTts.stopSpeaking();
@@ -152,18 +159,24 @@ public class ReadWordActivity extends FullScreenActivity implements ReadWordItem
                             readCurrentWordIndex = 0;
                             currentIndex++;
                             if(currentIndex < mDatas.size()){
-                                readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getWord();
-                                startSynthesizer(readCurrentWord);
+
+                                if(mDatas.get(currentIndex) instanceof WordInfo){
+                                    readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getWord();
+                                    startSynthesizer(readCurrentWord);
+                                }
+
                                 View view = linearLayoutManager.findViewByPosition(currentIndex);
                                 if(view != null){
 
-                                    if(lastView != view){
+                                    /*if(lastView != null && lastView != view){
                                         ((TextView) lastView.findViewById(R.id.tv_word_number)).setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.gray_aaa));
                                         lastView = view;
                                     }
 
                                     TextView mNumberTv = (TextView) view.findViewById(R.id.tv_word_number);
-                                    mNumberTv.setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.read_word_share_btn_color));
+                                    if(mNumberTv != null){
+                                        mNumberTv.setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.read_word_share_btn_color));
+                                    }*/
                                 }else{
                                     Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
                                 }
@@ -456,13 +469,13 @@ public class ReadWordActivity extends FullScreenActivity implements ReadWordItem
                 readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getWord();
                 startSynthesizer(readCurrentWord);
                 lastView = linearLayoutManager.findViewByPosition(currentIndex);
-                ((TextView) lastView.findViewById(R.id.tv_word_number)).setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.read_word_share_btn_color));
+               // ((TextView) lastView.findViewById(R.id.tv_word_number)).setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.read_word_share_btn_color));
             }
         } else {
             isCountinue = false;
             Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
             mTts.stopSpeaking();
-            ((TextView) lastView.findViewById(R.id.tv_word_number)).setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.gray_aaa));
+            //((TextView) lastView.findViewById(R.id.tv_word_number)).setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.gray_aaa));
         }
 
     }
