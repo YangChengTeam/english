@@ -135,14 +135,17 @@ public class CoursePlayActivity extends FullScreenActivity {
                     mTts.stopSpeaking();
                 }
 
-                showCurrentItemView(view);
+                View tempView = linearLayoutManager.findViewByPosition(position);
+                showCurrentItemView(tempView);
 
                 if (position != playPosition && lastView != null) {
                     hideCurrentItemView(lastView);
                 }
 
                 playPosition = position;
-                lastView = view;
+                if(lastView != tempView){
+                    lastView = tempView;
+                }
 
                 mCoursePlayImageView.setBackgroundResource(R.drawable.read_playing_course_btn_selector);
 
@@ -367,8 +370,11 @@ public class CoursePlayActivity extends FullScreenActivity {
                     mCoursePlayImageView.setBackgroundResource(R.drawable.read_play_course_btn_selector);
                     isPlay = false;
                     hideCurrentItemView(linearLayoutManager.findViewByPosition(playPosition));
+                    lastView = linearLayoutManager.findViewByPosition(playPosition);
                 } else {
                     isPlay = true;
+
+                    lastView = linearLayoutManager.findViewByPosition(playPosition);
 
                     playPosition++;
 
