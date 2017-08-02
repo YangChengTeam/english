@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.yc.english.R;
 import com.yc.english.group.view.activitys.GroupIssueTaskActivity;
@@ -26,11 +25,13 @@ import io.rong.message.RichContentMessage;
  * 布置作业
  */
 
-public class TaskPlugin implements IPluginModule {
+public class AssignTaskPlugin implements IPluginModule {
     private String title = "布置作业";
     private Conversation.ConversationType conversationType;
     private String targetId;
     private FragmentActivity activity;
+
+
 
     @Override
     public Drawable obtainDrawable(Context context) {
@@ -51,7 +52,7 @@ public class TaskPlugin implements IPluginModule {
         String[] permissions = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
         if (PermissionCheckUtil.requestPermissions(fragment, permissions)) {
             Intent intent = new Intent(fragment.getActivity(), GroupIssueTaskActivity.class);
-//            Intent intent = new Intent(fragment.getActivity(), GroupTaskDetailActivity.class);
+//            Intent intent = new Intent(fragment.getActivity(), GroupMyTaskDetailActivity.class);
 
             rongExtension.startActivityForPluginResult(intent, 100, this);
         }

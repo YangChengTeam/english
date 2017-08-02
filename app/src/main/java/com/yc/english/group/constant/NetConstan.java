@@ -20,6 +20,11 @@ public interface NetConstan {
      * 创建班群
      */
     String create_group = baser_url + "class/create";
+    /**
+     * 群成员
+     */
+
+    String memeber_list = baser_url + "class/member_list";
 
 
 }

@@ -18,8 +18,8 @@ import java.util.List;
  * Created by wanglin  on 2017/7/28 16:00.
  */
 
-public class GroupTaskFinishedAdapter extends BaseAdapter<TaskFinishedInfo> {
-    public GroupTaskFinishedAdapter(Context context, List<TaskFinishedInfo> mList) {
+public class GroupTaskLookAdapter extends BaseAdapter<TaskFinishedInfo> {
+    public GroupTaskLookAdapter(Context context, List<TaskFinishedInfo> mList) {
         super(context, mList);
     }
 
@@ -33,14 +33,6 @@ public class GroupTaskFinishedAdapter extends BaseAdapter<TaskFinishedInfo> {
         } else {
             holder.setVisible(R.id.m_tv_task_finish_time, false);
         }
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, GroupTaskFinishDetailActivity.class));
-            }
-        });
-
 
     }
 

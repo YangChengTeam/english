@@ -1,21 +1,10 @@
 package com.yc.english.main.hepler;
 
-import android.content.Context;
-
 import com.alibaba.fastjson.JSON;
-import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.hwangjr.rxbus.RxBus;
-import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.net.contains.HttpConfig;
-import com.yc.english.group.rong.methods.User;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.main.model.engin.LoginEngin;
-
-import rx.Subscriber;
 
 /**
  * Created by zhangkai on 2017/8/1.

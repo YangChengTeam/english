@@ -14,13 +14,23 @@ import io.rong.imlib.model.Conversation;
 
 public class GroupExtensionModule extends DefaultExtensionModule {
 
+    private boolean mIsMaster;
+
+    public GroupExtensionModule(boolean isMaster) {
+        this.mIsMaster = isMaster;
+    }
+
 
     @Override
     public List<IPluginModule> getPluginModules(Conversation.ConversationType conversationType) {
         super.getPluginModules(conversationType);
 
         List<IPluginModule> pluginModules = new ArrayList<>();
-        pluginModules.add(new TaskPlugin());
+        if (mIsMaster) {
+            pluginModules.add(new AssignTaskPlugin());
+        } else {
+            pluginModules.add(new LookTaskPlugin());
+        }
         pluginModules.add(new PicturePlugin());
         pluginModules.add(new VoicePlugin());
         pluginModules.add(new FilePlugin());

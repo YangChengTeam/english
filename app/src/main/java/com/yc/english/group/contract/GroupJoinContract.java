@@ -1,5 +1,7 @@
 package com.yc.english.group.contract;
 
+import android.app.Activity;
+
 import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.IDialog;
 import com.yc.english.base.view.IFinish;
@@ -7,17 +9,16 @@ import com.yc.english.base.view.IView;
 import com.yc.english.group.model.bean.ClassInfo;
 
 /**
- * Created by wanglin  on 2017/7/24 18:44.
+ * Created by wanglin  on 2017/8/2 10:50.
  */
 
-public interface GroupCreateContract {
+public interface GroupJoinContract {
     interface View extends IView,IFinish, IDialog {
-        void showCreateResult(ClassInfo data);
-
+        void  startGroupChat(String groupId, String groupName);
     }
+
 
     interface Presenter extends IPresenter {
-        void createGroup(String user_id, String groupName, String face);
+        void joinGroup(String user_id, String groupName);
     }
-
 }

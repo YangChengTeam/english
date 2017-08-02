@@ -7,13 +7,13 @@ import com.yc.english.base.view.FullScreenActivity;
  * Created by wanglin  on 2017/7/27 18:01.
  */
 
-public class GroupTaskDetailActivity extends FullScreenActivity {
+public class GroupMyTaskDetailActivity extends FullScreenActivity {
 
     @Override
     public void init() {
         mToolbar.setTitle(getString(R.string.task_detail));
         mToolbar.showNavigationIcon();
-        mToolbar.setMenuTitle(getString(R.string.all_task));
+
     }
 
     @Override

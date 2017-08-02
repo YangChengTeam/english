@@ -2,24 +2,16 @@ package com.yc.english;
 
 import android.app.Application;
 import android.os.Build;
-import android.util.Log;
-
 
 import com.blankj.utilcode.util.CrashUtils;
-import com.blankj.utilcode.util.LogUtils;
-
 import com.blankj.utilcode.util.Utils;
 import com.iflytek.cloud.SpeechUtility;
-
 import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.PathUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
 import com.yc.english.group.common.GroupApp;
-import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.main.model.engin.LoginEngin;
 
 import java.io.File;
 import java.util.HashMap;

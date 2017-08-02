@@ -1,7 +1,7 @@
 <resources>
 
     <!-- 科大讯飞APPID -->
-    <string name="app_id">59770caa</string>
+    <string name="app_id">59814eb4</string>
 
     <!--read-values-->
     <string name="read_next_unit_course_text">下一单元</string>
@@ -12,7 +12,7 @@
     <string name="read_course_language_cn_text">中</string>
     <string name="read_course_language_en_text">英</string>
     <!--book-->
-    <string name="read_book_text">教材选择</string>
+    <string name="read_book_text">教材点读</string>
     <string name="read_my_book_text">我的教材</string>
     <string name="read_book_edit_text">编辑</string>
     <string name="read_book_edit_done_text">完成</string>

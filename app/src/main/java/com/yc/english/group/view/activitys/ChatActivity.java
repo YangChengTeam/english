@@ -2,17 +2,26 @@ package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.WindowManager;
 
+import com.blankj.utilcode.util.EmptyUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.contract.GroupListContract;
+import com.yc.english.group.dao.ClassInfoDao;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.presenter.GroupListPresenter;
+import com.yc.english.group.rong.methods.Group;
 import com.yc.english.group.rong.models.GroupInfo;
 
 import java.util.List;
+
+import butterknife.BindView;
+import io.rong.imkit.fragment.ConversationFragment;
 
 
 /**
@@ -25,10 +34,12 @@ public class ChatActivity extends FullScreenActivity implements BaseToolBar.OnIt
 
 
     private GroupInfo group;
+    private ClassInfoDao infoDao;
 
     private void initData() {
         Intent intent = getIntent();
         if (intent != null && intent.getData() != null && intent.getData().getScheme().equals("rong")) {
+
             //rong://com.yc.english/conversation/group?targetId=654321&title=%E9%BE%99
             String groupId = null;
             String title = null;
@@ -38,8 +49,9 @@ public class ChatActivity extends FullScreenActivity implements BaseToolBar.OnIt
                 mToolbar.setTitle(title);
             }
             if (data.getQueryParameter("targetId") != null) {
-                groupId = data.getQueryParameter("title");
+                groupId = data.getQueryParameter("targetId");
             }
+
             group = new GroupInfo(groupId, title);
 
         }
@@ -50,12 +62,19 @@ public class ChatActivity extends FullScreenActivity implements BaseToolBar.OnIt
     @Override
     public void init() {
 
+        infoDao = GroupApp.getmDaoSession().getClassInfoDao();
         initData();
+        if(EmptyUtils.isNotEmpty(group)) {
+            ClassInfo classInfo = infoDao.queryBuilder().where(ClassInfoDao.Properties.GroupId.eq(group.getId())).unique();
 
+            if (classInfo != null && !TextUtils.isEmpty(classInfo.getMaster_id())) {
+                mToolbar.setMenuIcon(R.mipmap.group9);
+                mToolbar.setOnItemClickLisener(this);
+            }
+        }
 
         mToolbar.showNavigationIcon();
-        mToolbar.setMenuIcon(R.mipmap.group9);
-        mToolbar.setOnItemClickLisener(this);
+
 
     }
 
