@@ -69,8 +69,8 @@ dependencies {
     compile files('libs/MiPush_SDK_Client_3_2_2.jar')
     compile project(':IMKit')
     compile project(':IMLib')
-    compile 'com.mylib:comm-recyclviewadapter:1.1.0'
     compile project(':securityhttp')
+    compile 'com.mylib:comm-recyclviewadapter:1.1.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.3'
     compile 'com.jakewharton.rxbinding:rxbinding:+'
     compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:+'
@@ -82,6 +82,8 @@ dependencies {
     compile files('libs/commons-codec-1.4.jar')
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'
+    compile files('libs/Msc.jar')
+    compile files('libs/Sunflower.jar')
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.facebook.stetho:stetho:1.5.0'
 

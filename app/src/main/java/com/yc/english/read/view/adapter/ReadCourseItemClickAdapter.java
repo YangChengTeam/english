@@ -1,10 +1,6 @@
 package com.yc.english.read.view.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -14,9 +10,19 @@ import com.yc.english.read.model.domain.EnglishCourseInfo;
 import java.util.List;
 
 
-public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<EnglishCourseInfo, BaseViewHolder>  {
+public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<EnglishCourseInfo, BaseViewHolder> {
 
     private Context mContext;
+
+    private int languageType = 1;
+
+    public int getLanguageType() {
+        return languageType;
+    }
+
+    public void setLanguageType(int languageType) {
+        this.languageType = languageType;
+    }
 
     public ReadCourseItemClickAdapter(Context mContext, List<EnglishCourseInfo> data) {
         super(data);
@@ -30,11 +36,21 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
         helper.setText(R.id.tv_chinese_title, item.getSubtitlecn())
                 .setText(R.id.tv_english_title, item.getSubtitle())
                 .addOnClickListener(R.id.layout_play);
-        if(helper.getAdapterPosition() == 3){
-            ((ImageView)helper.getView(R.id.iv_audio_play)).setVisibility(View.VISIBLE);
-            ((TextView)helper.getView(R.id.tv_chinese_title)).setTextColor(Color.parseColor("#333333"));
-            ((TextView)helper.getView(R.id.tv_english_title)).setTextColor(Color.parseColor("#333333"));
+
+        switch (languageType) {
+            case 1:
+                helper.setVisible(R.id.tv_chinese_title,true).setVisible(R.id.tv_english_title,true);
+                break;
+            case 2:
+                helper.setVisible(R.id.tv_chinese_title,false).setVisible(R.id.tv_english_title,true);
+                break;
+            case 3:
+                helper.setVisible(R.id.tv_chinese_title,true).setVisible(R.id.tv_english_title,false);
+                break;
+            default:
+                break;
         }
+
     }
 
 }

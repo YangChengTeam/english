@@ -18,9 +18,9 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_word_list"
-            android:layout_marginBottom="110dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="110dp">
         </android.support.v7.widget.RecyclerView>
 
         <LinearLayout
@@ -87,29 +87,67 @@
                 android:layout_marginBottom="8dp"
                 android:gravity="center">
 
-                <Button
+                <LinearLayout
+                    android:id="@+id/layout_read_all"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:background="@drawable/read_all_word_btn"
-                    android:text="全部朗读"
-                    android:textColor="@color/white"/>
+                    android:gravity="center">
 
-                <Button
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="全部朗读"
+                        android:textColor="@color/white"/>
+
+                    <ImageView
+                        android:id="@+id/iv_read_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:src="@mipmap/read_audio_white_stop"/>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_spell_word"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="15dp"
-                    android:background="@drawable/read_spell_word_btn"
-                    android:text="拼写朗读"
-                    android:textColor="@color/white"/>
+                    android:background="@drawable/read_spell_word_btn">
 
-                <Button
-                    android:id="@+id/btn_word_practice"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="拼写朗读"
+                        android:textColor="@color/white"/>
+
+                    <ImageView
+                        android:id="@+id/iv_spell_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:visibility="gone"
+                        android:src="@mipmap/spell_selected_icon"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_pass_word"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="15dp"
                     android:background="@drawable/read_pass_word_btn"
-                    android:text="单词闯关"
-                    android:textColor="@color/white"/>
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="单词闯关"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>

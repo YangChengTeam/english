@@ -86,12 +86,14 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/iv_course_play"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/read_play_course_btn_selector"/>
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_language_change"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -155,6 +157,7 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/tv_language"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"

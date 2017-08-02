@@ -19,6 +19,7 @@ public class ConnectUtils {
     private static final String TAG = "ConnectUtils";
 
 
+
     /**
      * <p>连接服务器，在整个应用程序全局，只需要调用一次，需在 {@link #} 之后调用。</p>
      * <p>如果调用此接口遇到连接失败，SDK 会自动启动重连机制进行最多10次重连，分别是1, 2, 4, 8, 16, 32, 64, 128, 256, 512秒后。
