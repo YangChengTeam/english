@@ -1,10 +1,12 @@
 package com.yc.english.main.presenter;
 
 import android.content.Context;
+import android.widget.ImageView;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.UIUitls;
+import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.view.IView;
 import com.yc.english.group.model.bean.TokenInfo;
@@ -12,6 +14,7 @@ import com.yc.english.group.utils.ConnectUtils;
 import com.yc.english.main.contract.SplashContract;
 import com.yc.english.main.model.engin.SplashEngin;
 
+import butterknife.BindView;
 import rx.Subscriber;
 import rx.Subscription;
 
@@ -20,6 +23,7 @@ import rx.Subscription;
  */
 
 public class SplashPresenter extends BasePresenter<SplashEngin, SplashContract.View> implements SplashContract.Presenter {
+
     public SplashPresenter(Context context, SplashContract.View view) {
         super(view);
         mContext = context;
@@ -32,7 +36,7 @@ public class SplashPresenter extends BasePresenter<SplashEngin, SplashContract.V
     }
 
     @Override
-    public void connect(String uid, final Runnable runnable) {
+    public void connect(String uid) {
         Subscription subscription = mEngin.getTokenInfo(uid).subscribe(new Subscriber<ResultInfo<TokenInfo>>() {
             @Override
             public void onCompleted() {
@@ -51,9 +55,6 @@ public class SplashPresenter extends BasePresenter<SplashEngin, SplashContract.V
                         @Override
                         public void run() {
                             ConnectUtils.contact(mContext, tokenInfoResultInfo.data);
-                            if(runnable != null){
-                                runnable.run();
-                            }
                         }
                     });
                 }

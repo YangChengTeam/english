@@ -4,11 +4,13 @@ import android.content.Context;
 
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.engin.BaseEngin;
+import com.kk.securityhttp.engin.HttpCoreEngin;
+import com.yc.english.base.model.BaseEngin;
+import com.yc.english.group.model.bean.TokenInfo;
+import com.yc.english.main.hepler.EnginHelper;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfo;
 
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,20 +21,16 @@ import rx.Observable;
  */
 
 public class LoginEngin extends BaseEngin {
-
     public LoginEngin(Context context) {
         super(context);
     }
 
     public Observable<ResultInfo<UserInfo>> login(String username, String pwd){
-        Map<String, String> params = new HashMap<>();
-        params.put("user_name", username);
-        params.put("pwd", pwd);
-        return rxpost(new TypeReference<ResultInfo<UserInfo>>(){}.getType(), params, true, true, true);
+        return EnginHelper.login(mContext, username, pwd);
     }
 
-    @Override
-    public String getUrl() {
-        return URLConfig.LOGIN_URL;
+    public Observable<ResultInfo<TokenInfo>> getTokenInfo(String userId) {
+        return EnginHelper.getTokenInfo(mContext, userId);
     }
+
 }
