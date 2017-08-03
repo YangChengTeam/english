@@ -2,6 +2,7 @@ package com.yc.english.group.view.adapter;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ImageUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
@@ -38,15 +40,30 @@ public class GroupDeleteAdapter extends BaseAdapter<GroupMemberInfo> {
             holder.getView(R.id.cb_delete_select).setVisibility(View.VISIBLE);
 
 
-
-            ((CheckBox) holder.getView(R.id.cb_delete_select)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            holder.setOnTouchListener(R.id.ll_container, new View.OnTouchListener(){
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (listener != null) {
-                        listener.onCheckedChange(position,buttonView,isChecked);
-                    }
+                public boolean onTouch(View v, MotionEvent event) {
+                    ToastUtils.showShort("" + position);
+                    return false;
                 }
             });
+
+            holder.setOnClickListener(R.id.ll_container, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+
+//            ((CheckBox) holder.getView(R.id.cb_delete_select)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                    if (listener != null) {
+//                        listener.onCheckedChange(position, buttonView, isChecked);
+//                    }
+//                }
+//            });
 
         }
         holder.setImageBitmap(R.id.iv_member_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.portial)));

@@ -10,7 +10,7 @@
         android:background="@color/group_gary_ddd" />
 
 
-    <LinearLayout
+    <com.yc.english.group.view.widget.MultipleSelectLayout
         android:id="@+id/ll_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/group_distance_55"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/group_distance_20"
             android:button="@drawable/group_delete_member_selector"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/iv_member_img"
@@ -52,7 +52,7 @@
             android:textColor="@color/group_gray_999"
             android:textSize="@dimen/group_text_14" />
 
-    </LinearLayout>
+    </com.yc.english.group.view.widget.MultipleSelectLayout>
 
 
 </LinearLayout>
