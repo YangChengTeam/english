@@ -10,7 +10,7 @@ import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.group.model.bean.TaskItem;
-import com.yc.english.group.view.activitys.GroupMyTaskDetailActivity;
+import com.yc.english.group.view.activitys.student.GroupMyTaskDetailActivity;
 
 import java.util.List;
 

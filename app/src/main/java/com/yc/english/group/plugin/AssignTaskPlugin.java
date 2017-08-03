@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.yc.english.R;
-import com.yc.english.group.view.activitys.GroupIssueTaskActivity;
+import com.yc.english.group.view.activitys.teacher.GroupIssueTaskActivity;
 
 import io.rong.imkit.RongExtension;
 import io.rong.imkit.RongIM;
@@ -52,7 +52,6 @@ public class AssignTaskPlugin implements IPluginModule {
         String[] permissions = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
         if (PermissionCheckUtil.requestPermissions(fragment, permissions)) {
             Intent intent = new Intent(fragment.getActivity(), GroupIssueTaskActivity.class);
-//            Intent intent = new Intent(fragment.getActivity(), GroupMyTaskDetailActivity.class);
 
             rongExtension.startActivityForPluginResult(intent, 100, this);
         }

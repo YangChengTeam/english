@@ -32,7 +32,7 @@ public class GroupExtensionModule extends DefaultExtensionModule {
             pluginModules.add(new LookTaskPlugin());
         }
         pluginModules.add(new PicturePlugin());
-        pluginModules.add(new VoicePlugin());
+//        pluginModules.add(new VoicePlugin());
         pluginModules.add(new FilePlugin());
 
         return pluginModules;

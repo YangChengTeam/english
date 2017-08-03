@@ -1,10 +1,8 @@
 package com.yc.english.group.presenter;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.text.TextUtils;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
@@ -20,7 +18,6 @@ import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 
 import java.util.List;
-import java.util.Random;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -48,14 +45,12 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
 
     }
 
-
     @Override
     public void createGroup(String user_id, String groupName, String face) {
         if (TextUtils.isEmpty(groupName)) {
             ToastUtils.showShort("请输入班级名称");
             return;
         }
-
         mView.showLoadingDialog("正在创建班级，请稍候");
         Subscription subscription = mEngin.createGroup(user_id, groupName, face).subscribe(new Subscriber<ResultInfo<ClassInfoWarpper>>() {
             @Override
@@ -73,65 +68,61 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
                 handleResultInfo(classInfo, new Runnable() {
                     @Override
                     public void run() {
-                        LogUtils.e(classInfo.data.toString());
-                        createRongGroup(classInfo.data.getInfo().getGroupId(), classInfo.data.getInfo().getClassName(), classInfo.data.getInfo().getMaster_id());
+
+                        createRongGroup(classInfo.data.getInfo());
+
                     }
                 });
-
 
             }
         });
         mSubscriptions.add(subscription);
     }
 
+
+    /**
+     * 创建班级
+     */
+    private void createRongGroup(final ClassInfo info) {
+        final String[] userIds = new String[]{info.getMaster_id()};
+        ImUtils.createGroup(userIds, info.getGroupId() + "", info.getClassName()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<CodeSuccessResult>() {
+                    @Override
+                    public void call(CodeSuccessResult codeSuccessResult) {
+                        if (codeSuccessResult.getCode() == 200) {
+                            saveGroup(info);
+                            mView.finish();
+                        }
+                    }
+                });
+
+    }
+
     private boolean isExist;
 
-    private void saveGroup(final int groupId, final String groupName, final String[] userIds, final String masterId) {
+    private void saveGroup(final ClassInfo info) {
         Observable.just("").subscribeOn(Schedulers.io()).subscribe(new Action1<String>() {
-            private ClassInfo info;
 
             @Override
             public void call(String s) {
                 List<ClassInfo> classInfos = classInfoDao.queryBuilder().build().list();
                 if (classInfos != null && classInfos.size() > 0) {
                     for (ClassInfo classInfo : classInfos) {
-                        if (classInfo.getGroupId() == groupId) {
+                        if (classInfo.getGroupId() == info.getGroupId()) {
                             isExist = true;
                             break;
                         }
                     }
                     if (!isExist) {
-                        info = new ClassInfo("", groupName, userIds.length + "", groupId);
-                        info.setMaster_id(masterId);
-                        classInfoDao.insert(info);
+                        classInfoDao.save(info);
                     }
                 } else {
-                    info = new ClassInfo("", groupName, userIds.length + "", groupId);
-                    info.setMaster_id(masterId);
-                    classInfoDao.insert(info);
+                    classInfoDao.save(info);
                 }
                 RxBus.get().post(BusAction.GROUPLIST, "create group");
             }
         });
         mView.finish();
-    }
-
-
-    /**
-     * 创建班级
-     */
-    private void createRongGroup(final int groupId, final String groupName,final String user_id) {
-        final String[] userIds = new String[]{user_id};
-        ImUtils.createGroup(userIds, groupId + "", groupName).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<CodeSuccessResult>() {
-                    @Override
-                    public void call(CodeSuccessResult codeSuccessResult) {
-                        if (codeSuccessResult.getCode() == 200) {
-                            saveGroup(groupId, groupName, userIds,user_id);
-                            mView.finish();
-                        }
-                    }
-                });
 
     }
 }

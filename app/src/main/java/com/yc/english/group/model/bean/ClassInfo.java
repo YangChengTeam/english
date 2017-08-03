@@ -35,6 +35,8 @@ public class ClassInfo implements Parcelable {
     private String add_date;
     private String del_time;
     private String sort;
+    private String master_name;
+    private String master_nick_name;
 
 
     public static final Creator<ClassInfo> CREATOR = new Creator<ClassInfo>() {
@@ -75,6 +77,7 @@ public class ClassInfo implements Parcelable {
         this.groupId = groupId;
     }
 
+
     public ClassInfo(Parcel source) {
         imageUrl = source.readString();
         className = source.readString();
@@ -83,10 +86,11 @@ public class ClassInfo implements Parcelable {
 
 
 
-    @Generated(hash = 80881934)
+    @Generated(hash = 627702369)
     public ClassInfo(Long id, String imageUrl, String className, String count, int groupId,
-                     String founder_id, String master_id, String vali_type, String is_del,
-                     String add_time, String add_date, String del_time, String sort) {
+            String founder_id, String master_id, String vali_type, String is_del,
+            String add_time, String add_date, String del_time, String sort,
+            String master_name, String master_nick_name) {
         this.id = id;
         this.imageUrl = imageUrl;
         this.className = className;
@@ -100,7 +104,10 @@ public class ClassInfo implements Parcelable {
         this.add_date = add_date;
         this.del_time = del_time;
         this.sort = sort;
+        this.master_name = master_name;
+        this.master_nick_name = master_nick_name;
     }
+
 
     public String getImageUrl() {
         return imageUrl;
@@ -224,5 +231,21 @@ public class ClassInfo implements Parcelable {
 
     public void setSort(String sort) {
         this.sort = sort;
+    }
+
+    public String getMaster_name() {
+        return master_name;
+    }
+
+    public void setMaster_name(String master_name) {
+        this.master_name = master_name;
+    }
+
+    public String getMaster_nick_name() {
+        return master_nick_name;
+    }
+
+    public void setMaster_nick_name(String master_nick_name) {
+        this.master_nick_name = master_nick_name;
     }
 }

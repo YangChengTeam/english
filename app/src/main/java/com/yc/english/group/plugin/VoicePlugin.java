@@ -4,11 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
-import com.yc.english.group.view.activitys.GroupPublishTaskListActivity;
 
-import io.rong.callkit.AudioPlugin;
 import io.rong.imkit.RongExtension;
 import io.rong.imkit.plugin.IPluginModule;
 
@@ -17,7 +18,7 @@ import io.rong.imkit.plugin.IPluginModule;
  * 语音
  */
 
-public class VoicePlugin extends AudioPlugin {
+public class VoicePlugin implements IPluginModule,View.OnLongClickListener {
     @Override
     public Drawable obtainDrawable(Context context) {
         return context.getResources().getDrawable(R.drawable.group_voice_selector);
@@ -30,14 +31,23 @@ public class VoicePlugin extends AudioPlugin {
 
     @Override
     public void onClick(Fragment fragment, RongExtension rongExtension) {
-        super.onClick(fragment, rongExtension);
+
+
 //        Intent intent = new Intent(fragment.getActivity(), GroupPublishTaskListActivity.class);
 //        rongExtension.startActivityForPluginResult(intent,200,this);
+
+
 
     }
 
     @Override
     public void onActivityResult(int i, int i1, Intent intent) {
-        super.onActivityResult(i, i1, intent);
+
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        LogUtils.e("onLongClick: ");
+        return false;
     }
 }

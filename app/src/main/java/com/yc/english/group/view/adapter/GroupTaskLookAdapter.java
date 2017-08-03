@@ -1,16 +1,13 @@
 package com.yc.english.group.view.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.view.View;
 
 import com.blankj.utilcode.util.ImageUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.group.model.bean.TaskFinishedInfo;
-import com.yc.english.group.view.activitys.GroupTaskFinishDetailActivity;
 
 import java.util.List;
 

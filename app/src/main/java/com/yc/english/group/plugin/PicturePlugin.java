@@ -3,19 +3,12 @@ package com.yc.english.group.plugin;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
-import com.yc.english.group.view.activitys.GroupVerifyActivity;
 
 import io.rong.imkit.RongExtension;
-import io.rong.imkit.RongIM;
-import io.rong.imkit.plugin.IPluginModule;
 import io.rong.imkit.plugin.ImagePlugin;
-import io.rong.imkit.plugin.image.PictureSelectorActivity;
-import io.rong.imkit.utilities.PermissionCheckUtil;
 import io.rong.imlib.model.Conversation;
 
 /**
