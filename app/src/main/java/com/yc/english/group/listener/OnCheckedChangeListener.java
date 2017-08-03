@@ -7,6 +7,6 @@ import android.widget.CompoundButton;
  * 多选选择监听
  */
 
-public interface onCheckedChangeListener {
+public interface OnCheckedChangeListener {
     void onCheckedChange(int position, CompoundButton buttonView, boolean isChecked);
 }

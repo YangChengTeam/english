@@ -11,8 +11,12 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.listener.onCheckedChangeListener;
+import com.yc.english.group.contract.GroupDeleteMemberContract;
+import com.yc.english.group.listener.OnCheckedChangeListener;
 import com.yc.english.group.model.bean.GroupMemberInfo;
+import com.yc.english.group.model.bean.StudentInfo;
+import com.yc.english.group.presenter.GroupDeleteMemberPresenter;
+import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.adapter.GroupDeleteAdapter;
 
 import java.util.ArrayList;
@@ -24,7 +28,7 @@ import butterknife.BindView;
  * Created by wanglin  on 2017/7/27 08:44.
  */
 
-public class GroupDeleteMemberActivity extends FullScreenActivity implements BaseToolBar.OnItemClickLisener, onCheckedChangeListener {
+public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMemberPresenter> implements BaseToolBar.OnItemClickLisener, OnCheckedChangeListener, GroupDeleteMemberContract.View {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -34,12 +38,19 @@ public class GroupDeleteMemberActivity extends FullScreenActivity implements Bas
 
     private List<GroupMemberInfo> memberInfoList = new ArrayList<>();
     private GroupDeleteAdapter adapter;
+    private GroupInfo groupInfo;
 
     @Override
     public void init() {
+        mPresenter = new GroupDeleteMemberPresenter(this, this);
         mToolbar.showNavigationIcon();
         mToolbar.setTitle(getResources().getString(R.string.delete_member));
         mToolbar.setMenuTitle(getResources().getString(R.string.cancel));
+
+        if (getIntent() != null) {
+            groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
+        }
+
         mToolbar.setMenuTitleColor(getResources().getColor(R.color.gray_aaa));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupDeleteAdapter(this, null);
@@ -56,6 +67,8 @@ public class GroupDeleteMemberActivity extends FullScreenActivity implements Bas
     }
 
     private void initData() {
+        mPresenter.getMemberList(this, groupInfo.getId(), "1", "");
+
         memberInfoList.add(new GroupMemberInfo("刘老师", "", true));
         memberInfoList.add(new GroupMemberInfo("艾同学", "", false));
         memberInfoList.add(new GroupMemberInfo("曹同学", "", false));
@@ -106,4 +119,10 @@ public class GroupDeleteMemberActivity extends FullScreenActivity implements Bas
         }
     }
 
+
+
+    @Override
+    public void showMemberList(List<StudentInfo> list) {
+
+    }
 }

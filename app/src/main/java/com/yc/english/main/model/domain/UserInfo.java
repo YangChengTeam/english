@@ -17,6 +17,7 @@ public class UserInfo {
     @JSONField(name = "nick_name")
     private String nickname;
     private String school;
+    private String token;
 
     @JSONField(name = "face")
     private String avatar;
@@ -75,5 +76,13 @@ public class UserInfo {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

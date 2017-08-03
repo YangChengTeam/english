@@ -8,9 +8,11 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.ToolbarFragment;
 import com.yc.english.group.contract.GroupListContract;
 import com.yc.english.group.model.engin.GroupListEngine;
+import com.yc.english.main.view.activitys.FollowWeiXinPopupWindow;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
 import com.yc.english.setting.view.activitys.SettingActivity;
@@ -69,7 +71,8 @@ public class MyFragment extends ToolbarFragment{
         RxView.clicks(mWeixinMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                ToastUtils.showLong("点击了关注微信公众号");
+                FollowWeiXinPopupWindow followWeiXinPopupWindow = new FollowWeiXinPopupWindow(getActivity());
+                followWeiXinPopupWindow.show(mRootView);
             }
         });
 
@@ -91,7 +94,8 @@ public class MyFragment extends ToolbarFragment{
         RxView.clicks(mShareMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                ToastUtils.showLong("点击了好友分享");
+                SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
+                sharePopupWindow.show(mRootView);
             }
         });
 

@@ -9,7 +9,7 @@ import com.blankj.utilcode.util.ImageUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
-import com.yc.english.group.listener.onCheckedChangeListener;
+import com.yc.english.group.listener.OnCheckedChangeListener;
 import com.yc.english.group.model.bean.ClassInfo;
 
 import java.util.List;
@@ -43,9 +43,9 @@ public class GroupSyncListAdapter extends BaseAdapter<ClassInfo> {
         return R.layout.group_sync_list_item;
     }
 
-    private onCheckedChangeListener listener;
+    private OnCheckedChangeListener listener;
 
-    public void setListener(onCheckedChangeListener listener) {
+    public void setListener(OnCheckedChangeListener listener) {
         this.listener = listener;
     }
 }

@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -15,12 +14,13 @@ import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.ToolbarFragment;
 import com.yc.english.group.constant.BusAction;
-import com.yc.english.group.contract.GroupListContract;
+import com.yc.english.group.contract.GroupMyGroupListContract;
 import com.yc.english.group.model.bean.ClassInfo;
-import com.yc.english.group.presenter.GroupListPresenter;
+import com.yc.english.group.model.bean.StudentInfo;
+import com.yc.english.group.presenter.GroupMyGroupListPresenter;
+import com.yc.english.group.view.activitys.student.GroupJoinActivityNew;
 import com.yc.english.group.view.activitys.teacher.GroupCreateActivity;
-import com.yc.english.group.view.activitys.student.GroupJoinActivity;
-import com.yc.english.group.view.activitys.GroupVerifyActivity;
+import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 
 import java.util.List;
@@ -32,7 +32,7 @@ import butterknife.OnClick;
  * Created by wanglin  on 2017/7/24 17:59.
  */
 
-public class GroupMainFragment extends ToolbarFragment<GroupListPresenter> implements GroupListContract.View {
+public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter> implements GroupMyGroupListContract.View {
     private static final String TAG = "GroupMainFragment";
 
     @BindView(R.id.btn_create_class)
@@ -46,19 +46,15 @@ public class GroupMainFragment extends ToolbarFragment<GroupListPresenter> imple
     @BindView(R.id.ll_data_container)
     LinearLayout llDataContainer;
 
-
-    private List<ClassInfo> mlist;
     private GroupGroupAdapter adapter;
 
 
     @Override
     public void init() {
         super.init();
-        LogUtils.e(TAG, "init: ");
-        mPresenter = new GroupListPresenter(getActivity(), this);
+        mPresenter = new GroupMyGroupListPresenter(getActivity(), this);
         mToolbar.setTitle(getString(R.string.group));
 
-        mToolbar.setMenuIcon(R.mipmap.group66);
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
@@ -68,6 +64,7 @@ public class GroupMainFragment extends ToolbarFragment<GroupListPresenter> imple
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new GroupGroupAdapter(getContext(), null);
         recyclerView.setAdapter(adapter);
+
 
     }
 
@@ -92,12 +89,11 @@ public class GroupMainFragment extends ToolbarFragment<GroupListPresenter> imple
                 break;
             case R.id.btn_join_class:
             case R.id.btn_join_class1:
-                startActivity(new Intent(getActivity(), GroupJoinActivity.class));
+                startActivity(new Intent(getActivity(), GroupJoinActivityNew.class));
                 break;
         }
 
     }
-
 
     @Subscribe(
             thread = EventThread.IO,
@@ -111,8 +107,7 @@ public class GroupMainFragment extends ToolbarFragment<GroupListPresenter> imple
 
 
     @Override
-    public void showGroupList(List<ClassInfo> classInfos) {
-
+    public void showMyGroupList(List<ClassInfo> classInfos) {
         if (classInfos != null && classInfos.size() > 0) {
             llDataContainer.setVisibility(View.VISIBLE);
             llEmptyContainer.setVisibility(View.GONE);
@@ -121,8 +116,15 @@ public class GroupMainFragment extends ToolbarFragment<GroupListPresenter> imple
             llDataContainer.setVisibility(View.GONE);
             llEmptyContainer.setVisibility(View.VISIBLE);
         }
-
     }
 
-
+    @Override
+    public void showMemberList(List<StudentInfo> count) {
+        if (count.size() > 0) {
+            mToolbar.setMenuIcon(R.mipmap.group65);
+        } else {
+            mToolbar.setMenuIcon(R.mipmap.group66);
+        }
+        getActivity().invalidateOptionsMenu();
+    }
 }

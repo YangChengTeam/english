@@ -7,27 +7,37 @@ import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.EmptyUtils;
+import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.common.GroupApp;
+import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.dao.ClassInfoDao;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.ClassInfoWarpper;
+import com.yc.english.group.model.bean.StudentInfo;
+import com.yc.english.group.model.engin.GroupApplyJoinEngine;
+import com.yc.english.group.presenter.GroupApplyJoinPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
+import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.group.view.activitys.teacher.GroupMemberActivity;
+import com.yc.english.main.hepler.UserInfoHelper;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 
 /**
  * Created by wanglin  on 2017/7/17 17:06.
  */
 
-public class ChatActivity extends FullScreenActivity implements BaseToolBar.OnItemClickLisener {
+public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> implements BaseToolBar.OnItemClickLisener, GroupApplyJoinContract.View {
 
     private static final String TAG = "ChatActivity";
 
 
     private GroupInfo group;
-    private ClassInfoDao infoDao;
 
     private void initData() {
         Intent intent = getIntent();
@@ -54,20 +64,12 @@ public class ChatActivity extends FullScreenActivity implements BaseToolBar.OnIt
 
     @Override
     public void init() {
-
-        infoDao = GroupApp.getmDaoSession().getClassInfoDao();
+        mPresenter = new GroupApplyJoinPresenter(this, this);
         initData();
-        if(EmptyUtils.isNotEmpty(group)) {
-            ClassInfo classInfo = infoDao.queryBuilder().where(ClassInfoDao.Properties.GroupId.eq(group.getId())).unique();
-
-            if (classInfo != null && !TextUtils.isEmpty(classInfo.getMaster_id())) {
-                mToolbar.setMenuIcon(R.mipmap.group9);
-                mToolbar.setOnItemClickLisener(this);
-            }
+        if (EmptyUtils.isNotEmpty(group)) {
+            mPresenter.queryGroupById(this, group.getId());
         }
-
         mToolbar.showNavigationIcon();
-
 
     }
 
@@ -84,5 +86,21 @@ public class ChatActivity extends FullScreenActivity implements BaseToolBar.OnIt
 //                bundle.putSerializable("group",group);
         intent.putExtra("group", group);
         startActivity(intent);
+    }
+
+    @Override
+    public void showGroup(ClassInfo classInfo) {
+        if (classInfo != null && classInfo.getMaster_id() != null) {
+            if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
+                mToolbar.setMenuIcon(R.mipmap.group9);
+                mToolbar.setOnItemClickLisener(this);
+                invalidateOptionsMenu();
+            }
+        }
+    }
+
+    @Override
+    public void apply() {
+
     }
 }

@@ -37,6 +37,8 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         public final static Property Add_date = new Property(10, String.class, "add_date", false, "ADD_DATE");
         public final static Property Del_time = new Property(11, String.class, "del_time", false, "DEL_TIME");
         public final static Property Sort = new Property(12, String.class, "sort", false, "SORT");
+        public final static Property Master_name = new Property(13, String.class, "master_name", false, "MASTER_NAME");
+        public final static Property Master_nick_name = new Property(14, String.class, "master_nick_name", false, "MASTER_NICK_NAME");
     }
 
 
@@ -64,7 +66,9 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
                 "\"ADD_TIME\" TEXT," + // 9: add_time
                 "\"ADD_DATE\" TEXT," + // 10: add_date
                 "\"DEL_TIME\" TEXT," + // 11: del_time
-                "\"SORT\" TEXT);"); // 12: sort
+                "\"SORT\" TEXT," + // 12: sort
+                "\"MASTER_NAME\" TEXT," + // 13: master_name
+                "\"MASTER_NICK_NAME\" TEXT);"); // 14: master_nick_name
     }
 
     /** Drops the underlying database table. */
@@ -137,6 +141,16 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         if (sort != null) {
             stmt.bindString(13, sort);
         }
+ 
+        String master_name = entity.getMaster_name();
+        if (master_name != null) {
+            stmt.bindString(14, master_name);
+        }
+ 
+        String master_nick_name = entity.getMaster_nick_name();
+        if (master_nick_name != null) {
+            stmt.bindString(15, master_nick_name);
+        }
     }
 
     @Override
@@ -203,6 +217,16 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         if (sort != null) {
             stmt.bindString(13, sort);
         }
+ 
+        String master_name = entity.getMaster_name();
+        if (master_name != null) {
+            stmt.bindString(14, master_name);
+        }
+ 
+        String master_nick_name = entity.getMaster_nick_name();
+        if (master_nick_name != null) {
+            stmt.bindString(15, master_nick_name);
+        }
     }
 
     @Override
@@ -225,7 +249,9 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // add_time
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // add_date
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // del_time
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // sort
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // sort
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // master_name
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // master_nick_name
         );
         return entity;
     }
@@ -245,6 +271,8 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         entity.setAdd_date(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setDel_time(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setSort(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setMaster_name(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setMaster_nick_name(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
      }
     
     @Override

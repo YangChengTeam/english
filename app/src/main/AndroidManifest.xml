@@ -20,7 +20,9 @@
             android:name=".main.view.activitys.MainActivity"
             android:theme="@style/AppTheme" />
 
-        <activity android:name=".main.view.activitys.SplashActivity">
+        <activity
+            android:name=".main.view.activitys.SplashActivity"
+            android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -109,12 +111,13 @@
         <activity android:name=".group.view.activitys.student.GroupMyTaskDetailActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupPublishTaskListActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupTaskFinishAndUnfinshActivity" />
-        <activity android:name=".group.view.activitys.GroupVerifyActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupVerifyActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupVerifyConditionActivity" />
         <activity android:name=".group.view.activitys.GroupListJoinActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupTaskFinishDetailActivity" />
-        <activity android:name=".group.view.activitys.student.GroupMyTaskListActivity"/>
-        <activity android:name=".group.view.activitys.teacher.GroupTaskLookAndUnLookActivity"/>
+        <activity android:name=".group.view.activitys.student.GroupMyTaskListActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupTaskLookAndUnLookActivity" />
+        <activity android:name=".group.view.activitys.student.GroupJoinActivityNew" />
 
         <receiver
             android:name=".group.view.receiver.GroupNotificationReceiver"

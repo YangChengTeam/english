@@ -11,6 +11,7 @@ import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
 
@@ -37,8 +38,7 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
             @Override
             public void onClick(View v) {
 
-                if (!TextUtils.isEmpty(classInfo.getMaster_id())) {
-
+                if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
                     GroupApp.setMyExtensionModule(true);
                 } else {
                     GroupApp.setMyExtensionModule(false);

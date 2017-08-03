@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.engin.BaseEngin;
 import com.kk.securityhttp.engin.HttpCoreEngin;
+import com.yc.english.base.model.BaseEngin;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfo;
 
@@ -18,10 +18,10 @@ import rx.Observable;
  * Created by zhangkai on 2017/7/26.
  */
 
-public class RegisterEngin {
-    private Context mContext;
+public class RegisterEngin extends BaseEngin {
+
     public RegisterEngin(Context context) {
-        mContext = context;
+        super(context);
     }
 
     public Observable<ResultInfo<String>> sendCode(String mobile){

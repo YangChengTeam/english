@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.facebook.stetho.Stetho;
 import com.yc.english.group.dao.DaoMaster;
 import com.yc.english.group.dao.DaoSession;
@@ -21,8 +20,6 @@ import io.rong.imkit.DefaultExtensionModule;
 import io.rong.imkit.IExtensionModule;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Message;
 
 
 /**

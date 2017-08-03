@@ -1,7 +1,6 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.listener.onCheckedChangeListener;
+import com.yc.english.group.listener.OnCheckedChangeListener;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.view.adapter.GroupSyncListAdapter;
 
@@ -26,7 +25,7 @@ import rx.functions.Action1;
  * Created by wanglin  on 2017/7/27 16:17.
  */
 
-public class GroupSyncGroupListActivity extends FullScreenActivity implements onCheckedChangeListener {
+public class GroupSyncGroupListActivity extends FullScreenActivity implements OnCheckedChangeListener {
     @BindView(R.id.m_recyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.m_tv_confirm_sync_group)

@@ -18,7 +18,6 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-
     }
     buildTypes {
         release {
@@ -33,6 +32,22 @@ android {
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('english.jks')
+            storePassword "123456"
+            keyAlias "english"
+            keyPassword "123456"
+        }
+
+        release {
+            storeFile file('english.jks')
+            storePassword "123456"
+            keyAlias "english"
+            keyPassword "123456"
         }
     }
 
@@ -86,4 +101,5 @@ dependencies {
     compile files('libs/Sunflower.jar')
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.facebook.stetho:stetho:1.5.0'
+
 }

@@ -56,4 +56,9 @@ public interface NetConstan {
      */
 
     String remove_group = baser_url + "class/remove";
+    /**
+     * 根据群号查找群
+     */
+
+    String query_group_by_groupId = baser_url + "class/info";
 }

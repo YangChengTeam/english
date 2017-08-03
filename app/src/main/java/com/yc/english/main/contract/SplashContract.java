@@ -13,6 +13,6 @@ public interface SplashContract {
     }
 
     interface Presenter extends IPresenter {
-        void connect(String uid, Runnable runnable);
+        void connect(String uid);
     }
 }
