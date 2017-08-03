@@ -15,7 +15,5 @@ public interface LoginContract {
 
     interface Presenter extends IPresenter {
         void login(String username, String pwd);
-        void connect(String uid);
-
     }
 }

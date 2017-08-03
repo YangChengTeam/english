@@ -1,12 +1,15 @@
-package com.yc.english.main.view.activitys;
+package com.yc.english.main.view.popupwindows;
 
 import android.app.Activity;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ClipboardUtils;
 import com.blankj.utilcode.util.SnackbarUtils;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.utils.UIUitls;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BasePopupWindow;
 
 import java.util.concurrent.TimeUnit;
@@ -37,7 +40,16 @@ public class FollowWeiXinPopupWindow extends BasePopupWindow {
             public void call(Void aVoid) {
                 dismiss();
                 ClipboardUtils.copyText("说说英语");
-                SnackbarUtils.with(mContext.getWindow().getDecorView()).setMessage("复制成功").show();
+                TipsHelper.tips(mContext, "复制成功, 正在前往微信");
+                UIUitls.postDelayed(1000, new Runnable() {
+                    @Override
+                    public void run() {
+                        String weixin = "com.tencent.mm";
+                        if(AppUtils.isInstallApp(weixin)){
+                            AppUtils.launchApp(weixin);
+                        }
+                    }
+                });
             }
         });
 

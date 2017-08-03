@@ -84,6 +84,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void gotoMain(Boolean flag) {
         if (flag) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
         }
     }
 }

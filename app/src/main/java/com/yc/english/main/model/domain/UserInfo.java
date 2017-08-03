@@ -18,6 +18,7 @@ public class UserInfo {
     private String nickname;
     private String school;
     private String token;
+    private boolean isLogin;
 
     @JSONField(name = "face")
     private String avatar;
@@ -84,5 +85,13 @@ public class UserInfo {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
     }
 }

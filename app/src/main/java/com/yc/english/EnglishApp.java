@@ -3,19 +3,22 @@ package com.yc.english;
 import android.app.Application;
 import android.os.Build;
 
-import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.Utils;
 import com.iflytek.cloud.SpeechUtility;
 import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
-import com.kk.utils.PathUtils;
+import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
 import com.yc.english.group.common.GroupApp;
+import com.yc.english.main.hepler.UserInfoHelper;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
+import rx.Observable;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by zhangkai on 2017/7/24.
@@ -25,18 +28,20 @@ public class EnglishApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        GroupApp.init(this);
-        Utils.init(this);
-
-        SpeechUtility.createUtility(EnglishApp.this, "appid=" + getString(R.string.app_id));
-
-        init();
+        Observable.just("").observeOn(Schedulers.io()).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                GroupApp.init(EnglishApp.this);
+                Utils.init(EnglishApp.this);
+                SpeechUtility.createUtility(EnglishApp.this, "appid=" + getString(R.string.app_id));
+                init();
+            }
+        });
     }
 
     private void init(){
-        //错误捕获
-        CrashUtils.init(new File(PathUtils.makeConfigDir(getApplicationContext()), "crash.log"));
-
+        //腾迅自动更新
+        Bugly.init(getApplicationContext(), "965a5326ab", false);
 
         //友盟统计
         UMGameAgent.setDebugMode(true);
@@ -81,8 +86,10 @@ public class EnglishApp extends Application {
             params.put("app_version", GoagalInfo.get().appInfo.getVersionName() + "");
         }
         HttpConfig.setDefaultParams(params);
-    }
 
+        UserInfoHelper.login(this);
+
+    }
 
 
 }

@@ -1,4 +1,4 @@
-package com.yc.english.main.hepler;
+package com.yc.english.base.helper;
 
 import android.content.Context;
 
@@ -12,7 +12,6 @@ import com.yc.english.main.model.domain.UserInfo;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import rx.Observable;
 
 /**
@@ -35,6 +34,13 @@ public class EnginHelper {
                         .getType(), params,
                 true, true,
                 true);
+    }
+
+    public static Observable<ResultInfo<String>> sendCode(Context context, String url, String mobile) {
+        Map<String, String> params = new HashMap<>();
+        params.put("mobile", mobile);
+        return HttpCoreEngin.get(context).rxpost(url, new TypeReference<ResultInfo<TokenInfo>>() {
+        }.getType(), params, true, true, true);
     }
 
 }

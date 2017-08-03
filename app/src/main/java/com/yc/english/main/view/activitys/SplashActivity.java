@@ -7,15 +7,8 @@ import com.bumptech.glide.Glide;
 import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
-import com.yc.english.group.view.activitys.GroupListJoinActivity;
-import com.yc.english.main.contract.LoginContract;
 import com.yc.english.main.contract.SplashContract;
-import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.main.presenter.LoginPresenter;
 import com.yc.english.main.presenter.SplashPresenter;
-
-import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
 import butterknife.BindView;
 
@@ -28,37 +21,28 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @BindView(R.id.iv_splash_logo)
     ImageView mSplashLogoImageView;
 
+    private static final int Time = 2000;
+
     @Override
     public void init() {
-        mPresenter = new SplashPresenter(this, this);
         Glide.with(this).load(R.mipmap.splash_logo).into(mSplashLogoImageView);
-
-        UserInfo userInfo = UserInfoHelper.getUserInfo();
-        if (userInfo != null) {
-            mPresenter.connect(userInfo.getUid());
-            UIUitls.postDelayed(1500, new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-
-        } else {
-            UIUitls.postDelayed(1500, new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-        }
+        mPresenter = new SplashPresenter(this, this);
     }
 
     @Override
     public int getLayoutId() {
         return R.layout.main_activity_splash;
+    }
+
+    @Override
+    public void gotToMain() {
+        UIUitls.postDelayed(Time, new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

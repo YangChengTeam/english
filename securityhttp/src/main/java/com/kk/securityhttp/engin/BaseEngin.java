@@ -250,7 +250,7 @@ public abstract class BaseEngin<T> {
 
 
     private T getResultInfo(String body, Type type) {
-        if(type.toString().contains("java.lang.String")){
+        if(type.toString().equals("java.lang.String")){
             return  (T)body;
         }
 

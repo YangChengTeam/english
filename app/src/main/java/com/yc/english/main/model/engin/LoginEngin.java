@@ -2,17 +2,11 @@ package com.yc.english.main.model.engin;
 
 import android.content.Context;
 
-import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.model.bean.TokenInfo;
-import com.yc.english.main.hepler.EnginHelper;
-import com.yc.english.main.model.domain.URLConfig;
+import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.main.model.domain.UserInfo;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import rx.Observable;
 

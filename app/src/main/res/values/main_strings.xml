@@ -56,6 +56,7 @@
     <string name="setting_push">推送接受消息</string>
     <string name="setting_play">允许后台播放</string>
     <string name="setting_cache">清除缓存</string>
+    <string name="setting_version">版本检测</string>
 
     <string name="base_cancel">取消</string>
     <string name="base_ok">确定</string>

@@ -21,7 +21,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="55dp"
-            android:src="@drawable/sample_avatar"/>
+            android:src="@mipmap/default_big_avatar"/>
 
 
         <TextView
@@ -31,9 +31,8 @@
             android:layout_below="@+id/iv_ivatar"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="萌了个乘乘"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_big"/>
+            android:textSize="@dimen/font_normal"/>
 
         <TextView
             android:id="@+id/tv_school"
@@ -42,9 +41,8 @@
             android:layout_below="@+id/tv_nickname"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:text="洪山区第一小学"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_big"/>
+            android:textSize="@dimen/font_normal"/>
     </LinearLayout>
 
 

@@ -5,9 +5,13 @@ import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.IView;
+import com.yc.english.main.model.domain.Constant;
 
 import rx.subscriptions.CompositeSubscription;
 
@@ -25,6 +29,11 @@ public abstract class BasePresenter<M, V extends IView> implements IPresenter {
     protected Context mContext;
 
     public BasePresenter(V v) {
+       this(null, v);
+    }
+
+    public BasePresenter(Context context, V v) {
+        this.mContext = context;
         mSubscriptions = new CompositeSubscription();
         mView = v;
     }
@@ -46,29 +55,31 @@ public abstract class BasePresenter<M, V extends IView> implements IPresenter {
 
     public abstract void loadData(final boolean forceUpdate, final boolean showLoadingUI);
 
-    public String getMessage(String message, String desc) {
-        return EmptyUtils.isEmpty(message) ? desc : message;
-    }
 
-    public <T> void handleResultInfo(ResultInfo<T> resultInfo, Runnable runnable) {
-        if (EmptyUtils.isEmpty(resultInfo)) {
-            ToastUtils.showShort(HttpConfig.SERVICE_ERROR);
-            return;
-        }
+    public <T> void handleResultInfo(final ResultInfo<T> resultInfo, final Runnable runnable) {
+        ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
+            @Override
+            public void resultInfoEmpty(String message) {
+                TipsHelper.tips(mContext, message);
 
-        if (resultInfo.code != HttpConfig.STATUS_OK) {
-            ToastUtils.showShort(getMessage(resultInfo.message, HttpConfig.NET_ERROR));
-        } else {
-            if (runnable != null) {
-                runnable.run();
             }
-        }
+
+            @Override
+            public void resultInfoNotOk(String message) {
+                TipsHelper.tips(mContext, message);
+            }
+
+            @Override
+            public void reulstInfoOk() {
+                if (runnable != null) {
+                    runnable.run();
+                }
+            }
+        });
     }
 
     public <T> void handleResultInfo(ResultInfo<T> resultInfo) {
         handleResultInfo(resultInfo, null);
     }
-
-
 }
 

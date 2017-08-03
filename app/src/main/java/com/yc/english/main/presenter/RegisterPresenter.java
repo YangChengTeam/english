@@ -7,7 +7,7 @@ import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.net.contains.HttpConfig;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.contract.RegisterContract;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -26,7 +26,7 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
         RegisterContract.Presenter {
 
     public RegisterPresenter(Context context, RegisterContract.View view) {
-        super(view);
+        super(context, view);
         mEngin = new RegisterEngin(context);
     }
 
@@ -39,7 +39,7 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
     @Override
     public void sendCode(String mobile) {
         if (!RegexUtils.isMobileSimple(mobile)) {
-            ToastUtils.showShort("手机号填写不正确");
+            TipsHelper.tips(mContext, "手机号填写不正确");
             return;
         }
         mView.showLoadingDialog("发送验证码中, 请稍后");
@@ -57,7 +57,12 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
 
             @Override
             public void onNext(final ResultInfo<String> resultInfo) {
-                handleResultInfo(resultInfo);
+                handleResultInfo(resultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtils.showShort("短信已发送， 请注意查收");
+                    }
+                });
             }
         });
         mSubscriptions.add(subscription);
@@ -66,17 +71,17 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
     @Override
     public void register(String mobile, String pwd, String code) {
         if (!RegexUtils.isMobileSimple(mobile)) {
-            ToastUtils.showShort("手机号填写不正确");
+            TipsHelper.tips(mContext, "手机号填写不正确");
             return;
         }
 
         if (EmptyUtils.isEmpty(code)) {
-            ToastUtils.showShort("验证码不正确");
+            TipsHelper.tips(mContext, "验证码不正确");
             return;
         }
 
         if (EmptyUtils.isEmpty(pwd) && pwd.length() < 6) {
-            ToastUtils.showShort("密码不能少于6位");
+            TipsHelper.tips(mContext, "密码不能少于6位");
             return;
         }
 
@@ -98,6 +103,7 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
                     @Override
                     public void run() {
                         UserInfoHelper.saveUserInfo(resultInfo.data);
+                        UserInfoHelper.connect(mContext, resultInfo.data.getUid());
                         RxBus.get().post(Constant.MAIN, true);
                         mView.finish();
                     }
@@ -106,4 +112,5 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
         });
         mSubscriptions.add(subscription);
     }
+
 }

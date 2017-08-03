@@ -6,6 +6,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
+import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfo;
 
@@ -25,12 +26,7 @@ public class RegisterEngin extends BaseEngin {
     }
 
     public Observable<ResultInfo<String>> sendCode(String mobile){
-        Map<String, String> params = new HashMap<>();
-        params.put("mobile", mobile);
-
-        return HttpCoreEngin.get(mContext).rxpost(URLConfig.SEND_CODE_URL, new TypeReference<ResultInfo<String>>(){}
-                        .getType(), params,
-               true, true, true);
+        return EnginHelper.sendCode(mContext, URLConfig.REGISTER_SEND_CODE_URL, mobile);
     }
 
 
@@ -40,7 +36,7 @@ public class RegisterEngin extends BaseEngin {
         params.put("pwd", pwd);
         params.put("code", code);
 
-        return HttpCoreEngin.get(mContext).rxpost(URLConfig.REGISTER_URL, new TypeReference<ResultInfo<String>>(){}
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.REGISTER_URL, new TypeReference<ResultInfo<UserInfo>>(){}
                         .getType(),
                 params,
                 true,

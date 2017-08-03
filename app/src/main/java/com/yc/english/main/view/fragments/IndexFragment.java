@@ -11,6 +11,12 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
@@ -18,6 +24,8 @@ import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.group.view.activitys.GroupListJoinActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
+import com.yc.english.main.model.domain.Constant;
+import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.presenter.IndexPresenter;
 import com.yc.english.main.view.activitys.MainActivity;
 import com.yc.english.main.view.wdigets.IndexMenuView;
@@ -70,9 +78,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
         mStudentNumberTextView.setTypeface(null, Typeface.BOLD_ITALIC);
         mTeacherNumberTextView.setTypeface(null, Typeface.BOLD_ITALIC);
-
-        Bitmap bitmap = ((BitmapDrawable)mAvatarImageView.getDrawable()).getBitmap();
-        ImageUtils.toRound(ImageUtils.addFrame(bitmap, 1, Color.BLUE));
 
         RxView.clicks(mReadMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -159,5 +164,19 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 .setImageLoader(new BannerImageLoader())
                 .setImages(images)
                 .start();
+    }
+
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.USERINFO)
+            }
+    )
+    @Override
+    public void showAvatar(UserInfo userInfo) {
+        RequestOptions options = new RequestOptions();
+        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new CircleCrop());
+        Glide.with(this).load(userInfo.getAvatar()).apply(options).into(mAvatarImageView);
     }
 }
