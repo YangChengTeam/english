@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.yc.english.group.model.bean.TokenInfo;
+import com.kk.utils.UIUitls;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
@@ -17,23 +17,23 @@ import io.rong.imlib.RongIMClient;
 
 public class ConnectUtils {
     private static final String TAG = "ConnectUtils";
+    public static final String TOKEN = "TOKEN";
 
     /**
      * <p>连接服务器，在整个应用程序全局，只需要调用一次，需在 {@link #} 之后调用。</p>
      * <p>如果调用此接口遇到连接失败，SDK 会自动启动重连机制进行最多10次重连，分别是1, 2, 4, 8, 16, 32, 64, 128, 256, 512秒后。
      * 在这之后如果仍没有连接成功，还会在当检测到设备网络状态变化时再次进行重连。</p>
      *
-     * @param tokenInfo 从服务端获取的用户身份令牌（Token）。
+     * @param token 从服务端获取的用户身份令牌（Token）。
      * @param
      * @return RongIM  客户端核心类的实例。
      */
-    public static void contact(final Context context, final TokenInfo tokenInfo) {
+    public static void contact(final Context context, final String token) {
 
         try {
-            SPUtils.getInstance().put("TOKEN", tokenInfo.getToken());
             final String packageName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).packageName;//获取包对象信息;)
             if (context.getApplicationInfo().packageName.equals(packageName)) {
-                RongIM.connect(tokenInfo.getToken(), new RongIMClient.ConnectCallback() {
+                RongIM.connect(token, new RongIMClient.ConnectCallback() {
 
                     /**
                      * Token 错误。可以从下面两点检查 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
@@ -42,6 +42,7 @@ public class ConnectUtils {
                     @Override
                     public void onTokenIncorrect() {
                         LogUtils.e(TAG, "onTokenIncorrect: ");
+                        SPUtils.getInstance().put(TOKEN, "");
                     }
 
                     /**
@@ -50,9 +51,13 @@ public class ConnectUtils {
                      */
                     @Override
                     public void onSuccess(String userid) {
-                        //成功保存用户ID
-                        SPUtils.getInstance().put("user_id", userid);
-                        Toast.makeText(context, "连接成功", Toast.LENGTH_SHORT).show();
+                        SPUtils.getInstance().put(TOKEN, token);
+                        UIUitls.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, "连接成功", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                     /**
@@ -62,7 +67,7 @@ public class ConnectUtils {
                     @Override
                     public void onError(RongIMClient.ErrorCode errorCode) {
                         LogUtils.e(TAG, "onError: " + errorCode.getMessage());
-
+                        SPUtils.getInstance().put(TOKEN, "");
                     }
                 });
             }

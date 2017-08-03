@@ -2,34 +2,24 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
-import com.kk.securityhttp.domain.GoagalInfo;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
-import com.yc.english.group.contract.GroupCreateContract;
 import com.yc.english.group.contract.GroupJoinContract;
 import com.yc.english.group.dao.ClassInfoDao;
 import com.yc.english.group.model.bean.ClassInfo;
-import com.yc.english.group.model.engin.GroupCreateEngine;
 import com.yc.english.group.model.engin.GroupJoinEngin;
 import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.GroupUser;
 import com.yc.english.group.rong.models.GroupUserQueryResult;
-import com.yc.english.group.view.activitys.GroupJoinActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
 
 import java.util.List;
 
-import io.rong.imkit.RongIM;
-import io.rong.imlib.IRongCallback;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Message;
-import io.rong.message.ContactNotificationMessage;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 

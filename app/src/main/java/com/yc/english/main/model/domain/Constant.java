@@ -8,4 +8,6 @@ public class Constant {
     public static final String USER_INFO = "userinfo";
 
     public static final String MAIN = "main";
+    public static final String USERINFO = "userinfo";
+
 }

@@ -21,7 +21,7 @@ public final class StringUtils {
      * @return {@code true}: 空<br> {@code false}: 不为空
      */
     public static boolean isEmpty(final CharSequence s) {
-        return s == null || s.length() == 0;
+        return s == null || s.length() == 0 || s.equals("null");
     }
 
     /**

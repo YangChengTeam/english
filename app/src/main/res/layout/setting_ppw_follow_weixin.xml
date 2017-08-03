@@ -81,7 +81,7 @@
             <View
                 android:layout_width="1px"
                 android:layout_height="50dp"
-                android:background="@color/gray_aaa"
+                android:background="#e0e3e3"
                 ></View>
             <TextView
                 android:id="@+id/tv_cancel"
@@ -95,7 +95,6 @@
                 android:textSize="@dimen/font_normal"
                 ></TextView>
         </LinearLayout>
-
 
         <View
             android:layout_width="match_parent"

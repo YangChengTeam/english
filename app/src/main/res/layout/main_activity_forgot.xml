@@ -82,10 +82,12 @@
                     android:textSize="@dimen/font_normal"/>
 
                 <TextView
-                    android:layout_width="75dp"
+                    android:id="@+id/tv_checkcode"
+                    android:layout_width="85dp"
                     android:layout_height="25dp"
                     android:background="@color/primary"
                     android:gravity="center"
+                    android:singleLine="true"
                     android:text="@string/main_checkcode"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_small"/>

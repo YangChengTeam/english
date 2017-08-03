@@ -5,7 +5,7 @@ import android.content.Context;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.model.bean.TokenInfo;
-import com.yc.english.main.hepler.EnginHelper;
+import com.yc.english.base.helper.EnginHelper;
 
 import rx.Observable;
 

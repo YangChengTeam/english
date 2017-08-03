@@ -1,33 +1,23 @@
 package com.yc.english.group.view.activitys;
 
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.common.GroupApp;
-import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupCreateContract;
 import com.yc.english.group.dao.ClassInfoDao;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.presenter.GroupCreatePresenter;
-import com.yc.english.group.rong.ImUtils;
-import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.main.hepler.UserInfoHelper;
 
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by wanglin  on 2017/7/24 18:36.

@@ -104,4 +104,8 @@ dependencies {
 
     compile project(':CallKit')
     compile project(':CallLib')
+
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+
 }

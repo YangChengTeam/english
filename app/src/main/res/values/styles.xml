@@ -33,7 +33,7 @@
     </style>
 
     <style name="Splash" parent="AppTheme">
-        <item name="android:windowBackground">@mipmap/splash_bg</item>
+        <item name="android:windowBackground">@drawable/translucent</item>
     </style>
 
 </resources>
