@@ -48,12 +48,7 @@ public class GroupDeleteAdapter extends BaseAdapter<GroupMemberInfo> {
                 }
             });
 
-            holder.setOnClickListener(R.id.ll_container, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                }
-            });
 
 
 //            ((CheckBox) holder.getView(R.id.cb_delete_select)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

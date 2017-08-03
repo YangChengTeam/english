@@ -51,7 +51,9 @@ public class GroupCreateActivity extends FullScreenActivity<GroupCreatePresenter
         RxView.clicks(btnCreate).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                mPresenter.createGroup(UserInfoHelper.getUserInfo().getUid(), etClassGroup.getText().toString().trim(), "");
+
+
+                    mPresenter.createGroup(UserInfoHelper.getUserInfo().getUid(), etClassGroup.getText().toString().trim(), "");
             }
         });
 
@@ -61,7 +63,6 @@ public class GroupCreateActivity extends FullScreenActivity<GroupCreatePresenter
     public int getLayoutId() {
         return R.layout.group_activity_create_class;
     }
-
 
 
     @Override

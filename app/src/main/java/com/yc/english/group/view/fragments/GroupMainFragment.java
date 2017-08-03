@@ -22,6 +22,7 @@ import com.yc.english.group.view.activitys.student.GroupJoinActivityNew;
 import com.yc.english.group.view.activitys.teacher.GroupCreateActivity;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
 
@@ -85,11 +86,13 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         switch (view.getId()) {
             case R.id.btn_create_class:
             case R.id.btn_create_class1:
-                startActivity(new Intent(getActivity(), GroupCreateActivity.class));
+                if (!UserInfoHelper.isGotoLogin(getActivity()))
+                    startActivity(new Intent(getActivity(), GroupCreateActivity.class));
                 break;
             case R.id.btn_join_class:
             case R.id.btn_join_class1:
-                startActivity(new Intent(getActivity(), GroupJoinActivityNew.class));
+                if (!UserInfoHelper.isGotoLogin(getActivity()))
+                    startActivity(new Intent(getActivity(), GroupJoinActivityNew.class));
                 break;
         }
 

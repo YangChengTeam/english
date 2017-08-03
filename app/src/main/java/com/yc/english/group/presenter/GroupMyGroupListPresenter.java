@@ -11,6 +11,7 @@ import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.engin.GroupMyGroupListEngine;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -29,9 +30,12 @@ public class GroupMyGroupListPresenter extends BasePresenter<GroupMyGroupListEng
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
-        String uid = UserInfoHelper.getUserInfo().getUid();
-        getMyGroupList(uid);
-        getMemberList(mContext, "", "0", uid);
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo != null) {
+            String uid = userInfo.getUid();
+            getMyGroupList(uid);
+            getMemberList(mContext, "", "0", uid);
+        }
     }
 
     @Override
