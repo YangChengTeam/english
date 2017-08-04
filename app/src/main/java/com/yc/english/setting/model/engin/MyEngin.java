@@ -6,8 +6,8 @@ import com.alibaba.fastjson.TypeReference;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
-import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.base.model.BaseEngin;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfo;
 
@@ -36,7 +36,7 @@ public class MyEngin extends BaseEngin {
         }.getType(), params, true, true, true);
     }
 
-    public Observable<ResultInfo<String>> updateMessage(String avatar, String nick_name, String school) {
+    public Observable<ResultInfo<UserInfo>> updateMessage(String avatar, String nick_name, String school) {
         Map<String, String> params = new HashMap<>();
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (!EmptyUtils.isEmpty(userInfo)) {
@@ -45,8 +45,8 @@ public class MyEngin extends BaseEngin {
         params.put("face", avatar);
         params.put("nick_name", nick_name);
         params.put("school", school);
-        return HttpCoreEngin.get(mContext).rxpost(URLConfig.UPD_MESSAGE_URL, new TypeReference<ResultInfo<String>>() {
-        }.getType(), params, true, true, true);
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.UPD_MESSAGE_URL, new TypeReference<ResultInfo<UserInfo>>() {
+        }.getType(), params, false, true, true);
     }
 
     public Observable<ResultInfo<String>> updatePassword(String pwd, String newPwd) {

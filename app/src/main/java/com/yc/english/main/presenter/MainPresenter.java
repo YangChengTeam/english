@@ -2,7 +2,6 @@ package com.yc.english.main.presenter;
 
 import android.content.Context;
 
-import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.model.engin.MainEngin;

@@ -58,6 +58,14 @@ public class UserInfoHelper {
         }
     }
 
+    public static boolean isLogin(){
+        return getUserInfo() != null ;
+    }
+
+    public static void clearUserInfo(){
+        SPUtils.getInstance().remove(Constant.USER_INFO);
+        mUserInfo = null;
+    }
 
     public static void connect(final Context context, final String uid) {
         String token = SPUtils.getInstance().getString(ConnectUtils.TOKEN);
@@ -136,12 +144,7 @@ public class UserInfoHelper {
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        UIUitls.postDelayed(1500, new Runnable() {
-                            @Override
-                            public void run() {
-                                login(context);
-                            }
-                        });
+                        clearUserInfo();
                     }
 
                     @Override
@@ -155,7 +158,7 @@ public class UserInfoHelper {
     }
 
     public static boolean isGotoLogin(Context context){
-        if(getUserInfo() == null) {
+        if(!isLogin()) {
             Intent intent = new Intent(context, LoginActivity.class);
             context.startActivity(intent);
             return  true;
@@ -185,9 +188,8 @@ public class UserInfoHelper {
                             callback.showNoLogin();
                         }
                     });
-
                 }
-                return false;
+                return flag;
             }
         }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<UserInfo>() {
             @Override

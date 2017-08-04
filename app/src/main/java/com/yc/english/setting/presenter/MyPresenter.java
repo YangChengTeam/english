@@ -2,8 +2,12 @@ package com.yc.english.setting.presenter;
 
 import android.content.Context;
 
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.contract.MyContract;
 import com.yc.english.setting.model.engin.MyEngin;
@@ -24,6 +28,7 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
         getUserInfo();
     }
 
+
     @Override
     public void getUserInfo() {
         UserInfoHelper.getUserInfoDo(new UserInfoHelper.Callback() {
@@ -34,7 +39,7 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
 
             @Override
             public void showNoLogin() {
-                mView.showNoLogin();
+                mView.showNoLogin(true);
             }
         });
     }

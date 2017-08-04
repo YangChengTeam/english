@@ -11,6 +11,7 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
+import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.main.contract.LoginContract;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.presenter.LoginPresenter;
@@ -24,7 +25,7 @@ import rx.functions.Action1;
  * Created by zhangkai on 2017/7/21.
  */
 
-public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
+public class LoginActivity extends FullScreenActivity<LoginPresenter> implements LoginContract.View {
 
     @BindView(R.id.btn_login)
     Button mLoginButton;
@@ -43,6 +44,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void init() {
+        mToolbar.setTitle("登录");
+        mToolbar.showNavigationIcon();
+
         mPresenter = new LoginPresenter(this, this);
 
         RxView.clicks(mLoginButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -74,17 +78,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         return R.layout.main_activity_login;
     }
 
-
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
-                    @Tag(Constant.MAIN)
+                    @Tag(Constant.FINISH_LOGIN)
             }
     )
-    public void gotoMain(Boolean flag) {
+    public void finish(Boolean flag) {
         if (flag) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
+    }
+
+    @Override
+    public void showPhone(String phone) {
+        mUsernameEditText.setText(phone);
     }
 }

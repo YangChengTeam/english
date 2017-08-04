@@ -56,13 +56,14 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     public void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd(this.getClass().getSimpleName());
-        if (EmptyUtils.isNotEmpty(mPresenter))
-            mPresenter.unsubscribe();
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (EmptyUtils.isNotEmpty(mPresenter))
+            mPresenter.unsubscribe();
         RxBus.get().unregister(this);
     }
 

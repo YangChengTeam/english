@@ -1,11 +1,18 @@
 package com.yc.english.setting.view.activitys;
 
+import android.view.View;
+import android.widget.Button;
+
 import com.blankj.utilcode.util.SnackbarUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.tencent.bugly.beta.Beta;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideCatchHelper;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
 import com.yc.english.setting.contract.SettingContract;
 import com.yc.english.setting.presenter.SettingPresenter;
 import com.yc.english.setting.view.widgets.SettingItemView;
@@ -20,13 +27,14 @@ import rx.functions.Action1;
  */
 
 public class SettingActivity extends FullScreenActivity<SettingPresenter> implements SettingContract.View {
-
-
     @BindView(R.id.si_cache)
     SettingItemView mCacheSettingItemView;
 
     @BindView(R.id.si_version)
     SettingItemView mVersionSettingItemView;
+
+    @BindView(R.id.btn_exit)
+    Button mExitButton;
 
 
     @Override
@@ -53,9 +61,17 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
             }
         });
 
+        RxView.clicks(mExitButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                UserInfoHelper.clearUserInfo();
+                mExitButton.setVisibility(View.GONE);
+                TipsHelper.tips(SettingActivity.this, "成功退出");
+                RxBus.get().post(Constant.NO_LOGIN, true);
+            }
+        });
+
         mPresenter = new SettingPresenter(this, this);
-
-
     }
 
     @Override
@@ -66,5 +82,10 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
     @Override
     public void ShowCacheSize(String size) {
         mCacheSettingItemView.setInfo(size);
+    }
+
+    @Override
+    public void showExitButton() {
+        mExitButton.setVisibility(View.VISIBLE);
     }
 }

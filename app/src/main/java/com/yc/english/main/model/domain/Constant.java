@@ -7,7 +7,11 @@ package com.yc.english.main.model.domain;
 public class Constant {
     public static final String USER_INFO = "userinfo";
 
-    public static final String MAIN = "main";
-    public static final String USERINFO = "userinfo";
+    public static final String FINISH_LOGIN = "main";
+
+    public static final String NO_LOGIN = "nologin";
+
+    public static final String PHONE = "phone";
+
 
 }

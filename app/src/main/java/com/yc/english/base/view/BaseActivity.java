@@ -40,6 +40,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (EmptyUtils.isNotEmpty(mPresenter)) {
+            mPresenter.unsubscribe();
+        }
         RxBus.get().unregister(this);
     }
 
@@ -57,10 +60,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
-
-        if (EmptyUtils.isNotEmpty(mPresenter)) {
-            mPresenter.unsubscribe();
-        }
     }
 
 

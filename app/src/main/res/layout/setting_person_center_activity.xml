@@ -37,7 +37,6 @@
             android:id="@+id/si_name"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            eng:desc="萌了个萌"
             eng:text="@string/setting_name">
         </com.yc.english.setting.view.widgets.SettingItemView>
 
@@ -50,7 +49,6 @@
             android:id="@+id/si_school"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            eng:desc="洪山区第一小学"
             eng:text="@string/setting_school">
         </com.yc.english.setting.view.widgets.SettingItemView>
     </LinearLayout>

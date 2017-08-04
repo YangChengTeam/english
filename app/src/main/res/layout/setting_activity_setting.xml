@@ -51,5 +51,20 @@
             eng:desc="0.0Byte"
             eng:text="@string/setting_cache">
         </com.yc.english.setting.view.widgets.SettingItemView>
+
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/setting_btn_red_bg"
+        android:text="退出"
+        android:visibility="gone"/>
+
 </LinearLayout>

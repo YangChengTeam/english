@@ -6,6 +6,9 @@ import android.support.annotation.NonNull;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.ResultInfoHelper;
@@ -48,6 +51,7 @@ public abstract class BasePresenter<M, V extends IView> implements IPresenter {
         mSubscriptions.clear();
     }
 
+
     public void loadData(boolean forceUpdate) {
         loadData(forceUpdate || mFirstLoad, true);
         mFirstLoad = false;
@@ -61,7 +65,6 @@ public abstract class BasePresenter<M, V extends IView> implements IPresenter {
             @Override
             public void resultInfoEmpty(String message) {
                 TipsHelper.tips(mContext, message);
-
             }
 
             @Override
