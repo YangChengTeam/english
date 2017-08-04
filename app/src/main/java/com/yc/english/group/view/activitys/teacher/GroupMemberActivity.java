@@ -6,10 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupMyGroupListContract;
 import com.yc.english.group.contract.GroupMyMemberListContract;
 import com.yc.english.group.model.bean.ClassInfo;
@@ -70,20 +74,6 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
 
     }
 
-    private void initData() {
-
-
-        mList.add(new GroupMemberInfo("刘老师", "", true));
-        mList.add(new GroupMemberInfo("艾同学", "", false));
-        mList.add(new GroupMemberInfo("曹同学", "", false));
-        mList.add(new GroupMemberInfo("蔡同学", "", false));
-        mList.add(new GroupMemberInfo("程同学", "", false));
-        mList.add(new GroupMemberInfo("陈同学", "", false));
-        mList.add(new GroupMemberInfo("王同学", "", false));
-
-
-    }
-
     private void initListener() {
     }
 
@@ -108,5 +98,17 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     @Override
     public void showMemberList(List<StudentInfo> list) {
         adapter.setData(list);
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.FINISH)
+            }
+    )
+    public void getList(String group) {
+        if (group.equals(BusAction.REMOVE_GROUP)){
+            finish();
+        }
     }
 }

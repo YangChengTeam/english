@@ -3,6 +3,7 @@ package com.yc.english.group.contract;
 import android.content.Context;
 
 import com.yc.english.base.presenter.IPresenter;
+import com.yc.english.base.view.IDialog;
 import com.yc.english.base.view.IView;
 import com.yc.english.group.model.bean.ClassInfo;
 
@@ -12,17 +13,17 @@ import com.yc.english.group.model.bean.ClassInfo;
 
 public interface GroupApplyJoinContract {
 
-    interface View extends IView {
+    interface View extends IView, IDialog {
         void showGroup(ClassInfo classInfo);
 
-        void apply();
+        void apply(int type);
 
     }
 
     interface Presenter extends IPresenter {
         void applyJoinGroup(String user_id, String sn);
 
-        void queryGroupById(Context context, String sn);
+        void queryGroupById(Context context,String id, String sn);
     }
 
 }

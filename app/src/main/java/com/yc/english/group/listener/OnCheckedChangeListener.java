@@ -1,6 +1,8 @@
 package com.yc.english.group.listener;
 
-import android.widget.CompoundButton;
+import android.view.View;
+
+import com.yc.english.group.model.bean.StudentInfo;
 
 /**
  * Created by wanglin  on 2017/7/27 16:41.
@@ -8,5 +10,7 @@ import android.widget.CompoundButton;
  */
 
 public interface OnCheckedChangeListener {
-    void onCheckedChange(int position, CompoundButton buttonView, boolean isChecked);
+    void onCheckedChange(int position, View view, boolean isClicked);
+
+    void onClick(int position, View view, boolean isClicked, StudentInfo studentInfo);
 }

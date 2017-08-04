@@ -1,37 +1,41 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.RadioButton;
+import android.widget.ImageView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.group.contract.GroupChangeInfoContract;
+import com.yc.english.group.presenter.GroupChangeInfoPresenter;
+import com.yc.english.group.rong.models.GroupInfo;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by wanglin  on 2017/7/31 09:08.
  * 老师设置加群验证条件
  */
 
-public class GroupVerifyConditionActivity extends FullScreenActivity implements CompoundButton.OnCheckedChangeListener {
+public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChangeInfoPresenter> implements GroupChangeInfoContract.View {
 
 
-    @BindView(R.id.m_rb_all_allow)
-    RadioButton mRbAllAllow;
-    @BindView(R.id.m_rb_all_forbid)
-    RadioButton mRbAllForbid;
-    @BindView(R.id.m_rb_verify_join)
-    RadioButton mRbVerifyJoin;
+    @BindView(R.id.m_iv_all_allow)
+    ImageView mIvAllAllow;
+    @BindView(R.id.m_iv_all_forbid)
+    ImageView mIvAllForbid;
+    @BindView(R.id.m_iv_verify_join)
+    ImageView mIvVerifyJoin;
+
     private int currentConditon;
+    private GroupInfo groupInfo;
 
     @Override
     public void init() {
+        mPresenter = new GroupChangeInfoPresenter(this, this);
         mToolbar.setTitle(getString(R.string.join_verify));
         mToolbar.showNavigationIcon();
         mToolbar.setBackOnClickListener(new View.OnClickListener() {
@@ -40,17 +44,31 @@ public class GroupVerifyConditionActivity extends FullScreenActivity implements 
                 back();
             }
         });
-        int verify_result = SPUtils.getInstance().getInt(GroupConstant.VERIFY_RESULT);
+
+        if (getIntent() != null) {
+            groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
+        }
+        int verify_result = SPUtils.getInstance().getInt(groupInfo.getId(), GroupConstant.CONDITION_ALL_ALLOW);
         setVerifyResult(verify_result);
 
-        initListener();
-
+        currentConditon = verify_result;
     }
 
-    private void initListener() {
-        mRbAllAllow.setOnCheckedChangeListener(this);
-        mRbAllForbid.setOnCheckedChangeListener(this);
-        mRbVerifyJoin.setOnCheckedChangeListener(this);
+    @OnClick({R.id.m_rl_all_allow, R.id.m_rl_all_forbid, R.id.m_rl_verify_join})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.m_rl_all_allow:
+                currentConditon = GroupConstant.CONDITION_ALL_ALLOW;
+                break;
+            case R.id.m_rl_all_forbid:
+                currentConditon = GroupConstant.CONDITION_ALL_FORBID;
+                break;
+            case R.id.m_rl_verify_join:
+                currentConditon = GroupConstant.CONDITION_VERIFY_JOIN;
+                break;
+        }
+
+        setImageResoure(currentConditon);
 
     }
 
@@ -59,27 +77,6 @@ public class GroupVerifyConditionActivity extends FullScreenActivity implements 
         return R.layout.group_activity_verify_condition;
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            if (buttonView == mRbAllAllow) {
-                mRbAllForbid.setChecked(false);
-                mRbVerifyJoin.setChecked(false);
-                currentConditon = GroupConstant.CONDITION_ALL_ALLOW;
-
-            } else if (buttonView == mRbAllForbid) {
-                mRbAllAllow.setChecked(false);
-                mRbVerifyJoin.setChecked(false);
-                currentConditon = GroupConstant.CONDITION_ALL_FORBID;
-
-            } else if (buttonView == mRbVerifyJoin) {
-                mRbAllForbid.setChecked(false);
-                mRbAllAllow.setChecked(false);
-                currentConditon = GroupConstant.CONDITION_VERIFY_JOIN;
-            }
-        }
-
-    }
 
     @Override
     public void onBackPressed() {
@@ -88,7 +85,8 @@ public class GroupVerifyConditionActivity extends FullScreenActivity implements 
     }
 
     private void back() {
-        SPUtils.getInstance().put(GroupConstant.VERIFY_RESULT, currentConditon);
+
+        SPUtils.getInstance().put(groupInfo.getId(), currentConditon);
         Intent intent = getIntent();
         intent.putExtra("condition", currentConditon);
         setResult(RESULT_OK, intent);
@@ -97,19 +95,38 @@ public class GroupVerifyConditionActivity extends FullScreenActivity implements 
 
     private void setVerifyResult(int code) {
 
-        if (code == 0) {
-            mRbAllAllow.setChecked(true);
-        }
         switch (code) {
             case GroupConstant.CONDITION_ALL_ALLOW:
-                mRbAllAllow.setChecked(true);
+                mIvAllAllow.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
                 break;
             case GroupConstant.CONDITION_ALL_FORBID:
-                mRbAllForbid.setChecked(true);
+                mIvAllForbid.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
                 break;
             case GroupConstant.CONDITION_VERIFY_JOIN:
-                mRbVerifyJoin.setChecked(true);
+                mIvVerifyJoin.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
                 break;
         }
     }
+
+    private void setImageResoure(int currentConditon) {
+        switch (currentConditon) {
+            case GroupConstant.CONDITION_ALL_ALLOW:
+                mIvAllAllow.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
+                mIvAllForbid.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
+                mIvVerifyJoin.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
+                break;
+            case GroupConstant.CONDITION_ALL_FORBID:
+                mIvAllForbid.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
+                mIvAllAllow.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
+                mIvVerifyJoin.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
+                break;
+            case GroupConstant.CONDITION_VERIFY_JOIN:
+                mIvVerifyJoin.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
+                mIvAllForbid.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
+                mIvAllAllow.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
+                break;
+        }
+        mPresenter.changeGroupInfo(groupInfo.getId(), "", "", currentConditon + "");
+    }
+
 }

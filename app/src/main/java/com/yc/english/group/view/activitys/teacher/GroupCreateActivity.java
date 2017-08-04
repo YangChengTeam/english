@@ -29,10 +29,6 @@ public class GroupCreateActivity extends FullScreenActivity<GroupCreatePresenter
     EditText etClassGroup;
     @BindView(R.id.btn_create)
     Button btnCreate;
-    //正式环境下换服务器返回的数据
-    private String username = "username";
-    private String userId = "userId1";
-    private String userPorait = "http://www.rongcloud.cn/images/logo.png";
 
 
     @Override
@@ -51,7 +47,6 @@ public class GroupCreateActivity extends FullScreenActivity<GroupCreatePresenter
         RxView.clicks(btnCreate).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-
 
                     mPresenter.createGroup(UserInfoHelper.getUserInfo().getUid(), etClassGroup.getText().toString().trim(), "");
             }

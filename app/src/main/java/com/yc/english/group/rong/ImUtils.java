@@ -6,6 +6,7 @@ import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.rong.models.GroupUserQueryResult;
 
 import rx.Observable;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -41,6 +42,7 @@ public class ImUtils {
         });
     }
 
+
     /**
      * 创建班级群组并同步群组
      *
@@ -69,6 +71,27 @@ public class ImUtils {
             }
         });
 
+    }
+
+    /**
+     * 同步班群信息
+     *
+     * @param userId
+     * @param groupInfos
+     * @return
+     */
+    public static Observable<CodeSuccessResult> syncGroup(final String userId, final GroupInfo[] groupInfos) {
+        return Observable.just("").subscribeOn(Schedulers.io()).map(new Func1<String, CodeSuccessResult>() {
+            @Override
+            public CodeSuccessResult call(String s) {
+                try {
+                    return rongCloud.group.sync(userId, groupInfos);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        });
     }
 
     /**
@@ -123,6 +146,52 @@ public class ImUtils {
 
         });
 
+
+    }
+
+    /**
+     * 将成员移除群组
+     *
+     * @param userId
+     * @param groupId
+     * @return
+     */
+    public static Observable<CodeSuccessResult> quitGroup(final String[] userId, final String groupId) {
+
+
+        return Observable.just("").subscribeOn(Schedulers.io()).map(new Func1<String, CodeSuccessResult>() {
+            @Override
+            public CodeSuccessResult call(String s) {
+                try {
+                    return rongCloud.group.quit(userId, groupId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        });
+    }
+
+
+    /**
+     * 解算群组
+     *
+     * @param userId:操作解散群的用户 Id。（必传）
+     * @param groupId:要解散的群   Id。（必传）
+     * @return
+     */
+    public static Observable<CodeSuccessResult> removeGroup(final String userId, final String groupId) {
+        return Observable.just("").subscribeOn(Schedulers.io()).map(new Func1<String, CodeSuccessResult>() {
+            @Override
+            public CodeSuccessResult call(String s) {
+                try {
+                    return rongCloud.group.dismiss(userId, groupId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        });
 
     }
 

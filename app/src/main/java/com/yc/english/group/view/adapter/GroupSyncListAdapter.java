@@ -32,7 +32,7 @@ public class GroupSyncListAdapter extends BaseAdapter<ClassInfo> {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (listener != null) {
-                    listener.onCheckedChange(position, buttonView, isChecked);
+                    listener.onCheckedChange(position, buttonView,false);
                 }
             }
         });

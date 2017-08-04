@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -28,6 +29,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Message;
 
 /**
  * Created by wanglin  on 2017/7/24 17:59.
@@ -65,6 +68,8 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new GroupGroupAdapter(getContext(), null);
         recyclerView.setAdapter(adapter);
+
+
 
 
     }

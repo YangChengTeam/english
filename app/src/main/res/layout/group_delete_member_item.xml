@@ -10,7 +10,7 @@
         android:background="@color/group_gary_ddd" />
 
 
-    <com.yc.english.group.view.widget.MultipleSelectLayout
+    <LinearLayout
         android:id="@+id/ll_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/group_distance_55"
@@ -19,13 +19,12 @@
         android:paddingLeft="@dimen/group_distance_15"
         android:paddingRight="@dimen/group_distance_30">
 
-        <CheckBox
-            android:id="@+id/cb_delete_select"
+        <ImageView
+            android:id="@+id/iv_delete_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/group_distance_20"
-            android:button="@drawable/group_delete_member_selector"
-            android:visibility="gone" />
+            android:src="@drawable/group_delete_member_selector" />
 
         <ImageView
             android:id="@+id/iv_member_img"
@@ -52,7 +51,7 @@
             android:textColor="@color/group_gray_999"
             android:textSize="@dimen/group_text_14" />
 
-    </com.yc.english.group.view.widget.MultipleSelectLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

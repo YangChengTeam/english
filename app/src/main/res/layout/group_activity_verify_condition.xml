@@ -41,14 +41,13 @@
                     android:textSize="@dimen/group_text_16" />
 
 
-                <RadioButton
-                    android:id="@+id/m_rb_all_allow"
+                <ImageView
+                    android:id="@+id/m_iv_all_allow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:button="@drawable/group_delete_member_selector"
-                    android:checked="true" />
+                    android:src="@drawable/group_delete_member_selector" />
 
             </RelativeLayout>
 
@@ -70,13 +69,13 @@
                     android:textSize="@dimen/group_text_16" />
 
 
-                <RadioButton
-                    android:id="@+id/m_rb_all_forbid"
+                <ImageView
+                    android:id="@+id/m_iv_all_forbid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:button="@drawable/group_delete_member_selector" />
+                    android:src="@drawable/group_delete_member_selector" />
 
             </RelativeLayout>
 
@@ -98,13 +97,13 @@
                     android:textSize="@dimen/group_text_16" />
 
 
-                <RadioButton
-                    android:id="@+id/m_rb_verify_join"
+                <ImageView
+                    android:id="@+id/m_iv_verify_join"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:button="@drawable/group_delete_member_selector" />
+                    android:src="@drawable/group_delete_member_selector" />
 
             </RelativeLayout>
 

@@ -18,7 +18,7 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class ClassInfo implements Parcelable {
     @Id(autoincrement = true)
-    private Long id;
+    private Long cId;
     @JSONField(name = "face")
     private String imageUrl;
     @JSONField(name = "name")
@@ -37,6 +37,8 @@ public class ClassInfo implements Parcelable {
     private String sort;
     private String master_name;
     private String master_nick_name;
+    @JSONField(name = "id")
+    private String class_id;
 
 
     public static final Creator<ClassInfo> CREATOR = new Creator<ClassInfo>() {
@@ -55,14 +57,6 @@ public class ClassInfo implements Parcelable {
     public ClassInfo() {
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public ClassInfo(String imageUrl, String className, int groupId) {
         this.imageUrl = imageUrl;
@@ -85,13 +79,13 @@ public class ClassInfo implements Parcelable {
     }
 
 
-
-    @Generated(hash = 627702369)
-    public ClassInfo(Long id, String imageUrl, String className, String count, int groupId,
-            String founder_id, String master_id, String vali_type, String is_del,
-            String add_time, String add_date, String del_time, String sort,
-            String master_name, String master_nick_name) {
-        this.id = id;
+    @Generated(hash = 2032005229)
+    public ClassInfo(Long cId, String imageUrl, String className, String count,
+            int groupId, String founder_id, String master_id, String vali_type,
+            String is_del, String add_time, String add_date, String del_time,
+            String sort, String master_name, String master_nick_name,
+            String class_id) {
+        this.cId = cId;
         this.imageUrl = imageUrl;
         this.className = className;
         this.count = count;
@@ -106,8 +100,8 @@ public class ClassInfo implements Parcelable {
         this.sort = sort;
         this.master_name = master_name;
         this.master_nick_name = master_nick_name;
+        this.class_id = class_id;
     }
-
 
     public String getImageUrl() {
         return imageUrl;
@@ -247,5 +241,21 @@ public class ClassInfo implements Parcelable {
 
     public void setMaster_nick_name(String master_nick_name) {
         this.master_nick_name = master_nick_name;
+    }
+
+    public Long getCId() {
+        return this.cId;
+    }
+
+    public void setCId(Long cId) {
+        this.cId = cId;
+    }
+
+    public String getClass_id() {
+        return this.class_id;
+    }
+
+    public void setClass_id(String class_id) {
+        this.class_id = class_id;
     }
 }

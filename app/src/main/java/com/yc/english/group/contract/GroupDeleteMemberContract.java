@@ -16,6 +16,8 @@ public interface GroupDeleteMemberContract {
 
     interface View extends IView {
         void showMemberList(List<StudentInfo> list);
+
+        void showDeleteResult();
     }
 
     interface Presenter extends IPresenter {

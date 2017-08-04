@@ -7,11 +7,15 @@ import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.EmptyUtils;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.common.GroupApp;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.dao.ClassInfoDao;
 import com.yc.english.group.model.bean.ClassInfo;
@@ -67,7 +71,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
         mPresenter = new GroupApplyJoinPresenter(this, this);
         initData();
         if (EmptyUtils.isNotEmpty(group)) {
-            mPresenter.queryGroupById(this, group.getId());
+            mPresenter.queryGroupById(this, group.getId(),"");
         }
         mToolbar.showNavigationIcon();
 
@@ -100,7 +104,20 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     }
 
     @Override
-    public void apply() {
+    public void apply(int type) {
 
+    }
+
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.FINISH)
+            }
+    )
+    public void getList(String group) {
+        if (group.equals(BusAction.REMOVE_GROUP)){
+            finish();
+        }
     }
 }

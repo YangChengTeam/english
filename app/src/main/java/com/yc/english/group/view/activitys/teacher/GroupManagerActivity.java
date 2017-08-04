@@ -8,11 +8,17 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.group.contract.GroupResolvingContract;
+import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.presenter.GroupResolvingPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
+import com.yc.english.group.utils.EngineUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,7 +28,7 @@ import butterknife.OnClick;
  * Created by wanglin  on 2017/7/26 17:32.
  */
 
-public class GroupManagerActivity extends FullScreenActivity {
+public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPresenter> implements GroupResolvingContract.View {
 
 
     @BindView(R.id.iv_group_image)
@@ -37,6 +43,7 @@ public class GroupManagerActivity extends FullScreenActivity {
     @Override
     public void init() {
 
+        mPresenter = new GroupResolvingPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group_manager));
         mToolbar.showNavigationIcon();
 
@@ -59,26 +66,35 @@ public class GroupManagerActivity extends FullScreenActivity {
     @OnClick({R.id.rl_group_image, R.id.rl_group_name, R.id.rl_group_delete_member,
             R.id.tv_permission_check, R.id.rl_group_check, R.id.rl_group_transfer, R.id.btn_resolving_group})
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId()) {
 
             case R.id.rl_group_image:
                 break;
             case R.id.rl_group_name:
-                startActivity(new Intent(this, GroupChangeNameActivity.class));
+                intent = new Intent(this, GroupChangeNameActivity.class);
+                intent.putExtra("group", groupInfo);
+                startActivity(intent);
                 break;
             case R.id.rl_group_delete_member:
 
-                Intent intent = new Intent(this, GroupDeleteMemberActivity.class);
+                intent = new Intent(this, GroupDeleteMemberActivity.class);
                 intent.putExtra("group", groupInfo);
                 startActivity(intent);
                 break;
             case R.id.rl_group_check:
-                startActivityForResult(new Intent(this, GroupVerifyConditionActivity.class), 200);
+                intent = new Intent(this, GroupVerifyConditionActivity.class);
+                intent.putExtra("group", groupInfo);
+                startActivityForResult(intent, 200);
                 break;
             case R.id.rl_group_transfer:
                 startActivity(new Intent(this, GroupTransferActivity.class));
                 break;
             case R.id.btn_resolving_group:
+
+                mPresenter.queryGroupById(this, groupInfo.getId());
+
+
                 break;
         }
     }
@@ -106,4 +122,17 @@ public class GroupManagerActivity extends FullScreenActivity {
         }
     }
 
+    @Override
+    public void showClassInfo(ClassInfo info) {
+        mPresenter.resolvingGroup(groupInfo.getId(), info.getMaster_id());
+    }
+
+    @Override
+    public void showResolvingResult() {
+
+        finish();
+        RxBus.get().post(BusAction.GROUPLIST, "remove group");
+        RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
+
+    }
 }

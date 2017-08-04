@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.facebook.stetho.Stetho;
 import com.yc.english.group.dao.DaoMaster;
 import com.yc.english.group.dao.DaoSession;
@@ -20,6 +21,8 @@ import io.rong.imkit.DefaultExtensionModule;
 import io.rong.imkit.IExtensionModule;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Message;
 
 
 /**
@@ -48,14 +51,10 @@ public class GroupApp {
             RongIM.init(application);
             RongIM.registerMessageType(CustomMessage.class);
             RongIM.getInstance().registerMessageTemplate(new CustomMessageProvider());
+
+            RongIM.getInstance().getRongIMClient().setOnReceiveMessageListener(new MyReceiveMessageListener());
         }
-//        RongIMClient.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
-//            @Override
-//            public boolean onReceived(Message message, int i) {
-//                LogUtils.e(TAG, "onReceived: " + message.getContent());
-//                return true;
-//            }
-//        });
+
 
         setDatabase(application);
         Stetho.initializeWithDefaults(application);
@@ -130,4 +129,16 @@ public class GroupApp {
     public static DaoSession getmDaoSession() {
         return mDaoSession;
     }
+
+
+    private static class MyReceiveMessageListener implements RongIMClient.OnReceiveMessageListener {
+
+
+        @Override
+        public boolean onReceived(Message message, int i) {
+            LogUtils.e(TAG, message.getContent().toString() + "---" + message.getTargetId());
+            return false;
+        }
+    }
+
 }

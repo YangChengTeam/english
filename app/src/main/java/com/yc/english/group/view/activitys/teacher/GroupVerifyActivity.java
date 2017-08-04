@@ -18,6 +18,7 @@ import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupApplyVerifyPresenter;
 import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
+import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.group.view.adapter.GroupVerifyAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
 
@@ -78,11 +79,10 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
         mHolder.setVisible(R.id.m_tv_already_add, true);
         adapter.notifyDataSetChanged();
 
-        String[] userIds = new String[]{mStudentInfo.getUser_id()};
-        String groupId = mStudentInfo.getSn();
+        String groupId = mStudentInfo.getClass_id();
         String groupName = mStudentInfo.getClass_name();
 
-        mPresenter.joinGroup(mStudentInfo.getUser_id(), groupId, groupName);
+        EngineUtils.joinGroup(mStudentInfo.getUser_id(), groupId, groupName);
 
 //        ImUtils.joinGroup(userIds, groupId, groupName).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<CodeSuccessResult>() {
 //            @Override

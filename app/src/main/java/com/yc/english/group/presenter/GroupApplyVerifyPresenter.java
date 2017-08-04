@@ -108,30 +108,5 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
         mSubscriptions.add(subscription);
     }
 
-    public void joinGroup(String usre_id, final String groupId, final String groupName) {
-        final String[] userIds = new String[]{ usre_id};
-        ImUtils.queryGroup(groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<GroupUserQueryResult>() {
-            @Override
-            public void call(GroupUserQueryResult groupUserQueryResult) {
-                if (groupUserQueryResult.getCode() == 200) {
-                    final List<GroupUser> users = groupUserQueryResult.getUsers();
-                    ImUtils.joinGroup(userIds, groupId, groupName).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<CodeSuccessResult>() {
-                        @Override
-                        public void call(CodeSuccessResult codeSuccessResult) {
-                            if (codeSuccessResult.getCode() == 200) {//加入成功
-                                ToastUtils.showShort("加入成功");
-//                                mView.startGroupChat(groupId, groupName);
-//                                ClassInfo info = new ClassInfo("", groupName, users.size() + "", Integer.parseInt(groupId));
-//                                classInfoDao.insert(info);
-                                RxBus.get().post(BusAction.GROUPLIST, "from groupjoin");
-                            }
-                        }
-                    });
-                } else {
-                    ToastUtils.showShort("没有该群组，请重新输入");
-                }
-            }
-        });
 
-    }
 }

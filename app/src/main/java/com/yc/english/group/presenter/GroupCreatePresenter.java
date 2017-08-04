@@ -85,7 +85,7 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
      */
     private void createRongGroup(final ClassInfo info) {
         final String[] userIds = new String[]{info.getMaster_id()};
-        ImUtils.createGroup(userIds, info.getGroupId() + "", info.getClassName()).observeOn(AndroidSchedulers.mainThread())
+        ImUtils.createGroup(userIds, info.getClass_id(), info.getClassName()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<CodeSuccessResult>() {
                     @Override
                     public void call(CodeSuccessResult codeSuccessResult) {

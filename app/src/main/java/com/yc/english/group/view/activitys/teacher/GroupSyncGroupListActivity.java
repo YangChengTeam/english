@@ -12,6 +12,7 @@ import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.listener.OnCheckedChangeListener;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.view.adapter.GroupSyncListAdapter;
 
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class GroupSyncGroupListActivity extends FullScreenActivity implements On
 
 
     @Override
-    public void onCheckedChange(int position, CompoundButton buttonView, boolean isChecked) {
+    public void onCheckedChange(int position, View view, boolean isChecked) {
         if (isChecked) {
             count++;
             selectedList.add(mList.get(position));
@@ -90,6 +91,11 @@ public class GroupSyncGroupListActivity extends FullScreenActivity implements On
         }
         mTvConfirmSyncGroup.setText(String.format(getString(R.string.confirm_sync), count));
         mTvConfirmSyncGroup.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void onClick(int position, View view, boolean isClicked, StudentInfo studentInfo) {
+
     }
 
 

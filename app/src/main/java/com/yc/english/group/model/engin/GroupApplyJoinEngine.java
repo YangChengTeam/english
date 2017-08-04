@@ -8,6 +8,7 @@ import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
+import com.yc.english.group.model.bean.GroupApplyInfo;
 
 
 import java.util.HashMap;
@@ -27,12 +28,12 @@ public class GroupApplyJoinEngine extends BaseEngin {
 
     }
 
-    public Observable<ResultInfo<String>> applyJoinGroup(String user_id, String sn) {
+    public Observable<ResultInfo<GroupApplyInfo>> applyJoinGroup(String user_id, String sn) {
 
         Map<String, String> params = new HashMap<>();
         params.put("user_id", user_id);
         params.put("sn", sn);
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.apply_join_group, new TypeReference<ResultInfo<String>>() {
+        return HttpCoreEngin.get(mContext).rxpost(NetConstan.apply_join_group, new TypeReference<ResultInfo<GroupApplyInfo>>() {
         }.getType(), params, true, true, true);
 
     }

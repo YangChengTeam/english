@@ -50,7 +50,7 @@ public interface NetConstan {
     /**
      * 转让班群
      */
-    String change_master = baser_url + "class/change_master";
+    String transfer_group = baser_url + "class/change_master";
     /**
      * 移除班群
      */
@@ -61,4 +61,9 @@ public interface NetConstan {
      */
 
     String query_group_by_groupId = baser_url + "class/info";
+
+    /**
+     * 修改班群信息
+     */
+    String change_group_info = baser_url + "class/upd";
 }

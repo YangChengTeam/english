@@ -24,7 +24,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
+        public final static Property CId = new Property(0, Long.class, "cId", true, "_id");
         public final static Property ImageUrl = new Property(1, String.class, "imageUrl", false, "IMAGE_URL");
         public final static Property ClassName = new Property(2, String.class, "className", false, "CLASS_NAME");
         public final static Property Count = new Property(3, String.class, "count", false, "COUNT");
@@ -39,6 +39,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         public final static Property Sort = new Property(12, String.class, "sort", false, "SORT");
         public final static Property Master_name = new Property(13, String.class, "master_name", false, "MASTER_NAME");
         public final static Property Master_nick_name = new Property(14, String.class, "master_nick_name", false, "MASTER_NICK_NAME");
+        public final static Property Class_id = new Property(15, String.class, "class_id", false, "CLASS_ID");
     }
 
 
@@ -54,7 +55,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"CLASS_INFO\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: cId
                 "\"IMAGE_URL\" TEXT," + // 1: imageUrl
                 "\"CLASS_NAME\" TEXT," + // 2: className
                 "\"COUNT\" TEXT," + // 3: count
@@ -68,7 +69,8 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
                 "\"DEL_TIME\" TEXT," + // 11: del_time
                 "\"SORT\" TEXT," + // 12: sort
                 "\"MASTER_NAME\" TEXT," + // 13: master_name
-                "\"MASTER_NICK_NAME\" TEXT);"); // 14: master_nick_name
+                "\"MASTER_NICK_NAME\" TEXT," + // 14: master_nick_name
+                "\"CLASS_ID\" TEXT);"); // 15: class_id
     }
 
     /** Drops the underlying database table. */
@@ -81,9 +83,9 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
     protected final void bindValues(DatabaseStatement stmt, ClassInfo entity) {
         stmt.clearBindings();
  
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
+        Long cId = entity.getCId();
+        if (cId != null) {
+            stmt.bindLong(1, cId);
         }
  
         String imageUrl = entity.getImageUrl();
@@ -150,6 +152,11 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         String master_nick_name = entity.getMaster_nick_name();
         if (master_nick_name != null) {
             stmt.bindString(15, master_nick_name);
+        }
+ 
+        String class_id = entity.getClass_id();
+        if (class_id != null) {
+            stmt.bindString(16, class_id);
         }
     }
 
@@ -157,9 +164,9 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
     protected final void bindValues(SQLiteStatement stmt, ClassInfo entity) {
         stmt.clearBindings();
  
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
+        Long cId = entity.getCId();
+        if (cId != null) {
+            stmt.bindLong(1, cId);
         }
  
         String imageUrl = entity.getImageUrl();
@@ -226,6 +233,11 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         String master_nick_name = entity.getMaster_nick_name();
         if (master_nick_name != null) {
             stmt.bindString(15, master_nick_name);
+        }
+ 
+        String class_id = entity.getClass_id();
+        if (class_id != null) {
+            stmt.bindString(16, class_id);
         }
     }
 
@@ -237,7 +249,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
     @Override
     public ClassInfo readEntity(Cursor cursor, int offset) {
         ClassInfo entity = new ClassInfo( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // cId
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // imageUrl
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // className
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // count
@@ -251,14 +263,15 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // del_time
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // sort
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // master_name
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // master_nick_name
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // master_nick_name
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15) // class_id
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, ClassInfo entity, int offset) {
-        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setCId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setImageUrl(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setClassName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setCount(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
@@ -273,18 +286,19 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         entity.setSort(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setMaster_name(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setMaster_nick_name(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setClass_id(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
      }
     
     @Override
     protected final Long updateKeyAfterInsert(ClassInfo entity, long rowId) {
-        entity.setId(rowId);
+        entity.setCId(rowId);
         return rowId;
     }
     
     @Override
     public Long getKey(ClassInfo entity) {
         if(entity != null) {
-            return entity.getId();
+            return entity.getCId();
         } else {
             return null;
         }
@@ -292,7 +306,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
 
     @Override
     public boolean hasKey(ClassInfo entity) {
-        return entity.getId() != null;
+        return entity.getCId() != null;
     }
 
     @Override

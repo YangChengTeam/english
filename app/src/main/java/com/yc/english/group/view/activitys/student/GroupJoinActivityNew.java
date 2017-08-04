@@ -14,16 +14,21 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.common.GroupApp;
+import com.yc.english.group.constant.BusAction;
+import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.contract.GroupJoinContract;
 import com.yc.english.group.dao.ClassInfoDao;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.presenter.GroupApplyJoinPresenter;
 import com.yc.english.group.presenter.GroupJoinPresenter;
+import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
 
 import butterknife.BindView;
@@ -55,6 +60,9 @@ public class GroupJoinActivityNew extends FullScreenActivity<GroupApplyJoinPrese
     ImageView roundView;
     @BindView(R.id.m_tv_tint)
     TextView mTvTint;
+    private String class_id;//班群ID即群号
+    private String className;
+    private String vali_type;
 
     @Override
     public void init() {
@@ -96,7 +104,17 @@ public class GroupJoinActivityNew extends FullScreenActivity<GroupApplyJoinPrese
             case R.id.btn_join:
                 String groupId = etClassGroup.getText().toString();
                 String uid = UserInfoHelper.getUserInfo().getUid();
-                mPresenter.applyJoinGroup(uid, groupId);
+
+//                int verifyCondition = SPUtils.getInstance().getInt(class_id, GroupConstant.CONDITION_ALL_ALLOW);
+                int valiType = Integer.parseInt(vali_type);
+
+                if (GroupConstant.CONDITION_ALL_FORBID == valiType) {//禁止所有人加入
+                    ToastUtils.showShort(getString(R.string.forbid_join));
+                } else {
+                    mPresenter.applyJoinGroup(uid, groupId);
+                }
+
+
 //                mPresenter.joinGroup(groupId + "", tvClassName.getText().toString());
                 break;
             case R.id.ib_delete:
@@ -110,7 +128,7 @@ public class GroupJoinActivityNew extends FullScreenActivity<GroupApplyJoinPrese
     public void showOrHideView(Editable s) {
         if (!TextUtils.isEmpty(s.toString())) {
             ibDelete.setVisibility(View.VISIBLE);
-            mPresenter.queryGroupById(this, s.toString());
+            mPresenter.queryGroupById(this, "", s.toString());
         } else {
             ibDelete.setVisibility(View.GONE);
             llClassName.setVisibility(View.GONE);
@@ -129,7 +147,10 @@ public class GroupJoinActivityNew extends FullScreenActivity<GroupApplyJoinPrese
     @Override
     public void showGroup(ClassInfo classInfo) {
         if (classInfo != null) {
-            tvClassName.setText(classInfo.getClassName());
+            class_id = classInfo.getClass_id();
+            vali_type = classInfo.getVali_type();
+            className = classInfo.getClassName();
+            tvClassName.setText(className);
             llClassName.setVisibility(View.VISIBLE);
             btnJoin.setVisibility(View.VISIBLE);
             mTvTint.setVisibility(View.GONE);
@@ -141,8 +162,13 @@ public class GroupJoinActivityNew extends FullScreenActivity<GroupApplyJoinPrese
     }
 
     @Override
-    public void apply() {
-        ToastUtils.showShort("你的加群请求已提交，请等待群主审核");
+    public void apply(int type) {
+        if (type == GroupConstant.CONDITION_ALL_ALLOW) {
+            ToastUtils.showShort(getString(R.string.congratulation_join_group));
+
+        } else if (type == GroupConstant.CONDITION_VERIFY_JOIN) {
+            ToastUtils.showShort(getString(R.string.commit_apply_join));
+        }
         finish();
     }
 }
