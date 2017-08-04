@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.RegexUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
@@ -69,7 +70,7 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
     }
 
     @Override
-    public void register(String mobile, String pwd, String code) {
+    public void register(final String mobile, String pwd, String code) {
         if (!RegexUtils.isMobileSimple(mobile)) {
             TipsHelper.tips(mContext, "手机号填写不正确");
             return;
@@ -104,6 +105,7 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
                     public void run() {
                         UserInfoHelper.saveUserInfo(resultInfo.data);
                         UserInfoHelper.connect(mContext, resultInfo.data.getUid());
+                        SPUtils.getInstance().put(Constant.PHONE, mobile);
                         RxBus.get().post(Constant.FINISH_LOGIN, true);
                         mView.finish();
                     }

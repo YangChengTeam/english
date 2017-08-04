@@ -11,9 +11,11 @@ import com.yc.english.base.view.IView;
 
 public interface LoginContract {
     interface View extends IView, IDialog , IFinish {
+        void showPhone(String phone);
     }
 
     interface Presenter extends IPresenter {
         void login(String username, String pwd);
+        void getPhone();
     }
 }

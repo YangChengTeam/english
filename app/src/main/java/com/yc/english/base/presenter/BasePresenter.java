@@ -65,7 +65,6 @@ public abstract class BasePresenter<M, V extends IView> implements IPresenter {
             @Override
             public void resultInfoEmpty(String message) {
                 TipsHelper.tips(mContext, message);
-
             }
 
             @Override

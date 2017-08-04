@@ -2,10 +2,14 @@ package com.yc.english.setting.presenter;
 
 import android.content.Context;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.contract.PersonCenterContract;
 import com.yc.english.setting.model.engin.MyEngin;
@@ -48,7 +52,7 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
     @Override
     public void uploadAvatar(String avatar) {
         mView.showLoadingDialog("正在上传图像, 请稍后");
-        Subscription subscription = mEngin.updateMessage(avatar, "", "").subscribe(new Subscriber<ResultInfo<String>>() {
+        Subscription subscription = mEngin.updateMessage(avatar, "", "").subscribe(new Subscriber<ResultInfo<UserInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -60,11 +64,20 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
             }
 
             @Override
-            public void onNext(ResultInfo<String> resultInfo) {
+            public void onNext(final ResultInfo<UserInfo> resultInfo) {
                 handleResultInfo(resultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        TipsHelper.tips(mContext, "修改成功");
+                        UIUitls.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                TipsHelper.tips(mContext, "修改成功");
+                                UserInfo userInfo = UserInfoHelper.getUserInfo();
+                                userInfo.setAvatar(resultInfo.data.getAvatar());
+                                UserInfoHelper.saveUserInfo(userInfo);
+                                RxBus.get().post(Constant.USER_INFO, userInfo);
+                            }
+                        });
                     }
                 });
             }

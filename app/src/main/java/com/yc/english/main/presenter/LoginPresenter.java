@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.RegexUtils;
+import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.TipsHelper;
@@ -14,8 +16,13 @@ import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.model.engin.LoginEngin;
 
+import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by zhangkai on 2017/7/25.
@@ -31,11 +38,12 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
-
+        if(!forceUpdate) return;
+        getPhone();
     }
 
     @Override
-    public void login(String username, String pwd) {
+    public void login(final String username, String pwd) {
         if (!RegexUtils.isMobileSimple(username)) {
             TipsHelper.tips(mContext, "手机号填写不正确");
             return;
@@ -66,9 +74,32 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
                         UserInfoHelper.saveUserInfo(resultInfo.data);
                         UserInfoHelper.connect(mContext, resultInfo.data.getUid());
                         RxBus.get().post(Constant.USER_INFO, resultInfo.data);
+                        SPUtils.getInstance().put(Constant.PHONE, username);
                         mView.finish();
                     }
                 });
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void getPhone() {
+        Subscription subscription = Observable.just("").map(new Func1<String, String>() {
+            @Override
+            public String call(String s) {
+                String phone = SPUtils.getInstance().getString(Constant.PHONE);
+                return phone;
+            }
+        }).subscribeOn(Schedulers.io()).filter(new Func1<String, Boolean>() {
+            @Override
+            public Boolean call(String s) {
+                return !StringUtils.isEmpty(s);
+            }
+        }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                mView.showPhone(s);
             }
         });
         mSubscriptions.add(subscription);

@@ -11,4 +11,7 @@ public class Constant {
 
     public static final String NO_LOGIN = "nologin";
 
+    public static final String PHONE = "phone";
+
+
 }

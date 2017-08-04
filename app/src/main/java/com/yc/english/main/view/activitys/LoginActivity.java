@@ -78,7 +78,6 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
         return R.layout.main_activity_login;
     }
 
-
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
@@ -89,5 +88,10 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
         if (flag) {
             finish();
         }
+    }
+
+    @Override
+    public void showPhone(String phone) {
+        mUsernameEditText.setText(phone);
     }
 }

@@ -83,8 +83,8 @@ public class SettingItemView extends BaseView {
         mInfoTextView.setText(info);
     }
     public void setHintInfo(String info) {
-        mInfoTextView.setHintTextColor(ContextCompat.getColor(getContext(), R.color.group_red_fe908c));
-        mInfoTextView.setHint(info);
+        mInfoTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.group_red_fe908c));
+        mInfoTextView.setText(info);
     }
 
     public void setAvatar(int resId) {

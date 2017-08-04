@@ -36,7 +36,7 @@ public class MyEngin extends BaseEngin {
         }.getType(), params, true, true, true);
     }
 
-    public Observable<ResultInfo<String>> updateMessage(String avatar, String nick_name, String school) {
+    public Observable<ResultInfo<UserInfo>> updateMessage(String avatar, String nick_name, String school) {
         Map<String, String> params = new HashMap<>();
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (!EmptyUtils.isEmpty(userInfo)) {
@@ -45,7 +45,7 @@ public class MyEngin extends BaseEngin {
         params.put("face", avatar);
         params.put("nick_name", nick_name);
         params.put("school", school);
-        return HttpCoreEngin.get(mContext).rxpost(URLConfig.UPD_MESSAGE_URL, new TypeReference<ResultInfo<String>>() {
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.UPD_MESSAGE_URL, new TypeReference<ResultInfo<UserInfo>>() {
         }.getType(), params, false, true, true);
     }
 

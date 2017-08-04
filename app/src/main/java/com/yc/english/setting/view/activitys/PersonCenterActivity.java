@@ -22,6 +22,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.contract.PersonCenterContract;
@@ -78,7 +79,8 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
                 Intent intent = new Intent(PersonCenterActivity.this, NameSettingActivity.class);
                 intent.putExtra("type", "0");
                 intent.putExtra("name", "修改姓名");
-                intent.putExtra("value", mNameSettingItemView.getInfo());
+                UserInfo userInfo = UserInfoHelper.getUserInfo();
+                intent.putExtra("value", userInfo.getNickname());
                 startActivity(intent);
             }
         });
@@ -89,7 +91,8 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
                 Intent intent = new Intent(PersonCenterActivity.this, NameSettingActivity.class);
                 intent.putExtra("type", "1");
                 intent.putExtra("name", "修改学校");
-                intent.putExtra("value", mSchoolSettingItemView.getInfo());
+                UserInfo userInfo = UserInfoHelper.getUserInfo();
+                intent.putExtra("value", userInfo.getSchool());
                 startActivity(intent);
             }
         });
@@ -171,8 +174,8 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
                         intent.putExtra("crop", "true");
                         intent.putExtra("aspectX", 1);
                         intent.putExtra("aspectY", 1);
-                        intent.putExtra("outputX", 80);
-                        intent.putExtra("outputY", 80);
+                        intent.putExtra("outputX", 160);
+                        intent.putExtra("outputY", 160);
                         intent.putExtra("return-data", true);
                         startActivityForResult(intent, 2);
                         return;
