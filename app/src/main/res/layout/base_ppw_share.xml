@@ -119,6 +119,7 @@
                     android:layout_gravity="center"
                     eng:src="@mipmap/share_class"
                     eng:text="@string/share_class"
+                    android:visibility="invisible"
                     ></com.yc.english.base.view.ShareItemView>
                 
                 <View

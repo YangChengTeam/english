@@ -65,7 +65,7 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
                     public void run() {
                         UserInfoHelper.saveUserInfo(resultInfo.data);
                         UserInfoHelper.connect(mContext, resultInfo.data.getUid());
-                        RxBus.get().post(Constant.MAIN, true);
+                        RxBus.get().post(Constant.USER_INFO, resultInfo.data);
                         mView.finish();
                     }
                 });

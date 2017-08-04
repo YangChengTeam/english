@@ -11,6 +11,7 @@ import com.yc.english.base.view.IView;
 public interface SettingContract {
     interface View extends IView, IDialog {
         void ShowCacheSize(String size);
+        void showExitButton();
     }
 
     interface Presenter extends IPresenter {

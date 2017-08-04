@@ -11,7 +11,7 @@ import com.yc.english.main.model.domain.UserInfo;
 public interface MyContract {
     interface View extends IView {
         void showUserInfo(UserInfo userInfo);
-        void showNoLogin();
+        void showNoLogin(Boolean flag);
     }
 
     interface Presenter extends IPresenter {

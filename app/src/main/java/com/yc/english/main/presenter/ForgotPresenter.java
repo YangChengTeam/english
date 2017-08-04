@@ -102,7 +102,7 @@ public class ForgotPresenter extends BasePresenter<ForgotEngin, ForgotContract.V
                     public void run() {
                         UserInfoHelper.saveUserInfo(resultInfo.data);
                         UserInfoHelper.connect(mContext, resultInfo.data.getUid());
-                        RxBus.get().post(Constant.MAIN, true);
+                        RxBus.get().post(Constant.FINISH_LOGIN, true);
                         mView.finish();
                     }
                 });

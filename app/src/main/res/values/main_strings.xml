@@ -34,10 +34,12 @@
     <string name="main_student">位学生正在使用。</string>
 
     <string name="setting_weixin">关注微信公众号</string>
-    <string name="setting_qq">说说英语QQ群</string>
+    <string name="setting_qq_group">说说英语QQ群</string>
     <string name="setting_feedback">意见反馈</string>
     <string name="setting_share">好友分享</string>
     <string name="setting_setting">设置</string>
+    <string name="setting_qq">客服QQ</string>
+    <string name="setting_tel">客服电话</string>
 
     <string name="setting_complete">完成</string>
 

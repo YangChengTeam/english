@@ -170,9 +170,10 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
-                    @Tag(Constant.USERINFO)
+                    @Tag(Constant.USER_INFO)
             }
     )
+
     @Override
     public void showAvatar(UserInfo userInfo) {
         RequestOptions options = new RequestOptions();

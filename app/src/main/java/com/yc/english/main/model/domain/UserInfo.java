@@ -3,6 +3,8 @@ package com.yc.english.main.model.domain;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.JSONSerializer;
 
+import java.io.Serializable;
+
 
 /**
  * Created by zhangkai on 2017/8/1.
