@@ -168,16 +168,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showLoading() {
-        mLoadingStateView.showNoNet(mContextScrollView, "网络不给力", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TipsHelper.tips(getContext(), "网络不给力");
-            }
-        });
+        mLoadingStateView.showLoading(mContextScrollView);
     }
 
     @Override
-    public void hideLoading() {
+    public void hideStateView() {
         mLoadingStateView.hide();
     }
 
@@ -205,4 +200,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 Color.parseColor("#dbdbe0")));
         Glide.with(this).load(userInfo.getAvatar()).apply(options).into(mAvatarImageView);
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.yc.english.main.contract;
 
 import com.yc.english.base.presenter.IPresenter;
+import com.yc.english.base.view.ILoading;
 import com.yc.english.base.view.IView;
 import com.yc.english.main.model.domain.UserInfo;
 
@@ -11,9 +12,7 @@ import java.util.List;
  */
 
 public interface IndexContract {
-    interface View extends IView {
-        void showLoading();
-        void hideLoading();
+    interface View extends IView, ILoading {
         void showBanner(List<String> images);
         void showAvatar(UserInfo userInfo);
     }
