@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface IndexContract {
     interface View extends IView {
+        void showLoading();
+        void hideLoading();
         void showBanner(List<String> images);
         void showAvatar(UserInfo userInfo);
     }

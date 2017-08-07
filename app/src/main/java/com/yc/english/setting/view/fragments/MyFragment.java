@@ -1,6 +1,7 @@
 package com.yc.english.setting.view.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideCircleTransformation;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.ToolbarFragment;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -162,7 +164,8 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
     @Override
     public void showUserInfo(UserInfo userInfo) {
         RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(R.mipmap.default_big_avatar).transform(new CircleCrop());
+        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new GlideCircleTransformation(getActivity(), 1,
+                Color.WHITE));
         Glide.with(this).load(userInfo.getAvatar()).apply(options).into(mAvatarImageView);
         if (!StringUtils.isEmpty(userInfo.getSchool())) {
             mSchoolTextView.setText(userInfo.getSchool());
