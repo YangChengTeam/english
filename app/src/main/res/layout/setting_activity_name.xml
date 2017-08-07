@@ -12,7 +12,7 @@
         ></com.yc.english.base.view.MainToolBar>
 
     <EditText
-        android:id="@+id/et_password"
+        android:id="@+id/et_value"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:paddingLeft="15dp"

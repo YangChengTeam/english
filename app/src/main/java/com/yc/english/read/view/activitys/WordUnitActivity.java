@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.read.model.domain.UnitInfo;
+import com.yc.english.read.model.domain.UnitListInfo;
 import com.yc.english.read.view.adapter.ReadWordUnitItemClickAdapter;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class WordUnitActivity extends FullScreenActivity {
 
     ReadWordUnitItemClickAdapter mItemAdapter;
 
-    private List<UnitInfo> mBookDatas;
+    private List<UnitListInfo> mBookDatas;
 
     private int viewType = 1;
 
@@ -83,9 +83,9 @@ public class WordUnitActivity extends FullScreenActivity {
      * 测试数据
      */
     public void initData() {
-        mBookDatas = new ArrayList<UnitInfo>();
+        mBookDatas = new ArrayList<UnitListInfo>();
         for (int i = 0; i < 6; i++) {
-            UnitInfo unitInfo = new UnitInfo(UnitInfo.CLICK_ITEM_VIEW);
+            UnitListInfo unitInfo = new UnitListInfo(UnitListInfo.CLICK_ITEM_VIEW);
             unitInfo.setUnitTitle("Unit " + (i + 1));
             unitInfo.setUnitTotal((i + 1) * 2 + "个单词");
             unitInfo.setReciteTotalPersion((i + 1000) * 2 + "个人已背诵");

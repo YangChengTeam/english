@@ -11,10 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.yc.english.R;
-import com.yc.english.group.view.activitys.GroupPublishTaskListActivity;
-import com.yc.english.group.view.activitys.GroupTaskItemActivity;
+import com.yc.english.group.view.activitys.student.GroupMyTaskDetailActivity;
+import com.yc.english.group.view.activitys.teacher.GroupTaskLookAndUnLookActivity;
 
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
@@ -69,14 +68,16 @@ public class CustomMessageProvider extends IContainerItemProvider.MessageProvide
 
     @Override
     public void onItemClick(View view, int position, RichContentMessage richContentMessage, UIMessage uiMessage) {
-//        ToastUtils.showShort(richContentMessage.getContent());
-        LogUtils.e(position);
-        Intent intent = new Intent(mContext, GroupTaskItemActivity.class);
-//        rongExtension.startActivityForPluginResult(intent,200,this);
+
+        Intent intent;
+        if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
+
+            intent = new Intent(mContext, GroupTaskLookAndUnLookActivity.class);
+
+        } else {
+            intent = new Intent(mContext, GroupMyTaskDetailActivity.class);
+        }
         mContext.startActivity(intent);
-
-
-
     }
 
     private class ViewHolder {
@@ -85,7 +86,7 @@ public class CustomMessageProvider extends IContainerItemProvider.MessageProvide
         View view;
         LinearLayout llMessage;
 
-        public ViewHolder(View view) {
+        private ViewHolder(View view) {
             this.view = view;
         }
     }

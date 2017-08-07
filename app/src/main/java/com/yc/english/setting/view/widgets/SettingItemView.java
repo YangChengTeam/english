@@ -3,6 +3,7 @@ package com.yc.english.setting.view.widgets;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -73,7 +74,16 @@ public class SettingItemView extends BaseView {
         right(mInfoTextView);
     }
 
+    public String getInfo(){
+        return mInfoTextView.getText().toString();
+    }
+
     public void setInfo(String info) {
+        mInfoTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.gray_999));
+        mInfoTextView.setText(info);
+    }
+    public void setHintInfo(String info) {
+        mInfoTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.group_red_fe908c));
         mInfoTextView.setText(info);
     }
 
@@ -83,6 +93,10 @@ public class SettingItemView extends BaseView {
         layoutParams.width = SizeUtils.dp2px(wh);
         layoutParams.height = SizeUtils.dp2px(wh);
         mIconImageView.setImageDrawable(ContextCompat.getDrawable(getContext(), resId));
+    }
+
+    public ImageView getAvatarImageView(){
+        return mIconImageView;
     }
 
     public void hideArrow() {

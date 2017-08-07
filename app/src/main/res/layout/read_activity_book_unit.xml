@@ -40,7 +40,7 @@
                 android:layout_centerVertical="true">
 
                 <ImageView
-                    android:id="@+id/iv_book_top"
+                    android:id="@+id/iv_book_grade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"

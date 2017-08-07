@@ -18,7 +18,6 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-
     }
     buildTypes {
         release {
@@ -36,12 +35,27 @@ android {
         }
     }
 
+    signingConfigs {
+        debug {
+            storeFile file('english.jks')
+            storePassword "123456"
+            keyAlias "english"
+            keyPassword "123456"
+        }
+
+        release {
+            storeFile file('english.jks')
+            storePassword "123456"
+            keyAlias "english"
+            keyPassword "123456"
+        }
+    }
 }
 
 
 greendao {
     schemaVersion 1
-    daoPackage 'com.yc.english.group.dao'
+    daoPackage 'com.yc.english.base.dao'
     targetGenDir 'src/main/java'
 }
 
@@ -86,8 +100,7 @@ dependencies {
     compile files('libs/Sunflower.jar')
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.facebook.stetho:stetho:1.5.0'
-
-
-    compile project(':CallKit')
-    compile project(':CallLib')
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    compile project(':share')
 }

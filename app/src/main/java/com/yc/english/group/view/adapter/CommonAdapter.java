@@ -24,12 +24,17 @@ public class CommonAdapter extends CommonNavigatorAdapter {
     private Context mContext;
     private ViewPager mViewPage;
     private final String[] result_title;
+    private int mType;
+    private final String[] resultLook;
 
-    public CommonAdapter(Context context, ViewPager viewPager, int finished, int unFinished) {
+    public CommonAdapter(Context context, int type, ViewPager viewPager, int finished, int unFinished) {
 
         this.mContext = context;
         this.mViewPage = viewPager;
+        this.mType = type;
         result_title = context.getResources().getStringArray(R.array.task_finish_result);
+        resultLook = context.getResources().getStringArray(R.array.task_look);
+
         this.mFinished = finished;
         this.mUnFinished = unFinished;
     }
@@ -43,10 +48,18 @@ public class CommonAdapter extends CommonNavigatorAdapter {
     @Override
     public IPagerTitleView getTitleView(Context context, final int i) {
         ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-        if (i == 0)
-            colorTransitionPagerTitleView.setText(String.format(result_title[0], mFinished));
-        else {
-            colorTransitionPagerTitleView.setText(String.format(result_title[1], mUnFinished));
+        if (mType==1){
+            if (i == 0)
+                colorTransitionPagerTitleView.setText(String.format(result_title[0], mFinished));
+            else {
+                colorTransitionPagerTitleView.setText(String.format(result_title[1], mUnFinished));
+            }
+        }else if (mType==2){
+            if (i == 0)
+                colorTransitionPagerTitleView.setText(String.format(resultLook[0], mFinished));
+            else {
+                colorTransitionPagerTitleView.setText(String.format(resultLook[1], mUnFinished));
+            }
         }
 
         colorTransitionPagerTitleView.setNormalColor(context.getResources().getColor(R.color.black_333333));

@@ -10,9 +10,10 @@ import com.yc.english.base.view.IView;
 
 public interface SplashContract {
     interface View extends IView {
+        void gotToMain();
     }
 
     interface Presenter extends IPresenter {
-        void connect(String uid, Runnable runnable);
+
     }
 }

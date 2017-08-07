@@ -2,7 +2,6 @@ package com.yc.english.main.presenter;
 
 import android.content.Context;
 
-import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.model.engin.MainEngin;
@@ -16,8 +15,7 @@ public class MainPresenter extends BasePresenter<MainEngin, MainContract.View> i
 
     private Context mContext;
     public MainPresenter(Context context, MainContract.View view) {
-        super(view);
-        mContext = context;
+        super(context, view);
         mEngin = new MainEngin(context);
     }
 

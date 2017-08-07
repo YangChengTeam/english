@@ -1,0 +1,23 @@
+package com.yc.english.read.model.domain;
+
+/**
+ * Created by zhangkai on 2017/8/1.
+ */
+
+public class URLConfig {
+    public static final boolean DEBUG = false;
+
+    private static String baseUrl = "http://en.qqtn.com/api/";
+    private static String debugBaseUrl = "http://en.qqtn.com/api/";
+
+    public static final String BOOK_LIST_URL = getBaseUrl() + "book/book_list";
+
+    public static final String GRADE_LIST_URL = getBaseUrl() + "book/grade_list";
+
+    public static final String COURSE_VERSION_LIST_URL = getBaseUrl() + "book/course_version_list";
+
+    public static String getBaseUrl() {
+        return (DEBUG ? debugBaseUrl : baseUrl);
+    }
+
+}

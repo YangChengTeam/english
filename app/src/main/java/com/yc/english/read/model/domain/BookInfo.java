@@ -2,14 +2,22 @@ package com.yc.english.read.model.domain;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
+
 /**
  * Created by admin on 2017/7/26.
  * 教材
  */
 
+@Entity
 public class BookInfo implements MultiItemEntity {
 
     public static final int CLICK_ITEM_VIEW = 1;
+
+    @Id
+    private Long id;
 
     private String bookId;
 
@@ -58,9 +66,35 @@ public class BookInfo implements MultiItemEntity {
         Type = type;
     }
 
+    @Generated(hash = 1135649993)
+    public BookInfo(Long id, String bookId, String bookName, String bookImageUrl,
+            int Type) {
+        this.id = id;
+        this.bookId = bookId;
+        this.bookName = bookName;
+        this.bookImageUrl = bookImageUrl;
+        this.Type = Type;
+    }
+
     @Override
     public int getItemType() {
         return Type;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getType() {
+        return this.Type;
+    }
+
+    public void setType(int Type) {
+        this.Type = Type;
     }
 
 }

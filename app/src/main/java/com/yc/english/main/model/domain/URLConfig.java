@@ -11,8 +11,15 @@ public class URLConfig {
     private static String debugBaseUrl = "http://en.qqtn.com/api/";
 
     public static final String REGISTER_URL = getBaseUrl() + "user/mobile_reg";
-    public static final String SEND_CODE_URL = getBaseUrl() +  "user/reg_sendCode";
+    public static final String REGISTER_SEND_CODE_URL = getBaseUrl() +  "user/reg_sendCode";
     public static final String LOGIN_URL = getBaseUrl() +  "user/login";
+    public static final String FORGOT_SEND_CODE_URL = getBaseUrl() +  "user/forgetPwd_sendCode";
+    public static final String FORGOT_URL = getBaseUrl() +  "user/reset_pwd";
+
+    public static final String POST_MESSAGE_URL = getBaseUrl() +  "user/post_msg";
+    public static final String UPD_MESSAGE_URL = getBaseUrl() +  "user/upd";
+    public static final String UPD_PWD_URL = getBaseUrl() +  "user/upd_pwd";
+
 
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);

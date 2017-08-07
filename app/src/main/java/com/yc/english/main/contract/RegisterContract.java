@@ -16,7 +16,6 @@ public interface RegisterContract {
 
     interface Presenter extends IPresenter {
         void sendCode(String mobile);
-
         void register(String mobile, String pwd, String code);
     }
 }

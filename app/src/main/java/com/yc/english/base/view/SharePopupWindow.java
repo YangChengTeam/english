@@ -105,10 +105,6 @@ public class SharePopupWindow extends BasePopupWindow {
         return R.layout.base_ppw_share;
     }
 
-    public void show(View view) {
-        showAtLocation(view, Gravity.BOTTOM, 0, 0);
-    }
-
     @Override
     public int getAnimationID() {
         return R.style.share_anim;

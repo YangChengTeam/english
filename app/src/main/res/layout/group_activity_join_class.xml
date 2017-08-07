@@ -88,7 +88,7 @@
         android:layout_marginLeft="@dimen/group_distance_15"
         android:layout_marginRight="@dimen/group_distance_15"
         android:layout_marginTop="@dimen/group_distance_10"
-        android:text="加入"
+        android:text="@string/apply"
         android:visibility="gone" />
 
 

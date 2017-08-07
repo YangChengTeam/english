@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_above="@+id/tv_cancel"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/setting_item_bg"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/base_btn_ripple_bg"
+                android:gravity="center_horizontal"
+                android:text="@string/setting_follow_title"
+                android:textColor="@color/black_333"
+                android:textSize="@dimen/font_big"
+                ></TextView>
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/base_btn_ripple_bg"
+                android:text="@string/setting_follow_desc"
+                android:textColor="@color/gray_999"
+                android:textSize="@dimen/font_snormal"
+                ></TextView>
+
+            <TextView
+                android:id="@+id/tv_desc2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_desc"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/base_btn_ripple_bg"
+                android:text="@string/setting_follow_desc2"
+                android:textColor="@color/gray_999"
+                android:textSize="@dimen/font_snormal"
+                ></TextView>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/setting_item_bg"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_ok"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/base_ok"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/font_normal"
+                android:background="@drawable/base_tran_ripple_bg"
+                ></TextView>
+            <View
+                android:layout_width="1px"
+                android:layout_height="50dp"
+                android:background="#e0e3e3"
+                ></View>
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/base_tran_ripple_bg"
+                android:text="@string/base_cancel"
+                android:textColor="@color/black_333"
+                android:textSize="@dimen/font_normal"
+                ></TextView>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            ></View>
+    </LinearLayout>
+</RelativeLayout>

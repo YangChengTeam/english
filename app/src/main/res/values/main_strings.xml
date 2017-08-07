@@ -34,10 +34,12 @@
     <string name="main_student">位学生正在使用。</string>
 
     <string name="setting_weixin">关注微信公众号</string>
-    <string name="setting_qq">说说英语QQ群</string>
+    <string name="setting_qq_group">说说英语QQ群</string>
     <string name="setting_feedback">意见反馈</string>
     <string name="setting_share">好友分享</string>
     <string name="setting_setting">设置</string>
+    <string name="setting_qq">客服QQ</string>
+    <string name="setting_tel">客服电话</string>
 
     <string name="setting_complete">完成</string>
 
@@ -56,8 +58,10 @@
     <string name="setting_push">推送接受消息</string>
     <string name="setting_play">允许后台播放</string>
     <string name="setting_cache">清除缓存</string>
+    <string name="setting_version">版本检测</string>
 
-    <string name="share_cancel">取消</string>
+    <string name="base_cancel">取消</string>
+    <string name="base_ok">确定</string>
     <string name="share_share">分享到:</string>
 
     <string name="share_weixin_friend">微信</string>
@@ -67,5 +71,8 @@
     <string name="share_qzone">QQ空间</string>
     <string name="share_class">班群</string>
 
+    <string name="setting_follow_title">关注公众号</string>
+    <string name="setting_follow_desc">已复制微信号: 说说英语平台</string>
+    <string name="setting_follow_desc2">打开微信，搜索公众号在关注</string>
 
 </resources>

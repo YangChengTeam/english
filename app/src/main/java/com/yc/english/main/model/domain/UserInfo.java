@@ -1,7 +1,6 @@
 package com.yc.english.main.model.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.JSONSerializer;
 
 
 /**
@@ -17,6 +16,8 @@ public class UserInfo {
     @JSONField(name = "nick_name")
     private String nickname;
     private String school;
+    private String token;
+    private boolean isLogin;
 
     @JSONField(name = "face")
     private String avatar;
@@ -75,5 +76,21 @@ public class UserInfo {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
     }
 }

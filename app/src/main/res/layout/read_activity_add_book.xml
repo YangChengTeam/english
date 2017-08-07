@@ -105,7 +105,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/iv_grade_top"
-                android:text="@string/read_study_grade_text"
+                android:text="@string/read_book_version_text"
                 android:textColor="@color/read_my_book_color"
                 android:textSize="16sp"/>
 

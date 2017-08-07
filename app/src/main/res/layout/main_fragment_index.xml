@@ -4,7 +4,7 @@
               xmlns:eng="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:src="@drawable/sample_avatar"/>
+                android:src="@mipmap/default_avatar"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -38,6 +38,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
                 android:orientation="horizontal">
+
                 <ImageView
 
                     android:layout_width="wrap_content"
@@ -90,61 +91,59 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp">
+                    android:layout_marginBottom="15dp"
+                    android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
 
-                        <com.yc.english.main.view.wdigets.IndexMenuView
-                            android:id="@+id/im_read"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            eng:desc="@string/main_read_desc"
-                            eng:src="@mipmap/main_read"
-                            eng:text="@string/main_read">
-                        </com.yc.english.main.view.wdigets.IndexMenuView>
+                    <com.yc.english.main.view.wdigets.IndexMenuView
+                        android:id="@+id/im_read"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="20dp"
+                        eng:desc="@string/main_read_desc"
+                        eng:src="@mipmap/main_read"
+                        eng:text="@string/main_read">
+                    </com.yc.english.main.view.wdigets.IndexMenuView>
 
-                        <com.yc.english.main.view.wdigets.IndexMenuView
-                            android:id="@+id/im_task"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            eng:desc="@string/main_task_desc"
-                            eng:src="@mipmap/main_task"
-                            eng:text="@string/main_task">
-                        </com.yc.english.main.view.wdigets.IndexMenuView>
-                    </RelativeLayout>
+                    <com.yc.english.main.view.wdigets.IndexMenuView
+                        android:id="@+id/im_task"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        eng:desc="@string/main_task_desc"
+                        eng:src="@mipmap/main_task"
+                        eng:text="@string/main_task">
+                    </com.yc.english.main.view.wdigets.IndexMenuView>
+
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <com.yc.english.main.view.wdigets.IndexMenuView
+                        android:id="@+id/im_word"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="20dp"
+                        eng:desc="@string/main_word_desc"
+                        eng:src="@mipmap/main_word"
+                        eng:text="@string/main_word">
+                    </com.yc.english.main.view.wdigets.IndexMenuView>
 
-                        <com.yc.english.main.view.wdigets.IndexMenuView
-                            android:id="@+id/im_word"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            eng:desc="@string/main_word_desc"
-                            eng:src="@mipmap/main_word"
-                            eng:text="@string/main_word">
-                        </com.yc.english.main.view.wdigets.IndexMenuView>
-
-                        <com.yc.english.main.view.wdigets.IndexMenuView
-                            android:id="@+id/im_game"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            eng:desc="@string/main_game_desc"
-                            eng:src="@mipmap/main_game"
-                            eng:text="@string/main_game">
-                        </com.yc.english.main.view.wdigets.IndexMenuView>
-                    </RelativeLayout>
+                    <com.yc.english.main.view.wdigets.IndexMenuView
+                        android:id="@+id/im_game"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        eng:desc="@string/main_game_desc"
+                        eng:src="@mipmap/main_game"
+                        eng:text="@string/main_game">
+                    </com.yc.english.main.view.wdigets.IndexMenuView>
                 </LinearLayout>
 
                 <RelativeLayout

@@ -4,13 +4,17 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.read.model.domain.UnitInfo;
+import com.yc.english.read.contract.BookUnitContract;
+import com.yc.english.read.model.domain.BookUnitInfo;
+import com.yc.english.read.model.domain.UnitListInfo;
+import com.yc.english.read.presenter.BookUnitPresenter;
 import com.yc.english.read.view.adapter.ReadBookUnitItemClickAdapter;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
 
@@ -23,14 +27,17 @@ import butterknife.BindView;
  * Created by admin on 2017/7/25.
  */
 
-public class BookUnitActivity extends FullScreenActivity {
+public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> implements BookUnitContract.View {
+
+    @BindView(R.id.iv_book_grade)
+    ImageView mBookGradeImageView;
 
     @BindView(R.id.rv_book_unit_list)
     RecyclerView mBookUnitRecyclerView;
 
     ReadBookUnitItemClickAdapter mItemAdapter;
 
-    private List<UnitInfo> mBookDatas;
+    private List<UnitListInfo> mBookDatas;
 
     @Override
     public int getLayoutId() {
@@ -43,6 +50,8 @@ public class BookUnitActivity extends FullScreenActivity {
 
         mToolbar.setTitle(getString(R.string.read_book_unit_text));
         mToolbar.showNavigationIcon();
+
+        mPresenter = new BookUnitPresenter(this, this);
 
         mBookUnitRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mItemAdapter = new ReadBookUnitItemClickAdapter(this, mBookDatas);
@@ -62,13 +71,19 @@ public class BookUnitActivity extends FullScreenActivity {
      * 测试数据
      */
     public void initData() {
-        mBookDatas = new ArrayList<UnitInfo>();
+        mBookDatas = new ArrayList<UnitListInfo>();
         for (int i = 0; i < 6; i++) {
-            UnitInfo unitInfo = new UnitInfo(UnitInfo.CLICK_ITEM_VIEW);
+            UnitListInfo unitInfo = new UnitListInfo(UnitListInfo.CLICK_ITEM_VIEW);
             unitInfo.setUnitTitle("Unit 1 Hello,Good Morning");
             unitInfo.setUnitTotal((i + 1) * 2 + "句");
             mBookDatas.add(unitInfo);
         }
     }
 
+    @Override
+    public void showBookUnitListData(BookUnitInfo bookUnitInfo) {
+        if(bookUnitInfo != null){
+
+        }
+    }
 }

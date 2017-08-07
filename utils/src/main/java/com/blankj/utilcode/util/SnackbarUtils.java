@@ -214,6 +214,7 @@ public final class SnackbarUtils {
             }
             snackbar.setAction(actionText, actionListener);
         }
+        snackbar.setDuration(2000);
         snackbar.show();
     }
 

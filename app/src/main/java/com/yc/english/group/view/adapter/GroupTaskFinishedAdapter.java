@@ -1,6 +1,7 @@
 package com.yc.english.group.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.view.View;
 
@@ -9,6 +10,7 @@ import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.group.model.bean.TaskFinishedInfo;
+import com.yc.english.group.view.activitys.teacher.GroupTaskFinishDetailActivity;
 
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class GroupTaskFinishedAdapter extends BaseAdapter<TaskFinishedInfo> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mContext.startActivity(new Intent(mContext, GroupTaskFinishDetailActivity.class));
             }
         });
 

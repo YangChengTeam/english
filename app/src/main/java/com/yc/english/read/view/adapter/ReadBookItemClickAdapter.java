@@ -18,10 +18,20 @@ public class ReadBookItemClickAdapter extends BaseMultiItemQuickAdapter<BookInfo
 
     private boolean isEdit = false;
 
+    private List<BookInfo> datas;
+
     public ReadBookItemClickAdapter(Context mContext, List<BookInfo> data) {
         super(data);
         this.mContext = mContext;
         addItemType(BookInfo.CLICK_ITEM_VIEW, R.layout.read_book_item);
+    }
+
+    public List<BookInfo> getDatas() {
+        return datas;
+    }
+
+    public void setDatas(List<BookInfo> datas) {
+        this.datas = datas;
     }
 
     public boolean getEditState() {

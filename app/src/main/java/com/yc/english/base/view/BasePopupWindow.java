@@ -3,6 +3,7 @@ package com.yc.english.base.view;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BasePopupWindow extends PopupWindow implements IView {
-    private Activity mContext;
+    protected Activity mContext;
     private ColorDrawable mBackgroundDrawable;
 
     public BasePopupWindow(Activity context){
@@ -93,6 +94,10 @@ public abstract class BasePopupWindow extends PopupWindow implements IView {
                 }
             });
         }
+    }
+
+    public void show(View view) {
+        showAtLocation(view, Gravity.BOTTOM, 0, 0);
     }
 
     @Override

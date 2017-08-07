@@ -7,4 +7,11 @@ package com.yc.english.group.constant;
 public class BusAction {
 
     public final static String GROUPLIST = "grouplist";
+
+    public static final String DELETEMEMBER="deletemember";
+
+    public static final String FINISH="finish";
+
+
+    public static final String REMOVE_GROUP="remove_group";
 }
