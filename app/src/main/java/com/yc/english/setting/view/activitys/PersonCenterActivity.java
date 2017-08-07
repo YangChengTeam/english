@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,6 +21,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideCircleTransformation;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -124,7 +126,8 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
     @Override
     public void showUserInfo(UserInfo userInfo) {
         RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(R.mipmap.default_big_avatar).transform(new CircleCrop());
+        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new GlideCircleTransformation(this, 0.5f,
+                Color.parseColor("#dbdbe0")));
         Glide.with(this).load(userInfo.getAvatar()).apply(options).into(mAvatarSettingItemView.getAvatarImageView());
 
         if (!StringUtils.isEmpty(userInfo.getSchool())) {

@@ -99,6 +99,31 @@ public abstract class BaseEngin<T> {
         return resultInfo;
     }
 
+    public T upload(Type type, byte[] data,  boolean isEncryptResponse){
+        T resultInfo = null;
+        try {
+            Response response = OKHttpRequest.getImpl().upload(getUrl(), data, isEncryptResponse);
+            resultInfo = getResultInfo(response.body, type);
+        } catch (Exception e) {
+            LogUtils.w("post异常->" + e);
+        }
+        return resultInfo;
+    }
+
+    public Observable<T> rxupload(final Type type,final byte[] data,final boolean isEncryptResponse){
+        return Observable.just("").map(new Func1<Object, T>() {
+            @Override
+            public T call(Object o) {
+                return upload(type, data, isEncryptResponse);
+            }
+        }).subscribeOn(Schedulers.newThread()).onErrorReturn(new Func1<Throwable, T>() {
+            @Override
+            public T call(Throwable throwable) {
+                LogUtils.w(throwable.getMessage());
+                return null;
+            }
+        });
+    }
 
     //< 同步请求rxjava post 2
     public Observable<T> rxpost(final Type type, final Map<String, String>
@@ -168,6 +193,8 @@ public abstract class BaseEngin<T> {
                                              json) {
         return rxpost(null, MediaType.parse("application/json; charset=utf-8"), json);
     }
+
+
 
 
     //< 同步请求uploadFile 1

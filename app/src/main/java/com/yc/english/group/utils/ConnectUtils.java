@@ -78,7 +78,6 @@ public class ConnectUtils {
                     @Override
                     public void onError(RongIMClient.ErrorCode errorCode) {
                         LogUtils.e(TAG, "onError: " + errorCode.getMessage());
-                        SPUtils.getInstance().put(TOKEN, "");
                     }
                 });
             }

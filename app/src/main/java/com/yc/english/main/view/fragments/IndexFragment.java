@@ -1,15 +1,16 @@
 package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ImageUtils;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -19,6 +20,8 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideCircleTransformation;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.group.view.activitys.GroupListJoinActivity;
@@ -30,6 +33,7 @@ import com.yc.english.main.presenter.IndexPresenter;
 import com.yc.english.main.view.activitys.MainActivity;
 import com.yc.english.main.view.wdigets.IndexMenuView;
 import com.yc.english.read.view.activitys.BookActivity;
+import com.yc.english.base.view.StateView;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -44,6 +48,11 @@ import rx.functions.Action1;
  */
 
 public class IndexFragment extends BaseFragment<IndexPresenter> implements IndexContract.View {
+    @BindView(R.id.sv_content)
+    ScrollView mContextScrollView;
+
+    @BindView(R.id.sv_loading)
+    StateView mLoadingStateView;
 
     @BindView(R.id.tv_student_number)
     TextView mStudentNumberTextView;
@@ -158,6 +167,21 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     }
 
     @Override
+    public void showLoading() {
+        mLoadingStateView.showNoNet(mContextScrollView, "网络不给力", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TipsHelper.tips(getContext(), "网络不给力");
+            }
+        });
+    }
+
+    @Override
+    public void hideLoading() {
+        mLoadingStateView.hide();
+    }
+
+    @Override
     public void showBanner(List<String> images) {
         mBanner.isAutoPlay(true)
                 .setDelayTime(1500)
@@ -173,11 +197,12 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                     @Tag(Constant.USER_INFO)
             }
     )
-
     @Override
     public void showAvatar(UserInfo userInfo) {
         RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new CircleCrop());
+        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new GlideCircleTransformation(getActivity
+                (), 0.5f,
+                Color.parseColor("#dbdbe0")));
         Glide.with(this).load(userInfo.getAvatar()).apply(options).into(mAvatarImageView);
     }
 }

@@ -75,4 +75,5 @@
     <string name="setting_follow_desc">已复制微信号: 说说英语平台</string>
     <string name="setting_follow_desc2">打开微信，搜索公众号在关注</string>
 
+    <string name="base_refresh_net">重试</string>
 </resources>

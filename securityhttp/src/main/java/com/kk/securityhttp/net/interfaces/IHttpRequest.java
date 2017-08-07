@@ -48,6 +48,8 @@ public interface IHttpRequest {
                              httpResonseListener) throws IOException, NullResonseListenerException;
 
 
+    com.kk.securityhttp.net.entry.Response upload(String url, byte[] data, boolean isEncryptResponse) throws IOException;
+
     void cancel(String url);
 
 }

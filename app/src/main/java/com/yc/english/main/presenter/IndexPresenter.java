@@ -2,6 +2,8 @@ package com.yc.english.main.presenter;
 
 import android.content.Context;
 
+import com.kk.securityhttp.engin.HttpCoreEngin;
+import com.kk.utils.UIUitls;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -10,6 +12,8 @@ import com.yc.english.main.model.engin.IndexEngin;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.functions.Action1;
 
 /**
  * Created by zhangkai on 2017/7/26.
@@ -24,8 +28,16 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
-        loadData();
-        getAvatar();
+
+        mView.showLoading();
+        UIUitls.postDelayed(10000, new Runnable() {
+            @Override
+            public void run() {
+                loadData();
+                getAvatar();
+                mView.hideLoading();
+            }
+        });
     }
 
 
