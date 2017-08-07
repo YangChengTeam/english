@@ -15,4 +15,6 @@ public interface GroupConstant {
 
     String VERIFY_RESULT = "verify_result";
 
+    String SYNC_GROUP_RESULT = "sync_group_result";
+
 }

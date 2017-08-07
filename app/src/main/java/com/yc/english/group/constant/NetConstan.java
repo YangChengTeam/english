@@ -1,5 +1,7 @@
 package com.yc.english.group.constant;
 
+import com.yc.english.base.view.BaseActivity;
+
 /**
  * Created by wanglin  on 2017/7/31 15:10.
  * 网络请求
@@ -66,4 +68,44 @@ public interface NetConstan {
      * 修改班群信息
      */
     String change_group_info = baser_url + "class/upd";
+    /**
+     * 发布作业
+     */
+
+    String publish_task = baser_url + "task/publish";
+    /**
+     * 修改作业
+     */
+
+    String update_publish_task = baser_url + "task/upd_publish";
+    /**
+     * 作业详情
+     */
+    String detail_publish_task = baser_url + "task/detail_publish";
+
+    /**
+     * 学生提交作业
+     */
+    String do_task = baser_url + "task/do";
+    /**
+     * 学生修改作业
+     */
+    String update_do_task = baser_url + "task/upd_do";
+    /**
+     * 学生完成作业详情
+     */
+    String detail_do_task = baser_url + "task/detail_do";
+    /**
+     * 发布作业列表
+     */
+    String list_publish_task = baser_url + "task/list_publish";
+    /**
+     * 完成作业列表
+     */
+    String list_do_task = baser_url + "task/list_do";
+    /**
+     * 上传
+     */
+    String upload_richFile = baser_url + "task/upload";
+
 }

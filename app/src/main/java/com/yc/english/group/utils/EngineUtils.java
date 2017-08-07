@@ -10,6 +10,7 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.rong.ImUtils;
@@ -57,6 +58,22 @@ public class EngineUtils {
 
     }
 
+    /**
+     * 获取我的班群列表
+     * @param context
+     * @param user_id
+     * @param is_admin 1为管理员，0为所有
+     * @return
+     */
+    public static Observable<ResultInfo<ClassInfoList>> getMyGroupList(Context context, String user_id,String is_admin) {
+
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", user_id);
+        params.put("is_admin",is_admin);
+
+        return HttpCoreEngin.get(context).rxpost(NetConstan.my_group_list, new TypeReference<ResultInfo<ClassInfoList>>() {
+        }.getType(), params, true, true, true);
+    }
 
     /**
      * 根据群号查找群

@@ -43,7 +43,6 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     @BindView(R.id.tv_share_group)
     TextView tvShareGroup;
 
-    private List<GroupMemberInfo> mList = new ArrayList<>();
     private GroupMemberAdapter adapter;
     private GroupInfo groupInfo;
 
@@ -94,10 +93,14 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     }
 
 
-
     @Override
     public void showMemberList(List<StudentInfo> list) {
         adapter.setData(list);
+    }
+
+    @Override
+    public void showGroupInfo(ClassInfo info) {
+        mToolbar.setTitle(info.getClassName());
     }
 
     @Subscribe(
@@ -107,8 +110,31 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             }
     )
     public void getList(String group) {
-        if (group.equals(BusAction.REMOVE_GROUP)){
+        if (group.equals(BusAction.REMOVE_GROUP)) {
             finish();
         }
+
     }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.DELETEMEMBER)
+            }
+    )
+    public void getMemberList(String group) {
+        mPresenter.getMemberList(this, groupInfo.getId(), "1", "");
+    }
+
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.CHANGE_NAME)
+            }
+    )
+    public void changeName(String result) {
+        mPresenter.queryGroupById(this, groupInfo.getId(), "");
+    }
+
 }

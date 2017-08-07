@@ -6,9 +6,11 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupMyMemberListContract;
+import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.utils.EngineUtils;
 
+import io.rong.imlib.IRongCallback;
 import rx.Subscriber;
 import rx.Subscription;
 
@@ -50,6 +52,32 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
             }
         });
 
+        mSubscriptions.add(subscription);
+    }
+
+    public void queryGroupById(Context context, String id, String sn) {
+        Subscription subscription = EngineUtils.queryGroupById(context, id, sn).subscribe(new Subscriber<ResultInfo<ClassInfoWarpper>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<ClassInfoWarpper> classInfoWarpperResultInfo) {
+                handleResultInfo(classInfoWarpperResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.showGroupInfo(classInfoWarpperResultInfo.data.getInfo());
+                    }
+                });
+
+            }
+        });
         mSubscriptions.add(subscription);
     }
 }

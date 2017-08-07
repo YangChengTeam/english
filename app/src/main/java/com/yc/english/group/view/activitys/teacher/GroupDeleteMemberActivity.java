@@ -35,7 +35,7 @@ import rx.functions.Action1;
  * Created by wanglin  on 2017/7/27 08:44.
  */
 
-public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMemberPresenter> implements BaseToolBar.OnItemClickLisener, OnCheckedChangeListener, GroupDeleteMemberContract.View {
+public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMemberPresenter> implements BaseToolBar.OnItemClickLisener, OnCheckedChangeListener<StudentInfo>, GroupDeleteMemberContract.View {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -81,11 +81,6 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
 
     private List<StudentInfo> studentInfos = new ArrayList<>();
 
-
-    @Override
-    public void onCheckedChange(int position, View view, boolean isClicked) {
-
-    }
 
     @Override
     public void onClick(int position, View view, boolean isChecked, StudentInfo studentInfo) {
@@ -160,5 +155,8 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
         studentInfos.clear();
         count = 0;
         RxBus.get().post(BusAction.GROUPLIST, "delete");
+        RxBus.get().post(BusAction.DELETEMEMBER, "delete_member");
     }
+
+
 }

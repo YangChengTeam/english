@@ -18,12 +18,12 @@
         android:paddingLeft="@dimen/group_distance_15"
         android:paddingRight="@dimen/group_distance_30">
 
-        <CheckBox
-            android:id="@+id/m_cb_group_select"
+        <ImageView
+            android:id="@+id/m_iv_group_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/group_distance_20"
-            android:button="@drawable/group_delete_member_selector" />
+            android:src="@drawable/group_delete_member_selector" />
 
         <ImageView
             android:id="@+id/m_iv_group_img"

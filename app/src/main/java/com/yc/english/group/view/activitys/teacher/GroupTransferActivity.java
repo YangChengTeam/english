@@ -1,5 +1,6 @@
 package com.yc.english.group.view.activitys.teacher;
 
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -7,9 +8,15 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.group.constant.BusAction;
+import com.yc.english.group.contract.GroupTransferGroupContract;
+import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.presenter.GroupTransferGroupPresenter;
+import com.yc.english.group.rong.models.GroupInfo;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,21 +29,29 @@ import rx.functions.Func1;
  * 转让班级
  */
 
-public class GroupTransferActivity extends FullScreenActivity {
+public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroupPresenter> implements GroupTransferGroupContract.View {
     @BindView(R.id.et_class_group)
     EditText etClassGroup;
     @BindView(R.id.ib_delete)
     ImageButton ibDelete;
     @BindView(R.id.btn_create)
     Button btnCreate;
+    private ClassInfo classInfo;
 
     @Override
     public void init() {
+        mPresenter = new GroupTransferGroupPresenter(this, this);
         mToolbar.setTitle(getResources().getString(R.string.transfer_group));
         mToolbar.showNavigationIcon();
         btnCreate.setText(getResources().getString(R.string.confirm_transfer));
         etClassGroup.setHint(getResources().getString(R.string.recevicer_phone));
         etClassGroup.setInputType(EditorInfo.TYPE_CLASS_PHONE);
+
+        etClassGroup.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
+        if (getIntent() != null) {
+
+            classInfo = getIntent().getParcelableExtra("group");
+        }
         initListener();
     }
 
@@ -44,13 +59,13 @@ public class GroupTransferActivity extends FullScreenActivity {
         RxView.clicks(btnCreate).filter(new Func1<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {
-                ToastUtils.showShort("请输入要转让的班群名称");
+                ToastUtils.showShort(getString(R.string.recevicer_phone));
                 return !TextUtils.isEmpty(etClassGroup.getText().toString().trim());
             }
         }).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                ToastUtils.showShort("确认转让");
+                mPresenter.transferGroup(classInfo.getClass_id(), classInfo.getMaster_id(), etClassGroup.getText().toString().trim());
             }
         });
     }
@@ -61,4 +76,10 @@ public class GroupTransferActivity extends FullScreenActivity {
     }
 
 
+    @Override
+    public void showTransferResult() {
+        finish();
+        RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
+        RxBus.get().post(BusAction.GROUPLIST,"transfer group");
+    }
 }

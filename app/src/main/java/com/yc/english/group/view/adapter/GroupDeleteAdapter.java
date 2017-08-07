@@ -76,10 +76,10 @@ public class GroupDeleteAdapter extends BaseAdapter<StudentInfo> {
         return R.layout.group_delete_member_item;
     }
 
-    private OnCheckedChangeListener listener;
+    private OnCheckedChangeListener<StudentInfo> listener;
 
 
-    public void setListener(OnCheckedChangeListener listener) {
+    public void setListener(OnCheckedChangeListener<StudentInfo> listener) {
         this.listener = listener;
     }
 }

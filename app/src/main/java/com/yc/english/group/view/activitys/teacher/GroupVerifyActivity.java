@@ -84,19 +84,6 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
 
         EngineUtils.joinGroup(mStudentInfo.getUser_id(), groupId, groupName);
 
-//        ImUtils.joinGroup(userIds, groupId, groupName).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<CodeSuccessResult>() {
-//            @Override
-//            public void call(CodeSuccessResult codeSuccessResult) {
-//                if (codeSuccessResult.getCode() == 200) {//加入成功
-//                    ToastUtils.showShort("加入成功");
-////                    mView.startGroupChat(groupId, groupName);
-////                    ClassInfo info = new ClassInfo("", groupName, users.size() + "", Integer.parseInt(groupId));
-////                    classInfoDao.insert(info);
-//                    RxBus.get().post(BusAction.GROUPLIST, "from groupjoin");
-//                }
-//            }
-//        });
-
     }
 
     private BaseViewHolder mHolder;

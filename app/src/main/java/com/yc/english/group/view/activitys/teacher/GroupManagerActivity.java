@@ -9,6 +9,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.FullScreenActivity;
@@ -39,6 +42,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
     @BindView(R.id.tv_permission_check)
     TextView tvPermissionCheck;
     private GroupInfo groupInfo;
+    private ClassInfo mInfo;
 
     @Override
     public void init() {
@@ -53,8 +57,9 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
             tvGroupName.setText(groupInfo.getName());
         }
 
-        int condition = SPUtils.getInstance().getInt(GroupConstant.VERIFY_RESULT);
+        int condition = SPUtils.getInstance().getInt(groupInfo.getId());
         setVerify_reslut(condition);
+        mPresenter.queryGroupById(this, groupInfo.getId());
 
     }
 
@@ -88,13 +93,14 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
                 startActivityForResult(intent, 200);
                 break;
             case R.id.rl_group_transfer:
-                startActivity(new Intent(this, GroupTransferActivity.class));
+                intent = new Intent(this, GroupTransferActivity.class);
+                intent.putExtra("group", this.mInfo);
+
+                startActivity(intent);
                 break;
             case R.id.btn_resolving_group:
 
-                mPresenter.queryGroupById(this, groupInfo.getId());
-
-
+                mPresenter.resolvingGroup(groupInfo.getId(), mInfo.getMaster_id());
                 break;
         }
     }
@@ -124,7 +130,10 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
 
     @Override
     public void showClassInfo(ClassInfo info) {
-        mPresenter.resolvingGroup(groupInfo.getId(), info.getMaster_id());
+
+        this.mInfo = info;
+        tvGroupName.setText(info.getClassName());
+
     }
 
     @Override
@@ -133,6 +142,29 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         finish();
         RxBus.get().post(BusAction.GROUPLIST, "remove group");
         RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
+
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.CHANGE_NAME)
+            }
+    )
+    public void changeName(String group) {
+        mPresenter.queryGroupById(this, groupInfo.getId());
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.FINISH)
+            }
+    )
+    public void getList(String group) {
+        if (group.equals(BusAction.REMOVE_GROUP)) {
+            finish();
+        }
 
     }
 }

@@ -7,9 +7,11 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.kk.utils.UIUitls;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by wanglin  on 2017/8/1 20:22.
@@ -52,6 +54,15 @@ public class ConnectUtils {
                     @Override
                     public void onSuccess(String userid) {
                         SPUtils.getInstance().put(TOKEN, token);
+                        RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+
+                            @Override
+                            public UserInfo getUserInfo(String userId) {
+
+                                return new UserInfo(userId, UserInfoHelper.getUserInfo().getName(), null);//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK。
+                            }
+
+                        }, true);
                         UIUitls.post(new Runnable() {
                             @Override
                             public void run() {

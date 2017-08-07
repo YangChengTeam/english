@@ -19,7 +19,7 @@ import com.yc.english.group.contract.GroupMyGroupListContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupMyGroupListPresenter;
-import com.yc.english.group.view.activitys.student.GroupJoinActivityNew;
+import com.yc.english.group.view.activitys.student.GroupJoinActivity;
 import com.yc.english.group.view.activitys.teacher.GroupCreateActivity;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
@@ -29,8 +29,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
+import io.rong.message.RichContentMessage;
 
 /**
  * Created by wanglin  on 2017/7/24 17:59.
@@ -70,8 +70,6 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         recyclerView.setAdapter(adapter);
 
 
-
-
     }
 
     @Override
@@ -97,7 +95,7 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
             case R.id.btn_join_class:
             case R.id.btn_join_class1:
                 if (!UserInfoHelper.isGotoLogin(getActivity()))
-                    startActivity(new Intent(getActivity(), GroupJoinActivityNew.class));
+                    startActivity(new Intent(getActivity(), GroupJoinActivity.class));
                 break;
         }
 
@@ -135,4 +133,43 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         }
         getActivity().invalidateOptionsMenu();
     }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.CHANGE_NAME)
+            }
+    )
+    public void changeName(String result) {
+        mPresenter.loadData(true);
+    }
+
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.UNREAD_MESSAGE)
+            }
+    )
+    public void getMessage(Message message) {
+        LogUtils.e(TAG, message);
+        if (message.getContent() instanceof RichContentMessage) {
+            adapter.setMessage(message.getTargetId(), message.getReceivedStatus().isRead());
+        }
+
+        adapter.notifyDataSetChanged();
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.UNREAD_MESSAGE)
+            }
+    )
+    public void getMessage(String message) {
+        LogUtils.e(TAG, message);
+        adapter.setMessage(message, true);
+        adapter.notifyDataSetChanged();
+    }
+
 }

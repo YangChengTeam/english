@@ -68,6 +68,7 @@ public class CustomMessageProvider extends IContainerItemProvider.MessageProvide
 
     @Override
     public void onItemClick(View view, int position, RichContentMessage richContentMessage, UIMessage uiMessage) {
+//        uiMessage.getMessageId()
 
         Intent intent;
         if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {

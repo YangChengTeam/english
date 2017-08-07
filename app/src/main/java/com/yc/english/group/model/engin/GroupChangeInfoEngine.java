@@ -9,6 +9,7 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.model.bean.RemoveGroupInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class GroupChangeInfoEngine extends BaseEngin {
      * @param vali_type 验证类型，0：不验证加入，1：验证加入，2：拒绝加入
      * @return
      */
-    public Observable<ResultInfo<String>> changeGroupInfo(String class_id, String name, String face, String vali_type) {
+    public Observable<ResultInfo<RemoveGroupInfo>> changeGroupInfo(String class_id, String name, String face, String vali_type) {
         Map<String, String> params = new HashMap<>();
         params.put("id", class_id);
         if (!TextUtils.isEmpty(name))
@@ -41,7 +42,7 @@ public class GroupChangeInfoEngine extends BaseEngin {
         if (!TextUtils.isEmpty(vali_type))
             params.put("vali_type", vali_type);
 
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.change_group_info, new TypeReference<ResultInfo<String>>() {
+        return HttpCoreEngin.get(mContext).rxpost(NetConstan.change_group_info, new TypeReference<ResultInfo<RemoveGroupInfo>>() {
         }.getType(), params, false, true, true);
 
     }

@@ -33,14 +33,14 @@ public class GroupMyGroupListPresenter extends BasePresenter<GroupMyGroupListEng
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (userInfo != null) {
             String uid = userInfo.getUid();
-            getMyGroupList(uid);
+            getMyGroupList(mContext, uid,"0");
             getMemberList(mContext, "", "0", uid);
         }
     }
 
     @Override
-    public void getMyGroupList(String user_id) {
-        Subscription subscription = mEngin.getMyGroupList(user_id).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
+    public void getMyGroupList(Context context, String user_id,String is_admin) {
+        Subscription subscription = EngineUtils.getMyGroupList(context, user_id,is_admin).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
             public void onCompleted() {
 

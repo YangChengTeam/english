@@ -129,4 +129,8 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
         mPresenter.changeGroupInfo(groupInfo.getId(), "", "", currentConditon + "");
     }
 
+    @Override
+    public void showChangeResult() {
+
+    }
 }

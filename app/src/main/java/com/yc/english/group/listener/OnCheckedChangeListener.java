@@ -9,8 +9,7 @@ import com.yc.english.group.model.bean.StudentInfo;
  * 多选选择监听
  */
 
-public interface OnCheckedChangeListener {
-    void onCheckedChange(int position, View view, boolean isClicked);
+public interface OnCheckedChangeListener<T> {
 
-    void onClick(int position, View view, boolean isClicked, StudentInfo studentInfo);
+    void onClick(int position, View view, boolean isClicked, T studentInfo);
 }

@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.facebook.stetho.Stetho;
+import com.hwangjr.rxbus.RxBus;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.dao.DaoMaster;
 import com.yc.english.group.dao.DaoSession;
 import com.yc.english.group.plugin.GroupExtensionModule;
@@ -21,8 +23,11 @@ import io.rong.imkit.DefaultExtensionModule;
 import io.rong.imkit.IExtensionModule;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
+import io.rong.message.RichContentMessage;
 
 
 /**
@@ -53,6 +58,15 @@ public class GroupApp {
             RongIM.getInstance().registerMessageTemplate(new CustomMessageProvider());
 
             RongIM.getInstance().getRongIMClient().setOnReceiveMessageListener(new MyReceiveMessageListener());
+
+
+            RongIM.setGroupUserInfoProvider(new RongIM.GroupUserInfoProvider() {
+                @Override
+                public GroupUserInfo getGroupUserInfo(String s, String s1) {
+                    return null;
+                }
+            }, true);
+
         }
 
 
@@ -136,7 +150,10 @@ public class GroupApp {
 
         @Override
         public boolean onReceived(Message message, int i) {
-            LogUtils.e(TAG, message.getContent().toString() + "---" + message.getTargetId());
+
+            RxBus.get().post(BusAction.UNREAD_MESSAGE, message);
+
+            LogUtils.e(TAG, message.getContent() + "---" + message.getTargetId() + "---" + message.getReceivedStatus().isRead());
             return false;
         }
     }

@@ -7,9 +7,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupChangeInfoContract;
 import com.yc.english.group.presenter.GroupChangeInfoPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
@@ -45,6 +47,7 @@ public class GroupChangeNameActivity extends FullScreenActivity<GroupChangeInfoP
             groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
             etClassGroup.setText(groupInfo.getName());
         }
+
         RxView.clicks(btnCreate).filter(new Func1<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {
@@ -67,4 +70,9 @@ public class GroupChangeNameActivity extends FullScreenActivity<GroupChangeInfoP
     }
 
 
+    @Override
+    public void showChangeResult() {
+        finish();
+        RxBus.get().post(BusAction.CHANGE_NAME, "changeName");
+    }
 }

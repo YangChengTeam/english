@@ -5,16 +5,16 @@ import com.yc.english.base.view.IDialog;
 import com.yc.english.base.view.IView;
 
 /**
- * Created by wanglin  on 2017/8/4 14:33.
+ * Created by wanglin  on 2017/8/4 19:43.
  */
 
-public interface GroupChangeInfoContract {
-
+public interface GroupTransferGroupContract {
     interface View extends IView, IDialog {
-        void showChangeResult();
+        void showTransferResult();
     }
 
     interface Presenter extends IPresenter {
-        void changeGroupInfo(String class_id, String name, String face, String vali_type);
+        void transferGroup(String class_id, String master_id, String user_name);
     }
+
 }

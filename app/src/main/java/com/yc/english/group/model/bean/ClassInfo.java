@@ -76,15 +76,17 @@ public class ClassInfo implements Parcelable {
         imageUrl = source.readString();
         className = source.readString();
         groupId = source.readInt();
+        class_id = source.readString();
+        master_id = source.readString();
     }
 
 
     @Generated(hash = 2032005229)
     public ClassInfo(Long cId, String imageUrl, String className, String count,
-            int groupId, String founder_id, String master_id, String vali_type,
-            String is_del, String add_time, String add_date, String del_time,
-            String sort, String master_name, String master_nick_name,
-            String class_id) {
+                     int groupId, String founder_id, String master_id, String vali_type,
+                     String is_del, String add_time, String add_date, String del_time,
+                     String sort, String master_name, String master_nick_name,
+                     String class_id) {
         this.cId = cId;
         this.imageUrl = imageUrl;
         this.className = className;
@@ -145,6 +147,8 @@ public class ClassInfo implements Parcelable {
         dest.writeString(imageUrl);
         dest.writeString(className);
         dest.writeInt(groupId);
+        dest.writeString(class_id);
+        dest.writeString(master_id);
     }
 
 

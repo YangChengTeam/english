@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.EmptyUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -68,10 +69,12 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
 
     @Override
     public void init() {
+
         mPresenter = new GroupApplyJoinPresenter(this, this);
         initData();
         if (EmptyUtils.isNotEmpty(group)) {
-            mPresenter.queryGroupById(this, group.getId(),"");
+            mPresenter.queryGroupById(this, group.getId(), "");
+            RxBus.get().post(BusAction.UNREAD_MESSAGE, group.getId());
         }
         mToolbar.showNavigationIcon();
 
@@ -86,8 +89,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     @Override
     public void onClick() {
         Intent intent = new Intent(this, GroupMemberActivity.class);
-//                Bundle bundle =new Bundle();
-//                bundle.putSerializable("group",group);
         intent.putExtra("group", group);
         startActivity(intent);
     }
@@ -98,6 +99,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
                 mToolbar.setMenuIcon(R.mipmap.group9);
                 mToolbar.setOnItemClickLisener(this);
+                mToolbar.setTitle(classInfo.getClassName());
                 invalidateOptionsMenu();
             }
         }
@@ -116,8 +118,18 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             }
     )
     public void getList(String group) {
-        if (group.equals(BusAction.REMOVE_GROUP)){
+        if (group.equals(BusAction.REMOVE_GROUP)) {
             finish();
         }
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.CHANGE_NAME)
+            }
+    )
+    public void changeName(String result) {
+        mPresenter.queryGroupById(this, group.getId(), "");
     }
 }

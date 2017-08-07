@@ -1,6 +1,7 @@
 package com.yc.english.group.presenter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -19,9 +20,12 @@ import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.GroupUser;
 import com.yc.english.group.rong.models.GroupUserQueryResult;
 import com.yc.english.group.utils.EngineUtils;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -103,7 +107,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
 
             @Override
             public void onError(Throwable e) {
-
+                LogUtils.e("queryGroupById", e.getMessage());
             }
 
             @Override
@@ -111,7 +115,6 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        LogUtils.e(stringResultInfo);
                         mView.showGroup(stringResultInfo.data.getInfo());
                     }
                 });
@@ -128,7 +131,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
      * @param groupId
      * @param groupName
      */
-    public void joinGroup(String usre_id, final String groupId, final String groupName, final int vali_type) {
+    private void joinGroup(String usre_id, final String groupId, final String groupName, final int vali_type) {
         final String[] userIds = new String[]{usre_id};
         ImUtils.queryGroup(groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<GroupUserQueryResult>() {
             @Override
@@ -141,6 +144,8 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
                             if (codeSuccessResult.getCode() == 200) {//加入成功
 //                                ToastUtils.showShort("加入成功");
                                 mView.apply(vali_type);
+
+
 //                                mView.startGroupChat(groupId, groupName);
 //                                ClassInfo info = new ClassInfo("", groupName, users.size() + "", Integer.parseInt(groupId));
 //                                classInfoDao.insert(info);
@@ -156,4 +161,10 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
 
     }
 
+    private UserInfo findUserById(String userId, String userName, Uri uri) {
+
+
+        return new UserInfo(userId, userName, uri);
+
+    }
 }

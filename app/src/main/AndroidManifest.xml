@@ -65,7 +65,6 @@
             android:name=".group.view.activitys.teacher.GroupCreateActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".group.view.activitys.student.GroupJoinActivity" />
 
         <!--会话界面-->
         <activity
@@ -121,7 +120,7 @@
         <activity android:name=".group.view.activitys.teacher.GroupTaskFinishDetailActivity" />
         <activity android:name=".group.view.activitys.student.GroupMyTaskListActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupTaskLookAndUnLookActivity" />
-        <activity android:name=".group.view.activitys.student.GroupJoinActivityNew" />
+        <activity android:name=".group.view.activitys.student.GroupJoinActivity" />
 
         <receiver
             android:name=".group.view.receiver.GroupNotificationReceiver"
