@@ -126,7 +126,7 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
     @Override
     public void showUserInfo(UserInfo userInfo) {
         RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new GlideCircleTransformation(this, 1,
+        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new GlideCircleTransformation(this, 0.5f,
                 Color.parseColor("#dbdbe0")));
         Glide.with(this).load(userInfo.getAvatar()).apply(options).into(mAvatarSettingItemView.getAvatarImageView());
 

@@ -164,7 +164,8 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
     @Override
     public void showUserInfo(UserInfo userInfo) {
         RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new GlideCircleTransformation(getActivity(), 1,
+        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new GlideCircleTransformation(getActivity
+                (), 0.5f,
                 Color.WHITE));
         Glide.with(this).load(userInfo.getAvatar()).apply(options).into(mAvatarImageView);
         if (!StringUtils.isEmpty(userInfo.getSchool())) {

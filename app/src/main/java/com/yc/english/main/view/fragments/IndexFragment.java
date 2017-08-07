@@ -200,7 +200,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @Override
     public void showAvatar(UserInfo userInfo) {
         RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new GlideCircleTransformation(getActivity(), 1,
+        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new GlideCircleTransformation(getActivity
+                (), 0.5f,
                 Color.parseColor("#dbdbe0")));
         Glide.with(this).load(userInfo.getAvatar()).apply(options).into(mAvatarImageView);
     }

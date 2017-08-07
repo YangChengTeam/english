@@ -110,6 +110,12 @@ public class OKHttpRequest implements IHttpRequest {
         sendRequest(request, isEncryptResponse, httpResonseListener);
     }
 
+    @Override
+    public com.kk.securityhttp.net.entry.Response upload(String url, byte[] data, boolean isEncryptResponse) throws IOException {
+        Request request = OKHttpUtil.getRequest(url, data);
+        return sendRequest(request, isEncryptResponse);
+    }
+
 
     @Override
     public void cancel(String url) {

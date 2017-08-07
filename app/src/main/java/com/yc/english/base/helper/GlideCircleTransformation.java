@@ -7,6 +7,7 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
@@ -24,9 +25,9 @@ public class GlideCircleTransformation extends BitmapTransformation {
         super(context);
     }
 
-    public GlideCircleTransformation(Context context, int borderWidth, int borderColor) {
+    public GlideCircleTransformation(Context context, float borderWidth, int borderColor) {
         super(context);
-        mBorderWidth = Resources.getSystem().getDisplayMetrics().density * borderWidth;
+        mBorderWidth = SizeUtils.px2dp(borderWidth);
 
         mBorderPaint = new Paint();
         mBorderPaint.setDither(true);
