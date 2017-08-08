@@ -38,7 +38,7 @@ public class GroupMemberAdapter extends BaseAdapter<StudentInfo> {
         String userName = studentInfo.getUser_name();
         holder.setText(R.id.tv_member_name, userName);
 //        holder.setImageUrl(mContext,R.id.iv_member_img,groupMemberInfo.getImgUrl());
-        holder.setImageBitmap(R.id.iv_member_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.portial)));
+        holder.setImageBitmap(R.id.iv_member_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.default_avatar)));
         holder.setText(R.id.tv_member_owner, studentInfo.getUser_id().equals(UserInfoHelper.getUserInfo().getUid()) ? "老师" : "");
 
         if (RegexUtils.isZh(userName)) {

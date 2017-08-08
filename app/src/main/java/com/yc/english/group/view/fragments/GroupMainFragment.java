@@ -1,10 +1,14 @@
 package com.yc.english.group.view.fragments;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -13,6 +17,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
+import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.ToolbarFragment;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupMyGroupListContract;
@@ -28,7 +33,9 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import io.rong.imlib.model.Message;
 import io.rong.message.RichContentMessage;
 
@@ -49,6 +56,11 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
     LinearLayout llEmptyContainer;
     @BindView(R.id.ll_data_container)
     LinearLayout llDataContainer;
+    @BindView(R.id.sView_loading)
+    StateView sViewLoading;
+    @BindView(R.id.content_view)
+    FrameLayout contentView;
+
 
     private GroupGroupAdapter adapter;
 
@@ -134,6 +146,16 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         getActivity().invalidateOptionsMenu();
     }
 
+    @Override
+    public void showLoading() {
+        sViewLoading.showLoading(contentView);
+    }
+
+    @Override
+    public void hideLoading() {
+        sViewLoading.hide();
+    }
+
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
@@ -171,5 +193,6 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         adapter.setMessage(message, true);
         adapter.notifyDataSetChanged();
     }
+
 
 }

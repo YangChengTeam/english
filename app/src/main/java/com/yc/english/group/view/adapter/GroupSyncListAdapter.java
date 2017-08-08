@@ -32,7 +32,7 @@ public class GroupSyncListAdapter extends BaseAdapter<ClassInfo> {
     protected void convert(final BaseViewHolder holder, final int position) {
         final ClassInfo classInfo = mList.get(position);
         holder.setText(R.id.m_tv_group_name, classInfo.getClassName());
-        holder.setImageBitmap(R.id.m_iv_group_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.portial)));
+        holder.setImageBitmap(R.id.m_iv_group_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.default_avatar)));
         final ImageView view = holder.getView(R.id.m_iv_group_select);
 
         boolean aBoolean = SPUtils.getInstance().getBoolean(classInfo.getClass_id());

@@ -17,9 +17,9 @@
 
         <ImageView
             android:id="@+id/m_iv_group_img"
-            android:layout_width="@dimen/group_distance_40"
-            android:layout_height="@dimen/group_distance_40"
-            android:src="@mipmap/portial" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/default_avatar" />
 
         <LinearLayout
             android:layout_width="match_parent"

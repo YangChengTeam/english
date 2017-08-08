@@ -1,7 +1,5 @@
 package com.yc.english.group.constant;
 
-import com.yc.english.base.view.BaseActivity;
-
 /**
  * Created by wanglin  on 2017/7/31 15:10.
  * 网络请求

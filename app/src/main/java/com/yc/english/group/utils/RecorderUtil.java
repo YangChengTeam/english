@@ -57,9 +57,9 @@ public class RecorderUtil {
         if (mFileName == null) return;
         timeInterval = System.currentTimeMillis() - startTime;
         try{
-            if (timeInterval>1000){
+//            if (timeInterval>1000){
                 mRecorder.stop();
-            }
+//            }
             mRecorder.release();
             mRecorder = null;
             isRecording =false;

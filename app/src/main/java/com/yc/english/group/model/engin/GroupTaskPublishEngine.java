@@ -1,6 +1,7 @@
 package com.yc.english.group.model.engin;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.TypeReference;
 import com.blankj.subutil.util.ThreadPoolUtils;
@@ -10,6 +11,7 @@ import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.model.bean.TaskUploadInfo;
 
 import java.io.File;
 import java.util.HashMap;
@@ -34,19 +36,19 @@ public class GroupTaskPublishEngine extends BaseEngin {
      * @param desp
      * @return
      */
-    public Observable<ResultInfo<String>> publishTask(String class_ids, String publisher, String desp, byte[] imges, byte[] voices, byte[] docs) {
-        Map<String, Object> params = new HashMap<>();
+    public Observable<ResultInfo<String>> publishTask(String class_ids, String publisher, String desp, String imgesUrl, String voiceUrl, String docsUrl) {
+        Map<String, String> params = new HashMap<>();
         params.put("class_ids", class_ids);
         params.put("publisher", publisher);
         params.put("desp", desp);
-        if (EmptyUtils.isNotEmpty(imges)) {
-            params.put("imgs", imges);
+        if (!TextUtils.isEmpty(imgesUrl)) {
+            params.put("imgs", imgesUrl);
         }
-        if (EmptyUtils.isNotEmpty(voices)) {
-            params.put("voices", voices);
+        if (!TextUtils.isEmpty(voiceUrl)) {
+            params.put("voices", voiceUrl);
         }
-        if (EmptyUtils.isNotEmpty(docs)) {
-            params.put("docs", docs);
+        if (!TextUtils.isEmpty(docsUrl)) {
+            params.put("docs", docsUrl);
         }
 
         return HttpCoreEngin.get(mContext).rxpost(NetConstan.publish_task, new TypeReference<ResultInfo<String>>() {
@@ -54,13 +56,14 @@ public class GroupTaskPublishEngine extends BaseEngin {
 
     }
 
-    public Observable<String> uploadFile(File file) {
+    public Observable<ResultInfo<TaskUploadInfo>> uploadFile(File file, String fileName, String name) {
         UpFileInfo upFileInfo = new UpFileInfo();
-        upFileInfo.filename = "1.jpg";
-        upFileInfo.file=file;
+        upFileInfo.filename = fileName;
+        upFileInfo.file = file;
         upFileInfo.name = "file";
 
-        return HttpCoreEngin.get(mContext).rxuploadFile(NetConstan.upload_richFile, String.class,upFileInfo,null,true);
+        return HttpCoreEngin.get(mContext).rxuploadFile(NetConstan.upload_richFile, new TypeReference<ResultInfo<TaskUploadInfo>>() {
+        }.getType(), upFileInfo, null, true);
 
     }
 

@@ -40,15 +40,16 @@ public class GroupMyGroupListPresenter extends BasePresenter<GroupMyGroupListEng
 
     @Override
     public void getMyGroupList(Context context, String user_id,String is_admin) {
+        mView.showLoading();
         Subscription subscription = EngineUtils.getMyGroupList(context, user_id,is_admin).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
             public void onCompleted() {
-
+mView.hideLoading();
             }
 
             @Override
             public void onError(Throwable e) {
-
+                mView.hideLoading();
             }
 
             @Override

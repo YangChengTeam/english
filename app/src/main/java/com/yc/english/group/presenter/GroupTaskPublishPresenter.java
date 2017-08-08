@@ -7,6 +7,7 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupTaskPublishContract;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
+import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.model.engin.GroupTaskPublishEngine;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -34,9 +35,9 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
     }
 
     @Override
-    public void publishTask(String class_ids, String publisher, String desp, byte[] imges, byte[] voices, byte[] docs) {
+    public void publishTask(String class_ids, String publisher, String desp, String imgesUrl, String voiceUrl, String docsUrl) {
         mView.showLoadingDialog("正在发布作业，请稍候！");
-        Subscription subscription = mEngin.publishTask(class_ids, publisher, desp, imges, voices, docs).subscribe(new Subscriber<ResultInfo<String>>() {
+        Subscription subscription = mEngin.publishTask(class_ids, publisher, desp, imgesUrl, voiceUrl, docsUrl).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -89,8 +90,8 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
     }
 
     @Override
-    public void uploadFile(File file) {
-        Subscription subscription = mEngin.uploadFile(file).subscribe(new Subscriber<String>() {
+    public void uploadFile(File file,String fileName,String name) {
+        Subscription subscription = mEngin.uploadFile(file,fileName,name).subscribe(new Subscriber<ResultInfo<TaskUploadInfo>>() {
             @Override
             public void onCompleted() {
 
@@ -102,8 +103,13 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
             }
 
             @Override
-            public void onNext(String s) {
-
+            public void onNext(final ResultInfo<TaskUploadInfo> taskUploadInfoResultInfo) {
+                handleResultInfo(taskUploadInfoResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.showUploadReslut(taskUploadInfoResultInfo.data.getFile_path());
+                    }
+                });
             }
         });
         mSubscriptions.add(subscription);

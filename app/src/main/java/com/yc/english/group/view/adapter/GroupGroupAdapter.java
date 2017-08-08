@@ -39,7 +39,7 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
     @Override
     protected void convert(final BaseViewHolder holder, int position) {
         final ClassInfo classInfo = mList.get(position);
-        holder.setImageBitmap(R.id.m_iv_group_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.portial)));
+        holder.setImageBitmap(R.id.m_iv_group_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.default_avatar)));
         holder.setText(R.id.m_tv_group_name, classInfo.getClassName());
         holder.setText(R.id.m_tv_member_count, String.format(mContext.getString(R.string.member_count), Integer.parseInt(classInfo.getCount())));
         holder.setText(R.id.m_tv_group_number, String.format(mContext.getString(R.string.groupId), classInfo.getGroupId()));

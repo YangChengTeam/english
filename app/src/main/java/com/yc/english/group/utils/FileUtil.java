@@ -28,13 +28,13 @@ import java.io.IOException;
 public class FileUtil {
     private static final String TAG = "FileUtil";
     private static String pathDiv = "/";
-    private static File cacheDir;
+    private static File cacheDir= !isExternalStorageWritable() ? GroupApp.getApplicationContext().getFilesDir() : GroupApp.getApplicationContext().getExternalCacheDir();
 
     private FileUtil(Context context) {
         /* cannot be instantiated */
-//        throw new UnsupportedOperationException("cannot be instantiated");
-        cacheDir = !isExternalStorageWritable() ? context.getFilesDir() : context.getExternalCacheDir();
-        ;
+        throw new UnsupportedOperationException("cannot be instantiated");
+//        cacheDir = !isExternalStorageWritable() ? context.getFilesDir() : context.getExternalCacheDir();
+
     }
 
 

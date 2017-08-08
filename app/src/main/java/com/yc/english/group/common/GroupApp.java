@@ -40,8 +40,10 @@ public class GroupApp {
     private static SQLiteDatabase db;
 
     private static DaoSession mDaoSession;
+    private static Application mApplication;
 
     public static void init(Application application) {
+        mApplication = application;
         /**
          *
          * OnCreate 会被多个进程重入，这段保护代码，确保只有您需要使用 RongIM 的进程和 Push 进程执行了 init。
@@ -153,9 +155,15 @@ public class GroupApp {
 
             RxBus.get().post(BusAction.UNREAD_MESSAGE, message);
 
+
             LogUtils.e(TAG, message.getContent() + "---" + message.getTargetId() + "---" + message.getReceivedStatus().isRead());
             return false;
         }
+    }
+
+    public static Context getApplicationContext() {
+
+        return mApplication.getApplicationContext();
     }
 
 }

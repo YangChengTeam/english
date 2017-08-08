@@ -19,4 +19,10 @@ public class BusAction {
 
     public static final String UNREAD_MESSAGE = "unread_message";
 
+    public static final String DELETE_VOICE = "delete_voice";
+
+    public static final String DELETE_PICTURE = "delete_picture";
+
+    public static final String DELETE_FILE = "delete_file";
+
 }

@@ -46,7 +46,6 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
     ImageView roundView;
     @BindView(R.id.m_tv_tint)
     TextView mTvTint;
-    private String class_id;//班群ID即群号
     private String className;
     private String vali_type;
 
@@ -55,7 +54,7 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
         mPresenter = new GroupApplyJoinPresenter(this, this);
         mToolbar.showNavigationIcon();
         mToolbar.setTitle(getString(R.string.group_join_class));
-        roundView.setImageBitmap(ImageUtils.toRound(BitmapFactory.decodeResource(getResources(), R.mipmap.portial)));
+        roundView.setImageBitmap(ImageUtils.toRound(BitmapFactory.decodeResource(getResources(), R.mipmap.default_avatar)));
         initListener();
     }
 
@@ -132,7 +131,7 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
     @Override
     public void showGroup(ClassInfo classInfo) {
         if (classInfo != null) {
-            class_id = classInfo.getClass_id();
+
             vali_type = classInfo.getVali_type();
             className = classInfo.getClassName();
             tvClassName.setText(className);

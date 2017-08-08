@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupSyncGroupContract;
@@ -48,6 +49,7 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
         mToolbar.setTitle(getString(R.string.group_list));
         mToolbar.showNavigationIcon();
 
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new GroupSyncListAdapter(this, null);
@@ -63,16 +65,20 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
             @Override
             public void call(Void aVoid) {
 
-                Intent intent = new Intent();
-                intent.putParcelableArrayListExtra("selectedList", classInfos);
-                setResult(RESULT_OK, intent);
-                SPUtils.getInstance().clear();
-                for (ClassInfo classInfo : classInfos) {
-                    SPUtils.getInstance().put(classInfo.getClass_id(), true);
-                }
-                finish();
+                setSyncResult();
             }
         });
+    }
+
+    private void setSyncResult() {
+        Intent intent = new Intent();
+        intent.putParcelableArrayListExtra("selectedList", classInfos);
+        setResult(RESULT_OK, intent);
+        SPUtils.getInstance().clear();
+        for (ClassInfo classInfo : classInfos) {
+            SPUtils.getInstance().put(classInfo.getClass_id(), true);
+        }
+        finish();
     }
 
 
@@ -116,5 +122,10 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
         mTvConfirmSyncGroup.setText(String.format(getString(R.string.confirm_sync), count));
         mTvConfirmSyncGroup.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        setSyncResult();
     }
 }

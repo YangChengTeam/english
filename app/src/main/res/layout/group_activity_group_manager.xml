@@ -52,12 +52,12 @@
 
                 <ImageView
                     android:id="@+id/iv_group_image"
-                    android:layout_width="@dimen/group_distance_40"
-                    android:layout_height="@dimen/group_distance_40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/group_distance_20"
                     android:layout_toLeftOf="@id/iv_arrow_right"
-                    android:src="@mipmap/portial" />
+                    android:src="@mipmap/default_avatar" />
             </RelativeLayout>
 
             <View

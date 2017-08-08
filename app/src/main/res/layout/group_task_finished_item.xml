@@ -12,10 +12,10 @@
 
         <ImageView
             android:id="@+id/m_iv_picture"
-            android:layout_width="@dimen/group_distance_30"
-            android:layout_height="@dimen/group_distance_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@mipmap/portial" />
+            android:src="@mipmap/default_avatar" />
 
         <TextView
             android:id="@+id/m_tv_task_finish_name"

@@ -51,7 +51,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         mToolbar.setTitle(getString(R.string.group_manager));
         mToolbar.showNavigationIcon();
 
-        ivGroupImage.setImageBitmap(ImageUtils.toRound(BitmapFactory.decodeResource(getResources(), R.mipmap.portial)));
+        ivGroupImage.setImageBitmap(ImageUtils.toRound(BitmapFactory.decodeResource(getResources(), R.mipmap.default_avatar)));
         if (getIntent() != null) {
             groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
             tvGroupName.setText(groupInfo.getName());

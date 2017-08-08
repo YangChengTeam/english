@@ -62,7 +62,7 @@ public class GroupDeleteAdapter extends BaseAdapter<StudentInfo> {
             });
 
         }
-        holder.setImageBitmap(R.id.iv_member_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.portial)));
+        holder.setImageBitmap(R.id.iv_member_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.default_avatar)));
         holder.setText(R.id.tv_member_name, studentInfo.getUser_name());
         holder.setText(R.id.tv_member_owner, studentInfo.getUser_id().equals(UserInfoHelper.getUserInfo().getUid()) ? "群主" : "");
     }

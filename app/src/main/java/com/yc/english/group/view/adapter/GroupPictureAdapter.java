@@ -7,7 +7,9 @@ import android.widget.ImageView;
 
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
+import com.hwangjr.rxbus.RxBus;
 import com.yc.english.R;
+import com.yc.english.group.constant.BusAction;
 
 import java.util.List;
 
@@ -22,12 +24,13 @@ public class GroupPictureAdapter extends BaseAdapter<Uri> {
 
     @Override
     protected void convert(BaseViewHolder holder, final int position) {
-        Uri uri = mList.get(position);
+        final Uri uri = mList.get(position);
         ((ImageView) holder.getView(R.id.m_iv_issue_result_picture)).setImageURI(uri);
         holder.setOnClickListener(R.id.m_iv_issue_picture_delete, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 deletePicture(position);
+                RxBus.get().post(BusAction.DELETE_PICTURE, uri);
             }
         });
 
@@ -42,8 +45,6 @@ public class GroupPictureAdapter extends BaseAdapter<Uri> {
     private void deletePicture(int position) {
         mList.remove(position);
         notifyDataSetChanged();
-
-
     }
 
 }

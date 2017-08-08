@@ -16,19 +16,21 @@ import java.util.List;
 
 public interface GroupTaskPublishContract {
 
-    interface View extends IView,IDialog {
+    interface View extends IView, IDialog {
         void showGroupInfo(ClassInfo info);
 
         void showTaskDetail();
 
         void showMyGroupList(List<ClassInfo> list);
+
+        void showUploadReslut(String file_path);
     }
 
     interface Presenter extends IPresenter {
-        void publishTask(String class_ids, String publisher, String desp,byte[] imges, byte[] voices, byte[] docs);
+        void publishTask(String class_ids, String publisher, String desp, String imgesUrl, String voiceUrl, String docsUrl);
 
         void getGroupInfo(Context context, String id);
 
-        void uploadFile(File file);
+        void uploadFile(File file, String fileName, String name);
     }
 }
