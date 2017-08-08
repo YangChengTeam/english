@@ -76,7 +76,7 @@
                     android:textSize="14sp"/>
 
                 <Button
-                    android:id="@+id/btn_edit_books"
+                    android:id="@+id/btn_book_unit_total"
                     android:layout_width="42dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

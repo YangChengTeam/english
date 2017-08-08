@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
@@ -31,6 +34,15 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
 
     @BindView(R.id.iv_book_grade)
     ImageView mBookGradeImageView;
+
+    @BindView(R.id.tv_book_grade_name)
+    TextView mBookGradeNameTextView;
+
+    @BindView(R.id.tv_book_press)
+    TextView mBookPressTextView;
+
+    @BindView(R.id.btn_book_unit_total)
+    Button mBookUnitTotalButton;
 
     @BindView(R.id.rv_book_unit_list)
     RecyclerView mBookUnitRecyclerView;
@@ -82,8 +94,15 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
 
     @Override
     public void showBookUnitListData(BookUnitInfo bookUnitInfo) {
-        if(bookUnitInfo != null){
-
+        if (bookUnitInfo != null) {
+            Glide.with(BookUnitActivity.this).load(bookUnitInfo.getBookImageUrl()).into(mBookGradeImageView);
+            mBookGradeNameTextView.setText(bookUnitInfo.getBookTitle());
+            mBookPressTextView.setText(bookUnitInfo.getBookPress());
+            mBookUnitTotalButton.setText(bookUnitInfo.getBookUnitTotal() + getString(R.string.read_sentence_text));
+            if (bookUnitInfo.getData() != null) {
+                mItemAdapter.setNewData(bookUnitInfo.getData());
+                mItemAdapter.notifyDataSetChanged();
+            }
         }
     }
 }

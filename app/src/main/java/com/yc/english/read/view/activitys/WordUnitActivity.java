@@ -11,7 +11,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.read.contract.WordUnitContract;
 import com.yc.english.read.model.domain.UnitListInfo;
+import com.yc.english.read.model.domain.WordUnitInfo;
+import com.yc.english.read.presenter.WordUnitPresenter;
 import com.yc.english.read.view.adapter.ReadWordUnitItemClickAdapter;
 
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ import butterknife.BindView;
  * Created by admin on 2017/7/26.
  */
 
-public class WordUnitActivity extends FullScreenActivity {
+public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> implements WordUnitContract.View {
     @BindView(R.id.rv_word_unit_list)
     RecyclerView mWordUnitRecyclerView;
 
@@ -40,11 +43,11 @@ public class WordUnitActivity extends FullScreenActivity {
 
     @Override
     public void init() {
-        initData();
+        //initData();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            viewType = bundle.getInt("view_type",1);
+            viewType = bundle.getInt("view_type", 1);
         }
 
         mToolbar.setTitle(getString(R.string.read_book_unit_text));
@@ -60,7 +63,7 @@ public class WordUnitActivity extends FullScreenActivity {
 
         mWordUnitRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        mItemAdapter = new ReadWordUnitItemClickAdapter(this, mBookDatas);
+        mItemAdapter = new ReadWordUnitItemClickAdapter(this, null);
         mWordUnitRecyclerView.setAdapter(mItemAdapter);
 
         mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -68,10 +71,10 @@ public class WordUnitActivity extends FullScreenActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtils.e("position --->" + position);
 
-                if(viewType == 2){
+                if (viewType == 2) {
                     Intent intent = new Intent(WordUnitActivity.this, ReadWordActivity.class);
                     startActivity(intent);
-                }else{
+                } else {
                     Intent intent = new Intent(WordUnitActivity.this, WordPracticeActivity.class);
                     startActivity(intent);
                 }
@@ -93,4 +96,11 @@ public class WordUnitActivity extends FullScreenActivity {
         }
     }
 
+    @Override
+    public void showWordUnitListData(WordUnitInfo wordUnitInfo) {
+        if (wordUnitInfo != null && wordUnitInfo.getData() != null) {
+            mItemAdapter.setNewData(wordUnitInfo.getData());
+            mItemAdapter.notifyDataSetChanged();
+        }
+    }
 }

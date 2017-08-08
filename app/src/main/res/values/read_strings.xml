@@ -72,4 +72,6 @@
     <string name="read_word_remind_text">正确答案：</string>
     <string name="read_word_again_text">好可惜，你答错了再来试试!</string>
     <string name="read_word_again_btn_text">再做一遍</string>
+    <string name="read_sentence_text">句</string>
+    <string name="read_word_sentence_text">句话</string>
 </resources>

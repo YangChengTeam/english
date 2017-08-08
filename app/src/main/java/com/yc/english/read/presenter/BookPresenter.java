@@ -26,9 +26,9 @@ public class BookPresenter extends BasePresenter<BookEngin, BookContract.View> i
     }
 
     @Override
-    public void bookList(int currentPage, int pageCount) {
+    public void bookList(int currentPage, int pageCount, int type) {
 
-        Subscription subscribe = mEngin.bookList(currentPage, pageCount).subscribe(new Subscriber<List<BookInfo>>() {
+        Subscription subscribe = mEngin.bookList(currentPage, pageCount, type).subscribe(new Subscriber<List<BookInfo>>() {
             @Override
             public void onCompleted() {
 
@@ -41,9 +41,9 @@ public class BookPresenter extends BasePresenter<BookEngin, BookContract.View> i
 
             @Override
             public void onNext(final List<BookInfo> bookInfos) {
-                if(bookInfos != null && bookInfos.size() > 0){
+                if (bookInfos != null && bookInfos.size() > 0) {
                     RxBus.get().post(Constant.BOOK_INFO_LIST, bookInfos);
-                }else{
+                } else {
                     mView.showBookListData(null);
                 }
             }

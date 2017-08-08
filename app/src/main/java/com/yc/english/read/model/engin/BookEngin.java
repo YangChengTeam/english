@@ -6,6 +6,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.dao.BookInfoDao;
+import com.yc.english.base.helper.BookHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.model.domain.BookInfo;
@@ -19,8 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 import static com.umeng.socialize.utils.DeviceConfig.context;
 
@@ -36,14 +35,8 @@ public class BookEngin extends BaseEngin {
         super(context);
     }
 
-    public Observable<List<BookInfo>> bookList(int currentPage, int pageCount) {
-        return Observable.just("").subscribeOn(Schedulers.io()).map(new Func1<String, List<BookInfo>>() {
-
-            @Override
-            public List<BookInfo> call(String s) {
-                return bookInfoDao.queryBuilder().list();
-            }
-        });
+    public Observable<List<BookInfo>> bookList(int currentPage, int pageCount,int type) {
+        return BookHelper.bookList(currentPage,pageCount,type);
     }
 
     public Observable<List<GradeInfo>> gradeList(Context context) {

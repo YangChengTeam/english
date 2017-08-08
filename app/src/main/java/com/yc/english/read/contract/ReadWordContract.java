@@ -4,20 +4,20 @@ import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.IDialog;
 import com.yc.english.base.view.IFinish;
 import com.yc.english.base.view.IView;
-import com.yc.english.read.model.domain.BookInfo;
+import com.yc.english.read.model.domain.WordInfo;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhangkai on 2017/7/25.
  */
 
-public interface BookContract {
+public interface ReadWordContract {
     interface View extends IView, IDialog, IFinish {
-        void showBookListData(ArrayList<BookInfo> list);
+        void showWordListData(List<WordInfo> list);
     }
 
     interface Presenter extends IPresenter {
-        void bookList(int currentPage, int pageCount,int type);//获取教材集合
+        void getWordListByUnitId(int currentPage, int pageCount,String unitId);//获取单词集合
     }
 }

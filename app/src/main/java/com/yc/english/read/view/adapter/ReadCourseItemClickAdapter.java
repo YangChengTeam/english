@@ -1,7 +1,10 @@
 package com.yc.english.read.view.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
@@ -32,11 +35,16 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
 
     @Override
     protected void convert(final BaseViewHolder helper, final EnglishCourseInfo item) {
-
         helper.setText(R.id.tv_chinese_title, item.getSubtitlecn())
                 .setText(R.id.tv_english_title, item.getSubtitle())
                 .addOnClickListener(R.id.layout_play);
-
+        if(item.isPlay()){
+            Glide.with(mContext).load(R.mipmap.read_audio_gif_play).into((ImageView) helper.getView(R.id.iv_audio_gif_play));
+            helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.black_333)).setTextColor(R.id.tv_english_title,  ContextCompat.getColor(mContext, R.color.black_333));
+        } else {
+            helper.setVisible(R.id.iv_audio_gif_play, false);
+            helper.setTextColor(R.id.tv_chinese_title,  ContextCompat.getColor(mContext, R.color.gray_999)).setTextColor(R.id.tv_english_title,  ContextCompat.getColor(mContext, R.color.gray_999));
+        }
         switch (languageType) {
             case 1:
                 helper.setVisible(R.id.tv_chinese_title,true).setVisible(R.id.tv_english_title,true);
@@ -50,7 +58,5 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
             default:
                 break;
         }
-
     }
-
 }

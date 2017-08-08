@@ -4,6 +4,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by admin on 2017/7/26.
@@ -46,6 +47,19 @@ public class CourseVersionInfo implements MultiItemEntity {
 
     public CourseVersionInfo(final int type) {
         Type = type;
+    }
+
+    @Generated(hash = 748060989)
+    public CourseVersionInfo(Long id, String courseVersionId,
+            String courseVersionName, int Type) {
+        this.id = id;
+        this.courseVersionId = courseVersionId;
+        this.courseVersionName = courseVersionName;
+        this.Type = Type;
+    }
+
+    @Generated(hash = 1300388630)
+    public CourseVersionInfo() {
     }
 
     @Override

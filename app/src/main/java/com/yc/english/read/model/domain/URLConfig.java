@@ -16,6 +16,12 @@ public class URLConfig {
 
     public static final String COURSE_VERSION_LIST_URL = getBaseUrl() + "book/course_version_list";
 
+    public static final String COURSE_LIST_URL = getBaseUrl() + "book/course_list";
+
+    public static final String WORD_UNIT_LIST_URL = getBaseUrl() + "book/word_unit_list";
+
+    public static final String WORD_LIST_URL = getBaseUrl() + "book/word_list";
+
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }

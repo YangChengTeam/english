@@ -21,7 +21,6 @@ public class EnglishCourseInfo implements MultiItemEntity {
     private String unitid;
     private String subtitlecn;
     private String keypattern;
-
     private boolean isPlay = false;
 
     public EnglishCourseInfo(){

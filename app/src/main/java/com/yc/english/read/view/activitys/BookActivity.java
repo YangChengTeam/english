@@ -151,7 +151,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         //TODO,数据处理待完成
         if(list == null || list.size() == 0){
             mBookDatas = new ArrayList<BookInfo>();
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 2; i++) {
                 mBookDatas.add(new BookInfo(BookInfo.CLICK_ITEM_VIEW));
             }
             list = (ArrayList<BookInfo>) mBookDatas;

@@ -4,6 +4,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by admin on 2017/7/26.
@@ -46,6 +47,18 @@ public class GradeInfo implements MultiItemEntity {
 
     public GradeInfo(final int type) {
         Type = type;
+    }
+
+    @Generated(hash = 1974028131)
+    public GradeInfo(Long id, String gradeId, String gradeName, int Type) {
+        this.id = id;
+        this.gradeId = gradeId;
+        this.gradeName = gradeName;
+        this.Type = Type;
+    }
+
+    @Generated(hash = 1597538490)
+    public GradeInfo() {
     }
 
     @Override
