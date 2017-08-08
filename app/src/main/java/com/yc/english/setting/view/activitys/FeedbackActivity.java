@@ -2,6 +2,7 @@ package com.yc.english.setting.view.activitys;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -9,6 +10,7 @@ import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.PhoneUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.ShareItemView;
 import com.yc.english.setting.contract.FeedbackContract;
@@ -40,7 +42,7 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
 
     @Override
     public void init() {
-        mToolbar.setTitle("意见反馈");
+        mToolbar.setTitle("在线客服");
         mToolbar.showNavigationIcon();
 
         mPresenter = new FeedbackPersenter(this, this);
@@ -57,15 +59,31 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
         RxView.clicks(mQQShareItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + 972403325;
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
+                alertDialog.setDesc("打开QQ与客服进行沟通？");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + 972403325;
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                    }
+                });
+                alertDialog.show();
             }
         });
 
         RxView.clicks(mTelShareItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                PhoneUtils.call("15902742354");
+                AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
+                alertDialog.setDesc("拨打电话与客服进行沟通？");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PhoneUtils.call("15902742354");
+                    }
+                });
+                alertDialog.show();
             }
         });
     }

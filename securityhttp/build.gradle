@@ -25,7 +25,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.alibaba:fastjson:1.2.16'
     compile 'com.squareup.okhttp3:okhttp:+'
-    compile 'io.reactivex:rxandroid:+'
-    compile 'io.reactivex:rxjava:+'
+    compile ('com.hwangjr.rxbus:rxbus:1.0.6')
     compile project(':utils')
 }

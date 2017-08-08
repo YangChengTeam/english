@@ -35,7 +35,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
             public void run() {
                 loadData();
                 getAvatar();
-                mView.hideLoading();
+                mView.hideStateView();
             }
         });
     }

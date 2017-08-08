@@ -19,8 +19,12 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.share.UMShareImpl;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideCircleTransformation;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SharePopupWindow;
@@ -136,6 +140,32 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void call(Void aVoid) {
                 SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
+                sharePopupWindow.setOnShareItemClickListener(new SharePopupWindow.OnShareItemClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        UMShareImpl.get().setCallback(getActivity(), new UMShareListener(){
+                            @Override
+                            public void onStart(SHARE_MEDIA share_media) {
+
+                            }
+
+                            @Override
+                            public void onResult(SHARE_MEDIA share_media) {
+
+                            }
+
+                            @Override
+                            public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+                            }
+
+                            @Override
+                            public void onCancel(SHARE_MEDIA share_media) {
+
+                            }
+                        }).shareImage("11", R.mipmap.default_avatar, SHARE_MEDIA.WEIXIN);
+                    }
+                });
                 sharePopupWindow.show(mRootView);
             }
         });
@@ -168,16 +198,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showLoading() {
-        mLoadingStateView.showNoNet(mContextScrollView, "网络不给力", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TipsHelper.tips(getContext(), "网络不给力");
-            }
-        });
+        mLoadingStateView.showLoading(mContextScrollView);
     }
 
     @Override
-    public void hideLoading() {
+    public void hideStateView() {
         mLoadingStateView.hide();
     }
 
@@ -199,10 +224,18 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     )
     @Override
     public void showAvatar(UserInfo userInfo) {
-        RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new GlideCircleTransformation(getActivity
-                (), 0.5f,
-                Color.parseColor("#dbdbe0")));
-        Glide.with(this).load(userInfo.getAvatar()).apply(options).into(mAvatarImageView);
+        GlideHelper.circleBorderImageView(getActivity(), mAvatarImageView, userInfo.getAvatar(), R.mipmap
+                .default_avatar, 0.5f, Color.parseColor("#dbdbe0"));
     }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.NO_LOGIN)
+            }
+    )
+    public void showNoLogin(Boolean flag) {
+        mAvatarImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.default_big_avatar));
+    }
+
 }

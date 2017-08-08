@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Looper;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.kk.utils.PathUtils;
 
 import java.io.File;
@@ -30,8 +31,8 @@ public class GlideCatchHelper {
 
     private GlideCatchHelper(Context context) {
         this.mContext = context;
-        mCachePath = mContext.getCacheDir() +  "/" + GlideConfiguration
-                .GLIDE_CARCH_DIR;
+        mCachePath = mContext.getCacheDir() +  "/" +  DiskCache.Factory
+                .DEFAULT_DISK_CACHE_DIR;
     }
 
     // 获取Glide磁盘缓存大小

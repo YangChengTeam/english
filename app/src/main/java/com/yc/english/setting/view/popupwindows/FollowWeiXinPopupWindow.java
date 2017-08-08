@@ -1,11 +1,10 @@
-package com.yc.english.main.view.popupwindows;
+package com.yc.english.setting.view.popupwindows;
 
 import android.app.Activity;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ClipboardUtils;
-import com.blankj.utilcode.util.SnackbarUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.UIUitls;
 import com.yc.english.R;
