@@ -1,12 +1,15 @@
 package com.yc.english;
 
-import android.app.Application;
+import android.content.Context;
 import android.os.Build;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.blankj.utilcode.util.Utils;
 import com.iflytek.cloud.SpeechUtility;
 import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.kk.share.UMShareImpl;
 import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
@@ -24,7 +27,7 @@ import rx.schedulers.Schedulers;
  * Created by zhangkai on 2017/7/24.
  */
 
-public class EnglishApp extends Application {
+public class EnglishApp extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
@@ -89,6 +92,16 @@ public class EnglishApp extends Application {
 
         UserInfoHelper.login(this);
 
+        UMShareImpl.Builder builder = new UMShareImpl.Builder();
+
+        builder.setWeixin("wx97247860e3d30d2f", "68931a7e136b97bebeb46754082aae0a").setQQ("1106261461", "p1PGwoz27nVHqoC5").setDebug(true).build(this);
+
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
 

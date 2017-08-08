@@ -72,24 +72,26 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
+                android:background="@drawable/base_btn_ripple_bg"
                 android:gravity="center"
                 android:text="@string/base_ok"
                 android:textColor="@color/primary"
                 android:textSize="@dimen/font_normal"
-                android:background="@drawable/base_tran_ripple_bg"
                 ></TextView>
+
             <View
                 android:layout_width="1px"
                 android:layout_height="50dp"
                 android:background="#e0e3e3"
                 ></View>
+
             <TextView
                 android:id="@+id/tv_cancel"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
+                android:background="@drawable/base_btn_ripple_bg"
                 android:gravity="center"
-                android:background="@drawable/base_tran_ripple_bg"
                 android:text="@string/base_cancel"
                 android:textColor="@color/black_333"
                 android:textSize="@dimen/font_normal"

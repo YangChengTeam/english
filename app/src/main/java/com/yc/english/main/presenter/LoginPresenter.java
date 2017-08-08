@@ -10,6 +10,7 @@ import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.main.contract.LoginContract;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
@@ -74,6 +75,7 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
                         UserInfoHelper.saveUserInfo(resultInfo.data);
                         UserInfoHelper.connect(mContext, resultInfo.data.getUid());
                         RxBus.get().post(Constant.USER_INFO, resultInfo.data);
+                        RxBus.get().post(BusAction.GROUPLIST, "from login");
                         SPUtils.getInstance().put(Constant.PHONE, username);
                         mView.finish();
                     }

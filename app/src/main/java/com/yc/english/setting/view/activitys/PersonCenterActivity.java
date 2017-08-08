@@ -21,7 +21,9 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.AvatarHelper;
 import com.yc.english.base.helper.GlideCircleTransformation;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -64,14 +66,11 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
         mToolbar.showNavigationIcon();
 
         mPhoneSettingItemView.hideArrow();
-        mAvatarSettingItemView.setAvatar(R.drawable.sample_avatar);
 
         RxView.clicks(mAvatarSettingItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(Intent.ACTION_PICK); // 打开相册
-                intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*");
-                startActivityForResult(intent, 1);
+               AvatarHelper.openAlbum(PersonCenterActivity.this);
             }
         });
 
@@ -100,7 +99,6 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
         });
 
 
-
         RxView.clicks(mPasswordSettingItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -125,10 +123,8 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
     )
     @Override
     public void showUserInfo(UserInfo userInfo) {
-        RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new GlideCircleTransformation(this, 0.5f,
-                Color.parseColor("#dbdbe0")));
-        Glide.with(this).load(userInfo.getAvatar()).apply(options).into(mAvatarSettingItemView.getAvatarImageView());
+        GlideHelper.circleBorderImageView(this, mAvatarSettingItemView.getAvatarImageView(), userInfo.getAvatar(), R.mipmap
+                .default_avatar, 0.5f, Color.parseColor("#dbdbe0"));
 
         if (!StringUtils.isEmpty(userInfo.getSchool())) {
             mSchoolSettingItemView.setInfo(userInfo.getSchool());
@@ -148,61 +144,11 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && null != data) {
-            try {
-                Bundle extras = data.getExtras();
-                Bitmap photo = null;
-                if (extras != null) {
-                    photo = extras.getParcelable("data");
-                }
-
-                if (photo == null) {
-                    Uri selectedImage = data.getData();
-
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    Cursor cursor = getContentResolver().query(selectedImage,
-                            filePathColumn, null, null, null);
-                    String picturePath = "";
-                    if(cursor != null) {
-                        cursor.moveToFirst();
-                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                        picturePath = cursor.getString(columnIndex);
-                        cursor.close();
-                    } else {
-                        picturePath = selectedImage.getPath();
-                    }
-                    if(requestCode == 1) {
-                        Intent intent = new Intent("com.android.camera.action.CROP");
-                        intent.setDataAndType(selectedImage, "image/*");
-                        intent.putExtra("crop", "true");
-                        intent.putExtra("aspectX", 1);
-                        intent.putExtra("aspectY", 1);
-                        intent.putExtra("outputX", 160);
-                        intent.putExtra("outputY", 160);
-                        intent.putExtra("return-data", true);
-                        startActivityForResult(intent, 2);
-                        return;
-                    }
-                    photo = BitmapFactory.decodeFile(picturePath);
-                }
-
-                if(photo == null){
-                    TipsHelper.tips(PersonCenterActivity.this, "获取图片失败");
-                    return;
-                }
-
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);// (0 - 100)压缩文件
-                byte[] byteArray = stream.toByteArray();
-                String streamStr = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                String image = "data:image/png;base64," + streamStr;
+        AvatarHelper.uploadAvatar(this, new AvatarHelper.IAvatar() {
+            @Override
+            public void uploadAvatar(String image) {
                 mPresenter.uploadAvatar(image);
-
-            }catch (Exception e){
-                dismissLoadingDialog();
-                TipsHelper.tips(PersonCenterActivity.this, "修改失败" + e);
-                LogUtils.i("修改失败" + e);
             }
-        }
+        }, requestCode, resultCode, data);
     }
 }

@@ -1,5 +1,6 @@
 package com.yc.english.base.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.utils.UIUitls;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.UMShareAPI;
 import com.yc.english.base.presenter.BasePresenter;
 
 import butterknife.ButterKnife;
@@ -77,6 +79,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                 mLoadingDialog.dismiss();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
 }

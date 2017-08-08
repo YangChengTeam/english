@@ -62,7 +62,9 @@ public class StateView extends BaseView {
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         mLoadingImageView.setLayoutParams(layoutParams);
         mContextView = contextView;
+
         setVisibility(View.VISIBLE);
+        mRefreshButton.setVisibility(View.GONE);
         mContextView.setVisibility(View.GONE);
         Glide.with(this).load(R.mipmap.base_loading).into(mLoadingImageView);
     }
@@ -75,9 +77,11 @@ public class StateView extends BaseView {
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         mLoadingImageView.setLayoutParams(layoutParams);
         mContextView = contextView;
+
         setVisibility(View.VISIBLE);
         layoutParams.width =  312;
         layoutParams.height = 370;
+
         mRefreshButton.setVisibility(View.GONE);
         mContextView.setVisibility(View.GONE);
         mMessageTextView.setText(message);
