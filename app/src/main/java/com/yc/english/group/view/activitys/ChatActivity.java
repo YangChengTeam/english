@@ -10,6 +10,7 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
+import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
@@ -20,6 +21,8 @@ import com.yc.english.group.presenter.GroupApplyJoinPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.activitys.teacher.GroupMemberActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
+
+
 
 
 /**
@@ -58,7 +61,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
 
     @Override
     public void init() {
-
         mPresenter = new GroupApplyJoinPresenter(this, this);
         initData();
         if (EmptyUtils.isNotEmpty(group)) {
@@ -66,7 +68,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             RxBus.get().post(BusAction.UNREAD_MESSAGE, group.getId());
         }
         mToolbar.showNavigationIcon();
-
+        RongIMUtil.reconnect(this);
     }
 
     @Override

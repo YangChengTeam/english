@@ -4,12 +4,14 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.facebook.stetho.Stetho;
 import com.hwangjr.rxbus.RxBus;
 import com.yc.english.base.dao.DaoMaster;
 import com.yc.english.base.dao.DaoSession;
+import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.group.constant.BusAction;
 
 import com.yc.english.group.plugin.GroupExtensionModule;
@@ -43,7 +45,7 @@ public class GroupApp {
     private static DaoSession mDaoSession;
     private static Application mApplication;
 
-    public static void init(Application application) {
+    public static void init(final Application application) {
         mApplication = application;
         /**
          *
@@ -61,15 +63,7 @@ public class GroupApp {
             RongIM.getInstance().registerMessageTemplate(new CustomMessageProvider());
 
             RongIM.getInstance().getRongIMClient().setOnReceiveMessageListener(new MyReceiveMessageListener());
-
-
-            RongIM.setGroupUserInfoProvider(new RongIM.GroupUserInfoProvider() {
-                @Override
-                public GroupUserInfo getGroupUserInfo(String s, String s1) {
-                    return null;
-                }
-            }, true);
-
+            RongIM.getInstance().setMessageAttachedUserInfo(true);
         }
 
 
@@ -156,8 +150,7 @@ public class GroupApp {
 
             RxBus.get().post(BusAction.UNREAD_MESSAGE, message);
 
-           LogUtils.e("init----",message.getSenderUserId());
-
+            RongIMUtil.refreshUserInfo(mApplication, message.getSenderUserId());
 
             LogUtils.e(TAG, message.getContent() + "---" + message.getTargetId() + "---" + message.getReceivedStatus().isRead());
             return false;

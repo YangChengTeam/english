@@ -2,12 +2,12 @@ package com.yc.english.setting.presenter;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
@@ -76,6 +76,7 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
                                 userInfo.setAvatar(resultInfo.data.getAvatar());
                                 UserInfoHelper.saveUserInfo(userInfo);
                                 RxBus.get().post(Constant.USER_INFO, userInfo);
+                                RongIMUtil.refreshUserInfo();
                             }
                         });
                     }

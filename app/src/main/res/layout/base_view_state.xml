@@ -31,6 +31,7 @@
         android:background="@drawable/group_btn_blue_bg"
         android:textColor="@color/white"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         android:text="@string/base_refresh_net"/>
 
     </RelativeLayout>

@@ -149,6 +149,7 @@ public class UserInfoHelper {
 
                     @Override
                     public void reulstInfoOk() {
+                        UserInfoHelper.saveUserInfo(userInfoResultInfo.data);
                         UserInfoHelper.connect(context, userInfoResultInfo.data.getUid());
                     }
                 });

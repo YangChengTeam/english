@@ -50,15 +50,15 @@ public class StateView extends BaseView {
 
     public void hide() {
         setVisibility(View.GONE);
-        if(mContextView != null) {
+        if (mContextView != null) {
             mContextView.setVisibility(View.VISIBLE);
         }
     }
 
     public void showLoading(View contextView) {
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)mLoadingImageView.getLayoutParams();
-        layoutParams.width =  1080;
-        layoutParams.height = 408;
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mLoadingImageView.getLayoutParams();
+        layoutParams.width = SizeUtils.dp2px(1080/3);
+        layoutParams.height = SizeUtils.dp2px(408/3);
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         mLoadingImageView.setLayoutParams(layoutParams);
         mContextView = contextView;
@@ -70,18 +70,14 @@ public class StateView extends BaseView {
     }
 
     public void showNoData(View contextView, String message) {
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)mLoadingImageView.getLayoutParams();
-        layoutParams.width =  312;
-        layoutParams.height = 370;
-        layoutParams.setMargins(0, SizeUtils.dp2px(150), 0, 0);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mLoadingImageView.getLayoutParams();
+        layoutParams.width = SizeUtils.dp2px(312/3);
+        layoutParams.height = SizeUtils.dp2px(370/3);
+        layoutParams.setMargins(0, SizeUtils.dp2px(130), 0, 0);
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         mLoadingImageView.setLayoutParams(layoutParams);
         mContextView = contextView;
-
         setVisibility(View.VISIBLE);
-        layoutParams.width =  312;
-        layoutParams.height = 370;
-
         mRefreshButton.setVisibility(View.GONE);
         mContextView.setVisibility(View.GONE);
         mMessageTextView.setText(message);
@@ -92,11 +88,11 @@ public class StateView extends BaseView {
         showNoData(contextView, "暂没数据");
     }
 
-    public void showNoNet(View contextView, String message, final OnClickListener onClickListener){
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)mLoadingImageView.getLayoutParams();
-        layoutParams.width =  312;
-        layoutParams.height = 370;
-        layoutParams.setMargins(0, SizeUtils.dp2px(150), 0, 0);
+    public void showNoNet(View contextView, String message, final OnClickListener onClickListener) {
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mLoadingImageView.getLayoutParams();
+        layoutParams.width = SizeUtils.dp2px(312/3);
+        layoutParams.height = SizeUtils.dp2px(370/3);
+        layoutParams.setMargins(0, SizeUtils.dp2px(130), 0, 0);
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         mLoadingImageView.setLayoutParams(layoutParams);
         mContextView = contextView;

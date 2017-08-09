@@ -1,6 +1,7 @@
 package com.yc.english.base.helper;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -22,8 +23,6 @@ public class GlideHelper {
 
     public static void circleImageView(final Context context, ImageView imageView, String url, int
             placehorder) {
-        RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(placehorder).transform(new CenterCrop());
-        Glide.with(context).load(url).apply(options).into(imageView);
+        circleBorderImageView(context, imageView, url, placehorder, 0, Color.WHITE);
     }
 }
