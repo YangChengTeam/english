@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -15,8 +14,6 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserInfo;
 import rx.Observable;
 import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.subjects.PublishSubject;
 
 /**
  * Created by zhangkai on 2017/8/9.

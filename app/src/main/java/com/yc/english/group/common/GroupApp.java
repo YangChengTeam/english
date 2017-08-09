@@ -150,7 +150,6 @@ public class GroupApp {
 
             RxBus.get().post(BusAction.UNREAD_MESSAGE, message);
 
-            LogUtils.e("init----",message.getSenderUserId());
             RongIMUtil.refreshUserInfo(mApplication, message.getSenderUserId());
 
             LogUtils.e(TAG, message.getContent() + "---" + message.getTargetId() + "---" + message.getReceivedStatus().isRead());

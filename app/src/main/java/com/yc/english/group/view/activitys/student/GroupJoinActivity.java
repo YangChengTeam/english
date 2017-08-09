@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding.widget.RxSearchView;
+import com.jakewharton.rxbinding.widget.RxTextView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
@@ -22,8 +25,14 @@ import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.presenter.GroupApplyJoinPresenter;
 import com.yc.english.main.hepler.UserInfoHelper;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by wanglin  on 2017/7/25 08:30.
@@ -55,27 +64,16 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
         mToolbar.showNavigationIcon();
         mToolbar.setTitle(getString(R.string.group_join_class));
         roundView.setImageBitmap(ImageUtils.toRound(BitmapFactory.decodeResource(getResources(), R.mipmap.default_avatar)));
-        initListener();
-    }
 
-    private void initListener() {
-        etClassGroup.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                showOrHideView(s);
-            }
-        });
-
+        RxTextView.textChanges(etClassGroup)
+                .debounce(1, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<CharSequence>() {
+                    @Override
+                    public void call(CharSequence charSequence) {
+                        showOrHideView(charSequence.toString());
+                    }
+                });
     }
 
     @Override
@@ -109,7 +107,7 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
     }
 
 
-    public void showOrHideView(Editable s) {
+    public void showOrHideView(String s) {
         if (!TextUtils.isEmpty(s.toString())) {
             ibDelete.setVisibility(View.VISIBLE);
             mPresenter.queryGroupById(this, "", s.toString());
@@ -119,8 +117,6 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
             btnJoin.setVisibility(View.GONE);
             mTvTint.setVisibility(View.GONE);
         }
-
-
     }
 
     /**
