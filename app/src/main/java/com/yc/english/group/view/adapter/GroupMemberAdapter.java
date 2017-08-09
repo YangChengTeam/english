@@ -3,6 +3,7 @@ package com.yc.english.group.view.adapter;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.blankj.subutil.util.PinyinUtils;
 import com.blankj.utilcode.util.ImageUtils;
@@ -11,6 +12,7 @@ import com.blankj.utilcode.util.RegexUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.main.hepler.UserInfoHelper;
 
@@ -35,10 +37,9 @@ public class GroupMemberAdapter extends BaseAdapter<StudentInfo> {
     @Override
     protected void convert(BaseViewHolder holder, int position) {
         StudentInfo studentInfo = mList.get(position);
-        String userName = studentInfo.getUser_name();
+        String userName = studentInfo.getNick_name();
         holder.setText(R.id.tv_member_name, userName);
-//        holder.setImageUrl(mContext,R.id.iv_member_img,groupMemberInfo.getImgUrl());
-        holder.setImageBitmap(R.id.iv_member_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.default_avatar)));
+        GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.iv_member_img),studentInfo.getFace(),R.mipmap.default_big_avatar);
         holder.setText(R.id.tv_member_owner, studentInfo.getUser_id().equals(UserInfoHelper.getUserInfo().getUid()) ? "老师" : "");
 
         if (RegexUtils.isZh(userName)) {
@@ -57,7 +58,7 @@ public class GroupMemberAdapter extends BaseAdapter<StudentInfo> {
                 holder.getView(R.id.view_divider_last).setVisibility(View.VISIBLE);
                 holder.getView(R.id.view_divider_first).setVisibility(View.VISIBLE);
             }
-//        holder.getView(R.id.tv_first_word).setVisibility(position == 0 ? View.GONE : View.VISIBLE);
+
             LogUtils.e(TAG, firstLetter + "----" + firstLetter.toUpperCase());
         } else {
             holder.setText(R.id.tv_first_word, "#");
@@ -78,8 +79,8 @@ public class GroupMemberAdapter extends BaseAdapter<StudentInfo> {
         if (postion == 0) return true;
         StudentInfo preMem = mList.get(postion - 1);
         StudentInfo curMem = mList.get(postion);
-        String preName = PinyinUtils.getSurnameFirstLetter(preMem.getUser_name());
-        String curName = PinyinUtils.getSurnameFirstLetter(curMem.getUser_name());
+        String preName = PinyinUtils.getSurnameFirstLetter(preMem.getNick_name());
+        String curName = PinyinUtils.getSurnameFirstLetter(curMem.getNick_name());
 
         if (preName.equals(curName)) {
             return true;

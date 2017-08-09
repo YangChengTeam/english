@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
+import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.StateView;
@@ -114,7 +115,7 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
     }
 
     @Subscribe(
-            thread = EventThread.IO,
+            thread = EventThread.MAIN_THREAD,
             tags = {
                     @Tag(BusAction.GROUPLIST)
             }

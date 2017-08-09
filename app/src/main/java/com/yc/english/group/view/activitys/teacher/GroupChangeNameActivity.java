@@ -58,7 +58,7 @@ public class GroupChangeNameActivity extends FullScreenActivity<GroupChangeInfoP
             @Override
             public void call(Void aVoid) {
 
-                mPresenter.changeGroupInfo(groupInfo.getId(), etClassGroup.getText().toString().trim(), "", "");
+                mPresenter.changeGroupInfo(GroupChangeNameActivity.this, groupInfo.getId(), etClassGroup.getText().toString().trim(), "", "");
             }
         });
 

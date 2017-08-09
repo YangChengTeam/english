@@ -2,26 +2,29 @@ package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.bumptech.glide.Glide;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseActivity;
+import com.yc.english.base.helper.AvatarHelper;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupResolvingContract;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.presenter.GroupResolvingPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
-import com.yc.english.group.utils.EngineUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,7 +54,6 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         mToolbar.setTitle(getString(R.string.group_manager));
         mToolbar.showNavigationIcon();
 
-        ivGroupImage.setImageBitmap(ImageUtils.toRound(BitmapFactory.decodeResource(getResources(), R.mipmap.default_avatar)));
         if (getIntent() != null) {
             groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
             tvGroupName.setText(groupInfo.getName());
@@ -75,6 +77,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         switch (view.getId()) {
 
             case R.id.rl_group_image:
+                AvatarHelper.openAlbum(this);
                 break;
             case R.id.rl_group_name:
                 intent = new Intent(this, GroupChangeNameActivity.class);
@@ -111,7 +114,17 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
             int condition = data.getIntExtra("condition", 0);
             setVerify_reslut(condition);
+            return;
         }
+        if (requestCode == 1) {
+            AvatarHelper.uploadAvatar(this, new AvatarHelper.IAvatar() {
+                @Override
+                public void uploadAvatar(String image) {
+                    mPresenter.changeGroupInfo(GroupManagerActivity.this, groupInfo.getId(), "", image, "");
+                }
+            }, requestCode, resultCode, data);
+        }
+
     }
 
     private void setVerify_reslut(int code) {
@@ -130,15 +143,19 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
 
     @Override
     public void showClassInfo(ClassInfo info) {
-
         this.mInfo = info;
         tvGroupName.setText(info.getClassName());
+        GlideHelper.circleImageView(this, ivGroupImage, info.getImageUrl(), R.mipmap.default_avatar);
+    }
 
+
+    @Override
+    public void showChangeGroupInfo(RemoveGroupInfo data) {
+        GlideHelper.circleImageView(this, ivGroupImage, data.getFace(), R.mipmap.default_avatar);
     }
 
     @Override
     public void showResolvingResult() {
-
         finish();
         RxBus.get().post(BusAction.GROUPLIST, "remove group");
         RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
@@ -167,4 +184,6 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         }
 
     }
+
+
 }

@@ -1,9 +1,11 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -13,22 +15,19 @@ import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.constant.BusAction;
-import com.yc.english.group.contract.GroupMyGroupListContract;
 import com.yc.english.group.contract.GroupMyMemberListContract;
 import com.yc.english.group.model.bean.ClassInfo;
-import com.yc.english.group.model.bean.GroupMemberInfo;
 import com.yc.english.group.model.bean.StudentInfo;
-import com.yc.english.group.presenter.GroupListPresenter;
-import com.yc.english.group.presenter.GroupMyGroupListPresenter;
 import com.yc.english.group.presenter.GroupMyMemberListPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.adapter.GroupMemberAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -42,6 +41,10 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     RecyclerView recyclerView;
     @BindView(R.id.tv_share_group)
     TextView tvShareGroup;
+    @BindView(R.id.stateView)
+    StateView stateView;
+    @BindView(R.id.ll_container)
+    LinearLayout llContainer;
 
     private GroupMemberAdapter adapter;
     private GroupInfo groupInfo;
@@ -137,4 +140,29 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         mPresenter.queryGroupById(this, groupInfo.getId(), "");
     }
 
+
+    @Override
+    public void hideStateView() {
+        stateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(llContainer, "网络不给力", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getMemberList(GroupMemberActivity.this, groupInfo.getId(), "1", "");
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        stateView.showNoData(llContainer);
+    }
+
+    @Override
+    public void showLoading() {
+        stateView.showLoading(llContainer);
+    }
 }

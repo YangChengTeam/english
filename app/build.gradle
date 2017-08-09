@@ -102,4 +102,5 @@ dependencies {
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     compile project(':share')
+    compile 'com.android.support:multidex:1.0.1'
 }

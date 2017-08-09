@@ -12,6 +12,7 @@ import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.NetConstan;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
+import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
@@ -60,16 +61,17 @@ public class EngineUtils {
 
     /**
      * 获取我的班群列表
+     *
      * @param context
      * @param user_id
      * @param is_admin 1为管理员，0为所有
      * @return
      */
-    public static Observable<ResultInfo<ClassInfoList>> getMyGroupList(Context context, String user_id,String is_admin) {
+    public static Observable<ResultInfo<ClassInfoList>> getMyGroupList(Context context, String user_id, String is_admin) {
 
         Map<String, String> params = new HashMap<>();
         params.put("user_id", user_id);
-        params.put("is_admin",is_admin);
+        params.put("is_admin", is_admin);
 
         return HttpCoreEngin.get(context).rxpost(NetConstan.my_group_list, new TypeReference<ResultInfo<ClassInfoList>>() {
         }.getType(), params, true, true, true);
@@ -132,5 +134,26 @@ public class EngineUtils {
 
     }
 
+    /**
+     * @param class_id  班级ID 必传
+     * @param name      班级名称 修改班群名称时传该字段
+     * @param face      班群图像 修改班群图像时传该字段
+     * @param vali_type 验证类型，0：不验证加入，1：验证加入，2：拒绝加入
+     * @return
+     */
+    public static Observable<ResultInfo<RemoveGroupInfo>> changeGroupInfo(Context context, String class_id, String name, String face, String vali_type) {
+        Map<String, String> params = new HashMap<>();
+        params.put("id", class_id);
+        if (!TextUtils.isEmpty(name))
+            params.put("name", name);
+        if (!TextUtils.isEmpty(face))
+            params.put("face", face);
+        if (!TextUtils.isEmpty(vali_type))
+            params.put("vali_type", vali_type);
+
+        return HttpCoreEngin.get(context).rxpost(NetConstan.change_group_info, new TypeReference<ResultInfo<RemoveGroupInfo>>() {
+        }.getType(), params, false, true, true);
+
+    }
 
 }

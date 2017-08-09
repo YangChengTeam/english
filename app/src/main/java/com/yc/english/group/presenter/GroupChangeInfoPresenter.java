@@ -11,6 +11,7 @@ import com.yc.english.group.model.engin.GroupChangeInfoEngine;
 import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.GroupInfo;
+import com.yc.english.group.utils.EngineUtils;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -35,9 +36,9 @@ public class GroupChangeInfoPresenter extends BasePresenter<GroupChangeInfoEngin
 
 
     @Override
-    public void changeGroupInfo(String class_id, String name, String face, String vali_type) {
+    public void changeGroupInfo(Context context,String class_id, String name, String face, String vali_type) {
         if (!TextUtils.isEmpty(name)) mView.showLoadingDialog("正在修改班级名称，请稍候！");
-        Subscription subscription = mEngin.changeGroupInfo(class_id, name, face, vali_type).subscribe(new Subscriber<ResultInfo<RemoveGroupInfo>>() {
+        Subscription subscription = EngineUtils.changeGroupInfo(context,class_id, name, face, vali_type).subscribe(new Subscriber<ResultInfo<RemoveGroupInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();

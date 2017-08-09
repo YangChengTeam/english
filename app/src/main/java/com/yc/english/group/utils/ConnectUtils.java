@@ -2,6 +2,7 @@ package com.yc.english.group.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -51,18 +52,22 @@ public class ConnectUtils {
                      * 连接融云成功
                      * @param userid 当前 token 对应的用户 id
                      */
+
+
                     @Override
                     public void onSuccess(String userid) {
                         SPUtils.getInstance().put(TOKEN, token);
+
                         RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
 
                             @Override
                             public UserInfo getUserInfo(String userId) {
-
-                                return new UserInfo(userId, UserInfoHelper.getUserInfo().getName(), null);//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK。
+                                LogUtils.e("init",userId);
+                                return new UserInfo(userId, UserInfoHelper.getUserInfo().getNickname(), Uri.parse(UserInfoHelper.getUserInfo().getAvatar()));//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK。
                             }
 
                         }, true);
+
                         UIUitls.post(new Runnable() {
                             @Override
                             public void run() {

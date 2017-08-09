@@ -8,12 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import com.blankj.utilcode.util.LogUtils;
 import com.facebook.stetho.Stetho;
 import com.hwangjr.rxbus.RxBus;
+import com.yc.english.base.dao.DaoMaster;
+import com.yc.english.base.dao.DaoSession;
 import com.yc.english.group.constant.BusAction;
-import com.yc.english.group.dao.DaoMaster;
-import com.yc.english.group.dao.DaoSession;
+
 import com.yc.english.group.plugin.GroupExtensionModule;
 import com.yc.english.group.view.provider.CustomMessage;
 import com.yc.english.group.view.provider.CustomMessageProvider;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -25,9 +27,8 @@ import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
-import io.rong.message.RichContentMessage;
+import io.rong.imlib.model.UserInfo;
 
 
 /**
@@ -154,6 +155,8 @@ public class GroupApp {
         public boolean onReceived(Message message, int i) {
 
             RxBus.get().post(BusAction.UNREAD_MESSAGE, message);
+
+           LogUtils.e("init----",message.getSenderUserId());
 
 
             LogUtils.e(TAG, message.getContent() + "---" + message.getTargetId() + "---" + message.getReceivedStatus().isRead());

@@ -38,6 +38,9 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
+        if (!forceUpdate) return;
+        String uid = UserInfoHelper.getUserInfo().getUid();
+        getMemberList(mContext, "", "0", uid);
 
     }
 
@@ -49,6 +52,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
      */
     @Override
     public void getMemberList(Context context, String class_id, String status, String master_id) {
+        mView.showLoading();
         Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
@@ -57,7 +61,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
 
             @Override
             public void onError(Throwable e) {
-
+                mView.showNoNet();
             }
 
             @Override
@@ -65,8 +69,12 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        if (stringResultInfo.data.getList() != null && stringResultInfo.data.getList().size() > 0)
+                        if (stringResultInfo.data.getList() != null && stringResultInfo.data.getList().size() > 0) {
                             mView.showVerifyList(stringResultInfo.data.getList());
+                            mView.hideStateView();
+                        } else {
+                            mView.showNoData();
+                        }
                     }
                 });
 

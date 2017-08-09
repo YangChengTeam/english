@@ -126,7 +126,7 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
                 mIvAllAllow.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
                 break;
         }
-        mPresenter.changeGroupInfo(groupInfo.getId(), "", "", currentConditon + "");
+        mPresenter.changeGroupInfo(this,groupInfo.getId(), "", "", currentConditon + "");
     }
 
     @Override

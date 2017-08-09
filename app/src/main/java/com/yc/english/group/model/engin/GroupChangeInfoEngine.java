@@ -25,26 +25,5 @@ public class GroupChangeInfoEngine extends BaseEngin {
         super(context);
     }
 
-    /**
-     * @param class_id  班级ID 必传
-     * @param name      班级名称 修改班群名称时传该字段
-     * @param face      班群图像 修改班群图像时传该字段
-     * @param vali_type 验证类型，0：不验证加入，1：验证加入，2：拒绝加入
-     * @return
-     */
-    public Observable<ResultInfo<RemoveGroupInfo>> changeGroupInfo(String class_id, String name, String face, String vali_type) {
-        Map<String, String> params = new HashMap<>();
-        params.put("id", class_id);
-        if (!TextUtils.isEmpty(name))
-            params.put("name", name);
-        if (!TextUtils.isEmpty(face))
-            params.put("face", face);
-        if (!TextUtils.isEmpty(vali_type))
-            params.put("vali_type", vali_type);
-
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.change_group_info, new TypeReference<ResultInfo<RemoveGroupInfo>>() {
-        }.getType(), params, false, true, true);
-
-    }
 
 }

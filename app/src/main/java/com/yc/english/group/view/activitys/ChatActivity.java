@@ -18,7 +18,7 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupApplyJoinContract;
-import com.yc.english.group.dao.ClassInfoDao;
+
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.StudentInfo;

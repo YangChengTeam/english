@@ -36,6 +36,7 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
         public final static Property Sn = new Property(9, String.class, "sn", false, "SN");
         public final static Property Master_id = new Property(10, String.class, "master_id", false, "MASTER_ID");
         public final static Property IsAudit = new Property(11, boolean.class, "isAudit", false, "IS_AUDIT");
+        public final static Property Face = new Property(12, String.class, "face", false, "FACE");
     }
 
 
@@ -62,7 +63,8 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
                 "\"CLASS_NAME\" TEXT," + // 8: class_name
                 "\"SN\" TEXT," + // 9: sn
                 "\"MASTER_ID\" TEXT," + // 10: master_id
-                "\"IS_AUDIT\" INTEGER NOT NULL );"); // 11: isAudit
+                "\"IS_AUDIT\" INTEGER NOT NULL ," + // 11: isAudit
+                "\"FACE\" TEXT);"); // 12: face
     }
 
     /** Drops the underlying database table. */
@@ -126,6 +128,11 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
             stmt.bindString(11, master_id);
         }
         stmt.bindLong(12, entity.getIsAudit() ? 1L: 0L);
+ 
+        String face = entity.getFace();
+        if (face != null) {
+            stmt.bindString(13, face);
+        }
     }
 
     @Override
@@ -183,6 +190,11 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
             stmt.bindString(11, master_id);
         }
         stmt.bindLong(12, entity.getIsAudit() ? 1L: 0L);
+ 
+        String face = entity.getFace();
+        if (face != null) {
+            stmt.bindString(13, face);
+        }
     }
 
     @Override
@@ -204,7 +216,8 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // class_name
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // sn
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // master_id
-            cursor.getShort(offset + 11) != 0 // isAudit
+            cursor.getShort(offset + 11) != 0, // isAudit
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // face
         );
         return entity;
     }
@@ -223,6 +236,7 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
         entity.setSn(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setMaster_id(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setIsAudit(cursor.getShort(offset + 11) != 0);
+        entity.setFace(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
      }
     
     @Override

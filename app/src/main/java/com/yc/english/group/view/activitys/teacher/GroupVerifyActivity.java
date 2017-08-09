@@ -3,31 +3,23 @@ package com.yc.english.group.view.activitys.teacher;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
-import com.hwangjr.rxbus.RxBus;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.constant.BusAction;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupApplyVerifyContract;
 import com.yc.english.group.listener.OnItemClickListener;
-import com.yc.english.group.model.bean.ClassInfo;
-import com.yc.english.group.model.bean.GroupMemberInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupApplyVerifyPresenter;
-import com.yc.english.group.rong.ImUtils;
-import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.group.view.adapter.GroupVerifyAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/7/29 11:58.
@@ -37,6 +29,10 @@ import rx.functions.Action1;
 public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPresenter> implements GroupApplyVerifyContract.View {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.stateView)
+    StateView stateView;
+    @BindView(R.id.ll_container)
+    LinearLayout llContainer;
 
     private GroupVerifyAdapter adapter;
     private String uid;
@@ -49,17 +45,10 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupVerifyAdapter(this, null);
         recyclerView.setAdapter(adapter);
-        initData();
-
-    }
-
-
-    private void initData() {
-
         uid = UserInfoHelper.getUserInfo().getUid();
-        mPresenter.getMemberList(this, "", "0", uid);
 
     }
+
 
     @Override
     public int getLayoutId() {
@@ -99,5 +88,31 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
             }
         });
 
+    }
+
+
+    @Override
+    public void hideStateView() {
+        stateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(llContainer, "网络不给力", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.loadData(true);
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        stateView.showNoData(llContainer);
+    }
+
+    @Override
+    public void showLoading() {
+        stateView.showLoading(llContainer);
     }
 }
