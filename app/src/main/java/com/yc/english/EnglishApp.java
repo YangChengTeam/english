@@ -13,6 +13,7 @@ import com.kk.share.UMShareImpl;
 import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
+import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.main.hepler.UserInfoHelper;
 
@@ -102,6 +103,12 @@ public class EnglishApp extends MultiDexApplication {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        RongIMUtil.disconnect();
     }
 
 

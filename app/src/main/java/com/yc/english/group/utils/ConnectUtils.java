@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.kk.utils.UIUitls;
 import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -33,7 +34,6 @@ public class ConnectUtils {
      * @return RongIM  客户端核心类的实例。
      */
     public static void contact(final Context context, final String token) {
-
         try {
             final String packageName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).packageName;//获取包对象信息;)
             if (context.getApplicationInfo().packageName.equals(packageName)) {

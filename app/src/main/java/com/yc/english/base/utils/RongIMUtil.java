@@ -6,6 +6,7 @@ import android.net.Uri;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.concurrent.TimeUnit;
@@ -37,37 +38,53 @@ public class RongIMUtil {
 
     public static Observable<ResultInfo<com.yc.english.main.model.domain.UserInfo>> refreshObservable;
 
-    public static void refreshUserInfo(final Context context,final String uid){
-        if(refreshObservable == null) {
+    public static void refreshUserInfo(final Context context, final String uid) {
+        if (refreshObservable == null) {
             refreshObservable = EnginHelper.getUserInfo(context, uid).debounce(1, TimeUnit.DAYS);
         }
         refreshObservable.subscribe(new
-                                                                                                                 Action1<ResultInfo<com.yc.english.main
-                 .model.domain
-                .UserInfo>>() {
-             @Override
-             public void call(final ResultInfo<com.yc.english.main.model.domain.UserInfo> userInfoResultInfo) {
-                 ResultInfoHelper.handleResultInfo(userInfoResultInfo, new ResultInfoHelper.Callback() {
-                     @Override
-                     public void resultInfoEmpty(String message) {
+                                            Action1<ResultInfo<com.yc.english.main
+                                                    .model.domain
+                                                    .UserInfo>>() {
+                                                @Override
+                                                public void call(final ResultInfo<com.yc.english.main.model.domain.UserInfo> userInfoResultInfo) {
+                                                    ResultInfoHelper.handleResultInfo(userInfoResultInfo, new ResultInfoHelper.Callback() {
+                                                        @Override
+                                                        public void resultInfoEmpty(String message) {
 
-                     }
+                                                        }
 
-                     @Override
-                     public void resultInfoNotOk(String message) {
+                                                        @Override
+                                                        public void resultInfoNotOk(String message) {
 
-                     }
+                                                        }
 
-                     @Override
-                     public void reulstInfoOk() {
-                         if(userInfoResultInfo.data != null) {
-                             com.yc.english.main.model.domain.UserInfo userInfo = userInfoResultInfo.data;
-                             UserInfo ruserInfo = new UserInfo(userInfo.getUid(), userInfo.getNickname(), Uri.parse(userInfo.getAvatar()));
-                             RongIM.getInstance().refreshUserInfoCache(ruserInfo);
-                         }
-                     }
-                 });
-             }
-         });
+                                                        @Override
+                                                        public void reulstInfoOk() {
+                                                            if (userInfoResultInfo.data != null) {
+                                                                com.yc.english.main.model.domain.UserInfo userInfo = userInfoResultInfo.data;
+                                                                UserInfo ruserInfo = new UserInfo(userInfo.getUid(), userInfo.getNickname(), Uri.parse(userInfo.getAvatar()));
+                                                                RongIM.getInstance().refreshUserInfoCache(ruserInfo);
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            });
+    }
+
+    public static void disconnect() {
+        RongIM.getInstance().disconnect();
+    }
+
+    public static boolean isConnect() {
+        return RongIM.getInstance().getCurrentConnectionStatus().getValue() == 0;
+    }
+
+    public static void reconnect(Context context) {
+        if (!isConnect()) {
+            com.yc.english.main.model.domain.UserInfo userInfo = UserInfoHelper.getUserInfo();
+            UserInfoHelper.connect(context, userInfo.getUid());
+            TipsHelper.tips(context, "正在重连连接");
+        }
     }
 }
