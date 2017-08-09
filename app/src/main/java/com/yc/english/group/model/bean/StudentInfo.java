@@ -4,13 +4,15 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
+import me.yokeyword.indexablerv.IndexableEntity;
+
 /**
  * Created by wanglin  on 2017/8/2 20:39.
  * 学生信息
  */
 
 @Entity
-public class StudentInfo {
+public class StudentInfo implements IndexableEntity{
     @Id(autoincrement = true)
     private long sId;
     private String add_date;
@@ -155,4 +157,18 @@ public class StudentInfo {
     }
 
 
+    @Override
+    public String getFieldIndexBy() {
+        return nick_name;
+    }
+
+    @Override
+    public void setFieldIndexBy(String indexField) {
+            this.nick_name=indexField;
+    }
+
+    @Override
+    public void setFieldPinyinIndexBy(String pinyin) {
+
+    }
 }

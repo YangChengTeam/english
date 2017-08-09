@@ -5,6 +5,9 @@ import android.content.Context;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupPublishTaskDetailContract;
+import com.yc.english.group.model.bean.TaskInfo;
+import com.yc.english.group.model.bean.TaskInfoWrapper;
+import com.yc.english.group.model.bean.TaskPublishDetailInfo;
 import com.yc.english.group.model.engin.GroupPublishTaskDetailEngine;
 
 import io.rong.imageloader.cache.disc.naming.FileNameGenerator;
@@ -13,6 +16,7 @@ import rx.Subscription;
 
 /**
  * Created by wanglin  on 2017/8/8 16:31.
+ * 老师查看发布作业详情
  */
 
 public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishTaskDetailEngine, GroupPublishTaskDetailContract.View> implements GroupPublishTaskDetailContract.Presenter {
@@ -23,7 +27,7 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
 
     @Override
     public void getPublishTaskDetail(String id, String user_id) {
-        Subscription subscription = mEngin.getPublishTaskDetail(id, user_id).subscribe(new Subscriber<ResultInfo<String>>() {
+        Subscription subscription = mEngin.getPublishTaskDetail(id, user_id).subscribe(new Subscriber<ResultInfo<TaskInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -35,8 +39,13 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
             }
 
             @Override
-            public void onNext(ResultInfo<String> stringResultInfo) {
-
+            public void onNext(final ResultInfo<TaskInfoWrapper> taskPublishDetailInfoResultInfo) {
+                handleResultInfo(taskPublishDetailInfoResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.showPublishTaskDetail(taskPublishDetailInfoResultInfo.data.getInfo());
+                    }
+                });
             }
         });
         mSubscriptions.add(subscription);

@@ -1,9 +1,7 @@
 package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
-import android.media.MediaRecorder;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.EmptyUtils;
@@ -11,26 +9,17 @@ import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
-import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupApplyJoinContract;
 
 import com.yc.english.group.model.bean.ClassInfo;
-import com.yc.english.group.model.bean.ClassInfoWarpper;
-import com.yc.english.group.model.bean.StudentInfo;
-import com.yc.english.group.model.engin.GroupApplyJoinEngine;
 import com.yc.english.group.presenter.GroupApplyJoinPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
-import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.group.view.activitys.teacher.GroupMemberActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
-
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 
 /**

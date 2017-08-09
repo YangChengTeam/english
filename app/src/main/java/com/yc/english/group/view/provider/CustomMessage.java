@@ -24,8 +24,7 @@ import io.rong.imlib.model.UserInfo;
 public class CustomMessage extends MessageContent {
     private String title;//消息标题
     private String content;//消息内容
-    private String imgUrl;
-    ;//消息图像
+    private String imgUrl;//消息图像
     private String url = "";
     private String extra = "";
 

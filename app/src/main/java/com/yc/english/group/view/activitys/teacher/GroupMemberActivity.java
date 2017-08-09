@@ -1,12 +1,9 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -27,8 +24,8 @@ import com.yc.english.group.view.adapter.GroupMemberAdapter;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.yokeyword.indexablerv.IndexableLayout;
 
 /**
  * Created by wanglin  on 2017/7/26 14:41.
@@ -37,15 +34,13 @@ import butterknife.OnClick;
 public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPresenter> implements GroupMyMemberListContract.View {
 
 
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
-    @BindView(R.id.tv_share_group)
-    TextView tvShareGroup;
     @BindView(R.id.stateView)
     StateView stateView;
+    @BindView(R.id.recyclerView)
+    IndexableLayout recyclerView;
+
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
-
     private GroupMemberAdapter adapter;
     private GroupInfo groupInfo;
 
@@ -68,8 +63,9 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
                 startActivity(intent);
             }
         });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new GroupMemberAdapter(this, null);
+        adapter = new GroupMemberAdapter(this);
         recyclerView.setAdapter(adapter);
         mPresenter.getMemberList(this, groupInfo.getId(), "1", "");
         initListener();
@@ -98,7 +94,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
 
     @Override
     public void showMemberList(List<StudentInfo> list) {
-        adapter.setData(list);
+        adapter.setDatas(list);
     }
 
     @Override
@@ -165,4 +161,5 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     public void showLoading() {
         stateView.showLoading(llContainer);
     }
+
 }

@@ -102,7 +102,6 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".group.view.activitys.teacher.GroupMemberActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupManagerActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupChangeNameActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupDeleteMemberActivity" />
@@ -119,6 +118,7 @@
         <activity android:name=".group.view.activitys.student.GroupMyTaskListActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupTaskLookAndUnLookActivity" />
         <activity android:name=".group.view.activitys.student.GroupJoinActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupMemberActivity"/>
 
         <receiver
             android:name=".group.view.receiver.GroupNotificationReceiver"

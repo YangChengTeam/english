@@ -2,12 +2,9 @@ package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,17 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.subutil.util.PinyinUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -37,6 +26,7 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupTaskPublishContract;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupTaskPublishPresenter;
 import com.yc.english.group.view.adapter.GroupFileAdapter;
@@ -52,12 +42,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imkit.activity.FileListActivity;
 import io.rong.imkit.model.FileInfo;
 import io.rong.imkit.plugin.image.PictureSelectorActivity;
-import io.rong.imkit.utils.FileTypeUtils;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
@@ -314,11 +302,9 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
     }
 
     @Override
-    public void showTaskDetail() {
+    public void showTaskDetail(TaskInfo info) {
         Intent intent = new Intent();
-
-//        intent.putExtra("task", desc);
-//                intent.putExtra("")
+        intent.putExtra("task", info);
         setResult(700, intent);
         finish();
     }

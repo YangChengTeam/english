@@ -6,6 +6,7 @@ import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.IDialog;
 import com.yc.english.base.view.IView;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.TaskInfo;
 
 import java.io.File;
 import java.util.List;
@@ -19,7 +20,7 @@ public interface GroupTaskPublishContract {
     interface View extends IView, IDialog {
         void showGroupInfo(ClassInfo info);
 
-        void showTaskDetail();
+        void showTaskDetail(TaskInfo info);
 
         void showMyGroupList(List<ClassInfo> list);
 

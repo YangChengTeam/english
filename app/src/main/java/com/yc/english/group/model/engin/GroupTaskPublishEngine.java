@@ -11,6 +11,7 @@ import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.model.bean.TaskInfoWrapper;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 
 import java.io.File;
@@ -36,7 +37,7 @@ public class GroupTaskPublishEngine extends BaseEngin {
      * @param desp
      * @return
      */
-    public Observable<ResultInfo<String>> publishTask(String class_ids, String publisher, String desp, String imgesUrl, String voiceUrl, String docsUrl) {
+    public Observable<ResultInfo<TaskInfoWrapper>> publishTask(String class_ids, String publisher, String desp, String imgesUrl, String voiceUrl, String docsUrl) {
         Map<String, String> params = new HashMap<>();
         params.put("class_ids", class_ids);
         params.put("publisher", publisher);
@@ -51,8 +52,8 @@ public class GroupTaskPublishEngine extends BaseEngin {
             params.put("docs", docsUrl);
         }
 
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.publish_task, new TypeReference<ResultInfo<String>>() {
-        }.getType(), params, false, true, true);
+        return HttpCoreEngin.get(mContext).rxpost(NetConstan.publish_task, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
+        }.getType(), params, true, true, true);
 
     }
 

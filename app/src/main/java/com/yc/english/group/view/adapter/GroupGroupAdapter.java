@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -39,10 +41,10 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
     @Override
     protected void convert(final BaseViewHolder holder, int position) {
         final ClassInfo classInfo = mList.get(position);
-        holder.setImageBitmap(R.id.m_iv_group_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.default_avatar)));
         holder.setText(R.id.m_tv_group_name, classInfo.getClassName());
         holder.setText(R.id.m_tv_member_count, String.format(mContext.getString(R.string.member_count), Integer.parseInt(classInfo.getCount())));
         holder.setText(R.id.m_tv_group_number, String.format(mContext.getString(R.string.groupId), classInfo.getGroupId()));
+        GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.m_iv_group_img),classInfo.getImageUrl(),R.mipmap.default_avatar);
 
         RongIM.getInstance().getUnreadCount(Conversation.ConversationType.GROUP, classInfo.getClass_id(), new RongIMClient.ResultCallback<Integer>() {
             @Override

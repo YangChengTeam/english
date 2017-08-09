@@ -69,6 +69,8 @@ public class CustomMessageProvider extends IContainerItemProvider.MessageProvide
     @Override
     public void onItemClick(View view, int position, RichContentMessage richContentMessage, UIMessage uiMessage) {
 //        uiMessage.getMessageId()
+        LogUtils.e("onItemClick", richContentMessage.getExtra()+"---"+uiMessage.getTargetId());
+
 
         Intent intent;
         if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
@@ -78,6 +80,8 @@ public class CustomMessageProvider extends IContainerItemProvider.MessageProvide
         } else {
             intent = new Intent(mContext, GroupMyTaskDetailActivity.class);
         }
+        intent.putExtra("extra", richContentMessage.getExtra());
+
         mContext.startActivity(intent);
     }
 
