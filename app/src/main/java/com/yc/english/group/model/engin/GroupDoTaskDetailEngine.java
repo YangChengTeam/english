@@ -1,12 +1,14 @@
 package com.yc.english.group.model.engin;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.model.bean.TaskInfoWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,13 +24,24 @@ public class GroupDoTaskDetailEngine extends BaseEngin {
         super(context);
     }
 
-    public Observable<ResultInfo<String>> getDoTaskDetail(String id, String user_id) {
 
+    public Observable<ResultInfo<TaskInfoWrapper>> doTask(String class_id, String user_id, String task_id, String desp, String imgs, String voices, String docs) {
         Map<String, String> params = new HashMap<>();
-        params.put("id", id);
+        params.put("class_id", class_id);
         params.put("user_id", user_id);
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.detail_do_task, new TypeReference<ResultInfo<String>>() {
+        params.put("task_id", task_id);
+        if (!TextUtils.isEmpty(desp))
+            params.put("desp", desp);
+        if (!TextUtils.isEmpty(imgs))
+            params.put("imgs", imgs);
+        if (!TextUtils.isEmpty(voices))
+            params.put("voices", voices);
+        if (!TextUtils.isEmpty(docs))
+            params.put("docs", docs);
+
+        return HttpCoreEngin.get(mContext).rxpost(NetConstan.do_task, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
         }.getType(), params, true, true, true);
+
 
     }
 }

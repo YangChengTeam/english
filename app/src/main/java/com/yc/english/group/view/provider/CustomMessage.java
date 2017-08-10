@@ -1,6 +1,9 @@
 package com.yc.english.group.view.provider;
 
 import android.os.Parcel;
+import android.os.Parcelable;
+import android.text.TextUtils;
+import android.text.style.TabStopSpan;
 
 import com.blankj.utilcode.util.LogUtils;
 
@@ -8,11 +11,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.rong.common.ParcelUtils;
 import io.rong.imlib.MessageTag;
+import io.rong.imlib.model.MentionedInfo;
 import io.rong.imlib.model.MessageContent;
 import io.rong.imlib.model.UserInfo;
 
@@ -27,6 +33,7 @@ public class CustomMessage extends MessageContent {
     private String imgUrl;//消息图像
     private String url = "";
     private String extra = "";
+
 
     public CustomMessage(String title, String content, String imgUrl) {
         this.title = title;
@@ -52,15 +59,17 @@ public class CustomMessage extends MessageContent {
 
 
     public CustomMessage(Parcel in) {
-        this.content = ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
+        setContent(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
 
         //这里可继续增加你消息的属性
-        this.title = ParcelUtils.readFromParcel(in);
-        this.url = ParcelUtils.readFromParcel(in);
-        this.imgUrl = ParcelUtils.readFromParcel(in);
-        this.url = ParcelUtils.readFromParcel(in);
-        this.extra = ParcelUtils.readFromParcel(in);
-        this.setUserInfo(ParcelUtils.readFromParcel(in, UserInfo.class));
+        setTitle(ParcelUtils.readFromParcel(in));
+        setUrl(ParcelUtils.readFromParcel(in));
+        setImgUrl(ParcelUtils.readFromParcel(in));
+
+        setExtra(ParcelUtils.readFromParcel(in));
+
+        setUserInfo(ParcelUtils.readFromParcel(in, UserInfo.class));
+        setMentionedInfo(ParcelUtils.readFromParcel(in, MentionedInfo.class));
 
     }
 
@@ -68,14 +77,25 @@ public class CustomMessage extends MessageContent {
     public byte[] encode() {
         JSONObject jsonObj = new JSONObject();
         try {
-            jsonObj.put("title", this.getExpression(this.getTitle()));
-            jsonObj.put("content", this.getExpression(this.getContent()));
-            jsonObj.put("imageUri", this.getImgUrl());
-            jsonObj.put("url", this.getUrl());
-            jsonObj.put("extra", this.getExtra());
-            if (this.getJSONUserInfo() != null) {
-                jsonObj.putOpt("user", this.getJSONUserInfo());
+            if (!TextUtils.isEmpty(getExtra()))
+                jsonObj.put("extra", getExtra());
+
+            if (getJSONUserInfo() != null)
+                jsonObj.putOpt("user", getJSONUserInfo());
+
+            if (getJsonMentionInfo() != null) {
+                jsonObj.putOpt("mentionedInfo", getJsonMentionInfo());
             }
+            if (getTitle() != null)
+                jsonObj.put("title", getExpression(getTitle()));
+            if (getContent() != null)
+                jsonObj.put("content", this.getExpression(this.getContent()));
+            if (!TextUtils.isEmpty(getImgUrl()))
+                jsonObj.put("imgUrl", this.getImgUrl());
+            if (!TextUtils.isEmpty(getUrl()))
+                jsonObj.put("url", getUrl());
+
+
         } catch (JSONException var4) {
             LogUtils.e("JSONException", var4.getMessage());
         }
@@ -108,7 +128,6 @@ public class CustomMessage extends MessageContent {
     }
 
     public CustomMessage(byte[] data) {
-        super(data);
         String jsonStr = null;
 
         try {
@@ -119,15 +138,30 @@ public class CustomMessage extends MessageContent {
         try {
             JSONObject jsonObj = new JSONObject(jsonStr);
 
+            if (jsonObj.has("content"))
+                setContent(jsonObj.optString("content"));
 
-            this.title = jsonObj.optString("title");
-            this.content = jsonObj.optString("content");
-            this.imgUrl = jsonObj.optString("imageUri");
-            this.url = jsonObj.optString("url");
-            this.extra = jsonObj.optString("extra");
+            if (jsonObj.has("extra"))
+                setExtra(jsonObj.optString("extra"));
+
             if (jsonObj.has("user")) {
-                this.setUserInfo(this.parseJsonToUserInfo(jsonObj.getJSONObject("user")));
+                setUserInfo(parseJsonToUserInfo(jsonObj.getJSONObject("user")));
             }
+
+            if (jsonObj.has("mentionedInfo")) {
+                setMentionedInfo(parseJsonToMentionInfo(jsonObj.getJSONObject("mentionedInfo")));
+            }
+
+            if (jsonObj.has("title"))
+                setContent(jsonObj.optString("title"));
+
+            if (jsonObj.has("imgUrl"))
+                setExtra(jsonObj.optString("imgUrl"));
+
+            if (jsonObj.has("url")) {
+                setUserInfo(parseJsonToUserInfo(jsonObj.getJSONObject("url")));
+            }
+
 
         } catch (JSONException e) {
             LogUtils.e("JSONException", e.getMessage());
@@ -170,16 +204,16 @@ public class CustomMessage extends MessageContent {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        ParcelUtils.writeToParcel(dest, content);//该类为工具类，对消息中属性进行序列化
+        ParcelUtils.writeToParcel(dest, getContent());//该类为工具类，对消息中属性进行序列化
 
         //这里可继续增加你消息的属性
-        ParcelUtils.writeToParcel(dest, title);
-        ParcelUtils.writeToParcel(dest, url);
+        ParcelUtils.writeToParcel(dest, getTitle());
+        ParcelUtils.writeToParcel(dest, getUrl());
 
-
-        ParcelUtils.writeToParcel(dest, this.imgUrl);
-        ParcelUtils.writeToParcel(dest, this.extra);
+        ParcelUtils.writeToParcel(dest, getImgUrl());
+        ParcelUtils.writeToParcel(dest, getExtra());
         ParcelUtils.writeToParcel(dest, this.getUserInfo());
+        ParcelUtils.writeToParcel(dest, getMentionedInfo());
     }
 
     public String getTitle() {
@@ -220,5 +254,13 @@ public class CustomMessage extends MessageContent {
 
     public void setExtra(String extra) {
         this.extra = extra;
+    }
+
+    @Override
+    public List<String> getSearchableWord() {
+        List<String> words = new ArrayList<>();
+        words.add(content);
+        return words;
+
     }
 }

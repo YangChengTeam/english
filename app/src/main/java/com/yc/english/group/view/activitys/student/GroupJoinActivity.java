@@ -18,6 +18,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxSearchView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyJoinContract;
@@ -63,8 +64,6 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
         mPresenter = new GroupApplyJoinPresenter(this, this);
         mToolbar.showNavigationIcon();
         mToolbar.setTitle(getString(R.string.group_join_class));
-        roundView.setImageBitmap(ImageUtils.toRound(BitmapFactory.decodeResource(getResources(), R.mipmap.default_avatar)));
-
 
         RxTextView.textChanges(etClassGroup)
                 .debounce(1, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread())
@@ -134,6 +133,7 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
             llClassName.setVisibility(View.VISIBLE);
             btnJoin.setVisibility(View.VISIBLE);
             mTvTint.setVisibility(View.GONE);
+            GlideHelper.circleImageView(this,roundView,classInfo.getImageUrl(),R.mipmap.default_avatar);
         } else {
             mTvTint.setVisibility(View.VISIBLE);
             llClassName.setVisibility(View.GONE);

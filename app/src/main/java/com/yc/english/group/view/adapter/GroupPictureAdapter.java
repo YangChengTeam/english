@@ -18,12 +18,16 @@ import java.util.List;
  */
 
 public class GroupPictureAdapter extends BaseAdapter<Uri> {
-    public GroupPictureAdapter(Context context, List<Uri> mList) {
+    private boolean mIsPublish;
+
+    public GroupPictureAdapter(Context context, boolean isPublish, List<Uri> mList) {
         super(context, mList);
+        this.mIsPublish = isPublish;
     }
 
     @Override
     protected void convert(BaseViewHolder holder, final int position) {
+        holder.setVisible(R.id.m_iv_issue_picture_delete, mIsPublish);
         final Uri uri = mList.get(position);
         ((ImageView) holder.getView(R.id.m_iv_issue_result_picture)).setImageURI(uri);
         holder.setOnClickListener(R.id.m_iv_issue_picture_delete, new View.OnClickListener() {

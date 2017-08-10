@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".EnglishApp"
@@ -118,7 +118,8 @@
         <activity android:name=".group.view.activitys.student.GroupMyTaskListActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupTaskLookAndUnLookActivity" />
         <activity android:name=".group.view.activitys.student.GroupJoinActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupMemberActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupMemberActivity" />
+        <activity android:name="com.yc.english.group.view.activitys.student.GroupTaskGradeActivity" />
 
         <receiver
             android:name=".group.view.receiver.GroupNotificationReceiver"
@@ -160,10 +161,9 @@
         <activity
             android:name=".WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action
-                    android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

@@ -65,7 +65,7 @@ public class AvatarHelper {
                         intent.putExtra("outputX", 160);
                         intent.putExtra("outputY", 160);
                         intent.putExtra("return-data", true);
-                        context.startActivityForResult(intent, 2);
+                        context.startActivityForResult(intent, 1);
                         return;
                     }
                     photo = BitmapFactory.decodeFile(picturePath);

@@ -1,6 +1,7 @@
 package com.yc.english.group.view.widget;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,15 @@ import android.widget.TextView;
 
 import com.yc.english.R;
 import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.group.model.bean.Voice;
+import com.yc.english.group.view.adapter.GroupFileAdapter;
+import com.yc.english.group.view.adapter.GroupPictureAdapter;
+import com.yc.english.group.view.adapter.GroupVoiceAdapter;
+
+import java.util.List;
+
+import butterknife.BindView;
+import io.rong.imkit.model.FileInfo;
 
 
 /**
@@ -20,6 +30,7 @@ import com.yc.english.group.constant.GroupConstant;
  */
 
 public class MultifunctionLinearLayout extends LinearLayout {
+
     private Context mContext;
     private TextView textView;
     private View pictureView;
@@ -30,7 +41,14 @@ public class MultifunctionLinearLayout extends LinearLayout {
     private int currentType = -1;
 
     private LayoutInflater inflater;
+    private GroupVoiceAdapter groupVoiceAdapter;
+    private GroupFileAdapter groupFileAdapter;
+    private GroupPictureAdapter groupPictureAdapter;
 
+    private List<FileInfo> fileInfos;
+    private List<Uri> uriList;
+    private List<Voice> voices;
+    private String text;
 
     public MultifunctionLinearLayout(Context context) {
         this(context, null);
@@ -48,13 +66,14 @@ public class MultifunctionLinearLayout extends LinearLayout {
 
     private void init() {
         inflater = LayoutInflater.from(mContext);
+
     }
 
-    public void showTextView(String text) {
+    public void showTextView() {
         currentType = GroupConstant.TASK_TYPE_CHARACTER;
         if (null == textView) {
             textView = new TextView(mContext);
-            textView.setText(text);
+            textView.setText(getText());
             textView.setTextColor(mContext.getResources().getColor(R.color.black_333333));
             textView.setTextSize(14);
             MarginLayoutParams layoutParams = (MarginLayoutParams) getLayoutParams();
@@ -72,7 +91,9 @@ public class MultifunctionLinearLayout extends LinearLayout {
         if (null == pictureView) {
             pictureView = inflater.inflate(R.layout.group_publish_task_detail_picture, null);
             RecyclerView recyclerView = (RecyclerView) pictureView.findViewById(R.id.recyclerView);
-            recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+            groupPictureAdapter = new GroupPictureAdapter(mContext, false, null);
+            recyclerView.setAdapter(groupPictureAdapter);
 
             final TextView tv = (TextView) pictureView.findViewById(R.id.tv_look_detail);
             final ImageView iv = (ImageView) pictureView.findViewById(R.id.iv_look_detail);
@@ -96,34 +117,92 @@ public class MultifunctionLinearLayout extends LinearLayout {
             RecyclerView recyclerView = (RecyclerView) voiceView.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             voiceView.findViewById(R.id.ll_task_detail).setVisibility(GONE);
-
-
+            groupVoiceAdapter = new GroupVoiceAdapter(mContext, false, null);
+            recyclerView.setAdapter(groupVoiceAdapter);
             addView(voiceView);
         }
     }
 
-    public void showWordView(){
-        currentType=GroupConstant.TASK_TYPE_WORD;
-        if (null==wordView){
-            wordView =inflater.inflate(R.layout.group_publish_task_detail_picture, null);
+    public void showWordView() {
+        currentType = GroupConstant.TASK_TYPE_WORD;
+        if (null == wordView) {
+            wordView = inflater.inflate(R.layout.group_publish_task_detail_picture, null);
             RecyclerView recyclerView = (RecyclerView) wordView.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             wordView.findViewById(R.id.ll_task_detail).setVisibility(GONE);
+            groupFileAdapter = new GroupFileAdapter(mContext, false, null);
 
+            recyclerView.setAdapter(groupFileAdapter);
 
             addView(wordView);
 
         }
     }
 
-    public void  showSynthesizeView(){
-        currentType=GroupConstant.TASK_TYPE_SYNTHESIZE;
-        if (null==synthesizeView){
 
+    @BindView(R.id.file_recyclerView)
+    RecyclerView fileRecyclerView;
+
+    public void showSynthesizeView() {
+        currentType = GroupConstant.TASK_TYPE_SYNTHESIZE;
+        if (null == synthesizeView) {
+            synthesizeView = inflater.inflate(R.layout.group_publish_task_detail_synthesis, null);
+            TextView textView = (TextView)synthesizeView. findViewById(R.id.m_et_issue_task);
+            RecyclerView pictureRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.recyclerView_picture);
+            RecyclerView voiceRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.voice_recyclerView);
+            RecyclerView fileRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.file_recyclerView);
+
+            pictureRecycleView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+            groupPictureAdapter = new GroupPictureAdapter(mContext, false, null);
+            pictureRecycleView.setAdapter(groupPictureAdapter);
+
+            groupVoiceAdapter = new GroupVoiceAdapter(mContext, false, null);
+            voiceRecycleView.setLayoutManager(new LinearLayoutManager(mContext));
+            voiceRecycleView.setAdapter(groupVoiceAdapter);
+
+            groupFileAdapter = new GroupFileAdapter(mContext, false, null);
+            fileRecycleView.setLayoutManager(new LinearLayoutManager(mContext));
+            fileRecycleView.setAdapter(groupFileAdapter);
+
+            textView.setText(getText());
+            addView(synthesizeView);
         }
 
     }
 
+    public List<FileInfo> getFileInfos() {
+        return fileInfos;
+    }
+
+    public void setFileInfos(List<FileInfo> fileInfos) {
+        this.fileInfos = fileInfos;
+        groupFileAdapter.setData(fileInfos);
+    }
+
+    public List<Uri> getUriList() {
+        return uriList;
+    }
+
+    public void setUriList(List<Uri> uriList) {
+        this.uriList = uriList;
+        groupPictureAdapter.setData(uriList);
+    }
+
+    public List<Voice> getVoices() {
+        return voices;
+    }
+
+    public void setVoices(List<Voice> voices) {
+        this.voices = voices;
+        groupVoiceAdapter.setData(voices);
+    }
 
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }

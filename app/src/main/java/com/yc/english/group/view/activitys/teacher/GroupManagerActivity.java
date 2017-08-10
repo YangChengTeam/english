@@ -102,7 +102,6 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
                 startActivity(intent);
                 break;
             case R.id.btn_resolving_group:
-
                 mPresenter.resolvingGroup(groupInfo.getId(), mInfo.getMaster_id());
                 break;
         }

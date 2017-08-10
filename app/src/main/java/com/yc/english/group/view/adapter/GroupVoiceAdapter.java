@@ -2,6 +2,7 @@ package com.yc.english.group.view.adapter;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,18 @@ import java.util.List;
  */
 
 public class GroupVoiceAdapter extends BaseAdapter<Voice> {
-    public GroupVoiceAdapter(Context context, List<Voice> mList) {
+    private boolean mIsPublish;
+
+    public GroupVoiceAdapter(Context context, boolean isPublish, List<Voice> mList) {
         super(context, mList);
+        this.mIsPublish = isPublish;
     }
 
     @Override
     protected void convert(final BaseViewHolder holder, final int position) {
+
+
+        holder.setVisible(R.id.m_iv_issue_voice_delete, mIsPublish);
 
         final Voice result = mList.get(position);
         holder.setText(R.id.m_tv_issue_result_voice, result.getDuration());
@@ -52,7 +59,7 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
                 Glide.with(mContext).load(R.mipmap.group59).into((ImageView) holder.getView(R.id.m_iv_play_voice));
                 MediaPlayer mPlayer = new MediaPlayer();
                 try {
-                    mPlayer.setDataSource(result.getUri());
+                    mPlayer.setDataSource(result.getFile().getPath());
                     mPlayer.prepare();
                     mPlayer.start();
                     mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

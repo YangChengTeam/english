@@ -32,6 +32,6 @@ public interface GroupTaskPublishContract {
 
         void getGroupInfo(Context context, String id);
 
-        void uploadFile(File file, String fileName, String name);
+        void uploadFile(Context context,File file, String fileName, String name);
     }
 }

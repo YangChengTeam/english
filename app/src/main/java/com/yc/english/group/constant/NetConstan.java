@@ -84,7 +84,7 @@ public interface NetConstan {
     /**
      * 学生提交作业
      */
-    String do_task = baser_url + "task/do";
+    String do_task = baser_url + "task/done";
     /**
      * 学生修改作业
      */
@@ -105,5 +105,9 @@ public interface NetConstan {
      * 上传
      */
     String upload_richFile = baser_url + "task/upload";
+    /**
+     * 是否查阅
+     */
+    String isRead_member_list = baser_url + "task/isRead_member_list";
 
 }

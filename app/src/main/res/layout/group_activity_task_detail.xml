@@ -31,6 +31,7 @@
                 android:paddingLeft="@dimen/group_distance_15">
 
                 <ImageView
+                    android:id="@+id/m_iv_task_type_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/group36" />
@@ -65,15 +66,10 @@
 
             <include layout="@layout/group_common_divider" />
 
-            <TextView
-                android:id="@+id/m_tv_issue_task"
+            <com.yc.english.group.view.widget.MultifunctionLinearLayout
+                android:id="@+id/m_ll_task_detail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/group_distance_15"
-                android:paddingTop="@dimen/group_distance_15"
-                android:text="背诵英文单词"
-                android:textColor="@color/black_333333"
-                android:textSize="@dimen/group_text_16" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -93,7 +89,7 @@
                 android:layout_height="@dimen/group_distance_95"
                 android:background="@null"
                 android:gravity="top"
-                android:hint="发布你要布置的作业"
+                android:hint="填写你要完成的作业"
                 android:paddingLeft="@dimen/group_distance_15"
                 android:paddingTop="@dimen/group_distance_15"
                 android:textColor="@color/black_333333"
@@ -114,27 +110,11 @@
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/group25" />
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_picture"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/group_distance_15">
-
-                    <ImageView
-                        android:id="@+id/m_iv_issue_result_picture"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:src="@mipmap/group58" />
-
-                    <ImageView
-                        android:id="@+id/m_iv_issue_picture_delete"
-                        android:layout_width="@dimen/group_distance_10"
-                        android:layout_height="@dimen/group_distance_10"
-                        android:layout_gravity="top|right"
-                        android:layout_marginTop="@dimen/group_distance_5"
-                        android:src="@mipmap/group28" />
-
-                </FrameLayout>
+                    android:layout_marginLeft="@dimen/group_distance_15" />
 
 
             </LinearLayout>
@@ -143,8 +123,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/group_distance_50"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:minHeight="@dimen/group_distance_50"
                 android:paddingLeft="@dimen/group_distance_15"
                 android:paddingRight="@dimen/group_distance_25">
 
@@ -154,33 +135,12 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/group26" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/voice_recyclerView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/group_distance_15"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/group59" />
-
-                    <TextView
-                        android:id="@+id/m_tv_issue_result_voice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/group_distance_15"
-                        android:text="03'24"
-                        android:textSize="@dimen/group_text_14" />
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/m_iv_issue_voice_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/group28" />
+                    android:gravity="center_vertical" />
 
 
             </LinearLayout>
@@ -189,8 +149,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/group_distance_50"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:minHeight="@dimen/group_distance_50"
                 android:paddingLeft="@dimen/group_distance_15"
                 android:paddingRight="@dimen/group_distance_25">
 
@@ -200,33 +161,11 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/group27" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/file_recyclerView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/group_distance_15"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/group29" />
-
-                    <TextView
-                        android:id="@+id/m_tv_issue_result_file_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/group_distance_15"
-                        android:text="单元测试卷"
-                        android:textSize="@dimen/group_text_14" />
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/m_iv_issue_file_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/group28" />
+                    android:layout_marginLeft="@dimen/group_distance_15" />
 
 
             </LinearLayout>

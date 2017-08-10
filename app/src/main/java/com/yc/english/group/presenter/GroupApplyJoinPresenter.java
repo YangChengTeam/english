@@ -136,8 +136,9 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
         ImUtils.queryGroup(groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<GroupUserQueryResult>() {
             @Override
             public void call(GroupUserQueryResult groupUserQueryResult) {
-                if (groupUserQueryResult.getCode() == 200) {
+                if (groupUserQueryResult != null && groupUserQueryResult.getCode() == 200) {
                     final List<GroupUser> users = groupUserQueryResult.getUsers();
+
                     ImUtils.joinGroup(userIds, groupId, groupName).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<CodeSuccessResult>() {
                         @Override
                         public void call(CodeSuccessResult codeSuccessResult) {
