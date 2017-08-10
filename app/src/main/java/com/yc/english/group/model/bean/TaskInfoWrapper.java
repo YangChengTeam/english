@@ -5,4 +5,13 @@ package com.yc.english.group.model.bean;
  */
 
 public class TaskInfoWrapper {
+    private TaskInfo info;
+
+    public TaskInfo getInfo() {
+        return info;
+    }
+
+    public void setInfo(TaskInfo info) {
+        this.info = info;
+    }
 }

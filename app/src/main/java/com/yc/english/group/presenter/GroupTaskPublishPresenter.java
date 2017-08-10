@@ -2,11 +2,13 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupTaskPublishContract;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
+import com.yc.english.group.model.bean.TaskInfoWrapper;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.model.engin.GroupTaskPublishEngine;
 import com.yc.english.group.utils.EngineUtils;
@@ -37,7 +39,7 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
     @Override
     public void publishTask(String class_ids, String publisher, String desp, String imgesUrl, String voiceUrl, String docsUrl) {
         mView.showLoadingDialog("正在发布作业，请稍候！");
-        Subscription subscription = mEngin.publishTask(class_ids, publisher, desp, imgesUrl, voiceUrl, docsUrl).subscribe(new Subscriber<ResultInfo<String>>() {
+        Subscription subscription = mEngin.publishTask(class_ids, publisher, desp, imgesUrl, voiceUrl, docsUrl).subscribe(new Subscriber<ResultInfo<TaskInfoWrapper>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -46,14 +48,15 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
             @Override
             public void onError(Throwable e) {
                 mView.dismissLoadingDialog();
+                LogUtils.e("onError",e.getMessage());
             }
 
             @Override
-            public void onNext(ResultInfo<String> stringResultInfo) {
-                handleResultInfo(stringResultInfo, new Runnable() {
+            public void onNext(final ResultInfo<TaskInfoWrapper> taskInfoWrapperResultInfo) {
+                handleResultInfo(taskInfoWrapperResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        mView.showTaskDetail();
+                        mView.showTaskDetail(taskInfoWrapperResultInfo.data.getInfo());
                     }
                 });
             }

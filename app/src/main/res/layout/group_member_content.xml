@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/group_distance_60"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/group_distance_10"
+            android:paddingRight="@dimen/group_distance_30">
+
+            <ImageView
+                android:id="@+id/iv_member_img"
+                android:layout_width="@dimen/group_distance_40"
+                android:layout_height="@dimen/group_distance_40"
+                android:src="@mipmap/default_avatar" />
+
+            <TextView
+                android:id="@+id/tv_member_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/group_distance_15"
+                android:layout_weight="1"
+                android:text="蔡同学"
+                android:textColor="@color/black_333333"
+                android:textSize="@dimen/group_text_16" />
+
+            <TextView
+                android:id="@+id/tv_member_owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="群主"
+                android:textColor="@color/group_gray_999"
+                android:textSize="@dimen/group_text_14" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/group_distance_05"
+            android:layout_marginLeft="@dimen/group_distance_70"
+            android:background="@color/group_gary_ddd"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

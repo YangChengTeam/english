@@ -103,4 +103,5 @@ dependencies {
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     compile project(':share')
     compile 'com.android.support:multidex:1.0.1'
+    compile 'me.yokeyword:indexablerecyclerview:1.3.0'
 }

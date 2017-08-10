@@ -31,6 +31,7 @@
                 android:paddingLeft="@dimen/group_distance_15">
 
                 <ImageView
+                    android:id="@+id/m_iv_task_type_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/group36" />
@@ -65,11 +66,11 @@
 
             <include layout="@layout/group_common_divider" />
 
-            <LinearLayout
+            <com.yc.english.group.view.widget.MultifunctionLinearLayout
                 android:id="@+id/m_ll_task_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"></LinearLayout>
+                android:orientation="horizontal"></com.yc.english.group.view.widget.MultifunctionLinearLayout>
 
 
         </LinearLayout>
