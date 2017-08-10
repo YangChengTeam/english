@@ -27,11 +27,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@color/group_gray_e6f2fb"
-            app:indexBar_background="#08000000"
-            app:indexBar_layout_width="24dp"
-            app:indexBar_selectedTextColor="#f33737"
-            app:indexBar_textSize="14sp"
-            app:indexBar_textSpace="6dp" />
+             />
 
         <TextView
             android:id="@+id/tv_share_group"

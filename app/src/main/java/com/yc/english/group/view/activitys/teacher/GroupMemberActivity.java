@@ -21,11 +21,15 @@ import com.yc.english.group.presenter.GroupMyMemberListPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.adapter.GroupMemberAdapter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.yokeyword.indexablerv.IndexableEntity;
 import me.yokeyword.indexablerv.IndexableLayout;
+import me.yokeyword.indexablerv.SimpleHeaderAdapter;
 
 /**
  * Created by wanglin  on 2017/7/26 14:41.
@@ -67,6 +71,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupMemberAdapter(this);
         recyclerView.setAdapter(adapter);
+
         mPresenter.getMemberList(this, groupInfo.getId(), "1", "");
         initListener();
 
@@ -91,10 +96,13 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         }
     }
 
-
     @Override
     public void showMemberList(List<StudentInfo> list) {
+        recyclerView.addHeaderAdapter(new SimpleHeaderAdapter<>(adapter, "", "", list.subList(0, 1)));
+        list.remove(0);
         adapter.setDatas(list);
+
+
     }
 
     @Override

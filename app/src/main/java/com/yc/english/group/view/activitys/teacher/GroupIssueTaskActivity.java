@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +19,6 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
@@ -44,10 +42,10 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.rong.imkit.activity.FileListActivity;
+
 import io.rong.imkit.model.FileInfo;
 import io.rong.imkit.plugin.image.PictureSelectorActivity;
 import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by wanglin  on 2017/7/27 15:37.
@@ -93,15 +91,15 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitle(getString(R.string.all_task));
         recyclerViewPicture.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        adapter = new GroupPictureAdapter(this, null);
+        adapter = new GroupPictureAdapter(this, true, null);
         recyclerViewPicture.setAdapter(adapter);
 
         voiceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        voiceAdapter = new GroupVoiceAdapter(this, null);
+        voiceAdapter = new GroupVoiceAdapter(this, true, null);
         voiceRecyclerView.setAdapter(voiceAdapter);
 
         fileRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        fileAdapter = new GroupFileAdapter(this, null);
+        fileAdapter = new GroupFileAdapter(this, true, null);
         fileRecyclerView.setAdapter(fileAdapter);
 
 
@@ -116,13 +114,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
     private void initListener() {
 
-        RxView.clicks(mBtnSubmit).filter(new Func1<Void, Boolean>() {
-            @Override
-            public Boolean call(Void aVoid) {
-                TipsHelper.tips(GroupIssueTaskActivity.this, "请输入要发布的作业");
-                return !TextUtils.isEmpty(mEtIssueTask.getText().toString().trim());
-            }
-        }).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mBtnSubmit).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
 
 
             @Override
@@ -159,10 +151,12 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 startActivityForResult(new Intent(this, PictureSelectorActivity.class), 300);
                 break;
             case R.id.m_iv_issue_voice:
-                Intent recordIntent = new Intent(
-                        MediaStore.Audio.Media.RECORD_SOUND_ACTION);//初始化播放
 
-                startActivityForResult(recordIntent, 400);
+                audioRecord(v);
+//                Intent recordIntent = new Intent(
+//                        MediaStore.Audio.Media.RECORD_SOUND_ACTION);//初始化播放
+//
+//                startActivityForResult(recordIntent, 400);
                 break;
 
             case R.id.m_iv_issue_file:
@@ -202,7 +196,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 String path = uri.getPath();// "file:///mnt/sdcard/FileName.mp3"
                 File file = new File(path);
                 String substring = path.substring(path.lastIndexOf("/") + 1);
-                mPresenter.uploadFile(file, substring, substring);
+                mPresenter.uploadFile(this, file, substring, substring);
             }
 
         }
@@ -234,7 +228,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 FileInfo fileInfo = (FileInfo) iterator.next();
                 Uri filePath = Uri.parse("file://" + fileInfo.getFilePath());
                 File file = new File(filePath.getPath());
-                mPresenter.uploadFile(file, fileInfo.getFileName(), "");
+                mPresenter.uploadFile(this, file, fileInfo.getFileName(), "");
                 fileInfos.add(fileInfo);
             }
             fileAdapter.setData(fileInfos);
@@ -315,7 +309,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
     public void showMyGroupList(List<ClassInfo> list) {
         if (list != null && list.size() > 0) {
             for (ClassInfo classInfo : list) {
-                boolean aBoolean = SPUtils.getInstance().getBoolean(classInfo.getClass_id());
+                boolean aBoolean = SPUtils.getInstance().getBoolean(classInfo.getClass_id() + "class");
                 if (aBoolean) {
                     count++;
                 }
@@ -360,6 +354,24 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
     )
     public void deletePicture(Uri uri) {
         uriList.remove(uri);
+    }
+
+
+    private void audioRecord(View view){
+//        AudioRecordManager.getInstance().startRecord(view);
+//        AudioRecordManager.getInstance().setCallback(new AudioRecordManager.Callback() {
+//            @Override
+//            public void onSuccess(File file, int duration) {
+//                LogUtils.i("AudioRecordManager" + file);
+//            }
+//
+//            @Override
+//            public void onFail(String message) {
+//
+//            }
+//        });
+
+
     }
 
 }

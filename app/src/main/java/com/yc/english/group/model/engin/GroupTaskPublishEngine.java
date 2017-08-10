@@ -41,7 +41,8 @@ public class GroupTaskPublishEngine extends BaseEngin {
         Map<String, String> params = new HashMap<>();
         params.put("class_ids", class_ids);
         params.put("publisher", publisher);
-        params.put("desp", desp);
+        if (!TextUtils.isEmpty(desp))
+            params.put("desp", desp);
         if (!TextUtils.isEmpty(imgesUrl)) {
             params.put("imgs", imgesUrl);
         }
@@ -57,15 +58,6 @@ public class GroupTaskPublishEngine extends BaseEngin {
 
     }
 
-    public Observable<ResultInfo<TaskUploadInfo>> uploadFile(File file, String fileName, String name) {
-        UpFileInfo upFileInfo = new UpFileInfo();
-        upFileInfo.filename = fileName;
-        upFileInfo.file = file;
-        upFileInfo.name = "file";
 
-        return HttpCoreEngin.get(mContext).rxuploadFile(NetConstan.upload_richFile, new TypeReference<ResultInfo<TaskUploadInfo>>() {
-        }.getType(), upFileInfo, null, true);
-
-    }
 
 }

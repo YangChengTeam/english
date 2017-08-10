@@ -29,12 +29,18 @@ import java.util.List;
  */
 
 public class GroupVoiceAdapter extends BaseAdapter<Voice> {
-    public GroupVoiceAdapter(Context context, List<Voice> mList) {
+    private boolean mIsPublish;
+
+    public GroupVoiceAdapter(Context context, boolean isPublish, List<Voice> mList) {
         super(context, mList);
+        this.mIsPublish = isPublish;
     }
 
     @Override
     protected void convert(final BaseViewHolder holder, final int position) {
+
+
+        holder.setVisible(R.id.m_iv_issue_voice_delete, mIsPublish);
 
         final Voice result = mList.get(position);
         holder.setText(R.id.m_tv_issue_result_voice, result.getDuration());

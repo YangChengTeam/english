@@ -26,8 +26,9 @@ import io.rong.message.RichContentMessage;
  * 自定义消息以及消息展示
  */
 @ProviderTag(messageContent = RichContentMessage.class)
-public class CustomMessageProvider extends IContainerItemProvider.MessageProvider<RichContentMessage> {
+public class PublishTaskMessageProvider extends IContainerItemProvider.MessageProvider<RichContentMessage> {
     private Context mContext;
+
 
     //初始化 View。
     @Override
@@ -38,6 +39,8 @@ public class CustomMessageProvider extends IContainerItemProvider.MessageProvide
         holder.message = (TextView) view.findViewById(R.id.tv_message_content);
         holder.title = (TextView) view.findViewById(R.id.tv_message_title);
         holder.llMessage = (LinearLayout) view.findViewById(R.id.ll_message);
+        holder.messageType = (TextView) view.findViewById(R.id.tv_message_type);
+
         view.setTag(holder);
         return view;
     }
@@ -69,10 +72,11 @@ public class CustomMessageProvider extends IContainerItemProvider.MessageProvide
     @Override
     public void onItemClick(View view, int position, RichContentMessage richContentMessage, UIMessage uiMessage) {
 //        uiMessage.getMessageId()
-        LogUtils.e("onItemClick", richContentMessage.getExtra()+"---"+uiMessage.getTargetId());
+        LogUtils.e("onItemClick", richContentMessage.getExtra() + "---" + uiMessage.getTargetId());
 
 
         Intent intent;
+
         if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
 
             intent = new Intent(mContext, GroupTaskLookAndUnLookActivity.class);
@@ -88,6 +92,7 @@ public class CustomMessageProvider extends IContainerItemProvider.MessageProvide
     private class ViewHolder {
         TextView message;
         TextView title;
+        TextView messageType;
         View view;
         LinearLayout llMessage;
 

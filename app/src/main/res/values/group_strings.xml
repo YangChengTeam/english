@@ -51,6 +51,7 @@
     <string name="commit_apply_join">你的加群请求已提交，请等待群主审核</string>
     <string name="look_detail">查看详情</string>
     <string name="pack_up">收起</string>
+    <string name="do_homework">交作业</string>
 
 
     <string-array name="task_finish_result">

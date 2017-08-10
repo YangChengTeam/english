@@ -76,7 +76,7 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
         setResult(RESULT_OK, intent);
         SPUtils.getInstance().clear();
         for (ClassInfo classInfo : classInfos) {
-            SPUtils.getInstance().put(classInfo.getClass_id(), true);
+            SPUtils.getInstance().put(classInfo.getClass_id()+ "class", true);
         }
         finish();
     }
@@ -113,7 +113,7 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
 
         adapter.setData(list);
         for (ClassInfo classInfo : list) {
-            boolean aBoolean = SPUtils.getInstance().getBoolean(classInfo.getClass_id());
+            boolean aBoolean = SPUtils.getInstance().getBoolean(classInfo.getClass_id() + "class");
             if (aBoolean) {
                 count++;
                 classInfos.add(classInfo);

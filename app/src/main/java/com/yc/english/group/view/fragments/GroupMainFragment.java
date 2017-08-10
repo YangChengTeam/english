@@ -134,7 +134,9 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         } else {
             llDataContainer.setVisibility(View.GONE);
             llEmptyContainer.setVisibility(View.VISIBLE);
+            hideLoading();
         }
+
     }
 
     @Override
@@ -156,6 +158,8 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
     public void hideLoading() {
         sViewLoading.hide();
     }
+
+
 
     @Subscribe(
             thread = EventThread.MAIN_THREAD,

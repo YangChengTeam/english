@@ -4,7 +4,6 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.facebook.stetho.Stetho;
@@ -16,8 +15,8 @@ import com.yc.english.group.constant.BusAction;
 
 import com.yc.english.group.plugin.GroupExtensionModule;
 import com.yc.english.group.view.provider.CustomMessage;
-import com.yc.english.group.view.provider.CustomMessageProvider;
-import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.group.view.provider.DoTaskTaskMessageProvider;
+import com.yc.english.group.view.provider.PublishTaskMessageProvider;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -27,10 +26,8 @@ import io.rong.imkit.DefaultExtensionModule;
 import io.rong.imkit.IExtensionModule;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
-import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
-import io.rong.imlib.model.UserInfo;
 
 
 /**
@@ -60,7 +57,8 @@ public class GroupApp {
              */
             RongIM.init(application);
             RongIM.registerMessageType(CustomMessage.class);
-            RongIM.getInstance().registerMessageTemplate(new CustomMessageProvider());
+            RongIM.getInstance().registerMessageTemplate(new PublishTaskMessageProvider());
+            RongIM.getInstance().registerMessageTemplate(new DoTaskTaskMessageProvider());
 
             RongIM.getInstance().getRongIMClient().setOnReceiveMessageListener(new MyReceiveMessageListener());
             RongIM.getInstance().setMessageAttachedUserInfo(true);

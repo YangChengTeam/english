@@ -20,12 +20,17 @@ import io.rong.imkit.model.FileInfo;
 
 public class GroupFileAdapter extends BaseAdapter<FileInfo> {
 
-    public GroupFileAdapter(Context context, List<FileInfo> mList) {
+    private boolean mIsPublish;
+
+    public GroupFileAdapter(Context context, boolean isPublish, List<FileInfo> mList) {
         super(context, mList);
+        this.mIsPublish = isPublish;
     }
 
     @Override
     protected void convert(BaseViewHolder holder, final int position) {
+        holder.setVisible(R.id.m_iv_issue_file_delete, mIsPublish);
+
         final FileInfo result = mList.get(position);
         holder.setText(R.id.m_tv_issue_result_file_title, result.getFileName());
         holder.setOnClickListener(R.id.m_iv_issue_file_delete, new View.OnClickListener() {

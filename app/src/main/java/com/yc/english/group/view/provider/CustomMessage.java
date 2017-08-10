@@ -1,6 +1,7 @@
 package com.yc.english.group.view.provider;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.blankj.utilcode.util.LogUtils;
 
@@ -21,7 +22,7 @@ import io.rong.imlib.model.UserInfo;
  * 自定义消息
  */
 @MessageTag(value = "app:custom", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
-public class CustomMessage extends MessageContent {
+public class CustomMessage extends MessageContent implements Parcelable {
     private String title;//消息标题
     private String content;//消息内容
     private String imgUrl;//消息图像
@@ -175,7 +176,6 @@ public class CustomMessage extends MessageContent {
         //这里可继续增加你消息的属性
         ParcelUtils.writeToParcel(dest, title);
         ParcelUtils.writeToParcel(dest, url);
-
 
         ParcelUtils.writeToParcel(dest, this.imgUrl);
         ParcelUtils.writeToParcel(dest, this.extra);

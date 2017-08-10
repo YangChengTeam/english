@@ -32,6 +32,7 @@ public interface GroupMyGroupListContract {
         void showLoading();
 
         void hideLoading();
+
     }
 
     interface Presenter extends IPresenter {

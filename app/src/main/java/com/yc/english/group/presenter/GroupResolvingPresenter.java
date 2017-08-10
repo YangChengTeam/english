@@ -2,8 +2,10 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
+import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupResolvingContract;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
@@ -89,15 +91,16 @@ public class GroupResolvingPresenter extends BasePresenter<GroupResolvingEngine,
 
     @Override
     public void changeGroupInfo(Context context, String class_id, String name, String face, String vali_type) {
+        mView.showLoadingDialog("正在修改");
         Subscription subscription = EngineUtils.changeGroupInfo(context, class_id, name, face, vali_type).subscribe(new Subscriber<ResultInfo<RemoveGroupInfo>>() {
             @Override
             public void onCompleted() {
-
+                mView.dismissLoadingDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-
+                mView.dismissLoadingDialog();
             }
 
             @Override
@@ -105,6 +108,7 @@ public class GroupResolvingPresenter extends BasePresenter<GroupResolvingEngine,
                 handleResultInfo(removeGroupInfoResultInfo, new Runnable() {
                     @Override
                     public void run() {
+                        RxBus.get().post(BusAction.GROUPLIST,"change face");
                         mView.showChangeGroupInfo(removeGroupInfoResultInfo.data);
                     }
                 });
