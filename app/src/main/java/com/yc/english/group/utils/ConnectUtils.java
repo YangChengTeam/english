@@ -34,6 +34,8 @@ public class ConnectUtils {
      * @return RongIM  客户端核心类的实例。
      */
     public static void contact(final Context context, final String token) {
+        if(RongIMUtil.isConnect()) return;
+
         try {
             final String packageName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).packageName;//获取包对象信息;)
             if (context.getApplicationInfo().packageName.equals(packageName)) {
