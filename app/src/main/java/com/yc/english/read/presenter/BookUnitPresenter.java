@@ -2,9 +2,11 @@ package com.yc.english.read.presenter;
 
 import android.content.Context;
 
+import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.read.contract.BookUnitContract;
-import com.yc.english.read.model.domain.BookUnitInfo;
+import com.yc.english.read.model.domain.BookInfoWarpper;
+import com.yc.english.read.model.domain.UnitInfoList;
 import com.yc.english.read.model.engin.BookEngin;
 
 import rx.Subscriber;
@@ -22,8 +24,8 @@ public class BookUnitPresenter extends BasePresenter<BookEngin, BookUnitContract
     }
 
     @Override
-    public void bookUnitInfo(int currentPage, int pageCount) {
-        Subscription subscribe = mEngin.bookUnitInfo(currentPage, pageCount).subscribe(new Subscriber<BookUnitInfo>() {
+    public void getBookInfoById(final String bookId) {
+        Subscription subscribe = mEngin.getBookInfoId(bookId).subscribe(new Subscriber<ResultInfo<BookInfoWarpper>>() {
             @Override
             public void onCompleted() {
 
@@ -35,9 +37,53 @@ public class BookUnitPresenter extends BasePresenter<BookEngin, BookUnitContract
             }
 
             @Override
-            public void onNext(final BookUnitInfo bookUnitInfo) {
-                if (bookUnitInfo != null) {
-                    mView.showBookUnitListData(bookUnitInfo);
+            public void onNext(final ResultInfo<BookInfoWarpper> infoWarpper) {
+                if (infoWarpper != null) {
+
+                    mView.showBookInfo(infoWarpper.data.info);
+
+                    mEngin.bookUnitInfo(0, 0, bookId).subscribe(new Subscriber<ResultInfo<UnitInfoList>>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(final ResultInfo<UnitInfoList> resultInfo) {
+                            if (resultInfo != null) {
+                                mView.showBookUnitListData(resultInfo.data);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        mSubscriptions.add(subscribe);
+    }
+
+    @Override
+    public void bookUnitInfo(int currentPage, int pageCount, String bookId) {
+        Subscription subscribe = mEngin.bookUnitInfo(currentPage, pageCount, bookId).subscribe(new Subscriber<ResultInfo<UnitInfoList>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<UnitInfoList> resultInfo) {
+                if (resultInfo != null) {
+                    mView.showBookUnitListData(resultInfo.data);
                 }
             }
         });

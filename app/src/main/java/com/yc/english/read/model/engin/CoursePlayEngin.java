@@ -6,11 +6,10 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
-import com.yc.english.read.model.domain.EnglishCourseInfo;
+import com.yc.english.read.model.domain.EnglishCourseInfoList;
 import com.yc.english.read.model.domain.URLConfig;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
@@ -27,11 +26,12 @@ public class CoursePlayEngin extends BaseEngin {
         super(context);
     }
 
-    public Observable<List<EnglishCourseInfo>> getCourseList(int currentPage, int pageCount) {
+    public Observable<ResultInfo<EnglishCourseInfoList>> getCourseListByUnitId(int currentPage, int pageCount, String unitId) {
         Map<String, String> params = new HashMap<>();
         params.put("current_page", currentPage + "");
         params.put("page_count", pageCount + "");
-        return HttpCoreEngin.get(context).rxpost(URLConfig.COURSE_LIST_URL, new TypeReference<ResultInfo<EnglishCourseInfo>>() {
+        params.put("unitId", unitId);
+        return HttpCoreEngin.get(context).rxpost(URLConfig.SENTENCE_LIST_URL, new TypeReference<ResultInfo<EnglishCourseInfoList>>() {
                 }.getType(), params,
                 true, true,
                 true);

@@ -14,6 +14,13 @@ import org.greenrobot.greendao.query.QueryBuilder;
  */
 
 public class ReadApp {
+
+    /**
+     * 页面展示数据类型
+     * 1:课本点读，2:单词宝典
+     */
+    public static int READ_COMMON_TYPE = 1;
+
     private static SQLiteDatabase db;
 
     private static DaoSession daoSession;

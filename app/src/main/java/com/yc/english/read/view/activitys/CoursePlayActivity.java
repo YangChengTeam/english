@@ -22,10 +22,10 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.read.common.SpeechUtil;
 import com.yc.english.read.contract.CoursePlayContract;
 import com.yc.english.read.model.domain.EnglishCourseInfo;
+import com.yc.english.read.model.domain.EnglishCourseInfoList;
 import com.yc.english.read.presenter.CoursePlayPresenter;
 import com.yc.english.read.view.adapter.ReadCourseItemClickAdapter;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -70,6 +70,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private PublishSubject mTsSubject;
 
+    private String unitId;
+
     @Override
     public int getLayoutId() {
         return R.layout.read_activity_course_play;
@@ -77,8 +79,16 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     @Override
     public void init() {
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            unitId = bundle.getString("unit_id");
+        }
+
         SpeechUtil.initSpeech(CoursePlayActivity.this, 28, 50, 50, 1);
         mTts = SpeechUtil.getmTts();
+
+        mPresenter = new CoursePlayPresenter(this,this);
 
         mToolbar.setTitle("Unit 1 Hello");
         mToolbar.showNavigationIcon();
@@ -86,10 +96,9 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
         linearLayoutManager = new LinearLayoutManager(this);
         mCourseRecyclerView.setLayoutManager(linearLayoutManager);
-        //List<EnglishCourseInfo> datas = JsonTools.jsonData(CoursePlayActivity.this, "english_course.json");
+
         mItemAdapter = new ReadCourseItemClickAdapter(this, null);
         mCourseRecyclerView.setAdapter(mItemAdapter);
-
 
         mTsSubject = PublishSubject.create();
         mTsSubject.subscribe(new Action1<Integer>() {
@@ -113,6 +122,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 isCountinue = !isCountinue;
             }
         });
+
 
         //语言切换
         RxView.clicks(mLanguageTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -156,14 +166,9 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 startSynthesizer(playPosition);
             }
         });
-    }
 
-    @Override
-    public void showCourseListData(List<EnglishCourseInfo> englishCourseInfos) {
-        if (englishCourseInfos != null) {
-            mItemAdapter.setNewData(englishCourseInfos);
-            mItemAdapter.notifyDataSetChanged();
-        }
+        mPresenter.getCourseListByUnitId(0,0,unitId);
+
     }
 
     /**
@@ -304,4 +309,12 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             mTts.destroy();
         }
     }
+
+    @Override
+    public void showCourseListData(EnglishCourseInfoList englishCourseInfoList) {
+        if (englishCourseInfoList != null) {
+            mItemAdapter.setNewData(englishCourseInfoList.list);
+        }
+    }
+
 }

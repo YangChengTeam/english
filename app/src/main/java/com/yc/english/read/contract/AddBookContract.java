@@ -5,9 +5,9 @@ import com.yc.english.base.view.IDialog;
 import com.yc.english.base.view.IFinish;
 import com.yc.english.base.view.IView;
 import com.yc.english.read.model.domain.CourseVersionInfo;
-import com.yc.english.read.model.domain.GradeInfo;
+import com.yc.english.read.model.domain.GradeInfoList;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhangkai on 2017/7/25.
@@ -16,15 +16,15 @@ import java.util.ArrayList;
 public interface AddBookContract {
     interface View extends IView, IDialog, IFinish {
 
-        void showGradeListData(ArrayList<GradeInfo> list);
+        void showGradeListData(GradeInfoList gradeInfoList);
 
-        void showCVListData(ArrayList<CourseVersionInfo> list);
+        void showCVListData(List<CourseVersionInfo> list);
     }
 
     interface Presenter extends IPresenter {
 
         void gradeList();//获取年级集合
 
-        void getCVListByGradeId(String gradeId);//根据年级ID获取教材集合
+        void getCVListByGradeId(String gradeId,String partType);//根据查询条件获取教材集合
     }
 }

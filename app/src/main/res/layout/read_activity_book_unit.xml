@@ -41,8 +41,8 @@
 
                 <ImageView
                     android:id="@+id/iv_book_grade"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="76dp"
+                    android:layout_height="109dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:src="@mipmap/read_book_test"/>
@@ -61,7 +61,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="人教版三年级英语-下"
                     android:textColor="@color/black_333"
                     android:textSize="16sp"/>
 

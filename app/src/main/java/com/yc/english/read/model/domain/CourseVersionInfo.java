@@ -1,78 +1,154 @@
 package com.yc.english.read.model.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by admin on 2017/7/26.
- * 年级
+ * 教材版本
  */
 
-@Entity
 public class CourseVersionInfo implements MultiItemEntity {
 
     public static final int CLICK_ITEM_VIEW = 1;
 
-    @Id
-    private Long id;
+    public int Type = CLICK_ITEM_VIEW;
 
-    private String courseVersionId;
+    private String id;
 
-    /**
-     * 教材版本
-     */
+    @JSONField(name = "version_id")
+    private String versionId;
 
-    private String courseVersionName;
+    private String period;
 
-    public int Type;
+    private String grade;
 
-    public String getCourseVersionId() {
-        return courseVersionId;
-    }
+    @JSONField(name = "part_type")
+    private String partType;
 
-    public void setCourseVersionId(String courseVersionId) {
-        this.courseVersionId = courseVersionId;
-    }
+    private String sort;
 
-    public String getCourseVersionName() {
-        return courseVersionName;
-    }
+    @JSONField(name = "version_name")
+    private String versionName;
 
-    public void setCourseVersionName(String courseVersionName) {
-        this.courseVersionName = courseVersionName;
-    }
+    @JSONField(name = "book_id")
+    private String bookId;
+
+    @JSONField(name = "cover_img")
+    private String bookImageUrl;
+
+    @JSONField(name = "grade_name")
+    private String gradeName;
+
+    private boolean isSelected = false;
+
+    private boolean isAdd = true;
 
     public CourseVersionInfo(final int type) {
         Type = type;
     }
 
-    @Generated(hash = 748060989)
-    public CourseVersionInfo(Long id, String courseVersionId,
-            String courseVersionName, int Type) {
-        this.id = id;
-        this.courseVersionId = courseVersionId;
-        this.courseVersionName = courseVersionName;
-        this.Type = Type;
+    public String getId() {
+        return id;
     }
 
-    @Generated(hash = 1300388630)
-    public CourseVersionInfo() {
+    public void setId(String id) {
+        this.id = id;
     }
+
+    public String getVersionId() {
+        return versionId;
+    }
+
+    public void setVersionId(String versionId) {
+        this.versionId = versionId;
+    }
+
+    public String getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(String period) {
+        this.period = period;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getPartType() {
+        return partType;
+    }
+
+    public void setPartType(String partType) {
+        this.partType = partType;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    public String getVersionName() {
+        return versionName;
+    }
+
+    public void setVersionName(String versionName) {
+        this.versionName = versionName;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
+
+    public String getBookImageUrl() {
+        return bookImageUrl;
+    }
+
+    public void setBookImageUrl(String bookImageUrl) {
+        this.bookImageUrl = bookImageUrl;
+    }
+
+    public String getGradeName() {
+        return gradeName;
+    }
+
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public boolean isAdd() {
+        return isAdd;
+    }
+
+    public void setAdd(boolean add) {
+        isAdd = add;
+    }
+
+    public CourseVersionInfo(){}
 
     @Override
     public int getItemType() {
         return Type;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public int getType() {

@@ -1,6 +1,7 @@
 package com.yc.english.read.view.activitys;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,8 +16,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.read.contract.BookUnitContract;
-import com.yc.english.read.model.domain.BookUnitInfo;
-import com.yc.english.read.model.domain.UnitListInfo;
+import com.yc.english.read.model.domain.BookInfo;
+import com.yc.english.read.model.domain.UnitInfo;
+import com.yc.english.read.model.domain.UnitInfoList;
 import com.yc.english.read.presenter.BookUnitPresenter;
 import com.yc.english.read.view.adapter.ReadBookUnitItemClickAdapter;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
@@ -49,7 +51,9 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
 
     ReadBookUnitItemClickAdapter mItemAdapter;
 
-    private List<UnitListInfo> mBookDatas;
+    private List<UnitInfo> mBookUnitDatas;
+
+    private String bookId;
 
     @Override
     public int getLayoutId() {
@@ -58,7 +62,11 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
 
     @Override
     public void init() {
-        initData();
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            bookId = bundle.getString("book_id");
+        }
 
         mToolbar.setTitle(getString(R.string.read_book_unit_text));
         mToolbar.showNavigationIcon();
@@ -66,7 +74,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
         mPresenter = new BookUnitPresenter(this, this);
 
         mBookUnitRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mItemAdapter = new ReadBookUnitItemClickAdapter(this, mBookDatas);
+        mItemAdapter = new ReadBookUnitItemClickAdapter(this, mBookUnitDatas);
         mBookUnitRecyclerView.setAdapter(mItemAdapter);
         mBookUnitRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(10)));
         mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -74,35 +82,45 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtils.e("position --->" + position);
                 Intent intent = new Intent(BookUnitActivity.this, CoursePlayActivity.class);
+                intent.putExtra("unit_id", ((UnitInfo) mItemAdapter.getData().get(position)).getId());
                 startActivity(intent);
             }
         });
+
+        mPresenter.getBookInfoById(bookId);
     }
 
     /**
      * 测试数据
      */
     public void initData() {
-        mBookDatas = new ArrayList<UnitListInfo>();
+        mBookUnitDatas = new ArrayList<UnitInfo>();
         for (int i = 0; i < 6; i++) {
-            UnitListInfo unitInfo = new UnitListInfo(UnitListInfo.CLICK_ITEM_VIEW);
-            unitInfo.setUnitTitle("Unit 1 Hello,Good Morning");
-            unitInfo.setUnitTotal((i + 1) * 2 + "句");
-            mBookDatas.add(unitInfo);
+            UnitInfo unitInfo = new UnitInfo(UnitInfo.CLICK_ITEM_VIEW);
+            unitInfo.setName("Unit 1 Hello,Good Morning");
+            unitInfo.setWordCount((i + 1) * 2 + "句");
+            mBookUnitDatas.add(unitInfo);
         }
     }
 
     @Override
-    public void showBookUnitListData(BookUnitInfo bookUnitInfo) {
-        if (bookUnitInfo != null) {
-            Glide.with(BookUnitActivity.this).load(bookUnitInfo.getBookImageUrl()).into(mBookGradeImageView);
-            mBookGradeNameTextView.setText(bookUnitInfo.getBookTitle());
-            mBookPressTextView.setText(bookUnitInfo.getBookPress());
-            mBookUnitTotalButton.setText(bookUnitInfo.getBookUnitTotal() + getString(R.string.read_sentence_text));
-            if (bookUnitInfo.getData() != null) {
-                mItemAdapter.setNewData(bookUnitInfo.getData());
+    public void showBookUnitListData(UnitInfoList unitInfoList) {
+        if (unitInfoList != null) {
+            if (unitInfoList.getList() != null) {
+                mBookUnitDatas = unitInfoList.getList();
+                mItemAdapter.setNewData(mBookUnitDatas);
                 mItemAdapter.notifyDataSetChanged();
             }
+        }
+    }
+
+    @Override
+    public void showBookInfo(BookInfo bookInfo) {
+        if (bookInfo != null) {
+            Glide.with(BookUnitActivity.this).load(bookInfo.getCoverImg()).into(mBookGradeImageView);
+            mBookGradeNameTextView.setText(bookInfo.getName());
+            mBookPressTextView.setText(bookInfo.getPress());
+            mBookUnitTotalButton.setText(bookInfo.getSentenceCount() + getString(R.string.read_sentence_text));
         }
     }
 }

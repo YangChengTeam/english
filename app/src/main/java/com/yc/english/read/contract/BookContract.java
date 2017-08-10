@@ -15,9 +15,17 @@ import java.util.ArrayList;
 public interface BookContract {
     interface View extends IView, IDialog, IFinish {
         void showBookListData(ArrayList<BookInfo> list);
+
+        void addBook(BookInfo bookInfo);
+
+        void deleteBookRefresh();
     }
 
     interface Presenter extends IPresenter {
-        void bookList(int currentPage, int pageCount,int type);//获取教材集合
+        void bookList(int currentPage, int pageCount, int type);//获取教材集合
+
+        void addBook(BookInfo bookInfo);
+
+        void deleteBook(BookInfo bookInfo);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
@@ -50,8 +51,10 @@ public class ReadBookItemClickAdapter extends BaseMultiItemQuickAdapter<BookInfo
         ImageView mBookCover = (ImageView) helper.getView(R.id.iv_book_cover);
         ImageView mDeleteBook = (ImageView) helper.getView(R.id.iv_delete_book);
 
+        helper.setText(R.id.tv_book_version_name,item.getVersionName()).setText(R.id.tv_book_grade_name,item.getGradeName());
+
         if (helper.getAdapterPosition() > 0) {
-            mBookCover.setImageResource(R.mipmap.read_book_test);
+            Glide.with(mContext).load(item.getCoverImg()).into(mBookCover);
         } else {
             mBookCover.setImageResource(R.mipmap.read_book_add);
         }

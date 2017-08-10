@@ -11,4 +11,6 @@ public class Constant {
     public static final String GRADE_INFO_LIST = "grade_info_list";
 
     public static final String COURSE_VERSION_INFO_LIST = "course_version_info_list";
+
+    public static final String ADD_BOOK_INFO = "add_book_info";
 }

@@ -2,12 +2,11 @@ package com.yc.english.read.presenter;
 
 import android.content.Context;
 
+import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.read.contract.CoursePlayContract;
-import com.yc.english.read.model.domain.EnglishCourseInfo;
+import com.yc.english.read.model.domain.EnglishCourseInfoList;
 import com.yc.english.read.model.engin.CoursePlayEngin;
-
-import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -24,8 +23,8 @@ public class CoursePlayPresenter extends BasePresenter<CoursePlayEngin, CoursePl
     }
 
     @Override
-    public void getCourseList(int currentPage, int pageCount) {
-        Subscription subscribe = mEngin.getCourseList(currentPage, pageCount).subscribe(new Subscriber<List<EnglishCourseInfo>>() {
+    public void getCourseListByUnitId(int currentPage, int pageCount,String unitId) {
+        Subscription subscribe = mEngin.getCourseListByUnitId(currentPage, pageCount,unitId).subscribe(new Subscriber<ResultInfo<EnglishCourseInfoList>>() {
             @Override
             public void onCompleted() {
 
@@ -37,9 +36,9 @@ public class CoursePlayPresenter extends BasePresenter<CoursePlayEngin, CoursePl
             }
 
             @Override
-            public void onNext(final List<EnglishCourseInfo> courseInfoList) {
-                if(courseInfoList != null){
-                    mView.showCourseListData(courseInfoList);
+            public void onNext(final ResultInfo<EnglishCourseInfoList> resultInfo) {
+                if(resultInfo != null){
+                    mView.showCourseListData(resultInfo.data);
                 }
             }
         });

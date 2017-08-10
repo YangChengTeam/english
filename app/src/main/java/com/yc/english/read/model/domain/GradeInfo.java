@@ -1,77 +1,61 @@
 package com.yc.english.read.model.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by admin on 2017/7/26.
  * 年级
  */
 
-@Entity
 public class GradeInfo implements MultiItemEntity {
 
     public static final int CLICK_ITEM_VIEW = 1;
 
-    @Id
-    private Long id;
+    private String name;
 
-    private String gradeId;
+    private String grade;
 
-    /**
-     * 年级名称
-     */
+    private boolean isSelected = false;
 
-    private String gradeName;
+    @JSONField(name = "part_type")
+    private String partType;
 
-    public int Type;
+    public int Type = CLICK_ITEM_VIEW;
 
-    public String getGradeId() {
-        return gradeId;
+    public String getName() {
+        return name;
     }
 
-    public void setGradeId(String gradeId) {
-        this.gradeId = gradeId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getGradeName() {
-        return gradeName;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setGradeName(String gradeName) {
-        this.gradeName = gradeName;
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
+
+    public String getPartType() {
+        return partType;
+    }
+
+    public void setPartType(String partType) {
+        this.partType = partType;
+    }
+
+    public GradeInfo(){}
 
     public GradeInfo(final int type) {
         Type = type;
     }
 
-    @Generated(hash = 1974028131)
-    public GradeInfo(Long id, String gradeId, String gradeName, int Type) {
-        this.id = id;
-        this.gradeId = gradeId;
-        this.gradeName = gradeName;
-        this.Type = Type;
-    }
-
-    @Generated(hash = 1597538490)
-    public GradeInfo() {
-    }
-
     @Override
     public int getItemType() {
         return Type;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public int getType() {
@@ -82,4 +66,11 @@ public class GradeInfo implements MultiItemEntity {
         this.Type = Type;
     }
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 }

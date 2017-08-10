@@ -25,9 +25,19 @@ public class CourseVersionItemClickAdapter extends BaseMultiItemQuickAdapter<Cou
 
     @Override
     protected void convert(final BaseViewHolder helper, final CourseVersionInfo item) {
-        helper.setText(R.id.btn_read_grade_name, item.getCourseVersionName()).addOnClickListener(R.id.iv_delete_book);
-        if (helper.getAdapterPosition() == 0) {
-            helper.getView(R.id.btn_read_grade_name).setBackgroundResource(R.drawable.read_add_book_select_line_btn);
+        helper.setText(R.id.btn_read_grade_name, item.getVersionName());
+
+        if (!item.isAdd()) {
+            helper.setBackgroundRes(R.id.btn_read_grade_name, R.drawable.read_add_book_checked_btn);
+            helper.getConvertView().setClickable(false);
+        } else {
+            helper.getConvertView().setClickable(true);
+            if (item.isSelected()) {
+                helper.getView(R.id.btn_read_grade_name).setBackgroundResource(R.drawable.read_add_book_select_line_btn);
+            } else {
+                helper.getView(R.id.btn_read_grade_name).setBackgroundResource(R.drawable.read_add_book_line_btn);
+            }
+
         }
     }
 }

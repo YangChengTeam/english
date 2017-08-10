@@ -25,9 +25,11 @@ public class GradeItemClickAdapter extends BaseMultiItemQuickAdapter<GradeInfo, 
 
     @Override
     protected void convert(final BaseViewHolder helper, final GradeInfo item) {
-        helper.setText(R.id.btn_read_grade_name, item.getGradeName()).addOnClickListener(R.id.iv_delete_book);
-        if (helper.getAdapterPosition() == 0) {
+        helper.setText(R.id.btn_read_grade_name, item.getName());
+        if (item.isSelected()) {
             helper.getView(R.id.btn_read_grade_name).setBackgroundResource(R.drawable.read_add_book_select_line_btn);
+        } else {
+            helper.getView(R.id.btn_read_grade_name).setBackgroundResource(R.drawable.read_add_book_line_btn);
         }
     }
 }

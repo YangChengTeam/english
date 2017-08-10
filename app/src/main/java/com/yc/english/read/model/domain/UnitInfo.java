@@ -7,7 +7,8 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
  * Created by admin on 2017/7/26.
  */
 
-public class WordUnitInfo implements MultiItemEntity {
+public class UnitInfo implements MultiItemEntity {
+
     public static final int CLICK_ITEM_VIEW = 1;
 
     public int Type = CLICK_ITEM_VIEW;
@@ -37,11 +38,11 @@ public class WordUnitInfo implements MultiItemEntity {
 
     private String sort;
 
-    public WordUnitInfo() {
+    public UnitInfo() {
         super();
     }
 
-    public WordUnitInfo(final int type) {
+    public UnitInfo(final int type) {
         Type = type;
     }
 

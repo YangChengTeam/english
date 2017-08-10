@@ -1,7 +1,6 @@
 package com.yc.english.read.view.activitys;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,7 +12,9 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.contract.BookContract;
 import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.Constant;
@@ -21,7 +22,6 @@ import com.yc.english.read.presenter.BookPresenter;
 import com.yc.english.read.view.adapter.ReadBookItemClickAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,13 +40,6 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
     ReadBookItemClickAdapter mItemAdapter;
 
-    private List<BookInfo> mBookDatas;
-    /**
-     * 页面展示数据类型
-     * 1:课本点读，2:单词宝典
-     */
-    private int viewType = 1;
-
     /**
      * 当前页码
      */
@@ -64,17 +57,12 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
     @Override
     public void init() {
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            viewType = bundle.getInt("view_type", 1);
-        }
-
         mPresenter = new BookPresenter(this, this);
 
-        String titleName = getString(R.string.read_book_text);
-        if (viewType == 1) {
+        String titleName;
+        if (ReadApp.READ_COMMON_TYPE == 1) {
             titleName = getString(R.string.read_book_text);
-        } else if (viewType == 2) {
+        } else if (ReadApp.READ_COMMON_TYPE == 2) {
             titleName = getString(R.string.word_book_text);
         } else {
             titleName = getString(R.string.word_game_text);
@@ -83,28 +71,22 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         mToolbar.setTitle(titleName);
         mToolbar.showNavigationIcon();
 
-        mBookRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        mBookRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mItemAdapter = new ReadBookItemClickAdapter(this, null);
         mBookRecyclerView.setAdapter(mItemAdapter);
 
         mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                LogUtils.e("position --->" + position);
-
                 if (!mItemAdapter.getEditState()) {
                     if (position == 0) {
                         Intent intent = new Intent(BookActivity.this, AddBookActivity.class);
-                        intent.putExtra("view_type", viewType);
                         startActivity(intent);
                     } else {
-                        if (viewType == 1) {
-                            Intent intent = new Intent(BookActivity.this, BookUnitActivity.class);
-                            startActivity(intent);
+                        if (ReadApp.READ_COMMON_TYPE == 1) {
+                            toUnitActivity(position, BookUnitActivity.class);
                         } else {
-                            Intent intent = new Intent(BookActivity.this, WordUnitActivity.class);
-                            intent.putExtra("view_type", viewType);
-                            startActivity(intent);
+                            toUnitActivity(position, WordUnitActivity.class);
                         }
                     }
                 }
@@ -114,18 +96,24 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         mItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (mBookDatas != null && mBookDatas.size() > 0) {
-                    mBookDatas.remove(position);
-                }
-                //mItemAdapter.setEditState(false);
-                mItemAdapter.notifyDataSetChanged();
+
+                BookInfo bookInfo = (BookInfo) adapter.getData().get(position);
+                mPresenter.deleteBook(bookInfo);
                 return false;
             }
         });
-
-        mPresenter.bookList(currentPage, pageCount);
     }
 
+    //页面跳转
+    public void toUnitActivity(int position, Class cls) {
+        if (mItemAdapter.getData() != null) {
+            Intent intent = new Intent(BookActivity.this, cls);
+            intent.putExtra("book_id", ((BookInfo) mItemAdapter.getData().get(position)).getBookId());
+            startActivity(intent);
+        } else {
+            TipsHelper.tips(BookActivity.this, "数据错误，请稍后重试");
+        }
+    }
 
     @OnClick(R.id.btn_edit_books)
     public void editBooks() {
@@ -140,24 +128,31 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         }
     }
 
+    @Override
+    public void showBookListData(ArrayList<BookInfo> bookInfos) {
+        //TODO,数据处理待完成
+        LogUtils.e("Add Book --->");
+        if (bookInfos == null) {
+            bookInfos = new ArrayList<BookInfo>();
+        }
+        bookInfos.add(0, new BookInfo(BookInfo.CLICK_ITEM_VIEW));
+        mItemAdapter.setNewData(bookInfos);
+    }
+
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
-                    @Tag(Constant.BOOK_INFO_LIST)
+                    @Tag(Constant.ADD_BOOK_INFO)
             }
     )
-    @Override
-    public void showBookListData(ArrayList<BookInfo> list) {
-        //TODO,数据处理待完成
-        if(list == null || list.size() == 0){
-            mBookDatas = new ArrayList<BookInfo>();
-            for (int i = 0; i < 2; i++) {
-                mBookDatas.add(new BookInfo(BookInfo.CLICK_ITEM_VIEW));
-            }
-            list = (ArrayList<BookInfo>) mBookDatas;
-        }
 
-        mItemAdapter.setNewData(list);
-        mItemAdapter.notifyDataSetChanged();
+    @Override
+    public void addBook(BookInfo bookInfo) {
+        mPresenter.addBook(bookInfo);
+    }
+
+    @Override
+    public void deleteBookRefresh() {
+        //TipsHelper.tips(BookActivity.this, "删除成功");
     }
 }

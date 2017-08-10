@@ -19,7 +19,7 @@ public class BookUnitInfo implements MultiItemEntity {
 
     private String bookImageUrl;
 
-    private List<UnitListInfo> data;
+    private List<UnitInfo> data;
 
     public int Type;
 
@@ -55,11 +55,11 @@ public class BookUnitInfo implements MultiItemEntity {
         this.bookImageUrl = bookImageUrl;
     }
 
-    public List<UnitListInfo> getData() {
+    public List<UnitInfo> getData() {
         return data;
     }
 
-    public void setData(List<UnitListInfo> data) {
+    public void setData(List<UnitInfo> data) {
         this.data = data;
     }
 
