@@ -14,9 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.AudioRecordManager;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupDoTaskDetailContract;
@@ -88,7 +90,11 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
         if (getIntent() != null) {
             String taskDetailInfo = getIntent().getStringExtra("extra");
             taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
-            mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
+            if (taskInfo.getClass_ids() != null) {
+                mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
+            } else {
+                mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_id(), "");
+            }
         }
         RxView.clicks(mBtnSubmit).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -136,10 +142,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
                 startActivityForResult(new Intent(this, PictureSelectorActivity.class), 300);
                 break;
             case R.id.m_iv_issue_voice:
-                Intent recordIntent = new Intent(
-                        MediaStore.Audio.Media.RECORD_SOUND_ACTION);//初始化播放
-
-                startActivityForResult(recordIntent, 400);
+                audioRecord(v);
                 break;
 
             case R.id.m_iv_issue_file:
@@ -177,28 +180,6 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
                 String substring = path.substring(path.lastIndexOf("/") + 1);
                 mPresenter.uploadFile(this, file, substring, substring);
             }
-
-        }
-        if (requestCode == 400 && data != null) {
-            Uri mRecordingUri = data.getData();
-            String mRecordingFilename = getFilenameFromUri(mRecordingUri);
-            File file = new File(mRecordingFilename);
-
-            MediaPlayer mediaPlayer = new MediaPlayer();
-            try {
-                mediaPlayer.setDataSource(mRecordingFilename);
-                mediaPlayer.prepare();
-                int duration = mediaPlayer.getDuration();
-                int second = duration / 1000;
-                mediaPlayer.release();
-                Voice voice = new Voice(mRecordingFilename, second + "''");
-                voiceList.add(voice);
-                voiceAdapter.setData(voiceList);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         }
         if (requestCode == 500 && data != null) {
             HashSet selectedFileInfos = (HashSet) data.getSerializableExtra("selectedFiles");
@@ -214,19 +195,6 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
 
         }
 
-    }
-
-    private String getFilenameFromUri(Uri uri) {
-        Cursor c = managedQuery(uri, null, "", null, null);
-        if (c.getCount() == 0) {
-            return null;
-        }
-        c.moveToFirst();
-        int dataIndex = c.getColumnIndexOrThrow(
-                MediaStore.Audio.Media.DATA);
-        int type = c.getColumnIndexOrThrow(MediaStore.Audio.Media.MIME_TYPE);
-
-        return c.getString(dataIndex);
     }
 
     @Override
@@ -334,6 +302,28 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
             }
         }
         return fileInfos;
+    }
+
+
+    private void audioRecord(View view) {
+        AudioRecordManager.getInstance().startRecord(view);
+        AudioRecordManager.getInstance().setCallback(new AudioRecordManager.Callback() {
+            @Override
+            public void onSuccess(File file, int duration) {
+
+                Voice voice = new Voice(file, duration + "''");
+                voiceList.add(voice);
+                voiceAdapter.setData(voiceList);
+                LogUtils.i("AudioRecordManager" + file);
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
+
+
     }
 
 }

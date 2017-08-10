@@ -66,8 +66,13 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
         if (getIntent() != null) {
             taskDetailInfo = getIntent().getStringExtra("extra");
             TaskInfo taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
-            mPresenter.getPublishTaskDetail(this,taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
-            mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
+            if (taskInfo.getClass_ids() != null) {
+                mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
+                mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
+            } else {
+                mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_id(), "");
+            }
+
         }
 
         mToolbar.setTitle(getString(R.string.task_detail));

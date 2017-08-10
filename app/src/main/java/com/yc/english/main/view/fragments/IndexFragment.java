@@ -10,11 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.request.RequestOptions;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -23,11 +20,11 @@ import com.kk.share.UMShareImpl;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.english.R;
-import com.yc.english.base.helper.GlideCircleTransformation;
+import com.yc.english.base.helper.AudioRecordManager;
 import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SharePopupWindow;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.view.activitys.GroupListJoinActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
@@ -37,10 +34,10 @@ import com.yc.english.main.presenter.IndexPresenter;
 import com.yc.english.main.view.activitys.MainActivity;
 import com.yc.english.main.view.wdigets.IndexMenuView;
 import com.yc.english.read.view.activitys.BookActivity;
-import com.yc.english.base.view.StateView;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -139,6 +136,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mShareLinearLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+
                 SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
                 sharePopupWindow.setOnShareItemClickListener(new SharePopupWindow.OnShareItemClickListener() {
                     @Override

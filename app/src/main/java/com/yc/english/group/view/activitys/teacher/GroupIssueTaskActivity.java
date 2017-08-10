@@ -13,12 +13,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.AudioRecordManager;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
@@ -153,10 +156,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             case R.id.m_iv_issue_voice:
 
                 audioRecord(v);
-//                Intent recordIntent = new Intent(
-//                        MediaStore.Audio.Media.RECORD_SOUND_ACTION);//初始化播放
-//
-//                startActivityForResult(recordIntent, 400);
+                KeyboardUtils.hideSoftInput(this);
                 break;
 
             case R.id.m_iv_issue_file:
@@ -198,28 +198,6 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 String substring = path.substring(path.lastIndexOf("/") + 1);
                 mPresenter.uploadFile(this, file, substring, substring);
             }
-
-        }
-        if (requestCode == 400 && data != null) {
-            Uri mRecordingUri = data.getData();
-            String mRecordingFilename = getFilenameFromUri(mRecordingUri);
-            File file = new File(mRecordingFilename);
-
-            MediaPlayer mediaPlayer = new MediaPlayer();
-            try {
-                mediaPlayer.setDataSource(mRecordingFilename);
-                mediaPlayer.prepare();
-                int duration = mediaPlayer.getDuration();
-                int second = duration / 1000;
-                mediaPlayer.release();
-                Voice voice = new Voice(mRecordingFilename, second + "''");
-                voiceList.add(voice);
-                voiceAdapter.setData(voiceList);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         }
         if (requestCode == 500 && data != null) {
             HashSet selectedFileInfos = (HashSet) data.getSerializableExtra("selectedFiles");
@@ -232,22 +210,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 fileInfos.add(fileInfo);
             }
             fileAdapter.setData(fileInfos);
-
         }
-
-    }
-
-    private String getFilenameFromUri(Uri uri) {
-        Cursor c = managedQuery(uri, null, "", null, null);
-        if (c.getCount() == 0) {
-            return null;
-        }
-        c.moveToFirst();
-        int dataIndex = c.getColumnIndexOrThrow(
-                MediaStore.Audio.Media.DATA);
-        int type = c.getColumnIndexOrThrow(MediaStore.Audio.Media.MIME_TYPE);
-
-        return c.getString(dataIndex);
     }
 
     private void setSyncGroup(int count) {
@@ -292,7 +255,6 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
     @Override
     public void showGroupInfo(ClassInfo info) {
         mClassInfo = info;
-
     }
 
     @Override
@@ -357,19 +319,23 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
     }
 
 
-    private void audioRecord(View view){
-//        AudioRecordManager.getInstance().startRecord(view);
-//        AudioRecordManager.getInstance().setCallback(new AudioRecordManager.Callback() {
-//            @Override
-//            public void onSuccess(File file, int duration) {
-//                LogUtils.i("AudioRecordManager" + file);
-//            }
-//
-//            @Override
-//            public void onFail(String message) {
-//
-//            }
-//        });
+    private void audioRecord(View view) {
+        AudioRecordManager.getInstance().startRecord(view);
+        AudioRecordManager.getInstance().setCallback(new AudioRecordManager.Callback() {
+            @Override
+            public void onSuccess(File file, int duration) {
+
+                Voice voice = new Voice(file, duration + "''");
+                voiceList.add(voice);
+                voiceAdapter.setData(voiceList);
+                LogUtils.i("AudioRecordManager" + file);
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
 
 
     }

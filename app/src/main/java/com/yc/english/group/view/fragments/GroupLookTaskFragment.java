@@ -38,7 +38,8 @@ public class GroupLookTaskFragment extends BaseFragment<GroupPublishTaskDetailPr
         if (getArguments() != null) {
             String taskDetailInfo = getArguments().getString("extra");
             TaskInfo taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
-            mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
+            if (taskInfo.getClass_ids() != null)
+                mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
         }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new GroupTaskLookAdapter(getActivity(), null);

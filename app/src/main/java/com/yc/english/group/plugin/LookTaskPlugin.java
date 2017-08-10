@@ -12,6 +12,7 @@ import com.yc.english.group.view.activitys.student.GroupMyTaskListActivity;
 import io.rong.imkit.RongExtension;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.plugin.IPluginModule;
+import io.rong.imkit.utilities.PermissionCheckUtil;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
@@ -31,7 +32,6 @@ public class LookTaskPlugin implements IPluginModule {
     private FragmentActivity activity;
 
 
-
     @Override
     public Drawable obtainDrawable(Context context) {
         return context.getResources().getDrawable(R.drawable.group_task_selector);
@@ -44,21 +44,17 @@ public class LookTaskPlugin implements IPluginModule {
 
     @Override
     public void onClick(final Fragment fragment, RongExtension rongExtension) {
-        Intent intent = new Intent(fragment.getActivity(), GroupMyTaskListActivity.class);
-        rongExtension.startActivityForPluginResult(intent, 100, this);
 
         //示例获取 会话类型、targetId、Context,此处可根据产品需求自定义逻辑，如:开启新的 Activity 等。
         conversationType = rongExtension.getConversationType();
         targetId = rongExtension.getTargetId();
         activity = fragment.getActivity();
         String[] permissions = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
-//        if (PermissionCheckUtil.requestPermissions(fragment, permissions)) {
-//            Intent intent = new Intent(fragment.getActivity(), GroupIssueTaskActivity.class);
-////            Intent intent = new Intent(fragment.getActivity(), GroupMyTaskDetailActivity.class);
-//
-//            rongExtension.startActivityForPluginResult(intent, 100, this);
-//        }
-
+        if (PermissionCheckUtil.requestPermissions(fragment, permissions)) {
+            Intent intent = new Intent(fragment.getActivity(), GroupMyTaskListActivity.class);
+            intent.putExtra("targetId", targetId);
+            rongExtension.startActivityForPluginResult(intent, 100, this);
+        }
 
     }
 

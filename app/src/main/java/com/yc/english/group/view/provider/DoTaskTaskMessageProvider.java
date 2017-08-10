@@ -49,12 +49,8 @@ public class DoTaskTaskMessageProvider extends IContainerItemProvider.MessagePro
     @Override
     public void bindView(View v, int i, CustomMessage customMessage, UIMessage uiMessage) {
         ViewHolder holder = (ViewHolder) v.getTag();
-        if (customMessage.getUrl().equals("issTask")) {
-            holder.messageType.setText(mContext.getString(R.string.homework));
-        } else if (customMessage.getUrl().equals("doTask")) {
-            holder.messageType.setText(mContext.getString(R.string.do_homework));
-        }
 
+        holder.messageType.setText(mContext.getString(R.string.do_homework));
 
         if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {//消息方向，自己发送的
             holder.llMessage.setBackgroundResource(R.mipmap.group_message_bg);
@@ -84,10 +80,10 @@ public class DoTaskTaskMessageProvider extends IContainerItemProvider.MessagePro
 
         if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
 
-            intent = new Intent(mContext, GroupTaskLookAndUnLookActivity.class);
+            intent = new Intent(mContext, GroupMyTaskDetailActivity.class);
 
         } else {
-            intent = new Intent(mContext, GroupMyTaskDetailActivity.class);
+            intent = new Intent(mContext, GroupTaskLookAndUnLookActivity.class);
         }
         intent.putExtra("extra", richContentMessage.getExtra());
 

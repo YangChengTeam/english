@@ -25,4 +25,11 @@ public class GlideHelper {
             placehorder) {
         circleBorderImageView(context, imageView, url, placehorder, 0, Color.WHITE);
     }
+
+    public static void imageView(final Context context, ImageView imageView, String url, int
+            placehorder) {
+        RequestOptions options = new RequestOptions();
+        options.centerCrop().placeholder(placehorder);
+        Glide.with(context).load(url).apply(options).into(imageView);
+    }
 }

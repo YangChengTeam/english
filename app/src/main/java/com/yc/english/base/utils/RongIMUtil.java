@@ -7,11 +7,23 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.group.constant.IMConstant;
+import com.yc.english.group.model.bean.ClassInfoWarpper;
+import com.yc.english.group.rong.ImUtils;
+import com.yc.english.group.rong.models.CodeSuccessResult;
+import com.yc.english.group.rong.models.GroupUser;
+import com.yc.english.group.rong.models.GroupUserQueryResult;
+import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.concurrent.TimeUnit;
 
 import io.rong.imkit.RongIM;
+import io.rong.imlib.IRongCallback;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.MessageContent;
 import io.rong.imlib.model.UserInfo;
 import rx.Observable;
 import rx.functions.Action1;
@@ -76,9 +88,67 @@ public class RongIMUtil {
         RongIM.getInstance().disconnect();
     }
 
+
     public static boolean isConnect() {
         return RongIM.getInstance().getCurrentConnectionStatus().getValue() == 0;
     }
+
+
+    public static void reJoinUser(final Context context, final Message rmessage) {
+        EngineUtils.queryGroupById(context, rmessage.getTargetId(), "").subscribe(new
+                                                                                          Action1<ResultInfo<ClassInfoWarpper>>() {
+                                                                                              @Override
+                                                                                              public void call(final ResultInfo<ClassInfoWarpper> classInfoWarpperResultInfo) {
+                                                                                                  ResultInfoHelper.handleResultInfo(classInfoWarpperResultInfo, new ResultInfoHelper.Callback() {
+                                                                                                      @Override
+                                                                                                      public void resultInfoEmpty(String message) {
+                                                                                                          reJoinUser(context, rmessage);
+                                                                                                      }
+
+                                                                                                      @Override
+                                                                                                      public void resultInfoNotOk(String message) {
+                                                                                                          reJoinUser(context, rmessage);
+                                                                                                      }
+
+                                                                                                      @Override
+                                                                                                      public void reulstInfoOk() {
+                                                                                                          ImUtils.joinGroup(new String[]{rmessage.getSenderUserId()}, rmessage.getTargetId(),
+                                                                                                                  classInfoWarpperResultInfo.data.getInfo().getClassName())
+                                                                                                                  .subscribe(new
+                                                                                                                                     Action1<CodeSuccessResult>() {
+                                                                                                                                         @Override
+                                                                                                                                         public void call(CodeSuccessResult codeSuccessResult) {
+                                                                                                                                             if (codeSuccessResult.getCode() != 200) {
+                                                                                                                                                 reJoinUser(context, rmessage);
+                                                                                                                                             } else {
+                                                                                                                                                 RongIM.getInstance().sendMessage(rmessage, null, null, new IRongCallback
+                                                                                                                                                         .ISendMessageCallback() {
+                                                                                                                                                     @Override
+                                                                                                                                                     public void onAttached(Message message) {
+                                                                                                                                                         //消息本地数据库存储成功的回调
+                                                                                                                                                     }
+
+                                                                                                                                                     @Override
+                                                                                                                                                     public void onSuccess(Message message) {
+                                                                                                                                                         //消息通过网络发送成功的回调
+                                                                                                                                                     }
+
+                                                                                                                                                     @Override
+                                                                                                                                                     public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                                                                                                                                                         //消息发送失败的回调
+                                                                                                                                                     }
+                                                                                                                                                 });
+                                                                                                                                             }
+                                                                                                                                         }
+                                                                                                                                     });
+                                                                                                      }
+                                                                                                  });
+                                                                                              }
+                                                                                          });
+
+
+    }
+
 
     public static void reconnect(Context context) {
         if (!isConnect()) {

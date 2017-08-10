@@ -2,6 +2,7 @@ package com.yc.english.group.view.adapter;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,7 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
                 Glide.with(mContext).load(R.mipmap.group59).into((ImageView) holder.getView(R.id.m_iv_play_voice));
                 MediaPlayer mPlayer = new MediaPlayer();
                 try {
-                    mPlayer.setDataSource(result.getUri());
+                    mPlayer.setDataSource(result.getFile().getPath());
                     mPlayer.prepare();
                     mPlayer.start();
                     mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
