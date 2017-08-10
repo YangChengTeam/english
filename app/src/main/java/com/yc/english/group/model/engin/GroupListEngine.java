@@ -3,8 +3,9 @@ package com.yc.english.group.model.engin;
 import android.content.Context;
 
 import com.kk.securityhttp.engin.BaseEngin;
+import com.yc.english.base.dao.ClassInfoDao;
 import com.yc.english.group.common.GroupApp;
-import com.yc.english.group.dao.ClassInfoDao;
+
 import com.yc.english.group.model.bean.ClassInfo;
 
 import java.util.List;

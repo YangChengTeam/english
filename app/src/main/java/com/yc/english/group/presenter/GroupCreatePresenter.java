@@ -1,16 +1,19 @@
 package com.yc.english.group.presenter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.base.dao.ClassInfoDao;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupCreateContract;
-import com.yc.english.group.dao.ClassInfoDao;
+
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.engin.GroupCreateEngine;
@@ -19,6 +22,8 @@ import com.yc.english.group.rong.models.CodeSuccessResult;
 
 import java.util.List;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -90,8 +95,9 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
                     @Override
                     public void call(CodeSuccessResult codeSuccessResult) {
                         if (codeSuccessResult.getCode() == 200) {
+
                             saveGroup(info);
-                            mView.finish();
+
                         }
                     }
                 });
@@ -125,4 +131,5 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
         mView.finish();
 
     }
+
 }

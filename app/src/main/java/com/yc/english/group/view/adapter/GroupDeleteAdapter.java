@@ -18,6 +18,7 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.listener.OnCheckedChangeListener;
 import com.yc.english.group.model.bean.GroupMemberInfo;
@@ -62,8 +63,8 @@ public class GroupDeleteAdapter extends BaseAdapter<StudentInfo> {
             });
 
         }
-        holder.setImageBitmap(R.id.iv_member_img, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.portial)));
-        holder.setText(R.id.tv_member_name, studentInfo.getUser_name());
+        GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.iv_member_img),studentInfo.getFace(),R.mipmap.default_avatar);
+        holder.setText(R.id.tv_member_name, studentInfo.getNick_name());
         holder.setText(R.id.tv_member_owner, studentInfo.getUser_id().equals(UserInfoHelper.getUserInfo().getUid()) ? "群主" : "");
     }
 
@@ -76,10 +77,10 @@ public class GroupDeleteAdapter extends BaseAdapter<StudentInfo> {
         return R.layout.group_delete_member_item;
     }
 
-    private OnCheckedChangeListener listener;
+    private OnCheckedChangeListener<StudentInfo> listener;
 
 
-    public void setListener(OnCheckedChangeListener listener) {
+    public void setListener(OnCheckedChangeListener<StudentInfo> listener) {
         this.listener = listener;
     }
 }

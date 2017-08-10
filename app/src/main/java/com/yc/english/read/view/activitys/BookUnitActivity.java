@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.StateView;
 import com.yc.english.read.contract.BookUnitContract;
 import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.UnitInfo;
@@ -23,7 +25,6 @@ import com.yc.english.read.presenter.BookUnitPresenter;
 import com.yc.english.read.view.adapter.ReadBookUnitItemClickAdapter;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,6 +34,12 @@ import butterknife.BindView;
  */
 
 public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> implements BookUnitContract.View {
+
+    @BindView(R.id.sv_loading)
+    StateView mStateView;
+
+    @BindView(R.id.layout_content)
+    LinearLayout mLayoutContext;
 
     @BindView(R.id.iv_book_grade)
     ImageView mBookGradeImageView;
@@ -90,18 +97,31 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
         mPresenter.getBookInfoById(bookId);
     }
 
-    /**
-     * 测试数据
-     */
-    public void initData() {
-        mBookUnitDatas = new ArrayList<UnitInfo>();
-        for (int i = 0; i < 6; i++) {
-            UnitInfo unitInfo = new UnitInfo(UnitInfo.CLICK_ITEM_VIEW);
-            unitInfo.setName("Unit 1 Hello,Good Morning");
-            unitInfo.setWordCount((i + 1) * 2 + "句");
-            mBookUnitDatas.add(unitInfo);
-        }
+    @Override
+    public void hideStateView() {
+        mStateView.hide();
     }
+
+    @Override
+    public void showNoNet() {
+        mStateView.showNoNet(mLayoutContext, "网络不给力", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getBookInfoById(bookId);
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        mStateView.showNoData(mLayoutContext);
+    }
+
+    @Override
+    public void showLoading() {
+        mStateView.showLoading(mLayoutContext);
+    }
+
 
     @Override
     public void showBookUnitListData(UnitInfoList unitInfoList) {

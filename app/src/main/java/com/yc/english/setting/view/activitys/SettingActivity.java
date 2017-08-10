@@ -10,7 +10,9 @@ import com.tencent.bugly.beta.Beta;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideCatchHelper;
 import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.setting.contract.SettingContract;
@@ -68,6 +70,8 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
                 mExitButton.setVisibility(View.GONE);
                 TipsHelper.tips(SettingActivity.this, "成功退出");
                 RxBus.get().post(Constant.NO_LOGIN, true);
+                RxBus.get().post(BusAction.GROUPLIST, "from logout");
+                RongIMUtil.disconnect();
             }
         });
 

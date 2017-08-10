@@ -20,7 +20,7 @@ public class URLConfig {
     public static final String UPD_MESSAGE_URL = getBaseUrl() +  "user/upd";
     public static final String UPD_PWD_URL = getBaseUrl() +  "user/upd_pwd";
 
-
+    public static final String GET_USER_INFO_URL = getBaseUrl() +  "user/info";
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }

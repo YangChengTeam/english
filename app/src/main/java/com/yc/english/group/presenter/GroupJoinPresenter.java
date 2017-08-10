@@ -4,11 +4,12 @@ import android.content.Context;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
+import com.yc.english.base.dao.ClassInfoDao;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupJoinContract;
-import com.yc.english.group.dao.ClassInfoDao;
+
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.engin.GroupJoinEngin;
 import com.yc.english.group.rong.ImUtils;

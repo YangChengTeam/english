@@ -7,11 +7,16 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.facebook.stetho.Stetho;
-import com.yc.english.group.dao.DaoMaster;
-import com.yc.english.group.dao.DaoSession;
+import com.hwangjr.rxbus.RxBus;
+import com.yc.english.base.dao.DaoMaster;
+import com.yc.english.base.dao.DaoSession;
+import com.yc.english.base.utils.RongIMUtil;
+import com.yc.english.group.constant.BusAction;
+
 import com.yc.english.group.plugin.GroupExtensionModule;
 import com.yc.english.group.view.provider.CustomMessage;
-import com.yc.english.group.view.provider.CustomMessageProvider;
+import com.yc.english.group.view.provider.DoTaskTaskMessageProvider;
+import com.yc.english.group.view.provider.PublishTaskMessageProvider;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -21,8 +26,19 @@ import io.rong.imkit.DefaultExtensionModule;
 import io.rong.imkit.IExtensionModule;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
+
+import io.rong.imkit.model.GroupUserInfo;
+import io.rong.imlib.IRongCallback;
+
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
+
+import io.rong.imlib.model.MessageContent;
+import io.rong.imlib.model.UserInfo;
+import io.rong.message.ImageMessage;
+import io.rong.message.TextMessage;
+import io.rong.message.VoiceMessage;
 
 
 /**
@@ -35,8 +51,10 @@ public class GroupApp {
     private static SQLiteDatabase db;
 
     private static DaoSession mDaoSession;
+    private static Application mApplication;
 
-    public static void init(Application application) {
+    public static void init(final Application application) {
+        mApplication = application;
         /**
          *
          * OnCreate 会被多个进程重入，这段保护代码，确保只有您需要使用 RongIM 的进程和 Push 进程执行了 init。
@@ -49,15 +67,55 @@ public class GroupApp {
              * IMKit SDK调用第一步 初始化
              */
             RongIM.init(application);
-            RongIM.registerMessageType(CustomMessage.class);
-            RongIM.getInstance().registerMessageTemplate(new CustomMessageProvider());
 
-            RongIM.getInstance().getRongIMClient().setOnReceiveMessageListener(new MyReceiveMessageListener());
+            try {
+                RongIM.registerMessageType(CustomMessage.class);
+
+                RongIM.registerMessageTemplate(new PublishTaskMessageProvider());
+                RongIM.registerMessageTemplate(new DoTaskTaskMessageProvider());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
+            RongIM.getInstance().setMessageAttachedUserInfo(true);
+            RongIM.getInstance().setSendMessageListener(new MySendMessageListener());
+
         }
-
-
         setDatabase(application);
         Stetho.initializeWithDefaults(application);
+    }
+
+    private static class MySendMessageListener implements RongIM.OnSendMessageListener {
+
+        /**
+         * 消息发送前监听器处理接口（是否发送成功可以从 SentStatus 属性获取）。
+         *
+         * @param message 发送的消息实例。
+         * @return 处理后的消息实例。
+         */
+        @Override
+        public Message onSend(Message message) {
+            //开发者根据自己需求自行处理逻辑
+            return message;
+        }
+
+        /**
+         * 消息在 UI 展示后执行/自己的消息发出后执行,无论成功或失败。
+         *
+         * @param message              消息实例。
+         * @param sentMessageErrorCode 发送消息失败的状态码，消息发送成功 SentMessageErrorCode 为 null。
+         * @return true 表示走自己的处理方式，false 走融云默认处理方式。
+         */
+        @Override
+        public boolean onSent(Message message, RongIM.SentMessageErrorCode sentMessageErrorCode) {
+            if (message.getSentStatus() == Message.SentStatus.FAILED) {
+                if (sentMessageErrorCode == RongIM.SentMessageErrorCode.NOT_IN_GROUP) {
+                    RongIMUtil.reJoinUser(mApplication, message);
+                }
+            }
+            return true;
+        }
     }
 
     /**
@@ -136,9 +194,19 @@ public class GroupApp {
 
         @Override
         public boolean onReceived(Message message, int i) {
-            LogUtils.e(TAG, message.getContent().toString() + "---" + message.getTargetId());
-            return false;
+
+            RxBus.get().post(BusAction.UNREAD_MESSAGE, message);
+
+            RongIMUtil.refreshUserInfo(mApplication, message.getSenderUserId());
+
+            LogUtils.e(TAG, message.getContent() + "---" + message.getTargetId() + "---" + message.getReceivedStatus().isRead());
+            return true;
         }
+    }
+
+    public static Context getApplicationContext() {
+
+        return mApplication.getApplicationContext();
     }
 
 }

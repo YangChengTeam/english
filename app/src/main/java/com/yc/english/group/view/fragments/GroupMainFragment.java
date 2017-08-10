@@ -1,25 +1,31 @@
 package com.yc.english.group.view.fragments;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
+import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
+import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.ToolbarFragment;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupMyGroupListContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupMyGroupListPresenter;
-import com.yc.english.group.view.activitys.student.GroupJoinActivityNew;
+import com.yc.english.group.view.activitys.student.GroupJoinActivity;
 import com.yc.english.group.view.activitys.teacher.GroupCreateActivity;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
@@ -28,9 +34,11 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.rong.imlib.RongIMClient;
+import butterknife.Unbinder;
 import io.rong.imlib.model.Message;
+import io.rong.message.RichContentMessage;
 
 /**
  * Created by wanglin  on 2017/7/24 17:59.
@@ -49,6 +57,11 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
     LinearLayout llEmptyContainer;
     @BindView(R.id.ll_data_container)
     LinearLayout llDataContainer;
+    @BindView(R.id.sView_loading)
+    StateView sViewLoading;
+    @BindView(R.id.content_view)
+    FrameLayout contentView;
+
 
     private GroupGroupAdapter adapter;
 
@@ -68,8 +81,6 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new GroupGroupAdapter(getContext(), null);
         recyclerView.setAdapter(adapter);
-
-
 
 
     }
@@ -97,14 +108,14 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
             case R.id.btn_join_class:
             case R.id.btn_join_class1:
                 if (!UserInfoHelper.isGotoLogin(getActivity()))
-                    startActivity(new Intent(getActivity(), GroupJoinActivityNew.class));
+                    startActivity(new Intent(getActivity(), GroupJoinActivity.class));
                 break;
         }
 
     }
 
     @Subscribe(
-            thread = EventThread.IO,
+            thread = EventThread.MAIN_THREAD,
             tags = {
                     @Tag(BusAction.GROUPLIST)
             }
@@ -123,7 +134,9 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         } else {
             llDataContainer.setVisibility(View.GONE);
             llEmptyContainer.setVisibility(View.VISIBLE);
+            hideLoading();
         }
+
     }
 
     @Override
@@ -135,4 +148,56 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         }
         getActivity().invalidateOptionsMenu();
     }
+
+    @Override
+    public void showLoading() {
+        sViewLoading.showLoading(contentView);
+    }
+
+    @Override
+    public void hideLoading() {
+        sViewLoading.hide();
+    }
+
+
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.CHANGE_NAME)
+            }
+    )
+    public void changeName(String result) {
+        mPresenter.loadData(true);
+    }
+
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.UNREAD_MESSAGE)
+            }
+    )
+    public void getMessage(Message message) {
+        LogUtils.e(TAG, message);
+        if (message.getContent() instanceof RichContentMessage) {
+            adapter.setMessage(message.getTargetId(), message.getReceivedStatus().isRead());
+        }
+
+        adapter.notifyDataSetChanged();
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.UNREAD_MESSAGE)
+            }
+    )
+    public void getMessage(String message) {
+        LogUtils.e(TAG, message);
+        adapter.setMessage(message, true);
+        adapter.notifyDataSetChanged();
+    }
+
+
 }

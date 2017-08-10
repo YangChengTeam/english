@@ -2,8 +2,10 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
+import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupResolvingContract;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
@@ -53,7 +55,7 @@ public class GroupResolvingPresenter extends BasePresenter<GroupResolvingEngine,
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        resolvingRongGroup(stringResultInfo.data.getMaster_id(), stringResultInfo.data.getClass_id());
+                        resolvingRongGroup(stringResultInfo.data);
                     }
                 });
             }
@@ -87,9 +89,37 @@ public class GroupResolvingPresenter extends BasePresenter<GroupResolvingEngine,
         mSubscriptions.add(subscription);
     }
 
+    @Override
+    public void changeGroupInfo(Context context, String class_id, String name, String face, String vali_type) {
+        mView.showLoadingDialog("正在修改");
+        Subscription subscription = EngineUtils.changeGroupInfo(context, class_id, name, face, vali_type).subscribe(new Subscriber<ResultInfo<RemoveGroupInfo>>() {
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
+            }
 
-    private void resolvingRongGroup(String userId, String groupId) {
-        ImUtils.removeGroup(userId, groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<CodeSuccessResult>() {
+            @Override
+            public void onError(Throwable e) {
+                mView.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onNext(final ResultInfo<RemoveGroupInfo> removeGroupInfoResultInfo) {
+                handleResultInfo(removeGroupInfoResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        RxBus.get().post(BusAction.GROUPLIST,"change face");
+                        mView.showChangeGroupInfo(removeGroupInfoResultInfo.data);
+                    }
+                });
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+
+    private void resolvingRongGroup(final RemoveGroupInfo removeGroupInfo) {
+        ImUtils.removeGroup(removeGroupInfo.getMaster_id(), removeGroupInfo.getClass_id()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<CodeSuccessResult>() {
             @Override
             public void call(CodeSuccessResult codeSuccessResult) {
                 if (codeSuccessResult.getCode() == 200) {
@@ -98,5 +128,6 @@ public class GroupResolvingPresenter extends BasePresenter<GroupResolvingEngine,
             }
         });
     }
+
 
 }

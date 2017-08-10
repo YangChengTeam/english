@@ -1,7 +1,8 @@
 package com.yc.english.group.utils;
 
+import com.yc.english.base.dao.StudentInfoDao;
 import com.yc.english.group.common.GroupApp;
-import com.yc.english.group.dao.StudentInfoDao;
+
 import com.yc.english.group.model.bean.StudentInfo;
 
 import java.util.List;

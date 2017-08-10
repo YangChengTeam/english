@@ -43,4 +43,11 @@ public class EnginHelper {
         }.getType(), params, true, true, true);
     }
 
+    public static Observable<ResultInfo<UserInfo>> getUserInfo(Context context, String userid) {
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", userid);
+        return HttpCoreEngin.get(context).rxpost(URLConfig.GET_USER_INFO_URL, new TypeReference<ResultInfo<UserInfo>>() {
+        }.getType(), params, true, true, true);
+    }
+
 }

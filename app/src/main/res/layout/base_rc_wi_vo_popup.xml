@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="186dp"
+        android:layout_height="186dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rc_bg_voice_popup"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/relativeLayout"
+        android:layout_alignStart="@+id/relativeLayout">
+
+        <ImageView
+            android:id="@+id/rc_audio_state_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="41dp"
+            android:layout_marginRight="41dp"
+            android:layout_marginTop="20dp" />
+        <ImageView
+            android:id="@+id/iv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/read_delete_book"
+            android:layout_alignParentRight="true"/>
+        <TextView
+            android:id="@+id/rc_audio_timer"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="41dp"
+            android:layout_marginRight="41dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="80sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/rc_audio_state_text"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="11dp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="186dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rc_bg_voice_popup"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/main"
+        android:layout_centerInParent="true"
+        android:id="@+id/relativeLayout">
+        <TextView
+            android:id="@+id/tv_ok"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:background="@drawable/base_tran_ripple_bg"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="完成"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+    </RelativeLayout>
+</RelativeLayout>

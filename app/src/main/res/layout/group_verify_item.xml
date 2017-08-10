@@ -18,10 +18,10 @@
 
             <ImageView
                 android:id="@+id/m_iv_join_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/group_distance_40"
+                android:layout_height="@dimen/group_distance_40"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/groupicon" />
+                android:src="@mipmap/default_big_avatar" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

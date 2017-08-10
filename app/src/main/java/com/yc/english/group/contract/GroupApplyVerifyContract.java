@@ -3,6 +3,9 @@ package com.yc.english.group.contract;
 import android.content.Context;
 
 import com.yc.english.base.presenter.IPresenter;
+import com.yc.english.base.view.ILoading;
+import com.yc.english.base.view.INoData;
+import com.yc.english.base.view.INoNet;
 import com.yc.english.base.view.IView;
 import com.yc.english.group.model.bean.StudentInfo;
 
@@ -13,7 +16,7 @@ import java.util.List;
  */
 
 public interface GroupApplyVerifyContract {
-    interface View extends IView {
+    interface View extends IView,ILoading,INoData,INoNet {
         void showVerifyList(List<StudentInfo> list);
         void showApplyResult(String data);
     }

@@ -15,4 +15,16 @@ public interface GroupConstant {
 
     String VERIFY_RESULT = "verify_result";
 
+    String SYNC_GROUP_RESULT = "sync_group_result";
+    /**
+     * 作业类型
+     * 0：纯文字，1：图片，2：语音，3：文档，4：综合
+     */
+
+    int TASK_TYPE_CHARACTER = 0;
+    int TASK_TYPE_PICTURE = 1;
+    int TASK_TYPE_VOICE = 2;
+    int TASK_TYPE_WORD = 3;
+    int TASK_TYPE_SYNTHESIZE = 4;
+
 }

@@ -16,7 +16,7 @@ public class ResultInfoHelper {
             return;
         }
 
-        if (resultInfo.code != HttpConfig.STATUS_OK) {
+        if (resultInfo.code != HttpConfig.STATUS_OK && resultInfo.data != null) {
             callback.resultInfoNotOk(getMessage(resultInfo.message, HttpConfig.SERVICE_ERROR));
         } else {
             callback.reulstInfoOk();

@@ -144,6 +144,19 @@ public final class OKHttpUtil {
         return requestBody;
     }
 
+    //< 获取RequestBody
+    public static RequestBody getRequestBody(byte[] data) {
+        RequestBody requestBody = RequestBody.create(HttpConfig.MEDIA_TYPE, data);
+        return requestBody;
+    }
+
+    //< 获取Request 0
+    public static Request getRequest(String url, byte[] data) {
+        Request.Builder builder = OKHttpUtil.getRequestBuilder(url);
+        Request request = builder.post(OKHttpUtil.getRequestBody(data)).build();
+        return request;
+    }
+
     //< 获取Request 1
     public static Request getRequest(String url, Map<String, String> params, Map<String, String> headers, boolean isrsa,
                                      boolean iszip, boolean isEncryptResponse) {
@@ -199,7 +212,7 @@ public final class OKHttpUtil {
     //< 不加密参数 正常请求正文
     public static Map<String, String> encodeParams(Map params, boolean isEncryptResponse) {
         if (params == null) {
-            params = new HashMap<String, String>();
+            params = new HashMap();
         }
         setDefaultParams(params, isEncryptResponse);
         return params;
@@ -221,6 +234,8 @@ public final class OKHttpUtil {
             params.putAll(defaultParams);
         }
     }
+
+
 
 
     public static void setDefaultParams(Map<String, String> params) {

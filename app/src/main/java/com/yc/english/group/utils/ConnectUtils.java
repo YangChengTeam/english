@@ -2,14 +2,19 @@ package com.yc.english.group.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.kk.utils.UIUitls;
+import com.yc.english.base.utils.RongIMUtil;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by wanglin  on 2017/8/1 20:22.
@@ -29,6 +34,7 @@ public class ConnectUtils {
      * @return RongIM  客户端核心类的实例。
      */
     public static void contact(final Context context, final String token) {
+        if(RongIMUtil.isConnect()) return;
 
         try {
             final String packageName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).packageName;//获取包对象信息;)
@@ -49,9 +55,12 @@ public class ConnectUtils {
                      * 连接融云成功
                      * @param userid 当前 token 对应的用户 id
                      */
+
+
                     @Override
                     public void onSuccess(String userid) {
                         SPUtils.getInstance().put(TOKEN, token);
+                        RongIMUtil.setUserInfo();
                         UIUitls.post(new Runnable() {
                             @Override
                             public void run() {
@@ -67,7 +76,6 @@ public class ConnectUtils {
                     @Override
                     public void onError(RongIMClient.ErrorCode errorCode) {
                         LogUtils.e(TAG, "onError: " + errorCode.getMessage());
-                        SPUtils.getInstance().put(TOKEN, "");
                     }
                 });
             }

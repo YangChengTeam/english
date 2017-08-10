@@ -28,7 +28,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/group_distance_55"
+            android:layout_height="@dimen/group_distance_60"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/group_distance_10"
             android:paddingRight="@dimen/group_distance_30">
@@ -37,7 +37,7 @@
                 android:id="@+id/iv_member_img"
                 android:layout_width="@dimen/group_distance_40"
                 android:layout_height="@dimen/group_distance_40"
-                android:src="@mipmap/portial" />
+                android:src="@mipmap/default_avatar" />
 
             <TextView
                 android:id="@+id/tv_member_name"

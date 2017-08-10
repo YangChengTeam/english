@@ -25,13 +25,4 @@ public class GroupMyGroupListEngine extends BaseEngin {
         super(context);
     }
 
-    public Observable<ResultInfo<ClassInfoList>> getMyGroupList(String user_id) {
-
-        Map<String, String> params = new HashMap<>();
-        params.put("user_id", user_id);
-
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.my_group_list, new TypeReference<ResultInfo<ClassInfoList>>() {
-        }.getType(), params, true, true, true);
-    }
-
 }

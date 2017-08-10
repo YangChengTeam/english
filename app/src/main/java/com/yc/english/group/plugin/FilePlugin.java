@@ -9,13 +9,13 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.yc.english.R;
-import com.yc.english.group.view.activitys.FileActivity;
 
 import java.util.HashSet;
 import java.util.Iterator;
 
 import io.rong.imkit.RongExtension;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.activity.FileListActivity;
 import io.rong.imkit.model.FileInfo;
 import io.rong.imkit.plugin.IPluginModule;
 import io.rong.imkit.utilities.PermissionCheckUtil;
@@ -53,7 +53,10 @@ public class FilePlugin implements IPluginModule {
         activity = fragment.getActivity();
         String[] permissions = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
         if (PermissionCheckUtil.requestPermissions(fragment, permissions)) {
-            Intent intent = new Intent(fragment.getActivity(), FileActivity.class);
+            Intent intent = new Intent(activity, FileListActivity.class);
+            intent.putExtra("rootDirType", 100);
+            intent.putExtra("fileFilterType", 5);
+            intent.putExtra("fileTraverseType", 201);
             rongExtension.startActivityForPluginResult(intent, 100, this);
         }
 
@@ -61,8 +64,8 @@ public class FilePlugin implements IPluginModule {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == 100 && resultCode == 700 && intent != null) {
-            HashSet selectedFileInfos = (HashSet) intent.getSerializableExtra("sendSelectedFiles");
+        if (requestCode == 100 && intent != null) {
+            HashSet selectedFileInfos = (HashSet) intent.getSerializableExtra("selectedFiles");
             Iterator var5 = selectedFileInfos.iterator();
 
             while (var5.hasNext()) {

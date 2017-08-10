@@ -1,6 +1,7 @@
 package com.yc.english.setting.view.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
@@ -8,20 +9,18 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.SnackbarUtils;
 import com.blankj.utilcode.util.StringUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.request.RequestOptions;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.ToolbarFragment;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.main.view.popupwindows.FollowWeiXinPopupWindow;
+import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
 import com.yc.english.setting.contract.MyContract;
 import com.yc.english.setting.presenter.MyPresenter;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
@@ -161,9 +160,8 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
     )
     @Override
     public void showUserInfo(UserInfo userInfo) {
-        RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(R.mipmap.default_big_avatar).transform(new CircleCrop());
-        Glide.with(this).load(userInfo.getAvatar()).apply(options).into(mAvatarImageView);
+        GlideHelper.circleBorderImageView(getActivity(), mAvatarImageView, userInfo.getAvatar(), R.mipmap
+                .default_avatar, 0.5f, Color.WHITE);
         if (!StringUtils.isEmpty(userInfo.getSchool())) {
             mSchoolTextView.setText(userInfo.getSchool());
         }

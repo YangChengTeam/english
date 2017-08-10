@@ -28,11 +28,16 @@ public interface GroupMyGroupListContract {
          * @param count
          */
         void showMemberList(List<StudentInfo> count);
+
+        void showLoading();
+
+        void hideLoading();
+
     }
 
     interface Presenter extends IPresenter {
 
-        void getMyGroupList(String user_id);
+        void getMyGroupList(Context context, String user_id, String is_admin);
 
         void getMemberList(Context context, String class_id, String status, String master_id);
     }

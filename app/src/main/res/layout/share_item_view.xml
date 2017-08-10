@@ -27,5 +27,6 @@
             android:text="微信"
             android:textColor="@color/black_333"
             android:textSize="@dimen/font_small"/>
+
     </LinearLayout>
 </FrameLayout>

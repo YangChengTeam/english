@@ -4,13 +4,15 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
+import me.yokeyword.indexablerv.IndexableEntity;
+
 /**
  * Created by wanglin  on 2017/8/2 20:39.
  * 学生信息
  */
 
 @Entity
-public class StudentInfo {
+public class StudentInfo implements IndexableEntity{
     @Id(autoincrement = true)
     private long sId;
     private String add_date;
@@ -24,11 +26,13 @@ public class StudentInfo {
     private String sn;//群号
     private String master_id;//
     private boolean isAudit;//是否审核，true表示已审核 false 表示未审核
+    private String face;
 
-    @Generated(hash = 2127821588)
-    public StudentInfo(long sId, String add_date, String add_time, String class_id, String id,
-            String nick_name, String user_id, String user_name, String class_name, String sn,
-            String master_id, boolean isAudit) {
+    @Generated(hash = 939309314)
+    public StudentInfo(long sId, String add_date, String add_time, String class_id,
+                       String id, String nick_name, String user_id, String user_name,
+                       String class_name, String sn, String master_id, boolean isAudit,
+                       String face) {
         this.sId = sId;
         this.add_date = add_date;
         this.add_time = add_time;
@@ -41,6 +45,7 @@ public class StudentInfo {
         this.sn = sn;
         this.master_id = master_id;
         this.isAudit = isAudit;
+        this.face = face;
     }
 
     @Generated(hash = 2016856731)
@@ -119,14 +124,6 @@ public class StudentInfo {
         this.class_name = class_name;
     }
 
-    public boolean getIsAudit() {
-        return this.isAudit;
-    }
-
-    public void setIsAudit(boolean isAudit) {
-        this.isAudit = isAudit;
-    }
-
     public String getSn() {
         return this.sn;
     }
@@ -143,5 +140,35 @@ public class StudentInfo {
         this.master_id = master_id;
     }
 
+    public boolean getIsAudit() {
+        return this.isAudit;
+    }
 
+    public void setIsAudit(boolean isAudit) {
+        this.isAudit = isAudit;
+    }
+
+    public String getFace() {
+        return this.face;
+    }
+
+    public void setFace(String face) {
+        this.face = face;
+    }
+
+
+    @Override
+    public String getFieldIndexBy() {
+        return nick_name;
+    }
+
+    @Override
+    public void setFieldIndexBy(String indexField) {
+            this.nick_name=indexField;
+    }
+
+    @Override
+    public void setFieldPinyinIndexBy(String pinyin) {
+
+    }
 }

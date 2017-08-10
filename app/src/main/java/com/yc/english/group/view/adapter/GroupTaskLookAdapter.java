@@ -23,7 +23,7 @@ public class GroupTaskLookAdapter extends BaseAdapter<TaskFinishedInfo> {
     @Override
     protected void convert(BaseViewHolder holder, int position) {
         TaskFinishedInfo info = mList.get(position);
-        holder.setImageBitmap(R.id.m_iv_picture, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.portial)));
+        holder.setImageBitmap(R.id.m_iv_picture, ImageUtils.toRound(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.default_avatar)));
         holder.setText(R.id.m_tv_task_finish_name, info.getName());
         if (info.getFinishedTime() != null) {
             holder.setText(R.id.m_tv_task_finish_time, info.getFinishedTime());

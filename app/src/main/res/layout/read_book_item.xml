@@ -48,7 +48,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
-        android:layout_marginRight="6dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="8dp"
         android:src="@mipmap/read_delete_book"
         android:visibility="invisible"/>
 </FrameLayout>

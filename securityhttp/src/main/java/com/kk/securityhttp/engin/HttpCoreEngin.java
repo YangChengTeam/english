@@ -43,6 +43,17 @@ public class HttpCoreEngin<T> extends BaseEngin<T> {
         return super.rxget(type, params, headers, isEncryptResponse);
     }
 
+    public T upload(String url, Type type, byte[] data, boolean isEncryptResponse) {
+        this.url = url;
+        return upload(type, data, isEncryptResponse);
+    }
+
+
+    public Observable<T> rxupload(String url, Type type, byte[] data, boolean isEncryptResponse) {
+        this.url = url;
+        return rxupload(type, data, isEncryptResponse);
+    }
+
 
     public Observable<T> rxpost(String url, Type type, Map params, boolean isrsa, boolean iszip, boolean
             isEncryptResponse) {
@@ -78,8 +89,8 @@ public class HttpCoreEngin<T> extends BaseEngin<T> {
     }
 
     //< 同步请求rxjava post json no header
-    public Observable<String> rxpost(String url,final String
-                                             json) {
+    public Observable<String> rxpost(String url, final String
+            json) {
         return rxpost(url, null, MediaType.parse("application/json; charset=utf-8"), json);
     }
 

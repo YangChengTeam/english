@@ -3,10 +3,15 @@ package com.yc.english.group.plugin;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
+import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
+import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.view.activitys.teacher.GroupIssueTaskActivity;
 
 import io.rong.imkit.RongExtension;
@@ -32,7 +37,6 @@ public class AssignTaskPlugin implements IPluginModule {
     private FragmentActivity activity;
 
 
-
     @Override
     public Drawable obtainDrawable(Context context) {
         return context.getResources().getDrawable(R.drawable.group_task_selector);
@@ -48,11 +52,12 @@ public class AssignTaskPlugin implements IPluginModule {
         //示例获取 会话类型、targetId、Context,此处可根据产品需求自定义逻辑，如:开启新的 Activity 等。
         conversationType = rongExtension.getConversationType();
         targetId = rongExtension.getTargetId();
+
         activity = fragment.getActivity();
         String[] permissions = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
         if (PermissionCheckUtil.requestPermissions(fragment, permissions)) {
             Intent intent = new Intent(fragment.getActivity(), GroupIssueTaskActivity.class);
-
+            intent.putExtra("targetId", targetId);
             rongExtension.startActivityForPluginResult(intent, 100, this);
         }
 
@@ -62,10 +67,11 @@ public class AssignTaskPlugin implements IPluginModule {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == 100 && resultCode == 700 && intent != null) {
-            String task = intent.getStringExtra("task");
 
-            //        Message message = Message.obtain(targetId, conversationType, TextMessage.obtain("示例插件功能"));
-            RichContentMessage customMessage = RichContentMessage.obtain("家庭作业", task, "");
+            TaskInfo taskInfo = intent.getParcelableExtra("task");
+
+            RichContentMessage customMessage = RichContentMessage.obtain("家庭作业", taskInfo.getDesp(), "");
+            customMessage.setExtra(JSONObject.toJSONString(taskInfo));
 //
             Message message = Message.obtain(targetId, conversationType, customMessage);
 //        Message message = Message.obtain("654321", conversationType, CustomMessage.obtain("家庭作业", "今天读一百个单词", ""));

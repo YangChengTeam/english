@@ -58,7 +58,7 @@ public class ImUtils {
                 try {
                     CodeSuccessResult codeSuccessResult = rongCloud.group.create(userIds, groupId, groupName);
                     if (codeSuccessResult.getCode() == 200) {
-                        GroupInfo groupInfo = new GroupInfo(groupId + "", groupName);
+                        GroupInfo groupInfo = new GroupInfo(groupId, groupName);
                         final GroupInfo[] groupSyncGroupInfo = {groupInfo};
                         return rongCloud.group.sync(userIds[0], groupSyncGroupInfo);
                     }

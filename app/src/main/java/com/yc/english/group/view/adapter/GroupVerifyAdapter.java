@@ -2,11 +2,13 @@ package com.yc.english.group.view.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.IFinish;
 import com.yc.english.group.listener.OnItemClickListener;
 import com.yc.english.group.model.bean.StudentInfo;
@@ -32,6 +34,7 @@ public class GroupVerifyAdapter extends BaseAdapter<StudentInfo> {
         final StudentInfo studentInfo = mList.get(position);
         holder.setText(R.id.m_tv_join_name, studentInfo.getNick_name());
         holder.setText(R.id.m_tv_join_class, String.format(mContext.getString(R.string.apply_join), studentInfo.getClass_name()));
+        GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.m_iv_join_img),studentInfo.getFace(),R.mipmap.default_big_avatar);
         if (position == mList.size() - 1) {
             holder.setVisible(R.id.view_divider, false);
         } else {

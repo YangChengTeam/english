@@ -13,93 +13,109 @@
         android:layout_alignParentTop="true">
     </com.yc.english.base.view.MainToolBar>
 
-    <LinearLayout
+    <com.yc.english.base.view.StateView
+        android:id="@+id/sv_loading"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/read_book_list_bg"
+        android:layout_height="match_parent">
+    </com.yc.english.base.view.StateView>
+
+    <LinearLayout
+        android:id="@+id/layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:layout_marginBottom="19dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="19dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/layout_grade_conver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true">
-
-                <ImageView
-                    android:id="@+id/iv_book_grade"
-                    android:layout_width="76dp"
-                    android:layout_height="109dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/read_book_test"/>
-            </LinearLayout>
+            android:layout_height="150dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/read_book_list_bg"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="21dp"
-                android:layout_toRightOf="@+id/layout_grade_conver"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginBottom="19dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="19dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_book_grade_name"
+                <LinearLayout
+                    android:id="@+id/layout_grade_conver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:textColor="@color/black_333"
-                    android:textSize="16sp"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true">
 
-                <TextView
-                    android:id="@+id/tv_book_press"
+                    <ImageView
+                        android:id="@+id/iv_book_grade"
+                        android:layout_width="76dp"
+                        android:layout_height="109dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/read_book_test"/>
+                </LinearLayout>
+
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_book_grade_name"
-                    android:layout_marginTop="10dp"
-                    android:text="人民教育出版社"
-                    android:textColor="@color/read_book_grade_version_color"
-                    android:textSize="14sp"/>
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="21dp"
+                    android:layout_toRightOf="@+id/layout_grade_conver"
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btn_book_unit_total"
-                    android:layout_width="42dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="@drawable/read_unit_total_line_btn"
-                    android:text="40句"
-                    android:textColor="@color/read_book_edit_color"/>
+                    <TextView
+                        android:id="@+id/tv_book_grade_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/black_333"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_book_press"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_book_grade_name"
+                        android:layout_marginTop="10dp"
+                        android:text="人民教育出版社"
+                        android:textColor="@color/read_book_grade_version_color"
+                        android:textSize="14sp"/>
+
+                    <Button
+                        android:id="@+id/btn_book_unit_total"
+                        android:layout_width="42dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/read_unit_total_line_btn"
+                        android:text="40句"
+                        android:textColor="@color/read_book_edit_color"/>
+                </RelativeLayout>
+
             </RelativeLayout>
+        </LinearLayout>
 
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/layout_book_unit_list"
-        android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:gravity="center">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_book_unit_list"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"
+            android:layout_above="@+id/layout_book_unit_list"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_book_unit_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
     </LinearLayout>
+
+
 </LinearLayout>

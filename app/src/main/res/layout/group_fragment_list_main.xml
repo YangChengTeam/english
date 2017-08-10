@@ -10,8 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <FrameLayout
+    <com.yc.english.base.view.StateView
+        android:id="@+id/sView_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
+    <FrameLayout
+        android:id="@+id/content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

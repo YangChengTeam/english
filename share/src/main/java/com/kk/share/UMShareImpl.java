@@ -25,32 +25,19 @@ public class UMShareImpl extends IShare {
 
     private static UMShareImpl instance;
 
-    public static UMShareImpl get(Builder builder) {
+    public static UMShareImpl get() {
         synchronized (UMShareImpl.class) {
             if (instance == null)
-                instance = new UMShareImpl(builder);
+                instance = new UMShareImpl();
         }
         return instance;
     }
 
-    public static UMShareImpl get() {
-        return get(null);
-    }
 
-    public UMShareImpl(Builder builder) {
-        instance = this;
-        if (builder == null) {
-            throw new NullPointerException("error, please build UMShareImpl.Builder in application!");
-        }
-        PlatformConfig.setWeixin(builder.getWxappid(), builder.getWxappsecert());
-        PlatformConfig.setQQZone(builder.getQqappid(), builder.getQqappsecert());
-        Config.DEBUG = builder.isDebug();
-        UMShareAPI.get(builder.getContext());
-    }
-
-    public void setCallback(Activity activity, UMShareListener umShareListener) {
+    public UMShareImpl setCallback(Activity activity, UMShareListener umShareListener) {
         this.mActivity = activity;
         this.umShareListener = umShareListener;
+        return this;
     }
 
 
@@ -59,32 +46,10 @@ public class UMShareImpl extends IShare {
         private String wxappsecert;
         private String qqappid;
         private String qqappsecert;
-        private Context context;
+        private String wbappid;
+        private String wbappsecert;
         private boolean debug;
 
-        public String getWxappid() {
-            return wxappid;
-        }
-
-        public String getWxappsecert() {
-            return wxappsecert;
-        }
-
-        public String getQqappid() {
-            return qqappid;
-        }
-
-        public String getQqappsecert() {
-            return qqappsecert;
-        }
-
-        public Context getContext() {
-            return context;
-        }
-
-        public boolean isDebug() {
-            return debug;
-        }
 
         public Builder setDebug(boolean debug) {
             this.debug = debug;
@@ -103,10 +68,20 @@ public class UMShareImpl extends IShare {
             return this;
         }
 
-        public UMShareImpl build(Context context) {
-            this.context = context;
-            return UMShareImpl.get(this);
+        public Builder setWeibo(String wbappid, String wbappsecert) {
+            this.wbappid = wbappid;
+            this.wbappsecert = wbappsecert;
+            return this;
         }
+
+        public void build(Context context) {
+            PlatformConfig.setWeixin(wxappid, wxappsecert);
+            PlatformConfig.setQQZone(qqappid, qqappsecert);
+            PlatformConfig.setSinaWeibo(wbappid, wbappsecert, "http://sns.whalecloud.com");
+            Config.DEBUG = debug;
+            UMShareAPI.get(context);
+        }
+
     }
 
     @Override

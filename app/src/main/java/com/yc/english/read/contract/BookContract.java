@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public interface BookContract {
     interface View extends IView, IDialog, IFinish {
-        void showBookListData(ArrayList<BookInfo> list);
+        void showBookListData(ArrayList<BookInfo> list,boolean isEdit);
 
         void addBook(BookInfo bookInfo);
 

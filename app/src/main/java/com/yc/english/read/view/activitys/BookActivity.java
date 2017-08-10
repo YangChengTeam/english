@@ -1,6 +1,7 @@
 package com.yc.english.read.view.activitys;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -97,7 +98,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
-                BookInfo bookInfo = (BookInfo) adapter.getData().get(position);
+                BookInfo bookInfo = (BookInfo) mItemAdapter.getData().get(position);
                 mPresenter.deleteBook(bookInfo);
                 return false;
             }
@@ -123,19 +124,28 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         mItemAdapter.notifyDataSetChanged();
         if (mItemAdapter.getEditState()) {
             mEditBooksButton.setText(getString(R.string.read_book_edit_done_text));
+            mEditBooksButton.setBackgroundResource(R.drawable.read_word_share_btn);
+            mEditBooksButton.setTextColor(ContextCompat.getColor(BookActivity.this, R.color.white));
         } else {
             mEditBooksButton.setText(getString(R.string.read_book_edit_text));
+            mEditBooksButton.setBackgroundResource(R.drawable.read_border_line_btn);
+            mEditBooksButton.setTextColor(ContextCompat.getColor(BookActivity.this, R.color.read_book_edit_color));
         }
     }
 
     @Override
-    public void showBookListData(ArrayList<BookInfo> bookInfos) {
+    public void showBookListData(ArrayList<BookInfo> bookInfos, boolean isEdit) {
         //TODO,数据处理待完成
         LogUtils.e("Add Book --->");
         if (bookInfos == null) {
             bookInfos = new ArrayList<BookInfo>();
         }
+        mItemAdapter.setEditState(isEdit);
         bookInfos.add(0, new BookInfo(BookInfo.CLICK_ITEM_VIEW));
+        /*if (bookInfos.size() == 1) {
+            mItemAdapter.setEditState(false);
+            editBooks();
+        }*/
         mItemAdapter.setNewData(bookInfos);
     }
 

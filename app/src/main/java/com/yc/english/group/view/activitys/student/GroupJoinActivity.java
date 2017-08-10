@@ -13,27 +13,33 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding.widget.RxSearchView;
+import com.jakewharton.rxbinding.widget.RxTextView;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.common.GroupApp;
-import com.yc.english.group.contract.GroupJoinContract;
-import com.yc.english.group.dao.ClassInfoDao;
+import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.model.bean.ClassInfo;
-import com.yc.english.group.presenter.GroupJoinPresenter;
+import com.yc.english.group.presenter.GroupApplyJoinPresenter;
+import com.yc.english.main.hepler.UserInfoHelper;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.rong.imkit.RongIM;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import rx.functions.Func1;
 
 /**
  * Created by wanglin  on 2017/7/25 08:30.
  */
 
-public class GroupJoinActivity extends FullScreenActivity<GroupJoinPresenter> implements GroupJoinContract.View {
+public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresenter> implements GroupApplyJoinContract.View {
     private static final String TAG = "GroupJoinActivity";
     @BindView(R.id.et_class_group)
     EditText etClassGroup;
@@ -50,37 +56,23 @@ public class GroupJoinActivity extends FullScreenActivity<GroupJoinPresenter> im
     ImageView roundView;
     @BindView(R.id.m_tv_tint)
     TextView mTvTint;
-
-    private ClassInfoDao infoDao = GroupApp.getmDaoSession().getClassInfoDao();
+    private String className;
+    private String vali_type;
 
     @Override
     public void init() {
-        mPresenter = new GroupJoinPresenter(this, this);
+        mPresenter = new GroupApplyJoinPresenter(this, this);
         mToolbar.showNavigationIcon();
         mToolbar.setTitle(getString(R.string.group_join_class));
 
-        roundView.setImageBitmap(ImageUtils.toRound(BitmapFactory.decodeResource(getResources(), R.mipmap.portial)));
-        initListener();
-    }
-
-    private void initListener() {
-        etClassGroup.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                showOrHideView(s);
-            }
-        });
-
+        RxTextView.textChanges(etClassGroup)
+                .debounce(1, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<CharSequence>() {
+                    @Override
+                    public void call(CharSequence charSequence) {
+                        showOrHideView(charSequence.toString());
+                    }
+                });
     }
 
     @Override
@@ -93,7 +85,18 @@ public class GroupJoinActivity extends FullScreenActivity<GroupJoinPresenter> im
         switch (view.getId()) {
             case R.id.btn_join:
                 String groupId = etClassGroup.getText().toString();
-                mPresenter.joinGroup(groupId + "", tvClassName.getText().toString());
+                String uid = UserInfoHelper.getUserInfo().getUid();
+
+                int valiType = Integer.parseInt(vali_type);
+
+                if (GroupConstant.CONDITION_ALL_FORBID == valiType) {//禁止所有人加入
+                    ToastUtils.showShort(getString(R.string.forbid_join));
+                } else {
+                    mPresenter.applyJoinGroup(uid, groupId);
+                }
+
+
+//                mPresenter.joinGroup(groupId + "", tvClassName.getText().toString());
                 break;
             case R.id.ib_delete:
                 etClassGroup.setText("");
@@ -103,55 +106,49 @@ public class GroupJoinActivity extends FullScreenActivity<GroupJoinPresenter> im
     }
 
 
-    public void showOrHideView(Editable s) {
+    public void showOrHideView(String s) {
         if (!TextUtils.isEmpty(s.toString())) {
             ibDelete.setVisibility(View.VISIBLE);
-            llClassName.setVisibility(View.VISIBLE);
-            btnJoin.setVisibility(View.VISIBLE);
-//            getGroup(Integer.parseInt(s.toString()));
+            mPresenter.queryGroupById(this, "", s.toString());
         } else {
             ibDelete.setVisibility(View.GONE);
             llClassName.setVisibility(View.GONE);
             btnJoin.setVisibility(View.GONE);
-//            mTvTint.setVisibility(View.GONE);
+            mTvTint.setVisibility(View.GONE);
         }
-
-
     }
 
     /**
      * 根据群号查询班群
      *
-     * @param groupId
+     * @param
      */
+    @Override
+    public void showGroup(ClassInfo classInfo) {
+        if (classInfo != null) {
 
-    public void getGroup(final int groupId) {
-
-        Observable.just(groupId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Integer>() {
-            @Override
-            public void call(Integer integer) {
-                ClassInfo classInfo = infoDao.queryBuilder().where(ClassInfoDao.Properties.GroupId.eq(integer)).unique();
-                if (classInfo != null) {
-
-                    tvClassName.setText(classInfo.getClassName());
-                    llClassName.setVisibility(View.VISIBLE);
-                    btnJoin.setVisibility(View.VISIBLE);
-                    mTvTint.setVisibility(View.GONE);
-                } else {
-                    mTvTint.setVisibility(View.VISIBLE);
-                    llClassName.setVisibility(View.GONE);
-                }
-
-            }
-
-        });
+            vali_type = classInfo.getVali_type();
+            className = classInfo.getClassName();
+            tvClassName.setText(className);
+            llClassName.setVisibility(View.VISIBLE);
+            btnJoin.setVisibility(View.VISIBLE);
+            mTvTint.setVisibility(View.GONE);
+            GlideHelper.circleImageView(this,roundView,classInfo.getImageUrl(),R.mipmap.default_avatar);
+        } else {
+            mTvTint.setVisibility(View.VISIBLE);
+            llClassName.setVisibility(View.GONE);
+            btnJoin.setVisibility(View.GONE);
+        }
     }
 
-
     @Override
-    public void startGroupChat(String groupId, String groupName) {
-        GroupApp.setMyExtensionModule(false);
-        RongIM.getInstance().startGroupChat(this, groupId, groupName);
+    public void apply(int type) {
+        if (type == GroupConstant.CONDITION_ALL_ALLOW) {
+            ToastUtils.showShort(getString(R.string.congratulation_join_group));
+
+        } else if (type == GroupConstant.CONDITION_VERIFY_JOIN) {
+            ToastUtils.showShort(getString(R.string.commit_apply_join));
+        }
         finish();
     }
 }

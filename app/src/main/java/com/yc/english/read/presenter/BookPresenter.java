@@ -42,7 +42,7 @@ public class BookPresenter extends BasePresenter<BookEngin, BookContract.View> i
                 UIUitls.post(new Runnable() {
                     @Override
                     public void run() {
-                        mView.showBookListData(bookInfos);
+                        mView.showBookListData(bookInfos,false);
                     }
                 });
             }
@@ -70,7 +70,7 @@ public class BookPresenter extends BasePresenter<BookEngin, BookContract.View> i
                 UIUitls.post(new Runnable() {
                     @Override
                     public void run() {
-                        mView.showBookListData(bookInfos);
+                        mView.showBookListData(bookInfos,false);
                     }
                 });
             }
@@ -96,7 +96,7 @@ public class BookPresenter extends BasePresenter<BookEngin, BookContract.View> i
                 UIUitls.post(new Runnable() {
                     @Override
                     public void run() {
-                        mView.showBookListData(bookInfos);
+                        mView.showBookListData(bookInfos,true);
                     }
                 });
             }

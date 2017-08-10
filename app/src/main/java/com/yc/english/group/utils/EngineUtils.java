@@ -8,15 +8,21 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
+import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
+import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
+import com.yc.english.group.model.bean.TaskInfoWrapper;
+import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.GroupUser;
 import com.yc.english.group.rong.models.GroupUserQueryResult;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +63,23 @@ public class EngineUtils {
 
     }
 
+    /**
+     * 获取我的班群列表
+     *
+     * @param context
+     * @param user_id
+     * @param is_admin 1为管理员，0为所有
+     * @return
+     */
+    public static Observable<ResultInfo<ClassInfoList>> getMyGroupList(Context context, String user_id, String is_admin) {
+
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", user_id);
+        params.put("is_admin", is_admin);
+
+        return HttpCoreEngin.get(context).rxpost(NetConstan.my_group_list, new TypeReference<ResultInfo<ClassInfoList>>() {
+        }.getType(), params, true, true, true);
+    }
 
     /**
      * 根据群号查找群
@@ -115,5 +138,68 @@ public class EngineUtils {
 
     }
 
+    /**
+     * @param class_id  班级ID 必传
+     * @param name      班级名称 修改班群名称时传该字段
+     * @param face      班群图像 修改班群图像时传该字段
+     * @param vali_type 验证类型，0：不验证加入，1：验证加入，2：拒绝加入
+     * @return
+     */
+    public static Observable<ResultInfo<RemoveGroupInfo>> changeGroupInfo(Context context, String class_id, String name, String face, String vali_type) {
+        Map<String, String> params = new HashMap<>();
+        params.put("id", class_id);
+        if (!TextUtils.isEmpty(name))
+            params.put("name", name);
+        if (!TextUtils.isEmpty(face))
+            params.put("face", face);
+        if (!TextUtils.isEmpty(vali_type))
+            params.put("vali_type", vali_type);
+
+        return HttpCoreEngin.get(context).rxpost(NetConstan.change_group_info, new TypeReference<ResultInfo<RemoveGroupInfo>>() {
+        }.getType(), params, false, true, true);
+
+    }
+
+    /**
+     * 布置作业详情
+     *
+     * @param task_id
+     * @param class_id
+     * @param user_id
+     * @return
+     */
+
+    public static Observable<ResultInfo<TaskInfoWrapper>> getPublishTaskDetail(Context context, String task_id, String class_id, String user_id) {
+        Map<String, String> params = new HashMap<>();
+        params.put("task_id", task_id);
+        if (!TextUtils.isEmpty(class_id))
+            params.put("class_id", class_id);
+        if (!TextUtils.isEmpty(user_id))
+            params.put("user_id", user_id);
+        return HttpCoreEngin.get(context).rxpost(NetConstan.detail_publish_task, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
+        }.getType(), params, true, true, true);
+
+
+    }
+
+
+    /**
+     * 上传图片，音频，文档
+     * @param context
+     * @param file
+     * @param fileName
+     * @param name
+     * @return
+     */
+    public static Observable<ResultInfo<TaskUploadInfo>> uploadFile(Context context, File file, String fileName, String name) {
+        UpFileInfo upFileInfo = new UpFileInfo();
+        upFileInfo.filename = fileName;
+        upFileInfo.file = file;
+        upFileInfo.name = "file";
+
+        return HttpCoreEngin.get(context).rxuploadFile(NetConstan.upload_richFile, new TypeReference<ResultInfo<TaskUploadInfo>>() {
+        }.getType(), upFileInfo, null, true);
+
+    }
 
 }

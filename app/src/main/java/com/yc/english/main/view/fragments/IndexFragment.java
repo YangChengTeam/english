@@ -2,21 +2,29 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
-
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.request.RequestOptions;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.share.UMShareImpl;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.english.R;
+import com.yc.english.base.helper.AudioRecordManager;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SharePopupWindow;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.view.activitys.GroupListJoinActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
@@ -30,6 +38,7 @@ import com.yc.english.read.view.activitys.BookActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -41,6 +50,11 @@ import rx.functions.Action1;
  */
 
 public class IndexFragment extends BaseFragment<IndexPresenter> implements IndexContract.View {
+    @BindView(R.id.sv_content)
+    ScrollView mContextScrollView;
+
+    @BindView(R.id.sv_loading)
+    StateView mLoadingStateView;
 
     @BindView(R.id.tv_student_number)
     TextView mStudentNumberTextView;
@@ -123,7 +137,34 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mShareLinearLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+
                 SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
+                sharePopupWindow.setOnShareItemClickListener(new SharePopupWindow.OnShareItemClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        UMShareImpl.get().setCallback(getActivity(), new UMShareListener(){
+                            @Override
+                            public void onStart(SHARE_MEDIA share_media) {
+
+                            }
+
+                            @Override
+                            public void onResult(SHARE_MEDIA share_media) {
+
+                            }
+
+                            @Override
+                            public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+                            }
+
+                            @Override
+                            public void onCancel(SHARE_MEDIA share_media) {
+
+                            }
+                        }).shareImage("11", R.mipmap.default_avatar, SHARE_MEDIA.WEIXIN);
+                    }
+                });
                 sharePopupWindow.show(mRootView);
             }
         });
@@ -155,6 +196,16 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     }
 
     @Override
+    public void showLoading() {
+        mLoadingStateView.showLoading(mContextScrollView);
+    }
+
+    @Override
+    public void hideStateView() {
+        mLoadingStateView.hide();
+    }
+
+    @Override
     public void showBanner(List<String> images) {
         mBanner.isAutoPlay(true)
                 .setDelayTime(1500)
@@ -170,11 +221,20 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                     @Tag(Constant.USER_INFO)
             }
     )
-
     @Override
     public void showAvatar(UserInfo userInfo) {
-        RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(R.mipmap.default_avatar).transform(new CircleCrop());
-        Glide.with(this).load(userInfo.getAvatar()).apply(options).into(mAvatarImageView);
+        GlideHelper.circleBorderImageView(getActivity(), mAvatarImageView, userInfo.getAvatar(), R.mipmap
+                .default_avatar, 0.5f, Color.parseColor("#dbdbe0"));
     }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.NO_LOGIN)
+            }
+    )
+    public void showNoLogin(Boolean flag) {
+        mAvatarImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.default_big_avatar));
+    }
+
 }
