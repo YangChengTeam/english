@@ -102,12 +102,12 @@ public class RongIMUtil {
                                                                                                   ResultInfoHelper.handleResultInfo(classInfoWarpperResultInfo, new ResultInfoHelper.Callback() {
                                                                                                       @Override
                                                                                                       public void resultInfoEmpty(String message) {
-                                                                                                          reJoinUser(context, rmessage);
+
                                                                                                       }
 
                                                                                                       @Override
                                                                                                       public void resultInfoNotOk(String message) {
-                                                                                                          reJoinUser(context, rmessage);
+
                                                                                                       }
 
                                                                                                       @Override
