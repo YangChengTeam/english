@@ -30,7 +30,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         if (!forceUpdate) return;
 
         mView.showLoading();
-        UIUitls.postDelayed(10000, new Runnable() {
+        UIUitls.postDelayed(1000, new Runnable() {
             @Override
             public void run() {
                 loadData();

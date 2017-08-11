@@ -1,5 +1,6 @@
 package com.yc.english.main.view.activitys;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -7,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.umeng.socialize.UMShareAPI;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseToolBar;
@@ -144,5 +146,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             }
         }
         return result;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 }

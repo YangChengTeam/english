@@ -96,28 +96,28 @@ public class UMShareImpl extends IShare {
     public void shareImage(String content, String url, SHARE_MEDIA shareMedia) {
         UMImage image = createImage(url);
         new ShareAction(mActivity).setPlatform(shareMedia).withText(content)
-                .withMedia(image).share();
+                .withMedia(image).setCallback(umShareListener).share();
     }
 
     @Override
     public void shareImage(String content, Drawable drawable, SHARE_MEDIA shareMedia) {
         UMImage image = createImage(drawable);
         new ShareAction(mActivity).setPlatform(shareMedia).withText(content)
-                .withMedia(image).share();
+                .withMedia(image).setCallback(umShareListener).share();
     }
 
     @Override
     public void shareImage(String content, Bitmap bitmap, SHARE_MEDIA shareMedia) {
         UMImage image = createImage(bitmap);
         new ShareAction(mActivity).setPlatform(shareMedia).withText(content)
-                .withMedia(image).share();
+                .withMedia(image).setCallback(umShareListener).share();
     }
 
     @Override
     public void shareImage(String content, int drawableId, SHARE_MEDIA shareMedia) {
         UMImage image = createImage(drawableId);
         new ShareAction(mActivity).setPlatform(shareMedia).withText(content)
-                .withMedia(image).share();
+                .withMedia(image).setCallback(umShareListener).share();
     }
 
     @Override
@@ -150,7 +150,7 @@ public class UMShareImpl extends IShare {
         web.setThumb(image);  //缩略图
         web.setDescription(desc);//描述
         new ShareAction(mActivity).setPlatform(shareMedia)
-                .withMedia(web)
+                .withMedia(web).setCallback(umShareListener)
                 .share();
     }
 
