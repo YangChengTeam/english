@@ -35,8 +35,8 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
 
     @Override
     protected void convert(final BaseViewHolder helper, final EnglishCourseInfo item) {
-        helper.setText(R.id.tv_chinese_title, item.getSubtitlecn())
-                .setText(R.id.tv_english_title, item.getSubtitle())
+        helper.setText(R.id.tv_chinese_title, item.getMeans())
+                .setText(R.id.tv_english_title, item.getTitle())
                 .addOnClickListener(R.id.layout_play);
         if(item.isPlay()){
             Glide.with(mContext).load(R.mipmap.read_audio_gif_play).into((ImageView) helper.getView(R.id.iv_audio_gif_play));

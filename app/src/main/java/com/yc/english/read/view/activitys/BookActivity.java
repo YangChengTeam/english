@@ -142,10 +142,10 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         }
         mItemAdapter.setEditState(isEdit);
         bookInfos.add(0, new BookInfo(BookInfo.CLICK_ITEM_VIEW));
-        /*if (bookInfos.size() == 1) {
-            mItemAdapter.setEditState(false);
+        if (bookInfos.size() == 1) {
+            mItemAdapter.setEditState(true);
             editBooks();
-        }*/
+        }
         mItemAdapter.setNewData(bookInfos);
     }
 

@@ -30,7 +30,7 @@ public class CoursePlayEngin extends BaseEngin {
         Map<String, String> params = new HashMap<>();
         params.put("current_page", currentPage + "");
         params.put("page_count", pageCount + "");
-        params.put("unitId", unitId);
+        params.put("unit_id", unitId);
         return HttpCoreEngin.get(context).rxpost(URLConfig.SENTENCE_LIST_URL, new TypeReference<ResultInfo<EnglishCourseInfoList>>() {
                 }.getType(), params,
                 true, true,

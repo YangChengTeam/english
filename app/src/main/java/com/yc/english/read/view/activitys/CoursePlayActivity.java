@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.iflytek.cloud.ErrorCode;
@@ -51,6 +52,12 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     @BindView(R.id.tv_language)
     TextView mLanguageTextView;
 
+    @BindView(R.id.iv_next_unit)
+    ImageView mNextUnitImageView;
+
+    @BindView(R.id.iv_language_change)
+    ImageView mLanguageChangeImageView;
+
     ReadCourseItemClickAdapter mItemAdapter;
 
     private int playPosition;
@@ -72,6 +79,14 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private String unitId;
 
+    private String unitTitle;
+
+    private String lastUnitIds;
+
+    private String[] nextUnitIds;
+
+    private int currentPosition;
+
     @Override
     public int getLayoutId() {
         return R.layout.read_activity_course_play;
@@ -83,14 +98,20 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             unitId = bundle.getString("unit_id");
+            unitTitle = bundle.getString("unit_title");
+            lastUnitIds = bundle.getString("last_unit_ids");
+
+            if (!StringUtils.isEmpty(lastUnitIds)) {
+                nextUnitIds = lastUnitIds.split(",");
+            }
         }
 
         SpeechUtil.initSpeech(CoursePlayActivity.this, 28, 50, 50, 1);
         mTts = SpeechUtil.getmTts();
 
-        mPresenter = new CoursePlayPresenter(this,this);
+        mPresenter = new CoursePlayPresenter(this, this);
 
-        mToolbar.setTitle("Unit 1 Hello");
+        mToolbar.setTitle(unitTitle != null ? unitTitle : "");
         mToolbar.showNavigationIcon();
         mToolbar.setTitleColor(ContextCompat.getColor(this, R.color.black_333));
 
@@ -105,6 +126,20 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             @Override
             public void call(Integer position) {
                 startSynthesizer(position);
+            }
+        });
+
+        //下一单元
+        RxView.clicks(mNextUnitImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                if (nextUnitIds != null && currentPosition < nextUnitIds.length) {
+                    unitId = nextUnitIds[currentPosition];
+                    currentPosition++;
+                    mPresenter.getCourseListByUnitId(0, 0, unitId);
+                } else {
+                    TipsHelper.tips(CoursePlayActivity.this, "已经是最后一个单元");
+                }
             }
         });
 
@@ -125,7 +160,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
 
         //语言切换
-        RxView.clicks(mLanguageTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mLanguageChangeImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 languageType++;
@@ -167,7 +202,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             }
         });
 
-        mPresenter.getCourseListByUnitId(0,0,unitId);
+        mPresenter.getCourseListByUnitId(0, 0, unitId);
 
     }
 
@@ -178,7 +213,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
      */
     public void startSynthesizer(int postion) {
         mCoursePlayImageView.setBackgroundResource(R.drawable.read_playing_course_btn_selector);
-        String text = mItemAdapter.getData().get(postion).getSubtitle();
+        String text = mItemAdapter.getData().get(postion).getTitle();
         int code = mTts.startSpeaking(text, mTtsListener);
         if (code != ErrorCode.SUCCESS) {
             if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
@@ -244,7 +279,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 playPosition++;
                 if (isCountinue) {
                     try {
-                        Thread.sleep(800);
+                        Thread.sleep(300);
                         mTsSubject.onNext(playPosition);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -281,14 +316,16 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         resetPlay();
         mItemAdapter.getData().get(postion).setPlay(true);
         View view = linearLayoutManager.findViewByPosition(postion);
-        ImageView mReadPlayIv = (ImageView) view.findViewById(R.id.iv_audio_gif_play);
-        TextView mChineseTv = (TextView) view.findViewById(R.id.tv_chinese_title);
-        TextView mEnglishTv = (TextView) view.findViewById(R.id.tv_english_title);
+        if (view != null) {
+            ImageView mReadPlayIv = (ImageView) view.findViewById(R.id.iv_audio_gif_play);
+            TextView mChineseTv = (TextView) view.findViewById(R.id.tv_chinese_title);
+            TextView mEnglishTv = (TextView) view.findViewById(R.id.tv_english_title);
 
-        mReadPlayIv.setVisibility(View.VISIBLE);
-        Glide.with(CoursePlayActivity.this).load(R.mipmap.read_audio_gif_play).into(mReadPlayIv);
-        mChineseTv.setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.black_333));
-        mEnglishTv.setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.black_333));
+            mReadPlayIv.setVisibility(View.VISIBLE);
+            Glide.with(CoursePlayActivity.this).load(R.mipmap.read_audio_gif_play).into(mReadPlayIv);
+            mChineseTv.setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.black_333));
+            mEnglishTv.setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.black_333));
+        }
     }
 
     public void hideItemView(int postion) {
@@ -296,9 +333,11 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             return;
         }
         View view = linearLayoutManager.findViewByPosition(postion);
-        view.findViewById(R.id.iv_audio_gif_play).setVisibility(View.GONE);
-        ((TextView) view.findViewById(R.id.tv_chinese_title)).setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.gray_999));
-        ((TextView) view.findViewById(R.id.tv_english_title)).setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.gray_999));
+        if (view != null) {
+            view.findViewById(R.id.iv_audio_gif_play).setVisibility(View.GONE);
+            ((TextView) view.findViewById(R.id.tv_chinese_title)).setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.gray_999));
+            ((TextView) view.findViewById(R.id.tv_english_title)).setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.gray_999));
+        }
     }
 
     @Override

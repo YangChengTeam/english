@@ -12,9 +12,10 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.read.contract.BookUnitContract;
@@ -88,13 +89,34 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtils.e("position --->" + position);
-                Intent intent = new Intent(BookUnitActivity.this, CoursePlayActivity.class);
-                intent.putExtra("unit_id", ((UnitInfo) mItemAdapter.getData().get(position)).getId());
-                startActivity(intent);
+
+                if (mItemAdapter.getData() != null && mItemAdapter.getData().get(position) != null) {
+                    Intent intent = new Intent(BookUnitActivity.this, CoursePlayActivity.class);
+                    intent.putExtra("unit_id", ((UnitInfo) mItemAdapter.getData().get(position)).getId());
+                    intent.putExtra("unit_title", ((UnitInfo) mItemAdapter.getData().get(position)).getName());
+                    intent.putExtra("last_unit_ids", getLastUnitIds(position));
+                    startActivity(intent);
+                } else {
+                    TipsHelper.tips(BookUnitActivity.this, "教材数据异常，请稍后重试");
+                }
             }
         });
 
         mPresenter.getBookInfoById(bookId);
+    }
+
+    public String getLastUnitIds(int position) {
+        int pos = position + 1;
+        if (mItemAdapter.getData() != null && pos < mItemAdapter.getData().size()) {
+            StringBuffer lastUnitIds = new StringBuffer("");
+            for (int i = pos; i < mItemAdapter.getData().size(); i++) {
+                lastUnitIds.append(((UnitInfo) mItemAdapter.getData().get(i)).getId()).append(",");
+            }
+            if (!lastUnitIds.equals("")) {
+                return lastUnitIds.toString();
+            }
+        }
+        return null;
     }
 
     @Override
@@ -137,7 +159,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
     @Override
     public void showBookInfo(BookInfo bookInfo) {
         if (bookInfo != null) {
-            Glide.with(BookUnitActivity.this).load(bookInfo.getCoverImg()).into(mBookGradeImageView);
+            GlideHelper.imageView(BookUnitActivity.this, mBookGradeImageView, bookInfo.getCoverImg(), R.mipmap.default_book);
             mBookGradeNameTextView.setText(bookInfo.getName());
             mBookPressTextView.setText(bookInfo.getPress());
             mBookUnitTotalButton.setText(bookInfo.getSentenceCount() + getString(R.string.read_sentence_text));

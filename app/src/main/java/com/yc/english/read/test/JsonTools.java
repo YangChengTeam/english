@@ -51,8 +51,8 @@ public class JsonTools {
                 if (i % 2 == 0) {
                     EnglishCourseInfo tempSeries = listSeries.get(i);
                     EnglishCourseInfo englishCourse = new EnglishCourseInfo(EnglishCourseInfo.CLICK_ITEM_VIEW);
-                    englishCourse.setSubtitlecn(tempSeries.getSubtitlecn());
-                    englishCourse.setSubtitle(tempSeries.getSubtitle());
+                    englishCourse.setMeans(tempSeries.getMeans());
+                    englishCourse.setTitle(tempSeries.getTitle());
                     resultList.add(englishCourse);
                 }
             }

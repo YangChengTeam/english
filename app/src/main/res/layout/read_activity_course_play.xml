@@ -18,7 +18,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="90dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="130dp"
             android:gravity="center">
 
             <android.support.v7.widget.RecyclerView
@@ -72,6 +72,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/iv_next_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/read_next_course_btn_selector"/>
@@ -101,10 +102,10 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/iv_language_change"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/read_language_change_btn_selector"/>
-
                 </LinearLayout>
 
             </LinearLayout>
