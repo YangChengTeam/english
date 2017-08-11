@@ -112,7 +112,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
             intent.putExtra("book_id", ((BookInfo) mItemAdapter.getData().get(position)).getBookId());
             startActivity(intent);
         } else {
-            TipsHelper.tips(BookActivity.this, "数据错误，请稍后重试");
+            TipsHelper.tips(BookActivity.this, "数据异常，请稍后重试");
         }
     }
 
