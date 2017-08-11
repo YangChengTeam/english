@@ -152,6 +152,7 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
                         Intent intent = new Intent(AddBookActivity.this, BookUnitActivity.class);
                         intent.putExtra("book_id", bookId);
                         startActivity(intent);
+                        AddBookActivity.this.finish();
                     }
 
                 }
