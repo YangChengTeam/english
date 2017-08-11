@@ -19,7 +19,7 @@ public class TipsHelper {
     public static void tips(Context context, String msg, TipsType tipsType) {
         if (tipsType == TipsType.SNAKE) {
             if(context instanceof  Activity) {
-                SnackbarUtils.with(((Activity) context).getWindow().getDecorView()).setMessage(msg).show();
+                SnackbarUtils.with(((Activity) context).findViewById(android.R.id.content)).setMessage(msg).show();
             }
             return;
         }

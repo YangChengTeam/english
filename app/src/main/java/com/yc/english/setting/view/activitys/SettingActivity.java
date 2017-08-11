@@ -3,6 +3,7 @@ package com.yc.english.setting.view.activitys;
 import android.view.View;
 import android.widget.Button;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.SnackbarUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
@@ -13,6 +14,7 @@ import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
+import com.yc.english.group.utils.ConnectUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.setting.contract.SettingContract;
@@ -50,7 +52,7 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
             @Override
             public void call(Void aVoid) {
                 if(GlideCatchHelper.getInstance(SettingActivity.this).cleanCatchDisk()) {
-                    SnackbarUtils.with(getWindow().getDecorView()).setMessage("清除缓存成功").show();
+                    TipsHelper.tips(SettingActivity.this, "清除缓存成功");
                     mCacheSettingItemView.setInfo("0.0Byte");
                 }
             }
@@ -71,6 +73,7 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
                 TipsHelper.tips(SettingActivity.this, "成功退出");
                 RxBus.get().post(Constant.NO_LOGIN, true);
                 RxBus.get().post(BusAction.GROUPLIST, "from logout");
+                SPUtils.getInstance().put(ConnectUtils.TOKEN, "");
                 RongIMUtil.disconnect();
             }
         });

@@ -161,7 +161,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                             public void onCancel(SHARE_MEDIA share_media) {
 
                             }
-                        }).shareImage("11", R.mipmap.default_avatar, SHARE_MEDIA.WEIXIN);
+                        }).shareUrl("22", "http://www.baiduc.com","11", R.mipmap.default_avatar, SHARE_MEDIA.WEIXIN);
                     }
                 });
                 sharePopupWindow.show(mRootView);
