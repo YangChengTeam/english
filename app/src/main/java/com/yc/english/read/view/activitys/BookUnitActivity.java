@@ -95,6 +95,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                     intent.putExtra("unit_id", ((UnitInfo) mItemAdapter.getData().get(position)).getId());
                     intent.putExtra("unit_title", ((UnitInfo) mItemAdapter.getData().get(position)).getName());
                     intent.putExtra("last_unit_ids", getLastUnitIds(position));
+                    intent.putExtra("last_unit_titles", getLastUnitTitles(position));
                     startActivity(intent);
                 } else {
                     TipsHelper.tips(BookUnitActivity.this, "教材数据异常，请稍后重试");
@@ -114,6 +115,20 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
             }
             if (!lastUnitIds.equals("")) {
                 return lastUnitIds.toString();
+            }
+        }
+        return null;
+    }
+
+    public String getLastUnitTitles(int position) {
+        int pos = position + 1;
+        if (mItemAdapter.getData() != null && pos < mItemAdapter.getData().size()) {
+            StringBuffer lastUnitTitles = new StringBuffer("");
+            for (int i = pos; i < mItemAdapter.getData().size(); i++) {
+                lastUnitTitles.append(((UnitInfo) mItemAdapter.getData().get(i)).getName()).append("#");
+            }
+            if (!lastUnitTitles.equals("")) {
+                return lastUnitTitles.toString();
             }
         }
         return null;

@@ -85,6 +85,10 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private String[] nextUnitIds;
 
+    private String lastUnitTitles;
+
+    private String[] nextUnitTitles;
+
     private int currentPosition;
 
     @Override
@@ -100,9 +104,12 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             unitId = bundle.getString("unit_id");
             unitTitle = bundle.getString("unit_title");
             lastUnitIds = bundle.getString("last_unit_ids");
-
+            lastUnitTitles = bundle.getString("last_unit_titles");
             if (!StringUtils.isEmpty(lastUnitIds)) {
                 nextUnitIds = lastUnitIds.split(",");
+            }
+            if (!StringUtils.isEmpty(lastUnitTitles)) {
+                nextUnitTitles = lastUnitTitles.split("#");
             }
         }
 
@@ -134,6 +141,9 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             @Override
             public void call(Void aVoid) {
                 if (nextUnitIds != null && currentPosition < nextUnitIds.length) {
+                    if(nextUnitTitles != null && currentPosition < nextUnitTitles.length){
+                        mToolbar.setTitle(nextUnitTitles[currentPosition]);
+                    }
                     unitId = nextUnitIds[currentPosition];
                     currentPosition++;
                     mPresenter.getCourseListByUnitId(0, 0, unitId);
