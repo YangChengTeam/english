@@ -7,7 +7,11 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.share.UMShareImpl;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +48,11 @@ public class SharePopupWindow extends BasePopupWindow {
     TextView mCancelTextView;
 
 
+    private LoadingDialog loadingDialog;
+
     public SharePopupWindow(Activity context) {
         super(context);
+        loadingDialog = new LoadingDialog(context);
     }
 
     @Override
@@ -60,12 +67,13 @@ public class SharePopupWindow extends BasePopupWindow {
         });
 
         List<ShareItemView> shareItemViews = new ArrayList<>();
-        shareItemViews.add(mWxFriendShareItemView);
-        shareItemViews.add(mWeiBoFriendShareItemView);
-        shareItemViews.add(mShareQQFriendShareItemView);
         shareItemViews.add(mWxLineShareItemView);
         shareItemViews.add(mQzoneFriendShareItemView);
+        shareItemViews.add(mWxFriendShareItemView);
+        shareItemViews.add(mShareQQFriendShareItemView);
+        shareItemViews.add(mWeiBoFriendShareItemView);
         shareItemViews.add(mClassFriendShareItemView);
+
 
         for (int i = 0; i < shareItemViews.size(); i++) {
             final int tmpI = i;
@@ -76,6 +84,8 @@ public class SharePopupWindow extends BasePopupWindow {
                     shareItemView.setTag(tmpI + "");
                     if (onShareItemClickListener != null) {
                         onShareItemClickListener.onClick(shareItemView);
+                    } else {
+                        UMShareImpl.get().setCallback(mContext, umShareListener).shareUrl(title, url, desc, R.mipmap.lanucher, getShareMedia(shareItemView.getTag() + ""));
                     }
                     dismiss();
                 }
@@ -83,7 +93,76 @@ public class SharePopupWindow extends BasePopupWindow {
         }
 
         this.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+    }
 
+
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+            loadingDialog.setMessage("正在分享...");
+            loadingDialog.show();
+
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+            loadingDialog.dismiss();
+            TipsHelper.tips(mContext, "分享成功");
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+            loadingDialog.dismiss();
+            TipsHelper.tips(mContext, "分享有误");
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+            loadingDialog.dismiss();
+            TipsHelper.tips(mContext, "取消发送");
+        }
+    };
+
+    public SHARE_MEDIA getShareMedia(String tag) {
+        if (tag.equals("0")) {
+            return SHARE_MEDIA.WEIXIN_CIRCLE;
+        }
+
+        if (tag.equals("1")) {
+            return SHARE_MEDIA.QZONE;
+        }
+
+        if (tag.equals("2")) {
+            return SHARE_MEDIA.WEIXIN;
+        }
+
+        if (tag.equals("3")) {
+            return SHARE_MEDIA.QQ;
+        }
+
+        return SHARE_MEDIA.SINA;
+    }
+
+
+    private String title;
+
+    public SharePopupWindow setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    private String url;
+
+    public SharePopupWindow setUrl(String url) {
+        this.url = url;
+        return this;
+    }
+
+    private String desc;
+
+    public SharePopupWindow setDesc(String desc) {
+        this.desc = desc;
+        return this;
     }
 
     private OnShareItemClickListener onShareItemClickListener;
@@ -94,6 +173,7 @@ public class SharePopupWindow extends BasePopupWindow {
 
     public void setOnShareItemClickListener(OnShareItemClickListener onShareItemClickListener) {
         this.onShareItemClickListener = onShareItemClickListener;
+
     }
 
     public interface OnShareItemClickListener {

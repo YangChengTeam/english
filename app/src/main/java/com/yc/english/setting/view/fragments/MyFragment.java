@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SnackbarUtils;
@@ -62,6 +63,9 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
 
     @BindView(R.id.miv_setting)
     MenuItemView mSettingMenuItemView;
+
+    @BindView(R.id.sv_content)
+    ScrollView mContentScrollView;
 
     @Override
     public void init() {
@@ -127,7 +131,7 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
             @Override
             public void call(Void aVoid) {
                 SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
-                sharePopupWindow.show(mRootView);
+                sharePopupWindow.show(mContentScrollView);
             }
         });
 

@@ -137,35 +137,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mShareLinearLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-
                 SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
-                sharePopupWindow.setOnShareItemClickListener(new SharePopupWindow.OnShareItemClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        UMShareImpl.get().setCallback(getActivity(), new UMShareListener(){
-                            @Override
-                            public void onStart(SHARE_MEDIA share_media) {
-
-                            }
-
-                            @Override
-                            public void onResult(SHARE_MEDIA share_media) {
-
-                            }
-
-                            @Override
-                            public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-
-                            }
-
-                            @Override
-                            public void onCancel(SHARE_MEDIA share_media) {
-
-                            }
-                        }).shareImage("11", R.mipmap.default_avatar, SHARE_MEDIA.WEIXIN);
-                    }
-                });
-                sharePopupWindow.show(mRootView);
+                sharePopupWindow.setTitle("111").setUrl("http://www.baiud.com").setDesc("1234134").show(mRootView);
             }
         });
 

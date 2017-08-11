@@ -150,6 +150,8 @@ public class RongIMUtil {
     }
 
 
+
+
     public static void reconnect(Context context) {
         if (!isConnect()) {
             com.yc.english.main.model.domain.UserInfo userInfo = UserInfoHelper.getUserInfo();
