@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.SnackbarUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.domain.GoagalInfo;
 import com.tencent.bugly.beta.Beta;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideCatchHelper;
@@ -58,6 +59,8 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
             }
         });
 
+
+        mVersionSettingItemView.setInfo(GoagalInfo.get().appInfo.getVersionName());
         RxView.clicks(mVersionSettingItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {

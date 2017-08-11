@@ -1,6 +1,7 @@
 package com.yc.english.main.hepler;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -15,6 +16,7 @@ public class BannerImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
         try {
+            imageView.setBackgroundColor(Color.parseColor("#e0eaf4"));
             Glide.with(context).load(path).into(imageView);
         }catch (Exception e){
             Log.e("BannerImageLoader",  e.getMessage());

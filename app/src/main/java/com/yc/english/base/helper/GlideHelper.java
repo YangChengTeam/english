@@ -16,7 +16,7 @@ public class GlideHelper {
     public static void circleBorderImageView(final Context context, ImageView imageView, String url, int
             placehorder, float borderwidth, int bordercolor) {
         RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(placehorder).transform(new GlideCircleTransformation(context, borderwidth,
+        options.placeholder(placehorder).transform(new GlideCircleTransformation(context, borderwidth,
                 bordercolor));
         Glide.with(context).load(url).apply(options).into(imageView);
     }
@@ -29,7 +29,7 @@ public class GlideHelper {
     public static void imageView(final Context context, ImageView imageView, String url, int
             placehorder) {
         RequestOptions options = new RequestOptions();
-        options.centerCrop().placeholder(placehorder);
+        options.placeholder(placehorder);
         Glide.with(context).load(url).apply(options).into(imageView);
     }
 }
