@@ -35,6 +35,7 @@ public class ConnectUtils {
      */
     public static void contact(final Context context, final String token) {
         if(RongIMUtil.isConnect()) return;
+        String token1 ="BflgG7jSSJd9zrUrfYDER2vBZhFtvweiQbzTk+9f6I3xoVLL8I4EF6/qOP2daENvEzfecqb3gIpWOfBjB/CUfQ==";
 
         try {
             final String packageName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).packageName;//获取包对象信息;)

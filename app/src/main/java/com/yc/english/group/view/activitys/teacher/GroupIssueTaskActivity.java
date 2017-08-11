@@ -1,10 +1,7 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.media.MediaPlayer;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -25,6 +23,7 @@ import com.yc.english.base.helper.AudioRecordManager;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
+import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupTaskPublishContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.TaskInfo;
@@ -35,7 +34,6 @@ import com.yc.english.group.view.adapter.GroupPictureAdapter;
 import com.yc.english.group.view.adapter.GroupVoiceAdapter;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -45,7 +43,6 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.rong.imkit.activity.FileListActivity;
-
 import io.rong.imkit.model.FileInfo;
 import io.rong.imkit.plugin.image.PictureSelectorActivity;
 import rx.functions.Action1;
@@ -79,7 +76,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
     @BindView(R.id.m_btn_submit)
     Button mBtnSubmit;
-    private GroupPictureAdapter adapter;
+    private GroupPictureAdapter pictureAdapter;
     private String targetId;
     private List<ClassInfo> classInfoList;
     private ClassInfo mClassInfo;
@@ -94,8 +91,8 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitle(getString(R.string.all_task));
         recyclerViewPicture.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        adapter = new GroupPictureAdapter(this, true, null);
-        recyclerViewPicture.setAdapter(adapter);
+        pictureAdapter = new GroupPictureAdapter(this, true, null);
+        recyclerViewPicture.setAdapter(pictureAdapter);
 
         voiceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         voiceAdapter = new GroupVoiceAdapter(this, true, null);
@@ -105,11 +102,11 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         fileAdapter = new GroupFileAdapter(this, true, null);
         fileRecyclerView.setAdapter(fileAdapter);
 
-
         if (getIntent() != null) {
             targetId = getIntent().getStringExtra("targetId");
             mPresenter.getGroupInfo(this, targetId);
         }
+        restoreTaskData();
 
         initListener();
     }
@@ -124,6 +121,8 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             public void call(Void aVoid) {
 
                 String desc = mEtIssueTask.getText().toString().trim();
+
+
                 publishTask(desc);
 
             }
@@ -132,7 +131,15 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             @Override
             public void onClick() {
                 Intent intent = new Intent(GroupIssueTaskActivity.this, GroupPublishTaskListActivity.class);
+                intent.putExtra("classInfo", mClassInfo.getMaster_id());
                 startActivity(intent);
+            }
+        });
+
+        mToolbar.setBackOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveTaskData();
             }
         });
 
@@ -154,7 +161,6 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 startActivityForResult(new Intent(this, PictureSelectorActivity.class), 300);
                 break;
             case R.id.m_iv_issue_voice:
-
                 audioRecord(v);
                 KeyboardUtils.hideSoftInput(this);
                 break;
@@ -172,6 +178,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
     private List<Voice> voiceList = new ArrayList<>();
     private List<FileInfo> fileInfos = new ArrayList<>();
+    private List<String> pitureList = new ArrayList<>();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -187,11 +194,12 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             uriList = data.getParcelableArrayListExtra("android.intent.extra.RETURN_RESULT");
 
             if (uriList != null && uriList.size() > 0) {
-                adapter.setData(uriList);
-                recyclerViewPicture.setVisibility(View.VISIBLE);
-            } else {
-                recyclerViewPicture.setVisibility(View.GONE);
+                for (Uri uri : uriList) {
+                    pitureList.add(uri.getPath());
+                }
+
             }
+            pictureAdapter.setData(pitureList);
             for (Uri uri : uriList) {//上传图片
                 String path = uri.getPath();// "file:///mnt/sdcard/FileName.mp3"
                 File file = new File(path);
@@ -213,6 +221,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         }
     }
 
+
     private void setSyncGroup(int count) {
         mTvSyncCount.setText(String.valueOf(count));
         mTvSyncCount.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
@@ -220,18 +229,10 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
     private void publishTask(String desc) {
 
-
-        for (Voice voice : voiceList) {//上传语音
-            String uri = voice.getUri();
-
-        }
-
-        for (FileInfo fileInfo : fileInfos) {//上传文件
-            Uri filePath = Uri.parse("file://" + fileInfo.getFilePath());
-        }
-
         StringBuilder sb = new StringBuilder(targetId);
         StringBuilder picSb = new StringBuilder();
+        StringBuilder voiceSb = new StringBuilder();
+        StringBuilder wordSb = new StringBuilder();
 
         if (classInfoList != null && classInfoList.size() > 0) {
             for (ClassInfo classInfo : classInfoList) {
@@ -247,8 +248,20 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             }
             picSb.deleteCharAt(picSb.length() - 1);
         }
+        if (voicePath.size() > 0) {
+            for (String s : voicePath) {
+                voiceSb.append(s).append(",");
+            }
+            voiceSb.deleteCharAt(voiceSb.length() - 1);
+        }
+        if (wordPath.size() > 0) {
+            for (String s : wordPath) {
+                wordSb.append(s).append(",");
+            }
+            wordSb.deleteCharAt(wordSb.length() - 1);
+        }
 
-        mPresenter.publishTask(sb.toString(), mClassInfo.getMaster_id(), desc, picSb.toString(), null, null);
+        mPresenter.publishTask(sb.toString(), mClassInfo.getMaster_id(), desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
     }
 
 
@@ -281,10 +294,15 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
     }
 
     private List<String> picturePath = new ArrayList<>();
+    private List<String> voicePath = new ArrayList<>();
+    private List<String> wordPath = new ArrayList<>();
 
     @Override
     public void showUploadReslut(String file_path) {
-        picturePath.add(file_path);
+        if (file_path.endsWith(".png") || file_path.endsWith(".jpg") || file_path.endsWith(".jpeg"))
+            picturePath.add(file_path);
+        else if (file_path.endsWith(".voice")) voicePath.add(file_path);
+        else wordPath.add(file_path);
     }
 
 
@@ -328,6 +346,9 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 Voice voice = new Voice(file, duration + "''");
                 voiceList.add(voice);
                 voiceAdapter.setData(voiceList);
+
+                mPresenter.uploadFile(GroupIssueTaskActivity.this, file, file.getPath().substring(file.getPath().lastIndexOf("/") + 1), "");
+
                 LogUtils.i("AudioRecordManager" + file);
             }
 
@@ -337,7 +358,55 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             }
         });
 
+    }
+
+    private void saveTaskData() {
+
+        SPUtils.getInstance().put(GroupConstant.TEXT_TASK, mEtIssueTask.getText().toString());
+        SPUtils.getInstance().put(GroupConstant.PICTUE_TASK, JSONObject.toJSONString(pitureList));
+        SPUtils.getInstance().put(GroupConstant.VOICE_TASK, JSONObject.toJSONString(voiceList));
+        SPUtils.getInstance().put(GroupConstant.WORD_TASK, JSONObject.toJSONString(fileInfos));
 
     }
 
+    private void restoreTaskData() {
+        mEtIssueTask.setText(SPUtils.getInstance().getString(GroupConstant.TEXT_TASK));
+        String pictureTask = SPUtils.getInstance().getString(GroupConstant.PICTUE_TASK);
+        List<String> pictureList = JSONObject.parseArray(pictureTask, String.class);
+        pictureAdapter.setData(pictureList);
+
+        String voiceTask = SPUtils.getInstance().getString(GroupConstant.VOICE_TASK);
+        List<Voice> voiceList = JSONObject.parseArray(voiceTask, Voice.class);
+        voiceAdapter.setData(voiceList);
+        String wordTask = SPUtils.getInstance().getString(GroupConstant.WORD_TASK);
+        List<FileInfo> fileInfos = JSONObject.parseArray(wordTask, FileInfo.class);
+        fileAdapter.setData(fileInfos);
+        if (pictureList != null && pictureList.size() > 0) {
+            for (String path : pictureList) {
+                File file = new File(path);
+                String substring = path.substring(path.lastIndexOf("/") + 1);
+                mPresenter.uploadFile(this, file, substring, substring);
+            }
+        }
+        if (voiceList != null && voiceList.size() > 0) {
+            for (Voice voice : voiceList) {
+                mPresenter.uploadFile(GroupIssueTaskActivity.this, voice.getFile(), voice.getFile().getPath().substring(voice.getFile().getPath().lastIndexOf("/") + 1), "");
+            }
+        }
+
+        if (fileInfos != null && fileInfos.size() > 0) {
+            for (FileInfo fileInfo : fileInfos) {
+                Uri filePath = Uri.parse("file://" + fileInfo.getFilePath());
+                File file = new File(filePath.getPath());
+                mPresenter.uploadFile(this, file, fileInfo.getFileName(), "");
+            }
+        }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        saveTaskData();
+    }
 }

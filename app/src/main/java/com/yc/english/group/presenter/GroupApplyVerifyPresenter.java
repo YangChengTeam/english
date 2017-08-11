@@ -2,29 +2,16 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.ToastUtils;
-import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupApplyVerifyContract;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.engin.GroupApplyVerifyEngine;
-import com.yc.english.group.rong.ImUtils;
-import com.yc.english.group.rong.models.CodeSuccessResult;
-import com.yc.english.group.rong.models.GroupUser;
-import com.yc.english.group.rong.models.GroupUserQueryResult;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.main.model.domain.UserInfo;
-
-import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/8/2 18:06.

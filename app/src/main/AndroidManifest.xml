@@ -113,13 +113,14 @@
         <activity android:name=".group.view.activitys.teacher.GroupTaskFinishAndUnfinshActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupVerifyActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupVerifyConditionActivity" />
-        <activity android:name=".group.view.activitys.GroupListJoinActivity" />
+        <activity android:name=".group.view.activitys.GroupCommonClassActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupTaskFinishDetailActivity" />
         <activity android:name=".group.view.activitys.student.GroupMyTaskListActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupTaskLookAndUnLookActivity" />
         <activity android:name=".group.view.activitys.student.GroupJoinActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupMemberActivity" />
         <activity android:name="com.yc.english.group.view.activitys.student.GroupTaskGradeActivity" />
+        <activity android:name=".group.view.activitys.student.GroupUpdateMyTaskActivity" />
 
         <receiver
             android:name=".group.view.receiver.GroupNotificationReceiver"

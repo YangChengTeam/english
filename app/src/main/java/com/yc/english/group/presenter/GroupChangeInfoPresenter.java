@@ -8,7 +8,6 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupChangeInfoContract;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.engin.GroupChangeInfoEngine;
-import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.utils.EngineUtils;
@@ -55,7 +54,8 @@ public class GroupChangeInfoPresenter extends BasePresenter<GroupChangeInfoEngin
                     @Override
                     public void run() {
                         RemoveGroupInfo groupInfo = stringResultInfo.data;
-                        syncRongGroup(groupInfo.getMaster_id(), groupInfo.getClass_id(), groupInfo.getClass_name());
+                        mView.showChangeResult();
+
                     }
                 });
             }
@@ -63,16 +63,5 @@ public class GroupChangeInfoPresenter extends BasePresenter<GroupChangeInfoEngin
         mSubscriptions.add(subscription);
     }
 
-    private void syncRongGroup(final String userId, String groupId, String groupName) {
 
-        GroupInfo[] groupInfos = new GroupInfo[]{new GroupInfo(groupId, groupName)};
-        ImUtils.syncGroup(userId, groupInfos).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<CodeSuccessResult>() {
-            @Override
-            public void call(CodeSuccessResult codeSuccessResult) {
-                if (codeSuccessResult.getCode() == 200) {
-                    mView.showChangeResult();
-                }
-            }
-        });
-    }
 }

@@ -79,7 +79,7 @@ public class GroupApp {
 
             RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
             RongIM.getInstance().setMessageAttachedUserInfo(true);
-            RongIM.getInstance().setSendMessageListener(new MySendMessageListener());
+//            RongIM.getInstance().setSendMessageListener(new MySendMessageListener());
 
         }
         setDatabase(application);
@@ -111,7 +111,7 @@ public class GroupApp {
         public boolean onSent(Message message, RongIM.SentMessageErrorCode sentMessageErrorCode) {
             if (message.getSentStatus() == Message.SentStatus.FAILED) {
                 if (sentMessageErrorCode == RongIM.SentMessageErrorCode.NOT_IN_GROUP) {
-                    RongIMUtil.reJoinUser(mApplication, message);
+
                 }
             }
             return true;

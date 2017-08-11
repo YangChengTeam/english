@@ -27,4 +27,12 @@ public interface GroupConstant {
     int TASK_TYPE_WORD = 3;
     int TASK_TYPE_SYNTHESIZE = 4;
 
+    /**
+     * sp保存的作业key
+     */
+    String TEXT_TASK = "text_task";
+    String PICTUE_TASK = "pictue_task";
+    String VOICE_TASK = "voice_task";
+    String WORD_TASK = "word_task";
+
 }

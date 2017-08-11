@@ -6,8 +6,10 @@ import android.widget.Button;
 
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.group.contract.GroupCommonClassContract;
 import com.yc.english.group.contract.GroupListContract;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.presenter.GroupCommonClassPresenter;
 import com.yc.english.group.presenter.GroupListPresenter;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 
@@ -19,7 +21,7 @@ import butterknife.BindView;
  * Created by wanglin  on 2017/8/1 18:16.
  */
 
-public class GroupListJoinActivity extends FullScreenActivity<GroupListPresenter> implements GroupListContract.View {
+public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClassPresenter> implements GroupCommonClassContract.View {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.btn_join_class)
@@ -28,10 +30,9 @@ public class GroupListJoinActivity extends FullScreenActivity<GroupListPresenter
 
     @Override
     public void init() {
-        mPresenter = new GroupListPresenter(this, this);
+        mPresenter = new GroupCommonClassPresenter(this, this);
         mToolbar.setTitle(getString(R.string.teacher_education));
         mToolbar.showNavigationIcon();
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, null);
         recyclerView.setAdapter(adapter);
@@ -42,10 +43,9 @@ public class GroupListJoinActivity extends FullScreenActivity<GroupListPresenter
         return R.layout.group_activity_list_join;
     }
 
+
     @Override
-    public void showGroupList(List<ClassInfo> classInfos) {
-        adapter.setData(classInfos);
+    public void showCommonClassList(List<ClassInfo> list) {
+        adapter.setData(list);
     }
-
-
 }

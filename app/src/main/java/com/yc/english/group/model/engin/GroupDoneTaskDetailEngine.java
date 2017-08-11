@@ -8,6 +8,7 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.model.bean.TaskInfoWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,15 +16,17 @@ import java.util.Map;
 import rx.Observable;
 
 /**
- * Created by wanglin  on 2017/8/8 17:40.
+ * Created by wanglin  on 2017/8/10 15:24.
  */
 
-public class GroupUpdateDoTaskEngine extends BaseEngin {
-    public GroupUpdateDoTaskEngine(Context context) {
+public class GroupDoneTaskDetailEngine extends BaseEngin {
+    public GroupDoneTaskDetailEngine(Context context) {
         super(context);
     }
 
-    public Observable<ResultInfo<String>> updateDoTask(String id, String user_id, String desp, String imgs, String voices, String docs) {
+
+
+    public Observable<ResultInfo<TaskInfoWrapper>> updateDoTask(String id, String user_id, String desp, String imgs, String voices, String docs) {
         Map<String, String> params = new HashMap<>();
         params.put("id", id);
         params.put("user_id", user_id);
@@ -35,7 +38,7 @@ public class GroupUpdateDoTaskEngine extends BaseEngin {
             params.put("voices", voices);
         if (!TextUtils.isEmpty(docs))
             params.put("docs", docs);
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.update_do_task, new TypeReference<ResultInfo<String>>() {
+        return HttpCoreEngin.get(mContext).rxpost(NetConstan.update_do_task, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
         }.getType(), params, true, true, true);
 
     }

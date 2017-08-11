@@ -68,15 +68,10 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
         mHolder.setVisible(R.id.m_tv_already_add, true);
         adapter.notifyDataSetChanged();
 
-        String groupId = mStudentInfo.getClass_id();
-        String groupName = mStudentInfo.getClass_name();
-
-        EngineUtils.joinGroup(mStudentInfo.getUser_id(), groupId, groupName);
-
     }
 
     private BaseViewHolder mHolder;
-    private StudentInfo mStudentInfo;
+
 
     private void initListener() {
         adapter.setOnItemClickListener(new OnItemClickListener<StudentInfo>() {
@@ -84,7 +79,6 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
             public void onItemClick(BaseViewHolder holder, int position, StudentInfo studentInfo) {
                 mPresenter.acceptApply(studentInfo.getClass_id(), uid, new String[]{studentInfo.getUser_id()});
                 mHolder = holder;
-                mStudentInfo = studentInfo;
             }
         });
 

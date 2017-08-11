@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TaskInfos {
     private int code;
-    private List<TaskItem> list;
+    private List<TaskAllInfoWrapper> list;
 
     public int getCode() {
         return code;
@@ -18,11 +18,11 @@ public class TaskInfos {
         this.code = code;
     }
 
-    public List<TaskItem> getList() {
+    public List<TaskAllInfoWrapper> getList() {
         return list;
     }
 
-    public void setList(List<TaskItem> list) {
+    public void setList(List<TaskAllInfoWrapper> list) {
         this.list = list;
     }
 }

@@ -8,12 +8,8 @@ import com.yc.english.group.contract.GroupDeleteMemberContract;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.bean.StudentRemoveInfo;
 import com.yc.english.group.model.engin.GroupDeleteMemberEngine;
-import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.utils.EngineUtils;
-
-import java.util.Arrays;
-import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -54,10 +50,8 @@ public class GroupDeleteMemberPresenter extends BasePresenter<GroupDeleteMemberE
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        StudentRemoveInfo removeInfo = stringResultInfo.data;
-                        List<String> members = removeInfo.getMembers();
-                        String[] userIds = members.toArray(new String[members.size()]);
-                        removeRongGroup(userIds, removeInfo.getClass_id());
+
+                        mView.showDeleteResult();
                     }
                 });
             }
@@ -92,22 +86,6 @@ public class GroupDeleteMemberPresenter extends BasePresenter<GroupDeleteMemberE
         mSubscriptions.add(subscription);
     }
 
-    /**
-     * 将成员移除群组
-     *
-     * @param userId
-     * @param groupId
-     */
 
-    public void removeRongGroup(final String[] userId, final String groupId) {
-        ImUtils.quitGroup(userId, groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<CodeSuccessResult>() {
-            @Override
-            public void call(CodeSuccessResult codeSuccessResult) {
-                if (codeSuccessResult.getCode() == 200) {//删除成功
-                    mView.showDeleteResult();
-                }
-            }
-        });
-    }
 
 }
