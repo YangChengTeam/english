@@ -3,18 +3,10 @@ package com.yc.english.base.presenter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.hwangjr.rxbus.RxBus;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.IView;
-import com.yc.english.main.model.domain.Constant;
 
 import rx.subscriptions.CompositeSubscription;
 

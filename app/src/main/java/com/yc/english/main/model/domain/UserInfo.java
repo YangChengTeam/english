@@ -1,9 +1,6 @@
 package com.yc.english.main.model.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.JSONSerializer;
-
-import java.io.Serializable;
 
 
 /**

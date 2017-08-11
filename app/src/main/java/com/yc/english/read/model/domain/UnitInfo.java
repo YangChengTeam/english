@@ -1,5 +1,6 @@
 package com.yc.english.read.model.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 /**
@@ -7,39 +8,35 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
  */
 
 public class UnitInfo implements MultiItemEntity {
+
     public static final int CLICK_ITEM_VIEW = 1;
 
-    private String unitTitle;
+    public int Type = CLICK_ITEM_VIEW;
 
-    private String unitTotal;
+    private String id;
 
-    private String reciteTotalPersion;
+    private String name;
 
-    public String getUnitTitle() {
-        return unitTitle;
-    }
+    @JSONField(name = "simple_name")
+    private String simpleName;
 
-    public void setUnitTitle(String unitTitle) {
-        this.unitTitle = unitTitle;
-    }
+    private String pid;
 
-    public String getUnitTotal() {
-        return unitTotal;
-    }
+    @JSONField(name = "book_id")
+    private String bookId;
 
-    public void setUnitTotal(String unitTotal) {
-        this.unitTotal = unitTotal;
-    }
+    private String number;
 
-    public String getReciteTotalPersion() {
-        return reciteTotalPersion;
-    }
+    @JSONField(name = "word_count")
+    private String wordCount;
 
-    public void setReciteTotalPersion(String reciteTotalPersion) {
-        this.reciteTotalPersion = reciteTotalPersion;
-    }
+    @JSONField(name = "sentence_count")
+    private String sentenceCount;
 
-    public int Type;
+    @JSONField(name = "is_del")
+    private String isDel;
+
+    private String sort;
 
     public UnitInfo() {
         super();
@@ -52,5 +49,85 @@ public class UnitInfo implements MultiItemEntity {
     @Override
     public int getItemType() {
         return Type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSimpleName() {
+        return simpleName;
+    }
+
+    public void setSimpleName(String simpleName) {
+        this.simpleName = simpleName;
+    }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getWordCount() {
+        return wordCount;
+    }
+
+    public void setWordCount(String wordCount) {
+        this.wordCount = wordCount;
+    }
+
+    public String getSentenceCount() {
+        return sentenceCount;
+    }
+
+    public void setSentenceCount(String sentenceCount) {
+        this.sentenceCount = sentenceCount;
+    }
+
+    public String getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(String isDel) {
+        this.isDel = isDel;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 }

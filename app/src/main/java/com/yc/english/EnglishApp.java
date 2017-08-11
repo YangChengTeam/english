@@ -16,6 +16,7 @@ import com.umeng.analytics.game.UMGameAgent;
 import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.read.common.ReadApp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +37,7 @@ public class EnglishApp extends MultiDexApplication {
             @Override
             public void call(String s) {
                 GroupApp.init(EnglishApp.this);
+                ReadApp.init(EnglishApp.this);
                 Utils.init(EnglishApp.this);
                 SpeechUtility.createUtility(EnglishApp.this, "appid=" + getString(R.string.app_id));
                 init();

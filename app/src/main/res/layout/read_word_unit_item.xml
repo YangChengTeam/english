@@ -9,18 +9,21 @@
 
     <TextView
         android:id="@+id/tv_book_unit_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_4"
+        android:layout_marginRight="@dimen/dp_4"
+        android:gravity="center"
         android:text="Unit 1"
         android:textColor="@color/black_333"
-        android:textSize="16sp"/>
+        android:textSize="14sp"/>
 
     <TextView
         android:id="@+id/tv_book_unit_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_book_grade_name"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="12个单词"
         android:textColor="@color/group_gray_999"
         android:textSize="14sp"/>
@@ -30,8 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_book_grade_name"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="3546人已背诵"
         android:textColor="@color/group_gray_999"
-        android:textSize="14sp"/>
+        android:textSize="12sp"/>
 </LinearLayout>

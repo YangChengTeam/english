@@ -6,12 +6,13 @@
              android:gravity="center"
              android:orientation="horizontal">
 
-    <Button
+    <TextView
         android:id="@+id/btn_read_grade_name"
-        android:layout_width="70dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_margin="1dp"
         android:background="@drawable/read_add_book_line_btn"
+        android:gravity="center"
         android:padding="2dp"
         android:textColor="@color/group_gray_999"
         android:textSize="12sp"/>

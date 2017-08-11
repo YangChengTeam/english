@@ -3,6 +3,6 @@
 
     <solid android:color="@color/read_word_share_btn_color" />
 
-    <corners android:radius="16dp" />
+    <corners android:radius="3dp" />
 
 </shape>

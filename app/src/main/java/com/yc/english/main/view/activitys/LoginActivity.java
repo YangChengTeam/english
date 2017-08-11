@@ -10,7 +10,6 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.main.contract.LoginContract;
 import com.yc.english.main.model.domain.Constant;

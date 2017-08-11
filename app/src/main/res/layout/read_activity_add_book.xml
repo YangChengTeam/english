@@ -16,10 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
         android:background="@drawable/read_book_list_bg"
         android:gravity="top|center"
         android:orientation="vertical">
@@ -27,8 +24,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
@@ -57,8 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/layout_book_list"
             android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="8dp"
             android:gravity="center">
@@ -75,10 +72,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
         android:background="@drawable/read_book_list_bg"
         android:gravity="top|center"
         android:orientation="vertical">
@@ -86,8 +80,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
@@ -105,7 +99,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/iv_grade_top"
-                android:text="@string/read_study_grade_text"
+                android:text="@string/read_book_version_text"
                 android:textColor="@color/read_my_book_color"
                 android:textSize="16sp"/>
 
@@ -116,9 +110,9 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/layout_book_list"
             android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:gravity="center">
 

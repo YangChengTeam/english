@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,6 +15,7 @@ import android.widget.PopupWindow;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.kk.utils.UIUitls;
+import com.yc.english.base.utils.NavgationBarUtils;
 
 import butterknife.ButterKnife;
 
@@ -97,7 +99,7 @@ public abstract class BasePopupWindow extends PopupWindow implements IView {
     }
 
     public void show(View view) {
-        showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        showAtLocation(view, Gravity.BOTTOM, 0, NavgationBarUtils.getNavigationBarHeight(mContext));
     }
 
     @Override

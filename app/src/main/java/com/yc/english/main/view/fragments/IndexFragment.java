@@ -1,6 +1,7 @@
 package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
@@ -9,7 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+<<<<<<< HEAD
 
+=======
+import com.blankj.utilcode.util.LogUtils;
+>>>>>>> 9d7c579f1411e0cb1d30041080c42f89bca1c650
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -31,6 +36,7 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.presenter.IndexPresenter;
 import com.yc.english.main.view.activitys.MainActivity;
 import com.yc.english.main.view.wdigets.IndexMenuView;
+import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -89,9 +95,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mReadMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                ReadApp.READ_COMMON_TYPE = 1;
                 Intent intent = new Intent(getActivity(), BookActivity.class);
                 intent.putExtra("tag", "read");
-                intent.putExtra("view_type",1);
                 startActivity(intent);
             }
         });
@@ -99,9 +105,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mWordMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                ReadApp.READ_COMMON_TYPE = 2;
                 Intent intent = new Intent(getActivity(), BookActivity.class);
                 intent.putExtra("tag", "word");
-                intent.putExtra("view_type",2);
                 startActivity(intent);
             }
         });
@@ -133,35 +139,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mShareLinearLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-
                 SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
-                sharePopupWindow.setOnShareItemClickListener(new SharePopupWindow.OnShareItemClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        UMShareImpl.get().setCallback(getActivity(), new UMShareListener(){
-                            @Override
-                            public void onStart(SHARE_MEDIA share_media) {
-
-                            }
-
-                            @Override
-                            public void onResult(SHARE_MEDIA share_media) {
-
-                            }
-
-                            @Override
-                            public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-
-                            }
-
-                            @Override
-                            public void onCancel(SHARE_MEDIA share_media) {
-
-                            }
-                        }).shareImage("11", R.mipmap.default_avatar, SHARE_MEDIA.WEIXIN);
-                    }
-                });
-                sharePopupWindow.show(mRootView);
+                sharePopupWindow.setTitle("111").setUrl("http://www.baiud.com").setDesc("1234134").show(mRootView);
             }
         });
 

@@ -1,5 +1,6 @@
 package com.yc.english.read.model.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 /**
@@ -11,45 +12,50 @@ public class EnglishCourseInfo implements MultiItemEntity {
 
     public static final int CLICK_ITEM_VIEW = 1;
 
-    private String subtitle;
-    private String bookid;
-    private String sectionid;
+    public int Type = CLICK_ITEM_VIEW;
+
+    private String id;
+
     private String title;
-    private String timepoint;
-    private String course;
-    private String fromarticle;
-    private String unitid;
-    private String subtitlecn;
-    private String keypattern;
+
+    @JSONField(name = "sub_title")
+    private String subTitle;
+
+    @JSONField(name = "book_id")
+    private String bookId;
+
+    @JSONField(name = "unit_id")
+    private String unitId;
+
+    @JSONField(name = "section_id")
+    private String sectionId;
+
+    @JSONField(name = "s_name")
+    private String sname;
+
+    private String means;
+
+    private String rid;
+
+    @JSONField(name = "is_del")
+    private String isDel;
 
     private boolean isPlay = false;
 
-    public EnglishCourseInfo(){
+    public EnglishCourseInfo() {
         super();
     }
 
-    public String getSubtitle() {
-        return subtitle;
+    public EnglishCourseInfo(final int type) {
+        Type = type;
     }
 
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+    public String getId() {
+        return id;
     }
 
-    public String getBookid() {
-        return bookid;
-    }
-
-    public void setBookid(String bookid) {
-        this.bookid = bookid;
-    }
-
-    public String getSectionid() {
-        return sectionid;
-    }
-
-    public void setSectionid(String sectionid) {
-        this.sectionid = sectionid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -60,58 +66,68 @@ public class EnglishCourseInfo implements MultiItemEntity {
         this.title = title;
     }
 
-    public String getTimepoint() {
-        return timepoint;
+    public String getSubTitle() {
+        return subTitle;
     }
 
-    public void setTimepoint(String timepoint) {
-        this.timepoint = timepoint;
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
     }
 
-    public String getCourse() {
-        return course;
+    public String getBookId() {
+        return bookId;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
-    public String getFromarticle() {
-        return fromarticle;
+    public String getUnitId() {
+        return unitId;
     }
 
-    public void setFromarticle(String fromarticle) {
-        this.fromarticle = fromarticle;
+    public void setUnitId(String unitId) {
+        this.unitId = unitId;
     }
 
-    public String getUnitid() {
-        return unitid;
+    public String getSectionId() {
+        return sectionId;
     }
 
-    public void setUnitid(String unitid) {
-        this.unitid = unitid;
+    public void setSectionId(String sectionId) {
+        this.sectionId = sectionId;
     }
 
-    public String getSubtitlecn() {
-        return subtitlecn;
+    public String getSname() {
+        return sname;
     }
 
-    public void setSubtitlecn(String subtitlecn) {
-        this.subtitlecn = subtitlecn;
+    public void setSname(String sname) {
+        this.sname = sname;
     }
 
-    public String getKeypattern() {
-        return keypattern;
+    public String getMeans() {
+        return means;
     }
 
-    public void setKeypattern(String keypattern) {
-        this.keypattern = keypattern;
+    public void setMeans(String means) {
+        this.means = means;
     }
 
-    public int Type;
+    public String getRid() {
+        return rid;
+    }
 
-    public EnglishCourseInfo(final int type) {
-        Type = type;
+    public void setRid(String rid) {
+        this.rid = rid;
+    }
+
+    public String getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(String isDel) {
+        this.isDel = isDel;
     }
 
     @Override
