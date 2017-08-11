@@ -1,6 +1,7 @@
 package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
@@ -9,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -33,6 +33,7 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.presenter.IndexPresenter;
 import com.yc.english.main.view.activitys.MainActivity;
 import com.yc.english.main.view.wdigets.IndexMenuView;
+import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -92,9 +93,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mReadMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                ReadApp.READ_COMMON_TYPE = 1;
                 Intent intent = new Intent(getActivity(), BookActivity.class);
                 intent.putExtra("tag", "read");
-                intent.putExtra("view_type",1);
                 startActivity(intent);
             }
         });
@@ -102,9 +103,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mWordMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                ReadApp.READ_COMMON_TYPE = 2;
                 Intent intent = new Intent(getActivity(), BookActivity.class);
                 intent.putExtra("tag", "word");
-                intent.putExtra("view_type",2);
                 startActivity(intent);
             }
         });

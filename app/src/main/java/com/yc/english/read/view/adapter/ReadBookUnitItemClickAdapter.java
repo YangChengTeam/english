@@ -2,6 +2,7 @@ package com.yc.english.read.view.adapter;
 
 import android.content.Context;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
@@ -23,7 +24,7 @@ public class ReadBookUnitItemClickAdapter extends BaseMultiItemQuickAdapter<Unit
 
     @Override
     protected void convert(final BaseViewHolder helper, final UnitInfo item) {
-        helper.setText(R.id.tv_book_unit_name, item.getUnitTitle())
-                .setText(R.id.tv_book_unit_total, item.getUnitTotal());
+        helper.setText(R.id.tv_book_unit_name, item.getName())
+                .setText(R.id.tv_book_unit_total, StringUtils.isEmpty(item.getWordCount()) ? "0" : item.getWordCount() + mContext.getString(R.string.read_word_sentence_text));
     }
 }

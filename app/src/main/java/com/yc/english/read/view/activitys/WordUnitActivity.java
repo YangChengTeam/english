@@ -5,17 +5,20 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.read.model.domain.UnitInfo;
+import com.yc.english.read.common.ReadApp;
+import com.yc.english.read.contract.WordUnitContract;
+import com.yc.english.read.model.domain.BookInfo;
+import com.yc.english.read.model.domain.WordUnitInfoList;
+import com.yc.english.read.presenter.WordUnitPresenter;
 import com.yc.english.read.view.adapter.ReadWordUnitItemClickAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -23,15 +26,23 @@ import butterknife.BindView;
  * Created by admin on 2017/7/26.
  */
 
-public class WordUnitActivity extends FullScreenActivity {
+public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> implements WordUnitContract.View {
+
+    @BindView(R.id.iv_book_top)
+    ImageView mBookGradeImageView;
+
+    @BindView(R.id.tv_book_grade_name)
+    TextView mBookGradeNameTextView;
+
+    @BindView(R.id.tv_book_press)
+    TextView mBookPressTextView;
+
     @BindView(R.id.rv_word_unit_list)
     RecyclerView mWordUnitRecyclerView;
 
     ReadWordUnitItemClickAdapter mItemAdapter;
 
-    private List<UnitInfo> mBookDatas;
-
-    private int viewType = 1;
+    private String bookId;
 
     @Override
     public int getLayoutId() {
@@ -40,12 +51,13 @@ public class WordUnitActivity extends FullScreenActivity {
 
     @Override
     public void init() {
-        initData();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            viewType = bundle.getInt("view_type",1);
+            bookId = bundle.getString("book_id");
         }
+
+        mPresenter = new WordUnitPresenter(this, this);
 
         mToolbar.setTitle(getString(R.string.read_book_unit_text));
         mToolbar.showNavigationIcon();
@@ -60,37 +72,39 @@ public class WordUnitActivity extends FullScreenActivity {
 
         mWordUnitRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        mItemAdapter = new ReadWordUnitItemClickAdapter(this, mBookDatas);
+        mItemAdapter = new ReadWordUnitItemClickAdapter(this, null);
         mWordUnitRecyclerView.setAdapter(mItemAdapter);
 
         mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                LogUtils.e("position --->" + position);
 
-                if(viewType == 2){
+                if (ReadApp.READ_COMMON_TYPE == 2) {
                     Intent intent = new Intent(WordUnitActivity.this, ReadWordActivity.class);
                     startActivity(intent);
-                }else{
+                } else {
                     Intent intent = new Intent(WordUnitActivity.this, WordPracticeActivity.class);
                     startActivity(intent);
                 }
             }
         });
+
+        mPresenter.getBookInfoById(bookId);
     }
 
-    /**
-     * 测试数据
-     */
-    public void initData() {
-        mBookDatas = new ArrayList<UnitInfo>();
-        for (int i = 0; i < 6; i++) {
-            UnitInfo unitInfo = new UnitInfo(UnitInfo.CLICK_ITEM_VIEW);
-            unitInfo.setUnitTitle("Unit " + (i + 1));
-            unitInfo.setUnitTotal((i + 1) * 2 + "个单词");
-            unitInfo.setReciteTotalPersion((i + 1000) * 2 + "个人已背诵");
-            mBookDatas.add(unitInfo);
+    @Override
+    public void showWordUnitListData(WordUnitInfoList wordUnitInfoList) {
+        if (wordUnitInfoList != null) {
+            mItemAdapter.setNewData(wordUnitInfoList.list);
         }
     }
 
+    @Override
+    public void showBookInfo(BookInfo bookInfo) {
+        if (bookInfo != null) {
+            Glide.with(WordUnitActivity.this).load(bookInfo.getCoverImg()).into(mBookGradeImageView);
+            mBookGradeNameTextView.setText(bookInfo.getName());
+            mBookPressTextView.setText(bookInfo.getPress());
+        }
+    }
 }

@@ -7,7 +7,6 @@ import com.blankj.utilcode.util.LogUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.contract.GroupCreateContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.presenter.GroupCreatePresenter;

@@ -23,8 +23,6 @@ import com.yc.english.group.view.activitys.teacher.GroupMemberActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
 
 
-
-
 /**
  * Created by wanglin  on 2017/7/17 17:06.
  */
