@@ -6,15 +6,13 @@ import android.view.View;
 import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.yc.english.R;
-import com.yc.english.read.model.domain.WordDetailInfo;
 import com.yc.english.read.model.domain.WordInfo;
 
 import java.util.List;
 
 
-public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder> {
+public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<WordInfo, BaseViewHolder> {
 
     public static final int TYPE_LEVEL_0 = 0;
 
@@ -32,7 +30,7 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
         this.itemDetailClick = itemDetailClick;
     }
 
-    public ReadWordItemClickAdapter(Context mContext, List<MultiItemEntity> data) {
+    public ReadWordItemClickAdapter(Context mContext, List<WordInfo> data) {
         super(data);
         this.mContext = mContext;
         addItemType(TYPE_LEVEL_0, R.layout.read_word_play_item);
@@ -40,13 +38,13 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
     }
 
     @Override
-    protected void convert(final BaseViewHolder helper, final MultiItemEntity item) {
+    protected void convert(final BaseViewHolder helper, final WordInfo item) {
         switch (helper.getItemViewType()) {
             case TYPE_LEVEL_0:
 
                 final WordInfo wordInfo = (WordInfo) item;
                 helper.setText(R.id.tv_word_number, (helper.getAdapterPosition() + 1) + "")
-                        .setText(R.id.tv_en_word, wordInfo.getWord())
+                        .setText(R.id.tv_en_word, wordInfo.getName())
                         .setText(R.id.tv_cn_word, wordInfo.getMeans())
                         .addOnClickListener(R.id.layout_read_word_audio);
                 int pos = helper.getAdapterPosition();
@@ -72,8 +70,8 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
 
                 break;
             case TYPE_LEVEL_1:
-                final WordDetailInfo wordDetailInfo = (WordDetailInfo) item;
-                helper.setText(R.id.tv_en_word_detail, wordDetailInfo.getWordExample()).setText(R.id.tv_cn_word_detail, wordDetailInfo.getWordCnExample());
+                final WordInfo wordInfoDetail = (WordInfo) item;
+                helper.setText(R.id.tv_en_word_detail, wordInfoDetail.getName()).setText(R.id.tv_cn_word_detail, wordInfoDetail.getMeans());
 
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

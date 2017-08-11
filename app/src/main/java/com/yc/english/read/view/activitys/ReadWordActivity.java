@@ -36,7 +36,6 @@ import com.yc.english.read.view.adapter.ReadWordItemClickAdapter;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -107,9 +106,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     private boolean isCountinue = false;
 
-    private String[] words = new String[]{"Book", "Apple", "Study", "Book", "Apple", "Study", "Book", "Apple", "Study"};
-
-    private String[] wordChineses = new String[]{"书、书本", "苹果", "学习", "书、书本", "苹果", "学习", "书、书本", "苹果", "学习"};
+    private String unitId;
 
     Handler handler = new Handler() {
         @Override
@@ -133,7 +130,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                             }*/
 
                             if (mDatas.get(currentIndex) instanceof WordInfo) {
-                                startSynthesizer(((WordInfo) mDatas.get(currentIndex)).getWord());
+                                startSynthesizer(((WordInfo) mDatas.get(currentIndex)).getName());
                             }
                             if (mDatas.get(currentIndex) instanceof WordDetailInfo) {
                                 startSynthesizer(((WordDetailInfo) mDatas.get(currentIndex)).getWordExample());
@@ -163,7 +160,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                             if (currentIndex < mDatas.size()) {
 
                                 if (mDatas.get(currentIndex) instanceof WordInfo) {
-                                    readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getWord();
+                                    readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getName();
                                     startSynthesizer(readCurrentWord);
                                 }
 
@@ -210,19 +207,21 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     @Override
     public void init() {
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            unitId = bundle.getString("unit_id");
+        }
+
+        mPresenter = new ReadWordPresenter(this,this);
+
         mToolbar.setTitle("Unit 1");
         mToolbar.showNavigationIcon();
-        mDatas = new ArrayList<MultiItemEntity>();
+
         mediaPlayer = new MediaPlayer();
         mTts = SpeechSynthesizer.createSynthesizer(ReadWordActivity.this, mTtsInitListener);
         mSharedPreferences = getSharedPreferences(VOICER_NAME, MODE_PRIVATE);
 
-        for (int i = 0; i < 9; i++) {
-            WordInfo wordInfo = new WordInfo(words[i], wordChineses[i]);
-            WordDetailInfo wordDetailInfo = new WordDetailInfo("I just took her book home and let him play", "我只是把她的书带回家，让他去玩了");
-            wordInfo.addSubItem(wordDetailInfo);
-            mDatas.add(wordInfo);
-        }
         linearLayoutManager = new LinearLayoutManager(this);
         mReadWordRecyclerView.setLayoutManager(linearLayoutManager);
         mReadWordItemClickAdapter = new ReadWordItemClickAdapter(ReadWordActivity.this, null);
@@ -238,16 +237,16 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                     currentIndex = position;
 
                     isCountinue = false;
-                    readCurrentWord = ((WordInfo) mDatas.get(position)).getWord();
+                    readCurrentWord = ((WordInfo) mDatas.get(position)).getName();
 
                     if (isSpell) {
                         /*readCurrentIndex = 0;
                         readTotalCount = readCurrentWord.length();
                         startSynthesizer(readCurrentWord.charAt(readCurrentIndex) + "");*/
                         readCurrentWordIndex = 0;
-                        startSynthesizer(((WordInfo) mDatas.get(position)).getWord());
+                        startSynthesizer(((WordInfo) mDatas.get(position)).getName());
                     } else {
-                        startSynthesizer(((WordInfo) mDatas.get(position)).getWord());
+                        startSynthesizer(((WordInfo) mDatas.get(position)).getName());
                     }
 
                     Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_gif_play).into((ImageView) view.findViewById(R.id.iv_read_word));
@@ -256,12 +255,14 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                 return false;
             }
         });
+
+        mPresenter.getWordListByUnitId(0,0,unitId);
     }
 
     @Override
     public void showWordListData(List<WordInfo> list) {
         if (list != null) {
-
+            mReadWordItemClickAdapter.setNewData(list);
         }
     }
 
@@ -405,7 +406,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                         if (currentIndex > 4) {
                             mReadWordRecyclerView.scrollToPosition(currentIndex + 1);
                         }
-                        readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getWord();
+                        readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getName();
                         playWord();
                     } else {
                         Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
@@ -475,7 +476,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             readCurrentWordIndex = 0;
             Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_gif_play).into(mReadAllImageView);
             if (currentIndex < mDatas.size()) {
-                readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getWord();
+                readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getName();
                 startSynthesizer(readCurrentWord);
                 lastView = linearLayoutManager.findViewByPosition(currentIndex);
                 // ((TextView) lastView.findViewById(R.id.tv_word_number)).setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.read_word_share_btn_color));

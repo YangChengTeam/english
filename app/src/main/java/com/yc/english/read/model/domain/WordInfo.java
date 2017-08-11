@@ -1,5 +1,6 @@
 package com.yc.english.read.model.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.chad.library.adapter.base.entity.AbstractExpandableItem;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.yc.english.read.view.adapter.ReadWordItemClickAdapter;
@@ -8,39 +9,60 @@ import com.yc.english.read.view.adapter.ReadWordItemClickAdapter;
  * Created by admin on 2017/7/26.
  */
 
-public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements MultiItemEntity {
+public class WordInfo extends AbstractExpandableItem<WordInfo> implements MultiItemEntity {
     public static final int CLICK_ITEM_VIEW = 1;
 
-    private String word;
-    private String bookid;
+    public int Type = CLICK_ITEM_VIEW;
+
+    private String id;
+
+    private String name;
+
     private String means;
+
     private String syllable;
-    private String wordtype;
-    private String course;
-    private String lsrw;
-    private String unitid;
+
     private String phonetic;
-    private String wordid;
+
+    private String type;
+
+    @JSONField(name = "book_id")
+    private String bookId;
+
+    @JSONField(name = "unit_id")
+    private String unitId;
+
+    @JSONField(name = "section_id")
+    private String sectionId;
+
     private String voice;
+
+    @JSONField(name = "is_del")
+    private String isDel;
+
+    @JSONField(name = "page_num")
+    private String pageNum;
+
+    private String rid;
 
     public WordInfo() {
         super();
     }
 
-    public String getWord() {
-        return word;
+    public String getId() {
+        return id;
     }
 
-    public void setWord(String word) {
-        this.word = word;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getBookid() {
-        return bookid;
+    public String getName() {
+        return name;
     }
 
-    public void setBookid(String bookid) {
-        this.bookid = bookid;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getMeans() {
@@ -59,38 +81,6 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
         this.syllable = syllable;
     }
 
-    public String getWordtype() {
-        return wordtype;
-    }
-
-    public void setWordtype(String wordtype) {
-        this.wordtype = wordtype;
-    }
-
-    public String getCourse() {
-        return course;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
-    public String getLsrw() {
-        return lsrw;
-    }
-
-    public void setLsrw(String lsrw) {
-        this.lsrw = lsrw;
-    }
-
-    public String getUnitid() {
-        return unitid;
-    }
-
-    public void setUnitid(String unitid) {
-        this.unitid = unitid;
-    }
-
     public String getPhonetic() {
         return phonetic;
     }
@@ -99,12 +89,36 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
         this.phonetic = phonetic;
     }
 
-    public String getWordid() {
-        return wordid;
+    public String getType() {
+        return type;
     }
 
-    public void setWordid(String wordid) {
-        this.wordid = wordid;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
+
+    public String getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(String unitId) {
+        this.unitId = unitId;
+    }
+
+    public String getSectionId() {
+        return sectionId;
+    }
+
+    public void setSectionId(String sectionId) {
+        this.sectionId = sectionId;
     }
 
     public String getVoice() {
@@ -115,15 +129,32 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
         this.voice = voice;
     }
 
-    public int Type;
+    public String getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(String isDel) {
+        this.isDel = isDel;
+    }
+
+    public String getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(String pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public String getRid() {
+        return rid;
+    }
+
+    public void setRid(String rid) {
+        this.rid = rid;
+    }
 
     public WordInfo(final int type) {
         Type = type;
-    }
-
-    public WordInfo (String word,String means){
-        this.word = word;
-        this.means = means;
     }
 
     @Override
