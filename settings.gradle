@@ -1,1 +1,1 @@
-include ':app', ':utils', ':securityhttp', ':IMLib', ':IMKit', ':banner', ':CallKit', ':CallLib'
+include ':app', ':utils', ':securityhttp', ':IMLib', ':IMKit', ':banner','share'

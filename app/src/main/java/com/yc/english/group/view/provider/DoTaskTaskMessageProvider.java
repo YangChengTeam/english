@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
 import com.yc.english.group.view.activitys.student.GroupMyTaskDetailActivity;
+import com.yc.english.group.view.activitys.student.GroupUpdateMyTaskActivity;
 import com.yc.english.group.view.activitys.teacher.GroupTaskLookAndUnLookActivity;
 
 import io.rong.imkit.model.ProviderTag;
@@ -80,10 +81,10 @@ public class DoTaskTaskMessageProvider extends IContainerItemProvider.MessagePro
 
         if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
 
-            intent = new Intent(mContext, GroupMyTaskDetailActivity.class);
+            intent = new Intent(mContext, GroupUpdateMyTaskActivity.class);
 
         } else {
-            intent = new Intent(mContext, GroupTaskLookAndUnLookActivity.class);
+            intent = new Intent(mContext, null);
         }
         intent.putExtra("extra", richContentMessage.getExtra());
 

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.hwangjr.rxbus.RxBus;
@@ -17,10 +18,10 @@ import java.util.List;
  * Created by wanglin  on 2017/8/1 20:27.
  */
 
-public class GroupPictureAdapter extends BaseAdapter<Uri> {
+public class GroupPictureAdapter extends BaseAdapter<String> {
     private boolean mIsPublish;
 
-    public GroupPictureAdapter(Context context, boolean isPublish, List<Uri> mList) {
+    public GroupPictureAdapter(Context context, boolean isPublish, List<String> mList) {
         super(context, mList);
         this.mIsPublish = isPublish;
     }
@@ -28,13 +29,15 @@ public class GroupPictureAdapter extends BaseAdapter<Uri> {
     @Override
     protected void convert(BaseViewHolder holder, final int position) {
         holder.setVisible(R.id.m_iv_issue_picture_delete, mIsPublish);
-        final Uri uri = mList.get(position);
-        ((ImageView) holder.getView(R.id.m_iv_issue_result_picture)).setImageURI(uri);
+        final String path = mList.get(position);
+
+        Glide.with(mContext).load(path).into(((ImageView) holder.getView(R.id.m_iv_issue_result_picture)));
+
         holder.setOnClickListener(R.id.m_iv_issue_picture_delete, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 deletePicture(position);
-                RxBus.get().post(BusAction.DELETE_PICTURE, uri);
+                RxBus.get().post(BusAction.DELETE_PICTURE, path);
             }
         });
 

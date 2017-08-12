@@ -1,7 +1,6 @@
 package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
@@ -11,22 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.share.UMShareImpl;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.english.R;
-import com.yc.english.base.helper.AudioRecordManager;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
-import com.yc.english.group.view.activitys.GroupListJoinActivity;
+import com.yc.english.group.view.activitys.GroupCommonClassActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.model.domain.Constant;
@@ -40,12 +34,13 @@ import com.yc.english.read.view.activitys.BookActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
-import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+
+
 
 /**
  * Created by zhangkai on 2017/7/24.
@@ -115,7 +110,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mGameMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), GroupListJoinActivity.class);
+                Intent intent = new Intent(getActivity(), GroupCommonClassActivity.class);
                 startActivity(intent);
             }
         });

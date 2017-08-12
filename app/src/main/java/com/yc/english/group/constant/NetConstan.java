@@ -109,5 +109,20 @@ public interface NetConstan {
      * 是否查阅
      */
     String isRead_member_list = baser_url + "task/isRead_member_list";
+    /**
+     * 老师评分
+     */
+
+    String task_score = baser_url + "task/score";
+    /**
+     * 是否完成
+     */
+
+    String isDone_member_list = baser_url + "task/isDone_member_list";
+    /**
+     * 名师辅导
+     */
+
+    String index_comm_class_list = baser_url + "index/comm_class_list";
 
 }

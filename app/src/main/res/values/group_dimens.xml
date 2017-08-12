@@ -30,4 +30,5 @@
     <dimen name="group_distance_2">2dp</dimen>
     <dimen name="group_distance_18">18dp</dimen>
     <dimen name="group_distance_8">8dp</dimen>
+    <dimen name="group_distance_110">110dp</dimen>
 </resources>

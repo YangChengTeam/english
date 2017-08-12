@@ -46,7 +46,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
     private GroupPictureAdapter groupPictureAdapter;
 
     private List<FileInfo> fileInfos;
-    private List<Uri> uriList;
+    private List<String> uriList;
     private List<Voice> voices;
     private String text;
 
@@ -147,7 +147,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
         currentType = GroupConstant.TASK_TYPE_SYNTHESIZE;
         if (null == synthesizeView) {
             synthesizeView = inflater.inflate(R.layout.group_publish_task_detail_synthesis, null);
-            TextView textView = (TextView)synthesizeView. findViewById(R.id.m_et_issue_task);
+            TextView textView = (TextView) synthesizeView.findViewById(R.id.m_et_issue_task);
             RecyclerView pictureRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.recyclerView_picture);
             RecyclerView voiceRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.voice_recyclerView);
             RecyclerView fileRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.file_recyclerView);
@@ -179,11 +179,11 @@ public class MultifunctionLinearLayout extends LinearLayout {
         groupFileAdapter.setData(fileInfos);
     }
 
-    public List<Uri> getUriList() {
+    public List<String> getUriList() {
         return uriList;
     }
 
-    public void setUriList(List<Uri> uriList) {
+    public void setUriList(List<String> uriList) {
         this.uriList = uriList;
         groupPictureAdapter.setData(uriList);
     }

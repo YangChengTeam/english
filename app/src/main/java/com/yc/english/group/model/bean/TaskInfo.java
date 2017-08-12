@@ -36,6 +36,7 @@ public class TaskInfo implements Parcelable {
     private String title;
     private String type;
     private String add_week;
+    private String score;
 
     public TaskInfo() {
     }
@@ -151,6 +152,14 @@ public class TaskInfo implements Parcelable {
 
     public void setAdd_week(String add_week) {
         this.add_week = add_week;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 
     public static final Creator<TaskInfo> CREATOR = new Creator<TaskInfo>() {

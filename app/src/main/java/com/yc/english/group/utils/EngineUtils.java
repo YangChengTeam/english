@@ -17,7 +17,6 @@ import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.bean.TaskInfoWrapper;
 import com.yc.english.group.model.bean.TaskUploadInfo;
-import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.GroupUser;
 import com.yc.english.group.rong.models.GroupUserQueryResult;
@@ -102,41 +101,7 @@ public class EngineUtils {
 
     }
 
-    /**
-     * 加群
-     *
-     * @param
-     * @param usre_id
-     * @param groupId
-     * @param groupName
-     */
-    public static void joinGroup(String usre_id, final String groupId, final String groupName) {
-        final String[] userIds = new String[]{usre_id};
-        ImUtils.queryGroup(groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<GroupUserQueryResult>() {
-            @Override
-            public void call(GroupUserQueryResult groupUserQueryResult) {
-                if (groupUserQueryResult.getCode() == 200) {
-                    final List<GroupUser> users = groupUserQueryResult.getUsers();
-                    ImUtils.joinGroup(userIds, groupId, groupName).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<CodeSuccessResult>() {
-                        @Override
-                        public void call(CodeSuccessResult codeSuccessResult) {
-                            if (codeSuccessResult.getCode() == 200) {//加入成功
-                                ToastUtils.showShort("加入成功");
 
-//                                mView.startGroupChat(groupId, groupName);
-//                                ClassInfo info = new ClassInfo("", groupName, users.size() + "", Integer.parseInt(groupId));
-//                                classInfoDao.insert(info);
-                                RxBus.get().post(BusAction.GROUPLIST, "from groupjoin");
-                            }
-                        }
-                    });
-                } else {
-                    ToastUtils.showShort("没有该群组，请重新输入");
-                }
-            }
-        });
-
-    }
 
     /**
      * @param class_id  班级ID 必传
@@ -185,6 +150,7 @@ public class EngineUtils {
 
     /**
      * 上传图片，音频，文档
+     *
      * @param context
      * @param file
      * @param fileName
@@ -199,6 +165,26 @@ public class EngineUtils {
 
         return HttpCoreEngin.get(context).rxuploadFile(NetConstan.upload_richFile, new TypeReference<ResultInfo<TaskUploadInfo>>() {
         }.getType(), upFileInfo, null, true);
+
+    }
+
+
+    /**
+     * 获取完成作业详情
+     *
+     * @param context
+     * @param id
+     * @param user_id
+     * @return
+     */
+    public static Observable<ResultInfo<TaskInfoWrapper>> getDoneTaskDetail(Context context, String id, String user_id) {
+
+        Map<String, String> params = new HashMap<>();
+        params.put("id", id);
+        params.put("user_id", user_id);
+
+        return HttpCoreEngin.get(context).rxpost(NetConstan.detail_do_task, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
+        }.getType(), params, true, true, true);
 
     }
 

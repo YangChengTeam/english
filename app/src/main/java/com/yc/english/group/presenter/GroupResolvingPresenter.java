@@ -10,7 +10,6 @@ import com.yc.english.group.contract.GroupResolvingContract;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.engin.GroupResolvingEngine;
-import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.utils.EngineUtils;
 
@@ -55,7 +54,8 @@ public class GroupResolvingPresenter extends BasePresenter<GroupResolvingEngine,
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        resolvingRongGroup(stringResultInfo.data);
+
+                        mView.showResolvingResult();
                     }
                 });
             }
@@ -109,7 +109,7 @@ public class GroupResolvingPresenter extends BasePresenter<GroupResolvingEngine,
                     @Override
                     public void run() {
                         RxBus.get().post(BusAction.GROUPLIST,"change face");
-                        mView.showChangeGroupInfo(removeGroupInfoResultInfo.data);
+                        mView.showResolvingResult();
                     }
                 });
             }
@@ -117,17 +117,6 @@ public class GroupResolvingPresenter extends BasePresenter<GroupResolvingEngine,
         mSubscriptions.add(subscription);
     }
 
-
-    private void resolvingRongGroup(final RemoveGroupInfo removeGroupInfo) {
-        ImUtils.removeGroup(removeGroupInfo.getMaster_id(), removeGroupInfo.getClass_id()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<CodeSuccessResult>() {
-            @Override
-            public void call(CodeSuccessResult codeSuccessResult) {
-                if (codeSuccessResult.getCode() == 200) {
-                    mView.showResolvingResult();
-                }
-            }
-        });
-    }
 
 
 }

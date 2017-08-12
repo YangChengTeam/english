@@ -6,10 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
-import com.yc.english.group.model.bean.TaskFinishedInfo;
+import com.yc.english.group.model.bean.StudentFinishTaskInfo;
 import com.yc.english.group.view.adapter.GroupTaskFinishedAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -23,40 +22,23 @@ public class GroupUnFinishTaskFragment extends BaseFragment {
     @BindView(R.id.m_recyclerView)
     RecyclerView mRecyclerView;
     private GroupTaskFinishedAdapter adapter;
-    private List<TaskFinishedInfo> list = new ArrayList<>();
+
 
     @Override
     public void init() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new GroupTaskFinishedAdapter(getActivity(), null);
-        mRecyclerView.setAdapter(adapter);
-        BaseItemDecoration decoration = new BaseItemDecoration(getContext());
-        mRecyclerView.addItemDecoration(decoration);
-        initData();
-    }
 
-    private void initData() {
-        list.add(new TaskFinishedInfo("艾同学", ""));
-        list.add(new TaskFinishedInfo("曹同学", ""));
-        list.add(new TaskFinishedInfo("程同学", ""));
-        list.add(new TaskFinishedInfo("程同学", ""));
-        list.add(new TaskFinishedInfo("程同学", ""));
-        list.add(new TaskFinishedInfo("程同学", ""));
-        list.add(new TaskFinishedInfo("艾同学", ""));
-        list.add(new TaskFinishedInfo("曹同学", ""));
-        list.add(new TaskFinishedInfo("程同学", ""));
-        list.add(new TaskFinishedInfo("艾同学", ""));
-        list.add(new TaskFinishedInfo("曹同学", ""));
-        list.add(new TaskFinishedInfo("程同学", ""));
-        list.add(new TaskFinishedInfo("程同学", ""));
-        list.add(new TaskFinishedInfo("程同学", ""));
-        list.add(new TaskFinishedInfo("程同学", ""));
-        list.add(new TaskFinishedInfo("艾同学", ""));
-        list.add(new TaskFinishedInfo("曹同学", ""));
-        adapter.setData(list);
+        if (getArguments() != null) {
 
+            List<StudentFinishTaskInfo.ListBean.NoDoneListBean> noDone_list = getArguments().getParcelableArrayList("noDone_list");
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            adapter = new GroupTaskFinishedAdapter(getActivity(), noDone_list);
+            mRecyclerView.setAdapter(adapter);
+            BaseItemDecoration decoration = new BaseItemDecoration(getContext());
+            mRecyclerView.addItemDecoration(decoration);
+        }
 
     }
+
 
     @Override
     public int getLayoutId() {

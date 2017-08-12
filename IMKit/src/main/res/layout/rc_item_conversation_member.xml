@@ -8,11 +8,12 @@
 
     <io.rong.imkit.widget.AsyncImageView
         android:id="@android:id/icon"
-        app:RCShape="square"
+        app:RCShape="circle"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        />
 
     <ImageView
         android:id="@android:id/icon2"
