@@ -20,11 +20,13 @@ import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
+import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.view.activitys.GroupCommonClassActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.CountInfo;
+import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.presenter.IndexPresenter;
 import com.yc.english.main.view.activitys.MainActivity;
@@ -135,14 +137,18 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void call(Void aVoid) {
                 SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
-                sharePopupWindow.setTitle("111").setUrl("http://www.baiud.com").setDesc("1234134").show(mRootView);
+                sharePopupWindow.show(mRootView);
             }
         });
 
         mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                ToastUtils.showLong("点击了第" + position + "图片");
+                SlideInfo slideInfo = mPresenter.getSlideInfo(position);
+                Intent intent = new Intent(getActivity() ,WebActivity.class);
+                intent.putExtra("title", slideInfo.getTitle());
+                intent.putExtra("url", "http://www.baidu.com");
+                startActivity(intent);
             }
         });
     }

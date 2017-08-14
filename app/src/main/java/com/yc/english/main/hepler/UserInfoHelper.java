@@ -30,7 +30,6 @@ import rx.schedulers.Schedulers;
  */
 
 public class UserInfoHelper {
-
     private static UserInfo mUserInfo;
 
     public static UserInfo getUserInfo() {

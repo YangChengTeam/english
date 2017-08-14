@@ -10,9 +10,11 @@ import com.yc.english.base.view.IView;
  */
 
 public interface ForgotContract {
+
     interface View extends IView, IFinish, IDialog {
         void codeRefresh();
     }
+
     interface Presenter extends IPresenter {
         void sendCode(String mobile);
         void resetPassword(String mobile, String pwd, String code);

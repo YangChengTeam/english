@@ -39,6 +39,7 @@
         <activity android:name=".main.view.activitys.LoginActivity">
 
         </activity>
+        <activity android:name=".base.view.WebActivity"/>
 
         <activity
             android:name=".read.view.activitys.BookActivity"
@@ -67,6 +68,9 @@
             android:name=".group.view.activitys.teacher.GroupCreateActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+
+
+
 
         <!--会话界面-->
         <activity

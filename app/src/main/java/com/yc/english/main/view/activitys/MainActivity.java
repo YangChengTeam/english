@@ -148,9 +148,4 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         return result;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
-    }
 }

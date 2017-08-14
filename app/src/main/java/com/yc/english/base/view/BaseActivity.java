@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IView, IDialog {
     protected P mPresenter;
-    private LoadingDialog mLoadingDialog;
+    protected LoadingDialog mLoadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,5 +83,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         });
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
 }
