@@ -35,6 +35,7 @@ import com.yc.english.read.view.adapter.ReadWordItemClickAdapter;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -76,7 +77,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     ReadWordItemClickAdapter mReadWordItemClickAdapter;
 
-    List<WordInfo> mDatas;
+    List<MultiItemEntity> mDatas;
 
     boolean isSpell = false;
 
@@ -226,14 +227,22 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     @Override
     public void showWordListData(List<WordInfo> list) {
         if (list != null) {
-            mDatas = list;
+            //mDatas = list;
+
+            if (mDatas == null) {
+                mDatas = new ArrayList<MultiItemEntity>();
+            } else {
+                mDatas.clear();
+            }
+
             setProgressNum(0, mDatas.size());
             //TODO 数据有问题，待定
-            for (WordInfo wordInfo : list) {
-                wordInfo.setType(mReadWordItemClickAdapter.TYPE_LEVEL_0);
-                wordInfo.addSubItem(new WordInfo(wordInfo.getName(), wordInfo.getMeans(), mReadWordItemClickAdapter.TYPE_LEVEL_1));
+            for (int i = 0; i < list.size(); i++) {
+                WordInfo wordInfo = (WordInfo) list.get(i);
+                wordInfo.addSubItem(new WordDetailInfo(wordInfo.getName(), wordInfo.getMeans()));
+                mDatas.add(wordInfo);
             }
-            mReadWordItemClickAdapter.setNewData(list);
+            mReadWordItemClickAdapter.setNewData(mDatas);
         }
     }
 
@@ -272,7 +281,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
     public void startSynthesizer(int position) {
-        String text = mReadWordItemClickAdapter.getData().get(position).getName();
+        String text = ((WordInfo) mReadWordItemClickAdapter.getData().get(position)).getName();
         int code = mTts.startSpeaking(text, mTtsListener);
         if (code != ErrorCode.SUCCESS) {
             if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
@@ -387,6 +396,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     @OnClick(R.id.layout_pass_word)
     public void wordPractice() {
         Intent intent = new Intent(ReadWordActivity.this, WordPracticeActivity.class);
+        intent.putExtra("unit_id", unitId);
         startActivity(intent);
     }
 

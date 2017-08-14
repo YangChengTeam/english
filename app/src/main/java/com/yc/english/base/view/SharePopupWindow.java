@@ -144,21 +144,21 @@ public class SharePopupWindow extends BasePopupWindow {
     }
 
 
-    private String title;
+    private String title = "说说英语";
 
     public SharePopupWindow setTitle(String title) {
         this.title = title;
         return this;
     }
 
-    private String url;
+    private String url = "http://www.baidu.com";
 
     public SharePopupWindow setUrl(String url) {
         this.url = url;
         return this;
     }
 
-    private String desc;
+    private String desc = "说说英语学习英语的神器";
 
     public SharePopupWindow setDesc(String desc) {
         this.desc = desc;

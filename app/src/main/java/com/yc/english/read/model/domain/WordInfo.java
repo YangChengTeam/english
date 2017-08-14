@@ -9,7 +9,7 @@ import com.yc.english.read.view.adapter.ReadWordItemClickAdapter;
  * Created by admin on 2017/7/26.
  */
 
-public class WordInfo extends AbstractExpandableItem<WordInfo> implements MultiItemEntity {
+public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements MultiItemEntity {
     public static final int CLICK_ITEM_VIEW = 1;
 
     public int Type = CLICK_ITEM_VIEW;
