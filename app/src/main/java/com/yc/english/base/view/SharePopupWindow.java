@@ -85,7 +85,8 @@ public class SharePopupWindow extends BasePopupWindow {
                     if (onShareItemClickListener != null) {
                         onShareItemClickListener.onClick(shareItemView);
                     } else {
-                        UMShareImpl.get().setCallback(mContext, umShareListener).shareUrl(title, url, desc, R.mipmap.lanucher, getShareMedia(shareItemView.getTag() + ""));
+                        UMShareImpl.get().setCallback(mContext, umShareListener).shareUrl(title, url, desc, R.drawable
+                                .share, getShareMedia(shareItemView.getTag() + ""));
                     }
                     dismiss();
                 }

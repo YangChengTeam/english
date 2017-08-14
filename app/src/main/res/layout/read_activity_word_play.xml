@@ -49,9 +49,10 @@
                     android:text="已完成"/>
 
                 <TextView
+                    android:id="@+id/tv_read_current_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="25"
+                    android:text="6"
                     android:textColor="@color/primary"/>
 
                 <TextView
@@ -60,9 +61,10 @@
                     android:text="/"/>
 
                 <TextView
+                    android:id="@+id/tv_read_total_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="50"/>
+                    android:text="20"/>
             </LinearLayout>
 
             <LinearLayout
@@ -71,7 +73,7 @@
                 android:gravity="center">
 
                 <ProgressBar
-                    android:id="@+id/pbCrosswise"
+                    android:id="@+id/pb_read_num"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="200dp"
                     android:layout_height="8dp"
@@ -129,8 +131,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
-                        android:visibility="gone"
-                        android:src="@mipmap/spell_selected_icon"/>
+                        android:src="@mipmap/spell_selected_icon"
+                        android:visibility="gone"/>
                 </RelativeLayout>
 
                 <LinearLayout

@@ -16,6 +16,7 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.contract.WordUnitContract;
 import com.yc.english.read.model.domain.BookInfo;
+import com.yc.english.read.model.domain.WordUnitInfo;
 import com.yc.english.read.model.domain.WordUnitInfoList;
 import com.yc.english.read.presenter.WordUnitPresenter;
 import com.yc.english.read.view.adapter.ReadWordUnitItemClickAdapter;
@@ -81,6 +82,7 @@ public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> impl
 
                 if (ReadApp.READ_COMMON_TYPE == 2) {
                     Intent intent = new Intent(WordUnitActivity.this, ReadWordActivity.class);
+                    intent.putExtra("unit_id", ((WordUnitInfo) mItemAdapter.getData().get(position)).getId());
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(WordUnitActivity.this, WordPracticeActivity.class);

@@ -11,12 +11,11 @@ import com.yc.english.base.model.BaseEngin;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.model.domain.BookInfoWarpper;
 import com.yc.english.read.model.domain.URLConfig;
-import com.yc.english.read.model.domain.WordInfo;
+import com.yc.english.read.model.domain.WordInfoList;
 import com.yc.english.read.model.domain.WordUnitInfo;
 import com.yc.english.read.model.domain.WordUnitInfoList;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
@@ -61,12 +60,12 @@ public class WordEngin extends BaseEngin {
     }
 
 
-    public Observable<List<WordInfo>> getWordListByUnitId(int currentPage, int pageCount, String unitId) {
+    public Observable<ResultInfo<WordInfoList>> getWordListByUnitId(int currentPage, int pageCount, String unitId) {
         Map<String, String> params = new HashMap<>();
         params.put("current_page", currentPage + "");
         params.put("page_count", pageCount + "");
         params.put("unit_id", unitId);
-        return HttpCoreEngin.get(context).rxpost(URLConfig.WORD_LIST_URL, new TypeReference<ResultInfo<List<WordInfo>>>() {
+        return HttpCoreEngin.get(context).rxpost(URLConfig.WORD_LIST_URL, new TypeReference<ResultInfo<WordInfoList>>() {
                 }.getType(), params,
                 true, true,
                 true);
