@@ -10,11 +10,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-<<<<<<< HEAD
 
-=======
 import com.blankj.utilcode.util.LogUtils;
->>>>>>> 9d7c579f1411e0cb1d30041080c42f89bca1c650
+
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;

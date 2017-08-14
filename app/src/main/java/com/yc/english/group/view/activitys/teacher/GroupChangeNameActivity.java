@@ -72,7 +72,8 @@ public class GroupChangeNameActivity extends FullScreenActivity<GroupChangeInfoP
 
     @Override
     public void showChangeResult() {
-        finish();
         RxBus.get().post(BusAction.CHANGE_NAME, "changeName");
+        RxBus.get().post(BusAction.GROUPLIST, "changeName");
+        finish();
     }
 }

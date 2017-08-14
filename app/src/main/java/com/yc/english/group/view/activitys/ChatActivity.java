@@ -63,7 +63,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
         initData();
         if (EmptyUtils.isNotEmpty(group)) {
             mPresenter.queryGroupById(this, group.getId(), "");
-            RxBus.get().post(BusAction.UNREAD_MESSAGE, group.getId());
         }
         mToolbar.showNavigationIcon();
         RongIMUtil.reconnect(this);

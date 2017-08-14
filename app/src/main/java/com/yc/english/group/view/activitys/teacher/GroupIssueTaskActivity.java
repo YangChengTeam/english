@@ -153,9 +153,13 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
     @OnClick({R.id.m_rl_async_to_other, R.id.m_iv_issue_picture, R.id.m_iv_issue_voice, R.id.m_iv_issue_file})
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.m_rl_async_to_other:
-                startActivityForResult(new Intent(this, GroupSyncGroupListActivity.class), 200);
+
+                intent = new Intent(this, GroupSyncGroupListActivity.class);
+                intent.putExtra("classId", mClassInfo.getClass_id());
+                startActivityForResult(intent, 200);
                 break;
             case R.id.m_iv_issue_picture:
                 startActivityForResult(new Intent(this, PictureSelectorActivity.class), 300);
@@ -166,7 +170,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 break;
 
             case R.id.m_iv_issue_file:
-                Intent intent = new Intent(GroupIssueTaskActivity.this, FileListActivity.class);
+                intent = new Intent(GroupIssueTaskActivity.this, FileListActivity.class);
                 intent.putExtra("rootDirType", 100);
                 intent.putExtra("fileFilterType", 5);
                 intent.putExtra("fileTraverseType", 201);

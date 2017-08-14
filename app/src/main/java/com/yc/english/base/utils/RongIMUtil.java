@@ -88,65 +88,6 @@ public class RongIMUtil {
     }
 
 
-<<<<<<< HEAD
-=======
-    public static void reJoinUser(final Context context, final Message rmessage) {
-        EngineUtils.queryGroupById(context, rmessage.getTargetId(), "").subscribe(new
-                                                                                          Action1<ResultInfo<ClassInfoWarpper>>() {
-                                                                                              @Override
-                                                                                              public void call(final ResultInfo<ClassInfoWarpper> classInfoWarpperResultInfo) {
-                                                                                                  ResultInfoHelper.handleResultInfo(classInfoWarpperResultInfo, new ResultInfoHelper.Callback() {
-                                                                                                      @Override
-                                                                                                      public void resultInfoEmpty(String message) {
-
-                                                                                                      }
-
-                                                                                                      @Override
-                                                                                                      public void resultInfoNotOk(String message) {
-
-                                                                                                      }
-
-                                                                                                      @Override
-                                                                                                      public void reulstInfoOk() {
-                                                                                                          ImUtils.joinGroup(new String[]{rmessage.getSenderUserId()}, rmessage.getTargetId(),
-                                                                                                                  classInfoWarpperResultInfo.data.getInfo().getClassName())
-                                                                                                                  .subscribe(new
-                                                                                                                                     Action1<CodeSuccessResult>() {
-                                                                                                                                         @Override
-                                                                                                                                         public void call(CodeSuccessResult codeSuccessResult) {
-                                                                                                                                             if (codeSuccessResult.getCode() != 200) {
-                                                                                                                                                 reJoinUser(context, rmessage);
-                                                                                                                                             } else {
-                                                                                                                                                 RongIM.getInstance().sendMessage(rmessage, null, null, new IRongCallback
-                                                                                                                                                         .ISendMessageCallback() {
-                                                                                                                                                     @Override
-                                                                                                                                                     public void onAttached(Message message) {
-                                                                                                                                                         //消息本地数据库存储成功的回调
-                                                                                                                                                     }
-
-                                                                                                                                                     @Override
-                                                                                                                                                     public void onSuccess(Message message) {
-                                                                                                                                                         //消息通过网络发送成功的回调
-                                                                                                                                                     }
-
-                                                                                                                                                     @Override
-                                                                                                                                                     public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-                                                                                                                                                         //消息发送失败的回调
-                                                                                                                                                     }
-                                                                                                                                                 });
-                                                                                                                                             }
-                                                                                                                                         }
-                                                                                                                                     });
-                                                                                                      }
-                                                                                                  });
-                                                                                              }
-                                                                                          });
->>>>>>> 9d7c579f1411e0cb1d30041080c42f89bca1c650
-
-
-
-
-
     public static void reconnect(Context context) {
         if (!isConnect()) {
             com.yc.english.main.model.domain.UserInfo userInfo = UserInfoHelper.getUserInfo();

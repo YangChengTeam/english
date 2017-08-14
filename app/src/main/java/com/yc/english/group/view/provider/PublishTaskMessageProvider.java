@@ -71,7 +71,7 @@ public class PublishTaskMessageProvider extends IContainerItemProvider.MessagePr
 
     @Override
     public void onItemClick(View view, int position, RichContentMessage richContentMessage, UIMessage uiMessage) {
-//        uiMessage.getMessageId()
+
         LogUtils.e("onItemClick", richContentMessage.getExtra() + "---" + uiMessage.getTargetId());
 
 

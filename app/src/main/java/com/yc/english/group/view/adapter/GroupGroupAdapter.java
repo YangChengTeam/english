@@ -93,6 +93,7 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
                     GroupApp.setMyExtensionModule(false);
                 }
                 RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
+                holder.getView(R.id.m_tv_notification_count).setVisibility(View.INVISIBLE);
             }
         });
 

@@ -17,6 +17,7 @@ import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.view.adapter.GroupFileAdapter;
 import com.yc.english.group.view.adapter.GroupPictureAdapter;
+import com.yc.english.group.view.adapter.GroupTaskSolePicAdapter;
 import com.yc.english.group.view.adapter.GroupVoiceAdapter;
 
 import java.util.List;
@@ -49,6 +50,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
     private List<String> uriList;
     private List<Voice> voices;
     private String text;
+    private GroupTaskSolePicAdapter groupTaskSolePicAdapter;
 
     public MultifunctionLinearLayout(Context context) {
         this(context, null);
@@ -102,7 +104,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
                 public void onClick(View v) {
                     isClick = !isClick;
                     tv.setText(isClick ? mContext.getString(R.string.pack_up) : getResources().getString(R.string.look_detail));
-                    iv.setImageDrawable(isClick ? mContext.getResources().getDrawable(R.mipmap.group3) : mContext.getResources().getDrawable(R.mipmap.group4));
+                    iv.setImageDrawable(isClick ? mContext.getResources().getDrawable(R.mipmap.group69) : mContext.getResources().getDrawable(R.mipmap.group68));
                 }
             });
             addView(pictureView);
@@ -139,10 +141,6 @@ public class MultifunctionLinearLayout extends LinearLayout {
         }
     }
 
-
-    @BindView(R.id.file_recyclerView)
-    RecyclerView fileRecyclerView;
-
     public void showSynthesizeView() {
         currentType = GroupConstant.TASK_TYPE_SYNTHESIZE;
         if (null == synthesizeView) {
@@ -152,13 +150,14 @@ public class MultifunctionLinearLayout extends LinearLayout {
             RecyclerView voiceRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.voice_recyclerView);
             RecyclerView fileRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.file_recyclerView);
 
-            pictureRecycleView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
             groupPictureAdapter = new GroupPictureAdapter(mContext, false, null);
+            pictureRecycleView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
             pictureRecycleView.setAdapter(groupPictureAdapter);
 
             groupVoiceAdapter = new GroupVoiceAdapter(mContext, false, null);
             voiceRecycleView.setLayoutManager(new LinearLayoutManager(mContext));
             voiceRecycleView.setAdapter(groupVoiceAdapter);
+
 
             groupFileAdapter = new GroupFileAdapter(mContext, false, null);
             fileRecycleView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -185,7 +184,12 @@ public class MultifunctionLinearLayout extends LinearLayout {
 
     public void setUriList(List<String> uriList) {
         this.uriList = uriList;
-        groupPictureAdapter.setData(uriList);
+        if (groupPictureAdapter != null) {
+            groupPictureAdapter.setData(uriList);
+        }
+        if (groupTaskSolePicAdapter != null) {
+            groupTaskSolePicAdapter.setData(uriList);
+        }
     }
 
     public List<Voice> getVoices() {

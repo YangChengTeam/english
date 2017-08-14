@@ -99,7 +99,6 @@ public class UserInfoHelper {
 
                                                                              @Override
                                                                              public void reulstInfoOk() {
-                                                                                 LogUtils.e("reulstInfoOk: " + resultInfo.data.getToken());
                                                                                  ConnectUtils.contact(context,
                                                                                          resultInfo.data.getToken());
                                                                              }

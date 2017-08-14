@@ -1,6 +1,6 @@
 package com.yc.english.group.view.activitys.student;
 
-import android.os.Bundle;
+import android.media.MediaPlayer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,12 +9,17 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupDoneTaskDetailContract;
 import com.yc.english.group.model.bean.TaskInfo;
+import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupDoneTaskDetailPresenter;
 import com.yc.english.group.view.widget.MultifunctionLinearLayout;
 import com.yc.english.main.hepler.UserInfoHelper;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/7/27 18:30.
@@ -43,7 +48,7 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
             String taskId = getIntent().getStringExtra("taskId");
             String classId = getIntent().getStringExtra("classId");
             String id = getIntent().getStringExtra("id");
-            mPresenter.getDoneTaskDetail(this,id, UserInfoHelper.getUserInfo().getUid());
+            mPresenter.getDoneTaskDetail(this, id, UserInfoHelper.getUserInfo().getUid());
             mPresenter.getPublishTaskDetail(this, taskId, classId, "");
 
         }
@@ -58,7 +63,7 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
     public void showDoneTaskDetail(TaskInfo info) {
 
         setScore(info);
-        setType(info);
+        setDoType(info);
 
     }
 
@@ -86,7 +91,7 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
             case GroupConstant.TASK_TYPE_VOICE:
                 mIvTaskIcon.setImageResource(R.mipmap.group38);
                 publishMultifunctionLinearLayout.showVoiceView();
-//                publishMultifunctionLinearLayout.setVoices();
+                publishMultifunctionLinearLayout.setVoices(getVoiceList(info));
                 break;
             case GroupConstant.TASK_TYPE_SYNTHESIZE:
                 mIvTaskIcon.setImageResource(R.mipmap.group44);
@@ -98,7 +103,7 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
         }
     }
 
-    private void setType(TaskInfo info) {
+    private void setDoType(TaskInfo info) {
         int type = Integer.parseInt(info.getType());
         switch (type) {
             case GroupConstant.TASK_TYPE_CHARACTER:
@@ -117,12 +122,14 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
             case GroupConstant.TASK_TYPE_VOICE:
                 mIvTaskIcon.setImageResource(R.mipmap.group38);
                 doMultifunctionLinearLayout.showVoiceView();
+                doMultifunctionLinearLayout.setVoices(getVoiceList(info));
                 break;
             case GroupConstant.TASK_TYPE_SYNTHESIZE:
 
                 doMultifunctionLinearLayout.setText(info.getDesp());
                 doMultifunctionLinearLayout.showSynthesizeView();
                 doMultifunctionLinearLayout.setUriList(info.getBody().getImgs());
+                doMultifunctionLinearLayout.setVoices(getVoiceList(info));
 
                 break;
 
@@ -144,6 +151,30 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
                 mIvGrade.setImageResource(R.mipmap.group34);
             }
         }
+    }
+
+
+    private List<Voice> getVoiceList(TaskInfo taskInfo) {
+        List<String> voice = taskInfo.getBody().getVoices();
+        List<Voice> voiceList = new ArrayList<>();
+
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        try {
+            if (voice != null && voice.size() > 0) {
+                for (String s : voice) {
+                    mediaPlayer.setDataSource(s);
+                    mediaPlayer.prepare();
+                    int duration = mediaPlayer.getDuration();
+                    int second = duration / 1000;
+                    mediaPlayer.release();
+
+                    voiceList.add(new Voice(new File(s), second + "''"));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return voiceList;
     }
 
 

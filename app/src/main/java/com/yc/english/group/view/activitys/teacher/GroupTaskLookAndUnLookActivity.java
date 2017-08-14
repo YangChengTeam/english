@@ -30,6 +30,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,7 +87,6 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
             @Override
             public void onClick() {
                 Intent intent = new Intent(GroupTaskLookAndUnLookActivity.this, GroupPublishTaskListActivity.class);
-
                 startActivity(intent);
             }
         });
@@ -136,9 +136,7 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
         Bundle unLookBundle = new Bundle();
 
         lookBundle.putParcelableArrayList("look_list", read_list);
-        unLookBundle.putParcelableArrayList("unLook_list",noread_list);
-
-//        if (!TextUtils.isEmpty(taskDetailInfo)) bundle.putString("extra", taskDetailInfo);
+        unLookBundle.putParcelableArrayList("unLook_list", noread_list);
 
         groupLookTaskFragment = new GroupLookTaskFragment();
         groupLookTaskFragment.setArguments(lookBundle);
@@ -200,18 +198,17 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
     private List<Voice> getVoiceList(TaskInfo taskInfo) {
         List<String> voice = taskInfo.getBody().getVoices();
         List<Voice> voiceList = new ArrayList<>();
-
-        MediaPlayer mediaPlayer = new MediaPlayer();
         try {
             if (voice != null && voice.size() > 0) {
                 for (String s : voice) {
+                    MediaPlayer mediaPlayer = new MediaPlayer();
                     mediaPlayer.setDataSource(s);
                     mediaPlayer.prepare();
                     int duration = mediaPlayer.getDuration();
                     int second = duration / 1000;
+                    mediaPlayer.reset();
                     mediaPlayer.release();
-
-                    voiceList.add(new Voice(s, second + "''"));
+                    voiceList.add(new Voice(new File(s), second + "''"));
                 }
             }
         } catch (IOException e) {

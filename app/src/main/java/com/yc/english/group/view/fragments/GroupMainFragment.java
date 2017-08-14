@@ -159,19 +159,6 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         sViewLoading.hide();
     }
 
-
-
-    @Subscribe(
-            thread = EventThread.MAIN_THREAD,
-            tags = {
-                    @Tag(BusAction.CHANGE_NAME)
-            }
-    )
-    public void changeName(String result) {
-        mPresenter.loadData(true);
-    }
-
-
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
@@ -198,6 +185,5 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         adapter.setMessage(message, true);
         adapter.notifyDataSetChanged();
     }
-
 
 }

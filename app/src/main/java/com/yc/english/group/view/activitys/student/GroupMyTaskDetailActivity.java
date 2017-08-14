@@ -276,7 +276,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
                     int second = duration / 1000;
                     mediaPlayer.release();
 
-                    voiceList.add(new Voice(s, second + "''"));
+                    voiceList.add(new Voice(new File(s), second + "''"));
                 }
             }
         } catch (IOException e) {
