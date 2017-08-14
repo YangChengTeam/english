@@ -1,6 +1,7 @@
 package com.yc.english.main.view.activitys;
 
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.widget.Button;
@@ -26,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import io.rong.imkit.manager.AudioPlayManager;
+import io.rong.imkit.manager.IAudioPlayListener;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -57,16 +59,6 @@ public class ForgotActivity extends FullScreenActivity<ForgotPresenter> implemen
     public void init() {
         mToolbar.setTitle("忘记密码");
         mToolbar.showNavigationIcon();
-
-
-        RxUtils.getFile(this, "http://en.qqtn.com/Upload/Picture/2017-08-14/599145f14e375.voice").observeOn
-                (AndroidSchedulers.mainThread()).subscribe(new Action1<File>() {
-            @Override
-            public void call(File file) {
-                LogUtils.i("file---", file.getAbsolutePath());
-            }
-        });
-
 
         mPresenter = new ForgotPresenter(this, this);
 

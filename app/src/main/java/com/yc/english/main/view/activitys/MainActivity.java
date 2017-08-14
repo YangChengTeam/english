@@ -5,11 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.umeng.socialize.UMShareAPI;
 import com.yc.english.R;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.group.view.fragments.GroupMainFragment;
@@ -75,11 +78,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         });
     }
 
-    public void goToTask(){
+    public void goToTask() {
         mTabBar.tab(1);
     }
 
-    public void goToMy(){
+    public void goToMy() {
         mTabBar.tab(2);
     }
 
@@ -87,6 +90,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private IndexFragment mIndexFragment;
     private GroupMainFragment mClassMainFragment;
     private MyFragment mMyFragment;
+
     class FragmentAdapter extends FragmentStatePagerAdapter {
         public FragmentAdapter(FragmentManager fm) {
             super(fm);
@@ -122,7 +126,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(mClassMainFragment != null){
+        if (mClassMainFragment != null) {
             BaseToolBar mToolbar = mClassMainFragment.getToolbar();
             if (mToolbar.isHasMenu()) {
                 getMenuInflater().inflate(R.menu.base_toolbar_menu, menu);
@@ -135,7 +139,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean result = super.onPrepareOptionsMenu(menu);
-        if(mClassMainFragment != null) {
+        if (mClassMainFragment != null) {
             BaseToolBar mToolbar = mClassMainFragment.getToolbar();
             if (mToolbar.isHasMenu()) {
                 MenuItem menuItem = menu.findItem(R.id.action);
@@ -147,5 +151,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
         return result;
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            final AlertDialog alertDialog = new AlertDialog(this);
+            alertDialog.setDesc("确认退出说说英语？");
+            alertDialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    finish();
+                    System.exit(0);
+                }
+            });
+            alertDialog.show();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
 }
