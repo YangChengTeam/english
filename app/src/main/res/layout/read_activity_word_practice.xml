@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center"
-                android:src="@mipmap/read_audio_stop"/>
+                android:src="@mipmap/read_word_icon"/>
 
             <TextView
                 android:id="@+id/tv_cn_word"
@@ -70,6 +70,7 @@
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingRight="40dp"
                 android:textSize="20sp"
+                android:maxLength="20"
                 android:textStyle="bold"/>
 
             <ImageView
@@ -182,6 +183,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_word_error_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_right_remind"

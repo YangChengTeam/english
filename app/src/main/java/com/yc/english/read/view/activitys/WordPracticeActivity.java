@@ -1,6 +1,5 @@
 package com.yc.english.read.view.activitys;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,11 +14,12 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.iflytek.cloud.ErrorCode;
-import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.DrawableUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.read.common.SpeechUtil;
@@ -32,10 +32,15 @@ import com.yc.english.read.view.wdigets.CountDown;
 import com.yc.english.read.view.wdigets.GridSpacingItemDecoration;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.functions.Action1;
 
 /**
  * Created by admin on 2017/7/26.
@@ -52,6 +57,24 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
     @BindView(R.id.iv_word_delete)
     ImageView mWordDeleteImageView;
 
+    @BindView(R.id.iv_audio_play)
+    ImageView mAudioPlayImageView;
+
+    @BindView(R.id.btn_right_next_word)
+    Button mRightNextButton;
+
+    @BindView(R.id.btn_error_next_word)
+    Button mErrorNextButton;
+
+    @BindView(R.id.btn_error_again_word)
+    Button mErrorAgainButton;
+
+    @BindView(R.id.tv_cn_word)
+    TextView mChineseWordTextView;
+
+    @BindView(R.id.tv_right_remind_word)
+    TextView mRightRemindTextView;
+
     @BindView(R.id.tv_word_count_down)
     TextView mWordCountDownTextView;
 
@@ -67,26 +90,19 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
     @BindView(R.id.layout_error)
     RelativeLayout mErrorLayout;
 
-    @BindView(R.id.btn_error_again_word)
-    Button mErrorAgainButton;
-
-    @BindView(R.id.btn_error_next_word)
-    Button mErrorNextButton;
+    @BindView(R.id.tv_word_error_tip)
+    TextView mWordErrorTipTextView;
 
     private String[] mLetterListValues;
 
     private ReadLetterItemClickAdapter mLetterAdapter;
 
+    private List<WordInfo> mWordInfoDatas;
+
     private List<LetterInfo> mLetterDatas;
 
     // 语音合成对象
     private SpeechSynthesizer mTts;
-
-    // 默认云端发音人
-    private String voicer = "catherine";
-
-    // 引擎类型
-    private String mEngineType = SpeechConstant.TYPE_CLOUD;
 
     // 缓冲进度
     private int mPercentForBuffering = 0;
@@ -97,6 +113,12 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
     private String unitId;
 
     CountDown countDown;
+
+    private int currentWordIndex;
+
+    private String currentRightWord;
+
+    private String currentRightCnWord;
 
     @Override
     public int getLayoutId() {
@@ -111,21 +133,12 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
             unitId = bundle.getString("unit_id");
         }
 
-        mToolbar.setTitle("5/10");
+        mPresenter = new ReadWordPresenter(this, this);
+
         mToolbar.showNavigationIcon();
 
         SpeechUtil.initSpeech(WordPracticeActivity.this, 28, 50, 50, 1);
         mTts = SpeechUtil.getmTts();
-
-        mLetterListValues = new String[]{"m", "p", "a", "o", "g", "s", "e", "p", "w", "y", "k", "b", "s", "o", "c"};
-
-        mLetterDatas = new ArrayList<LetterInfo>();
-
-        for (int i = 0; i < mLetterListValues.length; i++) {
-            LetterInfo letterInfo = new LetterInfo(LetterInfo.CLICK_ITEM_VIEW);
-            letterInfo.setLetterName(mLetterListValues[i]);
-            mLetterDatas.add(letterInfo);
-        }
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false);
         mLetterRecyclerView.setLayoutManager(layoutManager);
@@ -133,7 +146,7 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
         mLetterRecyclerView.setHasFixedSize(true);
 
         mLetterRecyclerView.setLayoutManager(layoutManager);
-        mLetterAdapter = new ReadLetterItemClickAdapter(this, mLetterDatas);
+        mLetterAdapter = new ReadLetterItemClickAdapter(this, null);
         mLetterRecyclerView.setAdapter(mLetterAdapter);
         mLetterAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -145,7 +158,7 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
             }
         });
 
-        countDown = new CountDown(120000, 1000) {
+        countDown = new CountDown(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 mWordCountDownTextView.setText(toClock(millisUntilFinished));
@@ -155,10 +168,121 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
             public String toClock(long millis) {
                 return super.toClock(millis);
             }
-        };
-        countDown.start();
 
-        startSynthesizer("book");
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                if (currentRightWord.equals(mWordInputTextView.getText())) {
+                    mRightLayout.setVisibility(View.VISIBLE);
+                    mErrorLayout.setVisibility(View.INVISIBLE);
+                    mLetterListLayout.setVisibility(View.GONE);
+                    mWordInputTextView.setTextColor(ContextCompat.getColor(WordPracticeActivity.this, R.color.right_word_color));
+                } else {
+                    TipsHelper.tips(WordPracticeActivity.this, "你超时啦");
+                    mWordErrorTipTextView.setText(getString(R.string.word_time_out_error_text));
+                    mRightLayout.setVisibility(View.INVISIBLE);
+                    mErrorLayout.setVisibility(View.VISIBLE);
+                    mLetterListLayout.setVisibility(View.GONE);
+                    mRightRemindTextView.setText(currentRightWord);
+                    mWordInputTextView.setTextColor(ContextCompat.getColor(WordPracticeActivity.this, R.color.read_word_share_btn_color));
+                    mErrorAgainButton.setBackgroundDrawable(DrawableUtils.getBgColor(WordPracticeActivity.this, 3, R.color.right_word_btn_again_color));
+                }
+            }
+        };
+
+        //播放
+        RxView.clicks(mAudioPlayImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                startSynthesizer(currentRightWord);
+            }
+        });
+
+        //检查
+        RxView.clicks(mCheckWordButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                if (StringUtils.isEmpty(mWordInputTextView.getText())) {
+                    ToastUtils.showLong("请输入单词");
+                    return;
+                }
+
+                if (currentRightWord.equals(mWordInputTextView.getText())) {
+                    mRightLayout.setVisibility(View.VISIBLE);
+                    mErrorLayout.setVisibility(View.INVISIBLE);
+                    mLetterListLayout.setVisibility(View.GONE);
+                    mWordInputTextView.setTextColor(ContextCompat.getColor(WordPracticeActivity.this, R.color.right_word_color));
+                } else {
+                    mRightLayout.setVisibility(View.INVISIBLE);
+                    mErrorLayout.setVisibility(View.VISIBLE);
+                    mLetterListLayout.setVisibility(View.GONE);
+                    mRightRemindTextView.setText(currentRightWord);
+                    mWordInputTextView.setTextColor(ContextCompat.getColor(WordPracticeActivity.this, R.color.read_word_share_btn_color));
+                    mErrorAgainButton.setBackgroundDrawable(DrawableUtils.getBgColor(WordPracticeActivity.this, 3, R.color.right_word_btn_again_color));
+                }
+                //最后一个
+                if (currentWordIndex == mWordInfoDatas.size() - 1) {
+                    mErrorNextButton.setText(getString(R.string.read_word_finish_text));
+                    mRightNextButton.setText(getString(R.string.read_word_finish_text));
+                }
+            }
+        });
+
+        //再做一遍
+        RxView.clicks(mErrorAgainButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                if (currentWordIndex < mWordInfoDatas.size()) {
+                    nextWord(currentWordIndex);
+                } else {
+                    finish();
+                }
+            }
+        });
+
+        //正确页面下一题
+        RxView.clicks(mRightNextButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                currentWordIndex++;
+                if (currentWordIndex < mWordInfoDatas.size()) {
+                    nextWord(currentWordIndex);
+                } else {
+                    finish();
+                }
+            }
+        });
+
+        //错误页面下一题
+        RxView.clicks(mErrorNextButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                currentWordIndex++;
+                if (currentWordIndex < mWordInfoDatas.size()) {
+                    nextWord(currentWordIndex);
+                } else {
+                    finish();
+                }
+            }
+        });
+
+        mPresenter.getWordListByUnitId(0, 0, unitId);
+    }
+
+    public void nextWord(int wordPosition) {
+        mLetterListLayout.setVisibility(View.VISIBLE);
+        mRightLayout.setVisibility(View.INVISIBLE);
+        mErrorLayout.setVisibility(View.INVISIBLE);
+        mWordInputTextView.setText("");
+        mWordInputTextView.setTextColor(ContextCompat.getColor(this, R.color.black_333));
+
+        currentRightWord = mWordInfoDatas.get(currentWordIndex).getName();
+        currentRightCnWord = mWordInfoDatas.get(currentWordIndex).getMeans();
+
+        mToolbar.setTitle(currentWordIndex + 1 + "/" + mWordInfoDatas.size());
+        mChineseWordTextView.setText(currentRightCnWord);
+        randomLetterView();
+        countDown.start();
     }
 
     public void startSynthesizer(String text) {
@@ -227,51 +351,6 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
         mWordInputTextView.setText("");
     }
 
-    @SuppressLint("NewApi")
-    @OnClick(R.id.btn_check_word)
-    public void checkWord() {
-        if (StringUtils.isEmpty(mWordInputTextView.getText())) {
-            ToastUtils.showLong("请输入单词");
-            return;
-        }
-
-        if ("book".equals(mWordInputTextView.getText())) {
-            mRightLayout.setVisibility(View.VISIBLE);
-            mErrorLayout.setVisibility(View.INVISIBLE);
-            mLetterListLayout.setVisibility(View.GONE);
-            mWordInputTextView.setTextColor(ContextCompat.getColor(this, R.color.right_word_color));
-        } else {
-            mRightLayout.setVisibility(View.INVISIBLE);
-            mErrorLayout.setVisibility(View.VISIBLE);
-            mLetterListLayout.setVisibility(View.GONE);
-            mWordInputTextView.setTextColor(ContextCompat.getColor(this, R.color.read_word_share_btn_color));
-            mErrorAgainButton.setBackground(DrawableUtils.getBgColor(this, 3, R.color.right_word_btn_again_color));
-        }
-    }
-
-    @OnClick(R.id.btn_error_again_word)
-    public void inputAgain() {
-        nextWord(0);
-    }
-
-    @OnClick(R.id.btn_error_next_word)
-    public void nextWordInError() {
-        nextWord(0);
-    }
-
-    @OnClick(R.id.btn_right_next_word)
-    public void nextWordInERight() {
-        nextWord(0);
-    }
-
-    public void nextWord(int wordPosition) {
-        mLetterListLayout.setVisibility(View.VISIBLE);
-        mRightLayout.setVisibility(View.INVISIBLE);
-        mErrorLayout.setVisibility(View.INVISIBLE);
-        mWordInputTextView.setText("");
-        mWordInputTextView.setTextColor(ContextCompat.getColor(this, R.color.black_333));
-        countDown.start();
-    }
 
     @Override
     protected void onDestroy() {
@@ -287,5 +366,86 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
     @Override
     public void showWordListData(List<WordInfo> list) {
 
+        if (list != null && list.size() > 0) {
+            mWordInfoDatas = list;
+
+            mToolbar.setTitle(currentWordIndex + 1 + "/" + list.size());
+
+            currentRightWord = list.get(currentWordIndex).getName();
+            currentRightCnWord = list.get(currentWordIndex).getMeans();
+            mChineseWordTextView.setText(currentRightCnWord);
+
+            randomLetterView();
+        }
+    }
+
+    public void randomLetterView() {
+        if (!StringUtils.isEmpty(currentRightWord)) {
+            String randomStr = randomLetters(currentRightWord);
+            mLetterDatas = new ArrayList<LetterInfo>();
+
+            for (int i = 0; i < randomStr.length(); i++) {
+                LetterInfo letterInfo = new LetterInfo(LetterInfo.CLICK_ITEM_VIEW);
+                letterInfo.setLetterName(randomStr.charAt(i) + "");
+                mLetterDatas.add(letterInfo);
+            }
+
+            mLetterAdapter.setNewData(mLetterDatas);
+
+            countDown.start();
+
+            startSynthesizer(currentRightWord);
+        } else {
+            TipsHelper.tips(WordPracticeActivity.this, "数据异常，请稍后重试");
+        }
+    }
+
+
+    /**
+     * 根据指定单词随机产生字母字符串
+     *
+     * @param oldStr
+     * @return
+     */
+    public String randomLetters(String oldStr) {
+
+        String letterStr = "abcdefghijklmnopqrstuvwxyz";
+
+        TreeSet<String> ts = new TreeSet<>();
+        int len = oldStr.length();
+        for (int i = 0; i < len; i++) {
+            ts.add(oldStr.charAt(i) + "");
+        }
+
+        Iterator<String> i = ts.iterator();
+        StringBuilder sb = new StringBuilder();
+        while (i.hasNext()) {
+            sb.append(i.next());
+        }
+
+        for (; ; ) {
+            if (sb.length() >= 15) {
+                break;
+            }
+            char l = letterStr.charAt(new Random().nextInt(26));
+            if (sb.toString().indexOf(l) == -1) {
+                sb.append(l + "");
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+        if (sb != null && sb.length() > 0) {
+            for (; ; ) {
+                if (result.length() >= 15) {
+                    break;
+                }
+                char m = sb.charAt(new Random().nextInt(sb.length()));
+                if (result.toString().indexOf(m) == -1) {
+                    result.append(m + "");
+                }
+            }
+        }
+
+        return result.toString();
     }
 }
