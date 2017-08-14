@@ -72,6 +72,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                         mView.hideStateView();
                         if(resultInfo.data.getSlideInfo() != null){
                             List<String> images = new ArrayList<String>();
+                            slideInfos = resultInfo.data.getSlideInfo();
                             for(SlideInfo slideInfo : resultInfo.data.getSlideInfo()){
                                 images.add(slideInfo.getImg());
                                 mView.showBanner(images);
@@ -89,6 +90,17 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
     }
 
 
+    private List<SlideInfo> slideInfos;
+
+    @Override
+    public SlideInfo getSlideInfo(int position) {
+        if(slideInfos != null && slideInfos.size() > position){
+            return slideInfos.get(position);
+        }
+        return null;
+    }
+
+
     @Override
     public void getAvatar() {
         UserInfoHelper.getUserInfoDo(new UserInfoHelper.Callback() {
@@ -103,5 +115,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
             }
         });
     }
+
+
 }
 

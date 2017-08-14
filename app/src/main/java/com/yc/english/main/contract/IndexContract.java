@@ -20,9 +20,11 @@ public interface IndexContract {
         void showBanner(List<String> images);
         void showAvatar(UserInfo userInfo);
         void showCountInfo(CountInfo countInfo);
+
     }
     interface Presenter extends IPresenter {
         void getIndexInfo();
         void getAvatar();
+        SlideInfo getSlideInfo(int position);
     }
 }

@@ -23,15 +23,14 @@
 
     <Button
         android:id="@+id/btn_refresh"
-        android:layout_width="match_parent"
+        android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="95dp"
-        android:layout_marginRight="95dp"
         android:layout_below="@id/tv_message"
-        android:background="@drawable/group_btn_blue_bg"
-        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:visibility="gone"
-        android:text="@string/base_refresh_net"/>
+        android:background="@drawable/group_btn_blue_bg"
+        android:text="@string/base_refresh_net"
+        android:textColor="@color/white"
+        android:visibility="gone"/>
 
-    </RelativeLayout>
+</RelativeLayout>
