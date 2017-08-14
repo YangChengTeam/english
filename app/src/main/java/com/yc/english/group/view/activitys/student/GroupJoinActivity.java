@@ -94,9 +94,6 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
                 } else {
                     mPresenter.applyJoinGroup(uid, groupId);
                 }
-
-
-//                mPresenter.joinGroup(groupId + "", tvClassName.getText().toString());
                 break;
             case R.id.ib_delete:
                 etClassGroup.setText("");
@@ -107,9 +104,9 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
 
 
     public void showOrHideView(String s) {
-        if (!TextUtils.isEmpty(s.toString())) {
+        if (!TextUtils.isEmpty(s)) {
             ibDelete.setVisibility(View.VISIBLE);
-            mPresenter.queryGroupById(this, "", s.toString());
+            mPresenter.queryGroupById(this, "", s);
         } else {
             ibDelete.setVisibility(View.GONE);
             llClassName.setVisibility(View.GONE);

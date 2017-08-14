@@ -1,10 +1,8 @@
 package com.yc.english.group.view.activitys.student;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,17 +13,15 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.AudioRecordManager;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
-import com.yc.english.group.contract.GroupDoTaskDetailContract;
+import com.yc.english.group.contract.GroupDoneTaskDetailContract;
 import com.yc.english.group.model.bean.TaskInfo;
-import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.model.bean.Voice;
-import com.yc.english.group.presenter.GroupDoTaskDetailPresenter;
+import com.yc.english.group.presenter.GroupDoneTaskDetailPresenter;
 import com.yc.english.group.view.adapter.GroupFileAdapter;
 import com.yc.english.group.view.adapter.GroupPictureAdapter;
 import com.yc.english.group.view.adapter.GroupVoiceAdapter;
@@ -34,7 +30,6 @@ import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -50,9 +45,10 @@ import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/7/27 18:01.
+ * 学生提交作业后修改
  */
 
-public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDetailPresenter> implements GroupDoTaskDetailContract.View {
+public class GroupUpdateMyTaskActivity extends FullScreenActivity<GroupDoneTaskDetailPresenter> implements GroupDoneTaskDetailContract.View {
 
 
     @BindView(R.id.m_iv_task_type_icon)
@@ -78,23 +74,21 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     private List<Uri> uriList;
     private GroupVoiceAdapter voiceAdapter;
     private GroupFileAdapter fileAdapter;
-    private GroupPictureAdapter adapter;
+    private GroupPictureAdapter pictureAdapter;
     private TaskInfo taskInfo;
 
 
     @Override
     public void init() {
-        mPresenter = new GroupDoTaskDetailPresenter(this, this);
+        mPresenter = new GroupDoneTaskDetailPresenter(this, this);
         mToolbar.setTitle(getString(R.string.task_detail));
         mToolbar.showNavigationIcon();
         if (getIntent() != null) {
             String taskDetailInfo = getIntent().getStringExtra("extra");
             taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
-            if (taskInfo.getClass_ids() != null) {
-                mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
-            } else {
-                mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_id(), "");
-            }
+
+            mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), "");
+            mPresenter.getDoneTaskDetail(this, taskInfo.getId(), UserInfoHelper.getUserInfo().getUid());
         }
         RxView.clicks(mBtnSubmit).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -104,10 +98,9 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
             }
         });
 
-
         recyclerViewPicture.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        adapter = new GroupPictureAdapter(this, true, null);
-        recyclerViewPicture.setAdapter(adapter);
+        pictureAdapter = new GroupPictureAdapter(this, true, null);
+        recyclerViewPicture.setAdapter(pictureAdapter);
 
         voiceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         voiceAdapter = new GroupVoiceAdapter(this, true, null);
@@ -121,14 +114,8 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
 
     private void doTask(String desc) {
 
-
         String uid = UserInfoHelper.getUserInfo().getUid();
-        if (taskInfo.getClass_ids() != null) {
-
-            mPresenter.doTask(taskInfo.getClass_ids().get(0), uid, taskInfo.getId(), desc, "", "", "");
-        } else {
-            mPresenter.doTask(taskInfo.getClass_id(), uid, taskInfo.getId(), desc, "", "", "");
-        }
+        mPresenter.updateDoTask(taskInfo.getId(), uid, desc, "", "", "");
 
     }
 
@@ -141,7 +128,6 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     @OnClick({R.id.m_iv_issue_picture, R.id.m_iv_issue_voice, R.id.m_iv_issue_file})
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.m_iv_issue_picture:
                 startActivityForResult(new Intent(this, PictureSelectorActivity.class), 300);
                 break;
@@ -177,7 +163,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
                 for (Uri uri : uriList) {
                     pictureList.add(uri.getPath());
                 }
-                adapter.setData(pictureList);
+                pictureAdapter.setData(pictureList);
                 recyclerViewPicture.setVisibility(View.VISIBLE);
             } else {
                 recyclerViewPicture.setVisibility(View.GONE);
@@ -205,24 +191,6 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
 
     }
 
-    @Override
-    public void showTaskDetail(TaskInfo taskInfo) {
-
-        setTaskType(taskInfo);
-
-        mTvIssueTime.setText(taskInfo.getAdd_date() + " " + taskInfo.getAdd_week() + " " +
-                TimeUtils.date2String(TimeUtils.millis2Date(Long.parseLong(taskInfo.getAdd_time())), new SimpleDateFormat("HH:mm:ss")));
-    }
-
-    @Override
-    public void showUploadResult(TaskUploadInfo data) {
-
-    }
-
-    @Override
-    public void showDoneWorkResult(TaskInfo data) {
-
-    }
 
     private void setTaskType(TaskInfo taskInfo) {
         int type = Integer.parseInt(taskInfo.getType());
@@ -323,4 +291,16 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
 
     }
 
+    @Override
+    public void showDoneTaskDetail(TaskInfo info) {
+        pictureAdapter.setData(info.getBody().getImgs());
+//        voiceAdapter.setData(info.getBody().getVoices());
+//        fileAdapter.setData(info.getBody().getDocs());
+    }
+
+    @Override
+    public void showPublishTaskDetail(TaskInfo info) {
+        setTaskType(info);
+        mTvIssueTime.setText(info.getAdd_date() + " " + info.getAdd_week() + " " + info.getAdd_time());
+    }
 }

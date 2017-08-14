@@ -5,6 +5,7 @@ import android.content.Context;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupPublishTaskListContract;
+import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.model.engin.GroupPublishTaskListEngine;
 
 import rx.Subscriber;
@@ -28,7 +29,7 @@ public class GroupPublishTaskListPresenter extends BasePresenter<GroupPublishTas
 
     @Override
     public void getPublishTaskList(String publisher, String class_id) {
-        Subscription subscription = mEngin.getPublishTaskList(publisher, class_id).subscribe(new Subscriber<ResultInfo<String>>() {
+        Subscription subscription = mEngin.getPublishTaskList(publisher, class_id).subscribe(new Subscriber<ResultInfo<TaskAllInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -40,8 +41,13 @@ public class GroupPublishTaskListPresenter extends BasePresenter<GroupPublishTas
             }
 
             @Override
-            public void onNext(ResultInfo<String> stringResultInfo) {
-
+            public void onNext(final ResultInfo<TaskAllInfoWrapper> stringResultInfo) {
+                handleResultInfo(stringResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.showPublishTaskList(stringResultInfo.data.getList());
+                    }
+                });
             }
         });
         mSubscriptions.add(subscription);

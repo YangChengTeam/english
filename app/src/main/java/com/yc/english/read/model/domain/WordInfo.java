@@ -24,7 +24,8 @@ public class WordInfo extends AbstractExpandableItem<WordInfo> implements MultiI
 
     private String phonetic;
 
-    private String type;
+    @JSONField(name = "type")
+    private String wdType;
 
     @JSONField(name = "book_id")
     private String bookId;
@@ -47,6 +48,12 @@ public class WordInfo extends AbstractExpandableItem<WordInfo> implements MultiI
 
     public WordInfo() {
         super();
+    }
+
+    public WordInfo(String name, String means,int type) {
+        this.name = name;
+        this.means = means;
+        this.Type = type;
     }
 
     public String getId() {
@@ -87,14 +94,6 @@ public class WordInfo extends AbstractExpandableItem<WordInfo> implements MultiI
 
     public void setPhonetic(String phonetic) {
         this.phonetic = phonetic;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getBookId() {
@@ -153,8 +152,20 @@ public class WordInfo extends AbstractExpandableItem<WordInfo> implements MultiI
         this.rid = rid;
     }
 
+    public String getWdType() {
+        return wdType;
+    }
+
+    public void setWdType(String wdType) {
+        this.wdType = wdType;
+    }
+
     public WordInfo(final int type) {
         Type = type;
+    }
+
+    public void setType(int type) {
+        this.Type = type;
     }
 
     @Override

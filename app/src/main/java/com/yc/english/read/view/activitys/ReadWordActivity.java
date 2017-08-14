@@ -5,15 +5,14 @@ import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -21,13 +20,13 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.iflytek.cloud.ErrorCode;
-import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.read.common.SpeechUtil;
 import com.yc.english.read.contract.ReadWordContract;
 import com.yc.english.read.model.domain.WordDetailInfo;
 import com.yc.english.read.model.domain.WordInfo;
@@ -40,6 +39,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.functions.Action1;
+import rx.subjects.PublishSubject;
 
 import static com.yc.english.read.view.activitys.CoursePlayActivity.VOICER_NAME;
 
@@ -64,9 +65,18 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     @BindView(R.id.iv_spell_icon)
     ImageView mSpellWordImageView;
 
+    @BindView(R.id.tv_read_current_num)
+    TextView mReadCurrentNum;
+
+    @BindView(R.id.tv_read_total_num)
+    TextView mReadTotalNum;
+
+    @BindView(R.id.pb_read_num)
+    ProgressBar mProgressReadNum;
+
     ReadWordItemClickAdapter mReadWordItemClickAdapter;
 
-    List<MultiItemEntity> mDatas;
+    List<WordInfo> mDatas;
 
     boolean isSpell = false;
 
@@ -104,101 +114,13 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     private boolean isPlay = false;
 
-    private boolean isCountinue = false;
+    private boolean isContinue = false;
 
     private String unitId;
 
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+    private PublishSubject mTsSubject;
 
-            switch (msg.what) {
-                case 1:
-                    if (currentIndex < mDatas.size()) {
-                        currentIndex++;
-
-                        View view = linearLayoutManager.findViewByPosition(currentIndex);
-                        if (view != null) {
-                            /*if(lastView != null && lastView != view){
-                                ((TextView) lastView.findViewById(R.id.tv_word_number)).setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.gray_aaa));
-                                lastView = view;
-                            }
-                            TextView mNumberTv = (TextView) view.findViewById(R.id.tv_word_number);
-                            if(mNumberTv != null){
-                                mNumberTv.setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.read_word_share_btn_color));
-                            }*/
-
-                            if (mDatas.get(currentIndex) instanceof WordInfo) {
-                                startSynthesizer(((WordInfo) mDatas.get(currentIndex)).getName());
-                            }
-                            if (mDatas.get(currentIndex) instanceof WordDetailInfo) {
-                                startSynthesizer(((WordDetailInfo) mDatas.get(currentIndex)).getWordExample());
-                            }
-
-                        } else {
-                            isPlay = false;
-                            mTts.stopSpeaking();
-                            mReadWordRecyclerView.scrollToPosition(0);
-                            Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
-                        }
-                    } else {
-                        isPlay = false;
-                        mTts.stopSpeaking();
-                        mReadWordRecyclerView.scrollToPosition(0);
-                        Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
-                    }
-                    break;
-                case 3:
-
-                    if (readCurrentWordIndex < readCurrentWord.length()) {
-                        playWord();
-                    } else {
-                        if (isCountinue) {
-                            readCurrentWordIndex = 0;
-                            currentIndex++;
-                            if (currentIndex < mDatas.size()) {
-
-                                if (mDatas.get(currentIndex) instanceof WordInfo) {
-                                    readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getName();
-                                    startSynthesizer(readCurrentWord);
-                                }
-
-                                View view = linearLayoutManager.findViewByPosition(currentIndex);
-                                if (view != null) {
-
-                                    /*if(lastView != null && lastView != view){
-                                        ((TextView) lastView.findViewById(R.id.tv_word_number)).setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.gray_aaa));
-                                        lastView = view;
-                                    }
-
-                                    TextView mNumberTv = (TextView) view.findViewById(R.id.tv_word_number);
-                                    if(mNumberTv != null){
-                                        mNumberTv.setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.read_word_share_btn_color));
-                                    }*/
-                                } else {
-                                    Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
-                                }
-                            } else {
-                                isPlay = false;
-                                mReadWordRecyclerView.scrollToPosition(0);
-                                mTts.stopSpeaking();
-                                Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
-                            }
-                        } else {
-                            View view = linearLayoutManager.findViewByPosition(currentIndex);
-                            if (view != null) {
-                                Glide.with(ReadWordActivity.this).load(R.mipmap.read_word_audio).into((ImageView) view.findViewById(R.id.iv_read_word));
-                            }
-                        }
-                    }
-
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
+    private PublishSubject mSpellSubject;
 
     @Override
     public int getLayoutId() {
@@ -213,13 +135,16 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             unitId = bundle.getString("unit_id");
         }
 
-        mPresenter = new ReadWordPresenter(this,this);
+        mPresenter = new ReadWordPresenter(this, this);
 
         mToolbar.setTitle("Unit 1");
         mToolbar.showNavigationIcon();
 
         mediaPlayer = new MediaPlayer();
-        mTts = SpeechSynthesizer.createSynthesizer(ReadWordActivity.this, mTtsInitListener);
+
+        SpeechUtil.initSpeech(ReadWordActivity.this, 28, 50, 50, 1);
+        mTts = SpeechUtil.getmTts();
+
         mSharedPreferences = getSharedPreferences(VOICER_NAME, MODE_PRIVATE);
 
         linearLayoutManager = new LinearLayoutManager(this);
@@ -236,17 +161,14 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                 if (mDatas.get(position) != null && !isPlay) {
                     currentIndex = position;
 
-                    isCountinue = false;
+                    isContinue = false;
                     readCurrentWord = ((WordInfo) mDatas.get(position)).getName();
 
                     if (isSpell) {
-                        /*readCurrentIndex = 0;
-                        readTotalCount = readCurrentWord.length();
-                        startSynthesizer(readCurrentWord.charAt(readCurrentIndex) + "");*/
                         readCurrentWordIndex = 0;
-                        startSynthesizer(((WordInfo) mDatas.get(position)).getName());
+                        startSynthesizer(position);
                     } else {
-                        startSynthesizer(((WordInfo) mDatas.get(position)).getName());
+                        startSynthesizer(position);
                     }
 
                     Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_gif_play).into((ImageView) view.findViewById(R.id.iv_read_word));
@@ -256,24 +178,80 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             }
         });
 
-        mPresenter.getWordListByUnitId(0,0,unitId);
+        mTsSubject = PublishSubject.create();
+        mTsSubject.subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer position) {
+                if (isContinue) {
+                    if (position < mDatas.size()) {
+                        startSynthesizer(position);
+                    } else {
+                        setStopPlayState();
+                    }
+                }
+            }
+        });
+
+        mSpellSubject = PublishSubject.create();
+        mSpellSubject.subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer position) {
+                if (readCurrentWordIndex < readCurrentWord.length()) {
+                    playWord();
+                } else {
+                    if (isContinue) {
+                        readCurrentWordIndex = 0;
+                        currentIndex++;
+                        if (currentIndex < mDatas.size()) {
+                            if (mDatas.get(currentIndex) instanceof WordInfo) {
+                                readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getName();
+                                startSynthesizer(currentIndex);
+                            }
+                        } else {
+                            isPlay = false;
+                            mReadWordRecyclerView.scrollToPosition(0);
+                            setStopPlayState();
+                        }
+                    } else {
+                        // TODO
+                        //当前阅读的行，设置未未读
+                    }
+                }
+            }
+        });
+
+        mPresenter.getWordListByUnitId(0, 0, unitId);
     }
 
     @Override
     public void showWordListData(List<WordInfo> list) {
         if (list != null) {
+            mDatas = list;
+            setProgressNum(0, mDatas.size());
+            //TODO 数据有问题，待定
+            for (WordInfo wordInfo : list) {
+                wordInfo.setType(mReadWordItemClickAdapter.TYPE_LEVEL_0);
+                wordInfo.addSubItem(new WordInfo(wordInfo.getName(), wordInfo.getMeans(), mReadWordItemClickAdapter.TYPE_LEVEL_1));
+            }
             mReadWordItemClickAdapter.setNewData(list);
         }
     }
 
+    public void setProgressNum(int current, int total) {
+        mReadCurrentNum.setText(current + "");
+        mReadTotalNum.setText(total + "");
+        mProgressReadNum.setMax(total);
+        mProgressReadNum.setProgress(current);
+    }
+
+    /**
+     * 拼读单个单词
+     */
     public void playWord() {
         try {
-
             if (readCurrentWordIndex < readCurrentWord.length()) {
                 mediaPlayer.reset();
-
                 LogUtils.e("index--->" + ("" + readCurrentWord.charAt(readCurrentWordIndex)).toLowerCase());
-
                 AssetFileDescriptor fd = getAssets().openFd(String.valueOf(readCurrentWord.charAt(readCurrentWordIndex)).toLowerCase() + ".mp3");
                 mediaPlayer.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
                 mediaPlayer.prepare();
@@ -283,9 +261,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         readCurrentWordIndex++;
-                        Message message = new Message();
-                        message.what = 3;
-                        handler.sendMessage(message);
+                        mSpellSubject.onNext(readCurrentWordIndex);
                     }
                 });
             }
@@ -295,61 +271,9 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         }
     }
 
-    /**
-     * 初始化监听
-     */
-    private InitListener mTtsInitListener = new InitListener() {
-        @Override
-        public void onInit(int code) {
-            //Log.d(TAG, "InitListener init() code = " + code);
-            if (code != ErrorCode.SUCCESS) {
-                ToastUtils.showLong("初始化失败,错误码：" + code);
-            } else {
-                // 初始化成功，之后可以调用startSpeaking方法
-            }
-        }
-    };
-
-    /**
-     * 语音播放参数设置
-     *
-     * @param
-     * @return
-     */
-    private void setParam() {
-        // 清空参数
-        mTts.setParameter(SpeechConstant.PARAMS, null);
-        // 根据合成引擎设置相应参数
-        if (mEngineType.equals(SpeechConstant.TYPE_CLOUD)) {
-            mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
-            // 设置在线合成发音人
-            mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
-            // 设置合成语速
-            mTts.setParameter(SpeechConstant.SPEED, "60");
-            // 设置合成音调
-            mTts.setParameter(SpeechConstant.PITCH, mSharedPreferences.getString("pitch_preference", "50"));
-            // 设置合成音量
-            mTts.setParameter(SpeechConstant.VOLUME, mSharedPreferences.getString("volume_preference", "50"));
-        } else {
-            //TODO
-            //暂时只提供在线语音合成
-        }
-        // 设置播放器音频流类型
-        mTts.setParameter(SpeechConstant.STREAM_TYPE, mSharedPreferences.getString("stream_preference", "1"));
-        // 设置播放合成音频打断音乐播放，默认为true
-        mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
-
-        // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-        // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
-        mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.wav");
-    }
-
-    public void startSynthesizer(String text) {
-        setParam(); //设置参数
-
+    public void startSynthesizer(int position) {
+        String text = mReadWordItemClickAdapter.getData().get(position).getName();
         int code = mTts.startSpeaking(text, mTtsListener);
-
         if (code != ErrorCode.SUCCESS) {
             if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
                 // 未安装则跳转到提示安装页面
@@ -396,12 +320,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         @Override
         public void onCompleted(SpeechError error) {
             if (error == null) {
-                //ToastUtils.showLong("播放完成");
 
                 if (isSpell) {
-                   /* Message message = new Message();
-                    message.what = 1;
-                    handler.sendMessage(message);*/
                     if (currentIndex < mDatas.size()) {
                         if (currentIndex > 4) {
                             mReadWordRecyclerView.scrollToPosition(currentIndex + 1);
@@ -413,23 +333,24 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                     }
                 } else {
 
-                    if (isCountinue) {
+                    if (isContinue) {
+                        setProgressNum(currentIndex + 1, mDatas.size());
 
+                        currentIndex++;
                         if (currentIndex < mDatas.size()) {
+                            if (currentIndex > 4 && currentIndex < mDatas.size() - 1) {
+                                mReadWordRecyclerView.scrollToPosition(currentIndex + 1);
+                            }
+
                             try {
-                                Thread.sleep(800);
+                                Thread.sleep(300);
+                                mTsSubject.onNext(currentIndex);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
 
-                            if (currentIndex > 4 && currentIndex < mDatas.size() - 1) {
-                                mReadWordRecyclerView.scrollToPosition(currentIndex + 1);
-                            }
-                            Message message = new Message();
-                            message.what = 1;
-                            handler.sendMessage(message);
                         } else {
-                            Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
+                            setStopPlayState();
                         }
                     } else {
                         View view = linearLayoutManager.findViewByPosition(currentIndex);
@@ -441,9 +362,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                 }
 
             } else if (error != null) {
-                mTts.stopSpeaking();
                 ToastUtils.showLong(error.getPlainDescription(true));
-                Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
+                setStopPlayState();
             }
         }
 
@@ -452,6 +372,14 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             // 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因
         }
     };
+
+    /**
+     * 设置停止播放状态
+     */
+    public void setStopPlayState() {
+        mTts.stopSpeaking();
+        Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
+    }
 
     /**
      * 单词闯关
@@ -467,27 +395,22 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
      */
     @OnClick(R.id.layout_read_all)
     public void readAll() {
-
         isPlay = !isPlay;
 
         if (isPlay) {
-            isCountinue = true;
+            isContinue = true;
             currentIndex = 0;
             readCurrentWordIndex = 0;
             Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_gif_play).into(mReadAllImageView);
             if (currentIndex < mDatas.size()) {
                 readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getName();
-                startSynthesizer(readCurrentWord);
+                startSynthesizer(currentIndex);
                 lastView = linearLayoutManager.findViewByPosition(currentIndex);
-                // ((TextView) lastView.findViewById(R.id.tv_word_number)).setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.read_word_share_btn_color));
             }
         } else {
-            isCountinue = false;
-            Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
-            mTts.stopSpeaking();
-            //((TextView) lastView.findViewById(R.id.tv_word_number)).setTextColor(ContextCompat.getColor(ReadWordActivity.this, R.color.gray_aaa));
+            isContinue = false;
+            setStopPlayState();
         }
-
     }
 
     /**
@@ -510,7 +433,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         MultiItemEntity multiItemEntity = ((MultiItemEntity) mDatas.get(position));
 
         WordDetailInfo wordDetailInfo = ((WordDetailInfo) multiItemEntity);
-        startSynthesizer(wordDetailInfo.getWordExample());
+        startSynthesizer(currentIndex);
     }
 
     @Override

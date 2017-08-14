@@ -5,6 +5,7 @@ import android.content.Context;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupDoTaskListContract;
+import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.model.engin.GroupDoTaskListEngine;
 
 import rx.Subscriber;
@@ -22,7 +23,7 @@ public class GroupDoTaskListPresenter extends BasePresenter<GroupDoTaskListEngin
 
     @Override
     public void getDoTaskList(String class_id, String user_id) {
-        Subscription subscription = mEngin.getDoTaskList(class_id, user_id).subscribe(new Subscriber<ResultInfo<String>>() {
+        Subscription subscription = mEngin.getDoTaskList(class_id, user_id).subscribe(new Subscriber<ResultInfo<TaskAllInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -34,7 +35,13 @@ public class GroupDoTaskListPresenter extends BasePresenter<GroupDoTaskListEngin
             }
 
             @Override
-            public void onNext(ResultInfo<String> stringResultInfo) {
+            public void onNext(final ResultInfo<TaskAllInfoWrapper> taskDoneInfoWrapperResultInfo) {
+                handleResultInfo(taskDoneInfoWrapperResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.showDoneTaskResult(taskDoneInfoWrapperResultInfo.data.getList());
+                    }
+                });
 
             }
         });

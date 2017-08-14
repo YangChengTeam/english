@@ -1,7 +1,6 @@
 package com.yc.english.group.presenter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -15,17 +14,13 @@ import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.engin.GroupApplyJoinEngine;
-import com.yc.english.group.rong.ImUtils;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.GroupUser;
 import com.yc.english.group.rong.models.GroupUserQueryResult;
 import com.yc.english.group.utils.EngineUtils;
-import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
 
-import io.rong.imkit.RongIM;
-import io.rong.imlib.model.UserInfo;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -80,7 +75,9 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
                         int vali_type = Integer.parseInt(applyInfo.getVali_type());
 
                         if (vali_type == GroupConstant.CONDITION_ALL_ALLOW) {
-                            joinGroup(applyInfo.getUser_id(), applyInfo.getClass_id(), applyInfo.getClass_name(), vali_type);
+                            mView.apply(vali_type);
+
+                            RxBus.get().post(BusAction.GROUPLIST, "from groupjoin");
                         } else {
                             mView.apply(vali_type);
                         }
@@ -123,49 +120,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
         mSubscriptions.add(subscription);
     }
 
-    /**
-     * 加群
-     *
-     * @param
-     * @param usre_id
-     * @param groupId
-     * @param groupName
-     */
-    private void joinGroup(String usre_id, final String groupId, final String groupName, final int vali_type) {
-        final String[] userIds = new String[]{usre_id};
-        ImUtils.queryGroup(groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<GroupUserQueryResult>() {
-            @Override
-            public void call(GroupUserQueryResult groupUserQueryResult) {
-                if (groupUserQueryResult != null && groupUserQueryResult.getCode() == 200) {
-                    final List<GroupUser> users = groupUserQueryResult.getUsers();
-
-                    ImUtils.joinGroup(userIds, groupId, groupName).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<CodeSuccessResult>() {
-                        @Override
-                        public void call(CodeSuccessResult codeSuccessResult) {
-                            if (codeSuccessResult.getCode() == 200) {//加入成功
-//                                ToastUtils.showShort("加入成功");
-                                mView.apply(vali_type);
 
 
-//                                mView.startGroupChat(groupId, groupName);
-//                                ClassInfo info = new ClassInfo("", groupName, users.size() + "", Integer.parseInt(groupId));
-//                                classInfoDao.insert(info);
-                                RxBus.get().post(BusAction.GROUPLIST, "from groupjoin");
-                            }
-                        }
-                    });
-                } else {
-                    ToastUtils.showShort("没有该群组，请重新输入");
-                }
-            }
-        });
 
-    }
-
-    private UserInfo findUserById(String userId, String userName, Uri uri) {
-
-
-        return new UserInfo(userId, userName, uri);
-
-    }
 }

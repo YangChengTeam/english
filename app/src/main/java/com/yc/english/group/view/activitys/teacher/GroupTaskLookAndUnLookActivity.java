@@ -2,11 +2,9 @@ package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,7 +15,8 @@ import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupPublishTaskDetailContract;
-import com.yc.english.group.model.bean.StudentTaskInfo;
+import com.yc.english.group.model.bean.StudentFinishTaskInfo;
+import com.yc.english.group.model.bean.StudentLookTaskInfo;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupPublishTaskDetailPresenter;
@@ -66,38 +65,16 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
         if (getIntent() != null) {
             taskDetailInfo = getIntent().getStringExtra("extra");
             TaskInfo taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
-            if (taskInfo.getClass_ids() != null) {
-                mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
-                mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
-            } else {
-                mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_id(), "");
-            }
+
+            mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
+            mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
 
         }
 
         mToolbar.setTitle(getString(R.string.task_detail));
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitle(getString(R.string.all_task));
-        CommonNavigator commonNavigator = new CommonNavigator(this);
-        commonNavigator.setAdapter(new CommonAdapter(this, 2, mViewPager, 3, 17));
 
-        commonNavigator.setAdjustMode(true);
-        mMagicIndicator.setNavigator(commonNavigator);
-
-        Bundle bundle = new Bundle();
-        if (!TextUtils.isEmpty(taskDetailInfo)) bundle.putString("extra", taskDetailInfo);
-
-        groupLookTaskFragment = new GroupLookTaskFragment();
-        groupLookTaskFragment.setArguments(bundle);
-        fragments.add(groupLookTaskFragment);
-
-        groupUnLookTaskFragment = new GroupUnLookTaskFragment();
-        groupUnLookTaskFragment.setArguments(bundle);
-        fragments.add(groupUnLookTaskFragment);
-
-        mViewPager.setAdapter(new GroupPageAdapter(getSupportFragmentManager(), fragments));
-
-        ViewPagerHelper.bind(mMagicIndicator, mViewPager);
 
         initListener();
 
@@ -109,6 +86,7 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
             @Override
             public void onClick() {
                 Intent intent = new Intent(GroupTaskLookAndUnLookActivity.this, GroupPublishTaskListActivity.class);
+
                 startActivity(intent);
             }
         });
@@ -131,9 +109,53 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
 
     }
 
+    private int readList = 0;
+    private int unReadList = 0;
+
     @Override
-    public void showIsReadMemberList(StudentTaskInfo.ListBean data) {
-        data.getNoread_list();
+    public void showIsReadMemberList(StudentLookTaskInfo.ListBean data) {
+
+        CommonNavigator commonNavigator = new CommonNavigator(this);
+
+        ArrayList<StudentLookTaskInfo.ListBean.NoreadListBean> read_list = data.getRead_list();
+        ArrayList<StudentLookTaskInfo.ListBean.NoreadListBean> noread_list = data.getNoread_list();
+        if (read_list != null && read_list.size() > 0) {
+            readList = read_list.size();
+        }
+        if (noread_list != null && noread_list.size() > 0) {
+            unReadList = noread_list.size();
+        }
+        commonNavigator.setAdapter(new CommonAdapter(this, 2, mViewPager, readList, unReadList));
+
+
+        commonNavigator.setAdjustMode(true);
+        mMagicIndicator.setNavigator(commonNavigator);
+
+
+        Bundle lookBundle = new Bundle();
+        Bundle unLookBundle = new Bundle();
+
+        lookBundle.putParcelableArrayList("look_list", read_list);
+        unLookBundle.putParcelableArrayList("unLook_list",noread_list);
+
+//        if (!TextUtils.isEmpty(taskDetailInfo)) bundle.putString("extra", taskDetailInfo);
+
+        groupLookTaskFragment = new GroupLookTaskFragment();
+        groupLookTaskFragment.setArguments(lookBundle);
+        fragments.add(groupLookTaskFragment);
+
+        groupUnLookTaskFragment = new GroupUnLookTaskFragment();
+        groupUnLookTaskFragment.setArguments(unLookBundle);
+        fragments.add(groupUnLookTaskFragment);
+
+        mViewPager.setAdapter(new GroupPageAdapter(getSupportFragmentManager(), fragments));
+
+        ViewPagerHelper.bind(mMagicIndicator, mViewPager);
+
+    }
+
+    @Override
+    public void showIsFinishMemberList(StudentFinishTaskInfo.ListBean list) {
 
     }
 
@@ -148,7 +170,7 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
             case GroupConstant.TASK_TYPE_PICTURE:
                 mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group40));
                 mLlTaskDetail.showPictureView();
-                mLlTaskDetail.setUriList(getPictures(taskInfo));
+                mLlTaskDetail.setUriList(taskInfo.getBody().getImgs());
                 break;
             case GroupConstant.TASK_TYPE_VOICE:
                 mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group38));
@@ -167,24 +189,13 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
                 mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group44));
                 mLlTaskDetail.setText(taskInfo.getDesp());
                 mLlTaskDetail.showSynthesizeView();
-                mLlTaskDetail.setUriList(getPictures(taskInfo));
+                mLlTaskDetail.setUriList(taskInfo.getBody().getImgs());
                 mLlTaskDetail.setVoices(getVoiceList(taskInfo));
                 mLlTaskDetail.setFileInfos(getFileInfos(taskInfo));
                 break;
         }
     }
 
-
-    private List<Uri> getPictures(TaskInfo taskInfo) {
-        List<String> imgs = taskInfo.getBody().getImgs();
-        List<Uri> uriList = new ArrayList<>();
-        if (imgs != null && imgs.size() > 0) {
-            for (String img : imgs) {
-                uriList.add(Uri.parse(img));
-            }
-        }
-        return uriList;
-    }
 
     private List<Voice> getVoiceList(TaskInfo taskInfo) {
         List<String> voice = taskInfo.getBody().getVoices();

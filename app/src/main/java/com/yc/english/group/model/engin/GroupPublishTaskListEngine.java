@@ -1,12 +1,14 @@
 package com.yc.english.group.model.engin;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,13 +24,14 @@ public class GroupPublishTaskListEngine extends BaseEngin {
         super(context);
     }
 
-    public Observable<ResultInfo<String>> getPublishTaskList(String publisher, String class_id) {
+    public Observable<ResultInfo<TaskAllInfoWrapper>> getPublishTaskList(String publisher, String class_id) {
 
         Map<String, String> params = new HashMap<>();
         params.put("publisher", publisher);
-        params.put("class_id", class_id);
+        if (!TextUtils.isEmpty(class_id))
+            params.put("class_id", class_id);
 
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.list_publish_task, new TypeReference<ResultInfo<String>>() {
+        return HttpCoreEngin.get(mContext).rxpost(NetConstan.list_publish_task, new TypeReference<ResultInfo<TaskAllInfoWrapper>>() {
         }.getType(), params, true, true, true);
 
     }

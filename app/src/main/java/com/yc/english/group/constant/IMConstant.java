@@ -7,8 +7,11 @@ package com.yc.english.group.constant;
 
 public interface IMConstant {
 
-    String APP_KEY = "8luwapkv8sxwl";
+        String APP_KEY = "8luwapkv8sxwl";
+//    String APP_KEY = "8brlm7uf836l3";
 
-    String APP_SECRET = "eOBQY71OQZBG";
+
+        String APP_SECRET = "eOBQY71OQZBG";
+//    String APP_SECRET = "pLJI6TRR6H";
 
 }

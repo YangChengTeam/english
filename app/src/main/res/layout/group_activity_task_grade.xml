@@ -17,11 +17,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/group_distance_210"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/group_distance_15"
             android:layout_marginRight="@dimen/group_distance_15"
             android:layout_marginTop="@dimen/group_distance_10"
             android:background="@drawable/group_group_manager_bg"
+            android:minHeight="@dimen/group_distance_210"
             android:orientation="vertical">
 
             <LinearLayout
@@ -32,6 +33,7 @@
                 android:paddingRight="@dimen/group_distance_15">
 
                 <ImageView
+                    android:id="@+id/m_iv_task_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/group36" />
@@ -65,34 +67,29 @@
                 <ImageView
                     android:id="@+id/m_iv_grade"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/group30" />
+                    android:layout_height="wrap_content" />
 
 
             </LinearLayout>
 
             <include layout="@layout/group_common_divider" />
 
-            <TextView
-                android:id="@+id/m_tv_issue_task"
+            <com.yc.english.group.view.widget.MultifunctionLinearLayout
+                android:id="@+id/publish_multifunctionLinearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/group_distance_15"
-                android:paddingTop="@dimen/group_distance_15"
-                android:text="背诵英文单词"
-                android:textColor="@color/black_333333"
-                android:textSize="@dimen/group_text_16" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/group_distance_90"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/group_distance_15"
             android:layout_marginRight="@dimen/group_distance_15"
             android:layout_marginTop="@dimen/group_distance_10"
             android:background="@drawable/group_group_manager_bg"
+            android:minHeight="@dimen/group_distance_90"
             android:orientation="vertical">
 
             <LinearLayout
@@ -115,15 +112,10 @@
                     android:textSize="@dimen/group_text_14" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/m_tv_task_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/group_distance_35"
-                android:layout_marginTop="@dimen/group_distance_15"
-                android:text="@string/finish_task"
-                android:textColor="@color/black_333333"
-                android:textSize="@dimen/group_text_16" />
+            <com.yc.english.group.view.widget.MultifunctionLinearLayout
+                android:id="@+id/do_multifunctionLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>

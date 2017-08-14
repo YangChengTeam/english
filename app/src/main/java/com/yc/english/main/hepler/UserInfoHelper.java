@@ -58,11 +58,11 @@ public class UserInfoHelper {
         }
     }
 
-    public static boolean isLogin(){
-        return getUserInfo() != null ;
+    public static boolean isLogin() {
+        return getUserInfo() != null;
     }
 
-    public static void clearUserInfo(){
+    public static void clearUserInfo() {
         SPUtils.getInstance().remove(Constant.USER_INFO);
         mUserInfo = null;
     }
@@ -99,6 +99,7 @@ public class UserInfoHelper {
 
                                                                              @Override
                                                                              public void reulstInfoOk() {
+                                                                                 LogUtils.e("reulstInfoOk: " + resultInfo.data.getToken());
                                                                                  ConnectUtils.contact(context,
                                                                                          resultInfo.data.getToken());
                                                                              }
@@ -158,17 +159,18 @@ public class UserInfoHelper {
 
     }
 
-    public static boolean isGotoLogin(Context context){
-        if(!isLogin()) {
+    public static boolean isGotoLogin(Context context) {
+        if (!isLogin()) {
             Intent intent = new Intent(context, LoginActivity.class);
             context.startActivity(intent);
-            return  true;
+            return true;
         }
         return false;
     }
 
     public interface Callback {
         void showUserInfo(UserInfo userInfo);
+
         void showNoLogin();
     }
 
@@ -182,8 +184,8 @@ public class UserInfoHelper {
             @Override
             public Boolean call(UserInfo userInfo) {
                 boolean flag = !EmptyUtils.isEmpty(userInfo);
-                if(!flag){
-                    UIUitls.post(new Runnable(){
+                if (!flag) {
+                    UIUitls.post(new Runnable() {
                         @Override
                         public void run() {
                             callback.showNoLogin();
