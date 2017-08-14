@@ -1,7 +1,6 @@
 package com.yc.english.read.view.activitys;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.iflytek.cloud.ErrorCode;
-import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
@@ -42,8 +40,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import rx.functions.Action1;
 import rx.subjects.PublishSubject;
-
-import static com.yc.english.read.view.activitys.CoursePlayActivity.VOICER_NAME;
 
 /**
  * Created by admin on 2017/7/27.
@@ -83,14 +79,6 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     // 语音合成对象
     private SpeechSynthesizer mTts;
-
-    // 默认云端发音人
-    private String voicer = "catherine";
-
-    // 引擎类型
-    private String mEngineType = SpeechConstant.TYPE_CLOUD;
-
-    private SharedPreferences mSharedPreferences;
 
     // 缓冲进度
     private int mPercentForBuffering = 0;
@@ -145,8 +133,6 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
         SpeechUtil.initSpeech(ReadWordActivity.this, 28, 50, 50, 1);
         mTts = SpeechUtil.getmTts();
-
-        mSharedPreferences = getSharedPreferences(VOICER_NAME, MODE_PRIVATE);
 
         linearLayoutManager = new LinearLayoutManager(this);
         mReadWordRecyclerView.setLayoutManager(linearLayoutManager);

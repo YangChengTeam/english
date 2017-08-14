@@ -77,4 +77,6 @@
 
     <string name="word_sentence_count_text">个单词</string>
     <string name="word_persion_sentence_count_text">人已背诵</string>
+    <string name="word_time_out_error_text">很可惜，你超时啦，再试试</string>
+    <string name="read_word_finish_text">完成</string>
 </resources>

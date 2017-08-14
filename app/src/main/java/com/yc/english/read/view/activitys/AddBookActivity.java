@@ -136,10 +136,11 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
                         }
                         mCourseVersionAdapter.notifyDataSetChanged();
 
-                        String bookId = ((CourseVersionInfo) mCourseVersionAdapter.getData().get(position)).getBookId();
-                        String bookImageUrl = ((CourseVersionInfo) mCourseVersionAdapter.getData().get(position)).getBookImageUrl();
-                        String gradeName = ((CourseVersionInfo) mCourseVersionAdapter.getData().get(position)).getGradeName();
-                        String versionName = ((CourseVersionInfo) mCourseVersionAdapter.getData().get(position)).getVersionName();
+                        CourseVersionInfo courseVersionInfo = (CourseVersionInfo) mCourseVersionAdapter.getData().get(position);
+                        String bookId = courseVersionInfo.getBookId();
+                        String bookImageUrl = courseVersionInfo.getBookImageUrl();
+                        String gradeName = courseVersionInfo.getGradeName();
+                        String versionName = courseVersionInfo.getVersionName();
 
                         BookInfo bookInfo = new BookInfo(BookInfo.CLICK_ITEM_VIEW);
                         bookInfo.setBookId(bookId);
