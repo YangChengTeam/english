@@ -10,31 +10,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <com.yc.english.base.view.StateView
+        android:id="@+id/stateView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="@dimen/group_distance_10" />
+        android:layout_height="match_parent" />
 
     <LinearLayout
+        android:id="@+id/ll_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/group_distance_40"
-        android:layout_marginBottom="@dimen/group_distance_10"
-        android:layout_marginLeft="@dimen/group_distance_15"
-        android:layout_marginRight="@dimen/group_distance_15"
-        android:layout_marginTop="@dimen/group_distance_10">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/group_distance_10" />
 
         <Button
             android:id="@+id/btn_join_class"
             style="@style/group_btn_white_style"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/group_distance_10"
-            android:layout_weight="1"
+            android:layout_height="@dimen/group_distance_40"
+            android:layout_marginBottom="@dimen/group_distance_10"
+            android:layout_marginLeft="@dimen/group_distance_15"
+            android:layout_marginRight="@dimen/group_distance_15"
+            android:layout_marginTop="@dimen/group_distance_10"
             android:text="@string/group_join_class" />
     </LinearLayout>
-
 </LinearLayout>

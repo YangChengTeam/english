@@ -16,9 +16,12 @@ import com.yc.english.R;
 import com.yc.english.base.helper.RxUtils;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.Voice;
+import com.yc.english.group.utils.MediaPlayCallBack;
+import com.yc.english.group.utils.MediaUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +44,6 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
     protected void convert(final BaseViewHolder holder, final int position) {
 
         holder.setVisible(R.id.m_iv_issue_voice_delete, mIsPublish);
-
         final Voice result = mList.get(position);
         holder.setText(R.id.m_tv_issue_result_voice, result.getDuration());
         holder.setOnClickListener(R.id.m_iv_issue_voice_delete, new View.OnClickListener() {
@@ -56,13 +58,15 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
     }
 
     private void playAudio(final BaseViewHolder holder, final boolean mIsPublish, final Voice result) {
-        final MediaPlayer mPlayer = new MediaPlayer();
+
         RxView.clicks(holder.getView(R.id.m_iv_play_voice)).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 Glide.with(mContext).load(R.mipmap.group59).into((ImageView) holder.getView(R.id.m_iv_play_voice));
+
                 if (mIsPublish) {
                     try {
+                        MediaPlayer mPlayer = new MediaPlayer();
                         mPlayer.setDataSource(result.getFile().getPath());
                         mPlayer.prepare();
                         mPlayer.start();
@@ -74,15 +78,9 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
                                 holder.setImageDrawable(R.id.m_iv_play_voice, mContext.getResources().getDrawable(R.mipmap.group67));
                             }
                         });
-                        mPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                            @Override
-                            public boolean onError(MediaPlayer mp, int what, int extra) {
 
-                                return false;
-                            }
-                        });
 
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         LogUtils.e("播放失败");
                         holder.setImageDrawable(R.id.m_iv_play_voice, mContext.getResources().getDrawable(R.mipmap.group67));
                     }
@@ -91,10 +89,9 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
                             (AndroidSchedulers.mainThread()).subscribe(new Action1<File>() {
                         @Override
                         public void call(File file) {
-
                             if (file == null) return;
-
                             try {
+                                MediaPlayer mPlayer = new MediaPlayer();
                                 mPlayer.setDataSource(mContext, Uri.parse(file.getAbsolutePath()));
                                 mPlayer.prepare();
                                 mPlayer.start();
@@ -107,7 +104,7 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
                                     }
                                 });
 
-                            } catch (IOException e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                                 holder.setImageDrawable(R.id.m_iv_play_voice, mContext.getResources().getDrawable(R.mipmap.group67));
                             }

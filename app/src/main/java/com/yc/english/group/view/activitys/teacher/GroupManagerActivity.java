@@ -181,7 +181,6 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         if (group.equals(BusAction.REMOVE_GROUP)) {
             finish();
         }
-
     }
 
 

@@ -77,7 +77,6 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitle(getString(R.string.all_task));
 
-
         initListener();
 
 
@@ -231,6 +230,7 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
 
                 FileInfo fileInfo = new FileInfo();
                 fileInfo.setFilePath(s);
+                fileInfo.setFileName(s.substring(s.lastIndexOf("/") + 1));
                 fileInfos.add(fileInfo);
             }
         }

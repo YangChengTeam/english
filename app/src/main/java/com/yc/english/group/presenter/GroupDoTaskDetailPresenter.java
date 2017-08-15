@@ -133,7 +133,6 @@ public class GroupDoTaskDetailPresenter extends BasePresenter<GroupDoTaskDetailE
 
         customMessage.setExtra(JSONObject.toJSONString(taskInfo));
 
-
         Message message = Message.obtain(taskInfo.getClass_id(), Conversation.ConversationType.GROUP, customMessage);
 
         RongIM.getInstance().sendMessage(message, "app:custom", null, new IRongCallback.ISendMessageCallback() {
@@ -152,7 +151,6 @@ public class GroupDoTaskDetailPresenter extends BasePresenter<GroupDoTaskDetailE
                 LogUtils.e(message + "---" + errorCode);
             }
         });
-
     }
 
 

@@ -23,6 +23,7 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupDoTaskDetailContract;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.model.bean.Voice;
@@ -65,7 +66,6 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     @BindView(R.id.m_et_finish_task)
     EditText mEtFinishTask;
 
-
     @BindView(R.id.voice_recyclerView)
     RecyclerView voiceRecyclerView;
 
@@ -91,8 +91,9 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
         if (getIntent() != null) {
             String taskDetailInfo = getIntent().getStringExtra("extra");
             taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
-            mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
-
+            if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupId())) {
+                mPresenter.getPublishTaskDetail(this, taskInfo.getId(), GroupInfoHelper.getGroupId(), "");
+            }
         }
         RxView.clicks(mBtnSubmit).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -143,9 +144,11 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
         }
 
         String uid = UserInfoHelper.getUserInfo().getUid();
+        if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupId())) {
+            LogUtils.e(GroupInfoHelper.getGroupId());
+            mPresenter.doTask(GroupInfoHelper.getGroupId(), uid, taskInfo.getId(), desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
+        }
 
-
-        mPresenter.doTask(taskInfo.getClass_ids().get(0), uid, taskInfo.getId(), desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
 
     }
 

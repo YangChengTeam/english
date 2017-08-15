@@ -56,8 +56,7 @@ public class GroupMemberAdapter extends IndexableAdapter<StudentInfo> {
         MemberContentVH memberContentVH = (MemberContentVH) holder;
         GlideHelper.circleImageView(mContext, memberContentVH.ivMemberImg, entity.getFace(), R.mipmap.default_avatar);
         memberContentVH.tvMemberName.setText(entity.getNick_name());
-        memberContentVH.tvMemberOwner.setText(entity.getUser_id().equals(UserInfoHelper.getUserInfo().getUid()) ? "老师" : "");
-
+        memberContentVH.tvMemberOwner.setText(entity.getUser_id().equals(entity.getMaster_id()) ? "老师" : "");
     }
 
     private class MemberTitleVH extends RecyclerView.ViewHolder {

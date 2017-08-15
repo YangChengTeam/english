@@ -100,7 +100,7 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
                     if (!UserInfoHelper.isGotoLogin(mContext)) {
                         final AlertDialog dialog = new AlertDialog(mContext);
                         dialog.setTitle(mContext.getString(R.string.join_group));
-                        dialog.setDesc("是否申请加入");
+                        dialog.setDesc("是否申请加入该班群");
                         dialog.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -117,6 +117,7 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
                 }
 
                 holder.getView(R.id.m_tv_notification_count).setVisibility(View.INVISIBLE);
+                holder.getView(R.id.m_tv_notification_content).setVisibility(View.INVISIBLE);
             }
         });
 

@@ -35,8 +35,7 @@
                     android:background="@null"
                     android:gravity="top"
                     android:hint="发布你要布置的作业"
-                    android:paddingLeft="@dimen/group_distance_15"
-                    android:paddingTop="@dimen/group_distance_15"
+                    android:padding="@dimen/group_distance_15"
                     android:textColor="@color/black_333333"
                     android:textColorHint="@color/group_gray_999"
                     android:textSize="@dimen/group_text_16" />
@@ -87,6 +86,7 @@
                         android:id="@+id/voice_recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/group_distance_5"
                         android:layout_marginLeft="@dimen/group_distance_15"
                         android:gravity="center_vertical" />
                 </LinearLayout>
@@ -113,7 +113,8 @@
                         android:id="@+id/file_recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/group_distance_15" />
+                        android:layout_marginLeft="@dimen/group_distance_15"
+                        android:paddingBottom="@dimen/group_distance_5"/>
 
                 </LinearLayout>
 

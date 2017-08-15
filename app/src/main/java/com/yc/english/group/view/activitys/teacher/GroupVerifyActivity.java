@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.comm_recyclviewadapter.BaseViewHolder;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
@@ -92,7 +93,7 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
 
     @Override
     public void showNoNet() {
-        stateView.showNoNet(llContainer, "网络不给力", new View.OnClickListener() {
+        stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPresenter.loadData(true);
