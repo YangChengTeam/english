@@ -112,6 +112,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     private String unitId;
 
+    private String unitTitle;
+
     private PublishSubject mTsSubject;
 
     private PublishSubject mSpellSubject;
@@ -129,11 +131,11 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             unitId = bundle.getString("unit_id");
+            unitTitle = bundle.getString("unit_title");
         }
 
         mPresenter = new ReadWordPresenter(this, this);
-
-        mToolbar.setTitle("Unit 1");
+        mToolbar.setTitle(unitTitle);
         mToolbar.showNavigationIcon();
 
         mediaPlayer = new MediaPlayer();
@@ -278,7 +280,6 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     @Override
     public void showWordListData(List<WordInfo> list) {
         if (list != null && list.size() > 0) {
-            //mDatas = list;
 
             if (mDatas == null) {
                 mDatas = new ArrayList<MultiItemEntity>();

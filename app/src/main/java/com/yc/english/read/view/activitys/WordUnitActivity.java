@@ -82,6 +82,7 @@ public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> impl
                 if (ReadApp.READ_COMMON_TYPE == 2) {
                     Intent intent = new Intent(WordUnitActivity.this, ReadWordActivity.class);
                     intent.putExtra("unit_id", ((WordUnitInfo) mItemAdapter.getData().get(position)).getId());
+                    intent.putExtra("unit_title", ((WordUnitInfo) mItemAdapter.getData().get(position)).getName());
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(WordUnitActivity.this, WordPracticeActivity.class);
