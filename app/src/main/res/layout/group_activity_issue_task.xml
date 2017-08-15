@@ -45,6 +45,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/m_ll_issue_picture"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/group_distance_50"
                     android:orientation="horizontal"
@@ -68,6 +69,7 @@
                 <include layout="@layout/group_common_divider" />
 
                 <LinearLayout
+                    android:id="@+id/m_ll_issue_voice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -92,6 +94,7 @@
                 <include layout="@layout/group_common_divider" />
 
                 <LinearLayout
+                    android:id="@+id/m_ll_issue_file"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"

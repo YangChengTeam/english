@@ -10,10 +10,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
+import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.view.activitys.student.GroupMyTaskDetailActivity;
-import com.yc.english.group.view.activitys.teacher.GroupTaskLookAndUnLookActivity;
+import com.yc.english.group.view.activitys.student.GroupTaskGradeActivity;
+import com.yc.english.group.view.activitys.teacher.GroupPublishTaskLookAndUnLookActivity;
 
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
@@ -71,18 +74,23 @@ public class PublishTaskMessageProvider extends IContainerItemProvider.MessagePr
 
     @Override
     public void onItemClick(View view, int position, RichContentMessage richContentMessage, UIMessage uiMessage) {
-//        uiMessage.getMessageId()
+
         LogUtils.e("onItemClick", richContentMessage.getExtra() + "---" + uiMessage.getTargetId());
 
+        TaskInfo taskInfo = JSONObject.parseObject(richContentMessage.getExtra(), TaskInfo.class);
 
         Intent intent;
 
         if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
 
-            intent = new Intent(mContext, GroupTaskLookAndUnLookActivity.class);
+            intent = new Intent(mContext, GroupPublishTaskLookAndUnLookActivity.class);
 
         } else {
-            intent = new Intent(mContext, GroupMyTaskDetailActivity.class);
+            if (taskInfo.getIs_done() == 1) {
+                intent = new Intent(mContext, GroupTaskGradeActivity.class);
+            } else {
+                intent = new Intent(mContext, GroupMyTaskDetailActivity.class);
+            }
         }
         intent.putExtra("extra", richContentMessage.getExtra());
 

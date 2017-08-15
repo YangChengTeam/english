@@ -37,18 +37,21 @@ public class GroupTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskAll
         TextView tv = new TextView(mContext);
         tv.setTextSize(16);
         tv.setTextColor(mContext.getResources().getColor(R.color.black_333333));
+        view.removeAllViews();
         switch (type) {
             case GroupConstant.TASK_TYPE_CHARACTER://纯文本
                 holder.setImageResource(R.id.m_iv_task_picture, R.mipmap.group36);
                 tvContent.setVisibility(View.VISIBLE);
                 break;
             case GroupConstant.TASK_TYPE_PICTURE:
+
                 holder.setImageResource(R.id.m_iv_task_picture, R.mipmap.group40);
                 tvContent.setVisibility(View.GONE);
                 tv.setText("[图片]");
                 view.addView(tv);
                 break;
             case GroupConstant.TASK_TYPE_VOICE:
+
                 holder.setImageResource(R.id.m_iv_task_picture, R.mipmap.group38);
                 tv.setText("[语音]");
                 view.addView(tv);

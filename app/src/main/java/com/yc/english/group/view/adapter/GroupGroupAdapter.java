@@ -15,6 +15,7 @@ import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -33,9 +34,11 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
     private static final String TAG = "GroupGroupAdapter";
     private String mTargetId;
     private boolean mIsRead;
+    private boolean mIsJoin;
 
-    public GroupGroupAdapter(Context context, List<ClassInfo> mList) {
+    public GroupGroupAdapter(Context context, boolean isJoin, List<ClassInfo> mList) {
         super(context, mList);
+        this.mIsJoin = isJoin;
     }
 
     @Override
@@ -44,7 +47,7 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
         holder.setText(R.id.m_tv_group_name, classInfo.getClassName());
         holder.setText(R.id.m_tv_member_count, String.format(mContext.getString(R.string.member_count), Integer.parseInt(classInfo.getCount())));
         holder.setText(R.id.m_tv_group_number, String.format(mContext.getString(R.string.groupId), classInfo.getGroupId()));
-        GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.m_iv_group_img),classInfo.getImageUrl(),R.mipmap.default_avatar);
+        GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.m_iv_group_img), classInfo.getImageUrl(), R.mipmap.default_avatar);
 
         RongIM.getInstance().getUnreadCount(Conversation.ConversationType.GROUP, classInfo.getClass_id(), new RongIMClient.ResultCallback<Integer>() {
             @Override
@@ -86,13 +89,34 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                    GroupApp.setMyExtensionModule(true);
+                if (mIsJoin) {
+                    if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
+                        GroupApp.setMyExtensionModule(true);
+                    } else {
+                        GroupApp.setMyExtensionModule(false);
+                    }
+                    RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
                 } else {
-                    GroupApp.setMyExtensionModule(false);
+                    if (!UserInfoHelper.isGotoLogin(mContext)) {
+                        final AlertDialog dialog = new AlertDialog(mContext);
+                        dialog.setTitle(mContext.getString(R.string.join_group));
+                        dialog.setDesc("是否申请加入");
+                        dialog.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                                if (onJoinListener != null) {
+
+                                    onJoinListener.onJoin(classInfo);
+                                }
+                            }
+                        });
+                        dialog.show();
+
+                    }
                 }
-                RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
+
+                holder.getView(R.id.m_tv_notification_count).setVisibility(View.INVISIBLE);
             }
         });
 
@@ -108,5 +132,17 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
         this.mIsRead = isRead;
     }
 
+    private OnJoinListener onJoinListener;
 
+    public OnJoinListener getOnJoinListener() {
+        return onJoinListener;
+    }
+
+    public void setOnJoinListener(OnJoinListener onJoinListener) {
+        this.onJoinListener = onJoinListener;
+    }
+
+    public interface OnJoinListener {
+        void onJoin(ClassInfo classInfo);
+    }
 }

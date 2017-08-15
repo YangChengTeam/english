@@ -6,6 +6,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:layout_marginLeft="@dimen/group_distance_15"
+        android:layout_marginTop="@dimen/group_distance_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -16,7 +18,8 @@
         android:layout_below="@id/recyclerView"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/group_distance_10"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_look_detail"
@@ -30,8 +33,8 @@
             android:id="@+id/iv_look_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/group_distance_5" />
-
+            android:layout_marginLeft="@dimen/group_distance_5"
+            android:src="@mipmap/group68" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.bumptech.glide.manager.Lifecycle;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
@@ -42,13 +43,16 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
     TextView mTvConfirmSyncGroup;
     private GroupSyncListAdapter adapter;
     private static final String TAG = "GroupSyncGroupListActiv";
+    private String classId;
 
     @Override
     public void init() {
         mPresenter = new GroupSyncGroupPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group_list));
         mToolbar.showNavigationIcon();
-
+        if (getIntent() != null) {
+            classId = getIntent().getStringExtra("classId");
+        }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -76,7 +80,7 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
         setResult(RESULT_OK, intent);
         SPUtils.getInstance().clear();
         for (ClassInfo classInfo : classInfos) {
-            SPUtils.getInstance().put(classInfo.getClass_id()+ "class", true);
+            SPUtils.getInstance().put(classInfo.getClass_id() + "class", true);
         }
         finish();
     }
@@ -108,20 +112,30 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
         mTvConfirmSyncGroup.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
     }
 
+    private ClassInfo currentClassInfo;
+
     @Override
     public void showMyGroupList(List<ClassInfo> list) {
 
-        adapter.setData(list);
-        for (ClassInfo classInfo : list) {
-            boolean aBoolean = SPUtils.getInstance().getBoolean(classInfo.getClass_id() + "class");
-            if (aBoolean) {
-                count++;
-                classInfos.add(classInfo);
+        if (list != null && list.size() > 0) {
+            for (ClassInfo classInfo : list) {
+                if (classInfo.getClass_id().equals(classId)) {
+                    currentClassInfo = classInfo;
+                    break;
+                }
             }
+            list.remove(currentClassInfo);
+            adapter.setData(list);
+            for (ClassInfo classInfo : list) {
+                boolean aBoolean = SPUtils.getInstance().getBoolean(classInfo.getClass_id() + "class");
+                if (aBoolean) {
+                    count++;
+                    classInfos.add(classInfo);
+                }
+            }
+            mTvConfirmSyncGroup.setText(String.format(getString(R.string.confirm_sync), count));
+            mTvConfirmSyncGroup.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
         }
-        mTvConfirmSyncGroup.setText(String.format(getString(R.string.confirm_sync), count));
-        mTvConfirmSyncGroup.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
-
     }
 
     @Override

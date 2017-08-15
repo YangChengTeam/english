@@ -1,17 +1,20 @@
 package com.yc.english.group.view.adapter;
 
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.hwangjr.rxbus.RxBus;
 import com.yc.english.R;
 import com.yc.english.group.constant.BusAction;
+import com.yc.english.group.view.activitys.student.GroupPictureDetailActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,13 +43,22 @@ public class GroupPictureAdapter extends BaseAdapter<String> {
                 RxBus.get().post(BusAction.DELETE_PICTURE, path);
             }
         });
+        holder.setOnClickListener(R.id.m_iv_issue_result_picture, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, GroupPictureDetailActivity.class);
+                intent.putExtra("mList", (ArrayList<String>) mList);
+                intent.putExtra("position", position);
+                mContext.startActivity(intent);
+            }
+        });
 
 
     }
 
     @Override
     public int getLayoutID(int viewType) {
-        return R.layout.group_task_picture_item;
+        return R.layout.group_task_picture_detail;
     }
 
     private void deletePicture(int position) {

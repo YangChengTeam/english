@@ -36,6 +36,7 @@ public class GroupMyTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskA
         TextView tv = new TextView(mContext);
         tv.setTextSize(16);
         tv.setTextColor(mContext.getResources().getColor(R.color.black_333333));
+        view.removeAllViews();
         switch (type) {
             case GroupConstant.TASK_TYPE_CHARACTER://纯文本
                 holder.setImageResource(R.id.m_iv_task_picture, R.mipmap.group36);
@@ -86,7 +87,7 @@ public class GroupMyTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskA
                 Intent intent = new Intent(mContext, GroupTaskGradeActivity.class);
                 intent.putExtra("taskId", taskInfo.getTask_id());
                 intent.putExtra("classId", taskInfo.getClass_id());
-                intent.putExtra("id",taskInfo.getId());
+                intent.putExtra("id", taskInfo.getId());
                 mContext.startActivity(intent);
             }
         });

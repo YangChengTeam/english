@@ -1,5 +1,6 @@
 package com.yc.english.group.view.activitys.teacher;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,6 +14,7 @@ import com.yc.english.group.contract.GroupPublishTaskDetailContract;
 import com.yc.english.group.model.bean.StudentFinishTaskInfo;
 import com.yc.english.group.model.bean.StudentLookTaskInfo;
 import com.yc.english.group.model.bean.TaskInfo;
+import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupPublishTaskDetailPresenter;
 import com.yc.english.group.view.adapter.CommonAdapter;
 import com.yc.english.group.view.adapter.GroupPageAdapter;
@@ -24,10 +26,12 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.rong.imkit.model.FileInfo;
 
 /**
  * Created by wanglin  on 2017/7/28 12:55.
@@ -69,7 +73,6 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
     }
 
 
-
     @Override
     public int getLayoutId() {
         return R.layout.group_activity_task_item_detail;
@@ -99,18 +102,20 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
             case GroupConstant.TASK_TYPE_VOICE:
                 mIvTaskTypeIcon.setImageResource(R.mipmap.group38);
                 mLlTaskDetail.showVoiceView();
-//                mLlTaskDetail.setVoices();
+                mLlTaskDetail.setVoices(getVoiceList(taskInfo));
                 break;
             case GroupConstant.TASK_TYPE_WORD:
                 mIvTaskTypeIcon.setImageResource(R.mipmap.group42);
                 mLlTaskDetail.showWordView();
-//                mLlTaskDetail.setFileInfos();
+                mLlTaskDetail.setFileInfos(getFileInfos(taskInfo));
                 break;
             case GroupConstant.TASK_TYPE_SYNTHESIZE:
                 mIvTaskTypeIcon.setImageResource(R.mipmap.group44);
                 mLlTaskDetail.setText(taskInfo.getDesp());
                 mLlTaskDetail.showSynthesizeView();
                 mLlTaskDetail.setUriList(taskInfo.getBody().getImgs());
+                mLlTaskDetail.setVoices(getVoiceList(taskInfo));
+                mLlTaskDetail.setFileInfos(getFileInfos(taskInfo));
                 break;
 
 
@@ -144,9 +149,9 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
         Bundle doneBundle = new Bundle();
         Bundle noDoneBundle = new Bundle();
         doneBundle.putParcelableArrayList("done_list", done_list);
-        doneBundle.putString("taskId",taskId);
-        doneBundle.putString("classId",classId);
-        doneBundle.putString("masterId",masterId);
+        doneBundle.putString("taskId", taskId);
+        doneBundle.putString("classId", classId);
+        doneBundle.putString("masterId", masterId);
 
         noDoneBundle.putParcelableArrayList("noDone_list", nodone_list);
 
@@ -164,5 +169,42 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
+    private List<Voice> getVoiceList(TaskInfo taskInfo) {
+        List<String> voice = taskInfo.getBody().getVoices();
+        List<Voice> voiceList = new ArrayList<>();
+        try {
+            if (voice != null && voice.size() > 0) {
+                for (String s : voice) {
+                    MediaPlayer mediaPlayer = new MediaPlayer();
+                    mediaPlayer.setDataSource(s);
+                    mediaPlayer.prepare();
+                    int duration = mediaPlayer.getDuration();
+                    int second = duration / 1000;
+                    mediaPlayer.reset();
+                    mediaPlayer.release();
+                    voiceList.add(new Voice(s, second + "''"));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return voiceList;
+    }
+
+
+    private List<FileInfo> getFileInfos(TaskInfo taskInfo) {
+
+        List<String> list = taskInfo.getBody().getDocs();
+        List<FileInfo> fileInfos = new ArrayList<>();
+        if (list != null && list.size() > 0) {
+            for (String s : list) {
+
+                FileInfo fileInfo = new FileInfo();
+                fileInfo.setFilePath(s);
+                fileInfos.add(fileInfo);
+            }
+        }
+        return fileInfos;
+    }
 
 }

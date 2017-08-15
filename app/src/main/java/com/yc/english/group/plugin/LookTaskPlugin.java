@@ -6,8 +6,10 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
 import com.yc.english.group.view.activitys.student.GroupMyTaskListActivity;
+import com.yc.english.group.view.provider.CustomMessage;
 
 import io.rong.imkit.RongExtension;
 import io.rong.imkit.RongIM;
@@ -63,12 +65,9 @@ public class LookTaskPlugin implements IPluginModule {
         if (requestCode == 100 && resultCode == 700 && intent != null) {
             String task = intent.getStringExtra("task");
 
-            //        Message message = Message.obtain(targetId, conversationType, TextMessage.obtain("示例插件功能"));
-            RichContentMessage customMessage = RichContentMessage.obtain("家庭作业", task, "");
-//
+            CustomMessage customMessage = CustomMessage.obtain("我的作业", task, "");
             Message message = Message.obtain(targetId, conversationType, customMessage);
-//        Message message = Message.obtain("654321", conversationType, CustomMessage.obtain("家庭作业", "今天读一百个单词", ""));
-            RongIM.getInstance().sendMessage(message, null, null, new IRongCallback.ISendMessageCallback() {
+            RongIM.getInstance().sendMessage(message, "app:custom", null, new IRongCallback.ISendMessageCallback() {
 
 
                 @Override
@@ -78,7 +77,7 @@ public class LookTaskPlugin implements IPluginModule {
 
                 @Override
                 public void onSuccess(Message message) {
-//                    Toast.makeText(activity, "消息发送成功, 示例获取 Context", Toast.LENGTH_SHORT).show();
+                    LogUtils.e(message);
                 }
 
                 @Override

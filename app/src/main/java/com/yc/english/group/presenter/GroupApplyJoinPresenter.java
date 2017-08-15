@@ -54,7 +54,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
             return;
         }
         mView.showLoadingDialog("正在申请加入班级，请稍候");
-        Subscription subscription = mEngin.applyJoinGroup(user_id, sn).subscribe(new Subscriber<ResultInfo<GroupApplyInfo>>() {
+        Subscription subscription = EngineUtils.applyJoinGroup(mContext,user_id, sn).subscribe(new Subscriber<ResultInfo<GroupApplyInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();

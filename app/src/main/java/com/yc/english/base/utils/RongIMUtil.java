@@ -85,7 +85,7 @@ public class RongIMUtil {
     public static boolean isConnect() {
         return RongIM.getInstance().getCurrentConnectionStatus().getValue() == 0;
     }
-    
+
     public static void reconnect(Context context) {
         if (!isConnect()) {
             TipsHelper.tips(context, "正在重连连接");
