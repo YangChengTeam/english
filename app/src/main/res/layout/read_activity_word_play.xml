@@ -52,7 +52,7 @@
                     android:id="@+id/tv_read_current_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6"
+                    android:text="0"
                     android:textColor="@color/primary"/>
 
                 <TextView
@@ -64,7 +64,7 @@
                     android:id="@+id/tv_read_total_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20"/>
+                    android:text="0"/>
             </LinearLayout>
 
             <LinearLayout

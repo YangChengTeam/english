@@ -222,6 +222,12 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
      * @param postion
      */
     public void startSynthesizer(int postion) {
+
+        if(mItemAdapter.getData() == null || mItemAdapter.getData().size() == 0){
+            TipsHelper.tips(CoursePlayActivity.this,"数据异常，请稍后重试");
+            return;
+        }
+
         mCoursePlayImageView.setBackgroundResource(R.drawable.read_playing_course_btn_selector);
         String text = mItemAdapter.getData().get(postion).getTitle();
         int code = mTts.startSpeaking(text, mTtsListener);
