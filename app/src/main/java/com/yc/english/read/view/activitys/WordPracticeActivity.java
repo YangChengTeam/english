@@ -22,6 +22,7 @@ import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.DrawableUtils;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.StateView;
 import com.yc.english.read.common.SpeechUtil;
 import com.yc.english.read.contract.ReadWordContract;
 import com.yc.english.read.model.domain.LetterInfo;
@@ -47,6 +48,12 @@ import rx.functions.Action1;
  */
 
 public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> implements ReadWordContract.View {
+
+    @BindView(R.id.sv_loading)
+    StateView mStateView;
+
+    @BindView(R.id.layout_content)
+    RelativeLayout mLayoutContext;
 
     @BindView(R.id.rv_letter_list)
     RecyclerView mLetterRecyclerView;
@@ -267,6 +274,31 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
         });
 
         mPresenter.getWordListByUnitId(0, 0, unitId);
+    }
+
+    @Override
+    public void hideStateView() {
+        mStateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        mStateView.showNoNet(mLayoutContext, "网络不给力", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getWordListByUnitId(0, 0, unitId);
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        mStateView.showNoData(mLayoutContext);
+    }
+
+    @Override
+    public void showLoading() {
+        mStateView.showLoading(mLayoutContext);
     }
 
     public void nextWord(int wordPosition) {

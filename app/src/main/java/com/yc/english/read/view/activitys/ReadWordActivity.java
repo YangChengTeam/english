@@ -24,6 +24,7 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.StateView;
 import com.yc.english.read.common.SpeechUtil;
 import com.yc.english.read.contract.ReadWordContract;
 import com.yc.english.read.model.domain.WordDetailInfo;
@@ -46,6 +47,12 @@ import rx.subjects.PublishSubject;
  */
 
 public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> implements ReadWordContract.View, ReadWordItemClickAdapter.ItemDetailClick {
+
+    @BindView(R.id.sv_loading)
+    StateView mStateView;
+
+    @BindView(R.id.layout_content)
+    RelativeLayout mLayoutContext;
 
     @BindView(R.id.rv_word_list)
     RecyclerView mReadWordRecyclerView;
@@ -241,6 +248,31 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     public void hidePlayAudioPreView(View preView) {
         Glide.with(ReadWordActivity.this).load(R.mipmap.read_word_default).into((ImageView) preView.findViewById(R.id.iv_read_word));
+    }
+
+    @Override
+    public void hideStateView() {
+        mStateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        mStateView.showNoNet(mLayoutContext, "网络不给力", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getWordListByUnitId(0, 0, unitId);
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        mStateView.showNoData(mLayoutContext);
+    }
+
+    @Override
+    public void showLoading() {
+        mStateView.showLoading(mLayoutContext);
     }
 
     @Override

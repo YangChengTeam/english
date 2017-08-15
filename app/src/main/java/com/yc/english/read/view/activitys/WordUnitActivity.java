@@ -6,12 +6,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.StateView;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.contract.WordUnitContract;
 import com.yc.english.read.model.domain.BookInfo;
@@ -39,6 +41,12 @@ public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> impl
 
     @BindView(R.id.rv_word_unit_list)
     RecyclerView mWordUnitRecyclerView;
+
+    @BindView(R.id.sv_loading)
+    StateView mStateView;
+
+    @BindView(R.id.ll_content)
+    LinearLayout mContentLinearLayout;
 
     ReadWordUnitItemClickAdapter mItemAdapter;
 
@@ -99,5 +107,30 @@ public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> impl
             mBookGradeNameTextView.setText(bookInfo.getName());
             mBookPressTextView.setText(bookInfo.getPress());
         }
+    }
+
+    @Override
+    public void hideStateView() {
+        mStateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        mStateView.showNoNet(mContentLinearLayout, "网络不给力", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getBookInfoById(bookId);
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        mStateView.showNoData(mContentLinearLayout);
+    }
+
+    @Override
+    public void showLoading() {
+        mStateView.showLoading(mContentLinearLayout);
     }
 }

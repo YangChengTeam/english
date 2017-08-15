@@ -1,7 +1,7 @@
 <resources>
 
     <!-- 科大讯飞APPID -->
-    <string name="app_id">59814eb4</string>
+    <string name="app_id">59914966</string>
 
     <!--read-values-->
     <string name="read_next_unit_course_text">下一单元</string>
