@@ -46,13 +46,16 @@ public class GroupChangeNameActivity extends FullScreenActivity<GroupChangeInfoP
         if (getIntent() != null) {
             groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
             etClassGroup.setText(groupInfo.getName());
+            etClassGroup.setSelection(groupInfo.getName().length());
         }
 
         RxView.clicks(btnCreate).filter(new Func1<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {
-                ToastUtils.showShort("请输入要修改的班群名称");
-                return !TextUtils.isEmpty(etClassGroup.getText().toString().trim());
+                String etName = etClassGroup.getText().toString().trim();
+                if (TextUtils.isEmpty(etName))
+                    ToastUtils.showShort("请输入要修改的班群名称");
+                return !TextUtils.isEmpty(etName);
             }
         }).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override

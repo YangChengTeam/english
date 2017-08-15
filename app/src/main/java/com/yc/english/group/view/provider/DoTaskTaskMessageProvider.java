@@ -76,7 +76,6 @@ public class DoTaskTaskMessageProvider extends IContainerItemProvider.MessagePro
 //        uiMessage.getMessageId()
         LogUtils.e("onItemClick", richContentMessage.getExtra() + "---" + uiMessage.getTargetId());
 
-
         Intent intent;
 
         if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {

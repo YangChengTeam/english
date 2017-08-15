@@ -39,7 +39,12 @@ public class RxUtils {
                     urlConnection.connect();
 
 
-                    file = new File(PathUtils.makeDir(context, "voice"), MD5.hexdigest(urlStr) + ".voice");
+                    String name = MD5.hexdigest(urlStr);
+                    if (urlStr.lastIndexOf('/') != -1) {
+                        name = urlStr.substring(urlStr.lastIndexOf('/'));
+                    }
+
+                    file = new File(PathUtils.makeDir(context, "files"), name);
                     FileOutputStream fileOutput = new FileOutputStream(file);
 
                     if (file.exists() && file.length() == urlConnection.getContentLength()) {
