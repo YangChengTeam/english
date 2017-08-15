@@ -61,20 +61,22 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
     public void init() {
         mPresenter = new GroupScoreTaskPresenter(this, this);
         if (getIntent() != null) {
-            String taskId = getIntent().getStringExtra("mTaskId");
-            String classId = getIntent().getStringExtra("mClassId");
-            String userId = getIntent().getStringExtra("userId");
-            doneId = getIntent().getStringExtra("doneId");
-            mPresenter.getPublishTaskDetail(this, taskId, classId, "");
-            mPresenter.getDoneTaskDetail(this, doneId, userId);
+            if (getIntent().getStringExtra("extra") != null) {
+                String taskDetail = getIntent().getStringExtra("extra");
+                TaskInfo taskInfo = JSONObject.parseObject(taskDetail, TaskInfo.class);
+                doneId = taskInfo.getId();
+                mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), "");
+                mPresenter.getDoneTaskDetail(this, taskInfo.getId(), taskInfo.getUser_id());
+            } else {
+                String taskId = getIntent().getStringExtra("mTaskId");
+                String classId = getIntent().getStringExtra("mClassId");
+                String userId = getIntent().getStringExtra("userId");
+                doneId = getIntent().getStringExtra("doneId");
+                mPresenter.getPublishTaskDetail(this, taskId, classId, "");
+                mPresenter.getDoneTaskDetail(this, doneId, userId);
+            }
         }
-        if (getIntent() != null && getIntent().getStringExtra("extra") != null) {
-            String taskDetail = getIntent().getStringExtra("extra");
-            TaskInfo taskInfo = JSONObject.parseObject(taskDetail, TaskInfo.class);
-            doneId = taskInfo.getId();
-            mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), "");
-            mPresenter.getDoneTaskDetail(this, taskInfo.getId(), taskInfo.getUser_id());
-        }
+
         mToolbar.setTitle(getString(R.string.task_detail));
         mToolbar.showNavigationIcon();
 

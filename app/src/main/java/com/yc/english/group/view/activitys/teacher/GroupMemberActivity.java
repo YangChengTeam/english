@@ -48,6 +48,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     LinearLayout llContainer;
     private GroupMemberAdapter adapter;
     private GroupInfo groupInfo;
+    private SimpleHeaderAdapter<StudentInfo> simpleHeaderAdapter;
 
 
     @Override
@@ -101,9 +102,13 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
 
     @Override
     public void showMemberList(List<StudentInfo> list) {
-        recyclerView.addHeaderAdapter(new SimpleHeaderAdapter<>(adapter, "", "", list.subList(0, 1)));
+        if (simpleHeaderAdapter != null) {
+            recyclerView.removeHeaderAdapter(simpleHeaderAdapter);
+        }
+        simpleHeaderAdapter = new SimpleHeaderAdapter<>(this.adapter, "", "", list.subList(0, 1));
+        recyclerView.addHeaderAdapter(simpleHeaderAdapter);
         list.remove(0);
-        adapter.setDatas(list);
+        this.adapter.setDatas(list);
 
     }
 
