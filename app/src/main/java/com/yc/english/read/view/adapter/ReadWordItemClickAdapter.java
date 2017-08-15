@@ -23,7 +23,7 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
     private Context mContext;
 
     public interface ItemDetailClick {
-        public void detailClick(int position);
+        public void wordDetailClick(int position,String sentenceSimple);
     }
 
     ItemDetailClick itemDetailClick;
@@ -38,7 +38,6 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
         addItemType(TYPE_LEVEL_0, R.layout.read_word_play_item);
         addItemType(TYPE_LEVEL_1, R.layout.read_word_play_item_detail);
     }
-
 
     @Override
     protected void convert(final BaseViewHolder helper, final MultiItemEntity item) {
@@ -92,7 +91,7 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        itemDetailClick.detailClick(helper.getAdapterPosition());
+                        itemDetailClick.wordDetailClick(helper.getAdapterPosition(),wordInfoDetail.getWordExample());
                     }
                 });
                 break;

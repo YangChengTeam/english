@@ -11,7 +11,14 @@
         android:layout_height="wrap_content">
     </com.yc.english.base.view.MainToolBar>
 
+    <com.yc.english.base.view.StateView
+        android:id="@+id/sv_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.yc.english.base.view.StateView>
+
     <RelativeLayout
+        android:id="@+id/layout_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primaryDark">
@@ -104,8 +111,8 @@
 
                     <ImageView
                         android:id="@+id/iv_read_all"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="16dp"
+                        android:layout_height="11dp"
                         android:layout_marginLeft="2dp"
                         android:src="@mipmap/read_audio_white_stop"/>
                 </LinearLayout>
