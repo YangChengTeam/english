@@ -268,7 +268,6 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
             case GroupConstant.TASK_TYPE_VOICE:
                 mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group38));
                 mLlTaskDetail.showVoiceView();
-
                 mLlTaskDetail.setVoices(getVoiceList(taskInfo));
 
                 break;
@@ -304,7 +303,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
                     int second = duration / 1000;
                     mediaPlayer.release();
 
-                    voiceList.add(new Voice(new File(s), second + "''"));
+                    voiceList.add(new Voice(s, second + "''"));
                 }
             }
         } catch (IOException e) {
