@@ -58,11 +58,13 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
+
     <com.yc.english.base.view.StateView
         android:id="@+id/sv_loading"
-        android:background="@color/primaryDark"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/primaryDark"
+        >
     </com.yc.english.base.view.StateView>
     <ScrollView
         android:id="@+id/sv_content"
@@ -159,8 +161,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
                     >
-
                     <TextView
                         android:id="@+id/tv_china"
                         android:layout_width="60dp"
@@ -181,10 +183,9 @@
                         android:layout_marginRight="12dp"
                         android:layout_toRightOf="@id/tv_china"
                         android:gravity="center_vertical"
-                        android:text="2511"
                         android:textColor="@color/primary"
+                        android:minWidth="40dp"
                         android:textSize="@dimen/font_larger"
-
                         />
 
                     <TextView
@@ -203,11 +204,11 @@
                         android:id="@+id/tv_student_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="40dp"
                         android:layout_alignRight="@+id/tv_teacher_number"
                         android:layout_below="@id/tv_teacher_number"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
-                        android:text="38541"
                         android:textColor="@color/accent"
                         android:textSize="@dimen/font_larger"/>
 

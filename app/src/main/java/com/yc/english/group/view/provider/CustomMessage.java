@@ -89,9 +89,9 @@ public class CustomMessage extends MessageContent {
             if (getTitle() != null)
                 jsonObj.put("title", getExpression(getTitle()));
             if (getContent() != null)
-                jsonObj.put("content", this.getExpression(this.getContent()));
+                jsonObj.put("content",getExpression(getContent()));
             if (!TextUtils.isEmpty(getImgUrl()))
-                jsonObj.put("imgUrl", this.getImgUrl());
+                jsonObj.put("imgUrl",getImgUrl());
             if (!TextUtils.isEmpty(getUrl()))
                 jsonObj.put("url", getUrl());
 
@@ -256,11 +256,11 @@ public class CustomMessage extends MessageContent {
         this.extra = extra;
     }
 
-    @Override
-    public List<String> getSearchableWord() {
-        List<String> words = new ArrayList<>();
-        words.add(content);
-        return words;
-
-    }
+//    @Override
+//    public List<String> getSearchableWord() {
+//        List<String> words = new ArrayList<>();
+//        words.add(content);
+//        return words;
+//
+//    }
 }

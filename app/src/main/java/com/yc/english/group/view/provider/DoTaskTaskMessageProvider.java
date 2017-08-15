@@ -12,15 +12,14 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
-import com.yc.english.group.view.activitys.student.GroupMyTaskDetailActivity;
+import com.yc.english.group.view.activitys.student.GroupTaskGradeActivity;
 import com.yc.english.group.view.activitys.student.GroupUpdateMyTaskActivity;
-import com.yc.english.group.view.activitys.teacher.GroupTaskLookAndUnLookActivity;
+import com.yc.english.group.view.activitys.teacher.GroupTaskFinishDetailActivity;
 
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
 import io.rong.imkit.widget.provider.IContainerItemProvider;
 import io.rong.imlib.model.Message;
-import io.rong.message.RichContentMessage;
 
 /**
  * Created by wanglin  on 2017/7/26 08:34.
@@ -68,6 +67,7 @@ public class DoTaskTaskMessageProvider extends IContainerItemProvider.MessagePro
     //该条消息为该会话的最后一条消息时，会话列表要显示的内容，通过该方法进行定义。
     @Override
     public Spannable getContentSummary(CustomMessage customMessage) {
+
         return new SpannableString("这是一条自定义消息CustomizeMessage");
     }
 
@@ -81,15 +81,16 @@ public class DoTaskTaskMessageProvider extends IContainerItemProvider.MessagePro
 
         if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
 
-            intent = new Intent(mContext, GroupUpdateMyTaskActivity.class);
+            intent = new Intent(mContext, GroupTaskGradeActivity.class);
 
         } else {
-            intent = new Intent(mContext, null);
+            intent = new Intent(mContext, GroupTaskFinishDetailActivity.class);
         }
         intent.putExtra("extra", richContentMessage.getExtra());
 
         mContext.startActivity(intent);
     }
+
 
     private class ViewHolder {
         TextView message;

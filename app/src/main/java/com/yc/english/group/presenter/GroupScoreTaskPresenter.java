@@ -102,13 +102,8 @@ public class GroupScoreTaskPresenter extends BasePresenter<GroupScoreTaskEngine,
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        UIUitls.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                TipsHelper.tips(context,"您已经为该做业进行打分");
-                                mView.finish();
-                            }
-                        });
+                        mView.showScoreResult();
+
 
                     }
                 });

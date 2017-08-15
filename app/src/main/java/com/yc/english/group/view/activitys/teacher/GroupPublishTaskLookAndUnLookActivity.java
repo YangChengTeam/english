@@ -15,6 +15,7 @@ import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupPublishTaskDetailContract;
+import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentFinishTaskInfo;
 import com.yc.english.group.model.bean.StudentLookTaskInfo;
 import com.yc.english.group.model.bean.TaskInfo;
@@ -30,7 +31,6 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ import io.rong.imkit.model.FileInfo;
  * 已查阅 未查阅
  */
 
-public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPublishTaskDetailPresenter> implements GroupPublishTaskDetailContract.View {
+public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<GroupPublishTaskDetailPresenter> implements GroupPublishTaskDetailContract.View {
     @BindView(R.id.m_tv_issue_time)
     TextView mTvIssueTime;
     @BindView(R.id.m_ll_task_detail)
@@ -59,13 +59,14 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
     private GroupLookTaskFragment groupLookTaskFragment;
     private String taskDetailInfo;
     private GroupUnLookTaskFragment groupUnLookTaskFragment;
+    private TaskInfo taskInfo;
 
     @Override
     public void init() {
         mPresenter = new GroupPublishTaskDetailPresenter(this, this);
         if (getIntent() != null) {
             taskDetailInfo = getIntent().getStringExtra("extra");
-            TaskInfo taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
+            taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
 
             mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
             mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
@@ -86,7 +87,11 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
-                Intent intent = new Intent(GroupTaskLookAndUnLookActivity.this, GroupPublishTaskListActivity.class);
+                Intent intent = new Intent(GroupPublishTaskLookAndUnLookActivity.this, GroupPublishTaskListActivity.class);
+                ClassInfo classInfo = new ClassInfo();
+                classInfo.setMaster_id(taskInfo.getPublisher());
+                classInfo.setClass_id(taskInfo.getClass_ids().get(0));
+                intent.putExtra("classInfo", classInfo);
                 startActivity(intent);
             }
         });
@@ -173,7 +178,6 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
             case GroupConstant.TASK_TYPE_VOICE:
                 mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group38));
                 mLlTaskDetail.showVoiceView();
-
                 mLlTaskDetail.setVoices(getVoiceList(taskInfo));
 
                 break;
@@ -208,7 +212,7 @@ public class GroupTaskLookAndUnLookActivity extends FullScreenActivity<GroupPubl
                     int second = duration / 1000;
                     mediaPlayer.reset();
                     mediaPlayer.release();
-                    voiceList.add(new Voice(new File(s), second + "''"));
+                    voiceList.add(new Voice(s, second + "''"));
                 }
             }
         } catch (IOException e) {

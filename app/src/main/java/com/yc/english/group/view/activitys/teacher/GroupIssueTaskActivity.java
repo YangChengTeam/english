@@ -131,7 +131,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             @Override
             public void onClick() {
                 Intent intent = new Intent(GroupIssueTaskActivity.this, GroupPublishTaskListActivity.class);
-                intent.putExtra("classInfo", mClassInfo.getMaster_id());
+                intent.putExtra("classInfo", mClassInfo);
                 startActivity(intent);
             }
         });
@@ -139,6 +139,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         mToolbar.setBackOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 saveTaskData();
             }
         });
@@ -151,7 +152,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         return R.layout.group_activity_issue_task;
     }
 
-    @OnClick({R.id.m_rl_async_to_other, R.id.m_iv_issue_picture, R.id.m_iv_issue_voice, R.id.m_iv_issue_file})
+    @OnClick({R.id.m_rl_async_to_other, R.id.m_ll_issue_picture, R.id.m_ll_issue_voice, R.id.m_ll_issue_file})
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
@@ -161,15 +162,15 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 intent.putExtra("classId", mClassInfo.getClass_id());
                 startActivityForResult(intent, 200);
                 break;
-            case R.id.m_iv_issue_picture:
+            case R.id.m_ll_issue_picture:
                 startActivityForResult(new Intent(this, PictureSelectorActivity.class), 300);
                 break;
-            case R.id.m_iv_issue_voice:
+            case R.id.m_ll_issue_voice:
                 audioRecord(v);
                 KeyboardUtils.hideSoftInput(this);
                 break;
 
-            case R.id.m_iv_issue_file:
+            case R.id.m_ll_issue_file:
                 intent = new Intent(GroupIssueTaskActivity.this, FileListActivity.class);
                 intent.putExtra("rootDirType", 100);
                 intent.putExtra("fileFilterType", 5);

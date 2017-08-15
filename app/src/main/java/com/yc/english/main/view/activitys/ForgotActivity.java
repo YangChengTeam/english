@@ -1,21 +1,32 @@
 package com.yc.english.main.view.activitys;
 
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.UIUitls;
 import com.yc.english.R;
+import com.yc.english.base.helper.RxUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.main.contract.ForgotContract;
 import com.yc.english.main.presenter.ForgotPresenter;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import io.rong.imkit.manager.AudioPlayManager;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 /**
@@ -46,6 +57,16 @@ public class ForgotActivity extends FullScreenActivity<ForgotPresenter> implemen
     public void init() {
         mToolbar.setTitle("忘记密码");
         mToolbar.showNavigationIcon();
+
+
+        RxUtils.getFile(this, "http://en.qqtn.com/Upload/Picture/2017-08-14/599145f14e375.voice").observeOn
+                (AndroidSchedulers.mainThread()).subscribe(new Action1<File>() {
+            @Override
+            public void call(File file) {
+                LogUtils.i("file---", file.getAbsolutePath());
+            }
+        });
+
 
         mPresenter = new ForgotPresenter(this, this);
 

@@ -2,12 +2,11 @@ package com.yc.english.read.presenter;
 
 import android.content.Context;
 
+import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.read.contract.ReadWordContract;
-import com.yc.english.read.model.domain.WordInfo;
+import com.yc.english.read.model.domain.WordInfoList;
 import com.yc.english.read.model.engin.WordEngin;
-
-import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -25,7 +24,7 @@ public class ReadWordPresenter extends BasePresenter<WordEngin, ReadWordContract
 
     @Override
     public void getWordListByUnitId(int currentPage, int pageCount, String unitId) {
-        Subscription subscribe = mEngin.getWordListByUnitId(currentPage, pageCount, unitId).subscribe(new Subscriber<List<WordInfo>>() {
+        Subscription subscribe = mEngin.getWordListByUnitId(currentPage, pageCount, unitId).subscribe(new Subscriber<ResultInfo<WordInfoList>>() {
             @Override
             public void onCompleted() {
 
@@ -37,9 +36,9 @@ public class ReadWordPresenter extends BasePresenter<WordEngin, ReadWordContract
             }
 
             @Override
-            public void onNext(final List<WordInfo> wordInfos) {
-                if (wordInfos != null) {
-                    mView.showWordListData(wordInfos);
+            public void onNext(final ResultInfo<WordInfoList> resultInfo) {
+                if (resultInfo != null && resultInfo.data != null) {
+                    mView.showWordListData(resultInfo.data.list);
                 }
             }
         });

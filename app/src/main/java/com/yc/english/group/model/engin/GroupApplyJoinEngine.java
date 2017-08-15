@@ -28,15 +28,6 @@ public class GroupApplyJoinEngine extends BaseEngin {
 
     }
 
-    public Observable<ResultInfo<GroupApplyInfo>> applyJoinGroup(String user_id, String sn) {
-
-        Map<String, String> params = new HashMap<>();
-        params.put("user_id", user_id);
-        params.put("sn", sn);
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.apply_join_group, new TypeReference<ResultInfo<GroupApplyInfo>>() {
-        }.getType(), params, true, true, true);
-
-    }
 
 
 

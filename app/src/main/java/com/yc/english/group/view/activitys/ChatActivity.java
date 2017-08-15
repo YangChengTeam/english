@@ -49,7 +49,9 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             if (data.getQueryParameter("targetId") != null) {
                 groupId = data.getQueryParameter("targetId");
             }
-
+            mToolbar.setMenuIcon(R.mipmap.group9);
+            mToolbar.setOnItemClickLisener(this);
+            mToolbar.setTitle(title);
             group = new GroupInfo(groupId, title);
 
         }
@@ -61,9 +63,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     public void init() {
         mPresenter = new GroupApplyJoinPresenter(this, this);
         initData();
-        if (EmptyUtils.isNotEmpty(group)) {
-            mPresenter.queryGroupById(this, group.getId(), "");
-        }
         mToolbar.showNavigationIcon();
         RongIMUtil.reconnect(this);
     }
@@ -83,14 +82,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
 
     @Override
     public void showGroup(ClassInfo classInfo) {
-        if (classInfo != null && classInfo.getMaster_id() != null) {
-            if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                mToolbar.setMenuIcon(R.mipmap.group9);
-                mToolbar.setOnItemClickLisener(this);
-                mToolbar.setTitle(classInfo.getClassName());
-                invalidateOptionsMenu();
-            }
-        }
+
     }
 
     @Override

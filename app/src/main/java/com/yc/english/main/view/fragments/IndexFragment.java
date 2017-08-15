@@ -1,7 +1,6 @@
 package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
@@ -11,25 +10,27 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+
 import com.blankj.utilcode.util.LogUtils;
+
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.share.UMShareImpl;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
+import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.view.activitys.GroupCommonClassActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.model.domain.Constant;
+import com.yc.english.main.model.domain.CountInfo;
+import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.presenter.IndexPresenter;
 import com.yc.english.main.view.activitys.MainActivity;
@@ -44,6 +45,8 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+
+
 
 /**
  * Created by zhangkai on 2017/7/24.
@@ -121,7 +124,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mTaskMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                MainActivity mainActivity = (MainActivity)getActivity();
+                MainActivity mainActivity = (MainActivity) getActivity();
                 mainActivity.goToTask();
             }
         });
@@ -129,7 +132,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mAvatarImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                MainActivity mainActivity = (MainActivity)getActivity();
+                MainActivity mainActivity = (MainActivity) getActivity();
                 mainActivity.goToMy();
             }
         });
@@ -138,14 +141,18 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void call(Void aVoid) {
                 SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
-                sharePopupWindow.setTitle("111").setUrl("http://www.baiud.com").setDesc("1234134").show(mRootView);
+                sharePopupWindow.show(mRootView);
             }
         });
 
         mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                ToastUtils.showLong("点击了第" + position + "图片");
+                SlideInfo slideInfo = mPresenter.getSlideInfo(position);
+                Intent intent = new Intent(getActivity() ,WebActivity.class);
+                intent.putExtra("title", slideInfo.getTitle());
+                intent.putExtra("url", "http://www.baidu.com");
+                startActivity(intent);
             }
         });
     }
@@ -200,6 +207,12 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 .default_avatar, 0.5f, Color.parseColor("#dbdbe0"));
     }
 
+    @Override
+    public void showCountInfo(CountInfo countInfo) {
+        mStudentNumberTextView.setText(countInfo.getStudentCount() + "");
+        mTeacherNumberTextView.setText(countInfo.getTeacherCount() + "");
+    }
+
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
@@ -210,4 +223,18 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         mAvatarImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.default_big_avatar));
     }
 
+    @Override
+    public void showNoNet() {
+        mLoadingStateView.showNoNet(mContextScrollView, "网络不给力", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.loadData(true);
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        mLoadingStateView.showNoData(mContextScrollView);
+    }
 }

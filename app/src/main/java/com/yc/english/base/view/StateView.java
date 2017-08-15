@@ -97,6 +97,7 @@ public class StateView extends BaseView {
         mContextView = contextView;
         setVisibility(View.VISIBLE);
         mContextView.setVisibility(View.GONE);
+        mRefreshButton.setVisibility(View.VISIBLE);
         mMessageTextView.setText(message);
         Glide.with(this).load(R.mipmap.base_no_wifi).into(mLoadingImageView);
         RxView.clicks(mRefreshButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {

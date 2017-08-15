@@ -7,18 +7,17 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.group.model.bean.ClassInfoWarpper;
-import com.yc.english.group.rong.models.CodeSuccessResult;
-import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.rong.imkit.RongIM;
-import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
+import io.rong.push.RongPushClient;
 import rx.Observable;
 import rx.functions.Action1;
 
@@ -87,12 +86,12 @@ public class RongIMUtil {
         return RongIM.getInstance().getCurrentConnectionStatus().getValue() == 0;
     }
 
-
     public static void reconnect(Context context) {
         if (!isConnect()) {
+            TipsHelper.tips(context, "正在重连连接");
             com.yc.english.main.model.domain.UserInfo userInfo = UserInfoHelper.getUserInfo();
             UserInfoHelper.connect(context, userInfo.getUid());
-            TipsHelper.tips(context, "正在重连连接");
         }
     }
+
 }

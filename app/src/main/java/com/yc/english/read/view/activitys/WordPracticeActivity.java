@@ -1,9 +1,7 @@
 package com.yc.english.read.view.activitys;
 
 import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +15,6 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.iflytek.cloud.ErrorCode;
-import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
@@ -25,7 +22,11 @@ import com.iflytek.cloud.SynthesizerListener;
 import com.yc.english.R;
 import com.yc.english.base.utils.DrawableUtils;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.read.common.SpeechUtil;
+import com.yc.english.read.contract.ReadWordContract;
 import com.yc.english.read.model.domain.LetterInfo;
+import com.yc.english.read.model.domain.WordInfo;
+import com.yc.english.read.presenter.ReadWordPresenter;
 import com.yc.english.read.view.adapter.ReadLetterItemClickAdapter;
 import com.yc.english.read.view.wdigets.CountDown;
 import com.yc.english.read.view.wdigets.GridSpacingItemDecoration;
@@ -36,13 +37,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.yc.english.read.view.activitys.CoursePlayActivity.VOICER_NAME;
-
 /**
  * Created by admin on 2017/7/26.
  */
 
-public class WordPracticeActivity extends FullScreenActivity {
+public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> implements ReadWordContract.View {
 
     @BindView(R.id.rv_letter_list)
     RecyclerView mLetterRecyclerView;
@@ -89,29 +88,34 @@ public class WordPracticeActivity extends FullScreenActivity {
     // 引擎类型
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
 
-    private SharedPreferences mSharedPreferences;
-
     // 缓冲进度
     private int mPercentForBuffering = 0;
 
     // 播放进度
     private int mPercentForPlaying = 0;
 
+    private String unitId;
+
+    CountDown countDown;
+
     @Override
     public int getLayoutId() {
         return R.layout.read_activity_word_practice;
     }
 
-    CountDown countDown;
-
     @Override
     public void init() {
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            unitId = bundle.getString("unit_id");
+        }
 
         mToolbar.setTitle("5/10");
         mToolbar.showNavigationIcon();
 
-        mTts = SpeechSynthesizer.createSynthesizer(WordPracticeActivity.this, mTtsInitListener);
-        mSharedPreferences = getSharedPreferences(VOICER_NAME, MODE_PRIVATE);
+        SpeechUtil.initSpeech(WordPracticeActivity.this, 28, 50, 50, 1);
+        mTts = SpeechUtil.getmTts();
 
         mLetterListValues = new String[]{"m", "p", "a", "o", "g", "s", "e", "p", "w", "y", "k", "b", "s", "o", "c"};
 
@@ -157,44 +161,7 @@ public class WordPracticeActivity extends FullScreenActivity {
         startSynthesizer("book");
     }
 
-    /**
-     * 语音播放参数设置
-     *
-     * @param
-     * @return
-     */
-    private void setParam() {
-        // 清空参数
-        mTts.setParameter(SpeechConstant.PARAMS, null);
-        // 根据合成引擎设置相应参数
-        if (mEngineType.equals(SpeechConstant.TYPE_CLOUD)) {
-            mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
-            // 设置在线合成发音人
-            mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
-            // 设置合成语速
-            mTts.setParameter(SpeechConstant.SPEED, "60");
-            // 设置合成音调
-            mTts.setParameter(SpeechConstant.PITCH, mSharedPreferences.getString("pitch_preference", "50"));
-            // 设置合成音量
-            mTts.setParameter(SpeechConstant.VOLUME, mSharedPreferences.getString("volume_preference", "50"));
-        } else {
-            //TODO
-            //暂时只提供在线语音合成
-        }
-        // 设置播放器音频流类型
-        mTts.setParameter(SpeechConstant.STREAM_TYPE, mSharedPreferences.getString("stream_preference", "1"));
-        // 设置播放合成音频打断音乐播放，默认为true
-        mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
-
-        // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-        // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
-        mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.wav");
-    }
-
     public void startSynthesizer(String text) {
-        setParam(); //设置参数
-
         int code = mTts.startSpeaking(text, mTtsListener);
 
         if (code != ErrorCode.SUCCESS) {
@@ -207,21 +174,6 @@ public class WordPracticeActivity extends FullScreenActivity {
             }
         }
     }
-
-    /**
-     * 初始化监听
-     */
-    private InitListener mTtsInitListener = new InitListener() {
-        @Override
-        public void onInit(int code) {
-            //Log.d(TAG, "InitListener init() code = " + code);
-            if (code != ErrorCode.SUCCESS) {
-                ToastUtils.showLong("初始化失败,错误码：" + code);
-            } else {
-                // 初始化成功，之后可以调用startSpeaking方法
-            }
-        }
-    };
 
     /**
      * 合成回调监听。
@@ -287,13 +239,13 @@ public class WordPracticeActivity extends FullScreenActivity {
             mRightLayout.setVisibility(View.VISIBLE);
             mErrorLayout.setVisibility(View.INVISIBLE);
             mLetterListLayout.setVisibility(View.GONE);
-            mWordInputTextView.setTextColor(ContextCompat.getColor(this,R.color.right_word_color));
+            mWordInputTextView.setTextColor(ContextCompat.getColor(this, R.color.right_word_color));
         } else {
             mRightLayout.setVisibility(View.INVISIBLE);
             mErrorLayout.setVisibility(View.VISIBLE);
             mLetterListLayout.setVisibility(View.GONE);
-            mWordInputTextView.setTextColor(ContextCompat.getColor(this,R.color.read_word_share_btn_color));
-            mErrorAgainButton.setBackground(DrawableUtils.getBgColor(this,3,R.color.right_word_btn_again_color));
+            mWordInputTextView.setTextColor(ContextCompat.getColor(this, R.color.read_word_share_btn_color));
+            mErrorAgainButton.setBackground(DrawableUtils.getBgColor(this, 3, R.color.right_word_btn_again_color));
         }
     }
 
@@ -312,12 +264,12 @@ public class WordPracticeActivity extends FullScreenActivity {
         nextWord(0);
     }
 
-    public void nextWord(int wordPosition){
+    public void nextWord(int wordPosition) {
         mLetterListLayout.setVisibility(View.VISIBLE);
         mRightLayout.setVisibility(View.INVISIBLE);
         mErrorLayout.setVisibility(View.INVISIBLE);
         mWordInputTextView.setText("");
-        mWordInputTextView.setTextColor(ContextCompat.getColor(this,R.color.black_333));
+        mWordInputTextView.setTextColor(ContextCompat.getColor(this, R.color.black_333));
         countDown.start();
     }
 
@@ -330,5 +282,10 @@ public class WordPracticeActivity extends FullScreenActivity {
             // 退出时释放连接
             mTts.destroy();
         }
+    }
+
+    @Override
+    public void showWordListData(List<WordInfo> list) {
+
     }
 }

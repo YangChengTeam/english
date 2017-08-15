@@ -88,7 +88,7 @@ public class JsonTools {
             for (int i = 0; i < listSeries.size(); i++) {
                 WordInfo tempSeries = listSeries.get(i);
                 WordInfo wordInfo = new WordInfo(ReadWordItemClickAdapter.TYPE_LEVEL_0);
-                wordInfo.setWord(tempSeries.getWord());
+                wordInfo.setName(tempSeries.getName());
                 wordInfo.setMeans(tempSeries.getMeans());
                 resultList.add(wordInfo);
             }

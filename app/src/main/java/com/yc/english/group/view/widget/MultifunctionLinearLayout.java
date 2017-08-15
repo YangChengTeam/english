@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.yc.english.R;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.model.bean.Voice;
@@ -81,12 +82,13 @@ public class MultifunctionLinearLayout extends LinearLayout {
             MarginLayoutParams layoutParams = (MarginLayoutParams) getLayoutParams();
             layoutParams.leftMargin = 15;
             layoutParams.topMargin = 15;
+            layoutParams.rightMargin= 15;
+            layoutParams.bottomMargin= 15;
             textView.setLayoutParams(layoutParams);
             addView(textView);
         }
     }
 
-    private boolean isClick;
 
     public void showPictureView() {
         currentType = GroupConstant.TASK_TYPE_PICTURE;
@@ -97,16 +99,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
             groupPictureAdapter = new GroupPictureAdapter(mContext, false, null);
             recyclerView.setAdapter(groupPictureAdapter);
 
-            final TextView tv = (TextView) pictureView.findViewById(R.id.tv_look_detail);
-            final ImageView iv = (ImageView) pictureView.findViewById(R.id.iv_look_detail);
-            pictureView.findViewById(R.id.ll_task_detail).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    isClick = !isClick;
-                    tv.setText(isClick ? mContext.getString(R.string.pack_up) : getResources().getString(R.string.look_detail));
-                    iv.setImageDrawable(isClick ? mContext.getResources().getDrawable(R.mipmap.group69) : mContext.getResources().getDrawable(R.mipmap.group68));
-                }
-            });
+
             addView(pictureView);
         }
 
@@ -118,7 +111,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
             voiceView = inflater.inflate(R.layout.group_publish_task_detail_picture, null);
             RecyclerView recyclerView = (RecyclerView) voiceView.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-            voiceView.findViewById(R.id.ll_task_detail).setVisibility(GONE);
+
             groupVoiceAdapter = new GroupVoiceAdapter(mContext, false, null);
             recyclerView.setAdapter(groupVoiceAdapter);
             addView(voiceView);
@@ -131,7 +124,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
             wordView = inflater.inflate(R.layout.group_publish_task_detail_picture, null);
             RecyclerView recyclerView = (RecyclerView) wordView.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-            wordView.findViewById(R.id.ll_task_detail).setVisibility(GONE);
+
             groupFileAdapter = new GroupFileAdapter(mContext, false, null);
 
             recyclerView.setAdapter(groupFileAdapter);

@@ -39,17 +39,19 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
         addItemType(TYPE_LEVEL_1, R.layout.read_word_play_item_detail);
     }
 
+
     @Override
     protected void convert(final BaseViewHolder helper, final MultiItemEntity item) {
         switch (helper.getItemViewType()) {
             case TYPE_LEVEL_0:
 
                 final WordInfo wordInfo = (WordInfo) item;
-                helper.setText(R.id.tv_word_number, (helper.getAdapterPosition() + 1) + "")
-                        .setText(R.id.tv_en_word, wordInfo.getWord())
+                final int pos = helper.getLayoutPosition();
+
+                helper.setText(R.id.tv_word_number, (pos + 1) + "")
+                        .setText(R.id.tv_en_word, wordInfo.getName())
                         .setText(R.id.tv_cn_word, wordInfo.getMeans())
                         .addOnClickListener(R.id.layout_read_word_audio);
-                int pos = helper.getAdapterPosition();
                 if (wordInfo.isExpanded()) {
                     helper.itemView.setBackgroundResource(R.mipmap.read_word_item_selected);
                 } else {
@@ -59,7 +61,8 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int pos = helper.getAdapterPosition();
+                        final int pos = helper.getAdapterPosition();
+
                         LogUtils.e("pos: " + pos);
 
                         if (wordInfo.isExpanded()) {
@@ -67,21 +70,31 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
                         } else {
                             expand(pos);
                         }
+
+                        for (int i = 0; i < getData().size(); i++) {
+                            if (getData().get(i).getItemType() == TYPE_LEVEL_0) {
+                                WordInfo wordInfo = (WordInfo) getData().get(i);
+                                if (pos != i && wordInfo.isExpanded()) {
+                                    collapse(i);
+                                    break;
+                                }
+                            }
+                        }
+
+                        //helper.setText(R.id.tv_word_number, (pos + 1) + "");
                     }
                 });
 
                 break;
             case TYPE_LEVEL_1:
-                final WordDetailInfo wordDetailInfo = (WordDetailInfo) item;
-                helper.setText(R.id.tv_en_word_detail, wordDetailInfo.getWordExample()).setText(R.id.tv_cn_word_detail, wordDetailInfo.getWordCnExample());
-
+                final WordDetailInfo wordInfoDetail = (WordDetailInfo) item;
+                helper.setText(R.id.tv_en_word_detail, wordInfoDetail.getWordExample()).setText(R.id.tv_cn_word_detail, wordInfoDetail.getWordCnExample());
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         itemDetailClick.detailClick(helper.getAdapterPosition());
                     }
                 });
-
                 break;
         }
     }

@@ -27,22 +27,26 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/group_distance_10">
 
-            <TextView
-                android:id="@+id/tv_message_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_centerVertical="true"
-                android:text="知识点考察：Star teacher\nUnit 1Good momn"
-                android:textColor="@color/group_gray_999"
-                android:textSize="@dimen/group_text_12" />
-
             <ImageView
+                android:id="@+id/iv_pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/group_distance_5"
                 android:src="@mipmap/group_message_icon" />
+
+            <TextView
+                android:id="@+id/tv_message_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/group_distance_5"
+                android:layout_toLeftOf="@id/iv_pic"
+                android:text="知识点考察：Star teacher\nUnit 1Good momn"
+                android:textColor="@color/group_gray_999"
+                android:textSize="@dimen/group_text_12" />
+
+
         </RelativeLayout>
 
 

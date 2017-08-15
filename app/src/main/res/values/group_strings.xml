@@ -31,7 +31,7 @@
     <string name="my_publish">我发布的</string>
     <string name="i_want_to_publish">我要发布</string>
     <string name="grade">快来打个分吧!</string>
-    <string name="group">班级</string>
+    <string name="group">在线作业</string>
     <string name="member_count">人数：%1$d</string>
     <string name="groupId">群号：%1$d</string>
     <string name="accept">接受</string>

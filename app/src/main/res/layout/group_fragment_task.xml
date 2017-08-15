@@ -7,6 +7,7 @@
         android:id="@+id/m_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/group_group_manager_bg"/>
+        android:layout_marginBottom="@dimen/group_distance_10"
+        android:background="@drawable/group_group_manager_bg" />
 
 </LinearLayout>

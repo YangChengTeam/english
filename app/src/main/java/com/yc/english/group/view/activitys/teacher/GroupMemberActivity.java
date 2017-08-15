@@ -20,6 +20,7 @@ import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupMyMemberListPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.adapter.GroupMemberAdapter;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,7 +58,9 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             mToolbar.setTitle(groupInfo.getName());
         }
         mToolbar.showNavigationIcon();
-        mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
+
+
+        mPresenter.queryGroupById(this, groupInfo.getId(), "");
 
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
@@ -102,12 +105,18 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         list.remove(0);
         adapter.setDatas(list);
 
-
     }
 
     @Override
-    public void showGroupInfo(ClassInfo info) {
-        mToolbar.setTitle(info.getClassName());
+    public void showGroupInfo(ClassInfo classInfo) {
+        if (classInfo != null && classInfo.getMaster_id() != null) {
+            if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
+                mToolbar.setTitle(classInfo.getClassName());
+                mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
+                invalidateOptionsMenu();
+            }
+        }
+
     }
 
     @Subscribe(

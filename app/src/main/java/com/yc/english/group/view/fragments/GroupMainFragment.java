@@ -79,9 +79,8 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new GroupGroupAdapter(getContext(), null);
+        adapter = new GroupGroupAdapter(getContext(),true, null);
         recyclerView.setAdapter(adapter);
-
 
     }
 

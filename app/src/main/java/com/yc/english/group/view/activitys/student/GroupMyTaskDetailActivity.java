@@ -22,6 +22,7 @@ import com.yc.english.base.helper.AudioRecordManager;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupDoTaskDetailContract;
+import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.model.bean.Voice;
@@ -90,11 +91,8 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
         if (getIntent() != null) {
             String taskDetailInfo = getIntent().getStringExtra("extra");
             taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
-            if (taskInfo.getClass_ids() != null) {
-                mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
-            } else {
-                mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_id(), "");
-            }
+            mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
+
         }
         RxView.clicks(mBtnSubmit).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -121,14 +119,33 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
 
     private void doTask(String desc) {
 
+        StringBuilder picSb = new StringBuilder();
+        StringBuilder voiceSb = new StringBuilder();
+        StringBuilder wordSb = new StringBuilder();
+
+        if (picturePath.size() > 0) {
+            for (String s : picturePath) {
+                picSb.append(s).append(",");
+            }
+            picSb.deleteCharAt(picSb.length() - 1);
+        }
+        if (voicePath.size() > 0) {
+            for (String s : voicePath) {
+                voiceSb.append(s).append(",");
+            }
+            voiceSb.deleteCharAt(voiceSb.length() - 1);
+        }
+        if (wordPath.size() > 0) {
+            for (String s : wordPath) {
+                wordSb.append(s).append(",");
+            }
+            wordSb.deleteCharAt(wordSb.length() - 1);
+        }
 
         String uid = UserInfoHelper.getUserInfo().getUid();
-        if (taskInfo.getClass_ids() != null) {
 
-            mPresenter.doTask(taskInfo.getClass_ids().get(0), uid, taskInfo.getId(), desc, "", "", "");
-        } else {
-            mPresenter.doTask(taskInfo.getClass_id(), uid, taskInfo.getId(), desc, "", "", "");
-        }
+
+        mPresenter.doTask(taskInfo.getClass_ids().get(0), uid, taskInfo.getId(), desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
 
     }
 
@@ -214,9 +231,17 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
                 TimeUtils.date2String(TimeUtils.millis2Date(Long.parseLong(taskInfo.getAdd_time())), new SimpleDateFormat("HH:mm:ss")));
     }
 
+    private List<String> picturePath = new ArrayList<>();
+    private List<String> voicePath = new ArrayList<>();
+    private List<String> wordPath = new ArrayList<>();
+
     @Override
     public void showUploadResult(TaskUploadInfo data) {
-
+        String file_path = data.getFile_path();
+        if (file_path.endsWith(".png") || file_path.endsWith(".jpg") || file_path.endsWith(".jpeg"))
+            picturePath.add(file_path);
+        else if (file_path.endsWith(".voice")) voicePath.add(file_path);
+        else wordPath.add(file_path);
     }
 
     @Override
