@@ -69,8 +69,8 @@ public class BookUnitPresenter extends BasePresenter<BookEngin, BookUnitContract
                             public void onNext(final ResultInfo<UnitInfoList> resultInfo) {
                                 if (resultInfo != null) {
                                     mView.showBookInfo(infoWarpper.data.info);
-                                    mView.hideStateView();
                                     mView.showBookUnitListData(resultInfo.data);
+                                    mView.hideStateView();
                                 } else {
                                     mView.showNoData();
                                 }

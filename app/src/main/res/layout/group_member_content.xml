@@ -49,7 +49,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/group_distance_05"
             android:layout_marginLeft="@dimen/group_distance_70"
-            android:background="@color/group_gary_ddd"
-            android:visibility="gone" />
+            android:background="@color/group_gary_ddd" />
     </LinearLayout>
 </LinearLayout>

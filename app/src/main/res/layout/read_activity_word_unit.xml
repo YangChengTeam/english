@@ -13,7 +13,16 @@
         android:layout_alignParentTop="true">
     </com.yc.english.base.view.MainToolBar>
 
+
+    <com.yc.english.base.view.StateView
+        android:id="@+id/sv_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryDark">
+    </com.yc.english.base.view.StateView>
+
     <LinearLayout
+        android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="126dp"
         android:layout_marginLeft="15dp"

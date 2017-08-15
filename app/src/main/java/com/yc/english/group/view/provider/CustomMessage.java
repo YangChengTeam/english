@@ -86,12 +86,12 @@ public class CustomMessage extends MessageContent {
             if (getJsonMentionInfo() != null) {
                 jsonObj.putOpt("mentionedInfo", getJsonMentionInfo());
             }
-            if (getTitle() != null)
+            if (!TextUtils.isEmpty(getTitle()))
                 jsonObj.put("title", getExpression(getTitle()));
-            if (getContent() != null)
-                jsonObj.put("content",getExpression(getContent()));
+            if (!TextUtils.isEmpty(getContent()))
+                jsonObj.put("content", getExpression(getContent()));
             if (!TextUtils.isEmpty(getImgUrl()))
-                jsonObj.put("imgUrl",getImgUrl());
+                jsonObj.put("imgUrl", getImgUrl());
             if (!TextUtils.isEmpty(getUrl()))
                 jsonObj.put("url", getUrl());
 
@@ -153,13 +153,13 @@ public class CustomMessage extends MessageContent {
             }
 
             if (jsonObj.has("title"))
-                setContent(jsonObj.optString("title"));
+                setTitle(jsonObj.optString("title"));
 
             if (jsonObj.has("imgUrl"))
-                setExtra(jsonObj.optString("imgUrl"));
+                setImgUrl(jsonObj.optString("imgUrl"));
 
             if (jsonObj.has("url")) {
-                setUserInfo(parseJsonToUserInfo(jsonObj.getJSONObject("url")));
+                setUrl(jsonObj.optString("url"));
             }
 
 

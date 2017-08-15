@@ -2,9 +2,11 @@ package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.EmptyUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -17,6 +19,7 @@ import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupApplyJoinContract;
 
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.presenter.GroupApplyJoinPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.activitys.teacher.GroupMemberActivity;
@@ -30,7 +33,6 @@ import com.yc.english.main.hepler.UserInfoHelper;
 public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> implements BaseToolBar.OnItemClickLisener, GroupApplyJoinContract.View {
 
     private static final String TAG = "ChatActivity";
-
 
     private GroupInfo group;
 
@@ -53,9 +55,8 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             mToolbar.setOnItemClickLisener(this);
             mToolbar.setTitle(title);
             group = new GroupInfo(groupId, title);
-
+            GroupInfoHelper.setGroupId(groupId);
         }
-
 
     }
 
@@ -82,12 +83,11 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
 
     @Override
     public void showGroup(ClassInfo classInfo) {
-
+        mToolbar.setTitle(classInfo.getClassName());
     }
 
     @Override
     public void apply(int type) {
-
     }
 
 
@@ -111,5 +111,11 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     )
     public void changeName(String result) {
         mPresenter.queryGroupById(this, group.getId(), "");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GroupInfoHelper.setGroupId("");
     }
 }

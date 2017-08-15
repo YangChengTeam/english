@@ -51,7 +51,6 @@ public class MultifunctionLinearLayout extends LinearLayout {
     private List<String> uriList;
     private List<Voice> voices;
     private String text;
-    private GroupTaskSolePicAdapter groupTaskSolePicAdapter;
 
     public MultifunctionLinearLayout(Context context) {
         this(context, null);
@@ -82,8 +81,8 @@ public class MultifunctionLinearLayout extends LinearLayout {
             MarginLayoutParams layoutParams = (MarginLayoutParams) getLayoutParams();
             layoutParams.leftMargin = 15;
             layoutParams.topMargin = 15;
-            layoutParams.rightMargin= 15;
-            layoutParams.bottomMargin= 15;
+            layoutParams.rightMargin = 15;
+            layoutParams.bottomMargin = 15;
             textView.setLayoutParams(layoutParams);
             addView(textView);
         }
@@ -180,9 +179,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
         if (groupPictureAdapter != null) {
             groupPictureAdapter.setData(uriList);
         }
-        if (groupTaskSolePicAdapter != null) {
-            groupTaskSolePicAdapter.setData(uriList);
-        }
+
     }
 
     public List<Voice> getVoices() {

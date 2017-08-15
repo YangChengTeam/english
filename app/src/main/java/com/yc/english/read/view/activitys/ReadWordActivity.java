@@ -24,6 +24,7 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.StateView;
 import com.yc.english.read.common.SpeechUtil;
 import com.yc.english.read.contract.ReadWordContract;
 import com.yc.english.read.model.domain.WordDetailInfo;
@@ -46,6 +47,12 @@ import rx.subjects.PublishSubject;
  */
 
 public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> implements ReadWordContract.View, ReadWordItemClickAdapter.ItemDetailClick {
+
+    @BindView(R.id.sv_loading)
+    StateView mStateView;
+
+    @BindView(R.id.layout_content)
+    RelativeLayout mLayoutContext;
 
     @BindView(R.id.rv_word_list)
     RecyclerView mReadWordRecyclerView;
@@ -105,9 +112,13 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     private String unitId;
 
+    private String unitTitle;
+
     private PublishSubject mTsSubject;
 
     private PublishSubject mSpellSubject;
+
+    private boolean isWordDetailPlay = false;
 
     @Override
     public int getLayoutId() {
@@ -120,11 +131,11 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             unitId = bundle.getString("unit_id");
+            unitTitle = bundle.getString("unit_title");
         }
 
         mPresenter = new ReadWordPresenter(this, this);
-
-        mToolbar.setTitle("Unit 1");
+        mToolbar.setTitle(unitTitle);
         mToolbar.showNavigationIcon();
 
         mediaPlayer = new MediaPlayer();
@@ -142,6 +153,10 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         mReadWordItemClickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+                mTts.stopSpeaking();
+                View lastView = linearLayoutManager.findViewByPosition(currentIndex);
+                hidePlayAudioPreView(lastView);
 
                 if (mDatas.get(position) != null && !isPlay) {
                     currentIndex = position;
@@ -238,9 +253,33 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
     @Override
+    public void hideStateView() {
+        mStateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        mStateView.showNoNet(mLayoutContext, "网络不给力", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getWordListByUnitId(0, 0, unitId);
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        mStateView.showNoData(mLayoutContext);
+    }
+
+    @Override
+    public void showLoading() {
+        mStateView.showLoading(mLayoutContext);
+    }
+
+    @Override
     public void showWordListData(List<WordInfo> list) {
         if (list != null && list.size() > 0) {
-            //mDatas = list;
 
             if (mDatas == null) {
                 mDatas = new ArrayList<MultiItemEntity>();
@@ -252,7 +291,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             //TODO 数据有问题，待定
             for (int i = 0; i < list.size(); i++) {
                 WordInfo wordInfo = (WordInfo) list.get(i);
-                wordInfo.addSubItem(new WordDetailInfo(wordInfo.getName(), wordInfo.getMeans()));
+                wordInfo.addSubItem(new WordDetailInfo(wordInfo.getEpSentence(), wordInfo.getEpSentenceMeans()));
                 mDatas.add(wordInfo);
             }
             mReadWordItemClickAdapter.setNewData(mDatas);
@@ -307,6 +346,21 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         }
     }
 
+    //示例句子朗读
+    public void startSynthesizer(String sentence) {
+        String text = sentence;
+        int code = mTts.startSpeaking(text, mTtsListener);
+        if (code != ErrorCode.SUCCESS) {
+            if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
+                // 未安装则跳转到提示安装页面
+                //mInstaller.install();
+            } else {
+                ToastUtils.showLong("语音合成失败,错误码: " + code);
+                mTts.stopSpeaking();
+            }
+        }
+    }
+
     /**
      * 合成回调监听。
      */
@@ -342,6 +396,15 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         @Override
         public void onCompleted(SpeechError error) {
             if (error == null) {
+
+                //单词例句阅读
+                if(isWordDetailPlay){
+                    View dView = linearLayoutManager.findViewByPosition(currentIndex);
+                    Glide.with(ReadWordActivity.this).load(R.mipmap.read_word_default).into((ImageView)dView.findViewById(R.id.iv_word_detail_audio));
+                    mTts.stopSpeaking();
+                    isWordDetailPlay = false;
+                    return;
+                }
 
                 if (isSpell) {
                     if (currentIndex < mDatas.size()) {
@@ -465,12 +528,19 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
     @Override
-    public void detailClick(int position) {
+    public void wordDetailClick(int dPosition, String sentenceSimple) {
 
-        MultiItemEntity multiItemEntity = ((MultiItemEntity) mDatas.get(position));
+        if(mTts.isSpeaking()){
+            mTts.stopSpeaking();
+        }
 
-        WordDetailInfo wordDetailInfo = ((WordDetailInfo) multiItemEntity);
-        startSynthesizer(currentIndex);
+        isWordDetailPlay = true;
+        currentIndex = dPosition;
+        startSynthesizer(sentenceSimple);
+        View dView = linearLayoutManager.findViewByPosition(dPosition);
+        if(dView != null){
+            Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_gif_play).into((ImageView)dView.findViewById(R.id.iv_word_detail_audio));
+        }
     }
 
     @Override

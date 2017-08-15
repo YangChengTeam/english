@@ -2,6 +2,7 @@ package com.yc.english.group.view.activitys.teacher;
 
 import android.media.MediaPlayer;
 import android.support.annotation.IdRes;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -70,20 +71,20 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
         if (getIntent() != null && getIntent().getStringExtra("extra") != null) {
             String taskDetail = getIntent().getStringExtra("extra");
             TaskInfo taskInfo = JSONObject.parseObject(taskDetail, TaskInfo.class);
+            doneId = taskInfo.getId();
             mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), "");
             mPresenter.getDoneTaskDetail(this, taskInfo.getId(), taskInfo.getUser_id());
-
         }
-
         mToolbar.setTitle(getString(R.string.task_detail));
         mToolbar.showNavigationIcon();
-        initListener();
+
 
     }
 
     private String score;
 
     private void initListener() {
+
         mRgContainer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
@@ -118,7 +119,10 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
 
     @Override
     public void showDoneTaskInfo(TaskInfo info) {
+        setScore(info);
         setTaskDetail(info, doMultifunctionLinearLayout);
+        if (TextUtils.isEmpty(info.getScore()))
+            initListener();
     }
 
     @Override
@@ -165,6 +169,27 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
                 multifunctionLinearLayout.setUriList(info.getBody().getImgs());
                 multifunctionLinearLayout.setVoices(getVoiceList(info));
                 multifunctionLinearLayout.setFileInfos(getFileInfos(info));
+                break;
+        }
+
+    }
+
+    private void setScore(TaskInfo taskInfo) {
+        switch (taskInfo.getScore()) {
+            case "A+":
+                mRbAExtra.setChecked(true);
+                break;
+            case "A":
+                mRbA.setChecked(true);
+                break;
+            case "B+":
+                mRbBExtra.setChecked(true);
+                break;
+            case "B":
+                mRbB.setChecked(true);
+                break;
+            case "C":
+                mRbC.setChecked(true);
                 break;
         }
 

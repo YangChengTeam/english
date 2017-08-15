@@ -108,15 +108,14 @@ public class GroupResolvingPresenter extends BasePresenter<GroupResolvingEngine,
                 handleResultInfo(removeGroupInfoResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        RxBus.get().post(BusAction.GROUPLIST,"change face");
-                        mView.showResolvingResult();
+                        RxBus.get().post(BusAction.GROUPLIST, "change face");
+                        mView.showChangeGroupInfo(removeGroupInfoResultInfo.data);
                     }
                 });
             }
         });
         mSubscriptions.add(subscription);
     }
-
 
 
 }

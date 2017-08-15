@@ -121,8 +121,6 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             public void call(Void aVoid) {
 
                 String desc = mEtIssueTask.getText().toString().trim();
-
-
                 publishTask(desc);
 
             }
@@ -277,6 +275,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
     @Override
     public void showTaskDetail(TaskInfo info) {
+        clearTaskData();
         Intent intent = new Intent();
         intent.putExtra("task", info);
         setResult(700, intent);
@@ -366,12 +365,18 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
     }
 
     private void saveTaskData() {
-
         SPUtils.getInstance().put(GroupConstant.TEXT_TASK, mEtIssueTask.getText().toString());
         SPUtils.getInstance().put(GroupConstant.PICTUE_TASK, JSONObject.toJSONString(pitureList));
         SPUtils.getInstance().put(GroupConstant.VOICE_TASK, JSONObject.toJSONString(voiceList));
         SPUtils.getInstance().put(GroupConstant.WORD_TASK, JSONObject.toJSONString(fileInfos));
 
+    }
+
+    private void clearTaskData() {
+        SPUtils.getInstance().put(GroupConstant.TEXT_TASK, "");
+        SPUtils.getInstance().put(GroupConstant.PICTUE_TASK, "");
+        SPUtils.getInstance().put(GroupConstant.VOICE_TASK, "");
+        SPUtils.getInstance().put(GroupConstant.WORD_TASK, "");
     }
 
     private void restoreTaskData() {

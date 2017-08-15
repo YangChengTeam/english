@@ -47,17 +47,18 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
         mToolbar.showNavigationIcon();
         mToolbar.setTitle(getString(R.string.task_detail));
         if (getIntent() != null) {
-            String taskId = getIntent().getStringExtra("taskId");
-            String classId = getIntent().getStringExtra("classId");
-            String id = getIntent().getStringExtra("id");
-            mPresenter.getDoneTaskDetail(this, id, UserInfoHelper.getUserInfo().getUid());
-            mPresenter.getPublishTaskDetail(this, taskId, classId, "");
-        }
-        if (getIntent() != null && getIntent().getStringExtra("extra") != null) {
-            String detailTask = getIntent().getStringExtra("extra");
-            TaskInfo taskInfo = JSONObject.parseObject(detailTask, TaskInfo.class);
-            mPresenter.getDoneTaskDetail(this, taskInfo.getId(), UserInfoHelper.getUserInfo().getUid());
-            mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), "");
+            if (getIntent().getStringExtra("extra") != null) {
+                String detailTask = getIntent().getStringExtra("extra");
+                TaskInfo taskInfo = JSONObject.parseObject(detailTask, TaskInfo.class);
+                mPresenter.getDoneTaskDetail(this, taskInfo.getId(), UserInfoHelper.getUserInfo().getUid());
+                mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), "");
+            } else {
+                String taskId = getIntent().getStringExtra("taskId");
+                String classId = getIntent().getStringExtra("classId");
+                String id = getIntent().getStringExtra("id");
+                mPresenter.getDoneTaskDetail(this, id, UserInfoHelper.getUserInfo().getUid());
+                mPresenter.getPublishTaskDetail(this, taskId, classId, "");
+            }
         }
 
     }
@@ -81,7 +82,6 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
 
     }
 
-
     private void setScore(TaskInfo info) {
         if (info.getScore() != null) {
             if (info.getScore().equals("A+")) {
@@ -102,11 +102,10 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
     private List<Voice> getVoiceList(TaskInfo taskInfo) {
         List<String> voice = taskInfo.getBody().getVoices();
         List<Voice> voiceList = new ArrayList<>();
-
-        MediaPlayer mediaPlayer = new MediaPlayer();
         try {
             if (voice != null && voice.size() > 0) {
                 for (String s : voice) {
+                    MediaPlayer mediaPlayer = new MediaPlayer();
                     mediaPlayer.setDataSource(s);
                     mediaPlayer.prepare();
                     int duration = mediaPlayer.getDuration();
@@ -144,7 +143,6 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
                 if (linearLayout == publishMultifunctionLinearLayout) {
                     mIvTaskIcon.setImageResource(R.mipmap.group36);
                 }
-
                 linearLayout.setText(info.getDesp());
                 linearLayout.showTextView();
                 break;
@@ -159,7 +157,7 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
                 if (linearLayout == publishMultifunctionLinearLayout) {
                     mIvTaskIcon.setImageResource(R.mipmap.group42);
                 }
-                linearLayout.showVoiceView();
+                linearLayout.showWordView();
                 linearLayout.setFileInfos(getFileInfos(info));
                 break;
             case GroupConstant.TASK_TYPE_VOICE:

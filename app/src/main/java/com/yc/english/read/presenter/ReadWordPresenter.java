@@ -3,6 +3,7 @@ package com.yc.english.read.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.read.contract.ReadWordContract;
 import com.yc.english.read.model.domain.WordInfoList;
@@ -24,6 +25,7 @@ public class ReadWordPresenter extends BasePresenter<WordEngin, ReadWordContract
 
     @Override
     public void getWordListByUnitId(int currentPage, int pageCount, String unitId) {
+        mView.showLoading();
         Subscription subscribe = mEngin.getWordListByUnitId(currentPage, pageCount, unitId).subscribe(new Subscriber<ResultInfo<WordInfoList>>() {
             @Override
             public void onCompleted() {
@@ -32,14 +34,33 @@ public class ReadWordPresenter extends BasePresenter<WordEngin, ReadWordContract
 
             @Override
             public void onError(Throwable e) {
-
+                mView.showNoNet();
             }
 
             @Override
             public void onNext(final ResultInfo<WordInfoList> resultInfo) {
-                if (resultInfo != null && resultInfo.data != null) {
-                    mView.showWordListData(resultInfo.data.list);
-                }
+
+
+                ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (resultInfo != null && resultInfo.data != null) {
+                            mView.showWordListData(resultInfo.data.list);
+                            mView.hideStateView();
+                        }
+                    }
+                });
+
             }
         });
 

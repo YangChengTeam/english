@@ -33,6 +33,7 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
 
     @Override
     public void getCommonClassList() {
+        mView.showLoading();
         Subscription subscription = mEngin.getCommonClassList().subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
             public void onCompleted() {
@@ -41,13 +42,24 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
 
             @Override
             public void onError(Throwable e) {
-
+                mView.showNoNet();
             }
 
             @Override
-            public void onNext(ResultInfo<ClassInfoList> classInfoListResultInfo) {
+            public void onNext(final ResultInfo<ClassInfoList> classInfoListResultInfo) {
+                handleResultInfo(classInfoListResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        if (classInfoListResultInfo.data.getList() != null && classInfoListResultInfo.data.getList().size() > 0) {
+                            mView.showCommonClassList(classInfoListResultInfo.data.getList());
+                            mView.hideStateView();
+                        } else {
+                            mView.showNoData();
+                        }
+                    }
+                });
 
-                mView.showCommonClassList(classInfoListResultInfo.data.getList());
+
             }
         });
         mSubscriptions.add(subscription);
@@ -63,7 +75,7 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
     public void applyJoinGroup(String user_id, String sn) {
 
         mView.showLoadingDialog("正在申请加入班级，请稍候");
-        Subscription subscription = EngineUtils.applyJoinGroup(mContext,user_id, sn).subscribe(new Subscriber<ResultInfo<GroupApplyInfo>>() {
+        Subscription subscription = EngineUtils.applyJoinGroup(mContext, user_id, sn).subscribe(new Subscriber<ResultInfo<GroupApplyInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -83,7 +95,7 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
                         UIUitls.post(new Runnable() {
                             @Override
                             public void run() {
-                                TipsHelper.tips(mContext,"你已提交申请，请等待管理员审核");
+                                TipsHelper.tips(mContext, "你已提交申请，请等待管理员审核");
                             }
                         });
 

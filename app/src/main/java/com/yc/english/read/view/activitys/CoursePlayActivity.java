@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.StateView;
 import com.yc.english.read.common.SpeechUtil;
 import com.yc.english.read.contract.CoursePlayContract;
 import com.yc.english.read.model.domain.EnglishCourseInfo;
@@ -35,7 +37,11 @@ import rx.subjects.PublishSubject;
 
 public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> implements CoursePlayContract.View {
 
-    public static String VOICER_NAME = "com.yc.english.setting";
+    @BindView(R.id.sv_loading)
+    StateView mStateView;
+
+    @BindView(R.id.layout_content)
+    FrameLayout mLayoutContext;
 
     @BindView(R.id.layout_course_play)
     LinearLayout mCoursePlayLayout;
@@ -141,6 +147,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             @Override
             public void call(Void aVoid) {
                 if (nextUnitIds != null && currentPosition < nextUnitIds.length) {
+                    resetPlayState();
                     if(nextUnitTitles != null && currentPosition < nextUnitTitles.length){
                         mToolbar.setTitle(nextUnitTitles[currentPosition]);
                     }
@@ -216,6 +223,37 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     }
 
+    private void resetPlayState(){
+        playPosition = 0;
+        lastPosition = -1;
+        mTts.stopSpeaking();
+    }
+
+    @Override
+    public void hideStateView() {
+        mStateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        mStateView.showNoNet(mLayoutContext, "网络不给力", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getCourseListByUnitId(0, 0, unitId);
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        mStateView.showNoData(mLayoutContext);
+    }
+
+    @Override
+    public void showLoading() {
+        mStateView.showLoading(mLayoutContext);
+    }
+
     /**
      * 语音合成播放
      *
@@ -229,12 +267,10 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         }
 
         mCoursePlayImageView.setBackgroundResource(R.drawable.read_playing_course_btn_selector);
-        String text = mItemAdapter.getData().get(postion).getTitle();
+        String text = mItemAdapter.getData().get(postion).getSubTitle();
         int code = mTts.startSpeaking(text, mTtsListener);
         if (code != ErrorCode.SUCCESS) {
             if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
-                // 未安装则跳转到提示安装页面
-                //mInstaller.install();
                 TipsHelper.tips(CoursePlayActivity.this, "语音合成失败");
             } else {
                 TipsHelper.tips(CoursePlayActivity.this, "语音合成失败");
@@ -254,16 +290,15 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             if (isCountinue) {
                 if (playPosition >= mItemAdapter.getData().size()) {
                     mTts.stopSpeaking();
-                    playPosition = 0;
-                    lastPosition = -1;
-                    mCourseRecyclerView.scrollToPosition(0);
+                    resetPlayState();
+                    linearLayoutManager.scrollToPositionWithOffset(0, 0);
                     return;
                 }
                 showItemView(playPosition);
                 hideItemView(lastPosition);
             }
             if (playPosition > 2) {
-                mCourseRecyclerView.scrollToPosition(playPosition + 2);
+                linearLayoutManager.scrollToPositionWithOffset(playPosition - 2 , 0);
             }
         }
 
