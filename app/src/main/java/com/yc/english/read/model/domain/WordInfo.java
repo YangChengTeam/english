@@ -46,6 +46,12 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
 
     private String rid;
 
+    @JSONField(name = "ep_sentence")
+    private String epSentence;
+
+    @JSONField(name = "ep_sentence_means")
+    private String epSentenceMeans;
+
     public WordInfo() {
         super();
     }
@@ -158,6 +164,22 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
 
     public void setWdType(String wdType) {
         this.wdType = wdType;
+    }
+
+    public String getEpSentence() {
+        return epSentence;
+    }
+
+    public void setEpSentence(String epSentence) {
+        this.epSentence = epSentence;
+    }
+
+    public String getEpSentenceMeans() {
+        return epSentenceMeans;
+    }
+
+    public void setEpSentenceMeans(String epSentenceMeans) {
+        this.epSentenceMeans = epSentenceMeans;
     }
 
     public WordInfo(final int type) {

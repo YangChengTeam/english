@@ -229,7 +229,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         }
 
         mCoursePlayImageView.setBackgroundResource(R.drawable.read_playing_course_btn_selector);
-        String text = mItemAdapter.getData().get(postion).getTitle();
+        String text = mItemAdapter.getData().get(postion).getSubTitle();
         int code = mTts.startSpeaking(text, mTtsListener);
         if (code != ErrorCode.SUCCESS) {
             if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {

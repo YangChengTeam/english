@@ -109,6 +109,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     private PublishSubject mSpellSubject;
 
+    private boolean isWordDetailPlay = false;
+
     @Override
     public int getLayoutId() {
         return R.layout.read_activity_word_play;
@@ -142,6 +144,10 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         mReadWordItemClickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+                mTts.stopSpeaking();
+                View lastView = linearLayoutManager.findViewByPosition(currentIndex);
+                hidePlayAudioPreView(lastView);
 
                 if (mDatas.get(position) != null && !isPlay) {
                     currentIndex = position;
@@ -252,7 +258,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             //TODO 数据有问题，待定
             for (int i = 0; i < list.size(); i++) {
                 WordInfo wordInfo = (WordInfo) list.get(i);
-                wordInfo.addSubItem(new WordDetailInfo(wordInfo.getName(), wordInfo.getMeans()));
+                wordInfo.addSubItem(new WordDetailInfo(wordInfo.getEpSentence(), wordInfo.getEpSentenceMeans()));
                 mDatas.add(wordInfo);
             }
             mReadWordItemClickAdapter.setNewData(mDatas);
@@ -307,6 +313,21 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         }
     }
 
+    //示例句子朗读
+    public void startSynthesizer(String sentence) {
+        String text = sentence;
+        int code = mTts.startSpeaking(text, mTtsListener);
+        if (code != ErrorCode.SUCCESS) {
+            if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
+                // 未安装则跳转到提示安装页面
+                //mInstaller.install();
+            } else {
+                ToastUtils.showLong("语音合成失败,错误码: " + code);
+                mTts.stopSpeaking();
+            }
+        }
+    }
+
     /**
      * 合成回调监听。
      */
@@ -342,6 +363,15 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         @Override
         public void onCompleted(SpeechError error) {
             if (error == null) {
+
+                //单词例句阅读
+                if(isWordDetailPlay){
+                    View dView = linearLayoutManager.findViewByPosition(currentIndex);
+                    Glide.with(ReadWordActivity.this).load(R.mipmap.read_word_default).into((ImageView)dView.findViewById(R.id.iv_word_detail_audio));
+                    mTts.stopSpeaking();
+                    isWordDetailPlay = false;
+                    return;
+                }
 
                 if (isSpell) {
                     if (currentIndex < mDatas.size()) {
@@ -465,12 +495,19 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
     @Override
-    public void detailClick(int position) {
+    public void wordDetailClick(int dPosition, String sentenceSimple) {
 
-        MultiItemEntity multiItemEntity = ((MultiItemEntity) mDatas.get(position));
+        if(mTts.isSpeaking()){
+            mTts.stopSpeaking();
+        }
 
-        WordDetailInfo wordDetailInfo = ((WordDetailInfo) multiItemEntity);
-        startSynthesizer(currentIndex);
+        isWordDetailPlay = true;
+        currentIndex = dPosition;
+        startSynthesizer(sentenceSimple);
+        View dView = linearLayoutManager.findViewByPosition(dPosition);
+        if(dView != null){
+            Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_gif_play).into((ImageView)dView.findViewById(R.id.iv_word_detail_audio));
+        }
     }
 
     @Override
