@@ -99,8 +99,6 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     LinearLayoutManager linearLayoutManager;
 
-    private View lastView;
-
     private boolean isPlay = false;
 
     private boolean isContinue = false;
@@ -158,7 +156,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                         startSynthesizer(position);
                     }
 
-                    Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_gif_play).into((ImageView) view.findViewById(R.id.iv_read_word));
+                    showPlayAudioView(view);
                 }
 
                 return false;
@@ -170,9 +168,16 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             @Override
             public void call(Integer position) {
                 if (isContinue) {
+                    View view = linearLayoutManager.findViewByPosition(position);
                     if (position < mDatas.size()) {
+                        if (view != null) {
+                            showPlayAudioView(view);
+                        }
                         startSynthesizer(position);
                     } else {
+                        if (view != null) {
+                            hidePlayAudioPreView(view);
+                        }
                         setStopPlayState();
                     }
                 }
@@ -183,25 +188,39 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         mSpellSubject.subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer position) {
+
                 if (readCurrentWordIndex < readCurrentWord.length()) {
                     playWord();
                 } else {
+
+                    View view = linearLayoutManager.findViewByPosition(currentIndex);
+                    if (view != null) {
+                        hidePlayAudioPreView(view);
+                    }
+
                     if (isContinue) {
                         readCurrentWordIndex = 0;
                         currentIndex++;
                         if (currentIndex < mDatas.size()) {
                             if (mDatas.get(currentIndex) instanceof WordInfo) {
                                 readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getName();
-                                startSynthesizer(currentIndex);
+                                try {
+                                    Thread.sleep(300);
+                                    mTsSubject.onNext(currentIndex);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         } else {
                             isPlay = false;
                             mReadWordRecyclerView.scrollToPosition(0);
+
+                            View lastView = linearLayoutManager.findViewByPosition(currentIndex);
+                            if (lastView != null) {
+                                hidePlayAudioPreView(lastView);
+                            }
                             setStopPlayState();
                         }
-                    } else {
-                        // TODO
-                        //当前阅读的行，设置未未读
                     }
                 }
             }
@@ -210,9 +229,17 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         mPresenter.getWordListByUnitId(0, 0, unitId);
     }
 
+    public void showPlayAudioView(View view) {
+        Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_gif_play).into((ImageView) view.findViewById(R.id.iv_read_word));
+    }
+
+    public void hidePlayAudioPreView(View preView) {
+        Glide.with(ReadWordActivity.this).load(R.mipmap.read_word_default).into((ImageView) preView.findViewById(R.id.iv_read_word));
+    }
+
     @Override
     public void showWordListData(List<WordInfo> list) {
-        if (list != null) {
+        if (list != null && list.size() > 0) {
             //mDatas = list;
 
             if (mDatas == null) {
@@ -322,13 +349,18 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                             mReadWordRecyclerView.scrollToPosition(currentIndex + 1);
                         }
                         readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getName();
+                        setProgressNum(currentIndex + 1, mDatas.size());
                         playWord();
                     } else {
                         Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
                     }
                 } else {
-
                     if (isContinue) {
+                        View view = linearLayoutManager.findViewByPosition(currentIndex);
+                        if (view != null) {
+                            hidePlayAudioPreView(view);
+                        }
+
                         setProgressNum(currentIndex + 1, mDatas.size());
 
                         currentIndex++;
@@ -336,24 +368,25 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                             if (currentIndex > 4 && currentIndex < mDatas.size() - 1) {
                                 mReadWordRecyclerView.scrollToPosition(currentIndex + 1);
                             }
-
                             try {
                                 Thread.sleep(300);
                                 mTsSubject.onNext(currentIndex);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-
                         } else {
                             setStopPlayState();
+                            View lastView = linearLayoutManager.findViewByPosition(currentIndex);
+                            if (lastView != null) {
+                                hidePlayAudioPreView(lastView);
+                            }
                         }
                     } else {
                         View view = linearLayoutManager.findViewByPosition(currentIndex);
                         if (view != null) {
-                            Glide.with(ReadWordActivity.this).load(R.mipmap.read_word_audio).into((ImageView) view.findViewById(R.id.iv_read_word));
+                            hidePlayAudioPreView(view);
                         }
                     }
-
                 }
 
             } else if (error != null) {
@@ -395,16 +428,24 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
         if (isPlay) {
             isContinue = true;
-            currentIndex = 0;
+            //currentIndex = 0;
             readCurrentWordIndex = 0;
             Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_gif_play).into(mReadAllImageView);
             if (currentIndex < mDatas.size()) {
                 readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getName();
+
+                View view = linearLayoutManager.findViewByPosition(currentIndex);
+                if (view != null) {
+                    showPlayAudioView(view);
+                }
                 startSynthesizer(currentIndex);
-                lastView = linearLayoutManager.findViewByPosition(currentIndex);
             }
         } else {
             isContinue = false;
+            View view = linearLayoutManager.findViewByPosition(currentIndex);
+            if (view != null) {
+                hidePlayAudioPreView(view);
+            }
             setStopPlayState();
         }
     }

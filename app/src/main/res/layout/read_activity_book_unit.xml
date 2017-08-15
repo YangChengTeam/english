@@ -58,7 +58,7 @@
                         android:layout_height="109dp"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/read_book_test"/>
+                        android:src="@mipmap/default_detail_book"/>
                 </LinearLayout>
 
                 <RelativeLayout

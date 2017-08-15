@@ -8,6 +8,7 @@ import com.yc.english.read.contract.AddBookContract;
 import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.CourseVersionInfo;
 import com.yc.english.read.model.domain.CourseVersionInfoList;
+import com.yc.english.read.model.domain.GradeInfo;
 import com.yc.english.read.model.domain.GradeInfoList;
 import com.yc.english.read.model.engin.BookEngin;
 
@@ -29,6 +30,12 @@ public class AddBookPresenter extends BasePresenter<BookEngin, AddBookContract.V
     }
 
     @Override
+    public void getGradeListFromLocal() {
+        List<GradeInfo> gradeInfos = mEngin.getGradeListFromDB();
+        mView.showGradeListData(gradeInfos);
+    }
+
+    @Override
     public void gradeList() {
         Subscription subscribe = mEngin.gradeList(mContext).subscribe(new Subscriber<ResultInfo<GradeInfoList>>() {
             @Override
@@ -43,8 +50,8 @@ public class AddBookPresenter extends BasePresenter<BookEngin, AddBookContract.V
 
             @Override
             public void onNext(final ResultInfo<GradeInfoList> resultInfo) {
-                if (resultInfo != null) {
-                    mView.showGradeListData(resultInfo.data);
+                if (resultInfo != null && resultInfo.data != null) {
+                    mView.showGradeListData(resultInfo.data.list);
                 }
             }
         });
