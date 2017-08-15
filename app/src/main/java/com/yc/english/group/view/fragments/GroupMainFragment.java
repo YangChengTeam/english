@@ -79,9 +79,8 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new GroupGroupAdapter(getContext(), null);
+        adapter = new GroupGroupAdapter(getContext(),true, null);
         recyclerView.setAdapter(adapter);
-
 
     }
 
@@ -159,19 +158,6 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         sViewLoading.hide();
     }
 
-
-
-    @Subscribe(
-            thread = EventThread.MAIN_THREAD,
-            tags = {
-                    @Tag(BusAction.CHANGE_NAME)
-            }
-    )
-    public void changeName(String result) {
-        mPresenter.loadData(true);
-    }
-
-
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
@@ -198,6 +184,5 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         adapter.setMessage(message, true);
         adapter.notifyDataSetChanged();
     }
-
 
 }

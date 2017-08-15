@@ -29,13 +29,14 @@ public class GroupPublishTaskListActivity extends FullScreenActivity<GroupPublis
     @BindView(R.id.m_recyclerView)
     RecyclerView mRecyclerView;
     private GroupTaskListAdapter adapter;
+    private ClassInfo classInfo;
 
     @Override
     public void init() {
         mPresenter = new GroupPublishTaskListPresenter(this, this);
         if (getIntent() != null) {
-            String masterId = getIntent().getStringExtra("classInfo");
-            mPresenter.getPublishTaskList(masterId, "");
+            classInfo = getIntent().getParcelableExtra("classInfo");
+            mPresenter.getPublishTaskList(classInfo.getMaster_id(), classInfo.getClass_id());
         }
 
         mToolbar.setTitle(getString(R.string.my_publish));
@@ -53,7 +54,9 @@ public class GroupPublishTaskListActivity extends FullScreenActivity<GroupPublis
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
-                startActivity(new Intent(GroupPublishTaskListActivity.this, GroupIssueTaskActivity.class));
+                Intent intent = new Intent(GroupPublishTaskListActivity.this, GroupIssueTaskActivity.class);
+                intent.putExtra("targetId", classInfo.getClass_id());
+                startActivity(intent);
             }
         });
 

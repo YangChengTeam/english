@@ -18,6 +18,8 @@ public interface GroupScoreTaskContract {
 
         void showPublishTaskInfo(TaskInfo info);
 
+
+        void showScoreResult();
     }
 
     interface Presenter extends IPresenter {

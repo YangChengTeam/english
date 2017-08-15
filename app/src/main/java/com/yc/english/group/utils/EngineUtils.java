@@ -13,6 +13,7 @@ import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.NetConstan;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
+import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.bean.TaskInfoWrapper;
@@ -184,6 +185,16 @@ public class EngineUtils {
         params.put("user_id", user_id);
 
         return HttpCoreEngin.get(context).rxpost(NetConstan.detail_do_task, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
+        }.getType(), params, true, true, true);
+
+    }
+
+    public static Observable<ResultInfo<GroupApplyInfo>> applyJoinGroup(Context context,String user_id, String sn) {
+
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", user_id);
+        params.put("sn", sn);
+        return HttpCoreEngin.get(context).rxpost(NetConstan.apply_join_group, new TypeReference<ResultInfo<GroupApplyInfo>>() {
         }.getType(), params, true, true, true);
 
     }

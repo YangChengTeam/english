@@ -194,8 +194,10 @@ public class GroupApp {
 
         @Override
         public boolean onReceived(Message message, int i) {
+            if (!message.getReceivedStatus().isRead()) {
 
-            RxBus.get().post(BusAction.UNREAD_MESSAGE, message);
+                RxBus.get().post(BusAction.UNREAD_MESSAGE, message);
+            }
 
             RongIMUtil.refreshUserInfo(mApplication, message.getSenderUserId());
 

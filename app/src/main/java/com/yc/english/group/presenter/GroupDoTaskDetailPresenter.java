@@ -129,7 +129,7 @@ public class GroupDoTaskDetailPresenter extends BasePresenter<GroupDoTaskDetailE
 
 
     private void sendDoWorkMessage(TaskInfo taskInfo) {
-        CustomMessage customMessage = CustomMessage.obtain("家庭作业", taskInfo.getDesp(), "");
+        CustomMessage customMessage = CustomMessage.obtain("我的作业", taskInfo.getDesp(), "");
 
         customMessage.setExtra(JSONObject.toJSONString(taskInfo));
 

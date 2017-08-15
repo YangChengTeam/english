@@ -27,7 +27,6 @@ public class TaskInfo implements Parcelable {
     private String publisher;
 
 
-
     private String add_date;
     private String add_time;
     private String class_id;
@@ -37,6 +36,8 @@ public class TaskInfo implements Parcelable {
     private String type;
     private String add_week;
     private String score;
+    private String user_id;
+    private int is_done;
 
     public TaskInfo() {
     }
@@ -45,8 +46,10 @@ public class TaskInfo implements Parcelable {
         desp = source.readString();
         id = source.readString();
         publisher = source.readString();
-        class_ids=  source.createStringArrayList();
-        body= source.readParcelable(TaskInfo.class.getClassLoader());
+        class_ids = source.createStringArrayList();
+        body = source.readParcelable(TaskInfo.class.getClassLoader());
+        user_id = source.readString();
+        is_done =source.readInt();
 
     }
 
@@ -162,6 +165,22 @@ public class TaskInfo implements Parcelable {
         this.score = score;
     }
 
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public int getIs_done() {
+        return is_done;
+    }
+
+    public void setIs_done(int is_done) {
+        this.is_done = is_done;
+    }
+
     public static final Creator<TaskInfo> CREATOR = new Creator<TaskInfo>() {
 
         @Override
@@ -186,7 +205,9 @@ public class TaskInfo implements Parcelable {
         dest.writeString(id);
         dest.writeString(publisher);
         dest.writeStringList(class_ids);
-        dest.writeParcelable(body,flags);
+        dest.writeParcelable(body, flags);
+        dest.writeString(user_id);
+        dest.writeInt(is_done);
 
     }
 
