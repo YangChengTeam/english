@@ -41,15 +41,17 @@
 
     <LinearLayout
         android:id="@+id/layout_read_word_audio"
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_gravity="right|center"
         android:gravity="center">
 
         <ImageView
             android:id="@+id/iv_read_word"
-            android:layout_width="43dp"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/read_word_audio"/>
+            android:layout_width="24dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:scaleType="center"
+            android:src="@mipmap/read_word_default"/>
     </LinearLayout>
 </LinearLayout>

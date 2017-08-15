@@ -6,18 +6,21 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.dao.BookInfoDao;
+import com.yc.english.base.dao.GradeInfoDao;
 import com.yc.english.base.helper.BookHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.BookInfoWarpper;
 import com.yc.english.read.model.domain.CourseVersionInfoList;
+import com.yc.english.read.model.domain.GradeInfo;
 import com.yc.english.read.model.domain.GradeInfoList;
 import com.yc.english.read.model.domain.URLConfig;
 import com.yc.english.read.model.domain.UnitInfoList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
@@ -31,6 +34,8 @@ import static com.umeng.socialize.utils.DeviceConfig.context;
 public class BookEngin extends BaseEngin {
 
     private BookInfoDao bookInfoDao = ReadApp.getDaoSession().getBookInfoDao();
+
+    private GradeInfoDao gradeInfoDao = ReadApp.getDaoSession().getGradeInfoDao();
 
     public BookEngin(Context context) {
         super(context);
@@ -79,6 +84,18 @@ public class BookEngin extends BaseEngin {
 
     public Observable<ArrayList<BookInfo>> deleteBook(BookInfo bookInfo) {
         return BookHelper.deleteBook(bookInfo);
+    }
+
+    public List<GradeInfo> getGradeListFromDB() {
+        return (ArrayList<GradeInfo>) gradeInfoDao.queryBuilder().list();
+    }
+
+    public void saveGradeListToDB(List<GradeInfo> list) {
+        if (list != null) {
+            for (GradeInfo info : list) {
+                gradeInfoDao.insertOrReplace(info);
+            }
+        }
     }
 
 }

@@ -174,7 +174,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
     @Override
     public void showBookInfo(BookInfo bookInfo) {
         if (bookInfo != null) {
-            GlideHelper.imageView(BookUnitActivity.this, mBookGradeImageView, bookInfo.getCoverImg(), R.mipmap.default_book);
+            GlideHelper.imageView(BookUnitActivity.this, mBookGradeImageView, bookInfo.getCoverImg(), R.mipmap.default_detail_book);
             mBookGradeNameTextView.setText(bookInfo.getName());
             mBookPressTextView.setText(bookInfo.getPress());
             mBookUnitTotalButton.setText(bookInfo.getSentenceCount() + getString(R.string.read_sentence_text));

@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseToolBar;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.contract.WordUnitContract;
@@ -62,14 +61,6 @@ public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> impl
 
         mToolbar.setTitle(getString(R.string.read_book_unit_text));
         mToolbar.showNavigationIcon();
-        mToolbar.setMenuTitle(getString(R.string.word_book_change_text));
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                Intent intent = new Intent(WordUnitActivity.this, AddBookActivity.class);
-                startActivity(intent);
-            }
-        });
 
         mWordUnitRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
@@ -104,7 +95,7 @@ public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> impl
     @Override
     public void showBookInfo(BookInfo bookInfo) {
         if (bookInfo != null) {
-            Glide.with(WordUnitActivity.this).load(bookInfo.getCoverImg()).into(mBookGradeImageView);
+            GlideHelper.imageView(WordUnitActivity.this, mBookGradeImageView, bookInfo.getCoverImg(), R.mipmap.default_detail_book);
             mBookGradeNameTextView.setText(bookInfo.getName());
             mBookPressTextView.setText(bookInfo.getPress());
         }

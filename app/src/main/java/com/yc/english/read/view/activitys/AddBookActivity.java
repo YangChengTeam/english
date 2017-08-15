@@ -16,7 +16,6 @@ import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.Constant;
 import com.yc.english.read.model.domain.CourseVersionInfo;
 import com.yc.english.read.model.domain.GradeInfo;
-import com.yc.english.read.model.domain.GradeInfoList;
 import com.yc.english.read.model.engin.BookEngin;
 import com.yc.english.read.presenter.AddBookPresenter;
 import com.yc.english.read.view.adapter.CourseVersionItemClickAdapter;
@@ -82,6 +81,9 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
         mGradeBookRecyclerView.setAdapter(mCourseVersionAdapter);
 
         mPresenter = new AddBookPresenter(this, this);
+
+        //mPresenter.getGradeListFromLocal();
+
         //获取年级集合
         mPresenter.gradeList();
         mPresenter.getCVListByGradeId(null, null);//获取所有的教材版本
@@ -162,9 +164,9 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
     }
 
     @Override
-    public void showGradeListData(GradeInfoList gInfo) {
-        if (gInfo != null && gInfo.getList() != null) {
-            mGradeDatas = gInfo.getList();
+    public void showGradeListData(List<GradeInfo> gradeInfos) {
+        if (gradeInfos != null) {
+            mGradeDatas = gradeInfos;
             mGradeAdapter.setNewData(mGradeDatas);
             mGradeAdapter.notifyDataSetChanged();
         }
