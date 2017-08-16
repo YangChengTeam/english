@@ -58,7 +58,6 @@ public class StateView extends BaseView {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mLoadingImageView.getLayoutParams();
         layoutParams.width = SizeUtils.dp2px(1080/3);
         layoutParams.height = SizeUtils.dp2px(408/3);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         mLoadingImageView.setLayoutParams(layoutParams);
         mContextView = contextView;
 
@@ -72,8 +71,6 @@ public class StateView extends BaseView {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mLoadingImageView.getLayoutParams();
         layoutParams.width = SizeUtils.dp2px(312/3);
         layoutParams.height = SizeUtils.dp2px(370/3);
-        layoutParams.setMargins(0, SizeUtils.dp2px(130), 0, 0);
-        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         mLoadingImageView.setLayoutParams(layoutParams);
         mContextView = contextView;
         setVisibility(View.VISIBLE);
@@ -91,8 +88,6 @@ public class StateView extends BaseView {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mLoadingImageView.getLayoutParams();
         layoutParams.width = SizeUtils.dp2px(312/3);
         layoutParams.height = SizeUtils.dp2px(370/3);
-        layoutParams.setMargins(0, SizeUtils.dp2px(130), 0, 0);
-        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         mLoadingImageView.setLayoutParams(layoutParams);
         mContextView = contextView;
         setVisibility(View.VISIBLE);

@@ -9,6 +9,7 @@ import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +31,13 @@ public class RegisterEngin extends BaseEngin {
     }
 
 
-    public Observable<ResultInfo<UserInfo>> register(String mobile, String pwd, String code){
+    public Observable<ResultInfo<UserInfoWrapper>> register(String mobile, String pwd, String code){
         Map<String, String> params = new HashMap<>();
         params.put("mobile", mobile);
         params.put("pwd", pwd);
         params.put("code", code);
 
-        return HttpCoreEngin.get(mContext).rxpost(URLConfig.REGISTER_URL, new TypeReference<ResultInfo<UserInfo>>(){}
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.REGISTER_URL, new TypeReference<ResultInfo<UserInfoWrapper>>(){}
                         .getType(),
                 params,
                 true,

@@ -11,6 +11,7 @@ import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.setting.contract.PersonCenterContract;
 import com.yc.english.setting.model.engin.MyEngin;
 
@@ -30,7 +31,7 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
-        if(!forceUpdate) return;
+        if (!forceUpdate) return;
         getUserInfo();
     }
 
@@ -52,7 +53,7 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
     @Override
     public void uploadAvatar(String avatar) {
         mView.showLoadingDialog("正在上传图像, 请稍后");
-        Subscription subscription = mEngin.updateMessage(avatar, "", "").subscribe(new Subscriber<ResultInfo<UserInfo>>() {
+        Subscription subscription = mEngin.updateMessage(avatar, "", "").subscribe(new Subscriber<ResultInfo<UserInfoWrapper>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -64,7 +65,7 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
             }
 
             @Override
-            public void onNext(final ResultInfo<UserInfo> resultInfo) {
+            public void onNext(final ResultInfo<UserInfoWrapper> resultInfo) {
                 handleResultInfo(resultInfo, new Runnable() {
                     @Override
                     public void run() {
@@ -73,7 +74,7 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
                             public void run() {
                                 TipsHelper.tips(mContext, "修改成功");
                                 UserInfo userInfo = UserInfoHelper.getUserInfo();
-                                userInfo.setAvatar(resultInfo.data.getAvatar());
+                                userInfo.setAvatar(resultInfo.data.getInfo().getAvatar());
                                 UserInfoHelper.saveUserInfo(userInfo);
                                 RxBus.get().post(Constant.USER_INFO, userInfo);
                                 RongIMUtil.refreshUserInfo();

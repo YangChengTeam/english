@@ -66,7 +66,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     ReadCourseItemClickAdapter mItemAdapter;
 
-    private int playPosition;
+    private int playPosition = -1;
 
     private int lastPosition = -1;
 
@@ -148,7 +148,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             public void call(Void aVoid) {
                 if (nextUnitIds != null && currentPosition < nextUnitIds.length) {
                     resetPlayState();
-                    if(nextUnitTitles != null && currentPosition < nextUnitTitles.length){
+                    if (nextUnitTitles != null && currentPosition < nextUnitTitles.length) {
                         mToolbar.setTitle(nextUnitTitles[currentPosition]);
                     }
                     unitId = nextUnitIds[currentPosition];
@@ -164,6 +164,9 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         RxView.clicks(mCoursePlayImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                if (playPosition == -1) {
+                    playPosition = 0;
+                }
                 if (isCountinue) {
                     mCoursePlayImageView.setBackgroundResource(R.drawable.read_play_course_btn_selector);
                     mTts.stopSpeaking();
@@ -175,7 +178,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             }
         });
 
-
         //语言切换
         RxView.clicks(mLanguageChangeImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -185,7 +187,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 if (languageType > 3) {
                     languageType = 1;
                 }
-
+                mItemAdapter.getData().get(playPosition).setPlay(true);
                 switch (languageType) {
                     case 1:
                         mLanguageTextView.setText(getString(R.string.read_course_language_blend_text));
@@ -223,8 +225,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     }
 
-    private void resetPlayState(){
-        playPosition = 0;
+    private void resetPlayState() {
+        playPosition = -1;
         lastPosition = -1;
         mTts.stopSpeaking();
     }
@@ -261,8 +263,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
      */
     public void startSynthesizer(int postion) {
 
-        if(mItemAdapter.getData() == null || mItemAdapter.getData().size() == 0){
-            TipsHelper.tips(CoursePlayActivity.this,"数据异常，请稍后重试");
+        if (mItemAdapter.getData() == null || mItemAdapter.getData().size() == 0) {
+            TipsHelper.tips(CoursePlayActivity.this, "数据异常，请稍后重试");
             return;
         }
 
@@ -298,7 +300,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 hideItemView(lastPosition);
             }
             if (playPosition > 2) {
-                linearLayoutManager.scrollToPositionWithOffset(playPosition - 2 , 0);
+                linearLayoutManager.scrollToPositionWithOffset(playPosition - 2, 0);
             }
         }
 

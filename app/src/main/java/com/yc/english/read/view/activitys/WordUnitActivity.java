@@ -5,14 +5,17 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.contract.WordUnitContract;
@@ -22,7 +25,10 @@ import com.yc.english.read.model.domain.WordUnitInfoList;
 import com.yc.english.read.presenter.WordUnitPresenter;
 import com.yc.english.read.view.adapter.ReadWordUnitItemClickAdapter;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
+import rx.functions.Action1;
 
 /**
  * Created by admin on 2017/7/26.
@@ -47,6 +53,9 @@ public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> impl
 
     @BindView(R.id.ll_content)
     LinearLayout mContentLinearLayout;
+
+    @BindView(R.id.btn_share_classmate)
+    Button mShareButton;
 
     ReadWordUnitItemClickAdapter mItemAdapter;
 
@@ -88,6 +97,15 @@ public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> impl
                     Intent intent = new Intent(WordUnitActivity.this, WordPracticeActivity.class);
                     startActivity(intent);
                 }
+            }
+        });
+
+        //播放
+        RxView.clicks(mShareButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                SharePopupWindow sharePopupWindow = new SharePopupWindow(WordUnitActivity.this);
+                sharePopupWindow.show(mContentLinearLayout);
             }
         });
 

@@ -9,6 +9,7 @@ import com.yc.english.group.constant.NetConstan;
 import com.yc.english.group.model.bean.TokenInfo;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,11 +27,11 @@ public class EnginHelper {
         }.getType(), params, true, true, true);
     }
 
-    public static Observable<ResultInfo<UserInfo>> login(Context context, String username, String pwd){
+    public static Observable<ResultInfo<UserInfoWrapper>> login(Context context, String username, String pwd){
         Map<String, String> params = new HashMap<>();
         params.put("user_name", username);
         params.put("pwd", pwd);
-        return HttpCoreEngin.get(context).rxpost(URLConfig.LOGIN_URL, new TypeReference<ResultInfo<UserInfo>>(){}
+        return HttpCoreEngin.get(context).rxpost(URLConfig.LOGIN_URL, new TypeReference<ResultInfo<UserInfoWrapper>>(){}
                         .getType(), params,
                 true, true,
                 true);
@@ -43,7 +44,7 @@ public class EnginHelper {
         }.getType(), params, true, true, true);
     }
 
-    public static Observable<ResultInfo<UserInfo>> getUserInfo(Context context, String userid) {
+    public static Observable<ResultInfo<UserInfoWrapper>> getUserInfo(Context context, String userid) {
         Map<String, String> params = new HashMap<>();
         params.put("user_id", userid);
         return HttpCoreEngin.get(context).rxpost(URLConfig.GET_USER_INFO_URL, new TypeReference<ResultInfo<UserInfo>>() {

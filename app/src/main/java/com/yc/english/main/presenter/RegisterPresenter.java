@@ -14,6 +14,7 @@ import com.yc.english.main.contract.RegisterContract;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.main.model.engin.RegisterEngin;
 
 import rx.Subscriber;
@@ -87,7 +88,7 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
         }
 
         mView.showLoadingDialog("正在注册, 请稍后");
-        Subscription subscription = mEngin.register(mobile, pwd, code).subscribe(new Subscriber<ResultInfo<UserInfo>>() {
+        Subscription subscription = mEngin.register(mobile, pwd, code).subscribe(new Subscriber<ResultInfo<UserInfoWrapper>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -99,13 +100,11 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
             }
 
             @Override
-            public void onNext(final ResultInfo<UserInfo> resultInfo) {
+            public void onNext(final ResultInfo<UserInfoWrapper> resultInfo) {
                 handleResultInfo(resultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        UserInfoHelper.saveUserInfo(resultInfo.data);
-                        UserInfoHelper.connect(mContext, resultInfo.data.getUid());
-                        SPUtils.getInstance().put(Constant.PHONE, mobile);
+                        UserInfoHelper.utils(mContext, resultInfo);
                         RxBus.get().post(Constant.FINISH_LOGIN, true);
                         mView.finish();
                     }
