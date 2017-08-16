@@ -53,7 +53,7 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
     @Override
     public void uploadAvatar(String avatar) {
         mView.showLoadingDialog("正在上传图像, 请稍后");
-        Subscription subscription = mEngin.updateMessage(avatar, "", "").subscribe(new Subscriber<ResultInfo<UserInfoWrapper>>() {
+        Subscription subscription = mEngin.updateMessage(avatar, "", "").subscribe(new Subscriber<ResultInfo<UserInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -65,7 +65,7 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
             }
 
             @Override
-            public void onNext(final ResultInfo<UserInfoWrapper> resultInfo) {
+            public void onNext(final ResultInfo<UserInfo> resultInfo) {
                 handleResultInfo(resultInfo, new Runnable() {
                     @Override
                     public void run() {
@@ -74,7 +74,7 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
                             public void run() {
                                 TipsHelper.tips(mContext, "修改成功");
                                 UserInfo userInfo = UserInfoHelper.getUserInfo();
-                                userInfo.setAvatar(resultInfo.data.getInfo().getAvatar());
+                                userInfo.setAvatar(resultInfo.data.getAvatar());
                                 UserInfoHelper.saveUserInfo(userInfo);
                                 RxBus.get().post(Constant.USER_INFO, userInfo);
                                 RongIMUtil.refreshUserInfo();
