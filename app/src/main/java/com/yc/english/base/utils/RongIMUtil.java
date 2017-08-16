@@ -3,6 +3,8 @@ package com.yc.english.base.utils;
 import android.content.Context;
 import android.net.Uri;
 
+import com.blankj.utilcode.util.EmptyUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.helper.ResultInfoHelper;
@@ -32,7 +34,12 @@ public class RongIMUtil {
 
     public static UserInfo getUserInfo() {
         com.yc.english.main.model.domain.UserInfo userInfo = UserInfoHelper.getUserInfo();
-        UserInfo ruserInfo = new UserInfo(userInfo.getUid(), userInfo.getNickname(), Uri.parse(userInfo.getAvatar()));
+
+        Uri uri = null;
+        if (!StringUtils.isEmpty(userInfo.getAvatar())) {
+            uri = Uri.parse(userInfo.getAvatar());
+        }
+        UserInfo ruserInfo = new UserInfo(userInfo.getUid(), userInfo.getNickname(), uri);
         return ruserInfo;
     }
 
@@ -41,7 +48,7 @@ public class RongIMUtil {
     }
 
 
-    public static Observable<ResultInfo<com.yc.english.main.model.domain.UserInfo>> refreshObservable;
+    public static Observable<ResultInfo<com.yc.english.main.model.domain.UserInfoWrapper>> refreshObservable;
 
     public static void refreshUserInfo(final Context context, final String uid) {
         if (refreshObservable == null) {
@@ -50,9 +57,9 @@ public class RongIMUtil {
         refreshObservable.subscribe(new
                                             Action1<ResultInfo<com.yc.english.main
                                                     .model.domain
-                                                    .UserInfo>>() {
+                                                    .UserInfoWrapper>>() {
                                                 @Override
-                                                public void call(final ResultInfo<com.yc.english.main.model.domain.UserInfo> userInfoResultInfo) {
+                                                public void call(final ResultInfo<com.yc.english.main.model.domain.UserInfoWrapper> userInfoResultInfo) {
                                                     ResultInfoHelper.handleResultInfo(userInfoResultInfo, new ResultInfoHelper.Callback() {
                                                         @Override
                                                         public void resultInfoEmpty(String message) {
@@ -67,7 +74,8 @@ public class RongIMUtil {
                                                         @Override
                                                         public void reulstInfoOk() {
                                                             if (userInfoResultInfo.data != null) {
-                                                                com.yc.english.main.model.domain.UserInfo userInfo = userInfoResultInfo.data;
+                                                                com.yc.english.main.model.domain.UserInfo userInfo =
+                                                                        userInfoResultInfo.data.getInfo();
                                                                 UserInfo ruserInfo = new UserInfo(userInfo.getUid(), userInfo.getNickname(), Uri.parse(userInfo.getAvatar()));
                                                                 RongIM.getInstance().refreshUserInfoCache(ruserInfo);
                                                             }

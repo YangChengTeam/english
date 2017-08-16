@@ -12,6 +12,7 @@ import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.setting.contract.NameSettingContract;
 import com.yc.english.setting.model.engin.MyEngin;
 
@@ -37,7 +38,7 @@ public class NameSettingPresenter extends BasePresenter<MyEngin, NameSettingCont
     @Override
     public void udpateUserInfo(final String name, final String school) {
         mView.showLoadingDialog("正在修改，请稍后");
-        Subscription subscription = mEngin.updateMessage("", name, school).subscribe(new Subscriber<ResultInfo<UserInfo>>() {
+        Subscription subscription = mEngin.updateMessage("", name, school).subscribe(new Subscriber<ResultInfo<UserInfoWrapper>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -49,7 +50,7 @@ public class NameSettingPresenter extends BasePresenter<MyEngin, NameSettingCont
             }
 
             @Override
-            public void onNext(ResultInfo<UserInfo> resultInfo) {
+            public void onNext(ResultInfo<UserInfoWrapper> resultInfo) {
                 handleResultInfo(resultInfo, new Runnable() {
                     @Override
                     public void run() {
@@ -58,11 +59,11 @@ public class NameSettingPresenter extends BasePresenter<MyEngin, NameSettingCont
                             public void run() {
                                 TipsHelper.tips(mContext, "修改成功");
                                 UserInfo userInfo = UserInfoHelper.getUserInfo();
-                                if(!StringUtils.isEmpty(name)) {
+                                if (!StringUtils.isEmpty(name)) {
                                     RongIMUtil.refreshUserInfo();
                                     userInfo.setNickname(name);
                                 }
-                                if(!StringUtils.isEmpty(school)) {
+                                if (!StringUtils.isEmpty(school)) {
                                     userInfo.setSchool(school);
                                 }
                                 UserInfoHelper.saveUserInfo(userInfo);

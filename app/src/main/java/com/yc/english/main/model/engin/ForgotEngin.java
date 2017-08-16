@@ -9,6 +9,7 @@ import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,12 +30,12 @@ public class ForgotEngin extends BaseEngin {
         return EnginHelper.sendCode(mContext, URLConfig.FORGOT_SEND_CODE_URL, mobile);
     }
 
-    public Observable<ResultInfo<UserInfo>> resetPassword(String mobile, String pwd, String code){
+    public Observable<ResultInfo<UserInfoWrapper>> resetPassword(String mobile, String pwd, String code){
         Map<String, String> params = new HashMap<>();
         params.put("mobile", mobile);
         params.put("pwd", pwd);
         params.put("code", code);
-        return HttpCoreEngin.get(mContext).rxpost(URLConfig.FORGOT_URL, new TypeReference<ResultInfo<UserInfo>>(){}
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.FORGOT_URL, new TypeReference<ResultInfo<UserInfoWrapper>>(){}
                         .getType(),
                 params,
                 true,

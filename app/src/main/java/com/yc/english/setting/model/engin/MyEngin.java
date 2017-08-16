@@ -10,6 +10,7 @@ import com.yc.english.base.model.BaseEngin;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class MyEngin extends BaseEngin {
         }.getType(), params, true, true, true);
     }
 
-    public Observable<ResultInfo<UserInfo>> updateMessage(String avatar, String nick_name, String school) {
+    public Observable<ResultInfo<UserInfoWrapper>> updateMessage(String avatar, String nick_name, String school) {
         Map<String, String> params = new HashMap<>();
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (!EmptyUtils.isEmpty(userInfo)) {
@@ -45,7 +46,7 @@ public class MyEngin extends BaseEngin {
         params.put("face", avatar);
         params.put("nick_name", nick_name);
         params.put("school", school);
-        return HttpCoreEngin.get(mContext).rxpost(URLConfig.UPD_MESSAGE_URL, new TypeReference<ResultInfo<UserInfo>>() {
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.UPD_MESSAGE_URL, new TypeReference<ResultInfo<UserInfoWrapper>>() {
         }.getType(), params, false, true, true);
     }
 
