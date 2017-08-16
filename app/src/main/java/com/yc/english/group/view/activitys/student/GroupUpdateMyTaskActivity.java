@@ -22,6 +22,7 @@ import com.yc.english.group.contract.GroupDoneTaskDetailContract;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupDoneTaskDetailPresenter;
+import com.yc.english.group.utils.TaskUtil;
 import com.yc.english.group.view.adapter.GroupFileAdapter;
 import com.yc.english.group.view.adapter.GroupPictureAdapter;
 import com.yc.english.group.view.adapter.GroupVoiceAdapter;
@@ -192,84 +193,6 @@ public class GroupUpdateMyTaskActivity extends FullScreenActivity<GroupDoneTaskD
     }
 
 
-    private void setTaskType(TaskInfo taskInfo) {
-        int type = Integer.parseInt(taskInfo.getType());
-        switch (type) {
-            case GroupConstant.TASK_TYPE_CHARACTER:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group36));
-                mLlTaskDetail.setText(taskInfo.getDesp());
-                mLlTaskDetail.showTextView();
-                break;
-            case GroupConstant.TASK_TYPE_PICTURE:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group40));
-                mLlTaskDetail.showPictureView();
-                mLlTaskDetail.setUriList(taskInfo.getBody().getImgs());
-                break;
-            case GroupConstant.TASK_TYPE_VOICE:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group38));
-                mLlTaskDetail.showVoiceView();
-
-                mLlTaskDetail.setVoices(getVoiceList(taskInfo));
-
-                break;
-            case GroupConstant.TASK_TYPE_WORD:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group42));
-                mLlTaskDetail.showWordView();
-
-                mLlTaskDetail.setFileInfos(getFileInfos(taskInfo));
-                break;
-            case GroupConstant.TASK_TYPE_SYNTHESIZE:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group44));
-                mLlTaskDetail.setText(taskInfo.getDesp());
-                mLlTaskDetail.showSynthesizeView();
-                mLlTaskDetail.setUriList(taskInfo.getBody().getImgs());
-                mLlTaskDetail.setVoices(getVoiceList(taskInfo));
-                mLlTaskDetail.setFileInfos(getFileInfos(taskInfo));
-                break;
-        }
-    }
-
-
-    private List<Voice> getVoiceList(TaskInfo taskInfo) {
-        List<String> voice = taskInfo.getBody().getVoices();
-        List<Voice> voiceList = new ArrayList<>();
-
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        try {
-            if (voice != null && voice.size() > 0) {
-                for (String s : voice) {
-                    mediaPlayer.setDataSource(s);
-                    mediaPlayer.prepare();
-                    int duration = mediaPlayer.getDuration();
-                    int second = duration / 1000;
-                    mediaPlayer.release();
-
-                    voiceList.add(new Voice(s, second + "''"));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return voiceList;
-    }
-
-
-    private List<FileInfo> getFileInfos(TaskInfo taskInfo) {
-
-        List<String> list = taskInfo.getBody().getDocs();
-        List<FileInfo> fileInfos = new ArrayList<>();
-        if (list != null && list.size() > 0) {
-            for (String s : list) {
-
-                FileInfo fileInfo = new FileInfo();
-                fileInfo.setFilePath(s);
-                fileInfos.add(fileInfo);
-            }
-        }
-        return fileInfos;
-    }
-
-
     private void audioRecord(View view) {
         AudioRecordManager.getInstance().startRecord(view);
         AudioRecordManager.getInstance().setCallback(new AudioRecordManager.Callback() {
@@ -300,7 +223,8 @@ public class GroupUpdateMyTaskActivity extends FullScreenActivity<GroupDoneTaskD
 
     @Override
     public void showPublishTaskDetail(TaskInfo info) {
-        setTaskType(info);
         mTvIssueTime.setText(info.getAdd_date() + " " + info.getAdd_week() + " " + info.getAdd_time());
+        mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUSHLISH);
+        TaskUtil.showContextView(mIvTaskTypeIcon, info, mLlTaskDetail);
     }
 }

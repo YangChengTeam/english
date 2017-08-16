@@ -8,6 +8,8 @@ import com.yc.english.group.contract.GroupDoTaskListContract;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.model.engin.GroupDoTaskListEngine;
 
+import java.util.List;
+
 import rx.Subscriber;
 import rx.Subscription;
 
@@ -23,15 +25,16 @@ public class GroupDoTaskListPresenter extends BasePresenter<GroupDoTaskListEngin
 
     @Override
     public void getDoTaskList(String class_id, String user_id) {
+        mView.showLoading();
         Subscription subscription = mEngin.getDoTaskList(class_id, user_id).subscribe(new Subscriber<ResultInfo<TaskAllInfoWrapper>>() {
             @Override
             public void onCompleted() {
-
+                mView.hideStateView();
             }
 
             @Override
             public void onError(Throwable e) {
-
+                mView.showNoNet();
             }
 
             @Override
@@ -39,7 +42,14 @@ public class GroupDoTaskListPresenter extends BasePresenter<GroupDoTaskListEngin
                 handleResultInfo(taskDoneInfoWrapperResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        mView.showDoneTaskResult(taskDoneInfoWrapperResultInfo.data.getList());
+                        List<TaskAllInfoWrapper.TaskAllInfo> list = taskDoneInfoWrapperResultInfo.data.getList();
+                        if (list != null && list.size() > 0) {
+                            mView.showDoneTaskResult(list);
+                            mView.hideStateView();
+                        } else {
+                            mView.showNoData();
+                        }
+
                     }
                 });
 

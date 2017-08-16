@@ -4,17 +4,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
+import com.yc.english.group.model.bean.GroupInfoHelper;
+import com.yc.english.group.model.bean.TaskInfo;
+import com.yc.english.group.utils.EngineUtils;
+import com.yc.english.group.view.activitys.student.GroupMyTaskDetailActivity;
 import com.yc.english.group.view.activitys.student.GroupTaskGradeActivity;
 import com.yc.english.group.view.activitys.student.GroupUpdateMyTaskActivity;
 import com.yc.english.group.view.activitys.teacher.GroupTaskFinishDetailActivity;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
@@ -74,22 +81,24 @@ public class DoTaskTaskMessageProvider extends IContainerItemProvider.MessagePro
     @Override
     public void onItemClick(View view, int position, CustomMessage richContentMessage, UIMessage uiMessage) {
 //        uiMessage.getMessageId()
-        LogUtils.e("onItemClick", richContentMessage.getExtra() + "---" + uiMessage.getTargetId());
+        LogUtils.e("onItemClick", richContentMessage.getExtra() + "---" + uiMessage.getTargetId() + "---" + richContentMessage.getUserInfo().getUserId());
+        String extra = richContentMessage.getExtra();
+        TaskInfo taskInfo = JSONObject.parseObject(extra, TaskInfo.class);
 
         Intent intent;
 
-        if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
-
-            intent = new Intent(mContext, GroupTaskGradeActivity.class);
-
-        } else {
+        if (taskInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
             intent = new Intent(mContext, GroupTaskFinishDetailActivity.class);
+        } else {
+//            intent = new Intent(mContext, GroupTaskGradeActivity.class);
+            intent = new Intent(mContext, GroupMyTaskDetailActivity.class);
         }
+
         intent.putExtra("extra", richContentMessage.getExtra());
 
         mContext.startActivity(intent);
-    }
 
+    }
 
     private class ViewHolder {
         TextView message;

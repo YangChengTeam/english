@@ -125,4 +125,9 @@ public interface NetConstan {
 
     String index_comm_class_list = baser_url + "index/comm_class_list";
 
+    /**
+     * 作业详情2
+     */
+
+    String detail_do_task2 = baser_url + "task/detail_do2";
 }

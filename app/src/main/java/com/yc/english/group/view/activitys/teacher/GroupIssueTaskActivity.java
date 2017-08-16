@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -83,6 +84,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
     private List<Uri> uriList;
     private GroupVoiceAdapter voiceAdapter;
     private GroupFileAdapter fileAdapter;
+    private List<ClassInfo> infoList;
 
     @Override
     public void init() {
@@ -179,6 +181,19 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
     }
 
+    @Override
+    public void showFile() {
+        mAdapter.setData(mList);
+    }
+
+    private BaseAdapter mAdapter;
+    private List mList;
+
+    private void setFileInfo(BaseAdapter adapter, List list) {
+        this.mAdapter = adapter;
+        this.mList = list;
+    }
+
     private List<Voice> voiceList = new ArrayList<>();
     private List<FileInfo> fileInfos = new ArrayList<>();
     private List<String> pitureList = new ArrayList<>();
@@ -202,7 +217,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 }
 
             }
-            pictureAdapter.setData(pitureList);
+            setFileInfo(pictureAdapter,pitureList);
             for (Uri uri : uriList) {//上传图片
                 String path = uri.getPath();// "file:///mnt/sdcard/FileName.mp3"
                 File file = new File(path);
@@ -220,7 +235,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 mPresenter.uploadFile(this, file, fileInfo.getFileName(), "");
                 fileInfos.add(fileInfo);
             }
-            fileAdapter.setData(fileInfos);
+            setFileInfo(fileAdapter,fileInfos);
         }
     }
 
@@ -286,6 +301,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
     @Override
     public void showMyGroupList(List<ClassInfo> list) {
+        this.infoList = list;
         if (list != null && list.size() > 0) {
             for (ClassInfo classInfo : list) {
                 boolean aBoolean = SPUtils.getInstance().getBoolean(classInfo.getClass_id() + "class");
@@ -348,8 +364,11 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             public void onSuccess(File file, int duration) {
 
                 Voice voice = new Voice(file, duration + "''");
+
+
                 voiceList.add(voice);
-                voiceAdapter.setData(voiceList);
+
+                setFileInfo(voiceAdapter, voiceList);
 
                 mPresenter.uploadFile(GroupIssueTaskActivity.this, file, file.getPath().substring(file.getPath().lastIndexOf("/") + 1), "");
 
@@ -369,7 +388,6 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         SPUtils.getInstance().put(GroupConstant.PICTUE_TASK, JSONObject.toJSONString(pitureList));
         SPUtils.getInstance().put(GroupConstant.VOICE_TASK, JSONObject.toJSONString(voiceList));
         SPUtils.getInstance().put(GroupConstant.WORD_TASK, JSONObject.toJSONString(fileInfos));
-
     }
 
     private void clearTaskData() {
@@ -377,6 +395,12 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         SPUtils.getInstance().put(GroupConstant.PICTUE_TASK, "");
         SPUtils.getInstance().put(GroupConstant.VOICE_TASK, "");
         SPUtils.getInstance().put(GroupConstant.WORD_TASK, "");
+        if (infoList != null && infoList.size() > 0) {
+            for (ClassInfo classInfo : infoList) {
+                SPUtils.getInstance().put(classInfo.getClass_id() + "class", false);
+            }
+        }
+
     }
 
     private void restoreTaskData() {

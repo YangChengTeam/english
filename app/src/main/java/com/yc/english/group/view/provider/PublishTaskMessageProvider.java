@@ -12,17 +12,23 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
+import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
+import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.group.model.bean.TaskInfo;
+import com.yc.english.group.model.bean.TaskInfoWrapper;
+import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.group.view.activitys.student.GroupMyTaskDetailActivity;
 import com.yc.english.group.view.activitys.student.GroupTaskGradeActivity;
 import com.yc.english.group.view.activitys.teacher.GroupPublishTaskLookAndUnLookActivity;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
 import io.rong.imkit.widget.provider.IContainerItemProvider;
 import io.rong.imlib.model.Message;
 import io.rong.message.RichContentMessage;
+import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/7/26 08:34.
@@ -61,8 +67,6 @@ public class PublishTaskMessageProvider extends IContainerItemProvider.MessagePr
         holder.message.setText(customMessage.getContent());
         holder.title.setText(customMessage.getTitle());
 
-
-//        AndroidEmoji.ensure((Spannable) holder.message.getText());//显示消息中的 Emoji 表情。
     }
 
     //该条消息为该会话的最后一条消息时，会话列表要显示的内容，通过该方法进行定义。
@@ -72,28 +76,18 @@ public class PublishTaskMessageProvider extends IContainerItemProvider.MessagePr
     }
 
 
+
     @Override
-    public void onItemClick(View view, int position, RichContentMessage richContentMessage, UIMessage uiMessage) {
+    public void onItemClick(View view, int position, final RichContentMessage richContentMessage, UIMessage uiMessage) {
 
         LogUtils.e("onItemClick", richContentMessage.getExtra() + "---" + uiMessage.getTargetId());
-
-        TaskInfo taskInfo = JSONObject.parseObject(richContentMessage.getExtra(), TaskInfo.class);
-
         Intent intent;
-
-        if (uiMessage.getMessageDirection() == Message.MessageDirection.SEND) {
-
+        if(uiMessage.getMessageDirection() == Message.MessageDirection.SEND){
             intent = new Intent(mContext, GroupPublishTaskLookAndUnLookActivity.class);
-
         } else {
-            if (taskInfo.getIs_done() == 1) {
-                intent = new Intent(mContext, GroupTaskGradeActivity.class);
-            } else {
-                intent = new Intent(mContext, GroupMyTaskDetailActivity.class);
-            }
+            intent = new Intent(mContext, GroupMyTaskDetailActivity.class);
         }
         intent.putExtra("extra", richContentMessage.getExtra());
-
         mContext.startActivity(intent);
     }
 

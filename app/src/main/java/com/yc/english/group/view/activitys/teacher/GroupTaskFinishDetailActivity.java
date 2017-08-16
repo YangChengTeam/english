@@ -9,7 +9,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
@@ -18,6 +17,7 @@ import com.yc.english.group.contract.GroupScoreTaskContract;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupScoreTaskPresenter;
+import com.yc.english.group.utils.TaskUtil;
 import com.yc.english.group.view.widget.MultifunctionLinearLayout;
 
 import java.io.IOException;
@@ -122,7 +122,8 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
     @Override
     public void showDoneTaskInfo(TaskInfo info) {
         setScore(info);
-        setTaskDetail(info, doMultifunctionLinearLayout);
+        doMultifunctionLinearLayout.setType(MultifunctionLinearLayout.Type.DONE);
+        TaskUtil.showContextView(mIvTaskIcon, info, doMultifunctionLinearLayout);
         if (TextUtils.isEmpty(info.getScore()))
             initListener();
     }
@@ -130,49 +131,14 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
     @Override
     public void showPublishTaskInfo(TaskInfo info) {
         mTvTaskTime.setText(info.getAdd_date() + " " + info.getAdd_week() + " " + info.getAdd_time());
-        setTaskDetail(info, publishMultifunctionLinearLayout);
-
+        publishMultifunctionLinearLayout.setType(MultifunctionLinearLayout.Type.PUSHLISH);
+        TaskUtil.showContextView(mIvTaskIcon, info, publishMultifunctionLinearLayout);
     }
 
     @Override
     public void showScoreResult() {
 
         TipsHelper.tips(this, "您已经为该做业进行打分");
-
-    }
-
-    private void setTaskDetail(TaskInfo info, MultifunctionLinearLayout multifunctionLinearLayout) {
-        int type = Integer.parseInt(info.getType());
-        switch (type) {
-            case GroupConstant.TASK_TYPE_CHARACTER:
-                mIvTaskIcon.setImageResource(R.mipmap.group36);
-                multifunctionLinearLayout.setText(info.getDesp());
-                multifunctionLinearLayout.showTextView();
-                break;
-            case GroupConstant.TASK_TYPE_PICTURE:
-                mIvTaskIcon.setImageResource(R.mipmap.group40);
-                multifunctionLinearLayout.showPictureView();
-                multifunctionLinearLayout.setUriList(info.getBody().getImgs());
-                break;
-            case GroupConstant.TASK_TYPE_VOICE:
-                mIvTaskIcon.setImageResource(R.mipmap.group38);
-                multifunctionLinearLayout.showVoiceView();
-                multifunctionLinearLayout.setVoices(getVoiceList(info));
-                break;
-            case GroupConstant.TASK_TYPE_WORD:
-                mIvTaskIcon.setImageResource(R.mipmap.group42);
-                multifunctionLinearLayout.showWordView();
-                multifunctionLinearLayout.setFileInfos(getFileInfos(info));
-                break;
-            case GroupConstant.TASK_TYPE_SYNTHESIZE:
-                mIvTaskIcon.setImageResource(R.mipmap.group44);
-                multifunctionLinearLayout.setText(info.getDesp());
-                multifunctionLinearLayout.showSynthesizeView();
-                multifunctionLinearLayout.setUriList(info.getBody().getImgs());
-                multifunctionLinearLayout.setVoices(getVoiceList(info));
-                multifunctionLinearLayout.setFileInfos(getFileInfos(info));
-                break;
-        }
 
     }
 
@@ -229,6 +195,7 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
 
                 FileInfo fileInfo = new FileInfo();
                 fileInfo.setFilePath(s);
+                fileInfo.setFileName(s.substring(s.lastIndexOf("/") + 1));
                 fileInfos.add(fileInfo);
             }
         }
