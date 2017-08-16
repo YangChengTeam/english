@@ -45,18 +45,18 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
                 ResultInfoHelper.handleResultInfo(taskPublishDetailInfoResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        hideStateView();
+                        mView.hideStateView();
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        hideStateView();
+                        mView.hideStateView();
                     }
 
                     @Override
                     public void reulstInfoOk() {
                         mView.showPublishTaskDetail(taskPublishDetailInfoResultInfo.data.getInfo());
-                        hideStateView();
+                        mView.hideStateView();
                     }
                 });
 
@@ -75,7 +75,7 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
+
             }
 
             @Override
@@ -83,18 +83,18 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
                 ResultInfoHelper.handleResultInfo(studentInfoResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        hideStateView();
+
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        hideStateView();
+
                     }
 
                     @Override
                     public void reulstInfoOk() {
                         mView.showIsReadMemberList(studentInfoResultInfo.data.getList());
-                        hideStateView();
+                        mView.hideStateView();
                     }
                 });
 
@@ -114,7 +114,7 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
+
             }
 
             @Override
@@ -123,18 +123,18 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
                         ResultInfoHelper.Callback() {
                             @Override
                             public void resultInfoEmpty(String message) {
-                                hideStateView();
+                               mView.hideStateView();
                             }
 
                             @Override
                             public void resultInfoNotOk(String message) {
-                                hideStateView();
+                                mView.hideStateView();
                             }
 
                             @Override
                             public void reulstInfoOk() {
                                 mView.showIsFinishMemberList(studentTaskInfoResultInfo.data.getList());
-                                hideStateView();
+                                mView.hideStateView();
                             }
                         });
 
@@ -149,14 +149,5 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
 
     }
 
-    private int count;
 
-    private void hideStateView() {
-        count++;
-        if (count >= 2) {
-            mView.hideStateView();
-            count = 0;
-        }
-
-    }
 }

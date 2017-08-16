@@ -59,6 +59,8 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
     StateView stateView;
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
+    @BindView(R.id.ll_look_container)
+    LinearLayout llLookContainer;
     private List<Fragment> fragments = new ArrayList<>();
     private GroupLookTaskFragment groupLookTaskFragment;
     private String taskDetailInfo;
@@ -124,38 +126,43 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
 
         CommonNavigator commonNavigator = new CommonNavigator(this);
 
-        ArrayList<StudentLookTaskInfo.ListBean.NoreadListBean> read_list = data.getRead_list();
-        ArrayList<StudentLookTaskInfo.ListBean.NoreadListBean> noread_list = data.getNoread_list();
-        if (read_list != null && read_list.size() > 0) {
-            readList = read_list.size();
+        if (data != null) {
+            llLookContainer.setVisibility(View.VISIBLE);
+            ArrayList<StudentLookTaskInfo.ListBean.NoreadListBean> read_list = data.getRead_list();
+            ArrayList<StudentLookTaskInfo.ListBean.NoreadListBean> noread_list = data.getNoread_list();
+            if (read_list != null && read_list.size() > 0) {
+                readList = read_list.size();
+            }
+            if (noread_list != null && noread_list.size() > 0) {
+                unReadList = noread_list.size();
+            }
+            commonNavigator.setAdapter(new CommonAdapter(this, 2, mViewPager, readList, unReadList));
+
+
+            commonNavigator.setAdjustMode(true);
+            mMagicIndicator.setNavigator(commonNavigator);
+
+
+            Bundle lookBundle = new Bundle();
+            Bundle unLookBundle = new Bundle();
+
+            lookBundle.putParcelableArrayList("look_list", read_list);
+            unLookBundle.putParcelableArrayList("unLook_list", noread_list);
+
+            groupLookTaskFragment = new GroupLookTaskFragment();
+            groupLookTaskFragment.setArguments(lookBundle);
+            fragments.add(groupLookTaskFragment);
+
+            groupUnLookTaskFragment = new GroupUnLookTaskFragment();
+            groupUnLookTaskFragment.setArguments(unLookBundle);
+            fragments.add(groupUnLookTaskFragment);
+
+            mViewPager.setAdapter(new GroupPageAdapter(getSupportFragmentManager(), fragments));
+
+            ViewPagerHelper.bind(mMagicIndicator, mViewPager);
+        } else {
+            llLookContainer.setVisibility(View.GONE);
         }
-        if (noread_list != null && noread_list.size() > 0) {
-            unReadList = noread_list.size();
-        }
-        commonNavigator.setAdapter(new CommonAdapter(this, 2, mViewPager, readList, unReadList));
-
-
-        commonNavigator.setAdjustMode(true);
-        mMagicIndicator.setNavigator(commonNavigator);
-
-
-        Bundle lookBundle = new Bundle();
-        Bundle unLookBundle = new Bundle();
-
-        lookBundle.putParcelableArrayList("look_list", read_list);
-        unLookBundle.putParcelableArrayList("unLook_list", noread_list);
-
-        groupLookTaskFragment = new GroupLookTaskFragment();
-        groupLookTaskFragment.setArguments(lookBundle);
-        fragments.add(groupLookTaskFragment);
-
-        groupUnLookTaskFragment = new GroupUnLookTaskFragment();
-        groupUnLookTaskFragment.setArguments(unLookBundle);
-        fragments.add(groupUnLookTaskFragment);
-
-        mViewPager.setAdapter(new GroupPageAdapter(getSupportFragmentManager(), fragments));
-
-        ViewPagerHelper.bind(mMagicIndicator, mViewPager);
 
     }
 
@@ -194,4 +201,6 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
         mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), UserInfoHelper.getUserInfo().getUid());
         mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
     }
+
+
 }

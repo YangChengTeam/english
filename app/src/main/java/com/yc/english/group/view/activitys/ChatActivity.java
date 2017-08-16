@@ -1,8 +1,10 @@
 package com.yc.english.group.view.activitys;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.EmptyUtils;
@@ -12,6 +14,7 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
@@ -24,6 +27,12 @@ import com.yc.english.group.presenter.GroupApplyJoinPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.activitys.teacher.GroupMemberActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.setting.view.activitys.PersonCenterActivity;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.UserInfo;
 
 
 /**
@@ -66,6 +75,41 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
         initData();
         mToolbar.showNavigationIcon();
         RongIMUtil.reconnect(this);
+        initListener();
+
+    }
+
+    private void initListener() {
+
+        RongIM.setConversationBehaviorListener(new RongIM.ConversationBehaviorListener() {
+            @Override
+            public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+                if (userInfo.getUserId().equals(UserInfoHelper.getUserInfo().getUid())) {
+                    startActivity(new Intent(ChatActivity.this, PersonCenterActivity.class));
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+                return false;
+            }
+
+            @Override
+            public boolean onMessageClick(Context context, View view, Message message) {
+                return false;
+            }
+
+            @Override
+            public boolean onMessageLinkClick(Context context, String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onMessageLongClick(Context context, View view, Message message) {
+                return false;
+            }
+        });
     }
 
     @Override
