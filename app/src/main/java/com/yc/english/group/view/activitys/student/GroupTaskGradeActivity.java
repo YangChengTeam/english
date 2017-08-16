@@ -1,11 +1,16 @@
 package com.yc.english.group.view.activitys.student;
 
+import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupDoneTaskDetailContract;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.presenter.GroupDoneTaskDetailPresenter;
@@ -14,6 +19,7 @@ import com.yc.english.group.view.widget.MultifunctionLinearLayout;
 import com.yc.english.main.hepler.UserInfoHelper;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/7/27 18:30.
@@ -32,6 +38,11 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
     MultifunctionLinearLayout publishMultifunctionLinearLayout;
     @BindView(R.id.do_multifunctionLinearLayout)
     MultifunctionLinearLayout doMultifunctionLinearLayout;
+    @BindView(R.id.stateView)
+    StateView stateView;
+    @BindView(R.id.sl_container)
+    ScrollView slContainer;
+    private TaskInfo taskInfo;
 
     @Override
     public void init() {
@@ -41,9 +52,8 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
         if (getIntent() != null) {
             if (getIntent().getStringExtra("extra") != null) {
                 String detailTask = getIntent().getStringExtra("extra");
-                TaskInfo taskInfo = JSONObject.parseObject(detailTask, TaskInfo.class);
-                mPresenter.getDoneTaskDetail(this, taskInfo.getId(), UserInfoHelper.getUserInfo().getUid());
-                mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid());
+                taskInfo = JSONObject.parseObject(detailTask, TaskInfo.class);
+                getData();
             } else {
                 String taskId = getIntent().getStringExtra("taskId");
                 String classId = getIntent().getStringExtra("classId");
@@ -91,4 +101,34 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoneTaskDeta
         }
     }
 
+
+    @Override
+    public void hideStateView() {
+        stateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(slContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        stateView.showNoData(slContainer);
+    }
+
+    @Override
+    public void showLoading() {
+        stateView.showLoading(slContainer);
+    }
+
+    private void getData() {
+        mPresenter.getDoneTaskDetail(this, taskInfo.getId(), UserInfoHelper.getUserInfo().getUid());
+        mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid());
+    }
 }

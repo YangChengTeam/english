@@ -1,20 +1,21 @@
 package com.yc.english.group.view.activitys.teacher;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupPublishTaskDetailContract;
 import com.yc.english.group.model.bean.StudentFinishTaskInfo;
 import com.yc.english.group.model.bean.StudentLookTaskInfo;
 import com.yc.english.group.model.bean.TaskInfo;
-import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupPublishTaskDetailPresenter;
 import com.yc.english.group.utils.TaskUtil;
 import com.yc.english.group.view.adapter.CommonAdapter;
@@ -22,17 +23,16 @@ import com.yc.english.group.view.adapter.GroupPageAdapter;
 import com.yc.english.group.view.fragments.GroupFinishTaskFragment;
 import com.yc.english.group.view.fragments.GroupUnFinishTaskFragment;
 import com.yc.english.group.view.widget.MultifunctionLinearLayout;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import io.rong.imkit.model.FileInfo;
 
 /**
  * Created by wanglin  on 2017/7/28 12:55.
@@ -51,6 +51,10 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
     MagicIndicator mMagicIndicator;
     @BindView(R.id.m_viewPager)
     ViewPager mViewPager;
+    @BindView(R.id.stateView)
+    StateView stateView;
+    @BindView(R.id.ll_container)
+    LinearLayout llContainer;
     private String masterId;
     private List<Fragment> fragments = new ArrayList<>();
     private String taskId;
@@ -63,8 +67,7 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
             taskId = getIntent().getStringExtra("taskId");
             classId = getIntent().getStringExtra("classId");
             masterId = getIntent().getStringExtra("masterId");
-            mPresenter.getPublishTaskDetail(this, taskId, classId, "");
-            mPresenter.getIsFinishTaskList(classId, taskId);
+            getData();
         }
 
         mToolbar.setTitle(getString(R.string.task_detail));
@@ -86,7 +89,6 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
         mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUSHLISH);
         TaskUtil.showContextView(mIvTaskTypeIcon, taskInfo, mLlTaskDetail);
     }
-
 
 
     @Override
@@ -134,5 +136,36 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
         mViewPager.setAdapter(new GroupPageAdapter(getSupportFragmentManager(), fragments));
 
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
+    }
+
+    @Override
+    public void hideStateView() {
+        stateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        stateView.showNoData(llContainer);
+    }
+
+    @Override
+    public void showLoading() {
+        stateView.showLoading(llContainer);
+    }
+
+
+    private void getData() {
+        mPresenter.getPublishTaskDetail(this, taskId, classId, UserInfoHelper.getUserInfo().getUid());
+        mPresenter.getIsFinishTaskList(classId, taskId);
     }
 }

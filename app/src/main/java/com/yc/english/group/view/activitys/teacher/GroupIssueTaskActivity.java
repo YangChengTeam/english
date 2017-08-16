@@ -58,16 +58,13 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
     @BindView(R.id.m_et_issue_task)
     EditText mEtIssueTask;
-    @BindView(R.id.m_iv_issue_picture)
-    ImageView mIvIssuePicture;
+
     @BindView(R.id.recyclerView_picture)
     RecyclerView recyclerViewPicture;
-    @BindView(R.id.m_iv_issue_voice)
-    ImageView mIvIssueVoice;
+
     @BindView(R.id.voice_recyclerView)
     RecyclerView voiceRecyclerView;
-    @BindView(R.id.m_iv_issue_file)
-    ImageView mIvIssueFile;
+
     @BindView(R.id.file_recyclerView)
     RecyclerView fileRecyclerView;
     @BindView(R.id.m_tv_sync_group)
@@ -157,13 +154,13 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         Intent intent;
         switch (v.getId()) {
             case R.id.m_rl_async_to_other:
-
                 intent = new Intent(this, GroupSyncGroupListActivity.class);
                 intent.putExtra("classId", mClassInfo.getClass_id());
                 startActivityForResult(intent, 200);
                 break;
             case R.id.m_ll_issue_picture:
-                startActivityForResult(new Intent(this, PictureSelectorActivity.class), 300);
+                intent = new Intent(this, PictureSelectorActivity.class);
+                startActivityForResult(intent, 300);
                 break;
             case R.id.m_ll_issue_voice:
                 audioRecord(v);
@@ -217,7 +214,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 }
 
             }
-            setFileInfo(pictureAdapter,pitureList);
+            setFileInfo(pictureAdapter, pitureList);
             for (Uri uri : uriList) {//上传图片
                 String path = uri.getPath();// "file:///mnt/sdcard/FileName.mp3"
                 File file = new File(path);
@@ -235,7 +232,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 mPresenter.uploadFile(this, file, fileInfo.getFileName(), "");
                 fileInfos.add(fileInfo);
             }
-            setFileInfo(fileAdapter,fileInfos);
+            setFileInfo(fileAdapter, fileInfos);
         }
     }
 

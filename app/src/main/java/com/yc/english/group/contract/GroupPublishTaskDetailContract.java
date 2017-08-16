@@ -3,6 +3,9 @@ package com.yc.english.group.contract;
 import android.content.Context;
 
 import com.yc.english.base.presenter.IPresenter;
+import com.yc.english.base.view.ILoading;
+import com.yc.english.base.view.INoData;
+import com.yc.english.base.view.INoNet;
 import com.yc.english.base.view.IView;
 import com.yc.english.group.model.bean.StudentFinishTaskInfo;
 import com.yc.english.group.model.bean.StudentLookTaskInfo;
@@ -14,7 +17,7 @@ import com.yc.english.group.model.bean.TaskInfo;
 
 public interface GroupPublishTaskDetailContract {
 
-    interface View extends IView {
+    interface View extends IView,ILoading,INoData,INoNet {
         void showPublishTaskDetail(TaskInfo stringResultInfo);
 
         void showIsReadMemberList(StudentLookTaskInfo.ListBean data);

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.utils.UIUitls;
+import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupScoreTaskContract;
@@ -45,10 +46,21 @@ public class GroupScoreTaskPresenter extends BasePresenter<GroupScoreTaskEngine,
 
             @Override
             public void onNext(final ResultInfo<TaskInfoWrapper> taskInfoWrapperResultInfo) {
-                handleResultInfo(taskInfoWrapperResultInfo, new Runnable() {
+                ResultInfoHelper.handleResultInfo(taskInfoWrapperResultInfo, new ResultInfoHelper.Callback() {
                     @Override
-                    public void run() {
+                    public void resultInfoEmpty(String message) {
+                        hideStateView();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        hideStateView();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
                         mView.showDoneTaskInfo(taskInfoWrapperResultInfo.data.getInfo());
+                        hideStateView();
                     }
                 });
 
@@ -59,6 +71,7 @@ public class GroupScoreTaskPresenter extends BasePresenter<GroupScoreTaskEngine,
 
     @Override
     public void getPublishTaskDetail(Context context, String task_id, String class_id, String user_id) {
+        mView.showLoading();
         Subscription subscription = EngineUtils.getPublishTaskDetail(context, task_id, class_id, user_id).subscribe(new Subscriber<ResultInfo<TaskInfoWrapper>>() {
             @Override
             public void onCompleted() {
@@ -67,17 +80,29 @@ public class GroupScoreTaskPresenter extends BasePresenter<GroupScoreTaskEngine,
 
             @Override
             public void onError(Throwable e) {
-
+                mView.showNoNet();
             }
 
             @Override
             public void onNext(final ResultInfo<TaskInfoWrapper> taskInfoWrapperResultInfo) {
-                handleResultInfo(taskInfoWrapperResultInfo, new Runnable() {
+                ResultInfoHelper.handleResultInfo(taskInfoWrapperResultInfo, new ResultInfoHelper.Callback() {
                     @Override
-                    public void run() {
+                    public void resultInfoEmpty(String message) {
+                        hideStateView();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        hideStateView();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
                         mView.showPublishTaskInfo(taskInfoWrapperResultInfo.data.getInfo());
+                        hideStateView();
                     }
                 });
+
 
             }
         });
@@ -86,15 +111,16 @@ public class GroupScoreTaskPresenter extends BasePresenter<GroupScoreTaskEngine,
 
     @Override
     public void taskScore(final Context context, String id, String score) {
+        mView.showLoadingDialog("正在打分，请稍候...");
         Subscription subscription = mEngin.taskScore(id, score).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
-
+                mView.dismissLoadingDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-
+                mView.dismissLoadingDialog();
             }
 
             @Override
@@ -104,11 +130,20 @@ public class GroupScoreTaskPresenter extends BasePresenter<GroupScoreTaskEngine,
                     public void run() {
                         mView.showScoreResult();
 
-
                     }
                 });
             }
         });
         mSubscriptions.add(subscription);
+    }
+
+    private int count;
+
+    private void hideStateView() {
+        count++;
+        if (count >= 2) {
+            mView.hideStateView();
+            count = 0;
+        }
     }
 }

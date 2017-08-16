@@ -34,7 +34,7 @@ public class GroupFinishTaskFragment extends BaseFragment {
             String masterId = getArguments().getString("masterId");
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             adapter = new GroupTaskFinishedAdapter(getActivity(), done_list);
-            adapter.setData(taskId,classId,masterId);
+            adapter.setData(taskId,classId);
             mRecyclerView.setAdapter(adapter);
             BaseItemDecoration decoration = new BaseItemDecoration(getContext());
             mRecyclerView.addItemDecoration(decoration);

@@ -1,25 +1,25 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.TimeUtils;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupPublishTaskDetailContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentFinishTaskInfo;
 import com.yc.english.group.model.bean.StudentLookTaskInfo;
 import com.yc.english.group.model.bean.TaskInfo;
-import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupPublishTaskDetailPresenter;
 import com.yc.english.group.utils.TaskUtil;
 import com.yc.english.group.view.adapter.CommonAdapter;
@@ -33,13 +33,11 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import io.rong.imkit.model.FileInfo;
+import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/7/28 12:55.
@@ -57,6 +55,10 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
     ViewPager mViewPager;
     @BindView(R.id.m_iv_task_type_icon)
     ImageView mIvTaskTypeIcon;
+    @BindView(R.id.stateView)
+    StateView stateView;
+    @BindView(R.id.ll_container)
+    LinearLayout llContainer;
     private List<Fragment> fragments = new ArrayList<>();
     private GroupLookTaskFragment groupLookTaskFragment;
     private String taskDetailInfo;
@@ -69,8 +71,7 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
         if (getIntent() != null) {
             taskDetailInfo = getIntent().getStringExtra("extra");
             taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
-            mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), UserInfoHelper.getUserInfo().getUid());
-            mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
+            getData();
 
         }
 
@@ -164,4 +165,33 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
     }
 
 
+    @Override
+    public void hideStateView() {
+        stateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        stateView.showNoData(llContainer);
+    }
+
+    @Override
+    public void showLoading() {
+        stateView.showLoading(llContainer);
+    }
+
+    private void getData() {
+        mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), UserInfoHelper.getUserInfo().getUid());
+        mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
+    }
 }
