@@ -23,12 +23,25 @@
         android:layout_height="match_parent"
         android:background="@color/primaryDark">
 
-        <android.support.v7.widget.RecyclerView
+        <!--<android.support.v7.widget.RecyclerView
             android:id="@+id/rv_word_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="110dp">
-        </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>-->
+
+        <ExpandableListView
+            android:id="@+id/rv_word_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="110dp"
+            android:childDivider="#00000000"
+            android:divider="#00000000"
+            android:dividerHeight="1px"
+            android:gravity="center"
+            android:listSelector="#00000000"
+            android:scrollbars="none">
+        </ExpandableListView>
 
         <LinearLayout
             android:id="@+id/layout_word_bottom"

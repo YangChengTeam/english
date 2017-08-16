@@ -28,8 +28,8 @@ public class CoursePlayEngin extends BaseEngin {
 
     public Observable<ResultInfo<EnglishCourseInfoList>> getCourseListByUnitId(int currentPage, int pageCount, String unitId) {
         Map<String, String> params = new HashMap<>();
-        params.put("current_page", currentPage + "");
-        params.put("page_count", pageCount + "");
+        params.put("page", currentPage + "");
+        //params.put("page_count", pageCount + "");
         params.put("unit_id", unitId);
         return HttpCoreEngin.get(context).rxpost(URLConfig.SENTENCE_LIST_URL, new TypeReference<ResultInfo<EnglishCourseInfoList>>() {
                 }.getType(), params,

@@ -2,20 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@mipmap/read_course_play_bg"
               android:orientation="vertical">
-
-    <com.yc.english.base.view.StateView
-        android:id="@+id/sv_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/primaryDark">
-    </com.yc.english.base.view.StateView>
 
     <FrameLayout
         android:id="@+id/layout_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/read_course_play_bg"
         android:layout_gravity="center">
 
         <LinearLayout
@@ -23,12 +16,19 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/layout_ap"
             android:layout_gravity="center"
+            android:layout_marginBottom="110dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="100dp"
-            android:layout_marginBottom="110dp"
-            android:paddingBottom="20dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <com.yc.english.base.view.StateView
+                android:id="@+id/sv_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.yc.english.base.view.StateView>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_course_list"

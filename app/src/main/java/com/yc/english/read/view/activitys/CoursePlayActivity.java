@@ -97,6 +97,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private int currentPosition;
 
+    private int currentPage = 1;
+
     @Override
     public int getLayoutId() {
         return R.layout.read_activity_course_play;
@@ -221,8 +223,30 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             }
         });
 
-        mPresenter.getCourseListByUnitId(0, 0, unitId);
+        mCourseRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
 
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (isSlideToBottom(recyclerView)) {
+                    currentPage++;
+                    mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
+                }
+            }
+        });
+
+        mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
+    }
+
+    protected boolean isSlideToBottom(RecyclerView recyclerView) {
+        if (recyclerView == null) return false;
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
     }
 
     private void resetPlayState() {
@@ -238,22 +262,22 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     @Override
     public void showNoNet() {
-        mStateView.showNoNet(mLayoutContext, "网络不给力", new View.OnClickListener() {
+        mStateView.showNoNet(mCourseRecyclerView, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getCourseListByUnitId(0, 0, unitId);
+                mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
             }
         });
     }
 
     @Override
     public void showNoData() {
-        mStateView.showNoData(mLayoutContext);
+        mStateView.showNoData(mCourseRecyclerView);
     }
 
     @Override
     public void showLoading() {
-        mStateView.showLoading(mLayoutContext);
+        mStateView.showLoading(mCourseRecyclerView);
     }
 
     /**
@@ -381,11 +405,11 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         }
     }
 
-    public void hideItemView(int postion) {
-        if (postion == -1) {
+    public void hideItemView(int position) {
+        if (position == -1) {
             return;
         }
-        View view = linearLayoutManager.findViewByPosition(postion);
+        View view = linearLayoutManager.findViewByPosition(position);
         if (view != null) {
             view.findViewById(R.id.iv_audio_gif_play).setVisibility(View.GONE);
             ((TextView) view.findViewById(R.id.tv_chinese_title)).setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.gray_999));
@@ -405,7 +429,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     @Override
     public void showCourseListData(EnglishCourseInfoList englishCourseInfoList) {
         if (englishCourseInfoList != null) {
-            mItemAdapter.setNewData(englishCourseInfoList.list);
+            mItemAdapter.addData(englishCourseInfoList.list);
         }
     }
 

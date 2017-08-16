@@ -24,7 +24,6 @@ public class ReadWordUnitItemClickAdapter extends BaseMultiItemQuickAdapter<Word
     @Override
     protected void convert(final BaseViewHolder helper, final WordUnitInfo item) {
         helper.setText(R.id.tv_book_unit_name, item.getName())
-                .setText(R.id.tv_book_unit_total, item.getWordCount() + mContext.getString(R.string.word_sentence_count_text))
-                .setText(R.id.tv_total_persion_recite, item.getNumber() + mContext.getString(R.string.word_persion_sentence_count_text));
+                .setText(R.id.tv_book_unit_total, item.getWordCount() + mContext.getString(R.string.word_sentence_count_text));
     }
 }
