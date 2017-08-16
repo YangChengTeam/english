@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.PhoneUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.utils.QQUtils;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.ShareItemView;
@@ -64,8 +65,8 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
                 alertDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + 972403325;
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                        QQUtils.joinQQGroup(FeedbackActivity.this, "C9GzeOgLm4zrKerAk3Hr8gUiWsOhMzR7");
+
                     }
                 });
                 alertDialog.show();
@@ -80,7 +81,7 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
                 alertDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        PhoneUtils.call("15902742354");
+                        PhoneUtils.call("15926287915");
                     }
                 });
                 alertDialog.show();

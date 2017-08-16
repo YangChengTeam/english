@@ -39,4 +39,5 @@ public class GlideHelper {
         options.override(width, height);
         Glide.with(context).load(url).apply(options).into(imageView);
     }
+
 }

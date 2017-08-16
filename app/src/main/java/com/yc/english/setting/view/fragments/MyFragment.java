@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -16,6 +17,8 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.base.utils.QQUtils;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.ToolbarFragment;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -105,17 +108,18 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
         RxView.clicks(mQQMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent();
-                String key = "sJFXu6TS1Rq1ppK4PCyMUIfeQjILjACK";
-                intent.setData(Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq" +
-                        ".com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D" + key));
-                try {
-                    startActivity(intent);
-                } catch (Exception e) {
-                    SnackbarUtils.with(getActivity().getWindow().getDecorView()).setMessage("未安装手Q或安装的版本不支持").show();
-                }
+                AlertDialog alertDialog = new AlertDialog(getActivity());
+                alertDialog.setDesc("打开QQ与客服进行沟通？");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        QQUtils.joinQQGroup(getActivity(), "C9GzeOgLm4zrKerAk3Hr8gUiWsOhMzR7");
+                    }
+                });
+                alertDialog.show();
             }
         });
+
 
         RxView.clicks(mFeedbackMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -144,6 +148,7 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
             }
         });
     }
+
 
     @Override
     public boolean isInstallToolbar() {

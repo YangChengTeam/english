@@ -15,8 +15,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/ll_head"
@@ -88,7 +88,6 @@
                 </LinearLayout>
 
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
@@ -128,6 +127,17 @@
                         eng:text="@string/setting_setting"></com.yc.english.setting.view.widgets.MenuItemView>
                 </LinearLayout>
             </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="语音技术由科大讯飞提供"
+                android:textColor="@color/group_red_fb4c30"
+                android:textSize="@dimen/font_snormal"/>
+
         </LinearLayout>
     </ScrollView>
 
