@@ -15,6 +15,7 @@ import com.yc.english.main.contract.LoginContract;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.main.model.engin.LoginEngin;
 
 import rx.Observable;
@@ -56,7 +57,7 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
         }
 
         mView.showLoadingDialog("正在登录， 请稍后");
-        Subscription subscription = mEngin.login(username, pwd).subscribe(new Subscriber<ResultInfo<UserInfo>>() {
+        Subscription subscription = mEngin.login(username, pwd).subscribe(new Subscriber<ResultInfo<UserInfoWrapper>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -68,15 +69,11 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
             }
 
             @Override
-            public void onNext(final ResultInfo<UserInfo> resultInfo) {
+            public void onNext(final ResultInfo<UserInfoWrapper> resultInfo) {
                 handleResultInfo(resultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        UserInfoHelper.saveUserInfo(resultInfo.data);
-                        UserInfoHelper.connect(mContext, resultInfo.data.getUid());
-                        RxBus.get().post(Constant.USER_INFO, resultInfo.data);
-                        RxBus.get().post(BusAction.GROUPLIST, "from login");
-                        SPUtils.getInstance().put(Constant.PHONE, username);
+                        UserInfoHelper.utils(mContext, resultInfo);
                         mView.finish();
                     }
                 });

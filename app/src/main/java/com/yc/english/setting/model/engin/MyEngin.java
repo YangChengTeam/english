@@ -10,6 +10,7 @@ import com.yc.english.base.model.BaseEngin;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 
 import java.util.HashMap;
 import java.util.Map;

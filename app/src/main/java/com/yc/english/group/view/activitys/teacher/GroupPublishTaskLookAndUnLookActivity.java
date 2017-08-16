@@ -1,43 +1,43 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.TimeUtils;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupPublishTaskDetailContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentFinishTaskInfo;
 import com.yc.english.group.model.bean.StudentLookTaskInfo;
 import com.yc.english.group.model.bean.TaskInfo;
-import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupPublishTaskDetailPresenter;
+import com.yc.english.group.utils.TaskUtil;
 import com.yc.english.group.view.adapter.CommonAdapter;
 import com.yc.english.group.view.adapter.GroupPageAdapter;
 import com.yc.english.group.view.fragments.GroupLookTaskFragment;
 import com.yc.english.group.view.fragments.GroupUnLookTaskFragment;
 import com.yc.english.group.view.widget.MultifunctionLinearLayout;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import io.rong.imkit.model.FileInfo;
+import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/7/28 12:55.
@@ -55,6 +55,10 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
     ViewPager mViewPager;
     @BindView(R.id.m_iv_task_type_icon)
     ImageView mIvTaskTypeIcon;
+    @BindView(R.id.stateView)
+    StateView stateView;
+    @BindView(R.id.ll_container)
+    LinearLayout llContainer;
     private List<Fragment> fragments = new ArrayList<>();
     private GroupLookTaskFragment groupLookTaskFragment;
     private String taskDetailInfo;
@@ -67,9 +71,7 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
         if (getIntent() != null) {
             taskDetailInfo = getIntent().getStringExtra("extra");
             taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
-
-            mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
-            mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
+            getData();
 
         }
 
@@ -107,9 +109,10 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
     @Override
     public void showPublishTaskDetail(TaskInfo taskInfo) {
 
-        setTaskType(taskInfo);
-        mTvIssueTime.setText(taskInfo.getAdd_date() + " " + taskInfo.getAdd_week() + " " +
-                TimeUtils.date2String(TimeUtils.millis2Date(Long.parseLong(taskInfo.getAdd_time())), new SimpleDateFormat("HH:mm:ss")));
+        mTvIssueTime.setText(taskInfo.getAdd_date() + " " + taskInfo.getAdd_week() + " " + taskInfo.getAdd_time());
+        mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUSHLISH);
+        TaskUtil.showContextView(mIvTaskTypeIcon, taskInfo, mLlTaskDetail);
+
 
     }
 
@@ -161,80 +164,34 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
 
     }
 
-    private void setTaskType(TaskInfo taskInfo) {
-        int type = Integer.parseInt(taskInfo.getType());
-        switch (type) {
-            case GroupConstant.TASK_TYPE_CHARACTER:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group36));
-                mLlTaskDetail.setText(taskInfo.getDesp());
-                mLlTaskDetail.showTextView();
-                break;
-            case GroupConstant.TASK_TYPE_PICTURE:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group40));
-                mLlTaskDetail.showPictureView();
-                mLlTaskDetail.setUriList(taskInfo.getBody().getImgs());
-                break;
-            case GroupConstant.TASK_TYPE_VOICE:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group38));
-                mLlTaskDetail.showVoiceView();
-                mLlTaskDetail.setVoices(getVoiceList(taskInfo));
 
-                break;
-            case GroupConstant.TASK_TYPE_WORD:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group42));
-                mLlTaskDetail.showWordView();
-
-                mLlTaskDetail.setFileInfos(getFileInfos(taskInfo));
-                break;
-            case GroupConstant.TASK_TYPE_SYNTHESIZE:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group44));
-                mLlTaskDetail.setText(taskInfo.getDesp());
-                mLlTaskDetail.showSynthesizeView();
-                mLlTaskDetail.setUriList(taskInfo.getBody().getImgs());
-                mLlTaskDetail.setVoices(getVoiceList(taskInfo));
-                mLlTaskDetail.setFileInfos(getFileInfos(taskInfo));
-                break;
-        }
+    @Override
+    public void hideStateView() {
+        stateView.hide();
     }
 
-
-    private List<Voice> getVoiceList(TaskInfo taskInfo) {
-        List<String> voice = taskInfo.getBody().getVoices();
-        List<Voice> voiceList = new ArrayList<>();
-        try {
-            if (voice != null && voice.size() > 0) {
-                for (String s : voice) {
-                    MediaPlayer mediaPlayer = new MediaPlayer();
-                    mediaPlayer.setDataSource(s);
-                    mediaPlayer.prepare();
-                    int duration = mediaPlayer.getDuration();
-                    int second = duration / 1000;
-                    mediaPlayer.reset();
-                    mediaPlayer.release();
-                    voiceList.add(new Voice(s, second + "''"));
-                }
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return voiceList;
+        });
     }
 
-
-    private List<FileInfo> getFileInfos(TaskInfo taskInfo) {
-
-        List<String> list = taskInfo.getBody().getDocs();
-        List<FileInfo> fileInfos = new ArrayList<>();
-        if (list != null && list.size() > 0) {
-            for (String s : list) {
-
-                FileInfo fileInfo = new FileInfo();
-                fileInfo.setFilePath(s);
-                fileInfo.setFileName(s.substring(s.lastIndexOf("/") + 1));
-                fileInfos.add(fileInfo);
-            }
-        }
-        return fileInfos;
+    @Override
+    public void showNoData() {
+        stateView.showNoData(llContainer);
     }
 
+    @Override
+    public void showLoading() {
+        stateView.showLoading(llContainer);
+    }
+
+    private void getData() {
+        mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), UserInfoHelper.getUserInfo().getUid());
+        mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
+    }
 }

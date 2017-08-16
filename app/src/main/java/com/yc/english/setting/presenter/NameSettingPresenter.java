@@ -12,6 +12,7 @@ import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.setting.contract.NameSettingContract;
 import com.yc.english.setting.model.engin.MyEngin;
 
@@ -58,11 +59,11 @@ public class NameSettingPresenter extends BasePresenter<MyEngin, NameSettingCont
                             public void run() {
                                 TipsHelper.tips(mContext, "修改成功");
                                 UserInfo userInfo = UserInfoHelper.getUserInfo();
-                                if(!StringUtils.isEmpty(name)) {
+                                if (!StringUtils.isEmpty(name)) {
                                     RongIMUtil.refreshUserInfo();
                                     userInfo.setNickname(name);
                                 }
-                                if(!StringUtils.isEmpty(school)) {
+                                if (!StringUtils.isEmpty(school)) {
                                     userInfo.setSchool(school);
                                 }
                                 UserInfoHelper.saveUserInfo(userInfo);

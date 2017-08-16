@@ -103,7 +103,6 @@ public class EngineUtils {
     }
 
 
-
     /**
      * @param class_id  班级ID 必传
      * @param name      班级名称 修改班群名称时传该字段
@@ -189,7 +188,27 @@ public class EngineUtils {
 
     }
 
-    public static Observable<ResultInfo<GroupApplyInfo>> applyJoinGroup(Context context,String user_id, String sn) {
+
+    /**
+     * 获取完成作业详情2
+     *
+     * @param context
+     * @param task_id
+     * @param user_id
+     * @return
+     */
+    public static Observable<ResultInfo<TaskInfoWrapper>> getDoneTaskDetail2(Context context, String task_id, String user_id) {
+
+        Map<String, String> params = new HashMap<>();
+        params.put("task_id", task_id);
+        params.put("user_id", user_id);
+
+        return HttpCoreEngin.get(context).rxpost(NetConstan.detail_do_task2, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
+        }.getType(), params, true, true, true);
+
+    }
+
+    public static Observable<ResultInfo<GroupApplyInfo>> applyJoinGroup(Context context, String user_id, String sn) {
 
         Map<String, String> params = new HashMap<>();
         params.put("user_id", user_id);

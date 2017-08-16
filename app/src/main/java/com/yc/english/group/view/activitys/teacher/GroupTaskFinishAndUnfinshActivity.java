@@ -1,37 +1,38 @@
 package com.yc.english.group.view.activitys.teacher;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupPublishTaskDetailContract;
 import com.yc.english.group.model.bean.StudentFinishTaskInfo;
 import com.yc.english.group.model.bean.StudentLookTaskInfo;
 import com.yc.english.group.model.bean.TaskInfo;
-import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupPublishTaskDetailPresenter;
+import com.yc.english.group.utils.TaskUtil;
 import com.yc.english.group.view.adapter.CommonAdapter;
 import com.yc.english.group.view.adapter.GroupPageAdapter;
 import com.yc.english.group.view.fragments.GroupFinishTaskFragment;
 import com.yc.english.group.view.fragments.GroupUnFinishTaskFragment;
 import com.yc.english.group.view.widget.MultifunctionLinearLayout;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import io.rong.imkit.model.FileInfo;
 
 /**
  * Created by wanglin  on 2017/7/28 12:55.
@@ -50,6 +51,10 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
     MagicIndicator mMagicIndicator;
     @BindView(R.id.m_viewPager)
     ViewPager mViewPager;
+    @BindView(R.id.stateView)
+    StateView stateView;
+    @BindView(R.id.ll_container)
+    LinearLayout llContainer;
     private String masterId;
     private List<Fragment> fragments = new ArrayList<>();
     private String taskId;
@@ -62,8 +67,7 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
             taskId = getIntent().getStringExtra("taskId");
             classId = getIntent().getStringExtra("classId");
             masterId = getIntent().getStringExtra("masterId");
-            mPresenter.getPublishTaskDetail(this, taskId, classId, "");
-            mPresenter.getIsFinishTaskList(classId, taskId);
+            getData();
         }
 
         mToolbar.setTitle(getString(R.string.task_detail));
@@ -81,46 +85,11 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
 
     @Override
     public void showPublishTaskDetail(TaskInfo taskInfo) {
-        setType(taskInfo);
         mTvIssueTime.setText(taskInfo.getAdd_date() + " " + taskInfo.getAdd_week() + " " + taskInfo.getAdd_time());
-
+        mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUSHLISH);
+        TaskUtil.showContextView(mIvTaskTypeIcon, taskInfo, mLlTaskDetail);
     }
 
-    private void setType(TaskInfo taskInfo) {
-        int type = Integer.parseInt(taskInfo.getType());
-        switch (type) {
-            case GroupConstant.TASK_TYPE_CHARACTER:
-                mIvTaskTypeIcon.setImageResource(R.mipmap.group36);
-                mLlTaskDetail.setText(taskInfo.getDesp());
-                mLlTaskDetail.showTextView();
-                break;
-            case GroupConstant.TASK_TYPE_PICTURE:
-                mIvTaskTypeIcon.setImageResource(R.mipmap.group40);
-                mLlTaskDetail.showPictureView();
-                mLlTaskDetail.setUriList(taskInfo.getBody().getImgs());
-                break;
-            case GroupConstant.TASK_TYPE_VOICE:
-                mIvTaskTypeIcon.setImageResource(R.mipmap.group38);
-                mLlTaskDetail.showVoiceView();
-                mLlTaskDetail.setVoices(getVoiceList(taskInfo));
-                break;
-            case GroupConstant.TASK_TYPE_WORD:
-                mIvTaskTypeIcon.setImageResource(R.mipmap.group42);
-                mLlTaskDetail.showWordView();
-                mLlTaskDetail.setFileInfos(getFileInfos(taskInfo));
-                break;
-            case GroupConstant.TASK_TYPE_SYNTHESIZE:
-                mIvTaskTypeIcon.setImageResource(R.mipmap.group44);
-                mLlTaskDetail.setText(taskInfo.getDesp());
-                mLlTaskDetail.showSynthesizeView();
-                mLlTaskDetail.setUriList(taskInfo.getBody().getImgs());
-                mLlTaskDetail.setVoices(getVoiceList(taskInfo));
-                mLlTaskDetail.setFileInfos(getFileInfos(taskInfo));
-                break;
-
-
-        }
-    }
 
     @Override
     public void showIsReadMemberList(StudentLookTaskInfo.ListBean data) {
@@ -169,42 +138,34 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
         ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
-    private List<Voice> getVoiceList(TaskInfo taskInfo) {
-        List<String> voice = taskInfo.getBody().getVoices();
-        List<Voice> voiceList = new ArrayList<>();
-        try {
-            if (voice != null && voice.size() > 0) {
-                for (String s : voice) {
-                    MediaPlayer mediaPlayer = new MediaPlayer();
-                    mediaPlayer.setDataSource(s);
-                    mediaPlayer.prepare();
-                    int duration = mediaPlayer.getDuration();
-                    int second = duration / 1000;
-                    mediaPlayer.reset();
-                    mediaPlayer.release();
-                    voiceList.add(new Voice(s, second + "''"));
-                }
+    @Override
+    public void hideStateView() {
+        stateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return voiceList;
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        stateView.showNoData(llContainer);
+    }
+
+    @Override
+    public void showLoading() {
+        stateView.showLoading(llContainer);
     }
 
 
-    private List<FileInfo> getFileInfos(TaskInfo taskInfo) {
-
-        List<String> list = taskInfo.getBody().getDocs();
-        List<FileInfo> fileInfos = new ArrayList<>();
-        if (list != null && list.size() > 0) {
-            for (String s : list) {
-
-                FileInfo fileInfo = new FileInfo();
-                fileInfo.setFilePath(s);
-                fileInfos.add(fileInfo);
-            }
-        }
-        return fileInfos;
+    private void getData() {
+        mPresenter.getPublishTaskDetail(this, taskId, classId, UserInfoHelper.getUserInfo().getUid());
+        mPresenter.getIsFinishTaskList(classId, taskId);
     }
-
 }

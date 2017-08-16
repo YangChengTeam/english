@@ -20,7 +20,7 @@ public class HttpConfig {
 
     public static final int PUBLICKEY_ERROR = -100;
 
-    public static final String NET_ERROR = "网络不给力,请稍后再试";
+    public static final String NET_ERROR = "网络不给力";
     public static final String SERVICE_ERROR = "服务器出现异常,请重试";
     public static final String JSON_ERROR = "数据解析异常";
 

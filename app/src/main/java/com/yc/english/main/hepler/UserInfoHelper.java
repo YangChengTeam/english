@@ -8,14 +8,17 @@ import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.TokenInfo;
 import com.yc.english.group.utils.ConnectUtils;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.main.view.activitys.LoginActivity;
 
 import rx.Observable;
@@ -66,6 +69,15 @@ public class UserInfoHelper {
         mUserInfo = null;
     }
 
+    public static void utils(Context context, ResultInfo<UserInfoWrapper> resultInfo){
+        UserInfoHelper.saveUserInfo(resultInfo.data.getInfo());
+        UserInfoHelper.connect(context, resultInfo.data.getInfo().getUid());
+        RxBus.get().post(Constant.USER_INFO, resultInfo.data.getInfo());
+        RxBus.get().post(BusAction.GROUPLIST, "from login");
+        SPUtils.getInstance().put(Constant.PHONE, resultInfo.data.getInfo().getMobile());
+        UserInfoHelper.connect(context, resultInfo.data.getInfo().getUid());
+    }
+
     public static void connect(final Context context, final String uid) {
         String token = SPUtils.getInstance().getString(ConnectUtils.TOKEN);
         if (!StringUtils.isEmpty(token)) {
@@ -111,7 +123,8 @@ public class UserInfoHelper {
         if (userInfo == null) {
             return;
         }
-        EnginHelper.login(context, userInfo.getName(), userInfo.getPwd()).subscribe(new Subscriber<ResultInfo<UserInfo>>
+        EnginHelper.login(context, userInfo.getName(), userInfo.getPwd()).subscribe(new
+                                                                                            Subscriber<ResultInfo<UserInfoWrapper>>
                 () {
             @Override
             public void onCompleted() {
@@ -129,7 +142,7 @@ public class UserInfoHelper {
             }
 
             @Override
-            public void onNext(final ResultInfo<UserInfo> userInfoResultInfo) {
+            public void onNext(final ResultInfo<UserInfoWrapper> userInfoResultInfo) {
                 ResultInfoHelper.handleResultInfo(userInfoResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
@@ -148,8 +161,8 @@ public class UserInfoHelper {
 
                     @Override
                     public void reulstInfoOk() {
-                        UserInfoHelper.saveUserInfo(userInfoResultInfo.data);
-                        UserInfoHelper.connect(context, userInfoResultInfo.data.getUid());
+                        UserInfoHelper.saveUserInfo(userInfoResultInfo.data.getInfo());
+                        UserInfoHelper.connect(context, userInfoResultInfo.data.getInfo().getUid());
                     }
                 });
             }

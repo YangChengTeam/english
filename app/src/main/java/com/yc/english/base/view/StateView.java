@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.RequestOptions;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 
@@ -58,29 +60,31 @@ public class StateView extends BaseView {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mLoadingImageView.getLayoutParams();
         layoutParams.width = SizeUtils.dp2px(1080/3);
         layoutParams.height = SizeUtils.dp2px(408/3);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         mLoadingImageView.setLayoutParams(layoutParams);
+        mLoadingImageView.invalidate();
         mContextView = contextView;
-
+        mMessageTextView.setText("");
         setVisibility(View.VISIBLE);
         mRefreshButton.setVisibility(View.GONE);
         mContextView.setVisibility(View.GONE);
-        Glide.with(this).load(R.mipmap.base_loading).into(mLoadingImageView);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.override(SizeUtils.dp2px(1080/3), SizeUtils.dp2px(408/3));
+        Glide.with(this).load(R.mipmap.base_loading).apply(requestOptions).into(mLoadingImageView);
     }
 
     public void showNoData(View contextView, String message) {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mLoadingImageView.getLayoutParams();
         layoutParams.width = SizeUtils.dp2px(312/3);
         layoutParams.height = SizeUtils.dp2px(370/3);
-        layoutParams.setMargins(0, SizeUtils.dp2px(130), 0, 0);
-        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         mLoadingImageView.setLayoutParams(layoutParams);
         mContextView = contextView;
         setVisibility(View.VISIBLE);
         mRefreshButton.setVisibility(View.GONE);
         mContextView.setVisibility(View.GONE);
         mMessageTextView.setText(message);
-        Glide.with(this).load(R.mipmap.base_no_data).into(mLoadingImageView);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.override(SizeUtils.dp2px(312/3), SizeUtils.dp2px(370/3));
+        Glide.with(this).load(R.mipmap.base_no_data).apply(requestOptions).into(mLoadingImageView);
     }
 
     public void showNoData(View contextView) {
@@ -91,15 +95,15 @@ public class StateView extends BaseView {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mLoadingImageView.getLayoutParams();
         layoutParams.width = SizeUtils.dp2px(312/3);
         layoutParams.height = SizeUtils.dp2px(370/3);
-        layoutParams.setMargins(0, SizeUtils.dp2px(130), 0, 0);
-        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         mLoadingImageView.setLayoutParams(layoutParams);
         mContextView = contextView;
         setVisibility(View.VISIBLE);
         mContextView.setVisibility(View.GONE);
         mRefreshButton.setVisibility(View.VISIBLE);
         mMessageTextView.setText(message);
-        Glide.with(this).load(R.mipmap.base_no_wifi).into(mLoadingImageView);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.override(SizeUtils.dp2px(312/3), SizeUtils.dp2px(370/3));
+        Glide.with(this).load(R.mipmap.base_no_wifi).apply(requestOptions).into(mLoadingImageView);
         RxView.clicks(mRefreshButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {

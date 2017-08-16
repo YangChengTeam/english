@@ -31,4 +31,13 @@ public class GlideHelper {
         options.placeholder(placehorder);
         Glide.with(context).load(url).apply(options).into(imageView);
     }
+
+    public static void imageView(final Context context, ImageView imageView, String url, int
+            placehorder, int width , int height) {
+        RequestOptions options = new RequestOptions();
+        options.placeholder(placehorder);
+        options.override(width, height);
+        Glide.with(context).load(url).apply(options).into(imageView);
+    }
+
 }

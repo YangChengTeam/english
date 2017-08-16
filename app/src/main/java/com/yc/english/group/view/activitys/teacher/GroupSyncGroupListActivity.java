@@ -1,35 +1,33 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.bumptech.glide.manager.Lifecycle;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupSyncGroupContract;
 import com.yc.english.group.listener.OnCheckedChangeListener;
 import com.yc.english.group.model.bean.ClassInfo;
-import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupSyncGroupPresenter;
 import com.yc.english.group.view.adapter.GroupSyncListAdapter;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.functions.Action1;
 
 /**
@@ -41,6 +39,10 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
     RecyclerView mRecyclerView;
     @BindView(R.id.m_tv_confirm_sync_group)
     TextView mTvConfirmSyncGroup;
+    @BindView(R.id.stateView)
+    StateView stateView;
+    @BindView(R.id.ll_container)
+    LinearLayout llContainer;
     private GroupSyncListAdapter adapter;
     private static final String TAG = "GroupSyncGroupListActiv";
     private String classId;
@@ -142,4 +144,32 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
     public void onBackPressed() {
         setSyncResult();
     }
+
+    @Override
+    public void hideStateView() {
+        stateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uid = UserInfoHelper.getUserInfo().getUid();
+                mPresenter.getGroupList(GroupSyncGroupListActivity.this, uid, "1");
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        stateView.showNoData(llContainer);
+    }
+
+    @Override
+    public void showLoading() {
+        stateView.showLoading(llContainer);
+    }
+
+
 }

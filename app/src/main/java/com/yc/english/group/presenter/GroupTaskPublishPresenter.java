@@ -114,16 +114,17 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
     }
 
     @Override
-    public void uploadFile(Context context,File file, String fileName, String name) {
-        Subscription subscription = EngineUtils.uploadFile(context,file, fileName, name).subscribe(new Subscriber<ResultInfo<TaskUploadInfo>>() {
+    public void uploadFile(Context context, File file, String fileName, String name) {
+        mView.showLoadingDialog("正在上传中...");
+        Subscription subscription = EngineUtils.uploadFile(context, file, fileName, name).subscribe(new Subscriber<ResultInfo<TaskUploadInfo>>() {
             @Override
             public void onCompleted() {
-
+                mView.dismissLoadingDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-
+                mView.dismissLoadingDialog();
             }
 
             @Override
@@ -132,6 +133,7 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
                     @Override
                     public void run() {
                         mView.showUploadReslut(taskUploadInfoResultInfo.data.getFile_path());
+                        mView.showFile();
                     }
                 });
             }

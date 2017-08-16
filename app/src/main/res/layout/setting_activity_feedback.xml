@@ -65,7 +65,7 @@
             android:layout_below="@+id/si_qq"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="972403325"
+            android:text="642708280"
             android:textColor="@color/black_333"
             android:textSize="@dimen/font_small"/>
 
@@ -87,7 +87,7 @@
             android:layout_below="@+id/si_tel"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="15902742354"
+            android:text="15926287915"
             android:textColor="@color/black_333"
             android:textSize="@dimen/font_small"/>
 
@@ -101,6 +101,7 @@
             android:gravity="center"
             android:text="027-88888888"
             android:textColor="@color/black_333"
-            android:textSize="@dimen/font_small"/>
+            android:textSize="@dimen/font_small"
+            android:visibility="gone"/>
     </RelativeLayout>
 </LinearLayout>

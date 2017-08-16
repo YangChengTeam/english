@@ -25,6 +25,7 @@ public class TaskInfo implements Parcelable {
     private String id;
     private List<String> class_ids;
     private String publisher;
+    private String master_id;
 
 
     private String add_date;
@@ -50,6 +51,7 @@ public class TaskInfo implements Parcelable {
         body = source.readParcelable(TaskInfo.class.getClassLoader());
         user_id = source.readString();
         is_done =source.readInt();
+        master_id=source.readString();
 
     }
 
@@ -181,6 +183,14 @@ public class TaskInfo implements Parcelable {
         this.is_done = is_done;
     }
 
+    public String getMaster_id() {
+        return master_id;
+    }
+
+    public void setMaster_id(String master_id) {
+        this.master_id = master_id;
+    }
+
     public static final Creator<TaskInfo> CREATOR = new Creator<TaskInfo>() {
 
         @Override
@@ -208,6 +218,7 @@ public class TaskInfo implements Parcelable {
         dest.writeParcelable(body, flags);
         dest.writeString(user_id);
         dest.writeInt(is_done);
+        dest.writeString(master_id);
 
     }
 

@@ -1,15 +1,19 @@
 package com.yc.english.group.view.adapter;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
+import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.hwangjr.rxbus.RxBus;
 import com.yc.english.R;
 import com.yc.english.base.helper.RxUtils;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.group.constant.BusAction;
 
 import java.io.File;
@@ -61,19 +65,28 @@ public class GroupFileAdapter extends BaseAdapter<FileInfo> {
                     Message message = Message.obtain("", Conversation.ConversationType.GROUP, fileMessage);
                     intent.putExtra("FileMessage", fileMessage);
                     intent.putExtra("Message", message);
+                    mContext.startActivity(intent);
                 } else {
                     RxUtils.getFile(mContext, result.getFilePath()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<File>() {
                         @Override
                         public void call(File file) {
-                            Uri uri = Uri.parse("file://" + file.getAbsolutePath());
-                            FileMessage fileMessage = FileMessage.obtain(uri);
-                            Message message = Message.obtain("", Conversation.ConversationType.GROUP, fileMessage);
-                            intent.putExtra("FileMessage", fileMessage);
-                            intent.putExtra("Message", message);
+                            MimeTypeMap myMime = MimeTypeMap.getSingleton();
+                            Intent newIntent = new Intent(Intent.ACTION_VIEW);
+                            String mimeType = null;
+                            if (file.getPath().lastIndexOf(".") != -1) {
+                                mimeType = myMime.getMimeTypeFromExtension(file.getPath().substring(file.getPath().lastIndexOf(".") + 1));
+                            }
+                            newIntent.setDataAndType(Uri.fromFile(file), mimeType);
+                            newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            try {
+                                mContext.startActivity(newIntent);
+                            } catch (ActivityNotFoundException e) {
+                                TipsHelper.tips(mContext, "未知文件类型");
+                            }
                         }
                     });
                 }
-                mContext.startActivity(intent);
+
             }
         });
 

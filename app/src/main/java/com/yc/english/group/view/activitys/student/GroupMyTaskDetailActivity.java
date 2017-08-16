@@ -1,33 +1,36 @@
 package com.yc.english.group.view.activitys.student;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.media.MediaPlayer;
 import android.net.Uri;
-import android.provider.MediaStore;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.TimeUtils;
+import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.helper.AudioRecordManager;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupDoTaskDetailContract;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupDoTaskDetailPresenter;
+import com.yc.english.group.utils.TaskUtil;
 import com.yc.english.group.view.adapter.GroupFileAdapter;
 import com.yc.english.group.view.adapter.GroupPictureAdapter;
 import com.yc.english.group.view.adapter.GroupVoiceAdapter;
@@ -35,8 +38,6 @@ import com.yc.english.group.view.widget.MultifunctionLinearLayout;
 import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -44,6 +45,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imkit.activity.FileListActivity;
 import io.rong.imkit.model.FileInfo;
@@ -65,16 +67,25 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     MultifunctionLinearLayout mLlTaskDetail;
     @BindView(R.id.m_et_finish_task)
     EditText mEtFinishTask;
-
     @BindView(R.id.voice_recyclerView)
     RecyclerView voiceRecyclerView;
-
     @BindView(R.id.file_recyclerView)
     RecyclerView fileRecyclerView;
     @BindView(R.id.m_btn_submit)
     Button mBtnSubmit;
     @BindView(R.id.recyclerView_picture)
     RecyclerView recyclerViewPicture;
+    @BindView(R.id.ll_do_task)
+    LinearLayout llDoTask;
+    @BindView(R.id.do_multifunctionLinearLayout)
+    MultifunctionLinearLayout doMultifunctionLinearLayout;
+    @BindView(R.id.ll_done_task)
+    LinearLayout llDoneTask;
+    @BindView(R.id.stateView)
+    StateView stateView;
+    @BindView(R.id.sl_container)
+    ScrollView slContainer;
+
 
     private List<Uri> uriList;
     private GroupVoiceAdapter voiceAdapter;
@@ -91,9 +102,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
         if (getIntent() != null) {
             String taskDetailInfo = getIntent().getStringExtra("extra");
             taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
-            if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupId())) {
-                mPresenter.getPublishTaskDetail(this, taskInfo.getId(), GroupInfoHelper.getGroupId(), "");
-            }
+            getData();
         }
         RxView.clicks(mBtnSubmit).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -116,6 +125,24 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
         fileAdapter = new GroupFileAdapter(this, true, null);
         fileRecyclerView.setAdapter(fileAdapter);
 
+        recyclerViewPicture.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction()==MotionEvent.ACTION_UP){
+                    startActivityForResult(new Intent(GroupMyTaskDetailActivity.this, PictureSelectorActivity.class), 300);
+                }
+                return false;
+            }
+        });
+    }
+
+
+    private void getData() {
+
+        if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupId())) {
+            mPresenter.getPublishTaskDetail(this, taskInfo.getId(), GroupInfoHelper.getGroupId(), UserInfoHelper.getUserInfo().getUid());
+        }
+        mPresenter.getDoneTaskDetail(this, taskInfo.getId(), UserInfoHelper.getUserInfo().getUid());
     }
 
     private void doTask(String desc) {
@@ -158,18 +185,17 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     }
 
 
-    @OnClick({R.id.m_iv_issue_picture, R.id.m_iv_issue_voice, R.id.m_iv_issue_file})
+    @OnClick({R.id.m_ll_issue_picture,R.id.m_ll_issue_voice, R.id.m_ll_issue_file})
     public void onClick(View v) {
+        TipsHelper.tips(GroupMyTaskDetailActivity.this, "onClick");
         switch (v.getId()) {
-
-            case R.id.m_iv_issue_picture:
+            case R.id.m_ll_issue_picture:
                 startActivityForResult(new Intent(this, PictureSelectorActivity.class), 300);
                 break;
-            case R.id.m_iv_issue_voice:
+            case R.id.m_ll_issue_voice:
                 audioRecord(v);
                 break;
-
-            case R.id.m_iv_issue_file:
+            case R.id.m_ll_issue_file:
                 Intent intent = new Intent(this, FileListActivity.class);
                 intent.putExtra("rootDirType", 100);
                 intent.putExtra("fileFilterType", 5);
@@ -197,16 +223,14 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
                 for (Uri uri : uriList) {
                     pictureList.add(uri.getPath());
                 }
-                adapter.setData(pictureList);
-                recyclerViewPicture.setVisibility(View.VISIBLE);
-            } else {
-                recyclerViewPicture.setVisibility(View.GONE);
-            }
-            for (Uri uri : uriList) {//上传图片
-                String path = uri.getPath();// "file:///mnt/sdcard/FileName.mp3"
-                File file = new File(path);
-                String substring = path.substring(path.lastIndexOf("/") + 1);
-                mPresenter.uploadFile(this, file, substring, substring);
+                setFileInfo(adapter, pictureList);
+
+                for (Uri uri : uriList) {//上传图片
+                    String path = uri.getPath();// "file:///mnt/sdcard/FileName.mp3"
+                    File file = new File(path);
+                    String substring = path.substring(path.lastIndexOf("/") + 1);
+                    mPresenter.uploadFile(this, file, substring, substring);
+                }
             }
         }
         if (requestCode == 500 && data != null) {
@@ -216,22 +240,24 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
                 FileInfo fileInfo = (FileInfo) iterator.next();
                 Uri filePath = Uri.parse("file://" + fileInfo.getFilePath());
                 File file = new File(filePath.getPath());
-                mPresenter.uploadFile(this, file, fileInfo.getFileName(), "");
                 fileInfos.add(fileInfo);
+                setFileInfo(fileAdapter, fileInfos);
+                mPresenter.uploadFile(this, file, fileInfo.getFileName(), "");
+
             }
             fileAdapter.setData(fileInfos);
-
         }
 
     }
 
     @Override
     public void showTaskDetail(TaskInfo taskInfo) {
-
-        setTaskType(taskInfo);
-
         mTvIssueTime.setText(taskInfo.getAdd_date() + " " + taskInfo.getAdd_week() + " " +
-                TimeUtils.date2String(TimeUtils.millis2Date(Long.parseLong(taskInfo.getAdd_time())), new SimpleDateFormat("HH:mm:ss")));
+                taskInfo.getAdd_time());
+        mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUSHLISH);
+        TaskUtil.showContextView(mIvTaskTypeIcon, taskInfo, mLlTaskDetail);
+
+
     }
 
     private List<String> picturePath = new ArrayList<>();
@@ -248,96 +274,34 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     }
 
     @Override
+    public void showFile() {
+        mAdapter.setData(mList);
+    }
+
+    @Override
     public void showDoneWorkResult(TaskInfo data) {
-
+        doMultifunctionLinearLayout.setType(MultifunctionLinearLayout.Type.DONE);
+        TaskUtil.showContextView(mIvTaskTypeIcon, data, doMultifunctionLinearLayout);
+        showPage(data);
     }
 
-    private void setTaskType(TaskInfo taskInfo) {
-        int type = Integer.parseInt(taskInfo.getType());
-        switch (type) {
-            case GroupConstant.TASK_TYPE_CHARACTER:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group36));
-                mLlTaskDetail.setText(taskInfo.getDesp());
-                mLlTaskDetail.showTextView();
-                break;
-            case GroupConstant.TASK_TYPE_PICTURE:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group40));
-                mLlTaskDetail.showPictureView();
-                mLlTaskDetail.setUriList(taskInfo.getBody().getImgs());
-                break;
-            case GroupConstant.TASK_TYPE_VOICE:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group38));
-                mLlTaskDetail.showVoiceView();
-                mLlTaskDetail.setVoices(getVoiceList(taskInfo));
+    private BaseAdapter mAdapter;
+    private List mList;
 
-                break;
-            case GroupConstant.TASK_TYPE_WORD:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group42));
-                mLlTaskDetail.showWordView();
-
-                mLlTaskDetail.setFileInfos(getFileInfos(taskInfo));
-                break;
-            case GroupConstant.TASK_TYPE_SYNTHESIZE:
-                mIvTaskTypeIcon.setImageDrawable(getResources().getDrawable(R.mipmap.group44));
-                mLlTaskDetail.setText(taskInfo.getDesp());
-                mLlTaskDetail.showSynthesizeView();
-                mLlTaskDetail.setUriList(taskInfo.getBody().getImgs());
-                mLlTaskDetail.setVoices(getVoiceList(taskInfo));
-                mLlTaskDetail.setFileInfos(getFileInfos(taskInfo));
-                break;
-        }
+    private void setFileInfo(BaseAdapter adapter, List list) {
+        this.mAdapter = adapter;
+        this.mList = list;
     }
-
-
-    private List<Voice> getVoiceList(TaskInfo taskInfo) {
-        List<String> voice = taskInfo.getBody().getVoices();
-        List<Voice> voiceList = new ArrayList<>();
-
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        try {
-            if (voice != null && voice.size() > 0) {
-                for (String s : voice) {
-                    mediaPlayer.setDataSource(s);
-                    mediaPlayer.prepare();
-                    int duration = mediaPlayer.getDuration();
-                    int second = duration / 1000;
-                    mediaPlayer.release();
-
-                    voiceList.add(new Voice(s, second + "''"));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return voiceList;
-    }
-
-
-    private List<FileInfo> getFileInfos(TaskInfo taskInfo) {
-
-        List<String> list = taskInfo.getBody().getDocs();
-        List<FileInfo> fileInfos = new ArrayList<>();
-        if (list != null && list.size() > 0) {
-            for (String s : list) {
-
-                FileInfo fileInfo = new FileInfo();
-                fileInfo.setFilePath(s);
-                fileInfos.add(fileInfo);
-            }
-        }
-        return fileInfos;
-    }
-
 
     private void audioRecord(View view) {
         AudioRecordManager.getInstance().startRecord(view);
         AudioRecordManager.getInstance().setCallback(new AudioRecordManager.Callback() {
             @Override
             public void onSuccess(File file, int duration) {
-
                 Voice voice = new Voice(file, duration + "''");
                 voiceList.add(voice);
-                voiceAdapter.setData(voiceList);
+                setFileInfo(voiceAdapter, voiceList);
+                mPresenter.uploadFile(GroupMyTaskDetailActivity.this, file, file.getPath().substring(file.getPath().lastIndexOf("/") + 1), "");
                 LogUtils.i("AudioRecordManager" + file);
             }
 
@@ -346,8 +310,52 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
 
             }
         });
+    }
 
+    private void showPage(TaskInfo info) {
+        if (info != null) {
+            if (info.getIs_done() == 1) {
+                llDoneTask.setVisibility(View.VISIBLE);
+                llDoTask.setVisibility(View.GONE);
+            } else {
+                llDoneTask.setVisibility(View.GONE);
+                llDoTask.setVisibility(View.VISIBLE);
+            }
+        }
 
     }
 
+
+    @Override
+    public void hideStateView() {
+        stateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(slContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        stateView.showNoData(slContainer);
+    }
+
+    @Override
+    public void showLoading() {
+        stateView.showLoading(slContainer);
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

@@ -1,12 +1,16 @@
 package com.yc.english.group.view.activitys.student;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupDoTaskListContract;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.presenter.GroupDoTaskListPresenter;
@@ -17,6 +21,7 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/7/28 08:57.
@@ -25,14 +30,17 @@ import butterknife.BindView;
 public class GroupMyTaskListActivity extends FullScreenActivity<GroupDoTaskListPresenter> implements GroupDoTaskListContract.View {
     @BindView(R.id.m_recyclerView)
     RecyclerView mRecyclerView;
+    @BindView(R.id.stateView)
+    StateView stateView;
     private GroupMyTaskListAdapter adapter;
+    private String targetId;
 
     @Override
     public void init() {
         mPresenter = new GroupDoTaskListPresenter(this, this);
 
         if (getIntent() != null) {
-            String targetId = getIntent().getStringExtra("targetId");
+            targetId = getIntent().getStringExtra("targetId");
             mPresenter.getDoTaskList(targetId, UserInfoHelper.getUserInfo().getUid());
 
         }
@@ -66,5 +74,31 @@ public class GroupMyTaskListActivity extends FullScreenActivity<GroupDoTaskListP
     @Override
     public void showDoneTaskResult(List<TaskAllInfoWrapper.TaskAllInfo> list) {
         adapter.setData(list);
+    }
+
+
+    @Override
+    public void hideStateView() {
+        stateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(mRecyclerView, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getDoTaskList(targetId, UserInfoHelper.getUserInfo().getUid());
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        stateView.showNoData(mRecyclerView);
+    }
+
+    @Override
+    public void showLoading() {
+        stateView.showLoading(mRecyclerView);
     }
 }

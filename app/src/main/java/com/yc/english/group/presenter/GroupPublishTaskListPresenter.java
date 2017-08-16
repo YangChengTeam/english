@@ -3,10 +3,13 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupPublishTaskListContract;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.model.engin.GroupPublishTaskListEngine;
+
+import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -29,6 +32,7 @@ public class GroupPublishTaskListPresenter extends BasePresenter<GroupPublishTas
 
     @Override
     public void getPublishTaskList(String publisher, String class_id) {
+        mView.showLoading();
         Subscription subscription = mEngin.getPublishTaskList(publisher, class_id).subscribe(new Subscriber<ResultInfo<TaskAllInfoWrapper>>() {
             @Override
             public void onCompleted() {
@@ -37,20 +41,40 @@ public class GroupPublishTaskListPresenter extends BasePresenter<GroupPublishTas
 
             @Override
             public void onError(Throwable e) {
-
+                mView.showNoNet();
             }
 
             @Override
             public void onNext(final ResultInfo<TaskAllInfoWrapper> stringResultInfo) {
-                handleResultInfo(stringResultInfo, new Runnable() {
+                ResultInfoHelper.handleResultInfo(stringResultInfo, new ResultInfoHelper.Callback() {
                     @Override
-                    public void run() {
-                        mView.showPublishTaskList(stringResultInfo.data.getList());
+                    public void resultInfoEmpty(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        mView.showNoData();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (stringResultInfo.data != null) {
+
+                            List<TaskAllInfoWrapper.TaskAllInfo> list = stringResultInfo.data.getList();
+                            if (list != null && list.size() > 0) {
+                                mView.showPublishTaskList(list);
+                                mView.hideStateView();
+                            } else {
+                                mView.showNoData();
+                            }
+                        } else {
+                            mView.showNoData();
+                        }
                     }
                 });
             }
         });
         mSubscriptions.add(subscription);
-
     }
 }

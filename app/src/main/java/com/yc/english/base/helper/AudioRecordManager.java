@@ -265,7 +265,6 @@ public class AudioRecordManager implements Callback {
                     AudioRecordManager.this.mAfChangeListener = null;
                     AudioRecordManager.this.sendEmptyMessage(6);
                 }
-
             }
         };
         this.sendEmptyMessage(1);

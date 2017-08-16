@@ -64,8 +64,8 @@
 
         <ImageView
             android:id="@+id/roundView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/group_distance_30"
+            android:layout_height="@dimen/group_distance_30"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/default_avatar" />
 

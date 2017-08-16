@@ -7,6 +7,7 @@ import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.model.bean.TokenInfo;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 
 import rx.Observable;
 
@@ -19,7 +20,7 @@ public class LoginEngin extends BaseEngin {
         super(context);
     }
 
-    public Observable<ResultInfo<UserInfo>> login(String username, String pwd){
+    public Observable<ResultInfo<UserInfoWrapper>> login(String username, String pwd){
         return EnginHelper.login(mContext, username, pwd);
     }
 
