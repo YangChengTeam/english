@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/7/28 12:55.
@@ -55,6 +56,8 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
     StateView stateView;
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
+    @BindView(R.id.ll_look_container)
+    LinearLayout llLookContainer;
     private String masterId;
     private List<Fragment> fragments = new ArrayList<>();
     private String taskId;
@@ -101,41 +104,46 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
 
     @Override
     public void showIsFinishMemberList(StudentFinishTaskInfo.ListBean list) {
-        ArrayList<StudentFinishTaskInfo.ListBean.NoDoneListBean> done_list = list.getDone_list();
-        ArrayList<StudentFinishTaskInfo.ListBean.NoDoneListBean> nodone_list = list.getNodone_list();
-        if (nodone_list != null && nodone_list.size() > 0) {
-            noDone_List = nodone_list.size();
+        if (list != null) {
+            llLookContainer.setVisibility(View.VISIBLE);
+            ArrayList<StudentFinishTaskInfo.ListBean.NoDoneListBean> done_list = list.getDone_list();
+            ArrayList<StudentFinishTaskInfo.ListBean.NoDoneListBean> nodone_list = list.getNodone_list();
+            if (nodone_list != null && nodone_list.size() > 0) {
+                noDone_List = nodone_list.size();
+            }
+            if (done_list != null && done_list.size() > 0) {
+                done_List = done_list.size();
+            }
+
+            CommonNavigator commonNavigator = new CommonNavigator(this);
+            commonNavigator.setAdapter(new CommonAdapter(this, 1, mViewPager, done_List, noDone_List));
+            commonNavigator.setAdjustMode(true);
+            mMagicIndicator.setNavigator(commonNavigator);
+
+            Bundle doneBundle = new Bundle();
+            Bundle noDoneBundle = new Bundle();
+            doneBundle.putParcelableArrayList("done_list", done_list);
+            doneBundle.putString("taskId", taskId);
+            doneBundle.putString("classId", classId);
+            doneBundle.putString("masterId", masterId);
+
+            noDoneBundle.putParcelableArrayList("noDone_list", nodone_list);
+
+            GroupFinishTaskFragment groupFinishTaskFragment = new GroupFinishTaskFragment();
+            groupFinishTaskFragment.setArguments(doneBundle);
+
+            GroupUnFinishTaskFragment groupUnFinishTaskFragment = new GroupUnFinishTaskFragment();
+            groupUnFinishTaskFragment.setArguments(noDoneBundle);
+
+            fragments.add(groupFinishTaskFragment);
+            fragments.add(groupUnFinishTaskFragment);
+
+            mViewPager.setAdapter(new GroupPageAdapter(getSupportFragmentManager(), fragments));
+
+            ViewPagerHelper.bind(mMagicIndicator, mViewPager);
+        } else {
+            llLookContainer.setVisibility(View.GONE);
         }
-        if (done_list != null && done_list.size() > 0) {
-            done_List = done_list.size();
-        }
-
-        CommonNavigator commonNavigator = new CommonNavigator(this);
-        commonNavigator.setAdapter(new CommonAdapter(this, 1, mViewPager, done_List, noDone_List));
-        commonNavigator.setAdjustMode(true);
-        mMagicIndicator.setNavigator(commonNavigator);
-
-        Bundle doneBundle = new Bundle();
-        Bundle noDoneBundle = new Bundle();
-        doneBundle.putParcelableArrayList("done_list", done_list);
-        doneBundle.putString("taskId", taskId);
-        doneBundle.putString("classId", classId);
-        doneBundle.putString("masterId", masterId);
-
-        noDoneBundle.putParcelableArrayList("noDone_list", nodone_list);
-
-        GroupFinishTaskFragment groupFinishTaskFragment = new GroupFinishTaskFragment();
-        groupFinishTaskFragment.setArguments(doneBundle);
-
-        GroupUnFinishTaskFragment groupUnFinishTaskFragment = new GroupUnFinishTaskFragment();
-        groupUnFinishTaskFragment.setArguments(noDoneBundle);
-
-        fragments.add(groupFinishTaskFragment);
-        fragments.add(groupUnFinishTaskFragment);
-
-        mViewPager.setAdapter(new GroupPageAdapter(getSupportFragmentManager(), fragments));
-
-        ViewPagerHelper.bind(mMagicIndicator, mViewPager);
     }
 
     @Override
@@ -167,5 +175,12 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
     private void getData() {
         mPresenter.getPublishTaskDetail(this, taskId, classId, UserInfoHelper.getUserInfo().getUid());
         mPresenter.getIsFinishTaskList(classId, taskId);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

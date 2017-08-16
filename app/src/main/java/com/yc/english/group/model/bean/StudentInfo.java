@@ -1,5 +1,7 @@
 package com.yc.english.group.model.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
@@ -26,6 +28,7 @@ public class StudentInfo implements IndexableEntity{
     private String sn;//群号
     private String master_id;//
     private boolean isAudit;//是否审核，true表示已审核 false 表示未审核
+    @JSONField(name = "user_face")
     private String face;
 
     @Generated(hash = 939309314)
