@@ -19,6 +19,7 @@ import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupScoreTaskPresenter;
 import com.yc.english.group.utils.TaskUtil;
 import com.yc.english.group.view.widget.MultifunctionLinearLayout;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
                 String taskDetail = getIntent().getStringExtra("extra");
                 TaskInfo taskInfo = JSONObject.parseObject(taskDetail, TaskInfo.class);
                 doneId = taskInfo.getId();
-                mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), "");
+                mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid());
                 mPresenter.getDoneTaskDetail(this, taskInfo.getId(), taskInfo.getUser_id());
             } else {
                 String taskId = getIntent().getStringExtra("mTaskId");

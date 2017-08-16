@@ -90,8 +90,7 @@ public class DoTaskTaskMessageProvider extends IContainerItemProvider.MessagePro
         if (taskInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
             intent = new Intent(mContext, GroupTaskFinishDetailActivity.class);
         } else {
-//            intent = new Intent(mContext, GroupTaskGradeActivity.class);
-            intent = new Intent(mContext, GroupMyTaskDetailActivity.class);
+            intent = new Intent(mContext, GroupTaskGradeActivity.class);
         }
 
         intent.putExtra("extra", richContentMessage.getExtra());

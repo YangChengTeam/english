@@ -127,8 +127,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
 
 
     private void getData() {
-        if (taskInfo.getClass_ids() != null) {
-        }
+
         if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupId())) {
             mPresenter.getPublishTaskDetail(this, taskInfo.getId(), GroupInfoHelper.getGroupId(), UserInfoHelper.getUserInfo().getUid());
         }

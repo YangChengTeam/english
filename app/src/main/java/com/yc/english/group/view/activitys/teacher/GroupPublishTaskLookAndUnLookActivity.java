@@ -21,11 +21,13 @@ import com.yc.english.group.model.bean.StudentLookTaskInfo;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupPublishTaskDetailPresenter;
+import com.yc.english.group.utils.TaskUtil;
 import com.yc.english.group.view.adapter.CommonAdapter;
 import com.yc.english.group.view.adapter.GroupPageAdapter;
 import com.yc.english.group.view.fragments.GroupLookTaskFragment;
 import com.yc.english.group.view.fragments.GroupUnLookTaskFragment;
 import com.yc.english.group.view.widget.MultifunctionLinearLayout;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -67,7 +69,7 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
         if (getIntent() != null) {
             taskDetailInfo = getIntent().getStringExtra("extra");
             taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
-            mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), "");
+            mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), UserInfoHelper.getUserInfo().getUid());
             mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
 
         }
@@ -106,8 +108,10 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
     @Override
     public void showPublishTaskDetail(TaskInfo taskInfo) {
 
-        mTvIssueTime.setText(taskInfo.getAdd_date() + " " + taskInfo.getAdd_week() + " " +
-                TimeUtils.date2String(TimeUtils.millis2Date(Long.parseLong(taskInfo.getAdd_time())), new SimpleDateFormat("HH:mm:ss")));
+        mTvIssueTime.setText(taskInfo.getAdd_date() + " " + taskInfo.getAdd_week() + " " + taskInfo.getAdd_time());
+        mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUSHLISH);
+        TaskUtil.showContextView(mIvTaskTypeIcon, taskInfo, mLlTaskDetail);
+
 
     }
 
@@ -158,7 +162,6 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
     public void showIsFinishMemberList(StudentFinishTaskInfo.ListBean list) {
 
     }
-
 
 
 }

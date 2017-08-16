@@ -39,6 +39,7 @@ public class GroupDoTaskListPresenter extends BasePresenter<GroupDoTaskListEngin
 
             @Override
             public void onNext(final ResultInfo<TaskAllInfoWrapper> taskDoneInfoWrapperResultInfo) {
+
                 handleResultInfo(taskDoneInfoWrapperResultInfo, new Runnable() {
                     @Override
                     public void run() {
