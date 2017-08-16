@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
@@ -70,7 +71,12 @@ public class AssignTaskPlugin implements IPluginModule {
 
             TaskInfo taskInfo = intent.getParcelableExtra("task");
 
-            RichContentMessage customMessage = RichContentMessage.obtain("家庭作业", taskInfo.getDesp(), "");
+            String desp = taskInfo.getDesp();
+            if (TextUtils.isEmpty(desp)){
+                desp="点击查看详情";
+            }
+
+            RichContentMessage customMessage = RichContentMessage.obtain("家庭作业", desp, "");
             customMessage.setExtra(JSONObject.toJSONString(taskInfo));
 //
             Message message = Message.obtain(targetId, conversationType, customMessage);

@@ -2,8 +2,10 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
+import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupApplyVerifyContract;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.engin.GroupApplyVerifyEngine;
@@ -96,6 +98,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
                     @Override
                     public void run() {
                         mView.showApplyResult(stringResultInfo.data);
+                        RxBus.get().post(BusAction.GROUPLIST,"join Group");
                     }
                 });
             }

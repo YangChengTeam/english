@@ -50,7 +50,8 @@
                     android:gravity="center"
                     android:text="9"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/group_text_12" />
+                    android:textSize="@dimen/group_text_12"
+                    android:visibility="invisible"/>
 
             </RelativeLayout>
 
@@ -85,7 +86,8 @@
                     android:layout_alignParentRight="true"
                     android:text="[有新作业]"
                     android:textColor="@color/group_orange_ff9a00"
-                    android:textSize="@dimen/group_text_14" />
+                    android:textSize="@dimen/group_text_14"
+                    android:visibility="invisible"/>
             </RelativeLayout>
 
         </LinearLayout>

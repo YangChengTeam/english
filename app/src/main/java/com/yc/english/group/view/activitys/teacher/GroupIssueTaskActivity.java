@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +31,7 @@ import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupTaskPublishPresenter;
+import com.yc.english.group.view.activitys.student.GroupMyTaskDetailActivity;
 import com.yc.english.group.view.adapter.GroupFileAdapter;
 import com.yc.english.group.view.adapter.GroupPictureAdapter;
 import com.yc.english.group.view.adapter.GroupVoiceAdapter;
@@ -140,7 +142,15 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 saveTaskData();
             }
         });
-
+        recyclerViewPicture.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction()==MotionEvent.ACTION_UP){
+                    startActivityForResult(new Intent(GroupIssueTaskActivity.this, PictureSelectorActivity.class), 300);
+                }
+                return false;
+            }
+        });
 
     }
 
