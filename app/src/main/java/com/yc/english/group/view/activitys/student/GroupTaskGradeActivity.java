@@ -1,6 +1,5 @@
 package com.yc.english.group.view.activitys.student;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -19,7 +18,6 @@ import com.yc.english.group.view.widget.MultifunctionLinearLayout;
 import com.yc.english.main.hepler.UserInfoHelper;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/7/27 18:30.
