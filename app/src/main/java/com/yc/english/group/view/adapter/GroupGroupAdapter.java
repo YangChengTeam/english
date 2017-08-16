@@ -112,7 +112,6 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
                             }
                         });
                         dialog.show();
-
                     }
                 }
 
@@ -134,10 +133,6 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
     }
 
     private OnJoinListener onJoinListener;
-
-    public OnJoinListener getOnJoinListener() {
-        return onJoinListener;
-    }
 
     public void setOnJoinListener(OnJoinListener onJoinListener) {
         this.onJoinListener = onJoinListener;

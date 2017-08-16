@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.helper.AudioRecordManager;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupDoTaskDetailContract;
@@ -65,10 +67,8 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     MultifunctionLinearLayout mLlTaskDetail;
     @BindView(R.id.m_et_finish_task)
     EditText mEtFinishTask;
-
     @BindView(R.id.voice_recyclerView)
     RecyclerView voiceRecyclerView;
-
     @BindView(R.id.file_recyclerView)
     RecyclerView fileRecyclerView;
     @BindView(R.id.m_btn_submit)
@@ -85,6 +85,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     StateView stateView;
     @BindView(R.id.sl_container)
     ScrollView slContainer;
+
 
     private List<Uri> uriList;
     private GroupVoiceAdapter voiceAdapter;
@@ -123,6 +124,16 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
         fileRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         fileAdapter = new GroupFileAdapter(this, true, null);
         fileRecyclerView.setAdapter(fileAdapter);
+
+        recyclerViewPicture.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction()==MotionEvent.ACTION_UP){
+                    startActivityForResult(new Intent(GroupMyTaskDetailActivity.this, PictureSelectorActivity.class), 300);
+                }
+                return false;
+            }
+        });
     }
 
 
@@ -174,8 +185,9 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     }
 
 
-    @OnClick({R.id.m_ll_issue_picture, R.id.m_ll_issue_voice, R.id.m_ll_issue_file})
+    @OnClick({R.id.m_ll_issue_picture,R.id.m_ll_issue_voice, R.id.m_ll_issue_file})
     public void onClick(View v) {
+        TipsHelper.tips(GroupMyTaskDetailActivity.this, "onClick");
         switch (v.getId()) {
             case R.id.m_ll_issue_picture:
                 startActivityForResult(new Intent(this, PictureSelectorActivity.class), 300);
@@ -340,4 +352,10 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

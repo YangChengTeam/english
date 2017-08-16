@@ -45,7 +45,12 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
 
         holder.setVisible(R.id.m_iv_issue_voice_delete, mIsPublish);
         final Voice result = mList.get(position);
-        holder.setText(R.id.m_tv_issue_result_voice, result.getDuration());
+
+        String duration = result.getDuration();
+        if (duration.equals("0''")) {
+            duration = "1''";
+        }
+        holder.setText(R.id.m_tv_issue_result_voice, duration);
         holder.setOnClickListener(R.id.m_iv_issue_voice_delete, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

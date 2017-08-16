@@ -68,7 +68,6 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
         mHolder.setVisible(R.id.m_tv_accept, false);
         mHolder.setVisible(R.id.m_tv_already_add, true);
         adapter.notifyDataSetChanged();
-
     }
 
     private BaseViewHolder mHolder;

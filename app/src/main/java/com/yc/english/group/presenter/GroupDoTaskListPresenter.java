@@ -3,6 +3,8 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.utils.UIUitls;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupDoTaskListContract;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
@@ -12,6 +14,7 @@ import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by wanglin  on 2017/8/8 16:01.
@@ -29,7 +32,7 @@ public class GroupDoTaskListPresenter extends BasePresenter<GroupDoTaskListEngin
         Subscription subscription = mEngin.getDoTaskList(class_id, user_id).subscribe(new Subscriber<ResultInfo<TaskAllInfoWrapper>>() {
             @Override
             public void onCompleted() {
-                mView.hideStateView();
+
             }
 
             @Override
@@ -43,14 +46,18 @@ public class GroupDoTaskListPresenter extends BasePresenter<GroupDoTaskListEngin
                 handleResultInfo(taskDoneInfoWrapperResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        List<TaskAllInfoWrapper.TaskAllInfo> list = taskDoneInfoWrapperResultInfo.data.getList();
-                        if (list != null && list.size() > 0) {
-                            mView.showDoneTaskResult(list);
-                            mView.hideStateView();
+
+                        if (taskDoneInfoWrapperResultInfo.data != null) {
+                            List<TaskAllInfoWrapper.TaskAllInfo> list = taskDoneInfoWrapperResultInfo.data.getList();
+                            if (list != null && list.size() > 0) {
+                                mView.showDoneTaskResult(list);
+                                mView.hideStateView();
+                            } else {
+                                mView.showNoData();
+                            }
                         } else {
                             mView.showNoData();
                         }
-
                     }
                 });
 

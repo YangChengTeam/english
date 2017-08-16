@@ -68,19 +68,19 @@ public class GroupDoTaskDetailPresenter extends BasePresenter<GroupDoTaskDetailE
                 ResultInfoHelper.handleResultInfo(taskInfoWrapperResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        hideStateView();
+                        mView.hideStateView();
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        hideStateView();
+                        mView.hideStateView();
                     }
 
                     @Override
                     public void reulstInfoOk() {
                         TaskInfo info = taskInfoWrapperResultInfo.data.getInfo();
                         mView.showTaskDetail(info);
-                        hideStateView();
+                        mView.hideStateView();
                     }
                 });
 
@@ -125,15 +125,16 @@ public class GroupDoTaskDetailPresenter extends BasePresenter<GroupDoTaskDetailE
             TipsHelper.tips(mContext, "请填写要完成的作业");
             return;
         }
+        mView.showLoadingDialog("正在提交...");
         Subscription subscription = mEngin.doTask(class_id, user_id, task_id, desp, imgs, voices, docs).subscribe(new Subscriber<ResultInfo<TaskInfoWrapper>>() {
             @Override
             public void onCompleted() {
-
+                mView.hideStateView();
             }
 
             @Override
             public void onError(Throwable e) {
-
+                mView.hideStateView();
             }
 
             @Override
@@ -170,18 +171,17 @@ public class GroupDoTaskDetailPresenter extends BasePresenter<GroupDoTaskDetailE
                 ResultInfoHelper.handleResultInfo(taskInfoWrapperResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        hideStateView();
+
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        hideStateView();
+
                     }
 
                     @Override
                     public void reulstInfoOk() {
                         mView.showDoneWorkResult(taskInfoWrapperResultInfo.data.getInfo());
-                        hideStateView();
                     }
                 });
 
@@ -193,7 +193,11 @@ public class GroupDoTaskDetailPresenter extends BasePresenter<GroupDoTaskDetailE
 
 
     private void sendDoWorkMessage(TaskInfo taskInfo) {
-        CustomMessage customMessage = CustomMessage.obtain("我的作业", taskInfo.getDesp(), "");
+        String desp = taskInfo.getDesp();
+        if (TextUtils.isEmpty(desp)) {
+            desp = "点击查看详情";
+        }
+        CustomMessage customMessage = CustomMessage.obtain("我的作业", desp, "");
 
         customMessage.setExtra(JSONObject.toJSONString(taskInfo));
 
@@ -218,7 +222,6 @@ public class GroupDoTaskDetailPresenter extends BasePresenter<GroupDoTaskDetailE
     }
 
     private void hideStateView() {
-        count++;
         if (count >= 2) {
             mView.hideStateView();
             count = 0;

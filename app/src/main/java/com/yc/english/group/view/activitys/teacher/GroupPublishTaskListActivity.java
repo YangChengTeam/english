@@ -1,7 +1,6 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,7 +19,6 @@ import com.yc.english.group.view.adapter.GroupTaskListAdapter;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/7/28 08:57.

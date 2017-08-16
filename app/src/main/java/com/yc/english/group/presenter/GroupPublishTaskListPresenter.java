@@ -54,15 +54,20 @@ public class GroupPublishTaskListPresenter extends BasePresenter<GroupPublishTas
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.showNoNet();
+                        mView.showNoData();
                     }
 
                     @Override
                     public void reulstInfoOk() {
-                        List<TaskAllInfoWrapper.TaskAllInfo> list = stringResultInfo.data.getList();
-                        if (list != null && list.size() > 0) {
-                            mView.showPublishTaskList(list);
-                            mView.hideStateView();
+                        if (stringResultInfo.data != null) {
+
+                            List<TaskAllInfoWrapper.TaskAllInfo> list = stringResultInfo.data.getList();
+                            if (list != null && list.size() > 0) {
+                                mView.showPublishTaskList(list);
+                                mView.hideStateView();
+                            } else {
+                                mView.showNoData();
+                            }
                         } else {
                             mView.showNoData();
                         }
@@ -71,6 +76,5 @@ public class GroupPublishTaskListPresenter extends BasePresenter<GroupPublishTas
             }
         });
         mSubscriptions.add(subscription);
-
     }
 }
