@@ -1,29 +1,26 @@
 package com.yc.english.group.view.widget;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.EmptyUtils;
 import com.yc.english.R;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.view.adapter.GroupFileAdapter;
 import com.yc.english.group.view.adapter.GroupPictureAdapter;
-import com.yc.english.group.view.adapter.GroupTaskSolePicAdapter;
 import com.yc.english.group.view.adapter.GroupVoiceAdapter;
 
 import java.util.List;
 
-import butterknife.BindView;
 import io.rong.imkit.model.FileInfo;
 
 
@@ -34,23 +31,34 @@ import io.rong.imkit.model.FileInfo;
 public class MultifunctionLinearLayout extends LinearLayout {
 
     private Context mContext;
-    private TextView textView;
-    private View pictureView;
-    private View voiceView;
-    private View wordView;
-    private View synthesizeView;
 
-    private int currentType = -1;
+    private View synthesizeView;
 
     private LayoutInflater inflater;
     private GroupVoiceAdapter groupVoiceAdapter;
     private GroupFileAdapter groupFileAdapter;
     private GroupPictureAdapter groupPictureAdapter;
 
-    private List<FileInfo> fileInfos;
-    private List<String> uriList;
-    private List<Voice> voices;
-    private String text;
+
+    private  LinearLayout llPicture;
+    private  LinearLayout llFile;
+    private  LinearLayout llVoice;
+    private  TextView textView;
+
+    private Type type;
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public enum Type {
+        PUSHLISH,
+        DONE
+    }
 
     public MultifunctionLinearLayout(Context context) {
         this(context, null);
@@ -68,79 +76,24 @@ public class MultifunctionLinearLayout extends LinearLayout {
 
     private void init() {
         inflater = LayoutInflater.from(mContext);
-
-    }
-
-    public void showTextView() {
-        currentType = GroupConstant.TASK_TYPE_CHARACTER;
-        if (null == textView) {
-            textView = new TextView(mContext);
-            textView.setText(getText());
-            textView.setTextColor(mContext.getResources().getColor(R.color.black_333333));
-            textView.setTextSize(14);
-            MarginLayoutParams layoutParams = (MarginLayoutParams) getLayoutParams();
-            layoutParams.leftMargin = 15;
-            layoutParams.topMargin = 15;
-            layoutParams.rightMargin = 15;
-            layoutParams.bottomMargin = 15;
-            textView.setLayoutParams(layoutParams);
-            addView(textView);
-        }
+        showSynthesizeView();
     }
 
 
-    public void showPictureView() {
-        currentType = GroupConstant.TASK_TYPE_PICTURE;
-        if (null == pictureView) {
-            pictureView = inflater.inflate(R.layout.group_publish_task_detail_picture, null);
-            RecyclerView recyclerView = (RecyclerView) pictureView.findViewById(R.id.recyclerView);
-            recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-            groupPictureAdapter = new GroupPictureAdapter(mContext, false, null);
-            recyclerView.setAdapter(groupPictureAdapter);
-
-
-            addView(pictureView);
-        }
-
-    }
-
-    public void showVoiceView() {
-        currentType = GroupConstant.TASK_TYPE_VOICE;
-        if (null == voiceView) {
-            voiceView = inflater.inflate(R.layout.group_publish_task_detail_picture, null);
-            RecyclerView recyclerView = (RecyclerView) voiceView.findViewById(R.id.recyclerView);
-            recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-
-            groupVoiceAdapter = new GroupVoiceAdapter(mContext, false, null);
-            recyclerView.setAdapter(groupVoiceAdapter);
-            addView(voiceView);
-        }
-    }
-
-    public void showWordView() {
-        currentType = GroupConstant.TASK_TYPE_WORD;
-        if (null == wordView) {
-            wordView = inflater.inflate(R.layout.group_publish_task_detail_picture, null);
-            RecyclerView recyclerView = (RecyclerView) wordView.findViewById(R.id.recyclerView);
-            recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-
-            groupFileAdapter = new GroupFileAdapter(mContext, false, null);
-
-            recyclerView.setAdapter(groupFileAdapter);
-
-            addView(wordView);
-
-        }
-    }
 
     public void showSynthesizeView() {
-        currentType = GroupConstant.TASK_TYPE_SYNTHESIZE;
         if (null == synthesizeView) {
             synthesizeView = inflater.inflate(R.layout.group_publish_task_detail_synthesis, null);
-            TextView textView = (TextView) synthesizeView.findViewById(R.id.m_et_issue_task);
-            RecyclerView pictureRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.recyclerView_picture);
-            RecyclerView voiceRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.voice_recyclerView);
-            RecyclerView fileRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.file_recyclerView);
+
+            RecyclerView pictureRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.recyclerView_picture_base);
+            RecyclerView voiceRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.voice_recyclerView_base);
+            RecyclerView fileRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.file_recyclerView_base);
+
+            textView = (TextView) synthesizeView.findViewById(R.id.m_et_issue_task);
+            llPicture = (LinearLayout) synthesizeView.findViewById(R.id.ll_picture);
+            llVoice = (LinearLayout) synthesizeView.findViewById(R.id.ll_voice);
+            llFile = (LinearLayout) synthesizeView.findViewById(R.id.ll_file);
+
 
             groupPictureAdapter = new GroupPictureAdapter(mContext, false, null);
             pictureRecycleView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
@@ -155,48 +108,44 @@ public class MultifunctionLinearLayout extends LinearLayout {
             fileRecycleView.setLayoutManager(new LinearLayoutManager(mContext));
             fileRecycleView.setAdapter(groupFileAdapter);
 
-            textView.setText(getText());
             addView(synthesizeView);
         }
 
     }
 
-    public List<FileInfo> getFileInfos() {
-        return fileInfos;
+
+    private void showView(View view, List list){
+        if (list != null && list.size() > 0) {
+            view.setVisibility(VISIBLE);
+        } else {
+            view.setVisibility(GONE);
+        }
     }
 
-    public void setFileInfos(List<FileInfo> fileInfos) {
-        this.fileInfos = fileInfos;
+    public void showFileView(List<FileInfo> fileInfos) {
+        showView(llFile, fileInfos);
         groupFileAdapter.setData(fileInfos);
     }
 
-    public List<String> getUriList() {
-        return uriList;
-    }
-
-    public void setUriList(List<String> uriList) {
-        this.uriList = uriList;
-        if (groupPictureAdapter != null) {
-            groupPictureAdapter.setData(uriList);
-        }
+    public void showUrlView(List<String> uriList) {
+        showView(llPicture, uriList);
+        groupPictureAdapter.setData(uriList);
 
     }
 
-    public List<Voice> getVoices() {
-        return voices;
-    }
-
-    public void setVoices(List<Voice> voices) {
-        this.voices = voices;
+    public void showVioceView(List<Voice> voices) {
+        showView(llVoice, voices);
         groupVoiceAdapter.setData(voices);
     }
 
 
-    public String getText() {
-        return text;
-    }
 
     public void setText(String text) {
-        this.text = text;
+        if(EmptyUtils.isEmpty(text)){
+            textView.setVisibility(View.GONE);
+        }
+       textView.setText(text);
     }
+
+
 }

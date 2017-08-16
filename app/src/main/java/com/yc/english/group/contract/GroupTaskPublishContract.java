@@ -25,6 +25,8 @@ public interface GroupTaskPublishContract {
         void showMyGroupList(List<ClassInfo> list);
 
         void showUploadReslut(String file_path);
+
+        void showFile();
     }
 
     interface Presenter extends IPresenter {
@@ -32,6 +34,6 @@ public interface GroupTaskPublishContract {
 
         void getGroupInfo(Context context, String id);
 
-        void uploadFile(Context context,File file, String fileName, String name);
+        void uploadFile(Context context, File file, String fileName, String name);
     }
 }

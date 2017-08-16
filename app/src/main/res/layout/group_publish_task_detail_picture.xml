@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/m_et_issue_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:minHeight="@dimen/group_distance_50"
+        android:paddingBottom="@dimen/group_distance_15"
+        android:paddingLeft="@dimen/group_distance_15"
+        android:paddingRight="@dimen/group_distance_15"
+        android:paddingTop="@dimen/group_distance_15"
+        android:textColor="@color/black_333333"
+        android:textColorHint="@color/group_gray_999"
+        android:textSize="@dimen/group_text_16" />
+
+    <include layout="@layout/group_common_divider" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_marginLeft="@dimen/group_distance_15"
-        android:layout_marginTop="@dimen/group_distance_10"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/group_distance_15"
+        android:layout_marginTop="@dimen/group_distance_10" />
 
     <LinearLayout
         android:id="@+id/ll_task_detail"
@@ -37,4 +53,4 @@
             android:src="@mipmap/group68" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

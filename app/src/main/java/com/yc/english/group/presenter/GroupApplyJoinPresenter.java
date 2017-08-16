@@ -76,7 +76,6 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
 
                         if (vali_type == GroupConstant.CONDITION_ALL_ALLOW) {
                             mView.apply(vali_type);
-
                             RxBus.get().post(BusAction.GROUPLIST, "from groupjoin");
                         } else {
                             mView.apply(vali_type);

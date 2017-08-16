@@ -3,6 +3,7 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupPublishTaskDetailContract;
 import com.yc.english.group.model.bean.StudentFinishTaskInfo;
@@ -27,6 +28,7 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
 
     @Override
     public void getPublishTaskDetail(Context context, String id, String class_id, String user_id) {
+        mView.showLoading();
         Subscription subscription = EngineUtils.getPublishTaskDetail(context, id, class_id, user_id).subscribe(new Subscriber<ResultInfo<TaskInfoWrapper>>() {
             @Override
             public void onCompleted() {
@@ -35,17 +37,29 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
 
             @Override
             public void onError(Throwable e) {
-
+                mView.showNoNet();
             }
 
             @Override
             public void onNext(final ResultInfo<TaskInfoWrapper> taskPublishDetailInfoResultInfo) {
-                handleResultInfo(taskPublishDetailInfoResultInfo, new Runnable() {
+                ResultInfoHelper.handleResultInfo(taskPublishDetailInfoResultInfo, new ResultInfoHelper.Callback() {
                     @Override
-                    public void run() {
+                    public void resultInfoEmpty(String message) {
+                        hideStateView();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        hideStateView();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
                         mView.showPublishTaskDetail(taskPublishDetailInfoResultInfo.data.getInfo());
+                        hideStateView();
                     }
                 });
+
             }
         });
         mSubscriptions.add(subscription);
@@ -61,17 +75,29 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
 
             @Override
             public void onError(Throwable e) {
-
+                mView.showNoNet();
             }
 
             @Override
             public void onNext(final ResultInfo<StudentLookTaskInfo> studentInfoResultInfo) {
-                handleResultInfo(studentInfoResultInfo, new Runnable() {
+                ResultInfoHelper.handleResultInfo(studentInfoResultInfo, new ResultInfoHelper.Callback() {
                     @Override
-                    public void run() {
+                    public void resultInfoEmpty(String message) {
+                        hideStateView();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        hideStateView();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
                         mView.showIsReadMemberList(studentInfoResultInfo.data.getList());
+                        hideStateView();
                     }
                 });
+
 
             }
         });
@@ -88,17 +114,30 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
 
             @Override
             public void onError(Throwable e) {
-
+                mView.showNoNet();
             }
 
             @Override
             public void onNext(final ResultInfo<StudentFinishTaskInfo> studentTaskInfoResultInfo) {
-                handleResultInfo(studentTaskInfoResultInfo, new Runnable() {
-                    @Override
-                    public void run() {
-                        mView.showIsFinishMemberList(studentTaskInfoResultInfo.data.getList());
-                    }
-                });
+                ResultInfoHelper.handleResultInfo(studentTaskInfoResultInfo, new
+                        ResultInfoHelper.Callback() {
+                            @Override
+                            public void resultInfoEmpty(String message) {
+                                hideStateView();
+                            }
+
+                            @Override
+                            public void resultInfoNotOk(String message) {
+                                hideStateView();
+                            }
+
+                            @Override
+                            public void reulstInfoOk() {
+                                mView.showIsFinishMemberList(studentTaskInfoResultInfo.data.getList());
+                                hideStateView();
+                            }
+                        });
+
 
             }
         });
@@ -107,6 +146,17 @@ public class GroupPublishTaskDetailPresenter extends BasePresenter<GroupPublishT
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
+
+    }
+
+    private int count;
+
+    private void hideStateView() {
+        count++;
+        if (count >= 2) {
+            mView.hideStateView();
+            count = 0;
+        }
 
     }
 }

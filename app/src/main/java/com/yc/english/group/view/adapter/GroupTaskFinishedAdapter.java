@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 public class GroupTaskFinishedAdapter extends BaseAdapter<StudentFinishTaskInfo.ListBean.NoDoneListBean> {
-    private String mTaskId, mClassId, mMasterId;
+    private String mTaskId, mClassId;
 
     public GroupTaskFinishedAdapter(Context context, List<StudentFinishTaskInfo.ListBean.NoDoneListBean> mList) {
         super(context, mList);
@@ -56,10 +56,10 @@ public class GroupTaskFinishedAdapter extends BaseAdapter<StudentFinishTaskInfo.
         return R.layout.group_task_finished_item;
     }
 
-    public void setData(String taskId, String classId, String masterId) {
+    public void setData(String taskId, String classId) {
         this.mTaskId = taskId;
         this.mClassId = classId;
-        this.mMasterId = masterId;
+
     }
 
 }
