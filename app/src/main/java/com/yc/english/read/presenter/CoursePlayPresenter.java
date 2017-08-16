@@ -24,8 +24,10 @@ public class CoursePlayPresenter extends BasePresenter<CoursePlayEngin, CoursePl
     }
 
     @Override
-    public void getCourseListByUnitId(int currentPage, int pageCount, String unitId) {
-        mView.showLoading();
+    public void getCourseListByUnitId(final int currentPage, int pageCount, String unitId) {
+        if(currentPage == 1){
+            mView.showLoading();
+        }
         Subscription subscribe = mEngin.getCourseListByUnitId(currentPage, pageCount, unitId).subscribe(new Subscriber<ResultInfo<EnglishCourseInfoList>>() {
             @Override
             public void onCompleted() {
@@ -34,7 +36,9 @@ public class CoursePlayPresenter extends BasePresenter<CoursePlayEngin, CoursePl
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
+                if(currentPage == 1) {
+                    mView.showNoNet();
+                }
             }
 
             @Override
@@ -52,11 +56,14 @@ public class CoursePlayPresenter extends BasePresenter<CoursePlayEngin, CoursePl
 
                     @Override
                     public void reulstInfoOk() {
-                        if(resultInfo.data.getList().size() == 0){
-                            mView.showNoData();
-                        }else{
+                        if(resultInfo.data != null && resultInfo.data.getList() != null && resultInfo.data.getList().size() > 0){
+
                             mView.showCourseListData(resultInfo.data);
                             mView.hideStateView();
+                        }else{
+                            if(currentPage == 1) {
+                                mView.showNoData();
+                            }
                         }
                     }
                 });

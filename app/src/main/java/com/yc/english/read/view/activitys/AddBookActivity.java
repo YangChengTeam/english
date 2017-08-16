@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.RxBus;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.StateView;
 import com.yc.english.read.contract.AddBookContract;
 import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.Constant;
@@ -30,6 +32,12 @@ import butterknife.BindView;
  */
 
 public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implements AddBookContract.View {
+
+    @BindView(R.id.sv_loading)
+    StateView mStateView;
+
+    @BindView(R.id.layout_content)
+    LinearLayout mLayoutContext;
 
     @BindView(R.id.rv_grade_list)
     RecyclerView mGradeRecyclerView;
@@ -161,6 +169,33 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
                 }
             }
         });
+    }
+
+    @Override
+    public void hideStateView() {
+        mStateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        mStateView.showNoNet(mLayoutContext, "网络不给力", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //获取年级集合
+                mPresenter.gradeList();
+                mPresenter.getCVListByGradeId(null, null);//获取所有的教材版本
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        mStateView.showNoData(mLayoutContext);
+    }
+
+    @Override
+    public void showLoading() {
+        mStateView.showLoading(mLayoutContext);
     }
 
     @Override

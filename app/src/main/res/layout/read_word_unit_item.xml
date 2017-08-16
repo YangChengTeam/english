@@ -28,13 +28,4 @@
         android:textColor="@color/group_gray_999"
         android:textSize="14sp"/>
 
-    <TextView
-        android:id="@+id/tv_total_persion_recite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_book_grade_name"
-        android:layout_marginTop="8dp"
-        android:text="3546人已背诵"
-        android:textColor="@color/group_gray_999"
-        android:textSize="12sp"/>
 </LinearLayout>

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.SpeechError;
@@ -42,6 +43,8 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.OnClick;
 import rx.functions.Action1;
+
+import static com.yc.english.read.common.SpeechUtil.mContext;
 
 /**
  * Created by admin on 2017/7/26.
@@ -318,6 +321,8 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
     }
 
     public void startSynthesizer(String text) {
+
+        Glide.with(mContext).load(R.mipmap.read_audio_gif_play).into(mAudioPlayImageView);
         int code = mTts.startSpeaking(text, mTtsListener);
 
         if (code != ErrorCode.SUCCESS) {
@@ -367,6 +372,7 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
         public void onCompleted(SpeechError error) {
             if (error == null) {
                 //播放完成
+                Glide.with(mContext).load(R.mipmap.read_word_default).into(mAudioPlayImageView);
             } else if (error != null) {
                 mTts.stopSpeaking();
             }

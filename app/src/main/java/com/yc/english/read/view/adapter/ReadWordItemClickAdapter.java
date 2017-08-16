@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -23,7 +24,7 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
     private Context mContext;
 
     public interface ItemDetailClick {
-        public void wordDetailClick(int position,String sentenceSimple);
+        public void wordDetailClick(int position, String sentenceSimple);
     }
 
     ItemDetailClick itemDetailClick;
@@ -60,7 +61,7 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final int pos = helper.getAdapterPosition();
+                        //final int pos = helper.getAdapterPosition();
 
                         LogUtils.e("pos: " + pos);
 
@@ -91,7 +92,8 @@ public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiIte
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        itemDetailClick.wordDetailClick(helper.getAdapterPosition(),wordInfoDetail.getWordExample());
+                        ToastUtils.showLong("pp--->" + getParentPosition(wordInfoDetail));
+                        itemDetailClick.wordDetailClick(helper.getLayoutPosition(), wordInfoDetail.getWordExample());
                     }
                 });
                 break;

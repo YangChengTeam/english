@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -16,8 +15,6 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
@@ -30,8 +27,7 @@ import com.yc.english.read.contract.ReadWordContract;
 import com.yc.english.read.model.domain.WordDetailInfo;
 import com.yc.english.read.model.domain.WordInfo;
 import com.yc.english.read.presenter.ReadWordPresenter;
-import com.yc.english.read.view.adapter.ReadWordItemClickAdapter;
-import com.yc.english.read.view.wdigets.SpaceItemDecoration;
+import com.yc.english.read.view.adapter.ReadWordExpandAdapter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +42,7 @@ import rx.subjects.PublishSubject;
  * Created by admin on 2017/7/27.
  */
 
-public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> implements ReadWordContract.View, ReadWordItemClickAdapter.ItemDetailClick {
+public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> implements ReadWordContract.View, ReadWordExpandAdapter.ItemViewClickListener {
 
     @BindView(R.id.sv_loading)
     StateView mStateView;
@@ -55,7 +51,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     RelativeLayout mLayoutContext;
 
     @BindView(R.id.rv_word_list)
-    RecyclerView mReadWordRecyclerView;
+    ExpandableListView mWordListView;
 
     @BindView(R.id.layout_pass_word)
     LinearLayout mPassWordLayout;
@@ -78,9 +74,11 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     @BindView(R.id.pb_read_num)
     ProgressBar mProgressReadNum;
 
-    ReadWordItemClickAdapter mReadWordItemClickAdapter;
+    //ReadWordItemClickAdapter mReadWordItemClickAdapter;
 
-    List<MultiItemEntity> mDatas;
+    ReadWordExpandAdapter mReadWordExpandAdapter;
+
+    List<WordInfo> mDatas;
 
     boolean isSpell = false;
 
@@ -104,8 +102,6 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     //当前读到的单词
     private int currentIndex;
 
-    LinearLayoutManager linearLayoutManager;
-
     private boolean isPlay = false;
 
     private boolean isContinue = false;
@@ -119,6 +115,14 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     private PublishSubject mSpellSubject;
 
     private boolean isWordDetailPlay = false;
+
+    private int lastExpandPosition = -1;
+
+    private List<WordInfo> wordInfos;
+
+    private List<WordDetailInfo> wordDetailInfos;
+
+    private View lastChildItemView;
 
     @Override
     public int getLayoutId() {
@@ -143,38 +147,50 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         SpeechUtil.initSpeech(ReadWordActivity.this, 28, 50, 50, 1);
         mTts = SpeechUtil.getmTts();
 
-        linearLayoutManager = new LinearLayoutManager(this);
-        mReadWordRecyclerView.setLayoutManager(linearLayoutManager);
-        mReadWordItemClickAdapter = new ReadWordItemClickAdapter(ReadWordActivity.this, null);
-        mReadWordItemClickAdapter.setItemDetailClick(this);
-        mReadWordRecyclerView.setAdapter(mReadWordItemClickAdapter);
-        mReadWordRecyclerView.addItemDecoration(new SpaceItemDecoration(1));
+        mReadWordExpandAdapter = new ReadWordExpandAdapter(ReadWordActivity.this, wordInfos, wordDetailInfos);
 
-        mReadWordItemClickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        mWordListView.setAdapter(mReadWordExpandAdapter);
+        mWordListView.setGroupIndicator(null);
+        mReadWordExpandAdapter.setItemDetailClick(this);
+        mWordListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
 
-                mTts.stopSpeaking();
-                View lastView = linearLayoutManager.findViewByPosition(currentIndex);
-                hidePlayAudioPreView(lastView);
-
-                if (mDatas.get(position) != null && !isPlay) {
-                    currentIndex = position;
-
-                    isContinue = false;
-                    readCurrentWord = ((WordInfo) mDatas.get(position)).getName();
-
-                    if (isSpell) {
-                        readCurrentWordIndex = 0;
-                        startSynthesizer(position);
-                    } else {
-                        startSynthesizer(position);
+                if (groupPosition != lastExpandPosition && lastExpandPosition > -1) {
+                    if(mTts.isSpeaking()){
+                        mTts.stopSpeaking();
                     }
-
-                    showPlayAudioView(view);
+                    mWordListView.collapseGroup(lastExpandPosition);
+                    if (lastChildItemView != null) {
+                        mReadWordExpandAdapter.setChildViewPlayState(lastChildItemView, false);
+                    }
                 }
 
-                return false;
+                if (mWordListView.isGroupExpanded(groupPosition)) {
+                    mWordListView.collapseGroup(groupPosition);
+                } else {
+                    mWordListView.expandGroup(groupPosition);
+                    lastExpandPosition = groupPosition;
+                }
+                isPlay = false;
+                return true;
+            }
+        });
+
+        mWordListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long id) {
+
+                if (mTts.isSpeaking()) {
+                    mTts.stopSpeaking();
+                }
+                lastChildItemView = view;
+
+                isWordDetailPlay = true;
+                startSynthesizer(wordDetailInfos.get(groupPosition).getWordExample());
+                mReadWordExpandAdapter.setChildViewPlayState(view, true);
+
+                return true;
             }
         });
 
@@ -183,16 +199,12 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             @Override
             public void call(Integer position) {
                 if (isContinue) {
-                    View view = linearLayoutManager.findViewByPosition(position);
                     if (position < mDatas.size()) {
-                        if (view != null) {
-                            showPlayAudioView(view);
-                        }
+                        mReadWordExpandAdapter.setViewPlayState(currentIndex, mWordListView, true);
                         startSynthesizer(position);
                     } else {
-                        if (view != null) {
-                            hidePlayAudioPreView(view);
-                        }
+                        isPlay = false;
+                        mReadWordExpandAdapter.setViewPlayState(currentIndex, mWordListView, false);
                         setStopPlayState();
                     }
                 }
@@ -207,33 +219,21 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                 if (readCurrentWordIndex < readCurrentWord.length()) {
                     playWord();
                 } else {
-
-                    View view = linearLayoutManager.findViewByPosition(currentIndex);
-                    if (view != null) {
-                        hidePlayAudioPreView(view);
-                    }
+                    mReadWordExpandAdapter.setViewPlayState(currentIndex, mWordListView, false);
 
                     if (isContinue) {
                         readCurrentWordIndex = 0;
                         currentIndex++;
                         if (currentIndex < mDatas.size()) {
-                            if (mDatas.get(currentIndex) instanceof WordInfo) {
-                                readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getName();
-                                try {
-                                    Thread.sleep(300);
-                                    mTsSubject.onNext(currentIndex);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
+                            try {
+                                Thread.sleep(300);
+                                mTsSubject.onNext(currentIndex);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
                         } else {
                             isPlay = false;
-                            mReadWordRecyclerView.scrollToPosition(0);
-
-                            View lastView = linearLayoutManager.findViewByPosition(currentIndex);
-                            if (lastView != null) {
-                                hidePlayAudioPreView(lastView);
-                            }
+                            mReadWordExpandAdapter.setViewPlayState(currentIndex, mWordListView, false);
                             setStopPlayState();
                         }
                     }
@@ -244,13 +244,6 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         mPresenter.getWordListByUnitId(0, 0, unitId);
     }
 
-    public void showPlayAudioView(View view) {
-        Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_gif_play).into((ImageView) view.findViewById(R.id.iv_read_word));
-    }
-
-    public void hidePlayAudioPreView(View preView) {
-        Glide.with(ReadWordActivity.this).load(R.mipmap.read_word_default).into((ImageView) preView.findViewById(R.id.iv_read_word));
-    }
 
     @Override
     public void hideStateView() {
@@ -281,20 +274,24 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     public void showWordListData(List<WordInfo> list) {
         if (list != null && list.size() > 0) {
 
-            if (mDatas == null) {
-                mDatas = new ArrayList<MultiItemEntity>();
-            } else {
-                mDatas.clear();
+            if (list != null) {
+                mDatas = list;
+                wordInfos = new ArrayList<WordInfo>();
+                wordDetailInfos = new ArrayList<WordDetailInfo>();
+                setProgressNum(0, list.size());
             }
 
-            setProgressNum(0, mDatas.size());
-            //TODO 数据有问题，待定
             for (int i = 0; i < list.size(); i++) {
                 WordInfo wordInfo = (WordInfo) list.get(i);
-                wordInfo.addSubItem(new WordDetailInfo(wordInfo.getEpSentence(), wordInfo.getEpSentenceMeans()));
-                mDatas.add(wordInfo);
+                WordDetailInfo wordDetailInfo = new WordDetailInfo();
+                wordDetailInfo.setWordExample(wordInfo.getEpSentence());
+                wordDetailInfo.setWordCnExample(wordInfo.getEpSentenceMeans());
+                wordInfos.add(wordInfo);
+                wordDetailInfos.add(wordDetailInfo);
             }
-            mReadWordItemClickAdapter.setNewData(mDatas);
+
+            mReadWordExpandAdapter.setNewDatas(wordInfos, wordDetailInfos);
+            mReadWordExpandAdapter.notifyDataSetChanged();
         }
     }
 
@@ -332,8 +329,9 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         }
     }
 
+    //单词朗读
     public void startSynthesizer(int position) {
-        String text = ((WordInfo) mReadWordItemClickAdapter.getData().get(position)).getName();
+        String text = ((WordInfo) wordInfos.get(position)).getName();
         int code = mTts.startSpeaking(text, mTtsListener);
         if (code != ErrorCode.SUCCESS) {
             if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
@@ -398,9 +396,10 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             if (error == null) {
 
                 //单词例句阅读
-                if(isWordDetailPlay){
-                    View dView = linearLayoutManager.findViewByPosition(currentIndex);
-                    Glide.with(ReadWordActivity.this).load(R.mipmap.read_word_default).into((ImageView)dView.findViewById(R.id.iv_word_detail_audio));
+                if (isWordDetailPlay) {
+                    if (lastChildItemView != null) {
+                        mReadWordExpandAdapter.setChildViewPlayState(lastChildItemView, false);
+                    }
                     mTts.stopSpeaking();
                     isWordDetailPlay = false;
                     return;
@@ -409,27 +408,25 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                 if (isSpell) {
                     if (currentIndex < mDatas.size()) {
                         if (currentIndex > 4) {
-                            mReadWordRecyclerView.scrollToPosition(currentIndex + 1);
+                            //mWordListView.scrollListBy(2);
                         }
                         readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getName();
                         setProgressNum(currentIndex + 1, mDatas.size());
                         playWord();
                     } else {
-                        Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
+                        isPlay = false;
+                        mReadWordExpandAdapter.setViewPlayState(currentIndex, mWordListView, false);
+                        setStopPlayState();
                     }
                 } else {
+                    mReadWordExpandAdapter.setViewPlayState(currentIndex, mWordListView, false);
                     if (isContinue) {
-                        View view = linearLayoutManager.findViewByPosition(currentIndex);
-                        if (view != null) {
-                            hidePlayAudioPreView(view);
-                        }
-
                         setProgressNum(currentIndex + 1, mDatas.size());
-
                         currentIndex++;
+
                         if (currentIndex < mDatas.size()) {
                             if (currentIndex > 4 && currentIndex < mDatas.size() - 1) {
-                                mReadWordRecyclerView.scrollToPosition(currentIndex + 1);
+                                //mWordListView.scrollToPosition(currentIndex + 1);
                             }
                             try {
                                 Thread.sleep(300);
@@ -438,16 +435,9 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                                 e.printStackTrace();
                             }
                         } else {
+                            isPlay = false;
                             setStopPlayState();
-                            View lastView = linearLayoutManager.findViewByPosition(currentIndex);
-                            if (lastView != null) {
-                                hidePlayAudioPreView(lastView);
-                            }
-                        }
-                    } else {
-                        View view = linearLayoutManager.findViewByPosition(currentIndex);
-                        if (view != null) {
-                            hidePlayAudioPreView(view);
+                            mReadWordExpandAdapter.setViewPlayState(currentIndex, mWordListView, false);
                         }
                     }
                 }
@@ -496,19 +486,12 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_gif_play).into(mReadAllImageView);
             if (currentIndex < mDatas.size()) {
                 readCurrentWord = ((WordInfo) mDatas.get(currentIndex)).getName();
-
-                View view = linearLayoutManager.findViewByPosition(currentIndex);
-                if (view != null) {
-                    showPlayAudioView(view);
-                }
+                mReadWordExpandAdapter.setViewPlayState(currentIndex, mWordListView, true);
                 startSynthesizer(currentIndex);
             }
         } else {
             isContinue = false;
-            View view = linearLayoutManager.findViewByPosition(currentIndex);
-            if (view != null) {
-                hidePlayAudioPreView(view);
-            }
+            mReadWordExpandAdapter.setViewPlayState(currentIndex, mWordListView, false);
             setStopPlayState();
         }
     }
@@ -528,18 +511,30 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
     @Override
-    public void wordDetailClick(int dPosition, String sentenceSimple) {
+    public void groupWordClick(int gPosition) {
+        mTts.stopSpeaking();
+        isContinue = false;
 
-        if(mTts.isSpeaking()){
-            mTts.stopSpeaking();
+        if (currentIndex != gPosition) {
+            mReadWordExpandAdapter.setViewPlayState(currentIndex, mWordListView, false);
         }
 
-        isWordDetailPlay = true;
-        currentIndex = dPosition;
-        startSynthesizer(sentenceSimple);
-        View dView = linearLayoutManager.findViewByPosition(dPosition);
-        if(dView != null){
-            Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_gif_play).into((ImageView)dView.findViewById(R.id.iv_word_detail_audio));
+        if (wordInfos.get(gPosition) != null && !isPlay) {
+            currentIndex = gPosition;
+
+            setProgressNum(currentIndex + 1, mDatas.size());
+
+            isContinue = false;
+            readCurrentWord = ((WordInfo) wordInfos.get(gPosition)).getName();
+
+            if (isSpell) {
+                readCurrentWordIndex = 0;
+                startSynthesizer(gPosition);
+            } else {
+                startSynthesizer(gPosition);
+            }
+
+            mReadWordExpandAdapter.setViewPlayState(gPosition, mWordListView, true);
         }
     }
 

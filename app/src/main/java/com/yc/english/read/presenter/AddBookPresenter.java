@@ -3,6 +3,7 @@ package com.yc.english.read.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.read.contract.AddBookContract;
 import com.yc.english.read.model.domain.BookInfo;
@@ -37,6 +38,7 @@ public class AddBookPresenter extends BasePresenter<BookEngin, AddBookContract.V
 
     @Override
     public void gradeList() {
+        mView.showLoading();
         Subscription subscribe = mEngin.gradeList(mContext).subscribe(new Subscriber<ResultInfo<GradeInfoList>>() {
             @Override
             public void onCompleted() {
@@ -45,14 +47,34 @@ public class AddBookPresenter extends BasePresenter<BookEngin, AddBookContract.V
 
             @Override
             public void onError(Throwable e) {
-
+                mView.showNoNet();
             }
 
             @Override
             public void onNext(final ResultInfo<GradeInfoList> resultInfo) {
-                if (resultInfo != null && resultInfo.data != null) {
-                    mView.showGradeListData(resultInfo.data.list);
-                }
+
+                ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (resultInfo != null && resultInfo.data != null && resultInfo.data.getList().size() > 0) {
+                            mView.showGradeListData(resultInfo.data.list);
+                            mView.hideStateView();
+                        } else {
+                            mView.showNoData();
+                        }
+                    }
+                });
+
             }
         });
 
