@@ -10,11 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-
-import com.blankj.utilcode.util.LogUtils;
-
-
-import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -151,7 +146,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 SlideInfo slideInfo = mPresenter.getSlideInfo(position);
                 Intent intent = new Intent(getActivity() ,WebActivity.class);
                 intent.putExtra("title", slideInfo.getTitle());
-                intent.putExtra("url", "http://www.baidu.com");
+                intent.putExtra("url", slideInfo.getTypeValue());
                 startActivity(intent);
             }
         });

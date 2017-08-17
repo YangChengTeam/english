@@ -97,7 +97,7 @@ public class StateView extends BaseView {
     }
 
     public void showNoData(View contextView) {
-        showNoData(contextView, "暂没数据");
+        showNoData(contextView, "暂无数据");
     }
 
     public void showNoNet(View contextView, String message, final OnClickListener onClickListener) {
