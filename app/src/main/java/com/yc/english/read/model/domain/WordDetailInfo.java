@@ -14,6 +14,16 @@ public class WordDetailInfo implements MultiItemEntity {
 
     private String wordCnExample;
 
+    private boolean isPlay;
+
+    public boolean isPlay() {
+        return isPlay;
+    }
+
+    public void setPlay(boolean play) {
+        isPlay = play;
+    }
+
     public String getWordExample() {
         return wordExample;
     }
@@ -31,6 +41,7 @@ public class WordDetailInfo implements MultiItemEntity {
     }
 
     public int Type;
+
 
     public WordDetailInfo() {
         super();

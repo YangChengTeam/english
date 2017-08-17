@@ -52,6 +52,8 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
     @JSONField(name = "ep_sentence_means")
     private String epSentenceMeans;
 
+    private boolean isPlay = false;
+
     public WordInfo() {
         super();
     }
@@ -188,6 +190,14 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
 
     public void setType(int type) {
         this.Type = type;
+    }
+
+    public boolean isPlay() {
+        return isPlay;
+    }
+
+    public void setPlay(boolean play) {
+        isPlay = play;
     }
 
     @Override

@@ -95,9 +95,11 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private String[] nextUnitTitles;
 
-    private int currentPosition;
+    private int currentUnitPosition;
 
     private int currentPage = 1;
+
+    private boolean isNext = false;
 
     @Override
     public int getLayoutId() {
@@ -148,14 +150,16 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         RxView.clicks(mNextUnitImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (nextUnitIds != null && currentPosition < nextUnitIds.length) {
+                if (nextUnitIds != null && currentUnitPosition < nextUnitIds.length) {
+                    isNext = true;
                     resetPlayState();
-                    if (nextUnitTitles != null && currentPosition < nextUnitTitles.length) {
-                        mToolbar.setTitle(nextUnitTitles[currentPosition]);
+                    if (nextUnitTitles != null && currentUnitPosition < nextUnitTitles.length) {
+                        mToolbar.setTitle(nextUnitTitles[currentUnitPosition]);
                     }
-                    unitId = nextUnitIds[currentPosition];
-                    currentPosition++;
-                    mPresenter.getCourseListByUnitId(0, 0, unitId);
+                    unitId = nextUnitIds[currentUnitPosition];
+                    currentUnitPosition++;
+                    currentPage = 1;
+                    mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
                 } else {
                     TipsHelper.tips(CoursePlayActivity.this, "已经是最后一个单元");
                 }
@@ -189,7 +193,9 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 if (languageType > 3) {
                     languageType = 1;
                 }
-                mItemAdapter.getData().get(playPosition).setPlay(true);
+                if (playPosition > -1) {
+                    mItemAdapter.getData().get(playPosition).setPlay(true);
+                }
                 switch (languageType) {
                     case 1:
                         mLanguageTextView.setText(getString(R.string.read_course_language_blend_text));
@@ -212,6 +218,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, final View view, int position) {
+
                 if (position == playPosition) {
                     return;
                 }
@@ -321,10 +328,14 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                     return;
                 }
                 showItemView(playPosition);
-                hideItemView(lastPosition);
+                if(lastPosition != playPosition){
+                    hideItemView(lastPosition);
+                }
             }
             if (playPosition > 2) {
                 linearLayoutManager.scrollToPositionWithOffset(playPosition - 2, 0);
+            }else{
+                linearLayoutManager.scrollToPositionWithOffset(playPosition, 0);
             }
         }
 
@@ -353,8 +364,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             if (error == null) {
                 lastPosition = playPosition;
                 resetPlay();
-                playPosition++;
                 if (isCountinue) {
+                    playPosition++;
                     try {
                         Thread.sleep(300);
                         mTsSubject.onNext(playPosition);
@@ -429,7 +440,12 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     @Override
     public void showCourseListData(EnglishCourseInfoList englishCourseInfoList) {
         if (englishCourseInfoList != null) {
-            mItemAdapter.addData(englishCourseInfoList.list);
+            if (isNext) {
+                mItemAdapter.setNewData(englishCourseInfoList.list);
+                isNext = false;
+            } else {
+                mItemAdapter.addData(englishCourseInfoList.list);
+            }
         }
     }
 
