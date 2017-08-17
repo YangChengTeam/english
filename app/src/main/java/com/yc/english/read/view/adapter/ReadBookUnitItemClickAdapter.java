@@ -25,6 +25,6 @@ public class ReadBookUnitItemClickAdapter extends BaseMultiItemQuickAdapter<Unit
     @Override
     protected void convert(final BaseViewHolder helper, final UnitInfo item) {
         helper.setText(R.id.tv_book_unit_name, item.getName())
-                .setText(R.id.tv_book_unit_total, StringUtils.isEmpty(item.getWordCount()) ? "0" : item.getWordCount() + mContext.getString(R.string.read_word_sentence_text));
+                .setText(R.id.tv_book_unit_total, StringUtils.isEmpty(item.getSentenceCount()) ? "0" : item.getSentenceCount() + mContext.getString(R.string.read_word_sentence_text));
     }
 }
