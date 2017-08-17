@@ -16,6 +16,7 @@ import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
+import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.model.bean.TaskInfoWrapper;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.rong.models.CodeSuccessResult;
@@ -217,5 +218,16 @@ public class EngineUtils {
         }.getType(), params, true, true, true);
 
     }
+    public static Observable<ResultInfo<TaskAllInfoWrapper>> getPublishTaskList(Context context, String publisher, String class_id) {
 
+        Map<String, String> params = new HashMap<>();
+        if (!TextUtils.isEmpty(publisher))
+            params.put("publisher", publisher);
+        if (!TextUtils.isEmpty(class_id))
+            params.put("class_id", class_id);
+
+        return HttpCoreEngin.get(context).rxpost(NetConstan.list_publish_task, new TypeReference<ResultInfo<TaskAllInfoWrapper>>() {
+        }.getType(), params, true, true, true);
+
+    }
 }

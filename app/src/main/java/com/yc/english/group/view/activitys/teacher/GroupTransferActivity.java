@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupTransferGroupContract;
@@ -59,7 +60,9 @@ public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroup
         RxView.clicks(btnCreate).filter(new Func1<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {
-                ToastUtils.showShort(getString(R.string.recevicer_phone));
+                if (TextUtils.isEmpty(etClassGroup.getText().toString().trim())) {
+                    TipsHelper.tips(GroupTransferActivity.this, getString(R.string.recevicer_phone));
+                }
                 return !TextUtils.isEmpty(etClassGroup.getText().toString().trim());
             }
         }).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -80,6 +83,6 @@ public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroup
     public void showTransferResult() {
         finish();
         RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
-        RxBus.get().post(BusAction.GROUPLIST,"transfer group");
+        RxBus.get().post(BusAction.GROUPLIST, "transfer group");
     }
 }

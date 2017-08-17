@@ -149,5 +149,4 @@ public class MultifunctionLinearLayout extends LinearLayout {
        textView.setText(text);
     }
 
-
 }

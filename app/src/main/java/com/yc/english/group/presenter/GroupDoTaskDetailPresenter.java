@@ -46,7 +46,6 @@ public class GroupDoTaskDetailPresenter extends BasePresenter<GroupDoTaskDetailE
 
     }
 
-    private int count;
 
     @Override
     public void getPublishTaskDetail(Context context, String task_id, String class_id, String user_id) {
@@ -143,8 +142,11 @@ public class GroupDoTaskDetailPresenter extends BasePresenter<GroupDoTaskDetailE
                 handleResultInfo(taskInfoWrapperResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        sendDoWorkMessage(taskInfoWrapperResultInfo.data.getInfo());
-                        mView.finish();
+                        TaskInfoWrapper data = taskInfoWrapperResultInfo.data;
+                        if (data != null) {
+                            sendDoWorkMessage(data.getInfo());
+                            mView.finish();
+                        }
                     }
                 });
             }
@@ -221,10 +223,5 @@ public class GroupDoTaskDetailPresenter extends BasePresenter<GroupDoTaskDetailE
         });
     }
 
-    private void hideStateView() {
-        if (count >= 2) {
-            mView.hideStateView();
-            count = 0;
-        }
-    }
+
 }

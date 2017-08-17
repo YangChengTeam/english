@@ -1,5 +1,7 @@
 package com.yc.english.group.contract;
 
+import android.content.Context;
+
 import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.ILoading;
 import com.yc.english.base.view.INoData;
@@ -20,6 +22,8 @@ public interface GroupDoTaskListContract {
 
     interface Presenter extends IPresenter {
         void getDoTaskList(String class_id, String user_id);
+
+        void getPublishTaskList(String publisher, String class_id);
     }
 
 

@@ -28,11 +28,12 @@ public class GroupExtensionModule extends DefaultExtensionModule {
         List<IPluginModule> pluginModules = new ArrayList<>();
         if (mIsMaster) {
             pluginModules.add(new AssignTaskPlugin());
+            pluginModules.add(new TeacherLookTaskPlugin());
         } else {
             pluginModules.add(new LookTaskPlugin());
         }
         pluginModules.add(new PicturePlugin());
-//        pluginModules.add(new VoicePlugin());
+
         pluginModules.add(new FilePlugin());
 
         return pluginModules;
