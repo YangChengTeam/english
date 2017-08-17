@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.SpeechError;
@@ -32,6 +31,7 @@ import com.yc.english.read.view.adapter.ReadCourseItemClickAdapter;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.subjects.PublishSubject;
 
@@ -68,11 +68,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private int playPosition = -1;
 
-    private int lastPosition = -1;
-
     LinearLayoutManager linearLayoutManager;
-
-    private boolean isPlay;
 
     // 语音合成对象
     private SpeechSynthesizer mTts;
@@ -139,10 +135,16 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         mCourseRecyclerView.setAdapter(mItemAdapter);
 
         mTsSubject = PublishSubject.create();
-        mTsSubject.subscribe(new Action1<Integer>() {
+        mTsSubject.delay(800, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer position) {
-                startSynthesizer(position);
+                if (playPosition < mItemAdapter.getData().size()) {
+                    enableState(playPosition);
+                    startSynthesizer(position);
+                } else {
+                    isCountinue = false;
+                    disableState();
+                }
             }
         });
 
@@ -173,14 +175,13 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 if (playPosition == -1) {
                     playPosition = 0;
                 }
-                if (isCountinue) {
-                    mCoursePlayImageView.setBackgroundResource(R.drawable.read_play_course_btn_selector);
-                    mTts.stopSpeaking();
-                    hideItemView(playPosition);
-                } else {
-                    startSynthesizer(playPosition);
-                }
                 isCountinue = !isCountinue;
+                if (isCountinue) {
+                    enableState(playPosition);
+                    startSynthesizer(playPosition);
+                } else {
+                    disableState();
+                }
             }
         });
 
@@ -218,14 +219,11 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, final View view, int position) {
-
                 if (position == playPosition) {
                     return;
                 }
-                isCountinue = false;
-                hideItemView(playPosition);
-                showItemView(position);
                 playPosition = position;
+                enableState(playPosition);
                 startSynthesizer(playPosition);
             }
         });
@@ -257,9 +255,10 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     }
 
     private void resetPlayState() {
+        linearLayoutManager.scrollToPositionWithOffset(0, 0);
         playPosition = -1;
-        lastPosition = -1;
-        mTts.stopSpeaking();
+        isCountinue = false;
+        disableState();
     }
 
     @Override
@@ -284,7 +283,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     @Override
     public void showLoading() {
-        mStateView.showLoading(mCourseRecyclerView);
+        mStateView.showLoading(mCourseRecyclerView, 2);
     }
 
     /**
@@ -293,13 +292,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
      * @param postion
      */
     public void startSynthesizer(int postion) {
-
-        if (mItemAdapter.getData() == null || mItemAdapter.getData().size() == 0) {
-            TipsHelper.tips(CoursePlayActivity.this, "数据异常，请稍后重试");
-            return;
-        }
-
-        mCoursePlayImageView.setBackgroundResource(R.drawable.read_playing_course_btn_selector);
         String text = mItemAdapter.getData().get(postion).getSubTitle();
         int code = mTts.startSpeaking(text, mTtsListener);
         if (code != ErrorCode.SUCCESS) {
@@ -318,25 +310,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     private SynthesizerListener mTtsListener = new SynthesizerListener() {
         @Override
         public void onSpeakBegin() {
-
-            //开始播放
-            if (isCountinue) {
-                if (playPosition >= mItemAdapter.getData().size()) {
-                    mTts.stopSpeaking();
-                    resetPlayState();
-                    linearLayoutManager.scrollToPositionWithOffset(0, 0);
-                    return;
-                }
-                showItemView(playPosition);
-                if(lastPosition != playPosition){
-                    hideItemView(lastPosition);
-                }
-            }
-            if (playPosition > 2) {
-                linearLayoutManager.scrollToPositionWithOffset(playPosition - 2, 0);
-            }else{
-                linearLayoutManager.scrollToPositionWithOffset(playPosition, 0);
-            }
         }
 
         @Override
@@ -362,25 +335,9 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         @Override
         public void onCompleted(SpeechError error) {
             if (error == null) {
-                lastPosition = playPosition;
-                resetPlay();
-                if (isCountinue) {
-                    playPosition++;
-                    try {
-                        Thread.sleep(300);
-                        mTsSubject.onNext(playPosition);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    hideItemView(lastPosition);
-                    mCoursePlayImageView.setBackgroundResource(R.drawable.read_play_course_btn_selector);
-                }
+                speekContinue(++playPosition);
             } else if (error != null) {
-                mTts.stopSpeaking();
-                resetPlay();
-                mCoursePlayImageView.setBackgroundResource(R.drawable.read_play_course_btn_selector);
-                TipsHelper.tips(getBaseContext(), error.getPlainDescription(true));
+                speekContinue(playPosition);
             }
         }
 
@@ -390,6 +347,13 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         }
     };
 
+    public void speekContinue(int index){
+        if (isCountinue) {
+            mTsSubject.onNext(index);
+        } else{
+            disableState();
+        }
+    }
 
     public void resetPlay() {
         for (EnglishCourseInfo englishCourseInfo : mItemAdapter.getData()) {
@@ -397,35 +361,27 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         }
     }
 
-    public void showItemView(int postion) {
+    public void enableState(int postion) {
         if (postion == -1) {
             return;
         }
-        resetPlay();
-        mItemAdapter.getData().get(postion).setPlay(true);
-        View view = linearLayoutManager.findViewByPosition(postion);
-        if (view != null) {
-            ImageView mReadPlayIv = (ImageView) view.findViewById(R.id.iv_audio_gif_play);
-            TextView mChineseTv = (TextView) view.findViewById(R.id.tv_chinese_title);
-            TextView mEnglishTv = (TextView) view.findViewById(R.id.tv_english_title);
-
-            mReadPlayIv.setVisibility(View.VISIBLE);
-            Glide.with(CoursePlayActivity.this).load(R.mipmap.read_audio_gif_play).into(mReadPlayIv);
-            mChineseTv.setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.black_333));
-            mEnglishTv.setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.black_333));
+        if (playPosition > 2) {
+            linearLayoutManager.scrollToPositionWithOffset(playPosition - 2, 0);
         }
+        mTts.stopSpeaking();
+        resetPlay();
+        mCoursePlayImageView.setBackgroundResource(R.drawable.read_playing_course_btn_selector);
+        mItemAdapter.getData().get(postion).setPlay(true);
+        mItemAdapter.notifyDataSetChanged();
     }
 
-    public void hideItemView(int position) {
-        if (position == -1) {
-            return;
+    public void disableState() {
+        if(!isCountinue){
+            mCoursePlayImageView.setBackgroundResource(R.drawable.read_play_course_btn_selector);
         }
-        View view = linearLayoutManager.findViewByPosition(position);
-        if (view != null) {
-            view.findViewById(R.id.iv_audio_gif_play).setVisibility(View.GONE);
-            ((TextView) view.findViewById(R.id.tv_chinese_title)).setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.gray_999));
-            ((TextView) view.findViewById(R.id.tv_english_title)).setTextColor(ContextCompat.getColor(CoursePlayActivity.this, R.color.gray_999));
-        }
+        mTts.stopSpeaking();
+        resetPlay();
+        mItemAdapter.notifyDataSetChanged();
     }
 
     @Override

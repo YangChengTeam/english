@@ -4,11 +4,10 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.SizeUtils;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
-import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.read.model.domain.EnglishCourseInfo;
 
 import java.util.List;
@@ -41,7 +40,7 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
                 .addOnClickListener(R.id.layout_play);
         if(item.isPlay()){
             helper.setVisible(R.id.iv_audio_gif_play, true);
-            GlideHelper.imageView(mContext, (ImageView) helper.getView(R.id.iv_audio_gif_play), "", R.mipmap.read_audio_gif_play, SizeUtils.dp2px(70/3),SizeUtils.dp2px(48/3));
+            Glide.with(mContext).load(R.mipmap.read_audio_gif_play).into((ImageView) helper.getView(R.id.iv_audio_gif_play));
             helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.black_333)).setTextColor(R.id.tv_english_title,  ContextCompat.getColor(mContext, R.color.black_333));
         } else {
             helper.setVisible(R.id.iv_audio_gif_play, false);

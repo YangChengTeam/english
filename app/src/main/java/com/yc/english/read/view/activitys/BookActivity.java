@@ -14,6 +14,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.contract.BookContract;
@@ -96,10 +97,18 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
         mItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
-                BookInfo bookInfo = (BookInfo) mItemAdapter.getData().get(position);
-                mPresenter.deleteBook(bookInfo);
+            public boolean onItemChildClick(BaseQuickAdapter adapter, View view,final int position) {
+                final AlertDialog alertDialog = new AlertDialog(BookActivity.this);
+                alertDialog.setDesc("确认删除该教材？");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                        BookInfo bookInfo = (BookInfo) mItemAdapter.getData().get(position);
+                        mPresenter.deleteBook(bookInfo);
+                    }
+                });
+                alertDialog.show();
                 return false;
             }
         });
