@@ -66,18 +66,47 @@ public class GroupMyTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskA
                 LinearLayout.MarginLayoutParams layoutParams = (LinearLayout.MarginLayoutParams) view.getLayoutParams();
                 layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                for (int i = 0; i < 3; i++) {
+                view.setVisibility(View.VISIBLE);
+                if (taskInfo.getBody().getDocs() != null && taskInfo.getBody().getDocs().size() > 0) {
                     TextView tv1 = new TextView(mContext);
                     tv1.setTextSize(16);
                     tv1.setLayoutParams(layoutParams);
                     tv1.setTextColor(mContext.getResources().getColor(R.color.black_333333));
                     layoutParams.rightMargin = 25;
-                    view.setVisibility(View.VISIBLE);
-                    if (i == 0) tv1.setText("[图片]");
-                    else if (i == 1) tv1.setText("[语音]");
-                    else tv1.setText("[文档]");
+                    tv1.setText("[文档]");
                     view.addView(tv1);
                 }
+                if (taskInfo.getBody().getImgs() != null && taskInfo.getBody().getImgs().size() > 0) {
+                    TextView tv1 = new TextView(mContext);
+                    tv1.setTextSize(16);
+                    tv1.setLayoutParams(layoutParams);
+                    tv1.setTextColor(mContext.getResources().getColor(R.color.black_333333));
+                    layoutParams.rightMargin = 25;
+                    tv1.setText("[图片]");
+                    view.addView(tv1);
+                }
+                if (taskInfo.getBody().getVoices() != null && taskInfo.getBody().getVoices().size() > 0) {
+                    TextView tv1 = new TextView(mContext);
+                    tv1.setTextSize(16);
+                    tv1.setLayoutParams(layoutParams);
+                    tv1.setTextColor(mContext.getResources().getColor(R.color.black_333333));
+                    layoutParams.rightMargin = 25;
+                    tv1.setText("[语音]");
+                    view.addView(tv1);
+                }
+
+//                for (int i = 0; i < 3; i++) {
+//                    TextView tv1 = new TextView(mContext);
+//                    tv1.setTextSize(16);
+//                    tv1.setLayoutParams(layoutParams);
+//                    tv1.setTextColor(mContext.getResources().getColor(R.color.black_333333));
+//                    layoutParams.rightMargin = 25;
+//                    view.setVisibility(View.VISIBLE);
+//                    if (i == 0) tv1.setText("[图片]");
+//                    else if (i == 1) tv1.setText("[语音]");
+//                    else tv1.setText("[文档]");
+//                    view.addView(tv1);
+//                }
                 break;
         }
 
@@ -100,5 +129,14 @@ public class GroupMyTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskA
         return R.layout.group_publish_task_item;
     }
 
+
+    private void addTextView(){
+//        TextView tv1 = new TextView(mContext);
+//        tv1.setTextSize(16);
+//        tv1.setLayoutParams(layoutParams);
+//        tv1.setTextColor(mContext.getResources().getColor(R.color.black_333333));
+//        layoutParams.rightMargin = 25;
+//        view.setVisibility(View.VISIBLE);
+    }
 
 }

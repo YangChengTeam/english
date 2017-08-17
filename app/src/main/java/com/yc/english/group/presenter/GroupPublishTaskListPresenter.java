@@ -8,6 +8,7 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupPublishTaskListContract;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.model.engin.GroupPublishTaskListEngine;
+import com.yc.english.group.utils.EngineUtils;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class GroupPublishTaskListPresenter extends BasePresenter<GroupPublishTas
     @Override
     public void getPublishTaskList(String publisher, String class_id) {
         mView.showLoading();
-        Subscription subscription = mEngin.getPublishTaskList(publisher, class_id).subscribe(new Subscriber<ResultInfo<TaskAllInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getPublishTaskList(mContext, publisher, class_id).subscribe(new Subscriber<ResultInfo<TaskAllInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

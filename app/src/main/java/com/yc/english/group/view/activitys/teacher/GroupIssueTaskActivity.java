@@ -130,7 +130,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             @Override
             public void onClick() {
                 Intent intent = new Intent(GroupIssueTaskActivity.this, GroupPublishTaskListActivity.class);
-                intent.putExtra("classInfo", mClassInfo);
+                intent.putExtra("targetId", targetId);
                 startActivity(intent);
             }
         });
@@ -165,7 +165,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         switch (v.getId()) {
             case R.id.m_rl_async_to_other:
                 intent = new Intent(this, GroupSyncGroupListActivity.class);
-                intent.putExtra("classId", mClassInfo.getClass_id());
+                intent.putExtra("classId", targetId);
                 startActivityForResult(intent, 200);
                 break;
             case R.id.m_ll_issue_picture:

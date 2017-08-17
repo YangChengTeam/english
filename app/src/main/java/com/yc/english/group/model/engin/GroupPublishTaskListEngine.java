@@ -24,15 +24,5 @@ public class GroupPublishTaskListEngine extends BaseEngin {
         super(context);
     }
 
-    public Observable<ResultInfo<TaskAllInfoWrapper>> getPublishTaskList(String publisher, String class_id) {
 
-        Map<String, String> params = new HashMap<>();
-        params.put("publisher", publisher);
-        if (!TextUtils.isEmpty(class_id))
-            params.put("class_id", class_id);
-
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.list_publish_task, new TypeReference<ResultInfo<TaskAllInfoWrapper>>() {
-        }.getType(), params, true, true, true);
-
-    }
 }
