@@ -51,8 +51,6 @@
             android:id="@+id/iv_audio_gif_play"
             android:layout_width="24dp"
             android:layout_height="16dp"
-            android:scaleType="center"
-            android:src="@mipmap/read_audio_gif_play"
             android:visibility="visible"/>
     </RelativeLayout>
 </FrameLayout>
