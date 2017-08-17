@@ -74,6 +74,12 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
                 setSyncResult();
             }
         });
+        mToolbar.setBackOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setSyncResult();
+            }
+        });
     }
 
     private void setSyncResult() {

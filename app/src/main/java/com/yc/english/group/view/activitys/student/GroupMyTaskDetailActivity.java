@@ -187,7 +187,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
 
     @OnClick({R.id.m_ll_issue_picture,R.id.m_ll_issue_voice, R.id.m_ll_issue_file})
     public void onClick(View v) {
-        TipsHelper.tips(GroupMyTaskDetailActivity.this, "onClick");
+
         switch (v.getId()) {
             case R.id.m_ll_issue_picture:
                 startActivityForResult(new Intent(this, PictureSelectorActivity.class), 300);
@@ -245,7 +245,6 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
                 mPresenter.uploadFile(this, file, fileInfo.getFileName(), "");
 
             }
-            fileAdapter.setData(fileInfos);
         }
 
     }
@@ -256,7 +255,6 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
                 taskInfo.getAdd_time());
         mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUSHLISH);
         TaskUtil.showContextView(mIvTaskTypeIcon, taskInfo, mLlTaskDetail);
-
 
     }
 
@@ -352,10 +350,5 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

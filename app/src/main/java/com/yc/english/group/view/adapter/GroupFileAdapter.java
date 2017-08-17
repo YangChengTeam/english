@@ -60,12 +60,26 @@ public class GroupFileAdapter extends BaseAdapter<FileInfo> {
             public void onClick(View v) {
                 final Intent intent = new Intent(mContext, FilePreviewActivity.class);
                 if (mIsPublish) {
-                    Uri uri = Uri.parse("file://" + result.getFilePath());
-                    FileMessage fileMessage = FileMessage.obtain(uri);
-                    Message message = Message.obtain("", Conversation.ConversationType.GROUP, fileMessage);
-                    intent.putExtra("FileMessage", fileMessage);
-                    intent.putExtra("Message", message);
-                    mContext.startActivity(intent);
+                    MimeTypeMap myMime = MimeTypeMap.getSingleton();
+                    Intent newIntent = new Intent(Intent.ACTION_VIEW);
+                    String mimeType = null;
+                    if (result.getFilePath().lastIndexOf(".") != -1) {
+                        mimeType = myMime.getMimeTypeFromExtension(result.getFilePath().substring(result.getFilePath().lastIndexOf(".") + 1));
+                    }
+                    newIntent.setDataAndType(Uri.parse("file://" + result.getFilePath()), mimeType);
+                    newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    try {
+                        mContext.startActivity(newIntent);
+                    } catch (ActivityNotFoundException e) {
+                        TipsHelper.tips(mContext, "未知文件类型");
+                    }
+
+//                    Uri uri = Uri.parse("file://" + result.getFilePath());
+//                    FileMessage fileMessage = FileMessage.obtain(uri);
+//                    Message message = Message.obtain("", Conversation.ConversationType.GROUP, fileMessage);
+//                    intent.putExtra("FileMessage", fileMessage);
+//                    intent.putExtra("Message", message);
+//                    mContext.startActivity(intent);
                 } else {
                     RxUtils.getFile(mContext, result.getFilePath()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<File>() {
                         @Override

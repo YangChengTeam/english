@@ -91,10 +91,7 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
             @Override
             public void onClick() {
                 Intent intent = new Intent(GroupPublishTaskLookAndUnLookActivity.this, GroupPublishTaskListActivity.class);
-                ClassInfo classInfo = new ClassInfo();
-                classInfo.setMaster_id(taskInfo.getPublisher());
-                classInfo.setClass_id(taskInfo.getClass_ids().get(0));
-                intent.putExtra("classInfo", classInfo);
+                intent.putExtra("targetId", taskInfo.getClass_ids().get(0));
                 startActivity(intent);
             }
         });

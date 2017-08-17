@@ -53,19 +53,19 @@ public class GroupDoneTaskDetailPresenter extends BasePresenter<GroupDoneTaskDet
                 ResultInfoHelper.handleResultInfo(stringResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        hideStateView();
+
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        hideStateView();
+
                     }
 
                     @Override
                     public void reulstInfoOk() {
 
                         mView.showDoneTaskDetail(stringResultInfo.data.getInfo());
-                        hideStateView();
+
                     }
                 });
 
@@ -93,18 +93,18 @@ public class GroupDoneTaskDetailPresenter extends BasePresenter<GroupDoneTaskDet
                 ResultInfoHelper.handleResultInfo(taskInfoWrapperResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        hideStateView();
+                        mView.hideStateView();
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        hideStateView();
+                        mView.hideStateView();
                     }
 
                     @Override
                     public void reulstInfoOk() {
                         mView.showPublishTaskDetail(taskInfoWrapperResultInfo.data.getInfo());
-                        hideStateView();
+                        mView.hideStateView();
                     }
                 });
 
@@ -114,15 +114,7 @@ public class GroupDoneTaskDetailPresenter extends BasePresenter<GroupDoneTaskDet
         mSubscriptions.add(subscription);
     }
 
-    private int count;
 
-    private void hideStateView() {
-        count++;
-        if (count >= 2) {
-            mView.hideStateView();
-            count = 0;
-        }
-    }
 
 
     @Override

@@ -1,27 +1,22 @@
 package com.yc.english.group.view.activitys.student;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupDoTaskListContract;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.presenter.GroupDoTaskListPresenter;
-import com.yc.english.group.view.activitys.teacher.GroupIssueTaskActivity;
 import com.yc.english.group.view.adapter.GroupMyTaskListAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/7/28 08:57.
@@ -41,7 +36,7 @@ public class GroupMyTaskListActivity extends FullScreenActivity<GroupDoTaskListP
 
         if (getIntent() != null) {
             targetId = getIntent().getStringExtra("targetId");
-            mPresenter.getDoTaskList(targetId, UserInfoHelper.getUserInfo().getUid());
+            mPresenter.getPublishTaskList("", targetId);
 
         }
         mToolbar.setTitle(getString(R.string.task));
@@ -49,18 +44,6 @@ public class GroupMyTaskListActivity extends FullScreenActivity<GroupDoTaskListP
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupMyTaskListAdapter(this, null);
         mRecyclerView.setAdapter(adapter);
-        initListener();
-
-    }
-
-
-    private void initListener() {
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                startActivity(new Intent(GroupMyTaskListActivity.this, GroupIssueTaskActivity.class));
-            }
-        });
 
     }
 

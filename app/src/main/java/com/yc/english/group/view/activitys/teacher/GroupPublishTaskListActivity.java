@@ -1,17 +1,14 @@
 package com.yc.english.group.view.activitys.teacher;
 
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupPublishTaskListContract;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.presenter.GroupPublishTaskListPresenter;
 import com.yc.english.group.view.adapter.GroupTaskListAdapter;
@@ -30,38 +27,28 @@ public class GroupPublishTaskListActivity extends FullScreenActivity<GroupPublis
     @BindView(R.id.stateView)
     StateView stateView;
     private GroupTaskListAdapter adapter;
-    private ClassInfo classInfo;
+    private String targetId;
 
     @Override
     public void init() {
         mPresenter = new GroupPublishTaskListPresenter(this, this);
         if (getIntent() != null) {
-            classInfo = getIntent().getParcelableExtra("classInfo");
-            mPresenter.getPublishTaskList(classInfo.getMaster_id(), classInfo.getClass_id());
+            targetId = getIntent().getStringExtra("targetId");
+
+            mPresenter.getPublishTaskList("", targetId);
+
         }
 
         mToolbar.setTitle(getString(R.string.my_publish));
-//        mToolbar.setMenuTitle(getString(R.string.i_want_to_publish));
+
         mToolbar.showNavigationIcon();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupTaskListAdapter(this, null);
         mRecyclerView.setAdapter(adapter);
-        initListener();
 
     }
 
 
-    private void initListener() {
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                Intent intent = new Intent(GroupPublishTaskListActivity.this, GroupIssueTaskActivity.class);
-                intent.putExtra("targetId", classInfo.getClass_id());
-                startActivity(intent);
-            }
-        });
-
-    }
 
 
     @Override
@@ -86,7 +73,9 @@ public class GroupPublishTaskListActivity extends FullScreenActivity<GroupPublis
         stateView.showNoNet(mRecyclerView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getPublishTaskList(classInfo.getMaster_id(), classInfo.getClass_id());
+
+                mPresenter.getPublishTaskList("", targetId);
+
             }
         });
     }

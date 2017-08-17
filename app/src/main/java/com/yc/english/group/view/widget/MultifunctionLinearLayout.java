@@ -141,11 +141,12 @@ public class MultifunctionLinearLayout extends LinearLayout {
 
 
     public void setText(String text) {
-        if(EmptyUtils.isEmpty(text)){
+        if(TextUtils.isEmpty(text)){
             textView.setVisibility(View.GONE);
+        }else {
+            textView.setVisibility(View.VISIBLE);
         }
        textView.setText(text);
     }
-
 
 }

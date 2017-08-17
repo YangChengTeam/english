@@ -37,7 +37,7 @@ public class TaskAllInfoWrapper {
         private String add_date;
         private String add_time;
         private String add_week;
-        private List<BodyBean> body;
+        private BodyBean body;
         private String class_id;
         private String desp;
         private String id;
@@ -65,11 +65,11 @@ public class TaskAllInfoWrapper {
             this.add_time = add_time;
         }
 
-        public List<BodyBean> getBody() {
+        public BodyBean getBody() {
             return body;
         }
 
-        public void setBody(List<BodyBean> body) {
+        public void setBody(BodyBean body) {
             this.body = body;
         }
 
