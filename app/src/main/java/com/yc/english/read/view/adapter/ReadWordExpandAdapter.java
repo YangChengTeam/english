@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.yc.english.R;
 import com.yc.english.read.model.domain.WordDetailInfo;
@@ -158,7 +159,7 @@ public class ReadWordExpandAdapter extends BaseExpandableListAdapter {
             view = (listView.getChildAt(position - fVisiblePos));
         }
 
-        if (view != null) {
+        if (view != null && ActivityUtils.isValidContext(mContext)) {
             if (isPlay) {
                 if ((ImageView) view.findViewById(R.id.iv_read_word) != null)
                     Glide.with(mContext).load(R.mipmap.read_audio_gif_play).into((ImageView) view.findViewById(R.id.iv_read_word));
@@ -171,7 +172,7 @@ public class ReadWordExpandAdapter extends BaseExpandableListAdapter {
 
     public void setChildViewPlayState(View view, boolean isPlay) {
 
-        if (view != null) {
+        if (view != null && ActivityUtils.isValidContext(mContext)) {
             if (isPlay) {
                 if ((ImageView) view.findViewById(R.id.iv_word_detail_audio) != null)
                     Glide.with(mContext).load(R.mipmap.read_audio_gif_play).into((ImageView) view.findViewById(R.id.iv_word_detail_audio));
