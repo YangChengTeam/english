@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
@@ -77,12 +78,10 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         recyclerView.setAdapter(adapter);
 
         mPresenter.getMemberList(this, groupInfo.getId(), "1", "");
-        initListener();
 
     }
 
-    private void initListener() {
-    }
+
 
 
     @Override
@@ -108,7 +107,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         simpleHeaderAdapter = new SimpleHeaderAdapter<>(this.adapter, "", "", list.subList(0, 1));
         recyclerView.addHeaderAdapter(simpleHeaderAdapter);
         list.remove(0);
-        this.adapter.setDatas(list);
+        adapter.setDatas(list);
 
     }
 
@@ -166,7 +165,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
 
     @Override
     public void showNoNet() {
-        stateView.showNoNet(llContainer, "网络不给力", new View.OnClickListener() {
+        stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPresenter.getMemberList(GroupMemberActivity.this, groupInfo.getId(), "1", "");

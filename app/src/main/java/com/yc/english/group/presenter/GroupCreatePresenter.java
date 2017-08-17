@@ -41,7 +41,6 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
-        if (!forceUpdate) return;
 
     }
 
@@ -68,8 +67,6 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
                 handleResultInfo(classInfo, new Runnable() {
                     @Override
                     public void run() {
-
-//                        createRongGroup(classInfo.data.getInfo());
                         saveGroup(classInfo.data.getInfo());
                     }
                 });

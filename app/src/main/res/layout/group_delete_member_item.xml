@@ -28,8 +28,8 @@
 
         <ImageView
             android:id="@+id/iv_member_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/group_distance_40"
+            android:layout_height="@dimen/group_distance_40"
             android:src="@mipmap/default_avatar" />
 
         <TextView

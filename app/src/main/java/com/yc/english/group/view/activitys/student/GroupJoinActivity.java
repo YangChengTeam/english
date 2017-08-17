@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyJoinContract;
@@ -78,11 +80,11 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
             case R.id.btn_join:
                 String groupId = etClassGroup.getText().toString();
                 String uid = UserInfoHelper.getUserInfo().getUid();
-
+                KeyboardUtils.hideSoftInput(this);
                 int valiType = Integer.parseInt(vali_type);
 
                 if (GroupConstant.CONDITION_ALL_FORBID == valiType) {//禁止所有人加入
-                    ToastUtils.showShort(getString(R.string.forbid_join));
+                    TipsHelper.tips(this, getString(R.string.forbid_join));
                 } else {
                     mPresenter.applyJoinGroup(uid, groupId);
                 }
@@ -122,7 +124,7 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
             llClassName.setVisibility(View.VISIBLE);
             btnJoin.setVisibility(View.VISIBLE);
             mTvTint.setVisibility(View.GONE);
-            GlideHelper.circleImageView(this,roundView,classInfo.getImageUrl(),R.mipmap.default_avatar);
+            GlideHelper.circleImageView(this, roundView, classInfo.getImageUrl(), R.mipmap.default_avatar);
         } else {
             mTvTint.setVisibility(View.VISIBLE);
             llClassName.setVisibility(View.GONE);

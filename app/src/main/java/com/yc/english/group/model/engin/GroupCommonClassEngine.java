@@ -8,6 +8,10 @@ import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
 import com.yc.english.group.model.bean.ClassInfoList;
+import com.yc.english.group.model.bean.MemberInfo;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import rx.Observable;
 
@@ -24,5 +28,14 @@ public class GroupCommonClassEngine extends BaseEngin {
 
         return HttpCoreEngin.get(mContext).rxpost(NetConstan.index_comm_class_list, new TypeReference<ResultInfo<ClassInfoList>>() {
         }.getType(), null, true, true, true);
+    }
+
+
+    public Observable<ResultInfo<MemberInfo>> isGroupMember(String class_id, String user_id) {
+        Map<String, String> params = new HashMap<>();
+        params.put("class_id", class_id);
+        params.put("user_id", user_id);
+        return HttpCoreEngin.get(mContext).rxpost(NetConstan.is_member, new TypeReference<ResultInfo<MemberInfo>>() {
+        }.getType(), params, true, true, true);
     }
 }

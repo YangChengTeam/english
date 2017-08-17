@@ -130,4 +130,9 @@ public interface NetConstan {
      */
 
     String detail_do_task2 = baser_url + "task/detail_do2";
+
+    /**
+     * 是否是班群成员
+     */
+    String is_member = baser_url + "class/is_member";
 }

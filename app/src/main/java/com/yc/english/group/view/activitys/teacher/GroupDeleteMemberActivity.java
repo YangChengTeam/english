@@ -3,21 +3,22 @@ package com.yc.english.group.view.activitys.teacher;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.StateView;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupDeleteMemberContract;
 import com.yc.english.group.listener.OnCheckedChangeListener;
-import com.yc.english.group.model.bean.GroupMemberInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupDeleteMemberPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
@@ -41,6 +42,10 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
     RecyclerView recyclerView;
     @BindView(R.id.tv_confirm_delete_group)
     TextView tvConfirmDeleteGroup;
+    @BindView(R.id.stateView)
+    StateView stateView;
+    @BindView(R.id.ll_container)
+    LinearLayout llContainer;
     private GroupDeleteAdapter adapter;
     private GroupInfo groupInfo;
     private List<StudentInfo> mList;
@@ -158,5 +163,30 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
         RxBus.get().post(BusAction.DELETEMEMBER, "delete_member");
     }
 
+
+    @Override
+    public void hideStateView() {
+        stateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getMemberList(GroupDeleteMemberActivity.this, groupInfo.getId(), "1", "");
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        stateView.showNoData(llContainer);
+    }
+
+    @Override
+    public void showLoading() {
+        stateView.showLoading(llContainer);
+    }
 
 }

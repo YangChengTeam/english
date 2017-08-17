@@ -68,45 +68,30 @@ public class GroupMyTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskA
                 layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
                 view.setVisibility(View.VISIBLE);
                 if (taskInfo.getBody().getDocs() != null && taskInfo.getBody().getDocs().size() > 0) {
-                    TextView tv1 = new TextView(mContext);
-                    tv1.setTextSize(16);
-                    tv1.setLayoutParams(layoutParams);
-                    tv1.setTextColor(mContext.getResources().getColor(R.color.black_333333));
+                    TextView tv1 = getTextView();
                     layoutParams.rightMargin = 25;
+                    tv1.setLayoutParams(layoutParams);
                     tv1.setText("[文档]");
                     view.addView(tv1);
                 }
                 if (taskInfo.getBody().getImgs() != null && taskInfo.getBody().getImgs().size() > 0) {
-                    TextView tv1 = new TextView(mContext);
-                    tv1.setTextSize(16);
+                    TextView tv1 = getTextView();
+
                     tv1.setLayoutParams(layoutParams);
-                    tv1.setTextColor(mContext.getResources().getColor(R.color.black_333333));
+
                     layoutParams.rightMargin = 25;
                     tv1.setText("[图片]");
                     view.addView(tv1);
                 }
                 if (taskInfo.getBody().getVoices() != null && taskInfo.getBody().getVoices().size() > 0) {
-                    TextView tv1 = new TextView(mContext);
-                    tv1.setTextSize(16);
+                    TextView tv1 = getTextView();
+
                     tv1.setLayoutParams(layoutParams);
-                    tv1.setTextColor(mContext.getResources().getColor(R.color.black_333333));
                     layoutParams.rightMargin = 25;
                     tv1.setText("[语音]");
                     view.addView(tv1);
                 }
 
-//                for (int i = 0; i < 3; i++) {
-//                    TextView tv1 = new TextView(mContext);
-//                    tv1.setTextSize(16);
-//                    tv1.setLayoutParams(layoutParams);
-//                    tv1.setTextColor(mContext.getResources().getColor(R.color.black_333333));
-//                    layoutParams.rightMargin = 25;
-//                    view.setVisibility(View.VISIBLE);
-//                    if (i == 0) tv1.setText("[图片]");
-//                    else if (i == 1) tv1.setText("[语音]");
-//                    else tv1.setText("[文档]");
-//                    view.addView(tv1);
-//                }
                 break;
         }
 
@@ -116,6 +101,7 @@ public class GroupMyTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskA
                 Intent intent = new Intent(mContext, GroupTaskGradeActivity.class);
                 intent.putExtra("taskId", taskInfo.getTask_id());
                 intent.putExtra("classId", taskInfo.getClass_id());
+                intent.putExtra("userId",taskInfo.getUser_id());
                 intent.putExtra("id", taskInfo.getId());
                 mContext.startActivity(intent);
             }
@@ -130,13 +116,11 @@ public class GroupMyTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskA
     }
 
 
-    private void addTextView(){
-//        TextView tv1 = new TextView(mContext);
-//        tv1.setTextSize(16);
-//        tv1.setLayoutParams(layoutParams);
-//        tv1.setTextColor(mContext.getResources().getColor(R.color.black_333333));
-//        layoutParams.rightMargin = 25;
-//        view.setVisibility(View.VISIBLE);
+    private TextView getTextView() {
+        TextView tv1 = new TextView(mContext);
+        tv1.setTextSize(16);
+        tv1.setTextColor(mContext.getResources().getColor(R.color.black_333333));
+        return tv1;
     }
 
 }

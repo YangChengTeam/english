@@ -36,7 +36,7 @@ public class LookTaskPlugin implements IPluginModule {
 
     @Override
     public Drawable obtainDrawable(Context context) {
-        return context.getResources().getDrawable(R.drawable.group_task_selector);
+        return context.getResources().getDrawable(R.drawable.group_look_task_selector);
     }
 
     @Override

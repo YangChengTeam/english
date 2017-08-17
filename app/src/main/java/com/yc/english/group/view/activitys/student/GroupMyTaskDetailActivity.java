@@ -21,7 +21,6 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.helper.AudioRecordManager;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupDoTaskDetailContract;
@@ -85,6 +84,8 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     StateView stateView;
     @BindView(R.id.sl_container)
     ScrollView slContainer;
+    @BindView(R.id.m_iv_grade)
+    ImageView mIvGrade;
 
 
     private List<Uri> uriList;
@@ -128,7 +129,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
         recyclerViewPicture.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction()==MotionEvent.ACTION_UP){
+                if (event.getAction() == MotionEvent.ACTION_UP) {
                     startActivityForResult(new Intent(GroupMyTaskDetailActivity.this, PictureSelectorActivity.class), 300);
                 }
                 return false;
@@ -140,9 +141,9 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     private void getData() {
 
         if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupId())) {
-            mPresenter.getPublishTaskDetail(this, taskInfo.getId(), GroupInfoHelper.getGroupId(), UserInfoHelper.getUserInfo().getUid());
+            mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), GroupInfoHelper.getGroupId(), taskInfo.getUser_id());
         }
-        mPresenter.getDoneTaskDetail(this, taskInfo.getId(), UserInfoHelper.getUserInfo().getUid());
+        mPresenter.getDoneTaskDetail(this, taskInfo.getTask_id(), taskInfo.getUser_id());
     }
 
     private void doTask(String desc) {
@@ -185,7 +186,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     }
 
 
-    @OnClick({R.id.m_ll_issue_picture,R.id.m_ll_issue_voice, R.id.m_ll_issue_file})
+    @OnClick({R.id.m_ll_issue_picture, R.id.m_ll_issue_voice, R.id.m_ll_issue_file})
     public void onClick(View v) {
 
         switch (v.getId()) {
@@ -204,6 +205,23 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
                 break;
         }
 
+    }
+
+
+    private void setScore(TaskInfo info) {
+        if (info.getScore() != null) {
+            if (info.getScore().equals("A+")) {
+                mIvGrade.setImageResource(R.mipmap.group30);
+            } else if (info.getScore().equals("A")) {
+                mIvGrade.setImageResource(R.mipmap.group31);
+            } else if (info.getScore().equals("B+")) {
+                mIvGrade.setImageResource(R.mipmap.group32);
+            } else if (info.getScore().equals("B")) {
+                mIvGrade.setImageResource(R.mipmap.group33);
+            } else if (info.getScore().equals("C")) {
+                mIvGrade.setImageResource(R.mipmap.group34);
+            }
+        }
     }
 
     private List<Voice> voiceList = new ArrayList<>();
@@ -253,7 +271,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     public void showTaskDetail(TaskInfo taskInfo) {
         mTvIssueTime.setText(taskInfo.getAdd_date() + " " + taskInfo.getAdd_week() + " " +
                 taskInfo.getAdd_time());
-        mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUSHLISH);
+        mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUBLISH);
         TaskUtil.showContextView(mIvTaskTypeIcon, taskInfo, mLlTaskDetail);
 
     }
@@ -281,6 +299,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
         doMultifunctionLinearLayout.setType(MultifunctionLinearLayout.Type.DONE);
         TaskUtil.showContextView(mIvTaskTypeIcon, data, doMultifunctionLinearLayout);
         showPage(data);
+        setScore(data);
     }
 
     private BaseAdapter mAdapter;
@@ -348,7 +367,5 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     public void showLoading() {
         stateView.showLoading(slContainer);
     }
-
-
 
 }

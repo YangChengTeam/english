@@ -89,7 +89,7 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
     @Override
     public void showPublishTaskDetail(TaskInfo taskInfo) {
         mTvIssueTime.setText(taskInfo.getAdd_date() + " " + taskInfo.getAdd_week() + " " + taskInfo.getAdd_time());
-        mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUSHLISH);
+        mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUBLISH);
         TaskUtil.showContextView(mIvTaskTypeIcon, taskInfo, mLlTaskDetail);
     }
 
@@ -177,10 +177,4 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
         mPresenter.getIsFinishTaskList(classId, taskId);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

@@ -128,12 +128,12 @@ public class GroupDoTaskDetailPresenter extends BasePresenter<GroupDoTaskDetailE
         Subscription subscription = mEngin.doTask(class_id, user_id, task_id, desp, imgs, voices, docs).subscribe(new Subscriber<ResultInfo<TaskInfoWrapper>>() {
             @Override
             public void onCompleted() {
-                mView.hideStateView();
+                mView.dismissLoadingDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.hideStateView();
+                mView.dismissLoadingDialog();
             }
 
             @Override

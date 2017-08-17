@@ -75,7 +75,6 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
-
             case R.id.rl_group_image:
                 AvatarHelper.openAlbum(this);
                 break;
@@ -85,7 +84,6 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
                 startActivity(intent);
                 break;
             case R.id.rl_group_delete_member:
-
                 intent = new Intent(this, GroupDeleteMemberActivity.class);
                 intent.putExtra("group", groupInfo);
                 startActivity(intent);

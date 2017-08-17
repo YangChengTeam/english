@@ -5,14 +5,13 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.hwangjr.rxbus.RxBus;
 import com.yc.english.R;
 import com.yc.english.group.constant.BusAction;
-import com.yc.english.group.view.activitys.student.GroupPictureDetailActivity;
+import com.yc.english.group.view.activitys.GroupPictureDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;

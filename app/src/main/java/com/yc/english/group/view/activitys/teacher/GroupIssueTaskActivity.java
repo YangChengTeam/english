@@ -138,14 +138,14 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         mToolbar.setBackOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 saveTaskData();
+                finish();
             }
         });
         recyclerViewPicture.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction()==MotionEvent.ACTION_UP){
+                if (event.getAction() == MotionEvent.ACTION_UP) {
                     startActivityForResult(new Intent(GroupIssueTaskActivity.this, PictureSelectorActivity.class), 300);
                 }
                 return false;
@@ -222,7 +222,6 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 for (Uri uri : uriList) {
                     pitureList.add(uri.getPath());
                 }
-
             }
             setFileInfo(pictureAdapter, pitureList);
             for (Uri uri : uriList) {//上传图片
@@ -314,6 +313,10 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 boolean aBoolean = SPUtils.getInstance().getBoolean(classInfo.getClass_id() + "class");
                 if (aBoolean) {
                     count++;
+                    if (classInfoList == null) {
+                        classInfoList = new ArrayList<>();
+                    }
+                    classInfoList.add(classInfo);
                 }
             }
         }
@@ -372,7 +375,6 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
                 Voice voice = new Voice(file, duration + "''");
 
-
                 voiceList.add(voice);
 
                 setFileInfo(voiceAdapter, voiceList);
@@ -395,6 +397,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         SPUtils.getInstance().put(GroupConstant.PICTUE_TASK, JSONObject.toJSONString(pitureList));
         SPUtils.getInstance().put(GroupConstant.VOICE_TASK, JSONObject.toJSONString(voiceList));
         SPUtils.getInstance().put(GroupConstant.WORD_TASK, JSONObject.toJSONString(fileInfos));
+
     }
 
     private void clearTaskData() {

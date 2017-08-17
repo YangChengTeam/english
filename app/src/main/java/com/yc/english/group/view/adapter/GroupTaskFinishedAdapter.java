@@ -37,8 +37,8 @@ public class GroupTaskFinishedAdapter extends BaseAdapter<StudentFinishTaskInfo.
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, GroupTaskFinishDetailActivity.class);
-                    intent.putExtra("mTaskId", mTaskId);
-                    intent.putExtra("mClassId", mClassId);
+                    intent.putExtra("taskId", mTaskId);
+                    intent.putExtra("classId", mClassId);
                     intent.putExtra("doneId", noDoneListBean.getDone_id());
                     intent.putExtra("userId",noDoneListBean.getUser_id());
 

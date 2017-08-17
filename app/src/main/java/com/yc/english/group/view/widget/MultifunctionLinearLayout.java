@@ -40,10 +40,10 @@ public class MultifunctionLinearLayout extends LinearLayout {
     private GroupPictureAdapter groupPictureAdapter;
 
 
-    private  LinearLayout llPicture;
-    private  LinearLayout llFile;
-    private  LinearLayout llVoice;
-    private  TextView textView;
+    private LinearLayout llPicture;
+    private LinearLayout llFile;
+    private LinearLayout llVoice;
+    private TextView textView;
 
     private Type type;
 
@@ -56,7 +56,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
     }
 
     public enum Type {
-        PUSHLISH,
+        PUBLISH,
         DONE
     }
 
@@ -76,9 +76,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
 
     private void init() {
         inflater = LayoutInflater.from(mContext);
-        showSynthesizeView();
     }
-
 
 
     public void showSynthesizeView() {
@@ -107,14 +105,15 @@ public class MultifunctionLinearLayout extends LinearLayout {
             groupFileAdapter = new GroupFileAdapter(mContext, false, null);
             fileRecycleView.setLayoutManager(new LinearLayoutManager(mContext));
             fileRecycleView.setAdapter(groupFileAdapter);
-
+            textView.setText(getText());
+            textView.setVisibility(TextUtils.isEmpty(getText()) ? View.GONE : View.VISIBLE);
             addView(synthesizeView);
         }
 
     }
 
 
-    private void showView(View view, List list){
+    private void showView(View view, List list) {
         if (list != null && list.size() > 0) {
             view.setVisibility(VISIBLE);
         } else {
@@ -138,15 +137,13 @@ public class MultifunctionLinearLayout extends LinearLayout {
         groupVoiceAdapter.setData(voices);
     }
 
+    private String text;
 
-
-    public void setText(String text) {
-        if(TextUtils.isEmpty(text)){
-            textView.setVisibility(View.GONE);
-        }else {
-            textView.setVisibility(View.VISIBLE);
-        }
-       textView.setText(text);
+    public String getText() {
+        return text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
 }

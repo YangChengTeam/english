@@ -39,7 +39,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/group_distance_60"
                     android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/group_distance_15">
+                    android:paddingLeft="@dimen/group_distance_15"
+                    android:paddingRight="@dimen/group_distance_15">
 
                     <ImageView
                         android:id="@+id/m_iv_task_type_icon"
@@ -48,10 +49,10 @@
                         android:src="@mipmap/group36" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/group_distance_20"
-
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
@@ -71,6 +72,11 @@
                             android:textSize="@dimen/group_text_14" />
 
                     </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/m_iv_grade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
 
                 </LinearLayout>
@@ -150,6 +156,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:minHeight="@dimen/group_distance_50"
+                            android:paddingBottom="@dimen/group_distance_8"
                             android:paddingLeft="@dimen/group_distance_15"
                             android:paddingRight="@dimen/group_distance_25">
 
@@ -177,6 +184,7 @@
                             android:clickable="true"
                             android:gravity="center_vertical"
                             android:minHeight="@dimen/group_distance_50"
+                            android:paddingBottom="@dimen/group_distance_8"
                             android:paddingLeft="@dimen/group_distance_15"
                             android:paddingRight="@dimen/group_distance_25">
 

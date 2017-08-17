@@ -3,6 +3,7 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupDeleteMemberContract;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
@@ -22,7 +23,7 @@ import rx.functions.Action1;
 
 public class GroupDeleteMemberPresenter extends BasePresenter<GroupDeleteMemberEngine, GroupDeleteMemberContract.View> implements GroupDeleteMemberContract.Presenter {
     public GroupDeleteMemberPresenter(Context context, GroupDeleteMemberContract.View view) {
-        super(view);
+        super(context, view);
         mEngin = new GroupDeleteMemberEngine(context);
     }
 
@@ -61,6 +62,7 @@ public class GroupDeleteMemberPresenter extends BasePresenter<GroupDeleteMemberE
 
     @Override
     public void getMemberList(Context context, String class_id, String status, String master_id) {
+        mView.showLoading();
         Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
@@ -69,15 +71,34 @@ public class GroupDeleteMemberPresenter extends BasePresenter<GroupDeleteMemberE
 
             @Override
             public void onError(Throwable e) {
-
+                mView.showNoNet();
             }
 
             @Override
             public void onNext(final ResultInfo<StudentInfoWrapper> stringResultInfo) {
-                handleResultInfo(stringResultInfo, new Runnable() {
+                ResultInfoHelper.handleResultInfo(stringResultInfo, new ResultInfoHelper.Callback() {
                     @Override
-                    public void run() {
-                        mView.showMemberList(stringResultInfo.data.getList());
+                    public void resultInfoEmpty(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (stringResultInfo.data != null) {
+                            if (stringResultInfo.data.getList() != null && stringResultInfo.data.getList().size() > 0) {
+                                mView.hideStateView();
+                                mView.showMemberList(stringResultInfo.data.getList());
+                            } else {
+                                mView.showNoData();
+                            }
+                        } else {
+                            mView.showNoData();
+                        }
                     }
                 });
 

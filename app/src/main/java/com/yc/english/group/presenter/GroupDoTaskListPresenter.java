@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.utils.UIUitls;
+import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupDoTaskListContract;
@@ -83,11 +84,19 @@ public class GroupDoTaskListPresenter extends BasePresenter<GroupDoTaskListEngin
 
             @Override
             public void onNext(final ResultInfo<TaskAllInfoWrapper> taskDoneInfoWrapperResultInfo) {
-
-                handleResultInfo(taskDoneInfoWrapperResultInfo, new Runnable() {
+                ResultInfoHelper.handleResultInfo(taskDoneInfoWrapperResultInfo, new ResultInfoHelper.Callback() {
                     @Override
-                    public void run() {
+                    public void resultInfoEmpty(String message) {
+                        mView.showNoNet();
+                    }
 
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
                         if (taskDoneInfoWrapperResultInfo.data != null) {
                             List<TaskAllInfoWrapper.TaskAllInfo> list = taskDoneInfoWrapperResultInfo.data.getList();
                             if (list != null && list.size() > 0) {
@@ -101,6 +110,7 @@ public class GroupDoTaskListPresenter extends BasePresenter<GroupDoTaskListEngin
                         }
                     }
                 });
+
 
             }
         });

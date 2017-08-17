@@ -22,36 +22,36 @@ import io.rong.imkit.model.FileInfo;
 public class TaskUtil {
     public static void showContextView(ImageView mIvTaskIcon, TaskInfo info, MultifunctionLinearLayout linearLayout) {
         int type = Integer.parseInt(info.getType());
+        linearLayout.setText(info.getDesp());
         switch (type) {
             case GroupConstant.TASK_TYPE_CHARACTER:
-                if (linearLayout.getType() == MultifunctionLinearLayout.Type.PUSHLISH) {
+                if (linearLayout.getType() == MultifunctionLinearLayout.Type.PUBLISH) {
                     mIvTaskIcon.setImageResource(R.mipmap.group36);
                 }
-
                 break;
             case GroupConstant.TASK_TYPE_PICTURE:
-                if (linearLayout.getType() == MultifunctionLinearLayout.Type.PUSHLISH) {
+                if (linearLayout.getType() == MultifunctionLinearLayout.Type.PUBLISH) {
                     mIvTaskIcon.setImageResource(R.mipmap.group40);
                 }
                 break;
             case GroupConstant.TASK_TYPE_WORD:
-                if (linearLayout.getType() == MultifunctionLinearLayout.Type.PUSHLISH) {
+                if (linearLayout.getType() == MultifunctionLinearLayout.Type.PUBLISH) {
                     mIvTaskIcon.setImageResource(R.mipmap.group42);
                 }
                 break;
             case GroupConstant.TASK_TYPE_VOICE:
-                if (linearLayout.getType() == MultifunctionLinearLayout.Type.PUSHLISH) {
+                if (linearLayout.getType() == MultifunctionLinearLayout.Type.PUBLISH) {
                     mIvTaskIcon.setImageResource(R.mipmap.group38);
                 }
                 break;
             case GroupConstant.TASK_TYPE_SYNTHESIZE:
-                if (linearLayout.getType() == MultifunctionLinearLayout.Type.PUSHLISH) {
+                if (linearLayout.getType() == MultifunctionLinearLayout.Type.PUBLISH) {
                     mIvTaskIcon.setImageResource(R.mipmap.group44);
                 }
                 break;
 
         }
-        linearLayout.setText(info.getDesp());
+        linearLayout.showSynthesizeView();
         linearLayout.showUrlView(info.getBody().getImgs());
         linearLayout.showVioceView(getVoiceList(info));
         linearLayout.showFileView(getFileInfos(info));

@@ -2,9 +2,9 @@ package com.yc.english.group.view.activitys.student;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,18 +17,18 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
+import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.helper.AudioRecordManager;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupDoTaskDetailContract;
-import com.yc.english.group.contract.GroupDoneTaskDetailContract;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupDoTaskDetailPresenter;
-import com.yc.english.group.presenter.GroupDoneTaskDetailPresenter;
 import com.yc.english.group.utils.TaskUtil;
 import com.yc.english.group.view.adapter.GroupFileAdapter;
 import com.yc.english.group.view.adapter.GroupPictureAdapter;
@@ -41,12 +41,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.rong.imkit.activity.FileListActivity;
 import io.rong.imkit.model.FileInfo;
 import io.rong.imkit.plugin.image.PictureSelectorActivity;
+import rx.functions.Action1;
 
 
 /**
@@ -94,6 +96,9 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
     private GroupPictureAdapter groupPictureAdapter;
     private GroupVoiceAdapter groupVoiceAdapter;
     private GroupFileAdapter groupFileAdapter;
+    private String taskId;
+    private String classId;
+    private String userId;
 
     @Override
     public void init() {
@@ -104,14 +109,13 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
             if (getIntent().getStringExtra("extra") != null) {
                 String detailTask = getIntent().getStringExtra("extra");
                 taskInfo = JSONObject.parseObject(detailTask, TaskInfo.class);
-                getData();
             } else {
-                String taskId = getIntent().getStringExtra("taskId");
-                String classId = getIntent().getStringExtra("classId");
+                taskId = getIntent().getStringExtra("taskId");
+                classId = getIntent().getStringExtra("classId");
                 String id = getIntent().getStringExtra("id");
-                mPresenter.getDoneTaskDetail(this, taskId, UserInfoHelper.getUserInfo().getUid());
-                mPresenter.getPublishTaskDetail(this, taskId, classId, UserInfoHelper.getUserInfo().getUid());
+                userId = getIntent().getStringExtra("userId");
             }
+            getData();
         }
 
         recyclerViewPicture.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -134,6 +138,14 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
                 return false;
             }
         });
+        RxView.clicks(mBtnSubmit).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                String desc = mEtFinishTask.getText().toString().trim();
+                doTask(desc);
+            }
+        });
+
     }
 
     @Override
@@ -185,15 +197,26 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
     }
 
     private void getData() {
-        mPresenter.getDoneTaskDetail(this, taskInfo.getTask_id(), UserInfoHelper.getUserInfo().getUid());
-        mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid());
+        if (taskInfo != null) {
+            mPresenter.getDoneTaskDetail(this, taskInfo.getTask_id(), taskInfo.getUser_id());
+            mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), taskInfo.getUser_id());
+        } else {
+            if (TextUtils.isEmpty(userId)) {
+                mPresenter.getDoneTaskDetail(this, taskId, UserInfoHelper.getUserInfo().getUid());
+                mPresenter.getPublishTaskDetail(this, taskId, classId, UserInfoHelper.getUserInfo().getUid());
+            } else {
+                mPresenter.getDoneTaskDetail(this, taskId, userId);
+                mPresenter.getPublishTaskDetail(this, taskId, classId, userId);
+            }
+
+        }
     }
 
 
     @Override
     public void showTaskDetail(TaskInfo info) {
         mTvIssueTime.setText(info.getAdd_date() + " " + info.getAdd_week() + " " + info.getAdd_time());
-        publishMultifunctionLinearLayout.setType(MultifunctionLinearLayout.Type.PUSHLISH);
+        publishMultifunctionLinearLayout.setType(MultifunctionLinearLayout.Type.PUBLISH);
         TaskUtil.showContextView(mIvTaskIcon, info, publishMultifunctionLinearLayout);
     }
 
@@ -327,5 +350,42 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
 
             }
         });
+    }
+
+    private void doTask(String desc) {
+
+        StringBuilder picSb = new StringBuilder();
+        StringBuilder voiceSb = new StringBuilder();
+        StringBuilder wordSb = new StringBuilder();
+
+        if (picturePath.size() > 0) {
+            for (String s : picturePath) {
+                picSb.append(s).append(",");
+            }
+            picSb.deleteCharAt(picSb.length() - 1);
+        }
+        if (voicePath.size() > 0) {
+            for (String s : voicePath) {
+                voiceSb.append(s).append(",");
+            }
+            voiceSb.deleteCharAt(voiceSb.length() - 1);
+        }
+        if (wordPath.size() > 0) {
+            for (String s : wordPath) {
+                wordSb.append(s).append(",");
+            }
+            wordSb.deleteCharAt(wordSb.length() - 1);
+        }
+
+        String uid = UserInfoHelper.getUserInfo().getUid();
+        if (taskInfo != null) {
+            if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupId())) {
+                mPresenter.doTask(GroupInfoHelper.getGroupId(), uid, taskInfo.getId(), desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
+            }
+        } else {
+            mPresenter.doTask(GroupInfoHelper.getGroupId(), uid, taskId, desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
+        }
+
+
     }
 }

@@ -79,7 +79,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-
                 </LinearLayout>
 
                 <include layout="@layout/group_common_divider" />
@@ -194,12 +193,14 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:minHeight="@dimen/group_distance_50"
+                            android:paddingBottom="@dimen/group_distance_2"
                             android:paddingLeft="@dimen/group_distance_15"
                             android:paddingRight="@dimen/group_distance_25">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:src="@mipmap/group26" />
 
                             <android.support.v7.widget.RecyclerView
@@ -221,13 +222,14 @@
                             android:clickable="true"
                             android:gravity="center_vertical"
                             android:minHeight="@dimen/group_distance_50"
+                            android:paddingBottom="@dimen/group_distance_2"
                             android:paddingLeft="@dimen/group_distance_15"
                             android:paddingRight="@dimen/group_distance_25">
 
                             <ImageView
-
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:src="@mipmap/group27" />
 
                             <android.support.v7.widget.RecyclerView

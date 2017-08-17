@@ -16,12 +16,8 @@ import com.yc.english.R;
 import com.yc.english.base.helper.RxUtils;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.Voice;
-import com.yc.english.group.utils.MediaPlayCallBack;
-import com.yc.english.group.utils.MediaUtil;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 

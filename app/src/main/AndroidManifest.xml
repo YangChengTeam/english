@@ -122,7 +122,7 @@
         <activity android:name=".group.view.activitys.student.GroupJoinActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupMemberActivity" />
         <activity android:name="com.yc.english.group.view.activitys.student.GroupTaskGradeActivity" />
-        <activity android:name=".group.view.activitys.student.GroupPictureDetailActivity" />
+        <activity android:name=".group.view.activitys.GroupPictureDetailActivity" />
 
 
         <provider

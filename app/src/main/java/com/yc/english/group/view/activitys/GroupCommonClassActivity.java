@@ -8,11 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.FileUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.contract.GroupCommonClassContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.presenter.GroupCommonClassPresenter;
@@ -25,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.rong.imkit.RongIM;
 import rx.functions.Action1;
 
 /**
@@ -41,6 +46,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
     private GroupGroupAdapter adapter;
+    private ClassInfo mClassInfo;
 
     @Override
     public void init() {
@@ -66,8 +72,16 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
         adapter.setOnJoinListener(new GroupGroupAdapter.OnJoinListener() {
             @Override
             public void onJoin(ClassInfo classInfo) {
-
-                mPresenter.applyJoinGroup(UserInfoHelper.getUserInfo().getUid(), classInfo.getGroupId() + "");
+                GroupCommonClassActivity.this.mClassInfo = classInfo;
+                int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + "member");
+                if (!UserInfoHelper.isGotoLogin(GroupCommonClassActivity.this)) {
+                    if (result == 1) {
+                        setPugin(classInfo);
+                        RongIM.getInstance().startGroupChat(GroupCommonClassActivity.this, classInfo.getClass_id(), classInfo.getClassName());
+                    } else {
+                        mPresenter.isGroupMember(classInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid());
+                    }
+                }
             }
         });
     }
@@ -81,6 +95,31 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
     @Override
     public void showCommonClassList(List<ClassInfo> list) {
         adapter.setData(list);
+    }
+
+    @Override
+    public void showIsMember(int is_member) {
+
+        SPUtils.getInstance().put(mClassInfo.getClass_id() + "member", is_member);
+
+        if (is_member == 1) {//已经是班群成员
+            setPugin(mClassInfo);
+            RongIM.getInstance().startGroupChat(this, mClassInfo.getClass_id(), mClassInfo.getClassName());
+        } else {
+            final AlertDialog dialog = new AlertDialog(this);
+            dialog.setTitle(this.getString(R.string.join_group));
+            dialog.setDesc("是否申请加入该班群");
+            dialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPresenter.applyJoinGroup(UserInfoHelper.getUserInfo().getUid(), mClassInfo.getGroupId() + "");
+                    dialog.dismiss();
+
+                }
+            });
+            dialog.show();
+
+        }
     }
 
     @Override
@@ -109,10 +148,12 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
         stateView.showLoading(llContainer);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    private void setPugin(ClassInfo classInfo) {
+        if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
+            GroupApp.setMyExtensionModule(true);
+        } else {
+            GroupApp.setMyExtensionModule(false);
+        }
     }
+
 }

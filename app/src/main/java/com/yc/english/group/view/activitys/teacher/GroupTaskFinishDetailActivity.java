@@ -69,8 +69,8 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
                 doneId = taskInfo.getId();
                 getData();
             } else {
-                String taskId = getIntent().getStringExtra("mTaskId");
-                String classId = getIntent().getStringExtra("mClassId");
+                String taskId = getIntent().getStringExtra("taskId");
+                String classId = getIntent().getStringExtra("classId");
                 String userId = getIntent().getStringExtra("userId");
                 doneId = getIntent().getStringExtra("doneId");
                 mPresenter.getPublishTaskDetail(this, taskId, classId, UserInfoHelper.getUserInfo().getUid());
@@ -136,7 +136,7 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
     @Override
     public void showPublishTaskInfo(TaskInfo info) {
         mTvTaskTime.setText(info.getAdd_date() + " " + info.getAdd_week() + " " + info.getAdd_time());
-        publishMultifunctionLinearLayout.setType(MultifunctionLinearLayout.Type.PUSHLISH);
+        publishMultifunctionLinearLayout.setType(MultifunctionLinearLayout.Type.PUBLISH);
         TaskUtil.showContextView(mIvTaskIcon, info, publishMultifunctionLinearLayout);
     }
 

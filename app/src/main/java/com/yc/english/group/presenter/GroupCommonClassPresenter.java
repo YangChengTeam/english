@@ -15,6 +15,7 @@ import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupCommonClassContract;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.GroupApplyInfo;
+import com.yc.english.group.model.bean.MemberInfo;
 import com.yc.english.group.model.engin.GroupCommonClassEngine;
 import com.yc.english.group.utils.EngineUtils;
 
@@ -99,6 +100,32 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
                             }
                         });
 
+                    }
+                });
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void isGroupMember(String class_id, String user_id) {
+        Subscription subscription = mEngin.isGroupMember(class_id, user_id).subscribe(new Subscriber<ResultInfo<MemberInfo>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<MemberInfo> stringResultInfo) {
+                handleResultInfo(stringResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.showIsMember(stringResultInfo.data.getIs_member());
                     }
                 });
             }

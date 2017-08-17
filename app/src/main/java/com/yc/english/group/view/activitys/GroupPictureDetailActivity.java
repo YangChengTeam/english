@@ -1,4 +1,4 @@
-package com.yc.english.group.view.activitys.student;
+package com.yc.english.group.view.activitys;
 
 import android.support.v4.view.ViewPager;
 

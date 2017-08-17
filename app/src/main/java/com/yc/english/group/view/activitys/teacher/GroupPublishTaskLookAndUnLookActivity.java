@@ -16,7 +16,6 @@ import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupPublishTaskDetailContract;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentFinishTaskInfo;
 import com.yc.english.group.model.bean.StudentLookTaskInfo;
 import com.yc.english.group.model.bean.TaskInfo;
@@ -37,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/7/28 12:55.
@@ -74,7 +72,6 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
             taskDetailInfo = getIntent().getStringExtra("extra");
             taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
             getData();
-
         }
 
         mToolbar.setTitle(getString(R.string.task_detail));
@@ -109,7 +106,7 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
     public void showPublishTaskDetail(TaskInfo taskInfo) {
 
         mTvIssueTime.setText(taskInfo.getAdd_date() + " " + taskInfo.getAdd_week() + " " + taskInfo.getAdd_time());
-        mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUSHLISH);
+        mLlTaskDetail.setType(MultifunctionLinearLayout.Type.PUBLISH);
         TaskUtil.showContextView(mIvTaskTypeIcon, taskInfo, mLlTaskDetail);
 
 

@@ -19,11 +19,14 @@ import java.util.List;
 public interface GroupCommonClassContract {
     interface View extends IView ,IDialog,ILoading,INoData,INoNet{
         void showCommonClassList(List<ClassInfo> list);
+
+        void showIsMember(int is_member);
     }
 
     interface Presenter extends IPresenter {
         void  getCommonClassList();
         void applyJoinGroup(String user_id, String sn);
+        void isGroupMember(String class_id, String user_id);
     }
 
 }

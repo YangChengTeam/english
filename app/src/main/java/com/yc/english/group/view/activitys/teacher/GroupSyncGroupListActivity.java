@@ -86,9 +86,11 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
         Intent intent = new Intent();
         intent.putParcelableArrayListExtra("selectedList", classInfos);
         setResult(RESULT_OK, intent);
-        SPUtils.getInstance().clear();
-        for (ClassInfo classInfo : classInfos) {
-            SPUtils.getInstance().put(classInfo.getClass_id() + "class", true);
+
+        if (classInfos.size() > 0) {
+            for (ClassInfo classInfo : classInfos) {
+                SPUtils.getInstance().put(classInfo.getClass_id() + "class", true);
+            }
         }
         finish();
     }
@@ -114,6 +116,7 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
                 ((ImageView) view).setImageDrawable(getResources().getDrawable(R.mipmap.group23));
                 count--;
                 classInfos.remove(classInfo);
+                SPUtils.getInstance().remove(classInfo.getClass_id() + "class");
             }
         }
         mTvConfirmSyncGroup.setText(String.format(getString(R.string.confirm_sync), count));

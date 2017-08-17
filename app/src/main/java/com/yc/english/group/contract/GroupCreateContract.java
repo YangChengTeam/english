@@ -12,8 +12,6 @@ import com.yc.english.group.model.bean.ClassInfo;
 
 public interface GroupCreateContract {
     interface View extends IView,IFinish, IDialog {
-        void showCreateResult(ClassInfo data);
-
     }
 
     interface Presenter extends IPresenter {

@@ -97,21 +97,8 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
                     }
                     RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
                 } else {
-                    if (!UserInfoHelper.isGotoLogin(mContext)) {
-                        final AlertDialog dialog = new AlertDialog(mContext);
-                        dialog.setTitle(mContext.getString(R.string.join_group));
-                        dialog.setDesc("是否申请加入该班群");
-                        dialog.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog.dismiss();
-                                if (onJoinListener != null) {
-
-                                    onJoinListener.onJoin(classInfo);
-                                }
-                            }
-                        });
-                        dialog.show();
+                    if (onJoinListener != null) {
+                        onJoinListener.onJoin(classInfo);
                     }
                 }
 

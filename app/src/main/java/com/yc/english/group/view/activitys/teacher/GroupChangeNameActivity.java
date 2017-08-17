@@ -1,6 +1,5 @@
 package com.yc.english.group.view.activitys.teacher;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +18,6 @@ import com.yc.english.group.rong.models.GroupInfo;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.functions.Action1;
 import rx.functions.Func1;
 

@@ -70,7 +70,7 @@ public class GroupMyTaskListActivity extends FullScreenActivity<GroupDoTaskListP
         stateView.showNoNet(mRecyclerView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getDoTaskList(targetId, UserInfoHelper.getUserInfo().getUid());
+                mPresenter.getPublishTaskList("", targetId);
             }
         });
     }

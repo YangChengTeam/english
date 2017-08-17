@@ -80,7 +80,6 @@ public class AssignTaskPlugin implements IPluginModule {
             customMessage.setExtra(JSONObject.toJSONString(taskInfo));
 //
             Message message = Message.obtain(targetId, conversationType, customMessage);
-//        Message message = Message.obtain("654321", conversationType, CustomMessage.obtain("家庭作业", "今天读一百个单词", ""));
             RongIM.getInstance().sendMessage(message, null, null, new IRongCallback.ISendMessageCallback() {
 
 
