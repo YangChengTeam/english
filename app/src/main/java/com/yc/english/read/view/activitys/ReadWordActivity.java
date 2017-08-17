@@ -148,6 +148,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 disableWordDetailState();
+                isContinue = false;
+                readOver(currentIndex);
                 if (groupPosition != lastExpandPosition && lastExpandPosition > -1) {
                     mWordListView.collapseGroup(lastExpandPosition);
                 }
@@ -166,11 +168,10 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         mWordListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long id) {
+                isContinue = false;
+                readOver(currentIndex);
                 if(isWordDetailPlay){
                     return true;
-                }
-                if (mTts.isSpeaking()) {
-                    mTts.stopSpeaking();
                 }
                 groupCurrentIndex = groupPosition;
                 isWordDetailPlay = true;
@@ -190,9 +191,9 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                     endableState(currentIndex);
                     startSynthesizer(position);
                 } else {
+                    isContinue = false;
                     readOver(currentIndex);
                     currentIndex = 0;
-                    isContinue = false;
                     Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
                 }
             }
@@ -388,7 +389,9 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     };
 
     private void disableWordDetailState(){
-        mTts.stopSpeaking();
+        if(mTts.isSpeaking()) {
+            mTts.stopSpeaking();
+        }
         isWordDetailPlay = false;
         if(groupCurrentView != null && groupCurrentIndex != 0) {
             wordDetailInfos.get(groupCurrentIndex).setPlay(false);
@@ -415,12 +418,17 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     private void disableState(int index){
         mReadWordExpandAdapter.setViewPlayState(index, mWordListView, false);
         mReadWordExpandAdapter.getWordInfos().get(index).setPlay(false);
+        if (mTts.isSpeaking()) {
+            mTts.stopSpeaking();
+        }
     }
 
     private void readOver(int index) {
         resetPlay();
         mReadWordExpandAdapter.setViewPlayState(index, mWordListView, false);
-        mTts.stopSpeaking();
+        if (mTts.isSpeaking()) {
+            mTts.stopSpeaking();
+        }
         if(!isContinue){
             Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
         }
@@ -448,6 +456,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
      */
     @OnClick(R.id.layout_read_all)
     public void readAll() {
+        disableWordDetailState();
         isContinue = !isContinue;
         if (isContinue) {
             if (currentIndex < mDatas.size()) {
@@ -476,9 +485,9 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     @Override
     public void groupWordClick(int gPosition) {
-        mTts.stopSpeaking();
-        isContinue = false;
 
+        isContinue = false;
+        disableWordDetailState();
         if (currentIndex != gPosition) {
             disableState(currentIndex);
         }

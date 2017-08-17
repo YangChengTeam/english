@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,8 +50,8 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
     @BindView(R.id.tv_book_press)
     TextView mBookPressTextView;
 
-    @BindView(R.id.btn_book_unit_total)
-    Button mBookUnitTotalButton;
+    @BindView(R.id.tv_book_unit_total)
+    TextView mBookUnitTotalTextView;
 
     @BindView(R.id.rv_book_unit_list)
     RecyclerView mBookUnitRecyclerView;
@@ -177,7 +176,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
             GlideHelper.imageView(BookUnitActivity.this, mBookGradeImageView, bookInfo.getCoverImg(), R.mipmap.default_detail_book);
             mBookGradeNameTextView.setText(bookInfo.getName());
             mBookPressTextView.setText(bookInfo.getPress());
-            mBookUnitTotalButton.setText(bookInfo.getSentenceCount() + getString(R.string.read_sentence_text));
+            mBookUnitTotalTextView.setText(bookInfo.getSentenceCount() + getString(R.string.read_sentence_text));
         }
     }
 }

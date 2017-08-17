@@ -87,13 +87,13 @@
                         android:textColor="@color/read_book_grade_version_color"
                         android:textSize="14sp"/>
 
-                    <Button
-                        android:id="@+id/btn_book_unit_total"
-                        android:layout_width="42dp"
+                    <TextView
+                        android:id="@+id/tv_book_unit_total"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/sp_14"
                         android:layout_alignParentBottom="true"
-                        android:background="@drawable/read_unit_total_line_btn"
-                        android:text="40句"
+                        android:text="10句"
                         android:textColor="@color/read_book_edit_color"/>
                 </RelativeLayout>
 
