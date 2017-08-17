@@ -266,10 +266,11 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     public void playWord(final int index,final Runnable runnable) {
         if(isSpell) {
             try {
-                String readCurrentWord = mDatas.get(index).getName();
+                String readCurrentWord = mDatas.get(index).getName().replaceAll(" ","");
                 if (readCurrentWordIndex < readCurrentWord.length()) {
                     mediaPlayer.reset();
-                    AssetFileDescriptor fd = getAssets().openFd(String.valueOf(readCurrentWord.charAt(readCurrentWordIndex)).toLowerCase() + ".mp3");
+                    String readChat = String.valueOf(readCurrentWord.charAt(readCurrentWordIndex)).toLowerCase();
+                    AssetFileDescriptor fd = getAssets().openFd(readChat + ".mp3");
                     mediaPlayer.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
                     mediaPlayer.prepare();
                     mediaPlayer.start();
