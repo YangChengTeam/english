@@ -2,8 +2,11 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -183,7 +186,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @Override
     public void showBanner(List<String> images) {
         mBanner.isAutoPlay(true)
-                .setDelayTime(1500)
+                .setDelayTime(3000)
                 .setImageLoader(new BannerImageLoader())
                 .setImages(images)
                 .start();
@@ -204,8 +207,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showCountInfo(CountInfo countInfo) {
-        mStudentNumberTextView.setText(countInfo.getStudentCount() + "");
-        mTeacherNumberTextView.setText(countInfo.getTeacherCount() + "");
+        mStudentNumberTextView.setText(countInfo.getStudentCount() + " ");
+        mTeacherNumberTextView.setText(countInfo.getTeacherCount() + " ");
     }
 
     @Subscribe(
