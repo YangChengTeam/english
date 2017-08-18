@@ -145,21 +145,21 @@ public class SharePopupWindow extends BasePopupWindow {
     }
 
 
-    private String title = "说说英语";
+    private String title = "开学送大礼";
 
     public SharePopupWindow setTitle(String title) {
         this.title = title;
         return this;
     }
 
-    private String url = "http://www.baidu.com";
+    private String url = "http://en.qqtn.com/Public/activity/2.html";
 
     public SharePopupWindow setUrl(String url) {
         this.url = url;
         return this;
     }
 
-    private String desc = "说说英语学习英语的神器";
+    private String desc = "学习英语的神器";
 
     public SharePopupWindow setDesc(String desc) {
         this.desc = desc;
@@ -174,7 +174,6 @@ public class SharePopupWindow extends BasePopupWindow {
 
     public void setOnShareItemClickListener(OnShareItemClickListener onShareItemClickListener) {
         this.onShareItemClickListener = onShareItemClickListener;
-
     }
 
     public interface OnShareItemClickListener {

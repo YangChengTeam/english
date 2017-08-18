@@ -113,8 +113,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     private List<WordDetailInfo> wordDetailInfos;
 
-    private  int  groupCurrentIndex;
-    private  View groupCurrentView;
+    private int groupCurrentIndex;
+    private View groupCurrentView;
 
     @Override
     public int getLayoutId() {
@@ -170,7 +170,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long id) {
                 isContinue = false;
                 readOver(currentIndex);
-                if(isWordDetailPlay){
+                if (isWordDetailPlay) {
                     return true;
                 }
                 groupCurrentIndex = groupPosition;
@@ -263,10 +263,10 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     /**
      * 拼读单个单词
      */
-    public void playWord(final int index,final Runnable runnable) {
-        if(isSpell) {
+    public void playWord(final int index, final Runnable runnable) {
+        if (isSpell) {
             try {
-                String readCurrentWord = mDatas.get(index).getName().replaceAll(" ","");
+                String readCurrentWord = mDatas.get(index).getName().replaceAll(" ", "");
                 if (readCurrentWordIndex < readCurrentWord.length()) {
                     mediaPlayer.reset();
                     String readChat = String.valueOf(readCurrentWord.charAt(readCurrentWordIndex)).toLowerCase();
@@ -283,7 +283,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                     });
                 } else {
                     readCurrentWordIndex = 0;
-                    if(runnable != null){
+                    if (runnable != null) {
                         runnable.run();
                     }
                 }
@@ -291,17 +291,16 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                 e.printStackTrace();
             }
         } else {
-            if(runnable != null){
+            if (runnable != null) {
                 runnable.run();
             }
         }
     }
 
 
-
     //单词朗读
     public void startSynthesizer(int position) {
-        String text =  wordInfos.get(position).getName();
+        String text = wordInfos.get(position).getName();
         int code = mTts.startSpeaking(text, mTtsListener);
         if (code != ErrorCode.SUCCESS) {
             if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
@@ -364,10 +363,10 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         @Override
         public void onCompleted(SpeechError error) {
             if (error == null) {
-                if (isWordDetailPlay) {
-                    disableWordDetailState();
+                if(disableWordDetailState()){
                     return;
                 }
+
                 playWord(currentIndex, new Runnable() {
                     @Override
                     public void run() {
@@ -375,10 +374,10 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                     }
                 });
             } else if (error != null) {
-                if (isWordDetailPlay) {
-                    disableWordDetailState();
+                if(disableWordDetailState()){
                     return;
                 }
+
                 speekContinue();
             }
         }
@@ -389,21 +388,24 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         }
     };
 
-    private void disableWordDetailState(){
-        if(mTts.isSpeaking()) {
-            mTts.stopSpeaking();
+
+    private boolean disableWordDetailState() {
+        if (isWordDetailPlay) {
+            if (mTts.isSpeaking()) {
+                mTts.stopSpeaking();
+            }
+            isWordDetailPlay = false;
+            if (groupCurrentView != null && groupCurrentIndex != -1) {
+                wordDetailInfos.get(groupCurrentIndex).setPlay(false);
+                mReadWordExpandAdapter.setChildViewPlayState(groupCurrentView, false);
+            }
         }
-        isWordDetailPlay = false;
-        if(groupCurrentView != null && groupCurrentIndex != 0) {
-            wordDetailInfos.get(groupCurrentIndex).setPlay(false);
-            mReadWordExpandAdapter.setChildViewPlayState(groupCurrentView, false);
-        }
-        return;
+        return isWordDetailPlay;
     }
 
-    private void speekContinue(){
+    private void speekContinue() {
         readOver(currentIndex);
-        if(isContinue && currentIndex < mReadWordExpandAdapter.getWordInfos().size() ){
+        if (isContinue && currentIndex < mReadWordExpandAdapter.getWordInfos().size()) {
             mTsSubject.onNext(++currentIndex);
         }
     }
@@ -416,7 +418,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         mWordListView.smoothScrollToPosition(index);
     }
 
-    private void disableState(int index){
+    private void disableState(int index) {
         mReadWordExpandAdapter.setViewPlayState(index, mWordListView, false);
         mReadWordExpandAdapter.getWordInfos().get(index).setPlay(false);
         if (mTts.isSpeaking()) {
@@ -430,7 +432,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         if (mTts.isSpeaking()) {
             mTts.stopSpeaking();
         }
-        if(!isContinue){
+        if (!isContinue) {
             Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
         }
     }
@@ -441,6 +443,13 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mTts.isSpeaking()) {
+            mTts.stopSpeaking();
+        }
+    }
 
     /**
      * 单词闯关
@@ -466,7 +475,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                 startSynthesizer(currentIndex);
             }
         } else {
-           readOver(currentIndex);
+            readOver(currentIndex);
         }
     }
 

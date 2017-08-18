@@ -26,15 +26,21 @@ public class BookPresenter extends BasePresenter<BookEngin, BookContract.View> i
 
     @Override
     public void bookList(int currentPage, int pageCount, int type) {
+        mView.showLoading();
         Subscription subscribe = mEngin.bookList(currentPage, pageCount, type).subscribe(new Subscriber<ArrayList<BookInfo>>() {
             @Override
             public void onCompleted() {
-
+                UIUitls.postDelayed(500, new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.hideStateView();
+                    }
+                });
             }
 
             @Override
             public void onError(Throwable e) {
-
+                mView.hideStateView();
             }
 
             @Override
@@ -42,7 +48,7 @@ public class BookPresenter extends BasePresenter<BookEngin, BookContract.View> i
                 UIUitls.post(new Runnable() {
                     @Override
                     public void run() {
-                        mView.showBookListData(bookInfos,false);
+                        mView.showBookListData(bookInfos, false);
                     }
                 });
             }
@@ -70,7 +76,7 @@ public class BookPresenter extends BasePresenter<BookEngin, BookContract.View> i
                 UIUitls.post(new Runnable() {
                     @Override
                     public void run() {
-                        mView.showBookListData(bookInfos,false);
+                        mView.showBookListData(bookInfos, false);
                     }
                 });
             }
@@ -96,7 +102,7 @@ public class BookPresenter extends BasePresenter<BookEngin, BookContract.View> i
                 UIUitls.post(new Runnable() {
                     @Override
                     public void run() {
-                        mView.showBookListData(bookInfos,true);
+                        mView.showBookListData(bookInfos, true);
                     }
                 });
             }
