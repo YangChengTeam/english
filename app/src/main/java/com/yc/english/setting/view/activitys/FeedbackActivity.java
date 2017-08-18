@@ -1,15 +1,22 @@
 package com.yc.english.setting.view.activitys;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.ClipboardUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.PhoneUtils;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.utils.UIUitls;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.QQUtils;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
@@ -40,6 +47,11 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
     @BindView(R.id.si_tel)
     ShareItemView mTelShareItemView;
 
+    @BindView(R.id.rl_weixin)
+    RelativeLayout mWeixinRelativeLayout;
+
+    @BindView(R.id.rl_qq)
+    RelativeLayout mQQRelativeLayout;
 
     @Override
     public void init() {
@@ -87,6 +99,58 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
                 alertDialog.show();
             }
         });
+
+        RxView.clicks(mWeixinRelativeLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
+                alertDialog.setDesc("打开微信、添加与客服进行沟通？");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ClipboardUtils.copyText("15926287915");
+                        TipsHelper.tips(FeedbackActivity.this, "复制成功, 正在前往微信");
+                        UIUitls.postDelayed(1000, new Runnable() {
+                            @Override
+                            public void run() {
+                                String weixin = "com.tencent.mm";
+                                if (AppUtils.isInstallApp(weixin)) {
+                                    AppUtils.launchApp(weixin);
+                                }
+                            }
+                        });
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+
+        RxView.clicks(mQQRelativeLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
+                alertDialog.setDesc("打开QQ与客服进行沟通？");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (checkQQInstalled(FeedbackActivity.this)) {
+                            String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + 18508609;
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                        } else {
+                            TipsHelper.tips(FeedbackActivity.this, "手机QQ未安装或该版本不支持");
+                        }
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+    }
+
+    public boolean checkQQInstalled(Context context) {
+        Uri uri = Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        ComponentName componentName = intent.resolveActivity(context.getPackageManager());
+        return componentName != null;
     }
 
     @Override
