@@ -50,7 +50,7 @@ public class EngineUtils {
         if (!TextUtils.isEmpty(sn))
             params.put("class_id", sn);
 
-        return HttpCoreEngin.get(context).rxpost(NetConstan.memeber_list, new TypeReference<ResultInfo<StudentInfoWrapper>>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstan.member_list, new TypeReference<ResultInfo<StudentInfoWrapper>>() {
         }.getType(), params, true, true, true);
 
     }

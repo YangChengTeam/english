@@ -1,27 +1,16 @@
 package com.yc.english.group.view.adapter;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.ConvertUtils;
-import com.blankj.utilcode.util.ImageUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.listener.OnCheckedChangeListener;
-import com.yc.english.group.model.bean.GroupMemberInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.main.hepler.UserInfoHelper;
 

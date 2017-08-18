@@ -86,7 +86,7 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
                         holder.setImageDrawable(R.id.m_iv_play_voice, mContext.getResources().getDrawable(R.mipmap.group67));
                     }
                 } else {
-                    RxUtils.getFile(mContext, result.getUri()).observeOn
+                    RxUtils.getFile(mContext, result.getPath()).observeOn
                             (AndroidSchedulers.mainThread()).subscribe(new Action1<File>() {
                         @Override
                         public void call(File file) {
