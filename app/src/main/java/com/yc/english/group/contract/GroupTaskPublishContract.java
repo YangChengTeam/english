@@ -7,6 +7,7 @@ import com.yc.english.base.view.IDialog;
 import com.yc.english.base.view.IView;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.TaskInfo;
+import com.yc.english.group.model.bean.TaskUploadInfo;
 
 import java.io.File;
 import java.util.List;
@@ -24,7 +25,7 @@ public interface GroupTaskPublishContract {
 
         void showMyGroupList(List<ClassInfo> list);
 
-        void showUploadReslut(String file_path);
+        void showUploadReslut(TaskUploadInfo file_path);
 
         void showFile();
     }

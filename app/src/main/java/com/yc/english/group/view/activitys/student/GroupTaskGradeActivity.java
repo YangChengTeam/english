@@ -17,12 +17,16 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.helper.AudioRecordManager;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupDoTaskDetailContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.TaskInfo;
@@ -264,7 +268,7 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
     }
 
     private List<Voice> voiceList = new ArrayList<>();
-    private List<FileInfo> fileInfos = new ArrayList<>();
+    private List<FileInfo> fileList = new ArrayList<>();
     private List<String> pictureList = new ArrayList<>();
 
     @Override
@@ -297,8 +301,8 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
                 FileInfo fileInfo = (FileInfo) iterator.next();
                 Uri filePath = Uri.parse("file://" + fileInfo.getFilePath());
                 File file = new File(filePath.getPath());
-                fileInfos.add(fileInfo);
-                setFileInfo(groupFileAdapter, fileInfos);
+                fileList.add(fileInfo);
+                setFileInfo(groupFileAdapter, fileList);
                 mPresenter.uploadFile(this, file, fileInfo.getFileName(), "");
 
             }
@@ -307,17 +311,17 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
 
     }
 
-    private List<String> picturePath = new ArrayList<>();
-    private List<String> voicePath = new ArrayList<>();
-    private List<String> wordPath = new ArrayList<>();
+    private List<TaskUploadInfo> picturePath = new ArrayList<>();
+    private List<TaskUploadInfo> voicePath = new ArrayList<>();
+    private List<TaskUploadInfo> wordPath = new ArrayList<>();
 
     @Override
     public void showUploadResult(TaskUploadInfo data) {
         String file_path = data.getFile_path();
         if (file_path.endsWith(".png") || file_path.endsWith(".jpg") || file_path.endsWith(".jpeg"))
-            picturePath.add(file_path);
-        else if (file_path.endsWith(".voice")) voicePath.add(file_path);
-        else wordPath.add(file_path);
+            picturePath.add(data);
+        else if (file_path.endsWith(".voice")) voicePath.add(data);
+        else wordPath.add(data);
     }
 
     @Override
@@ -351,6 +355,12 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
             }
         });
     }
+    private boolean isPictureExsited;
+    private String currentPicturePath;
+    private boolean isVoiceExsited;
+    private String currentVoicePath;
+    private boolean isFileExsited;
+    private String currentFilePath;
 
     private void doTask(String desc) {
 
@@ -358,21 +368,53 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
         StringBuilder voiceSb = new StringBuilder();
         StringBuilder wordSb = new StringBuilder();
 
-        if (picturePath.size() > 0) {
-            for (String s : picturePath) {
-                picSb.append(s).append(",");
+        if (pictureList.size() > 0) {
+            for (String s : pictureList) {
+                for (TaskUploadInfo taskUploadInfo : picturePath) {
+                    if (s.substring(s.lastIndexOf("/") + 1).equals(taskUploadInfo.getFile_name())) {
+                        isPictureExsited = true;
+                        currentPicturePath = taskUploadInfo.getFile_path();
+                        break;
+                    }
+                }
+                if (isPictureExsited) {
+                    picSb.append(currentPicturePath).append(",");
+                    isPictureExsited = false;
+                }
             }
             picSb.deleteCharAt(picSb.length() - 1);
         }
-        if (voicePath.size() > 0) {
-            for (String s : voicePath) {
-                voiceSb.append(s).append(",");
+
+        if (voiceList.size() > 0) {
+            for (Voice voice : voiceList) {
+                for (TaskUploadInfo taskUploadInfo : voicePath) {
+                    if (voice.getFile().getPath().substring(voice.getFile().getPath().lastIndexOf("/") + 1).equals(taskUploadInfo.getFile_name())) {
+                        isVoiceExsited = true;
+                        currentVoicePath = taskUploadInfo.getFile_path();
+                        break;
+                    }
+                }
+                if (isVoiceExsited) {
+                    voiceSb.append(currentVoicePath).append(",");
+                    isVoiceExsited = false;
+                }
             }
             voiceSb.deleteCharAt(voiceSb.length() - 1);
         }
-        if (wordPath.size() > 0) {
-            for (String s : wordPath) {
-                wordSb.append(s).append(",");
+
+        if (fileList.size() > 0) {
+            for (FileInfo fileInfo : fileList) {
+                for (TaskUploadInfo taskUploadInfo : wordPath) {
+                    if (fileInfo.getFileName().equals(taskUploadInfo.getFile_name())) {
+                        isFileExsited = true;
+                        currentFilePath = taskUploadInfo.getFile_path();
+                        break;
+                    }
+                }
+                if (isFileExsited) {
+                    wordSb.append(currentFilePath).append(",");
+                    isFileExsited = false;
+                }
             }
             wordSb.deleteCharAt(wordSb.length() - 1);
         }
@@ -385,7 +427,35 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
         } else {
             mPresenter.doTask(GroupInfoHelper.getGroupId(), uid, taskId, desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
         }
+    }
 
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.DELETE_FILE)
+            }
+    )
+    public void deleteFile(FileInfo fileInfo) {
+        fileList.remove(fileInfo);
+    }
 
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.DELETE_VOICE)
+            }
+    )
+    public void deleteVoice(Voice voice) {
+        voiceList.remove(voice);
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.DELETE_PICTURE)
+            }
+    )
+    public void deletePicture(String path) {
+        pictureList.remove(path);
     }
 }

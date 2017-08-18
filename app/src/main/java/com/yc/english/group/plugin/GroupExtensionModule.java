@@ -23,7 +23,7 @@ public class GroupExtensionModule extends DefaultExtensionModule {
 
     @Override
     public List<IPluginModule> getPluginModules(Conversation.ConversationType conversationType) {
-        super.getPluginModules(conversationType);
+//        super.getPluginModules(conversationType);
 
         List<IPluginModule> pluginModules = new ArrayList<>();
         if (mIsMaster) {
