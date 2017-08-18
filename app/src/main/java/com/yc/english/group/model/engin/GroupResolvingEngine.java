@@ -9,7 +9,6 @@ import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 

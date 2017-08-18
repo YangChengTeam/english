@@ -8,7 +8,6 @@ import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.group.constant.NetConstan;
 import com.yc.english.group.model.bean.TokenInfo;
 import com.yc.english.main.model.domain.URLConfig;
-import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.model.domain.UserInfoWrapper;
 
 import java.util.HashMap;

@@ -7,11 +7,9 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
-import com.yc.english.group.contract.GroupApplyJoinContract;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import rx.Observable;
 

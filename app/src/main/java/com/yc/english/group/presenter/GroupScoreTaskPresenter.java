@@ -49,18 +49,17 @@ public class GroupScoreTaskPresenter extends BasePresenter<GroupScoreTaskEngine,
                 ResultInfoHelper.handleResultInfo(taskInfoWrapperResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        hideStateView();
+
                     }
 
                     @Override
-                    public void resultInfoNotOk(String message) {
-                        hideStateView();
+                    public void resultInfoNotOk(String message){
                     }
 
                     @Override
                     public void reulstInfoOk() {
                         mView.showDoneTaskInfo(taskInfoWrapperResultInfo.data.getInfo());
-                        hideStateView();
+
                     }
                 });
 
@@ -88,18 +87,18 @@ public class GroupScoreTaskPresenter extends BasePresenter<GroupScoreTaskEngine,
                 ResultInfoHelper.handleResultInfo(taskInfoWrapperResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        hideStateView();
+                        mView.hideStateView();
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        hideStateView();
+                        mView.hideStateView();
                     }
 
                     @Override
                     public void reulstInfoOk() {
                         mView.showPublishTaskInfo(taskInfoWrapperResultInfo.data.getInfo());
-                        hideStateView();
+                        mView.hideStateView();
                     }
                 });
 
@@ -137,13 +136,5 @@ public class GroupScoreTaskPresenter extends BasePresenter<GroupScoreTaskEngine,
         mSubscriptions.add(subscription);
     }
 
-    private int count;
 
-    private void hideStateView() {
-        count++;
-        if (count >= 2) {
-            mView.hideStateView();
-            count = 0;
-        }
-    }
 }

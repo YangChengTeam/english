@@ -75,7 +75,7 @@ public class DoTaskTaskMessageProvider extends IContainerItemProvider.MessagePro
 
     @Override
     public void onItemClick(View view, int position, CustomMessage richContentMessage, UIMessage uiMessage) {
-//        uiMessage.getMessageId()
+
         LogUtils.e("onItemClick", richContentMessage.getExtra() + "---" + uiMessage.getTargetId() + "---" + richContentMessage.getUserInfo().getUserId());
         String extra = richContentMessage.getExtra();
         TaskInfo taskInfo = JSONObject.parseObject(extra, TaskInfo.class);

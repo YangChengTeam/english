@@ -8,9 +8,7 @@ import com.kk.securityhttp.engin.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
 import com.yc.english.group.model.bean.TokenInfo;
 
-import java.lang.reflect.TypeVariable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import rx.Observable;

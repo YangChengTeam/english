@@ -58,6 +58,9 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
     @BindView(R.id.sl_container)
     ScrollView slContainer;
     private TaskInfo taskInfo;
+    private String taskId;
+    private String classId;
+    private String userId;
 
     @Override
     public void init() {
@@ -67,15 +70,14 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
                 String taskDetail = getIntent().getStringExtra("extra");
                 taskInfo = JSONObject.parseObject(taskDetail, TaskInfo.class);
                 doneId = taskInfo.getId();
-                getData();
+
             } else {
-                String taskId = getIntent().getStringExtra("taskId");
-                String classId = getIntent().getStringExtra("classId");
-                String userId = getIntent().getStringExtra("userId");
+                taskId = getIntent().getStringExtra("taskId");
+                classId = getIntent().getStringExtra("classId");
+                userId = getIntent().getStringExtra("userId");
                 doneId = getIntent().getStringExtra("doneId");
-                mPresenter.getPublishTaskDetail(this, taskId, classId, UserInfoHelper.getUserInfo().getUid());
-                mPresenter.getDoneTaskDetail(this, doneId, userId);
             }
+            getData();
         }
 
         mToolbar.setTitle(getString(R.string.task_detail));
@@ -195,7 +197,12 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
     }
 
     private void getData() {
-        mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid());
-        mPresenter.getDoneTaskDetail(this, taskInfo.getId(), taskInfo.getUser_id());
+        if (taskInfo != null) {
+            mPresenter.getPublishTaskDetail(this, taskInfo.getTask_id(), taskInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid());
+            mPresenter.getDoneTaskDetail(this, taskInfo.getId(), taskInfo.getUser_id());
+        } else {
+            mPresenter.getPublishTaskDetail(this, taskId, classId, UserInfoHelper.getUserInfo().getUid());
+            mPresenter.getDoneTaskDetail(this, doneId, userId);
+        }
     }
 }
