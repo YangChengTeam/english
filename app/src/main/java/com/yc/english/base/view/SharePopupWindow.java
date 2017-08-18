@@ -152,7 +152,7 @@ public class SharePopupWindow extends BasePopupWindow {
         return this;
     }
 
-    private String url = "http://en.qqtn.com/Public/activity/2.html";
+    private String url = "http://en.wk2.com/Public/activity/share.html";
 
     public SharePopupWindow setUrl(String url) {
         this.url = url;

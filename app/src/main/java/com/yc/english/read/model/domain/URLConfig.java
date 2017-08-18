@@ -7,7 +7,7 @@ package com.yc.english.read.model.domain;
 public class URLConfig {
     public static final boolean DEBUG = false;
 
-    private static String baseUrl = "http://en.qqtn.com/api/";
+    private static String baseUrl = "http://en.wk2.com/api/";
     private static String debugBaseUrl = "http://en.qqtn.com/api/";
 
     public static final String BOOK_INFO_URL = getBaseUrl() + "book/book_info";

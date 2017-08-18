@@ -7,7 +7,7 @@ package com.yc.english.main.model.domain;
 public class URLConfig {
     public static final boolean DEBUG = false;
 
-    private static String baseUrl = "http://en.qqtn.com/api/";
+    private static String baseUrl = "http://en.wk2.com/api/";
     private static String debugBaseUrl = "http://en.qqtn.com/api/";
 
     public static final String REGISTER_URL = getBaseUrl() + "user/mobile_reg";

@@ -26,6 +26,10 @@ android {
         }
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
         exclude 'project.properties'

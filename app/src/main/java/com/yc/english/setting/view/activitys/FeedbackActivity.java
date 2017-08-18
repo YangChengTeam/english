@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ClipboardUtils;
@@ -47,11 +48,10 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
     @BindView(R.id.si_tel)
     ShareItemView mTelShareItemView;
 
-    @BindView(R.id.rl_weixin)
-    RelativeLayout mWeixinRelativeLayout;
+    @BindView(R.id.tv_weixin)
+    TextView mWeixinTextView;
 
-    @BindView(R.id.rl_qq)
-    RelativeLayout mQQRelativeLayout;
+
 
     @Override
     public void init() {
@@ -100,11 +100,11 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
             }
         });
 
-        RxView.clicks(mWeixinRelativeLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mWeixinTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
-                alertDialog.setDesc("打开微信、添加与客服进行沟通？");
+                alertDialog.setDesc("打开微信、添加好友与客服进行沟通？");
                 alertDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -125,25 +125,25 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
             }
         });
 
-        RxView.clicks(mQQRelativeLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
-                alertDialog.setDesc("打开QQ与客服进行沟通？");
-                alertDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (checkQQInstalled(FeedbackActivity.this)) {
-                            String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + 18508609;
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-                        } else {
-                            TipsHelper.tips(FeedbackActivity.this, "手机QQ未安装或该版本不支持");
-                        }
-                    }
-                });
-                alertDialog.show();
-            }
-        });
+//        RxView.clicks(mQQRelativeLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+//            @Override
+//            public void call(Void aVoid) {
+//                AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
+//                alertDialog.setDesc("打开QQ与客服进行沟通？");
+//                alertDialog.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if (checkQQInstalled(FeedbackActivity.this)) {
+//                            String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + 18508609;
+//                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+//                        } else {
+//                            TipsHelper.tips(FeedbackActivity.this, "手机QQ未安装或该版本不支持");
+//                        }
+//                    }
+//                });
+//                alertDialog.show();
+//            }
+//        });
     }
 
     public boolean checkQQInstalled(Context context) {

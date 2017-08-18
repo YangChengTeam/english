@@ -7,7 +7,7 @@ package com.yc.english.group.constant;
 
 public interface NetConstan {
 
-    String baser_url = "http://en.qqtn.com/api/";
+    String baser_url = "http://en.wk2.com/api/";
     /**
      * 获取token
      */

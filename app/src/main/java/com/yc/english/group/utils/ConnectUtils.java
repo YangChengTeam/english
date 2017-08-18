@@ -61,12 +61,12 @@ public class ConnectUtils {
                     public void onSuccess(String userid) {
                         SPUtils.getInstance().put(TOKEN, token);
                         RongIMUtil.setUserInfo();
-                        UIUitls.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(context, "连接成功", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+//                        UIUitls.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(context, "连接成功", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
                     }
 
                     /**
