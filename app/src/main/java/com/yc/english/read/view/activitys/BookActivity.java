@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -16,6 +17,7 @@ import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.StateView;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.contract.BookContract;
 import com.yc.english.read.model.domain.BookInfo;
@@ -39,6 +41,12 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
     @BindView(R.id.btn_edit_books)
     Button mEditBooksButton;
+
+    @BindView(R.id.sv_loading)
+    StateView mLoadingStateView;
+
+    @BindView(R.id.ll_content)
+    LinearLayout mContentLinearLayout;
 
     ReadBookItemClickAdapter mItemAdapter;
 
@@ -173,5 +181,15 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
     @Override
     public void deleteBookRefresh() {
         //TipsHelper.tips(BookActivity.this, "删除成功");
+    }
+
+    @Override
+    public void hideStateView() {
+        mLoadingStateView.hide();
+    }
+
+    @Override
+    public void showLoading() {
+        mLoadingStateView.showLoading(mContentLinearLayout);
     }
 }

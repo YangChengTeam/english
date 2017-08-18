@@ -71,7 +71,7 @@
 
                 <EditText
                     android:id="@+id/et_checkcode"
-                    android:layout_width="170dp"
+                    android:layout_width="160dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/spacing_normal"
                     android:layout_marginRight="@dimen/spacing_normal"

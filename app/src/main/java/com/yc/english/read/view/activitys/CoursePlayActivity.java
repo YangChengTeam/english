@@ -394,6 +394,14 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if(mTts.isSpeaking()) {
+            mTts.stopSpeaking();
+        }
+    }
+
+    @Override
     public void showCourseListData(EnglishCourseInfoList englishCourseInfoList) {
         if (englishCourseInfoList != null) {
             if (isNext) {
