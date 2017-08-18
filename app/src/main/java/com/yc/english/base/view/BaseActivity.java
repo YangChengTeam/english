@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.utils.UIUitls;
 import com.umeng.analytics.MobclickAgent;
@@ -29,6 +30,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ScreenUtils.setPortrait(this);
         RxBus.get().register(this);
         setContentView(getLayoutId());
         mLoadingDialog = new LoadingDialog(this);

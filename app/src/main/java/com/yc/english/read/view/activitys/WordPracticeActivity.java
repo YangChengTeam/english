@@ -217,7 +217,7 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
                     return;
                 }
 
-                if (currentRightWord.equals(mWordInputTextView.getText())) {
+                if (currentRightWord.replaceAll(" ", "").equals(mWordInputTextView.getText().toString().replaceAll(" ", ""))) {
                     mRightLayout.setVisibility(View.VISIBLE);
                     mErrorLayout.setVisibility(View.INVISIBLE);
                     mLetterListLayout.setVisibility(View.GONE);
@@ -227,6 +227,7 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
                     mErrorLayout.setVisibility(View.VISIBLE);
                     mLetterListLayout.setVisibility(View.GONE);
                     mRightRemindTextView.setText(currentRightWord);
+                    mWordErrorTipTextView.setText(getString(R.string.read_word_again_text));
                     mWordInputTextView.setTextColor(ContextCompat.getColor(WordPracticeActivity.this, R.color.read_word_share_btn_color));
                     mErrorAgainButton.setBackgroundDrawable(DrawableUtils.getBgColor(WordPracticeActivity.this, 3, R.color.right_word_btn_again_color));
                 }
@@ -437,6 +438,16 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
             TipsHelper.tips(WordPracticeActivity.this, "数据异常，请稍后重试");
         }
     }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mTts.isSpeaking()) {
+            mTts.stopSpeaking();
+        }
+    }
+
 
 
     /**

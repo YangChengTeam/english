@@ -107,18 +107,15 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
             RongIM.getInstance().startGroupChat(this, mClassInfo.getClass_id(), mClassInfo.getClassName());
         } else {
             final AlertDialog dialog = new AlertDialog(this);
-            dialog.setTitle(this.getString(R.string.join_group));
-            dialog.setDesc("是否申请加入该班群");
+            dialog.setDesc("是否申请加入该班群?");
             dialog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mPresenter.applyJoinGroup(UserInfoHelper.getUserInfo().getUid(), mClassInfo.getGroupId() + "");
                     dialog.dismiss();
-
                 }
             });
             dialog.show();
-
         }
     }
 

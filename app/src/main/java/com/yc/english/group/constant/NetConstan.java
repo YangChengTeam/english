@@ -1,5 +1,7 @@
 package com.yc.english.group.constant;
 
+import com.yc.english.base.model.Config;
+
 /**
  * Created by wanglin  on 2017/7/31 15:10.
  * 网络请求
@@ -7,11 +9,12 @@ package com.yc.english.group.constant;
 
 public interface NetConstan {
 
-    boolean isDebug = true;
+
+    boolean isDebug = Config.DEBUG;
 
     String debug_base_url = "http://en.qqtn.com/api/";
 
-    String baser_url = "http://en.wk2.com/";
+    String baser_url = "http://en.wk2.com/api/";
 
     /**
      * 获取token
