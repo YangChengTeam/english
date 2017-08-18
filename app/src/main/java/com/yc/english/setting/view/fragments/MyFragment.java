@@ -109,7 +109,7 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
             @Override
             public void call(Void aVoid) {
                 AlertDialog alertDialog = new AlertDialog(getActivity());
-                alertDialog.setDesc("打开QQ与客服进行沟通？");
+                alertDialog.setDesc("打开QQ群与客服进行沟通？");
                 alertDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

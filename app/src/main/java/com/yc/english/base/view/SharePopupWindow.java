@@ -145,7 +145,7 @@ public class SharePopupWindow extends BasePopupWindow {
     }
 
 
-    private String title = "开学送大礼";
+    private String title = "开学送大礼, 免费领取英语学习神器";
 
     public SharePopupWindow setTitle(String title) {
         this.title = title;
@@ -159,7 +159,7 @@ public class SharePopupWindow extends BasePopupWindow {
         return this;
     }
 
-    private String desc = "学习英语的神器";
+    private String desc = "中小学英语学习神器， 专注教材点读、单词记忆、作业辅导、在线课堂。";
 
     public SharePopupWindow setDesc(String desc) {
         this.desc = desc;
