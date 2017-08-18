@@ -4,12 +4,9 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.TypeReference;
-import com.blankj.utilcode.util.ToastUtils;
-import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
-import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.NetConstan;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
@@ -19,18 +16,12 @@ import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.model.bean.TaskInfoWrapper;
 import com.yc.english.group.model.bean.TaskUploadInfo;
-import com.yc.english.group.rong.models.CodeSuccessResult;
-import com.yc.english.group.rong.models.GroupUser;
-import com.yc.english.group.rong.models.GroupUserQueryResult;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/8/2 19:30.

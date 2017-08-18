@@ -35,7 +35,7 @@ public class ConnectUtils {
      */
     public static void contact(final Context context, final String token) {
         if(RongIMUtil.isConnect()) return;
-        String token1 ="BflgG7jSSJd9zrUrfYDER2vBZhFtvweiQbzTk+9f6I3xoVLL8I4EF6/qOP2daENvEzfecqb3gIpWOfBjB/CUfQ==";
+        String token1 ="XWuK+Ffk9rFs8lSwrogs0WvBZhFtvweiQbzTk+9f6I0HQh0ln4m6mHVwR9vY3Ss+LNhpTwN2QJ1WOfBjB/CUfQ==";
 
         try {
             final String packageName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).packageName;//获取包对象信息;)
@@ -76,7 +76,7 @@ public class ConnectUtils {
                      */
                     @Override
                     public void onError(RongIMClient.ErrorCode errorCode) {
-                        LogUtils.e(TAG, "onError: " + errorCode.getMessage());
+                        LogUtils.e(TAG, "onError: " + errorCode.getValue());
                     }
                 });
             }

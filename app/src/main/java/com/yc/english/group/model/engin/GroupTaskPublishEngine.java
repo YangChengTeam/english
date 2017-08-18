@@ -4,17 +4,12 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.TypeReference;
-import com.blankj.subutil.util.ThreadPoolUtils;
-import com.blankj.utilcode.util.EmptyUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
-import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
 import com.yc.english.group.model.bean.TaskInfoWrapper;
-import com.yc.english.group.model.bean.TaskUploadInfo;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -7,7 +7,6 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.BaseEngin;
 import com.yc.english.group.constant.NetConstan;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 
 import java.util.HashMap;
