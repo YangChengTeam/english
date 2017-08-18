@@ -63,13 +63,12 @@ public class GroupDeleteAdapter extends BaseAdapter<StudentInfo> {
             });
 
         }
-        GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.iv_member_img),studentInfo.getFace(),R.mipmap.default_avatar);
+        GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.iv_member_img), studentInfo.getFace(), R.mipmap.default_avatar);
         holder.setText(R.id.tv_member_name, studentInfo.getNick_name());
-        holder.setText(R.id.tv_member_owner, studentInfo.getUser_id().equals(UserInfoHelper.getUserInfo().getUid()) ? "群主" : "");
+        holder.setText(R.id.tv_member_owner, studentInfo.getUser_id().equals(UserInfoHelper.getUserInfo().getUid()) ? "老师" : "");
     }
 
     boolean mIsClick;
-
 
 
     @Override

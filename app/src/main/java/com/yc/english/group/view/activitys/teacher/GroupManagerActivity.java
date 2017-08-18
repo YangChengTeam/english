@@ -17,6 +17,7 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.helper.AvatarHelper;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
@@ -46,6 +47,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
     TextView tvPermissionCheck;
     private GroupInfo groupInfo;
     private ClassInfo mInfo;
+    private AlertDialog alertDialog;
 
     @Override
     public void init() {
@@ -58,7 +60,6 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
             groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
             tvGroupName.setText(groupInfo.getName());
         }
-
         int condition = SPUtils.getInstance().getInt(groupInfo.getId());
         setVerify_reslut(condition);
         mPresenter.queryGroupById(this, groupInfo.getId());
@@ -100,7 +101,19 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
                 startActivity(intent);
                 break;
             case R.id.btn_resolving_group:
-                mPresenter.resolvingGroup(groupInfo.getId(), mInfo.getMaster_id());
+                if (alertDialog == null) {
+                    alertDialog = new AlertDialog(this);
+                }
+                alertDialog.setDesc("是否解散班群");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                        mPresenter.resolvingGroup(groupInfo.getId(), mInfo.getMaster_id());
+                    }
+                });
+                alertDialog.show();
+
                 break;
         }
     }

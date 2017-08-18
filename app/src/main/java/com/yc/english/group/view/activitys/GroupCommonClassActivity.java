@@ -76,7 +76,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
                 int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + "member");
                 if (!UserInfoHelper.isGotoLogin(GroupCommonClassActivity.this)) {
                     if (result == 1) {
-                        setPugin(classInfo);
+                        GroupApp.setMyExtensionModule(false);
                         RongIM.getInstance().startGroupChat(GroupCommonClassActivity.this, classInfo.getClass_id(), classInfo.getClassName());
                     } else {
                         mPresenter.isGroupMember(classInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid());
@@ -103,7 +103,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
         SPUtils.getInstance().put(mClassInfo.getClass_id() + "member", is_member);
 
         if (is_member == 1) {//已经是班群成员
-            setPugin(mClassInfo);
+            GroupApp.setMyExtensionModule(false);
             RongIM.getInstance().startGroupChat(this, mClassInfo.getClass_id(), mClassInfo.getClassName());
         } else {
             final AlertDialog dialog = new AlertDialog(this);
@@ -146,14 +146,6 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
     @Override
     public void showLoading() {
         stateView.showLoading(llContainer);
-    }
-
-    private void setPugin(ClassInfo classInfo) {
-        if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-            GroupApp.setMyExtensionModule(true);
-        } else {
-            GroupApp.setMyExtensionModule(false);
-        }
     }
 
 }

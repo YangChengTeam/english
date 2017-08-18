@@ -13,6 +13,7 @@ import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
@@ -49,6 +50,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
     private GroupDeleteAdapter adapter;
     private GroupInfo groupInfo;
     private List<StudentInfo> mList;
+    private AlertDialog alertDialog;
 
     @Override
     public void init() {
@@ -113,12 +115,25 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
         RxView.clicks(tvConfirmDeleteGroup).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                String[] userIds = new String[studentInfos.size()];
+                final String[] userIds = new String[studentInfos.size()];
                 for (int i = 0; i < studentInfos.size(); i++) {
                     String user_id = studentInfos.get(i).getUser_id();
                     userIds[i] = user_id;
                 }
-                mPresenter.deleteMember(groupInfo.getId(), UserInfoHelper.getUserInfo().getUid(), userIds);
+                if (alertDialog == null) {
+                    alertDialog = new AlertDialog(GroupDeleteMemberActivity.this);
+                }
+                alertDialog.setDesc("是否删除学生");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                        mPresenter.deleteMember(groupInfo.getId(), UserInfoHelper.getUserInfo().getUid(), userIds);
+                    }
+                });
+                alertDialog.show();
+
+
             }
         });
 

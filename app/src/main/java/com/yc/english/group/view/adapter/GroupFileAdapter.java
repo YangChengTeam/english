@@ -58,7 +58,6 @@ public class GroupFileAdapter extends BaseAdapter<FileInfo> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent intent = new Intent(mContext, FilePreviewActivity.class);
                 if (mIsPublish) {
                     MimeTypeMap myMime = MimeTypeMap.getSingleton();
                     Intent newIntent = new Intent(Intent.ACTION_VIEW);
@@ -73,13 +72,6 @@ public class GroupFileAdapter extends BaseAdapter<FileInfo> {
                     } catch (ActivityNotFoundException e) {
                         TipsHelper.tips(mContext, "未知文件类型");
                     }
-
-//                    Uri uri = Uri.parse("file://" + result.getFilePath());
-//                    FileMessage fileMessage = FileMessage.obtain(uri);
-//                    Message message = Message.obtain("", Conversation.ConversationType.GROUP, fileMessage);
-//                    intent.putExtra("FileMessage", fileMessage);
-//                    intent.putExtra("Message", message);
-//                    mContext.startActivity(intent);
                 } else {
                     RxUtils.getFile(mContext, result.getFilePath()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<File>() {
                         @Override

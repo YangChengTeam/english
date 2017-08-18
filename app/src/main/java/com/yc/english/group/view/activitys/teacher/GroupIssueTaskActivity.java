@@ -8,7 +8,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -31,7 +30,6 @@ import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.presenter.GroupTaskPublishPresenter;
-import com.yc.english.group.view.activitys.student.GroupMyTaskDetailActivity;
 import com.yc.english.group.view.adapter.GroupFileAdapter;
 import com.yc.english.group.view.adapter.GroupPictureAdapter;
 import com.yc.english.group.view.adapter.GroupVoiceAdapter;
@@ -203,7 +201,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
     private List<Voice> voiceList = new ArrayList<>();
     private List<FileInfo> fileInfos = new ArrayList<>();
-    private List<String> pitureList = new ArrayList<>();
+    private List<String> pictureList = new ArrayList<>();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -220,10 +218,10 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
             if (uriList != null && uriList.size() > 0) {
                 for (Uri uri : uriList) {
-                    pitureList.add(uri.getPath());
+                    pictureList.add(uri.getPath());
                 }
             }
-            setFileInfo(pictureAdapter, pitureList);
+            setFileInfo(pictureAdapter, pictureList);
             for (Uri uri : uriList) {//上传图片
                 String path = uri.getPath();// "file:///mnt/sdcard/FileName.mp3"
                 File file = new File(path);
@@ -266,6 +264,8 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
                 sb.append(",").append(classInfo.getClass_id());
             }
         }
+
+        
         if (picturePath.size() > 0) {
             for (String s : picturePath) {
                 picSb.append(s).append(",");
@@ -394,7 +394,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
     private void saveTaskData() {
         SPUtils.getInstance().put(GroupConstant.TEXT_TASK, mEtIssueTask.getText().toString());
-        SPUtils.getInstance().put(GroupConstant.PICTUE_TASK, JSONObject.toJSONString(pitureList));
+        SPUtils.getInstance().put(GroupConstant.PICTUE_TASK, JSONObject.toJSONString(pictureList));
         SPUtils.getInstance().put(GroupConstant.VOICE_TASK, JSONObject.toJSONString(voiceList));
         SPUtils.getInstance().put(GroupConstant.WORD_TASK, JSONObject.toJSONString(fileInfos));
 
