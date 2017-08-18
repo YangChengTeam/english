@@ -95,11 +95,11 @@ public class RongIMUtil {
     }
 
     public static void reconnect(Context context) {
-        if (!isConnect()) {
-            TipsHelper.tips(context, "正在重连连接");
-            com.yc.english.main.model.domain.UserInfo userInfo = UserInfoHelper.getUserInfo();
-            UserInfoHelper.connect(context, userInfo.getUid());
-        }
+//        if (!isConnect()) {
+//            TipsHelper.tips(context, "正在重连连接");
+//            com.yc.english.main.model.domain.UserInfo userInfo = UserInfoHelper.getUserInfo();
+//            UserInfoHelper.connect(context, userInfo.getUid());
+//        }
     }
 
 }
