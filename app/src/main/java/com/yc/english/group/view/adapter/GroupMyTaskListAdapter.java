@@ -85,7 +85,6 @@ public class GroupMyTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskA
                 }
                 if (taskInfo.getBody().getVoices() != null && taskInfo.getBody().getVoices().size() > 0) {
                     TextView tv1 = getTextView();
-
                     tv1.setLayoutParams(layoutParams);
                     layoutParams.rightMargin = 25;
                     tv1.setText("[语音]");

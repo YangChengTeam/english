@@ -132,7 +132,7 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
                 handleResultInfo(taskUploadInfoResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        mView.showUploadReslut(taskUploadInfoResultInfo.data.getFile_path());
+                        mView.showUploadReslut(taskUploadInfoResultInfo.data);
                         mView.showFile();
                     }
                 });
