@@ -79,7 +79,7 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new GroupGroupAdapter(getContext(),true, null);
+        adapter = new GroupGroupAdapter(getContext(), true, null);
         recyclerView.setAdapter(adapter);
 
     }
@@ -140,7 +140,8 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
 
     @Override
     public void showMemberList(List<StudentInfo> count) {
-        if (count.size() > 0) {
+
+        if (count != null && count.size() > 0) {
             mToolbar.setMenuIcon(R.mipmap.group65);
         } else {
             mToolbar.setMenuIcon(R.mipmap.group66);
