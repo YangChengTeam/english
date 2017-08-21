@@ -15,14 +15,12 @@ import com.yc.english.group.contract.GroupCreateContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.engin.GroupCreateEngine;
-import com.yc.english.group.rong.models.CodeSuccessResult;
 
 import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
@@ -100,7 +98,7 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
                 } else {
                     classInfoDao.save(info);
                 }
-                RxBus.get().post(BusAction.GROUPLIST, "create group");
+                RxBus.get().post(BusAction.GROUP_LIST, "create group");
             }
         });
         mView.finish();

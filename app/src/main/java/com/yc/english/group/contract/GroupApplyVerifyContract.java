@@ -16,14 +16,15 @@ import java.util.List;
  */
 
 public interface GroupApplyVerifyContract {
-    interface View extends IView,ILoading,INoData,INoNet {
+    interface View extends IView, ILoading, INoData, INoNet {
         void showVerifyList(List<StudentInfo> list);
+
         void showApplyResult(String data);
     }
 
     interface Presenter extends IPresenter {
         void getMemberList(Context context, String class_id, String status, String master_id);
 
-        void acceptApply(String class_id, String master_id, String[] user_ids);
+        void acceptApply(String class_id, String master_id, String user_ids);
     }
 }

@@ -1,12 +1,9 @@
 package com.yc.english.group.view.fragments;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -15,7 +12,6 @@ import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
-import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.StateView;
@@ -34,11 +30,13 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.message.RichContentMessage;
+import io.rong.message.TextMessage;
 
 /**
  * Created by wanglin  on 2017/7/24 17:59.
@@ -64,6 +62,7 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
 
 
     private GroupGroupAdapter adapter;
+    private List<ClassInfo> mClassInfos;
 
 
     @Override
@@ -116,7 +115,7 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
-                    @Tag(BusAction.GROUPLIST)
+                    @Tag(BusAction.GROUP_LIST)
             }
     )
     public void getList(String group) {
@@ -130,11 +129,33 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
             llDataContainer.setVisibility(View.VISIBLE);
             llEmptyContainer.setVisibility(View.GONE);
             adapter.setData(classInfos);
+            this.mClassInfos = classInfos;
+
         } else {
             llDataContainer.setVisibility(View.GONE);
             llEmptyContainer.setVisibility(View.VISIBLE);
             hideLoading();
         }
+
+    }
+
+    private void setUnReadMessageState() {
+        if (mClassInfos != null && mClassInfos.size() > 0) {
+            for (ClassInfo classInfo : mClassInfos) {
+                RongIM.getInstance().getUnreadCount(Conversation.ConversationType.GROUP, classInfo.getClass_id(), new RongIMClient.ResultCallback<Integer>() {
+                    @Override
+                    public void onSuccess(Integer integer) {
+
+                    }
+
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+
+                    }
+                });
+            }
+        }
+
 
     }
 
@@ -165,25 +186,15 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
                     @Tag(BusAction.UNREAD_MESSAGE)
             }
     )
-    public void getMessage(Message message) {
-        LogUtils.e(TAG, message);
+    public void getMessage(final Message message) {
+        LogUtils.e(TAG, message.getContent() + "---" + message.getTargetId() + "---" + message.getReceivedStatus().isRead() + "---" + message.getReceivedTime());
         if (message.getContent() instanceof RichContentMessage) {
-            adapter.setMessage(message.getTargetId(), message.getReceivedStatus().isRead());
+            adapter.setMessage(message);
         }
 
         adapter.notifyDataSetChanged();
-    }
 
-    @Subscribe(
-            thread = EventThread.MAIN_THREAD,
-            tags = {
-                    @Tag(BusAction.UNREAD_MESSAGE)
-            }
-    )
-    public void getMessage(String message) {
-        LogUtils.e(TAG, message);
-        adapter.setMessage(message, true);
-        adapter.notifyDataSetChanged();
+
     }
 
 }

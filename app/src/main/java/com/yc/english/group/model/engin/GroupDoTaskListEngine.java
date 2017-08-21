@@ -6,7 +6,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
-import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 
 import java.util.HashMap;
@@ -28,7 +28,7 @@ public class GroupDoTaskListEngine extends BaseEngin {
         Map<String, String> params = new HashMap<>();
         params.put("class_id", class_id);
         params.put("user_id", user_id);
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.list_do_task, new TypeReference<ResultInfo<TaskAllInfoWrapper>>() {
+        return HttpCoreEngin.get(mContext).rxpost(NetConstant.list_do_task, new TypeReference<ResultInfo<TaskAllInfoWrapper>>() {
         }.getType(), params, true, true, true);
 
     }

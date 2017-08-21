@@ -34,9 +34,9 @@ public class GroupDeleteMemberPresenter extends BasePresenter<GroupDeleteMemberE
 
 
     @Override
-    public void deleteMember(String class_id, String master_id, String[] members) {
+    public void deleteMember(String class_id, String master_id, String members) {
         mView.showLoadingDialog("正在移除学生，请稍候！");
-        Subscription subscription = mEngin.deleteMember(class_id, master_id, members).subscribe(new Subscriber<ResultInfo<StudentRemoveInfo>>() {
+        Subscription subscription = EngineUtils.deleteMember(mContext, class_id, master_id, members).subscribe(new Subscriber<ResultInfo<StudentRemoveInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();

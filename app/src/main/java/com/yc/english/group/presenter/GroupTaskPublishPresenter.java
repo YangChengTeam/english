@@ -168,7 +168,11 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
     }
 
     private void sendMessageToOtherGroup(TaskInfo taskInfo) {
-        RichContentMessage customMessage = RichContentMessage.obtain("家庭作业", taskInfo.getDesp(), "");
+        String desp = taskInfo.getDesp();
+        if (TextUtils.isEmpty(desp)){
+            desp="点击查看详情";
+        }
+        RichContentMessage customMessage = RichContentMessage.obtain("家庭作业", desp, "");
         customMessage.setExtra(JSONObject.toJSONString(taskInfo));
 
         List<String> class_ids = taskInfo.getClass_ids();

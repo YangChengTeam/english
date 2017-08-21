@@ -10,13 +10,10 @@ import com.yc.english.group.contract.GroupResolvingContract;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.engin.GroupResolvingEngine;
-import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.utils.EngineUtils;
 
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/8/4 15:47.
@@ -108,7 +105,7 @@ public class GroupResolvingPresenter extends BasePresenter<GroupResolvingEngine,
                 handleResultInfo(removeGroupInfoResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        RxBus.get().post(BusAction.GROUPLIST, "change face");
+                        RxBus.get().post(BusAction.GROUP_LIST, "change face");
                         mView.showChangeGroupInfo(removeGroupInfoResultInfo.data);
                     }
                 });

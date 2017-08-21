@@ -25,7 +25,7 @@ public interface GroupDeleteMemberContract {
     }
 
     interface Presenter extends IPresenter {
-        void deleteMember(String class_id, String master_id, String[] members);
+        void deleteMember(String class_id, String master_id, String members);
 
         void getMemberList(Context context, String class_id, String status, String master_id);
     }

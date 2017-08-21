@@ -86,7 +86,6 @@ public class TaskUtil {
         List<FileInfo> fileInfos = new ArrayList<>();
         if (list != null && list.size() > 0) {
             for (String s : list) {
-
                 FileInfo fileInfo = new FileInfo();
                 fileInfo.setFileName(s.substring(s.lastIndexOf("/") + 1));
                 fileInfo.setFilePath(s);

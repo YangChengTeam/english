@@ -7,7 +7,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
-import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.constant.NetConstant;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +33,7 @@ public class GroupUpdatePublishTaskEngine extends BaseEngin {
         if (!TextUtils.isEmpty(voices)) params.put("voices", voices);
         if (!TextUtils.isEmpty(docs)) params.put("docs", docs);
 
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.update_publish_task, new TypeReference<ResultInfo<String>>() {
+        return HttpCoreEngin.get(mContext).rxpost(NetConstant.update_publish_task, new TypeReference<ResultInfo<String>>() {
         }.getType(), params, true, true, true);
 
 

@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.BaseEngin;
-import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 
 import java.util.HashMap;
@@ -25,7 +25,7 @@ public class GroupCreateEngine extends BaseEngin<ResultInfo<ClassInfoWarpper>> {
 
     @Override
     public String getUrl() {
-        return NetConstan.create_group;
+        return NetConstant.create_group;
     }
 
     public Observable<ResultInfo<ClassInfoWarpper>> createGroup(String user_id, String groupName, String face) {

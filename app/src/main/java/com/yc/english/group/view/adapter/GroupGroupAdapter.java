@@ -1,21 +1,14 @@
 package com.yc.english.group.view.adapter;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ImageUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.base.view.AlertDialog;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -25,6 +18,8 @@ import java.util.List;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.message.RichContentMessage;
 
 /**
  * Created by wanglin  on 2017/7/29 10:11.
@@ -32,9 +27,11 @@ import io.rong.imlib.model.Conversation;
 
 public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
     private static final String TAG = "GroupGroupAdapter";
-    private String mTargetId;
-    private boolean mIsRead;
+
     private boolean mIsJoin;
+    private Message mMessage;
+    private boolean flag;
+
 
     public GroupGroupAdapter(Context context, boolean isJoin, List<ClassInfo> mList) {
         super(context, mList);
@@ -52,17 +49,15 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
         RongIM.getInstance().getUnreadCount(Conversation.ConversationType.GROUP, classInfo.getClass_id(), new RongIMClient.ResultCallback<Integer>() {
             @Override
             public void onSuccess(Integer integer) {
-
                 if (integer <= 0) {
                     holder.getView(R.id.m_tv_notification_count).setVisibility(View.INVISIBLE);
                     holder.getView(R.id.m_tv_notification_content).setVisibility(View.INVISIBLE);
                 } else {
 
                     holder.getView(R.id.m_tv_notification_count).setVisibility(View.VISIBLE);
-                    if (classInfo.getClass_id().equals(mTargetId) && !mIsRead) {
+
+                    if (mMessage != null && classInfo.getClass_id().equals(mMessage.getTargetId()) && !mMessage.getReceivedStatus().isRead()) {
                         holder.getView(R.id.m_tv_notification_content).setVisibility(View.VISIBLE);
-                    } else {
-                        holder.getView(R.id.m_tv_notification_content).setVisibility(View.INVISIBLE);
                     }
 
                     TextView view = holder.getView(R.id.m_tv_notification_count);
@@ -95,6 +90,9 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
                         GroupApp.setMyExtensionModule(false);
                     }
                     RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
+                    if (mMessage != null)
+                        mMessage.getReceivedStatus().setRead();
+
                 } else {
                     if (onJoinListener != null) {
                         onJoinListener.onJoin(classInfo);
@@ -113,9 +111,9 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
         return R.layout.group_class_item;
     }
 
-    public void setMessage(String targetId, boolean isRead) {
-        this.mTargetId = targetId;
-        this.mIsRead = isRead;
+    public void setMessage(Message message) {
+        this.mMessage = message;
+
     }
 
     private OnJoinListener onJoinListener;

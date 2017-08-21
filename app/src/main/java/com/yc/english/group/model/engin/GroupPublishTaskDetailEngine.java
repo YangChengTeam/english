@@ -6,7 +6,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
-import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.StudentFinishTaskInfo;
 import com.yc.english.group.model.bean.StudentLookTaskInfo;
 
@@ -30,7 +30,7 @@ public class GroupPublishTaskDetailEngine extends BaseEngin {
         params.put("class_id", class_id);
         params.put("task_id", task_id);
 
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.isRead_member_list, new TypeReference<ResultInfo<StudentLookTaskInfo>>() {
+        return HttpCoreEngin.get(mContext).rxpost(NetConstant.isRead_member_list, new TypeReference<ResultInfo<StudentLookTaskInfo>>() {
         }.getType(), params, true, true, true);
 
     }
@@ -40,7 +40,7 @@ public class GroupPublishTaskDetailEngine extends BaseEngin {
         params.put("class_id", class_id);
         params.put("task_id", task_id);
 
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.isDone_member_list, new TypeReference<ResultInfo<StudentFinishTaskInfo>>() {
+        return HttpCoreEngin.get(mContext).rxpost(NetConstant.isDone_member_list, new TypeReference<ResultInfo<StudentFinishTaskInfo>>() {
         }.getType(), params, true, true, true);
 
     }

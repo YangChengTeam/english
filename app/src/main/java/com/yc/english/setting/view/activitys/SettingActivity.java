@@ -4,7 +4,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.SnackbarUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.GoagalInfo;
@@ -75,7 +74,7 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
                 mExitButton.setVisibility(View.GONE);
                 TipsHelper.tips(SettingActivity.this, "成功退出");
                 RxBus.get().post(Constant.NO_LOGIN, true);
-                RxBus.get().post(BusAction.GROUPLIST, "from logout");
+                RxBus.get().post(BusAction.GROUP_LIST, "from logout");
                 SPUtils.getInstance().put(ConnectUtils.TOKEN, "");
                 RongIMUtil.disconnect();
             }

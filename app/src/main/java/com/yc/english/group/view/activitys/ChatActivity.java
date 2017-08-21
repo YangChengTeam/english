@@ -74,7 +74,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
         mPresenter = new GroupApplyJoinPresenter(this, this);
         initData();
         mToolbar.showNavigationIcon();
-        RongIMUtil.reconnect(this);
         initListener();
 
     }
@@ -127,7 +126,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
 
     @Override
     public void showGroup(ClassInfo classInfo) {
-        mToolbar.setTitle(classInfo.getClassName());
+//        mToolbar.setTitle(classInfo.getClassName());
     }
 
     @Override
@@ -154,7 +153,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             }
     )
     public void changeName(String result) {
-        mPresenter.queryGroupById(this, group.getId(), "");
+        mToolbar.setTitle(result);
     }
 
     @Override

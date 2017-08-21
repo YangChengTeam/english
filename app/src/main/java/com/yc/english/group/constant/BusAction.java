@@ -6,9 +6,9 @@ package com.yc.english.group.constant;
 
 public class BusAction {
 
-    public final static String GROUPLIST = "grouplist";
+    public final static String GROUP_LIST = "group_list";
 
-    public static final String DELETEMEMBER = "deletemember";
+    public static final String DELETE_MEMBER = "delete_member";
 
     public static final String FINISH = "finish";
 

@@ -3,6 +3,8 @@ package com.yc.english.group.contract;
 import android.content.Context;
 
 import com.yc.english.base.presenter.IPresenter;
+import com.yc.english.base.view.IDialog;
+import com.yc.english.base.view.IFinish;
 import com.yc.english.base.view.ILoading;
 import com.yc.english.base.view.INoData;
 import com.yc.english.base.view.INoNet;
@@ -17,14 +19,18 @@ import java.util.List;
  */
 
 public interface GroupMyMemberListContract {
-    interface View extends IView,ILoading,INoNet,INoData {
+    interface View extends IView, ILoading, INoNet, INoData,IDialog,IFinish {
         void showMemberList(List<StudentInfo> list);
 
         void showGroupInfo(ClassInfo info);
+
+
     }
 
     interface Presenter extends IPresenter {
         void getMemberList(Context context, String class_id, String status, String master_id);
+
+        void exitGroup(String class_id, String master_id, String members);
     }
 
 }

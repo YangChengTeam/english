@@ -7,7 +7,7 @@ import com.yc.english.base.model.Config;
  * 网络请求
  */
 
-public interface NetConstan {
+public interface NetConstant {
 
 
     boolean isDebug = Config.DEBUG;

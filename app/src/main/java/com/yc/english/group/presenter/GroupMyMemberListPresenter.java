@@ -2,14 +2,21 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
+import com.hwangjr.rxbus.Bus;
+import com.hwangjr.rxbus.RxBus;
+import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupMyMemberListContract;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
+import com.yc.english.group.model.bean.StudentRemoveInfo;
 import com.yc.english.group.utils.EngineUtils;
 
 import java.util.List;
@@ -23,8 +30,8 @@ import rx.Subscription;
  */
 
 public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMyMemberListContract.View> implements GroupMyMemberListContract.Presenter {
-    public GroupMyMemberListPresenter(GroupMyMemberListContract.View view) {
-        super(view);
+    public GroupMyMemberListPresenter(Context context,GroupMyMemberListContract.View view) {
+        super(context,view);
     }
 
     @Override
@@ -70,6 +77,58 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
             }
         });
 
+        mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void exitGroup(String class_id, final String master_id, String members) {
+        mView.showLoadingDialog("正在退出班群，请稍候...");
+        Subscription subscription = EngineUtils.deleteMember(mContext, class_id, master_id, members).subscribe(new Subscriber<ResultInfo<StudentRemoveInfo>>() {
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onNext(ResultInfo<StudentRemoveInfo> studentRemoveInfoResultInfo) {
+                ResultInfoHelper.handleResultInfo(studentRemoveInfoResultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(final String message) {
+                        UIUitls.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                TipsHelper.tips(mContext,message);
+                            }
+                        });
+                        mView.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(final String message) {
+                        UIUitls.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                TipsHelper.tips(mContext,message);
+                            }
+                        });
+                        mView.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        RxBus.get().post(BusAction.FINISH,BusAction.REMOVE_GROUP);
+                        RxBus.get().post(BusAction.GROUP_LIST,"exit group");
+                        mView.finish();
+                    }
+                });
+
+            }
+        });
         mSubscriptions.add(subscription);
     }
 
