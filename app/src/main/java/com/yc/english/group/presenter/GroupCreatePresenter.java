@@ -75,8 +75,6 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
     }
 
 
-
-
     private boolean isExist;
 
     private void saveGroup(final ClassInfo info) {

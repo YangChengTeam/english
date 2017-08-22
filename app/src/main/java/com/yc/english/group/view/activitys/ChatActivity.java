@@ -29,6 +29,8 @@ import com.yc.english.group.view.activitys.teacher.GroupMemberActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
 
+import java.util.List;
+
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
@@ -67,6 +69,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             group = new GroupInfo(groupId, title);
             GroupInfoHelper.setGroupId(groupId);
             mPresenter.queryGroupById(this, groupId, "");
+
         }
 
     }
@@ -111,6 +114,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
                 return false;
             }
         });
+
     }
 
     @Override
@@ -130,10 +134,22 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     @Override
     public void showGroup(ClassInfo classInfo) {
         this.mClassInfo = classInfo;
+        mPresenter.getMemberList(group.getId(), "1", "", classInfo.getFlag());
     }
 
     @Override
     public void apply(int type) {
+    }
+
+    @Override
+    public void showMemberList(final List<UserInfo> list) {
+        RongIM.getInstance().setGroupMembersProvider(new RongIM.IGroupMembersProvider() {
+            @Override
+            public void getGroupMembers(String groupId, RongIM.IGroupMemberCallback callback) {
+                //获取群组成员信息列表
+                callback.onGetGroupMembersResult(list); // 调用 callback 的 onGetGroupMembersResult 回传群组信息
+            }
+        });
     }
 
 

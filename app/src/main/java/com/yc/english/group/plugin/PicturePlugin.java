@@ -16,8 +16,6 @@ import io.rong.imlib.model.Conversation;
  */
 
 public class PicturePlugin extends ImagePlugin {
-    Conversation.ConversationType conversationType;
-    String targetId;
 
     @Override
     public Drawable obtainDrawable(Context context) {

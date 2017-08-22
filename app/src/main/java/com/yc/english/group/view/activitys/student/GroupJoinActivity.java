@@ -22,10 +22,12 @@ import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.presenter.GroupApplyJoinPresenter;
 import com.yc.english.main.hepler.UserInfoHelper;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.rong.imlib.model.UserInfo;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -141,5 +143,10 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
             ToastUtils.showShort(getString(R.string.commit_apply_join));
         }
         finish();
+    }
+
+    @Override
+    public void showMemberList(List<UserInfo> list) {
+
     }
 }

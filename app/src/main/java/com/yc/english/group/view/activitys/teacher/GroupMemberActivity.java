@@ -1,12 +1,12 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -15,7 +15,6 @@ import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupMyMemberListContract;
@@ -29,6 +28,7 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.yokeyword.indexablerv.IndexableLayout;
 import me.yokeyword.indexablerv.SimpleHeaderAdapter;
@@ -47,6 +47,8 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
 
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
+    @BindView(R.id.tv_share_group)
+    TextView tvShareGroup;
     private GroupMemberAdapter adapter;
     private GroupInfo groupInfo;
     private SimpleHeaderAdapter<StudentInfo> simpleHeaderAdapter;
@@ -63,7 +65,6 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             mToolbar.setTitle(groupInfo.getName());
         }
         mToolbar.showNavigationIcon();
-
 
         mPresenter.queryGroupById(this, groupInfo.getId(), "");
 
@@ -128,7 +129,9 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
                 mToolbar.setTitle(classInfo.getClassName());
                 mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
                 invalidateOptionsMenu();
-
+                tvShareGroup.setVisibility(View.GONE);
+            }else {
+                tvShareGroup.setVisibility(View.VISIBLE);
             }
         }
 

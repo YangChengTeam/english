@@ -435,7 +435,6 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         SPUtils.getInstance().put(GroupConstant.PICTUE_TASK, JSONObject.toJSONString(pictureList));
         SPUtils.getInstance().put(GroupConstant.VOICE_TASK, JSONObject.toJSONString(voiceList));
         SPUtils.getInstance().put(GroupConstant.WORD_TASK, JSONObject.toJSONString(fileList));
-
     }
 
     private void clearTaskData() {
