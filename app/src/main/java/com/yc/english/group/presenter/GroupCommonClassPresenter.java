@@ -1,23 +1,22 @@
 package com.yc.english.group.presenter;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.utils.UIUitls;
+import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.group.constant.BusAction;
-import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupCommonClassContract;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.bean.MemberInfo;
+import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.engin.GroupCommonClassEngine;
 import com.yc.english.group.utils.EngineUtils;
+import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -48,10 +47,21 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
 
             @Override
             public void onNext(final ResultInfo<ClassInfoList> classInfoListResultInfo) {
-                handleResultInfo(classInfoListResultInfo, new Runnable() {
+                ResultInfoHelper.handleResultInfo(classInfoListResultInfo, new ResultInfoHelper.Callback() {
                     @Override
-                    public void run() {
-                        if (classInfoListResultInfo.data.getList() != null && classInfoListResultInfo.data.getList().size() > 0) {
+                    public void resultInfoEmpty(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        ClassInfoList data = classInfoListResultInfo.data;
+                        if (data != null && data.getList() != null && data.getList().size() > 0) {
                             mView.showCommonClassList(classInfoListResultInfo.data.getList());
                             mView.hideStateView();
                         } else {
@@ -70,6 +80,11 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
         getCommonClassList();
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo != null) {
+            String uid = userInfo.getUid();
+            getMemberList("", "0", uid, "comm");
+        }
     }
 
     @Override
@@ -128,6 +143,33 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
                         mView.showIsMember(stringResultInfo.data.getIs_member());
                     }
                 });
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void getMemberList(String class_id, String status, String master_id, String flag) {
+        Subscription subscription = EngineUtils.getMemberList(mContext, class_id, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<StudentInfoWrapper> studentInfoWrapperResultInfo) {
+                handleResultInfo(studentInfoWrapperResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.showVerifyResult(studentInfoWrapperResultInfo.data.getList());
+                    }
+                });
+
             }
         });
         mSubscriptions.add(subscription);

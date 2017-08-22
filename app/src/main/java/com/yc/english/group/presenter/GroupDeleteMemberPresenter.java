@@ -63,7 +63,7 @@ public class GroupDeleteMemberPresenter extends BasePresenter<GroupDeleteMemberE
     @Override
     public void getMemberList(Context context, String class_id, String status, String master_id) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, "").subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

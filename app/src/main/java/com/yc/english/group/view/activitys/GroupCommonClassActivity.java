@@ -10,17 +10,25 @@ import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
+import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.common.GroupApp;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupCommonClassContract;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.StudentInfo;
+import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.presenter.GroupCommonClassPresenter;
 import com.yc.english.group.view.activitys.student.GroupJoinActivity;
+import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
 
@@ -53,6 +61,16 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
         mPresenter = new GroupCommonClassPresenter(this, this);
         mToolbar.setTitle(getString(R.string.teacher_education));
         mToolbar.showNavigationIcon();
+
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
+            @Override
+            public void onClick() {
+                Intent intent = new Intent(GroupCommonClassActivity.this, GroupVerifyActivity.class);
+                intent.putExtra("flag", "comm");
+                startActivity(intent);
+            }
+        });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, false, null);
         recyclerView.setAdapter(adapter);
@@ -76,7 +94,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
                 int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + "member");
                 if (!UserInfoHelper.isGotoLogin(GroupCommonClassActivity.this)) {
                     if (result == 1) {
-                        GroupApp.setMyExtensionModule(false);
+                        setMode(classInfo);
                         RongIM.getInstance().startGroupChat(GroupCommonClassActivity.this, classInfo.getClass_id(), classInfo.getClassName());
                     } else {
                         mPresenter.isGroupMember(classInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid());
@@ -103,7 +121,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
         SPUtils.getInstance().put(mClassInfo.getClass_id() + "member", is_member);
 
         if (is_member == 1) {//已经是班群成员
-            GroupApp.setMyExtensionModule(false);
+            setMode(mClassInfo);
             RongIM.getInstance().startGroupChat(this, mClassInfo.getClass_id(), mClassInfo.getClassName());
         } else {
             final AlertDialog dialog = new AlertDialog(this);
@@ -117,6 +135,16 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
             });
             dialog.show();
         }
+    }
+
+    @Override
+    public void showVerifyResult(List<StudentInfo> list) {
+        if (list != null && list.size() > 0) {
+            mToolbar.setMenuIcon(R.mipmap.group65);
+        } else {
+            mToolbar.setMenuIcon(R.mipmap.group66);
+        }
+        invalidateOptionsMenu();
     }
 
     @Override
@@ -145,4 +173,21 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
         stateView.showLoading(llContainer);
     }
 
+    private void setMode(ClassInfo classInfo) {
+        if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
+            GroupApp.setMyExtensionModule(true);
+        } else {
+            GroupApp.setMyExtensionModule(false);
+        }
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.GROUP_LIST)
+            }
+    )
+    public void getList(String group) {
+        mPresenter.loadData(true);
+    }
 }

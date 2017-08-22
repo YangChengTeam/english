@@ -2,6 +2,7 @@ package com.yc.english.group.view.activitys.teacher;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -37,16 +38,23 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
 
     private GroupVerifyAdapter adapter;
     private String uid;
+    private String flag;
 
     @Override
     public void init() {
         mPresenter = new GroupApplyVerifyPresenter(this, this);
         mToolbar.setTitle(getString(R.string.friend_verify));
         mToolbar.showNavigationIcon();
+        if (getIntent() != null) {
+            flag = getIntent().getStringExtra("flag");
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupVerifyAdapter(this, null);
         recyclerView.setAdapter(adapter);
         uid = UserInfoHelper.getUserInfo().getUid();
+        String uid = UserInfoHelper.getUserInfo().getUid();
+        mPresenter.getMemberList(this, "", "0", uid, flag);
+
 
     }
 

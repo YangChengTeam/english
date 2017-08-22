@@ -30,8 +30,8 @@ import rx.Subscription;
  */
 
 public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMyMemberListContract.View> implements GroupMyMemberListContract.Presenter {
-    public GroupMyMemberListPresenter(Context context,GroupMyMemberListContract.View view) {
-        super(context,view);
+    public GroupMyMemberListPresenter(Context context, GroupMyMemberListContract.View view) {
+        super(context, view);
     }
 
     @Override
@@ -40,9 +40,9 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
     }
 
     @Override
-    public void getMemberList(Context context, String class_id, String status, String master_id) {
+    public void getMemberList(Context context, String class_id, String status, String master_id,String flag) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -102,7 +102,7 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
                         UIUitls.post(new Runnable() {
                             @Override
                             public void run() {
-                                TipsHelper.tips(mContext,message);
+                                TipsHelper.tips(mContext, message);
                             }
                         });
                         mView.dismissLoadingDialog();
@@ -113,7 +113,7 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
                         UIUitls.post(new Runnable() {
                             @Override
                             public void run() {
-                                TipsHelper.tips(mContext,message);
+                                TipsHelper.tips(mContext, message);
                             }
                         });
                         mView.dismissLoadingDialog();
@@ -121,8 +121,8 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
 
                     @Override
                     public void reulstInfoOk() {
-                        RxBus.get().post(BusAction.FINISH,BusAction.REMOVE_GROUP);
-                        RxBus.get().post(BusAction.GROUP_LIST,"exit group");
+                        RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
+                        RxBus.get().post(BusAction.GROUP_LIST, "exit group");
                         mView.finish();
                     }
                 });

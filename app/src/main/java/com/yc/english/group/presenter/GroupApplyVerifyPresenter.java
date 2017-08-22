@@ -28,8 +28,6 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
-        String uid = UserInfoHelper.getUserInfo().getUid();
-        getMemberList(mContext, "", "0", uid);
 
     }
 
@@ -40,9 +38,9 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
      * @param status
      */
     @Override
-    public void getMemberList(Context context, String class_id, String status, String master_id) {
+    public void getMemberList(Context context, String class_id, String status, String master_id,String flag) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

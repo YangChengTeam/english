@@ -62,7 +62,7 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
 
 
     private GroupGroupAdapter adapter;
-    private List<ClassInfo> mClassInfos;
+
 
 
     @Override
@@ -129,7 +129,6 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
             llDataContainer.setVisibility(View.VISIBLE);
             llEmptyContainer.setVisibility(View.GONE);
             adapter.setData(classInfos);
-            this.mClassInfos = classInfos;
 
         } else {
             llDataContainer.setVisibility(View.GONE);
@@ -139,25 +138,7 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
 
     }
 
-    private void setUnReadMessageState() {
-        if (mClassInfos != null && mClassInfos.size() > 0) {
-            for (ClassInfo classInfo : mClassInfos) {
-                RongIM.getInstance().getUnreadCount(Conversation.ConversationType.GROUP, classInfo.getClass_id(), new RongIMClient.ResultCallback<Integer>() {
-                    @Override
-                    public void onSuccess(Integer integer) {
 
-                    }
-
-                    @Override
-                    public void onError(RongIMClient.ErrorCode errorCode) {
-
-                    }
-                });
-            }
-        }
-
-
-    }
 
     @Override
     public void showMemberList(List<StudentInfo> count) {

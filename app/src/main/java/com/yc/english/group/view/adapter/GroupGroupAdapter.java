@@ -30,7 +30,6 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
 
     private boolean mIsJoin;
     private Message mMessage;
-    private boolean flag;
 
 
     public GroupGroupAdapter(Context context, boolean isJoin, List<ClassInfo> mList) {

@@ -25,7 +25,7 @@ import rx.Subscription;
 
 public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine, GroupApplyJoinContract.View> implements GroupApplyJoinContract.Presenter {
     public GroupApplyJoinPresenter(Context context, GroupApplyJoinContract.View view) {
-        super(view);
+        super(context,view);
         mEngin = new GroupApplyJoinEngine(context);
     }
 

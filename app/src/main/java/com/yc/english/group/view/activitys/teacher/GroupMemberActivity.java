@@ -2,6 +2,7 @@ package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -50,13 +51,15 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     private GroupInfo groupInfo;
     private SimpleHeaderAdapter<StudentInfo> simpleHeaderAdapter;
     private ClassInfo mClassInfo;
+    private String flag;
 
 
     @Override
     public void init() {
-        mPresenter = new GroupMyMemberListPresenter(this,this);
+        mPresenter = new GroupMyMemberListPresenter(this, this);
         if (getIntent() != null) {
             groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
+            flag = getIntent().getStringExtra("flag");
             mToolbar.setTitle(groupInfo.getName());
         }
         mToolbar.showNavigationIcon();
@@ -77,8 +80,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         adapter = new GroupMemberAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        mPresenter.getMemberList(this, groupInfo.getId(), "1", "");
-
+        getData();
     }
 
 
@@ -91,8 +93,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_share_group:
-//                SharePopupWindow sharePopupWindow = new SharePopupWindow(this);
-//                sharePopupWindow.show(getWindow().getDecorView()
+
                 final AlertDialog alertDialog = new AlertDialog(this);
                 alertDialog.setDesc("是否退出班群");
                 alertDialog.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +154,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             }
     )
     public void getMemberList(String group) {
-        mPresenter.getMemberList(this, groupInfo.getId(), "1", "");
+        getData();
     }
 
 
@@ -178,7 +179,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getMemberList(GroupMemberActivity.this, groupInfo.getId(), "1", "");
+                getData();
             }
         });
     }
@@ -191,6 +192,10 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     @Override
     public void showLoading() {
         stateView.showLoading(llContainer);
+    }
+
+    private void getData() {
+        mPresenter.getMemberList(this, groupInfo.getId(), "1", "", flag);
     }
 
 }
