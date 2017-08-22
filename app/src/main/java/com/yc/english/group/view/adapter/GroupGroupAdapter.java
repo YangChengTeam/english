@@ -89,8 +89,10 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
                         GroupApp.setMyExtensionModule(false);
                     }
                     RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
-                    if (mMessage != null)
+                    if (mMessage != null) {
                         mMessage.getReceivedStatus().setRead();
+                        RongIM.getInstance().setMessageReceivedStatus(mMessage.getMessageId(), mMessage.getReceivedStatus(), null);
+                    }
 
                 } else {
                     if (onJoinListener != null) {
