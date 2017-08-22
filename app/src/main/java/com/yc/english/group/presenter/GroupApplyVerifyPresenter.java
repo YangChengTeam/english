@@ -21,15 +21,13 @@ import rx.Subscription;
 
 public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEngine, GroupApplyVerifyContract.View> implements GroupApplyVerifyContract.Presenter {
     public GroupApplyVerifyPresenter(Context context, GroupApplyVerifyContract.View view) {
-        super(view);
+        super(context, view);
         mEngin = new GroupApplyVerifyEngine(context);
     }
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
-        String uid = UserInfoHelper.getUserInfo().getUid();
-        getMemberList(mContext, "", "0", uid);
 
     }
 
@@ -40,9 +38,9 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
      * @param status
      */
     @Override
-    public void getMemberList(Context context, String class_id, String status, String master_id) {
+    public void getMemberList(Context context, String class_id, String status, String master_id,String flag) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -80,7 +78,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
      * @param user_ids
      */
     @Override
-    public void acceptApply(String class_id, String master_id, String[] user_ids) {
+    public void acceptApply(String class_id, String master_id, String user_ids) {
         Subscription subscription = mEngin.acceptApply(class_id, master_id, user_ids).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
@@ -98,7 +96,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
                     @Override
                     public void run() {
                         mView.showApplyResult(stringResultInfo.data);
-                        RxBus.get().post(BusAction.GROUPLIST,"join Group");
+                        RxBus.get().post(BusAction.GROUP_LIST, "join Group");
                     }
                 });
             }

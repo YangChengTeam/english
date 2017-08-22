@@ -48,8 +48,7 @@ public class GroupChangeInfoPresenter extends BasePresenter<GroupChangeInfoEngin
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        RemoveGroupInfo groupInfo = stringResultInfo.data;
-                        mView.showChangeResult();
+                        mView.showChangeResult(stringResultInfo.data);
 
                     }
                 });

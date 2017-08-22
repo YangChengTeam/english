@@ -1,15 +1,11 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.bumptech.glide.Glide;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -154,7 +150,6 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
     @Override
     public void showClassInfo(ClassInfo info) {
         this.mInfo = info;
-        tvGroupName.setText(info.getClassName());
         GlideHelper.circleImageView(this, ivGroupImage, info.getImageUrl(), R.mipmap.default_avatar);
     }
 
@@ -167,7 +162,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
     @Override
     public void showResolvingResult() {
         finish();
-        RxBus.get().post(BusAction.GROUPLIST, "remove group");
+        RxBus.get().post(BusAction.GROUP_LIST, "remove group");
         RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
 
     }
@@ -179,7 +174,8 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
             }
     )
     public void changeName(String group) {
-        mPresenter.queryGroupById(this, groupInfo.getId());
+
+        tvGroupName.setText(group);
     }
 
     @Subscribe(

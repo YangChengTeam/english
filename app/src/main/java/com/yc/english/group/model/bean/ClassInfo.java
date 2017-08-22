@@ -38,6 +38,7 @@ public class ClassInfo implements Parcelable {
     private String master_nick_name;
     @JSONField(name = "id")
     private String class_id;
+    private String flag;
 
 
     public static final Creator<ClassInfo> CREATOR = new Creator<ClassInfo>() {
@@ -77,15 +78,15 @@ public class ClassInfo implements Parcelable {
         groupId = source.readInt();
         class_id = source.readString();
         master_id = source.readString();
+        flag = source.readString();
     }
 
 
-    @Generated(hash = 2032005229)
-    public ClassInfo(Long cId, String imageUrl, String className, String count,
-                     int groupId, String founder_id, String master_id, String vali_type,
-                     String is_del, String add_time, String add_date, String del_time,
-                     String sort, String master_name, String master_nick_name,
-                     String class_id) {
+    @Generated(hash = 349998509)
+    public ClassInfo(Long cId, String imageUrl, String className, String count, int groupId,
+            String founder_id, String master_id, String vali_type, String is_del,
+            String add_time, String add_date, String del_time, String sort,
+            String master_name, String master_nick_name, String class_id, String flag) {
         this.cId = cId;
         this.imageUrl = imageUrl;
         this.className = className;
@@ -102,7 +103,9 @@ public class ClassInfo implements Parcelable {
         this.master_name = master_name;
         this.master_nick_name = master_nick_name;
         this.class_id = class_id;
+        this.flag = flag;
     }
+
 
     public String getImageUrl() {
         return imageUrl;
@@ -148,6 +151,7 @@ public class ClassInfo implements Parcelable {
         dest.writeInt(groupId);
         dest.writeString(class_id);
         dest.writeString(master_id);
+        dest.writeString(flag);
     }
 
 
@@ -260,5 +264,13 @@ public class ClassInfo implements Parcelable {
 
     public void setClass_id(String class_id) {
         this.class_id = class_id;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }

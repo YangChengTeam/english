@@ -115,11 +115,13 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
         RxView.clicks(tvConfirmDeleteGroup).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                final String[] userIds = new String[studentInfos.size()];
+
+                final StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < studentInfos.size(); i++) {
                     String user_id = studentInfos.get(i).getUser_id();
-                    userIds[i] = user_id;
+                    sb.append(user_id).append(",");
                 }
+                sb.deleteCharAt(sb.length() - 1);
                 if (alertDialog == null) {
                     alertDialog = new AlertDialog(GroupDeleteMemberActivity.this);
                 }
@@ -128,7 +130,8 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
                     @Override
                     public void onClick(View v) {
                         alertDialog.dismiss();
-                        mPresenter.deleteMember(groupInfo.getId(), UserInfoHelper.getUserInfo().getUid(), userIds);
+
+                        mPresenter.deleteMember(groupInfo.getId(), UserInfoHelper.getUserInfo().getUid(), sb.toString());
                     }
                 });
                 alertDialog.show();
@@ -141,16 +144,10 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
 
     @Override
     public void onClick() {
-        if (imageViews.size() > 0) {
-            for (Object o : imageViews.toArray()) {
-                ((ImageView) o).setImageDrawable(getResources().getDrawable(R.mipmap.group23));
-            }
-            imageViews.clear();
-            adapter.notifyDataSetChanged();
-            setDelete();
-
-        } else {
+        if (imageViews.size() == 0) {
             ToastUtils.showShort("你没有要取消的成员");
+        } else {
+            clearData();
         }
     }
 
@@ -169,13 +166,24 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
         setDelete();
     }
 
-    private void setDelete() {
+
+    private void clearData(){
+        if (imageViews.size() > 0) {
+            for (Object o : imageViews.toArray()) {
+                ((ImageView) o).setImageDrawable(getResources().getDrawable(R.mipmap.group23));
+            }
+            imageViews.clear();
+            adapter.notifyDataSetChanged();
+        }
         tvConfirmDeleteGroup.setVisibility(View.GONE);
         mToolbar.setMenuTitleColor(getResources().getColor(R.color.gray_aaa));
         studentInfos.clear();
         count = 0;
-        RxBus.get().post(BusAction.GROUPLIST, "delete");
-        RxBus.get().post(BusAction.DELETEMEMBER, "delete_member");
+    }
+    private void setDelete() {
+        clearData();
+        RxBus.get().post(BusAction.GROUP_LIST, "delete");
+        RxBus.get().post(BusAction.DELETE_MEMBER, "delete_member");
     }
 
 

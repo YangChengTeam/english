@@ -44,6 +44,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     private static final String TAG = "ChatActivity";
 
     private GroupInfo group;
+    private ClassInfo mClassInfo;
 
     private void initData() {
         Intent intent = getIntent();
@@ -65,6 +66,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             mToolbar.setTitle(title);
             group = new GroupInfo(groupId, title);
             GroupInfoHelper.setGroupId(groupId);
+            mPresenter.queryGroupById(this, groupId, "");
         }
 
     }
@@ -74,7 +76,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
         mPresenter = new GroupApplyJoinPresenter(this, this);
         initData();
         mToolbar.showNavigationIcon();
-        RongIMUtil.reconnect(this);
         initListener();
 
     }
@@ -122,12 +123,13 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     public void onClick() {
         Intent intent = new Intent(this, GroupMemberActivity.class);
         intent.putExtra("group", group);
+        intent.putExtra("flag", mClassInfo.getFlag());
         startActivity(intent);
     }
 
     @Override
     public void showGroup(ClassInfo classInfo) {
-        mToolbar.setTitle(classInfo.getClassName());
+        this.mClassInfo = classInfo;
     }
 
     @Override
@@ -154,7 +156,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             }
     )
     public void changeName(String result) {
-        mPresenter.queryGroupById(this, group.getId(), "");
+        mToolbar.setTitle(result);
     }
 
     @Override

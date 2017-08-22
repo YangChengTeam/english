@@ -14,17 +14,10 @@ import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.engin.GroupApplyJoinEngine;
-import com.yc.english.group.rong.models.CodeSuccessResult;
-import com.yc.english.group.rong.models.GroupUser;
-import com.yc.english.group.rong.models.GroupUserQueryResult;
 import com.yc.english.group.utils.EngineUtils;
-
-import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/8/2 16:40.
@@ -32,7 +25,7 @@ import rx.functions.Action1;
 
 public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine, GroupApplyJoinContract.View> implements GroupApplyJoinContract.Presenter {
     public GroupApplyJoinPresenter(Context context, GroupApplyJoinContract.View view) {
-        super(view);
+        super(context,view);
         mEngin = new GroupApplyJoinEngine(context);
     }
 
@@ -76,7 +69,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
 
                         if (vali_type == GroupConstant.CONDITION_ALL_ALLOW) {
                             mView.apply(vali_type);
-                            RxBus.get().post(BusAction.GROUPLIST, "from groupjoin");
+                            RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
                         } else {
                             mView.apply(vali_type);
                         }

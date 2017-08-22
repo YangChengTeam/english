@@ -2,14 +2,17 @@ package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
@@ -23,13 +26,10 @@ import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.adapter.GroupMemberAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import me.yokeyword.indexablerv.IndexableEntity;
 import me.yokeyword.indexablerv.IndexableLayout;
 import me.yokeyword.indexablerv.SimpleHeaderAdapter;
 
@@ -50,13 +50,16 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     private GroupMemberAdapter adapter;
     private GroupInfo groupInfo;
     private SimpleHeaderAdapter<StudentInfo> simpleHeaderAdapter;
+    private ClassInfo mClassInfo;
+    private String flag;
 
 
     @Override
     public void init() {
-        mPresenter = new GroupMyMemberListPresenter(this);
+        mPresenter = new GroupMyMemberListPresenter(this, this);
         if (getIntent() != null) {
             groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
+            flag = getIntent().getStringExtra("flag");
             mToolbar.setTitle(groupInfo.getName());
         }
         mToolbar.showNavigationIcon();
@@ -77,11 +80,8 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         adapter = new GroupMemberAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        mPresenter.getMemberList(this, groupInfo.getId(), "1", "");
-
+        getData();
     }
-
-
 
 
     @Override
@@ -93,8 +93,17 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_share_group:
-                SharePopupWindow sharePopupWindow = new SharePopupWindow(this);
-                sharePopupWindow.show(getWindow().getDecorView());
+
+                final AlertDialog alertDialog = new AlertDialog(this);
+                alertDialog.setDesc("是否退出班群");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mPresenter.exitGroup(mClassInfo.getClass_id(), mClassInfo.getMaster_id(), UserInfoHelper.getUserInfo().getUid());
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
                 break;
         }
     }
@@ -113,11 +122,13 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
 
     @Override
     public void showGroupInfo(ClassInfo classInfo) {
+        mClassInfo = classInfo;
         if (classInfo != null && classInfo.getMaster_id() != null) {
             if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
                 mToolbar.setTitle(classInfo.getClassName());
                 mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
                 invalidateOptionsMenu();
+
             }
         }
 
@@ -139,11 +150,11 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
-                    @Tag(BusAction.DELETEMEMBER)
+                    @Tag(BusAction.DELETE_MEMBER)
             }
     )
     public void getMemberList(String group) {
-        mPresenter.getMemberList(this, groupInfo.getId(), "1", "");
+        getData();
     }
 
 
@@ -168,7 +179,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getMemberList(GroupMemberActivity.this, groupInfo.getId(), "1", "");
+                getData();
             }
         });
     }
@@ -181,6 +192,10 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     @Override
     public void showLoading() {
         stateView.showLoading(llContainer);
+    }
+
+    private void getData() {
+        mPresenter.getMemberList(this, groupInfo.getId(), "1", "", flag);
     }
 
 }

@@ -7,7 +7,7 @@ import java.io.File;
  */
 
 public class Voice {
-    private String uri;
+    private String path;
     private File file;
     private String duration;
 
@@ -15,7 +15,7 @@ public class Voice {
     }
 
     public Voice(String uri, String duration) {
-        this.uri = uri;
+        this.path = uri;
         this.duration = duration;
     }
 
@@ -24,12 +24,12 @@ public class Voice {
         this.duration = duration;
     }
 
-    public String getUri() {
-        return uri;
+    public String getPath() {
+        return path;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getDuration() {

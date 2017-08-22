@@ -119,7 +119,6 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
             @Override
             public void call(Void aVoid) {
-
                 String desc = mEtIssueTask.getText().toString().trim();
                 publishTask(desc);
 

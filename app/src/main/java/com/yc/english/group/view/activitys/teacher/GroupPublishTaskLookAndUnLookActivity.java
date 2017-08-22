@@ -16,6 +16,7 @@ import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupPublishTaskDetailContract;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentFinishTaskInfo;
 import com.yc.english.group.model.bean.StudentLookTaskInfo;
 import com.yc.english.group.model.bean.TaskInfo;
@@ -88,7 +89,7 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
             @Override
             public void onClick() {
                 Intent intent = new Intent(GroupPublishTaskLookAndUnLookActivity.this, GroupPublishTaskListActivity.class);
-                intent.putExtra("targetId", taskInfo.getClass_ids().get(0));
+                intent.putExtra("targetId", GroupInfoHelper.getGroupId());
                 startActivity(intent);
             }
         });
@@ -192,8 +193,8 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
     }
 
     private void getData() {
-        mPresenter.getPublishTaskDetail(this, taskInfo.getId(), taskInfo.getClass_ids().get(0), UserInfoHelper.getUserInfo().getUid());
-        mPresenter.getIsReadTaskList(taskInfo.getClass_ids().get(0), taskInfo.getId());
+        mPresenter.getPublishTaskDetail(this, taskInfo.getId(), GroupInfoHelper.getGroupId(), UserInfoHelper.getUserInfo().getUid());
+        mPresenter.getIsReadTaskList(GroupInfoHelper.getGroupId(), taskInfo.getId());
     }
 
 

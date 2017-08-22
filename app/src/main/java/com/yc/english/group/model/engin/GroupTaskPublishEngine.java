@@ -7,7 +7,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
-import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.TaskInfoWrapper;
 
 import java.util.HashMap;
@@ -48,7 +48,7 @@ public class GroupTaskPublishEngine extends BaseEngin {
             params.put("docs", docsUrl);
         }
 
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.publish_task, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
+        return HttpCoreEngin.get(mContext).rxpost(NetConstant.publish_task, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
         }.getType(), params, true, true, true);
 
     }

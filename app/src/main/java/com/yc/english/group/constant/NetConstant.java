@@ -7,7 +7,7 @@ import com.yc.english.base.model.Config;
  * 网络请求
  */
 
-public interface NetConstan {
+public interface NetConstant {
 
 
     boolean isDebug = Config.DEBUG;
@@ -31,7 +31,7 @@ public interface NetConstan {
      * 群成员
      */
 
-    String memeber_list = (isDebug ? debug_base_url : baser_url) + "class/member_list";
+    String member_list = (isDebug ? debug_base_url : baser_url) + "class/member_list";
     /**
      * 申请加入班群
      */

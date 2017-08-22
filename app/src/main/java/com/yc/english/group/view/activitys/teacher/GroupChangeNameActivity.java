@@ -12,6 +12,7 @@ import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupChangeInfoContract;
+import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.presenter.GroupChangeInfoPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
 
@@ -72,9 +73,9 @@ public class GroupChangeNameActivity extends FullScreenActivity<GroupChangeInfoP
 
 
     @Override
-    public void showChangeResult() {
-        RxBus.get().post(BusAction.CHANGE_NAME, "changeName");
-        RxBus.get().post(BusAction.GROUPLIST, "changeName");
+    public void showChangeResult(RemoveGroupInfo data) {
+        RxBus.get().post(BusAction.CHANGE_NAME, data.getClass_name());
+        RxBus.get().post(BusAction.GROUP_LIST, "changeName");
         finish();
     }
 }

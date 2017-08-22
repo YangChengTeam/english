@@ -9,6 +9,7 @@ import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupChangeInfoContract;
+import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.presenter.GroupChangeInfoPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
 
@@ -130,7 +131,7 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
     }
 
     @Override
-    public void showChangeResult() {
+    public void showChangeResult(RemoveGroupInfo data) {
 
     }
 }

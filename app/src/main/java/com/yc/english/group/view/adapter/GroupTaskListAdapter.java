@@ -34,6 +34,7 @@ public class GroupTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskAll
         LinearLayout view = holder.getView(R.id.m_ll_task_extra);
         TextView tvContent = holder.getView(R.id.m_tv_task_content);
         tvContent.setText(taskInfo.getDesp());
+        tvContent.setVisibility(TextUtils.isEmpty(taskInfo.getDesp()) ? View.GONE : View.VISIBLE);
         TextView tv = new TextView(mContext);
         tv.setTextSize(16);
         tv.setTextColor(mContext.getResources().getColor(R.color.black_333333));
@@ -41,12 +42,12 @@ public class GroupTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskAll
         switch (type) {
             case GroupConstant.TASK_TYPE_CHARACTER://纯文本
                 holder.setImageResource(R.id.m_iv_task_picture, R.mipmap.group36);
-                tvContent.setVisibility(View.VISIBLE);
+
                 break;
             case GroupConstant.TASK_TYPE_PICTURE:
 
                 holder.setImageResource(R.id.m_iv_task_picture, R.mipmap.group40);
-                tvContent.setVisibility(View.GONE);
+
                 tv.setText("[图片]");
                 view.addView(tv);
                 break;
@@ -55,13 +56,12 @@ public class GroupTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskAll
                 holder.setImageResource(R.id.m_iv_task_picture, R.mipmap.group38);
                 tv.setText("[语音]");
                 view.addView(tv);
-                tvContent.setVisibility(View.GONE);
                 break;
             case GroupConstant.TASK_TYPE_WORD:
                 holder.setImageResource(R.id.m_iv_task_picture, R.mipmap.group42);
                 tv.setText("[文档]");
                 view.addView(tv);
-                tvContent.setVisibility(View.GONE);
+
                 break;
             case GroupConstant.TASK_TYPE_SYNTHESIZE://综合
                 holder.setImageResource(R.id.m_iv_task_picture, R.mipmap.group44);
@@ -69,7 +69,7 @@ public class GroupTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskAll
                 LinearLayout.MarginLayoutParams layoutParams = (LinearLayout.MarginLayoutParams) view.getLayoutParams();
                 layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                if (taskInfo.getBody().getImgs()!=null&& taskInfo.getBody().getImgs().size()>0){
+                if (taskInfo.getBody().getImgs() != null && taskInfo.getBody().getImgs().size() > 0) {
                     TextView tv1 = getTextView();
                     layoutParams.rightMargin = 25;
                     tv1.setLayoutParams(layoutParams);
@@ -77,14 +77,14 @@ public class GroupTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskAll
                     view.addView(tv1);
                 }
 
-                if (taskInfo.getBody().getDocs()!=null&& taskInfo.getBody().getDocs().size()>0){
+                if (taskInfo.getBody().getDocs() != null && taskInfo.getBody().getDocs().size() > 0) {
                     TextView tv1 = getTextView();
                     layoutParams.rightMargin = 25;
                     tv1.setLayoutParams(layoutParams);
                     tv1.setText("[文档]");
                     view.addView(tv1);
                 }
-                if (taskInfo.getBody().getVoices()!=null&& taskInfo.getBody().getVoices().size()>0){
+                if (taskInfo.getBody().getVoices() != null && taskInfo.getBody().getVoices().size() > 0) {
                     TextView tv1 = getTextView();
                     layoutParams.rightMargin = 25;
                     tv1.setLayoutParams(layoutParams);

@@ -5,7 +5,7 @@ import android.content.Context;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.BaseEngin;
-import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.TokenInfo;
 
 import java.util.HashMap;
@@ -24,7 +24,7 @@ public class TokenEngine extends BaseEngin<ResultInfo<TokenInfo>> {
 
     @Override
     public String getUrl() {
-        return NetConstan.get_token;
+        return NetConstant.get_token;
     }
 
     public Observable<ResultInfo<TokenInfo>> getTokenInfo(String userId) {

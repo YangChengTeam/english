@@ -7,12 +7,13 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
-import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
+import com.yc.english.group.model.bean.StudentRemoveInfo;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.model.bean.TaskInfoWrapper;
 import com.yc.english.group.model.bean.TaskUploadInfo;
@@ -41,7 +42,7 @@ public class EngineUtils {
      * @param status
      * @return sn群号
      */
-    public static Observable<ResultInfo<StudentInfoWrapper>> getMemberList(Context context, String sn, String status, String master_id) {
+    public static Observable<ResultInfo<StudentInfoWrapper>> getMemberList(Context context, String sn, String status, String master_id, String flag) {
 
         Map<String, String> params = new HashMap<>();
         params.put("status", status);
@@ -49,8 +50,10 @@ public class EngineUtils {
             params.put("master_id", master_id);
         if (!TextUtils.isEmpty(sn))
             params.put("class_id", sn);
+        if (!TextUtils.isEmpty(flag))
+            params.put("flag", flag);
 
-        return HttpCoreEngin.get(context).rxpost(NetConstan.memeber_list, new TypeReference<ResultInfo<StudentInfoWrapper>>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.member_list, new TypeReference<ResultInfo<StudentInfoWrapper>>() {
         }.getType(), params, true, true, true);
 
     }
@@ -69,7 +72,7 @@ public class EngineUtils {
         params.put("user_id", user_id);
         params.put("is_admin", is_admin);
 
-        return HttpCoreEngin.get(context).rxpost(NetConstan.my_group_list, new TypeReference<ResultInfo<ClassInfoList>>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.my_group_list, new TypeReference<ResultInfo<ClassInfoList>>() {
         }.getType(), params, true, true, true);
     }
 
@@ -89,7 +92,7 @@ public class EngineUtils {
         if (!TextUtils.isEmpty(sn))
             params.put("sn", sn);
 
-        return HttpCoreEngin.get(context).rxpost(NetConstan.query_group_by_groupId, new TypeReference<ResultInfo<ClassInfoWarpper>>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.query_group_by_groupId, new TypeReference<ResultInfo<ClassInfoWarpper>>() {
         }.getType(), params, true, true, true);
 
     }
@@ -112,7 +115,7 @@ public class EngineUtils {
         if (!TextUtils.isEmpty(vali_type))
             params.put("vali_type", vali_type);
 
-        return HttpCoreEngin.get(context).rxpost(NetConstan.change_group_info, new TypeReference<ResultInfo<RemoveGroupInfo>>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.change_group_info, new TypeReference<ResultInfo<RemoveGroupInfo>>() {
         }.getType(), params, false, true, true);
 
     }
@@ -133,7 +136,7 @@ public class EngineUtils {
             params.put("class_id", class_id);
         if (!TextUtils.isEmpty(user_id))
             params.put("user_id", user_id);
-        return HttpCoreEngin.get(context).rxpost(NetConstan.detail_publish_task, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.detail_publish_task, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
         }.getType(), params, true, true, true);
 
 
@@ -155,7 +158,7 @@ public class EngineUtils {
         upFileInfo.file = file;
         upFileInfo.name = "file";
 
-        return HttpCoreEngin.get(context).rxuploadFile(NetConstan.upload_richFile, new TypeReference<ResultInfo<TaskUploadInfo>>() {
+        return HttpCoreEngin.get(context).rxuploadFile(NetConstant.upload_richFile, new TypeReference<ResultInfo<TaskUploadInfo>>() {
         }.getType(), upFileInfo, null, true);
 
     }
@@ -175,7 +178,7 @@ public class EngineUtils {
         params.put("id", id);
         params.put("user_id", user_id);
 
-        return HttpCoreEngin.get(context).rxpost(NetConstan.detail_do_task, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.detail_do_task, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
         }.getType(), params, true, true, true);
 
     }
@@ -195,7 +198,7 @@ public class EngineUtils {
         params.put("task_id", task_id);
         params.put("user_id", user_id);
 
-        return HttpCoreEngin.get(context).rxpost(NetConstan.detail_do_task2, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.detail_do_task2, new TypeReference<ResultInfo<TaskInfoWrapper>>() {
         }.getType(), params, true, true, true);
 
     }
@@ -205,10 +208,11 @@ public class EngineUtils {
         Map<String, String> params = new HashMap<>();
         params.put("user_id", user_id);
         params.put("sn", sn);
-        return HttpCoreEngin.get(context).rxpost(NetConstan.apply_join_group, new TypeReference<ResultInfo<GroupApplyInfo>>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.apply_join_group, new TypeReference<ResultInfo<GroupApplyInfo>>() {
         }.getType(), params, true, true, true);
 
     }
+
     public static Observable<ResultInfo<TaskAllInfoWrapper>> getPublishTaskList(Context context, String publisher, String class_id) {
 
         Map<String, String> params = new HashMap<>();
@@ -217,8 +221,26 @@ public class EngineUtils {
         if (!TextUtils.isEmpty(class_id))
             params.put("class_id", class_id);
 
-        return HttpCoreEngin.get(context).rxpost(NetConstan.list_publish_task, new TypeReference<ResultInfo<TaskAllInfoWrapper>>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.list_publish_task, new TypeReference<ResultInfo<TaskAllInfoWrapper>>() {
         }.getType(), params, true, true, true);
 
+    }
+
+    /**
+     * 移除班群 和退出班群
+     *
+     * @param context
+     * @param class_id
+     * @param master_id
+     * @param members
+     * @return
+     */
+    public static Observable<ResultInfo<StudentRemoveInfo>> deleteMember(Context context, String class_id, String master_id, String members) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("class_id", class_id);//群号
+        params.put("master_id", master_id);
+        params.put("members", members);
+        return HttpCoreEngin.get(context).rxpost(NetConstant.del_group_member, new TypeReference<ResultInfo<StudentRemoveInfo>>() {
+        }.getType(), params, true, true, true);
     }
 }

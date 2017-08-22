@@ -78,7 +78,7 @@ public class AssignTaskPlugin implements IPluginModule {
 
             RichContentMessage customMessage = RichContentMessage.obtain("家庭作业", desp, "");
             customMessage.setExtra(JSONObject.toJSONString(taskInfo));
-//
+
             Message message = Message.obtain(targetId, conversationType, customMessage);
             RongIM.getInstance().sendMessage(message, null, null, new IRongCallback.ISendMessageCallback() {
 

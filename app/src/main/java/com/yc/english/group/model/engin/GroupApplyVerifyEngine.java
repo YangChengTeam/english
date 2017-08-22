@@ -6,7 +6,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
-import com.yc.english.group.constant.NetConstan;
+import com.yc.english.group.constant.NetConstant;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,14 +31,14 @@ public class GroupApplyVerifyEngine extends BaseEngin {
      * @param user_ids
      * @return
      */
-    public Observable<ResultInfo<String>> acceptApply(String class_id, String master_id, String[] user_ids) {
+    public Observable<ResultInfo<String>> acceptApply(String class_id, String master_id, String user_ids) {
 
         Map<String, Object> params = new HashMap<>();
         params.put("class_id", class_id);
         params.put("master_id", master_id);
         params.put("members", user_ids);
 
-        return HttpCoreEngin.get(mContext).rxpost(NetConstan.agree_join_group, new TypeReference<ResultInfo<String>>() {
+        return HttpCoreEngin.get(mContext).rxpost(NetConstant.agree_join_group, new TypeReference<ResultInfo<String>>() {
         }.getType(), params, true, true, true);
 
     }

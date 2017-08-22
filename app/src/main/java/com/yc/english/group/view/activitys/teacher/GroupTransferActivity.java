@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
@@ -17,7 +16,6 @@ import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupTransferGroupContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.presenter.GroupTransferGroupPresenter;
-import com.yc.english.group.rong.models.GroupInfo;
 
 import java.util.concurrent.TimeUnit;
 
@@ -83,6 +81,6 @@ public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroup
     public void showTransferResult() {
         finish();
         RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
-        RxBus.get().post(BusAction.GROUPLIST, "transfer group");
+        RxBus.get().post(BusAction.GROUP_LIST, "transfer group");
     }
 }

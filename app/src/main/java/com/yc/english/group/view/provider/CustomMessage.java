@@ -256,11 +256,5 @@ public class CustomMessage extends MessageContent {
         this.extra = extra;
     }
 
-//    @Override
-//    public List<String> getSearchableWord() {
-//        List<String> words = new ArrayList<>();
-//        words.add(content);
-//        return words;
-//
-//    }
+
 }
