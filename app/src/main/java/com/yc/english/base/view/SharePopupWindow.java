@@ -12,6 +12,7 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.base.model.ShareInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ import rx.functions.Action1;
  */
 
 public class SharePopupWindow extends BasePopupWindow {
+
 
     @BindView(R.id.si_weixin_friend)
     ShareItemView mWxFriendShareItemView;
@@ -47,6 +49,11 @@ public class SharePopupWindow extends BasePopupWindow {
     @BindView(R.id.tv_cancel)
     TextView mCancelTextView;
 
+    private static ShareInfo.INFO mShareInfo;
+
+    public static void setmShareInfo(ShareInfo.INFO mShareInfo) {
+        SharePopupWindow.mShareInfo = mShareInfo;
+    }
 
     private LoadingDialog loadingDialog;
 
@@ -74,7 +81,6 @@ public class SharePopupWindow extends BasePopupWindow {
         shareItemViews.add(mWeiBoFriendShareItemView);
         shareItemViews.add(mClassFriendShareItemView);
 
-
         for (int i = 0; i < shareItemViews.size(); i++) {
             final int tmpI = i;
             final ShareItemView shareItemView = shareItemViews.get(i);
@@ -85,8 +91,7 @@ public class SharePopupWindow extends BasePopupWindow {
                     if (onShareItemClickListener != null) {
                         onShareItemClickListener.onClick(shareItemView);
                     } else {
-                        UMShareImpl.get().setCallback(mContext, umShareListener).shareUrl(title, url, desc, R.drawable
-                                .share, getShareMedia(shareItemView.getTag() + ""));
+                        shareInfo(tmpI);
                     }
                     dismiss();
                 }
@@ -145,25 +150,19 @@ public class SharePopupWindow extends BasePopupWindow {
     }
 
 
-    private String title = "开学送大礼, 免费领取英语学习神器";
-
-    public SharePopupWindow setTitle(String title) {
-        this.title = title;
-        return this;
-    }
-
-    private String url = "http://en.wk2.com/Public/activity/share.html";
-
-    public SharePopupWindow setUrl(String url) {
-        this.url = url;
-        return this;
-    }
-
-    private String desc = "中小学英语学习神器， 专注教材点读、单词记忆、作业辅导、在线课堂。";
-
-    public SharePopupWindow setDesc(String desc) {
-        this.desc = desc;
-        return this;
+    private void shareInfo(int tag) {
+        if (mShareInfo != null) {
+            UMShareImpl.get().setCallback(mContext, umShareListener).shareUrl(mShareInfo.getTitle(), mShareInfo.getUrl(),
+                    mShareInfo.getDesp(), R
+                    .drawable
+                    .share, getShareMedia(tag + ""));
+        } else {
+            String title = "说说英语APP上线啦！随时随地想学就学";
+            String url = "http://mp.weixin.qq.com/s/JepGpluow-Zf6VhI0wMJEA";
+            String desc = "说说英语自营首款APP学英语软件上线了，涵盖市面所有主流英语教材，配套各种版本教科书（完全免费），让你随时随地就能通过手机打开书本，进行学习，单词记忆。还有各种趣味方式助你学英语。";
+            UMShareImpl.get().setCallback(mContext, umShareListener).shareUrl(title, url, desc, R.drawable
+                    .share, getShareMedia(tag + ""));
+        }
     }
 
     private OnShareItemClickListener onShareItemClickListener;

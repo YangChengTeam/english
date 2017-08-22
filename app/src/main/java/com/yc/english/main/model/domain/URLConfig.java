@@ -27,6 +27,8 @@ public class URLConfig {
 
     public static final String GET_USER_INFO_URL = getBaseUrl() + "user/info";
 
+    public static final String SHARE_INFO_URL = getBaseUrl() + "index/share_info";
+
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }
