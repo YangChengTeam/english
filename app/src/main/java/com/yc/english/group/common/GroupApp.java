@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.facebook.stetho.Stetho;
 import com.hwangjr.rxbus.RxBus;
 import com.yc.english.base.dao.DaoMaster;
@@ -13,6 +14,7 @@ import com.yc.english.base.dao.DaoSession;
 import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.group.constant.BusAction;
 
+import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.plugin.GroupExtensionModule;
 import com.yc.english.group.view.provider.CustomMessage;
 import com.yc.english.group.view.provider.DoTaskTaskMessageProvider;
@@ -76,7 +78,7 @@ public class GroupApp {
                 e.printStackTrace();
             }
 
-            Conversation.ConversationType[] types = new Conversation.ConversationType[] {
+            Conversation.ConversationType[] types = new Conversation.ConversationType[]{
                     Conversation.ConversationType.PRIVATE,
                     Conversation.ConversationType.GROUP,
                     Conversation.ConversationType.DISCUSSION
@@ -172,6 +174,7 @@ public class GroupApp {
             RxBus.get().post(BusAction.UNREAD_MESSAGE, message);
 
             RongIMUtil.refreshUserInfo(mApplication, message.getSenderUserId());
+
 
             LogUtils.e(TAG, message.getContent() + "---" + message.getTargetId() + "---" + message.getReceivedStatus().isRead() + "---" + message.getReceivedTime());
 

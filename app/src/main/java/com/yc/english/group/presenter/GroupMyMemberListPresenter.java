@@ -2,6 +2,7 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.Bus;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
@@ -40,7 +41,7 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
     }
 
     @Override
-    public void getMemberList(Context context, String class_id, String status, String master_id,String flag) {
+    public void getMemberList(Context context, String class_id, String status, String master_id, String flag) {
         mView.showLoading();
         Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
@@ -81,7 +82,7 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
     }
 
     @Override
-    public void exitGroup(String class_id, final String master_id, String members) {
+    public void exitGroup(final String class_id, final String master_id, String members) {
         mView.showLoadingDialog("正在退出班群，请稍候...");
         Subscription subscription = EngineUtils.deleteMember(mContext, class_id, master_id, members).subscribe(new Subscriber<ResultInfo<StudentRemoveInfo>>() {
             @Override
@@ -123,6 +124,7 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
                     public void reulstInfoOk() {
                         RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
                         RxBus.get().post(BusAction.GROUP_LIST, "exit group");
+                        SPUtils.getInstance().remove(class_id + "member");
                         mView.finish();
                     }
                 });
