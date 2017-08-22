@@ -26,6 +26,7 @@ import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.adapter.GroupDeleteAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -51,6 +52,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
     private GroupInfo groupInfo;
     private List<StudentInfo> mList;
     private AlertDialog alertDialog;
+    private String flag;
 
     @Override
     public void init() {
@@ -61,13 +63,14 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
 
         if (getIntent() != null) {
             groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
+            flag = getIntent().getStringExtra("flag");
         }
 
         mToolbar.setMenuTitleColor(getResources().getColor(R.color.gray_aaa));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupDeleteAdapter(this, null);
         recyclerView.setAdapter(adapter);
-        mPresenter.getMemberList(this, groupInfo.getId(), "1", "");
+        mPresenter.getMemberList(this, groupInfo.getId(), "1", "", flag);
         initListener();
 
     }
@@ -167,7 +170,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
     }
 
 
-    private void clearData(){
+    private void clearData() {
         if (imageViews.size() > 0) {
             for (Object o : imageViews.toArray()) {
                 ((ImageView) o).setImageDrawable(getResources().getDrawable(R.mipmap.group23));
@@ -180,6 +183,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
         studentInfos.clear();
         count = 0;
     }
+
     private void setDelete() {
         clearData();
         RxBus.get().post(BusAction.GROUP_LIST, "delete");
@@ -197,7 +201,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
         stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getMemberList(GroupDeleteMemberActivity.this, groupInfo.getId(), "1", "");
+                mPresenter.getMemberList(GroupDeleteMemberActivity.this, groupInfo.getId(), "1", "",flag);
             }
         });
     }

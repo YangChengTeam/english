@@ -83,6 +83,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
             case R.id.rl_group_delete_member:
                 intent = new Intent(this, GroupDeleteMemberActivity.class);
                 intent.putExtra("group", groupInfo);
+                intent.putExtra("flag",mInfo.getFlag());
                 startActivity(intent);
                 break;
             case R.id.rl_group_check:
