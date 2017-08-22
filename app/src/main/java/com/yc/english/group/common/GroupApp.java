@@ -76,6 +76,13 @@ public class GroupApp {
                 e.printStackTrace();
             }
 
+            Conversation.ConversationType[] types = new Conversation.ConversationType[] {
+                    Conversation.ConversationType.PRIVATE,
+                    Conversation.ConversationType.GROUP,
+                    Conversation.ConversationType.DISCUSSION
+            };
+            RongIM.getInstance().setReadReceiptConversationTypeList(types);
+
             RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
             RongIM.getInstance().setMessageAttachedUserInfo(true);
 

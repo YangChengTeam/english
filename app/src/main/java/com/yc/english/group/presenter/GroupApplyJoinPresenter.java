@@ -1,6 +1,7 @@
 package com.yc.english.group.presenter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -13,9 +14,15 @@ import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
+import com.yc.english.group.model.bean.StudentInfo;
+import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.engin.GroupApplyJoinEngine;
 import com.yc.english.group.utils.EngineUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.rong.imlib.model.UserInfo;
 import rx.Subscriber;
 import rx.Subscription;
 
@@ -25,7 +32,7 @@ import rx.Subscription;
 
 public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine, GroupApplyJoinContract.View> implements GroupApplyJoinContract.Presenter {
     public GroupApplyJoinPresenter(Context context, GroupApplyJoinContract.View view) {
-        super(context,view);
+        super(context, view);
         mEngin = new GroupApplyJoinEngine(context);
     }
 
@@ -108,6 +115,40 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
                         mView.showGroup(stringResultInfo.data.getInfo());
                     }
                 });
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void getMemberList(String sn, String status, String master_id, String flag) {
+        Subscription subscription = EngineUtils.getMemberList(mContext, sn, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<StudentInfoWrapper> studentInfoWrapperResultInfo) {
+                handleResultInfo(studentInfoWrapperResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        StudentInfoWrapper data = studentInfoWrapperResultInfo.data;
+                        if (data != null && data.getList() != null && data.getList().size() > 0) {
+                            List<UserInfo> list = new ArrayList<UserInfo>();
+                            for (StudentInfo studentInfo : data.getList()) {
+                                list.add(new UserInfo(studentInfo.getUser_id(), studentInfo.getNick_name(), Uri.parse(studentInfo.getFace())));
+                            }
+                            mView.showMemberList(list);
+                        }
+                    }
+                });
+
             }
         });
         mSubscriptions.add(subscription);

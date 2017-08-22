@@ -64,7 +64,6 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
     private GroupGroupAdapter adapter;
 
 
-
     @Override
     public void init() {
         super.init();
