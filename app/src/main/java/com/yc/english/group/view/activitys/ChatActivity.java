@@ -130,7 +130,8 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     public void onClick() {
         Intent intent = new Intent(this, GroupMemberActivity.class);
         intent.putExtra("group", group);
-        intent.putExtra("flag", mClassInfo.getFlag());
+        if (mClassInfo != null)
+            intent.putExtra("flag", mClassInfo.getFlag());
         startActivity(intent);
     }
 
@@ -154,7 +155,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             }
         });
     }
-
 
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
