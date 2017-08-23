@@ -5,13 +5,18 @@ import android.content.Context;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
+
+import com.yc.english.base.model.ShareInfo;
+
 import com.yc.english.group.constant.NetConstant;
+
 import com.yc.english.group.model.bean.TokenInfo;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfoWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import rx.Observable;
 
 /**
@@ -26,11 +31,12 @@ public class EnginHelper {
         }.getType(), params, true, true, true);
     }
 
-    public static Observable<ResultInfo<UserInfoWrapper>> login(Context context, String username, String pwd){
+    public static Observable<ResultInfo<UserInfoWrapper>> login(Context context, String username, String pwd) {
         Map<String, String> params = new HashMap<>();
         params.put("user_name", username);
         params.put("pwd", pwd);
-        return HttpCoreEngin.get(context).rxpost(URLConfig.LOGIN_URL, new TypeReference<ResultInfo<UserInfoWrapper>>(){}
+        return HttpCoreEngin.get(context).rxpost(URLConfig.LOGIN_URL, new TypeReference<ResultInfo<UserInfoWrapper>>() {
+                }
                         .getType(), params,
                 true, true,
                 true);
@@ -48,6 +54,11 @@ public class EnginHelper {
         params.put("user_id", userid);
         return HttpCoreEngin.get(context).rxpost(URLConfig.GET_USER_INFO_URL, new TypeReference<ResultInfo<UserInfoWrapper>>() {
         }.getType(), params, true, true, true);
+    }
+
+    public static Observable<ResultInfo<ShareInfo>> getShareInfo(Context context) {
+        return HttpCoreEngin.get(context).rxpost(URLConfig.SHARE_INFO_URL, new TypeReference<ResultInfo<ShareInfo>>() {
+        }.getType(), null, true, true, true);
     }
 
 }

@@ -4,8 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.yc.english.read.view.activitys.ReadWordActivity;
 
 /**
  * Created by zhangkai on 2017/8/8.
@@ -17,7 +19,10 @@ public class GlideHelper {
         RequestOptions options = new RequestOptions();
         options.placeholder(placehorder).transform(new GlideCircleTransformation(context, borderwidth,
                 bordercolor));
-        Glide.with(context).load(url).apply(options).into(imageView);
+
+        if(ActivityUtils.isValidContext(context)) {
+            Glide.with(context).load(url).apply(options).into(imageView);
+        }
     }
 
     public static void circleImageView(final Context context, ImageView imageView, String url, int
@@ -29,7 +34,9 @@ public class GlideHelper {
             placehorder) {
         RequestOptions options = new RequestOptions();
         options.placeholder(placehorder);
-        Glide.with(context).load(url).apply(options).into(imageView);
+        if(ActivityUtils.isValidContext(context)) {
+            Glide.with(context).load(url).apply(options).into(imageView);
+        }
     }
 
     public static void imageView(final Context context, ImageView imageView, String url, int
@@ -37,7 +44,9 @@ public class GlideHelper {
         RequestOptions options = new RequestOptions();
         options.placeholder(placehorder);
         options.override(width, height);
-        Glide.with(context).load(url).apply(options).into(imageView);
+        if(ActivityUtils.isValidContext(context)) {
+            Glide.with(context).load(url).apply(options).into(imageView);
+        }
     }
 
 }

@@ -8,12 +8,16 @@ import android.support.multidex.MultiDexApplication;
 import com.blankj.utilcode.util.Utils;
 import com.iflytek.cloud.SpeechUtility;
 import com.kk.securityhttp.domain.GoagalInfo;
+import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.share.UMShareImpl;
 import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
+import com.yc.english.base.helper.EnginHelper;
+import com.yc.english.base.model.ShareInfo;
 import com.yc.english.base.utils.RongIMUtil;
+import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.read.common.ReadApp;
@@ -97,7 +101,21 @@ public class EnglishApp extends MultiDexApplication {
 
         UMShareImpl.Builder builder = new UMShareImpl.Builder();
 
-        builder.setWeixin("wx97247860e3d30d2f", "68931a7e136b97bebeb46754082aae0a").setQQ("1106261461", "p1PGwoz27nVHqoC5").setDebug(true).build(this);
+        builder.setWeixin("wx97247860e3d30d2f", "68931a7e136b97bebeb46754082aae0a")
+                .setQQ("1106261461", "p1PGwoz27nVHqoC5")
+                .setDebug(true)
+                .build(this);
+
+
+        EnginHelper.getShareInfo(getApplicationContext()).subscribe(new Action1<ResultInfo<ShareInfo>>() {
+            @Override
+            public void call(ResultInfo<ShareInfo> shareInfoResultInfo) {
+                if(shareInfoResultInfo != null && shareInfoResultInfo.data != null && shareInfoResultInfo.data.getInfo()
+                        != null){
+                    SharePopupWindow.setmShareInfo(shareInfoResultInfo.data.getInfo());
+                }
+            }
+        });
 
     }
 
