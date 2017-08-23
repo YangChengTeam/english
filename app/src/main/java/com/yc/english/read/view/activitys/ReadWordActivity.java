@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.iflytek.cloud.ErrorCode;
@@ -194,7 +195,9 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                     isContinue = false;
                     readOver(currentIndex);
                     currentIndex = 0;
-                    Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
+                    if(ActivityUtils.isValidContext(ReadWordActivity.this)) {
+                        Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
+                    }
                 }
             }
         });
@@ -432,7 +435,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         if (mTts.isSpeaking()) {
             mTts.stopSpeaking();
         }
-        if (!isContinue) {
+        if (!isContinue && ActivityUtils.isValidContext(this) && ActivityUtils.isValidContext(ReadWordActivity.this)) {
             Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
         }
     }
@@ -470,7 +473,9 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         isContinue = !isContinue;
         if (isContinue) {
             if (currentIndex < mDatas.size()) {
-                Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_gif_play).into(mReadAllImageView);
+                if(ActivityUtils.isValidContext(ReadWordActivity.this)) {
+                    Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_gif_play).into(mReadAllImageView);
+                }
                 endableState(currentIndex);
                 startSynthesizer(currentIndex);
             }
