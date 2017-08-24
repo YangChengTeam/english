@@ -5,7 +5,6 @@ import android.os.Looper;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.cache.DiskCache;
-import com.kk.utils.PathUtils;
 
 import java.io.File;
 import java.math.BigDecimal;

@@ -17,9 +17,11 @@ import com.umeng.analytics.game.UMGameAgent;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.model.ShareInfo;
 import com.yc.english.base.utils.RongIMUtil;
+import com.yc.english.base.utils.SpeechUtils;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.read.common.AppidsInfo;
 import com.yc.english.read.common.ReadApp;
 
 import java.util.HashMap;
@@ -34,6 +36,8 @@ import rx.schedulers.Schedulers;
  */
 
 public class EnglishApp extends MultiDexApplication {
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -47,7 +51,12 @@ public class EnglishApp extends MultiDexApplication {
                 init();
             }
         });
+
+        SpeechUtils.setAppids(this);
+
     }
+
+
 
     private void init(){
         //腾迅自动更新

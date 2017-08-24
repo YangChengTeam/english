@@ -13,6 +13,7 @@ import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.TokenInfo;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfoWrapper;
+import com.yc.english.read.common.AppidsInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,6 +59,11 @@ public class EnginHelper {
 
     public static Observable<ResultInfo<ShareInfo>> getShareInfo(Context context) {
         return HttpCoreEngin.get(context).rxpost(URLConfig.SHARE_INFO_URL, new TypeReference<ResultInfo<ShareInfo>>() {
+        }.getType(), null, true, true, true);
+    }
+
+    public static Observable<ResultInfo<AppidsInfo>> getAppids(Context context) {
+        return HttpCoreEngin.get(context).rxpost(URLConfig.APPIDS_URL, new TypeReference<ResultInfo<AppidsInfo>>() {
         }.getType(), null, true, true, true);
     }
 

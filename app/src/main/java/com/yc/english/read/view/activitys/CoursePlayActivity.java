@@ -19,6 +19,7 @@ import com.iflytek.cloud.SynthesizerListener;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.base.utils.SpeechUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.read.common.SpeechUtil;
@@ -245,6 +246,10 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         });
 
         mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
+
+        if (SpeechUtils.getAppids() == null || SpeechUtils.getAppids().size() <= 0) {
+            SpeechUtils.setAppids(this);
+        }
     }
 
     protected boolean isSlideToBottom(RecyclerView recyclerView) {
@@ -337,6 +342,10 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             if (error == null) {
                 speekContinue(++playPosition);
             } else if (error != null) {
+                if (error.getErrorDescription().contains("权")) {
+                    SpeechUtils.resetAppid(CoursePlayActivity.this);
+                    return;
+                }
                 speekContinue(playPosition);
             }
         }
@@ -347,10 +356,10 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         }
     };
 
-    public void speekContinue(int index){
+    public void speekContinue(int index) {
         if (isCountinue) {
             mTsSubject.onNext(index);
-        } else{
+        } else {
             disableState();
         }
     }
@@ -376,7 +385,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     }
 
     public void disableState() {
-        if(!isCountinue){
+        if (!isCountinue) {
             mCoursePlayImageView.setBackgroundResource(R.drawable.read_play_course_btn_selector);
         }
         mTts.stopSpeaking();
@@ -396,7 +405,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     @Override
     protected void onPause() {
         super.onPause();
-        if(mTts.isSpeaking()) {
+        if (mTts.isSpeaking()) {
             mTts.stopSpeaking();
         }
     }

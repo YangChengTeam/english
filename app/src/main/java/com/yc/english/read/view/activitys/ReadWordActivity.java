@@ -20,6 +20,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.yc.english.R;
+import com.yc.english.base.utils.SpeechUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.read.common.SpeechUtil;
@@ -195,7 +196,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                     isContinue = false;
                     readOver(currentIndex);
                     currentIndex = 0;
-                    if(ActivityUtils.isValidContext(ReadWordActivity.this)) {
+                    if (ActivityUtils.isValidContext(ReadWordActivity.this)) {
                         Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
                     }
                 }
@@ -203,6 +204,10 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         });
 
         mPresenter.getWordListByUnitId(0, 0, unitId);
+
+        if (SpeechUtils.getAppids() == null || SpeechUtils.getAppids().size() <= 0) {
+            SpeechUtils.setAppids(this);
+        }
     }
 
 
@@ -366,10 +371,9 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         @Override
         public void onCompleted(SpeechError error) {
             if (error == null) {
-                if(disableWordDetailState()){
+                if (disableWordDetailState()) {
                     return;
                 }
-
                 playWord(currentIndex, new Runnable() {
                     @Override
                     public void run() {
@@ -377,7 +381,11 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                     }
                 });
             } else if (error != null) {
-                if(disableWordDetailState()){
+                if (error.getErrorDescription().contains("权")) {
+                    SpeechUtils.resetAppid(ReadWordActivity.this);
+                    return;
+                }
+                if (disableWordDetailState()) {
                     return;
                 }
 
@@ -449,7 +457,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     @Override
     protected void onPause() {
         super.onPause();
-        if(mTts.isSpeaking()) {
+        if (mTts.isSpeaking()) {
             mTts.stopSpeaking();
         }
     }
@@ -473,7 +481,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         isContinue = !isContinue;
         if (isContinue) {
             if (currentIndex < mDatas.size()) {
-                if(ActivityUtils.isValidContext(ReadWordActivity.this)) {
+                if (ActivityUtils.isValidContext(ReadWordActivity.this)) {
                     Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_gif_play).into(mReadAllImageView);
                 }
                 endableState(currentIndex);
