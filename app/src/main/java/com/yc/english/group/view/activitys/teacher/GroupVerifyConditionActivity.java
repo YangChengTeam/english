@@ -9,6 +9,7 @@ import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupChangeInfoContract;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.presenter.GroupChangeInfoPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
@@ -32,7 +33,7 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
     ImageView mIvVerifyJoin;
 
     private int currentConditon;
-    private GroupInfo groupInfo;
+
 
     @Override
     public void init() {
@@ -45,14 +46,11 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
                 back();
             }
         });
-
         if (getIntent() != null) {
-            groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
+            int valiType = getIntent().getIntExtra("valiType", GroupConstant.CONDITION_ALL_ALLOW);
+            setVerifyResult(valiType);
+            currentConditon = valiType;
         }
-        int verify_result = SPUtils.getInstance().getInt(groupInfo.getId(), GroupConstant.CONDITION_ALL_ALLOW);
-        setVerifyResult(verify_result);
-
-        currentConditon = verify_result;
     }
 
     @OnClick({R.id.m_rl_all_allow, R.id.m_rl_all_forbid, R.id.m_rl_verify_join})
@@ -82,12 +80,10 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
     @Override
     public void onBackPressed() {
         back();
-
     }
 
     private void back() {
-
-        SPUtils.getInstance().put(groupInfo.getId(), currentConditon);
+        SPUtils.getInstance().put(GroupInfoHelper.getGroupInfo().getId(), currentConditon);
         Intent intent = getIntent();
         intent.putExtra("condition", currentConditon);
         setResult(RESULT_OK, intent);
@@ -95,7 +91,6 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
     }
 
     private void setVerifyResult(int code) {
-
         switch (code) {
             case GroupConstant.CONDITION_ALL_ALLOW:
                 mIvAllAllow.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
@@ -127,7 +122,7 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
                 mIvAllAllow.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
                 break;
         }
-        mPresenter.changeGroupInfo(this,groupInfo.getId(), "", "", currentConditon + "");
+        mPresenter.changeGroupInfo(this, GroupInfoHelper.getGroupInfo().getId(), "", "", currentConditon + "");
     }
 
     @Override

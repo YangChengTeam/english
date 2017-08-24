@@ -203,6 +203,13 @@ public class EngineUtils {
 
     }
 
+    /**
+     * 申请加入班群
+     * @param context
+     * @param user_id
+     * @param sn
+     * @return
+     */
     public static Observable<ResultInfo<GroupApplyInfo>> applyJoinGroup(Context context, String user_id, String sn) {
 
         Map<String, String> params = new HashMap<>();
@@ -213,6 +220,13 @@ public class EngineUtils {
 
     }
 
+    /**
+     * 获取发布作业列表
+     * @param context
+     * @param publisher
+     * @param class_id
+     * @return
+     */
     public static Observable<ResultInfo<TaskAllInfoWrapper>> getPublishTaskList(Context context, String publisher, String class_id) {
 
         Map<String, String> params = new HashMap<>();

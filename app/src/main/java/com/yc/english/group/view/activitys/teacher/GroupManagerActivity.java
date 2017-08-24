@@ -19,8 +19,10 @@ import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupResolvingContract;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.presenter.GroupResolvingPresenter;
+import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.GroupInfo;
 
 import butterknife.BindView;
@@ -33,32 +35,29 @@ import butterknife.OnClick;
 
 public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPresenter> implements GroupResolvingContract.View {
 
-
     @BindView(R.id.iv_group_image)
     ImageView ivGroupImage;
-
     @BindView(R.id.tv_group_name)
     TextView tvGroupName;
     @BindView(R.id.tv_permission_check)
     TextView tvPermissionCheck;
-    private GroupInfo groupInfo;
-    private ClassInfo mInfo;
     private AlertDialog alertDialog;
+    private int condition;
 
     @Override
     public void init() {
-
         mPresenter = new GroupResolvingPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group_manager));
         mToolbar.showNavigationIcon();
 
-        if (getIntent() != null) {
-            groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
-            tvGroupName.setText(groupInfo.getName());
+        tvGroupName.setText(GroupInfoHelper.getGroupInfo().getName());
+
+        condition = SPUtils.getInstance().getInt(GroupInfoHelper.getGroupInfo().getId(), -1);
+        if (condition == -1) {
+            condition = Integer.parseInt(GroupInfoHelper.getClassInfo().getVali_type());
         }
-        int condition = SPUtils.getInstance().getInt(groupInfo.getId());
         setVerify_reslut(condition);
-        mPresenter.queryGroupById(this, groupInfo.getId());
+        GlideHelper.circleImageView(this, ivGroupImage, GroupInfoHelper.getClassInfo().getImageUrl(), R.mipmap.default_avatar);
 
     }
 
@@ -76,26 +75,18 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
                 AvatarHelper.openAlbum(this);
                 break;
             case R.id.rl_group_name:
-                intent = new Intent(this, GroupChangeNameActivity.class);
-                intent.putExtra("group", groupInfo);
-                startActivity(intent);
+                startActivity(new Intent(this, GroupChangeNameActivity.class));
                 break;
             case R.id.rl_group_delete_member:
-                intent = new Intent(this, GroupDeleteMemberActivity.class);
-                intent.putExtra("group", groupInfo);
-                intent.putExtra("flag",mInfo.getFlag());
-                startActivity(intent);
+                startActivity(new Intent(this, GroupDeleteMemberActivity.class));
                 break;
             case R.id.rl_group_check:
                 intent = new Intent(this, GroupVerifyConditionActivity.class);
-                intent.putExtra("group", groupInfo);
+                intent.putExtra("valiType", condition);
                 startActivityForResult(intent, 200);
                 break;
             case R.id.rl_group_transfer:
-                intent = new Intent(this, GroupTransferActivity.class);
-                intent.putExtra("group", this.mInfo);
-
-                startActivity(intent);
+                startActivity(new Intent(this, GroupTransferActivity.class));
                 break;
             case R.id.btn_resolving_group:
                 if (alertDialog == null) {
@@ -106,7 +97,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
                     @Override
                     public void onClick(View v) {
                         alertDialog.dismiss();
-                        mPresenter.resolvingGroup(groupInfo.getId(), mInfo.getMaster_id());
+                        mPresenter.resolvingGroup(GroupInfoHelper.getGroupInfo().getId(), GroupInfoHelper.getClassInfo().getMaster_id());
                     }
                 });
                 alertDialog.show();
@@ -119,7 +110,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
-            int condition = data.getIntExtra("condition", 0);
+            condition = data.getIntExtra("condition", 0);
             setVerify_reslut(condition);
             return;
         }
@@ -127,7 +118,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
             AvatarHelper.uploadAvatar(this, new AvatarHelper.IAvatar() {
                 @Override
                 public void uploadAvatar(String image) {
-                    mPresenter.changeGroupInfo(GroupManagerActivity.this, groupInfo.getId(), "", image, "");
+                    mPresenter.changeGroupInfo(GroupManagerActivity.this, GroupInfoHelper.getGroupInfo().getId(), "", image, "");
                 }
             }, requestCode, resultCode, data);
         }
@@ -147,13 +138,6 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
                 break;
         }
     }
-
-    @Override
-    public void showClassInfo(ClassInfo info) {
-        this.mInfo = info;
-        GlideHelper.circleImageView(this, ivGroupImage, info.getImageUrl(), R.mipmap.default_avatar);
-    }
-
 
     @Override
     public void showChangeGroupInfo(RemoveGroupInfo data) {

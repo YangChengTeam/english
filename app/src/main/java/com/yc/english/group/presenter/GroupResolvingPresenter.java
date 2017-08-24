@@ -61,32 +61,6 @@ public class GroupResolvingPresenter extends BasePresenter<GroupResolvingEngine,
     }
 
     @Override
-    public void queryGroupById(Context context, String id) {
-        Subscription subscription = EngineUtils.queryGroupById(context, id, "").subscribe(new Subscriber<ResultInfo<ClassInfoWarpper>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(final ResultInfo<ClassInfoWarpper> classInfoWarpperResultInfo) {
-                handleResultInfo(classInfoWarpperResultInfo, new Runnable() {
-                    @Override
-                    public void run() {
-                        mView.showClassInfo(classInfoWarpperResultInfo.data.getInfo());
-                    }
-                });
-            }
-        });
-        mSubscriptions.add(subscription);
-    }
-
-    @Override
     public void changeGroupInfo(Context context, String class_id, String name, String face, String vali_type) {
         mView.showLoadingDialog("正在修改");
         Subscription subscription = EngineUtils.changeGroupInfo(context, class_id, name, face, vali_type).subscribe(new Subscriber<ResultInfo<RemoveGroupInfo>>() {

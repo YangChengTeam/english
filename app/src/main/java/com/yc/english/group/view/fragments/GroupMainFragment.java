@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.StateView;
@@ -26,6 +27,7 @@ import com.yc.english.group.view.activitys.teacher.GroupCreateActivity;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
 
 import java.util.List;
 
@@ -45,10 +47,6 @@ import io.rong.message.TextMessage;
 public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter> implements GroupMyGroupListContract.View {
     private static final String TAG = "GroupMainFragment";
 
-    @BindView(R.id.btn_create_class)
-    Button btnCreateClass;
-    @BindView(R.id.btn_join_class)
-    Button btnJoinClass;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.ll_empty_container)
@@ -128,15 +126,12 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
             llDataContainer.setVisibility(View.VISIBLE);
             llEmptyContainer.setVisibility(View.GONE);
             adapter.setData(classInfos);
-
         } else {
             llDataContainer.setVisibility(View.GONE);
             llEmptyContainer.setVisibility(View.VISIBLE);
-            hideLoading();
         }
 
     }
-
 
 
     @Override
@@ -150,15 +145,6 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         getActivity().invalidateOptionsMenu();
     }
 
-    @Override
-    public void showLoading() {
-        sViewLoading.showLoading(contentView);
-    }
-
-    @Override
-    public void hideLoading() {
-        sViewLoading.hide();
-    }
 
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
@@ -171,10 +157,33 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         if (message.getContent() instanceof RichContentMessage) {
             adapter.setMessage(message);
         }
-
         adapter.notifyDataSetChanged();
 
 
     }
 
+    @Override
+    public void hideStateView() {
+        sViewLoading.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        sViewLoading.showNoNet(contentView, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.loadData(true);
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        hideStateView();
+    }
+
+    @Override
+    public void showLoading() {
+        sViewLoading.showLoading(contentView);
+    }
 }

@@ -1,7 +1,5 @@
 package com.yc.english.group.contract;
 
-import android.content.Context;
-
 import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.ILoading;
 import com.yc.english.base.view.INoData;

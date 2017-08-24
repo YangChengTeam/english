@@ -20,6 +20,7 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupDeleteMemberContract;
 import com.yc.english.group.listener.OnCheckedChangeListener;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupDeleteMemberPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
@@ -49,10 +50,9 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
     private GroupDeleteAdapter adapter;
-    private GroupInfo groupInfo;
     private List<StudentInfo> mList;
     private AlertDialog alertDialog;
-    private String flag;
+
 
     @Override
     public void init() {
@@ -61,16 +61,10 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
         mToolbar.setTitle(getResources().getString(R.string.delete_member));
         mToolbar.setMenuTitle(getResources().getString(R.string.cancel));
 
-        if (getIntent() != null) {
-            groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
-            flag = getIntent().getStringExtra("flag");
-        }
-
         mToolbar.setMenuTitleColor(getResources().getColor(R.color.gray_aaa));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupDeleteAdapter(this, null);
         recyclerView.setAdapter(adapter);
-        mPresenter.getMemberList(this, groupInfo.getId(), "1", "", flag);
         initListener();
 
     }
@@ -134,7 +128,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
                     public void onClick(View v) {
                         alertDialog.dismiss();
 
-                        mPresenter.deleteMember(groupInfo.getId(), UserInfoHelper.getUserInfo().getUid(), sb.toString());
+                        mPresenter.deleteMember(GroupInfoHelper.getGroupInfo().getId(), UserInfoHelper.getUserInfo().getUid(), sb.toString());
                     }
                 });
                 alertDialog.show();
@@ -201,7 +195,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
         stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getMemberList(GroupDeleteMemberActivity.this, groupInfo.getId(), "1", "",flag);
+                mPresenter.getMemberList(GroupDeleteMemberActivity.this, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
             }
         });
     }

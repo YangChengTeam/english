@@ -6,6 +6,7 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupDeleteMemberContract;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.bean.StudentRemoveInfo;
 import com.yc.english.group.model.engin.GroupDeleteMemberEngine;
@@ -29,7 +30,8 @@ public class GroupDeleteMemberPresenter extends BasePresenter<GroupDeleteMemberE
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
-
+        if (!forceUpdate) return;
+        getMemberList(mContext, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
     }
 
 
@@ -61,7 +63,7 @@ public class GroupDeleteMemberPresenter extends BasePresenter<GroupDeleteMemberE
     }
 
     @Override
-    public void getMemberList(Context context, String class_id, String status, String master_id,String flag) {
+    public void getMemberList(Context context, String class_id, String status, String master_id, String flag) {
         mView.showLoading();
         Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override

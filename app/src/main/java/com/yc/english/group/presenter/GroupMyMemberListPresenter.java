@@ -134,29 +134,4 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
         mSubscriptions.add(subscription);
     }
 
-    public void queryGroupById(Context context, String id, String sn) {
-        Subscription subscription = EngineUtils.queryGroupById(context, id, sn).subscribe(new Subscriber<ResultInfo<ClassInfoWarpper>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(final ResultInfo<ClassInfoWarpper> classInfoWarpperResultInfo) {
-                handleResultInfo(classInfoWarpperResultInfo, new Runnable() {
-                    @Override
-                    public void run() {
-                        mView.showGroupInfo(classInfoWarpperResultInfo.data.getInfo());
-                    }
-                });
-
-            }
-        });
-        mSubscriptions.add(subscription);
-    }
 }

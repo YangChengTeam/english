@@ -15,7 +15,6 @@ import com.yc.english.group.model.bean.RemoveGroupInfo;
 public interface GroupResolvingContract {
 
     interface View extends IView, IDialog {
-        void showClassInfo(ClassInfo info);
 
         void showResolvingResult();
         void showChangeGroupInfo(RemoveGroupInfo data);
@@ -23,8 +22,6 @@ public interface GroupResolvingContract {
 
     interface Presenter extends IPresenter {
         void resolvingGroup(String class_id, String master_id);
-
-        void queryGroupById(Context context, String id);
 
         void changeGroupInfo(Context context, String class_id, String name, String face, String vali_type);
     }

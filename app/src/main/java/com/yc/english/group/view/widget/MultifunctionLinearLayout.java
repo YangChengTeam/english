@@ -39,7 +39,6 @@ public class MultifunctionLinearLayout extends LinearLayout {
     private GroupFileAdapter groupFileAdapter;
     private GroupPictureAdapter groupPictureAdapter;
 
-
     private LinearLayout llPicture;
     private LinearLayout llFile;
     private LinearLayout llVoice;
@@ -105,8 +104,10 @@ public class MultifunctionLinearLayout extends LinearLayout {
             groupFileAdapter = new GroupFileAdapter(mContext, false, null);
             fileRecycleView.setLayoutManager(new LinearLayoutManager(mContext));
             fileRecycleView.setAdapter(groupFileAdapter);
+
             textView.setText(getText());
             textView.setVisibility(TextUtils.isEmpty(getText()) ? View.GONE : View.VISIBLE);
+
             addView(synthesizeView);
         }
 

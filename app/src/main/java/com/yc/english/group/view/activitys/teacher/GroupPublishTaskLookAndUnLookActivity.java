@@ -89,7 +89,7 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
             @Override
             public void onClick() {
                 Intent intent = new Intent(GroupPublishTaskLookAndUnLookActivity.this, GroupPublishTaskListActivity.class);
-                intent.putExtra("targetId", GroupInfoHelper.getGroupId());
+                intent.putExtra("targetId", GroupInfoHelper.getGroupInfo().getId());
                 startActivity(intent);
             }
         });
@@ -193,8 +193,8 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
     }
 
     private void getData() {
-        mPresenter.getPublishTaskDetail(this, taskInfo.getId(), GroupInfoHelper.getGroupId(), UserInfoHelper.getUserInfo().getUid());
-        mPresenter.getIsReadTaskList(GroupInfoHelper.getGroupId(), taskInfo.getId());
+        mPresenter.getPublishTaskDetail(this, taskInfo.getId(), GroupInfoHelper.getGroupInfo().getId(), UserInfoHelper.getUserInfo().getUid());
+        mPresenter.getIsReadTaskList(GroupInfoHelper.getGroupInfo().getId(), taskInfo.getId());
     }
 
 

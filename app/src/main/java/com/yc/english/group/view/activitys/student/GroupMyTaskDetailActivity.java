@@ -142,8 +142,8 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
 
     private void getData() {
 
-        if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupId())) {
-            mPresenter.getPublishTaskDetail(this, taskInfo.getId(), GroupInfoHelper.getGroupId(), UserInfoHelper.getUserInfo().getUid());
+        if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupInfo().getId())) {
+            mPresenter.getPublishTaskDetail(this, taskInfo.getId(), GroupInfoHelper.getGroupInfo().getId(), UserInfoHelper.getUserInfo().getUid());
         }
         mPresenter.getDoneTaskDetail(this, taskInfo.getId(), UserInfoHelper.getUserInfo().getUid());
     }
@@ -216,9 +216,9 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
         }
 
         String uid = UserInfoHelper.getUserInfo().getUid();
-        if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupId())) {
-            LogUtils.e(GroupInfoHelper.getGroupId());
-            mPresenter.doTask(GroupInfoHelper.getGroupId(), uid, taskInfo.getId(), desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
+        if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupInfo().getId())) {
+
+            mPresenter.doTask(GroupInfoHelper.getGroupInfo().getId(), uid, taskInfo.getId(), desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
         }
 
 
