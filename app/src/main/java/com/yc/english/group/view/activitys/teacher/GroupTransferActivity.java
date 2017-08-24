@@ -15,6 +15,7 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupTransferGroupContract;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.presenter.GroupTransferGroupPresenter;
 
 import java.util.concurrent.TimeUnit;
@@ -35,7 +36,7 @@ public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroup
     ImageButton ibDelete;
     @BindView(R.id.btn_create)
     Button btnCreate;
-    private ClassInfo classInfo;
+
 
     @Override
     public void init() {
@@ -47,10 +48,7 @@ public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroup
         etClassGroup.setInputType(EditorInfo.TYPE_CLASS_PHONE);
 
         etClassGroup.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
-        if (getIntent() != null) {
 
-            classInfo = getIntent().getParcelableExtra("group");
-        }
         initListener();
     }
 
@@ -66,7 +64,7 @@ public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroup
         }).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                mPresenter.transferGroup(classInfo.getClass_id(), classInfo.getMaster_id(), etClassGroup.getText().toString().trim());
+                mPresenter.transferGroup(GroupInfoHelper.getClassInfo().getClass_id(), GroupInfoHelper.getClassInfo().getMaster_id(), etClassGroup.getText().toString().trim());
             }
         });
     }

@@ -164,7 +164,6 @@ public class GroupApp {
         return mDaoSession;
     }
 
-
     private static class MyReceiveMessageListener implements RongIMClient.OnReceiveMessageListener {
 
         @Override

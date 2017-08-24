@@ -421,11 +421,11 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
 
         String uid = UserInfoHelper.getUserInfo().getUid();
         if (taskInfo != null) {
-            if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupId())) {
-                mPresenter.doTask(GroupInfoHelper.getGroupId(), uid, taskInfo.getId(), desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
+            if (taskInfo.getClass_ids().contains(GroupInfoHelper.getGroupInfo().getId())) {
+                mPresenter.doTask(GroupInfoHelper.getGroupInfo().getId(), uid, taskInfo.getId(), desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
             }
         } else {
-            mPresenter.doTask(GroupInfoHelper.getGroupId(), uid, taskId, desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
+            mPresenter.doTask(GroupInfoHelper.getGroupInfo().getId(), uid, taskId, desc, picSb.toString(), voiceSb.toString(), wordSb.toString());
         }
     }
 

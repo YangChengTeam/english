@@ -3,26 +3,17 @@ package com.yc.english.group.view.activitys;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
-import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
-import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyJoinContract;
-
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.presenter.GroupApplyJoinPresenter;
@@ -34,7 +25,6 @@ import com.yc.english.setting.view.activitys.PersonCenterActivity;
 import java.util.List;
 
 import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
@@ -48,8 +38,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
 
     private static final String TAG = "ChatActivity";
 
-    private GroupInfo group;
-    private ClassInfo mClassInfo;
 
     private void initData() {
         Intent intent = getIntent();
@@ -67,12 +55,12 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
                 groupId = data.getQueryParameter("targetId");
             }
             mToolbar.setMenuIcon(R.mipmap.group9);
+            mToolbar.showNavigationIcon();
             mToolbar.setOnItemClickLisener(this);
             mToolbar.setTitle(title);
-            group = new GroupInfo(groupId, title);
-            GroupInfoHelper.setGroupId(groupId);
+            GroupInfo group = new GroupInfo(groupId, title);
+            GroupInfoHelper.setGroupInfo(group);
             mPresenter.queryGroupById(this, groupId, "");
-
         }
 
     }
@@ -81,9 +69,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     public void init() {
         mPresenter = new GroupApplyJoinPresenter(this, this);
         initData();
-        mToolbar.showNavigationIcon();
         initListener();
-
     }
 
     private void initListener() {
@@ -129,15 +115,13 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     @Override
     public void onClick() {
         Intent intent = new Intent(this, GroupMemberActivity.class);
-        intent.putExtra("group", group);
-        intent.putExtra("flag", mClassInfo.getFlag());
         startActivity(intent);
     }
 
     @Override
     public void showGroup(ClassInfo classInfo) {
-        this.mClassInfo = classInfo;
-        mPresenter.getMemberList(group.getId(), "1", "", classInfo.getFlag());
+        GroupInfoHelper.setClassInfo(classInfo);
+        mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
     }
 
     @Override
@@ -154,7 +138,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             }
         });
     }
-
 
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
@@ -178,9 +161,4 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
         mToolbar.setTitle(result);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        GroupInfoHelper.setGroupId("");
-    }
 }

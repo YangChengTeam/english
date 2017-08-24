@@ -3,6 +3,9 @@ package com.yc.english.group.contract;
 import android.content.Context;
 
 import com.yc.english.base.presenter.IPresenter;
+import com.yc.english.base.view.ILoading;
+import com.yc.english.base.view.INoData;
+import com.yc.english.base.view.INoNet;
 import com.yc.english.base.view.IView;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
@@ -14,7 +17,7 @@ import java.util.List;
  */
 
 public interface GroupMyGroupListContract {
-    interface View extends IView {
+    interface View extends IView,ILoading,INoData,INoNet {
         /**
          * 显示我的班群列表
          *
@@ -29,9 +32,6 @@ public interface GroupMyGroupListContract {
          */
         void showMemberList(List<StudentInfo> count);
 
-        void showLoading();
-
-        void hideLoading();
 
     }
 

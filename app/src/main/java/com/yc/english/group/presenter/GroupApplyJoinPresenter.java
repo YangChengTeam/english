@@ -140,7 +140,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine,
                     public void run() {
                         StudentInfoWrapper data = studentInfoWrapperResultInfo.data;
                         if (data != null && data.getList() != null && data.getList().size() > 0) {
-                            List<UserInfo> list = new ArrayList<UserInfo>();
+                            List<UserInfo> list = new ArrayList<>();
                             for (StudentInfo studentInfo : data.getList()) {
                                 list.add(new UserInfo(studentInfo.getUser_id(), studentInfo.getNick_name(), Uri.parse(studentInfo.getFace())));
                             }

@@ -30,7 +30,6 @@ public interface GroupDoTaskDetailContract {
     }
 
     interface Presenter extends IPresenter {
-//        void getDoTaskDetail(String id, String user_id);
 
         void getPublishTaskDetail(Context context, String task_id, String class_id, String user_id);
 

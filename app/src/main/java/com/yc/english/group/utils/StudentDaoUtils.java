@@ -27,8 +27,12 @@ public class StudentDaoUtils {
         Observable.just("").subscribeOn(Schedulers.io()).subscribe(new Action1<String>() {
             @Override
             public void call(String s) {
+                if (studentInfos!=null&&studentInfos.size()>0){
+                    for (StudentInfo studentInfo : studentInfos) {
+                        infoDao.saveInTx(studentInfo);
+                    }
+                }
 
-                infoDao.saveInTx((Iterable<StudentInfo>) studentInfos.iterator());
 
                 List<StudentInfo> infos = infoDao.queryBuilder().list();
                 if (infos != null && infos.size() > 0) {

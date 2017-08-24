@@ -19,6 +19,7 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupMyMemberListContract;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupMyMemberListPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
@@ -30,6 +31,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.yokeyword.indexablerv.EntityWrapper;
+import me.yokeyword.indexablerv.IndexableAdapter;
 import me.yokeyword.indexablerv.IndexableLayout;
 import me.yokeyword.indexablerv.SimpleHeaderAdapter;
 
@@ -50,29 +53,29 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     @BindView(R.id.tv_share_group)
     TextView tvShareGroup;
     private GroupMemberAdapter adapter;
-    private GroupInfo groupInfo;
     private SimpleHeaderAdapter<StudentInfo> simpleHeaderAdapter;
-    private ClassInfo mClassInfo;
-    private String flag;
-
 
     @Override
     public void init() {
         mPresenter = new GroupMyMemberListPresenter(this, this);
-        if (getIntent() != null) {
-            groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
-            flag = getIntent().getStringExtra("flag");
-            mToolbar.setTitle(groupInfo.getName());
-        }
+
+        mToolbar.setTitle(GroupInfoHelper.getGroupInfo().getName());
         mToolbar.showNavigationIcon();
 
-        mPresenter.queryGroupById(this, groupInfo.getId(), "");
+        if (GroupInfoHelper.getClassInfo() != null && GroupInfoHelper.getClassInfo().getMaster_id() != null) {
+            if (GroupInfoHelper.getClassInfo().getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
+                mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
+                tvShareGroup.setVisibility(View.GONE);
+            } else {
+                tvShareGroup.setVisibility(View.VISIBLE);
+            }
+        }
 
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
                 Intent intent = new Intent(GroupMemberActivity.this, GroupManagerActivity.class);
-                intent.putExtra("group", groupInfo);
+                intent.putExtra("group", GroupInfoHelper.getGroupInfo());
                 startActivity(intent);
             }
         });
@@ -94,13 +97,12 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_share_group:
-
                 final AlertDialog alertDialog = new AlertDialog(this);
                 alertDialog.setDesc("是否退出班群");
                 alertDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mPresenter.exitGroup(mClassInfo.getClass_id(), mClassInfo.getMaster_id(), UserInfoHelper.getUserInfo().getUid());
+                        mPresenter.exitGroup(GroupInfoHelper.getClassInfo().getClass_id(), GroupInfoHelper.getClassInfo().getMaster_id(), UserInfoHelper.getUserInfo().getUid());
                         alertDialog.dismiss();
                     }
                 });
@@ -118,22 +120,6 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         recyclerView.addHeaderAdapter(simpleHeaderAdapter);
         list.remove(0);
         adapter.setDatas(list);
-
-    }
-
-    @Override
-    public void showGroupInfo(ClassInfo classInfo) {
-        mClassInfo = classInfo;
-        if (classInfo != null && classInfo.getMaster_id() != null) {
-            if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                mToolbar.setTitle(classInfo.getClassName());
-                mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
-                invalidateOptionsMenu();
-                tvShareGroup.setVisibility(View.GONE);
-            }else {
-                tvShareGroup.setVisibility(View.VISIBLE);
-            }
-        }
 
     }
 
@@ -168,7 +154,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             }
     )
     public void changeName(String result) {
-        mPresenter.queryGroupById(this, groupInfo.getId(), "");
+        mToolbar.setTitle(result);
     }
 
 
@@ -198,7 +184,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     }
 
     private void getData() {
-        mPresenter.getMemberList(this, groupInfo.getId(), "1", "", flag);
+        mPresenter.getMemberList(this, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
     }
 
 }

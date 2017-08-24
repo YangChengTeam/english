@@ -12,10 +12,6 @@ public interface GroupConstant {
     int CONDITION_VERIFY_JOIN = 1;//通过验证才能加入
     int CONDITION_ALL_FORBID = 2;//不允许任何人加入
 
-
-    String VERIFY_RESULT = "verify_result";
-
-    String SYNC_GROUP_RESULT = "sync_group_result";
     /**
      * 作业类型
      * 0：纯文字，1：图片，2：语音，3：文档，4：综合
@@ -34,6 +30,10 @@ public interface GroupConstant {
     String PICTUE_TASK = "pictue_task";
     String VOICE_TASK = "voice_task";
     String WORD_TASK = "word_task";
+
+    String CLASS_INFO = "class_info";
+
+    String GROUP_INFO = "group_info";
 
 
 }

@@ -22,9 +22,6 @@ public interface GroupMyMemberListContract {
     interface View extends IView, ILoading, INoNet, INoData,IDialog,IFinish {
         void showMemberList(List<StudentInfo> list);
 
-        void showGroupInfo(ClassInfo info);
-
-
     }
 
     interface Presenter extends IPresenter {

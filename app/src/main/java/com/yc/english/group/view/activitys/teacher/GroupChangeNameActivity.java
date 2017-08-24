@@ -12,6 +12,7 @@ import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupChangeInfoContract;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.presenter.GroupChangeInfoPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
@@ -35,18 +36,16 @@ public class GroupChangeNameActivity extends FullScreenActivity<GroupChangeInfoP
     ImageButton ibDelete;
     @BindView(R.id.btn_create)
     Button btnCreate;
-    private GroupInfo groupInfo;
+
 
     @Override
     public void init() {
         mToolbar.setTitle(getResources().getString(R.string.group_name));
         mToolbar.showNavigationIcon();
         mPresenter = new GroupChangeInfoPresenter(this, this);
-        if (getIntent() != null) {
-            groupInfo = (GroupInfo) getIntent().getSerializableExtra("group");
-            etClassGroup.setText(groupInfo.getName());
-            etClassGroup.setSelection(groupInfo.getName().length());
-        }
+
+        etClassGroup.setText(GroupInfoHelper.getGroupInfo().getName());
+        etClassGroup.setSelection(GroupInfoHelper.getGroupInfo().getName().length());
 
         RxView.clicks(btnCreate).filter(new Func1<Void, Boolean>() {
             @Override
@@ -60,7 +59,7 @@ public class GroupChangeNameActivity extends FullScreenActivity<GroupChangeInfoP
             @Override
             public void call(Void aVoid) {
 
-                mPresenter.changeGroupInfo(GroupChangeNameActivity.this, groupInfo.getId(), etClassGroup.getText().toString().trim(), "", "");
+                mPresenter.changeGroupInfo(GroupChangeNameActivity.this, GroupInfoHelper.getGroupInfo().getId(), etClassGroup.getText().toString().trim(), "", "");
             }
         });
 

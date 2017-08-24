@@ -75,7 +75,7 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
     public void showApplyResult(String data) {
         mHolder.setVisible(R.id.m_tv_accept, false);
         mHolder.setVisible(R.id.m_tv_already_add, true);
-        adapter.notifyDataSetChanged();
+//        adapter.notifyDataSetChanged();
     }
 
     private BaseViewHolder mHolder;
@@ -85,8 +85,6 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
         adapter.setOnItemClickListener(new OnItemClickListener<StudentInfo>() {
             @Override
             public void onItemClick(BaseViewHolder holder, int position, StudentInfo studentInfo) {
-//                String [] members =new String[]{studentInfo.getUser_id()};
-
                 mPresenter.acceptApply(studentInfo.getClass_id(), uid, studentInfo.getUser_id());
                 mHolder = holder;
             }

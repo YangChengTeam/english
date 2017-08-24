@@ -18,6 +18,7 @@ import com.yc.english.group.model.engin.GroupCreateEngine;
 
 import java.util.List;
 
+import io.rong.imkit.RongIM;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -32,7 +33,7 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
     private ClassInfoDao classInfoDao;
 
     public GroupCreatePresenter(Context context, GroupCreateContract.View view) {
-        super(view);
+        super(context, view);
         mEngin = new GroupCreateEngine(context);
         classInfoDao = GroupApp.getmDaoSession().getClassInfoDao();
     }
@@ -98,6 +99,7 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
                 RxBus.get().post(BusAction.GROUP_LIST, "create group");
             }
         });
+        RongIM.getInstance().startGroupChat(mContext, info.getClass_id(), info.getClassName());
         mView.finish();
     }
 
