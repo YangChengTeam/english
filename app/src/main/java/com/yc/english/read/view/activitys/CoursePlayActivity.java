@@ -19,10 +19,10 @@ import com.iflytek.cloud.SynthesizerListener;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.utils.SpeechUtils;
+import com.yc.english.base.utils.WakeLockUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
-import com.yc.english.read.common.SpeechUtil;
+import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.contract.CoursePlayContract;
 import com.yc.english.read.model.domain.EnglishCourseInfo;
 import com.yc.english.read.model.domain.EnglishCourseInfoList;
@@ -120,9 +120,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             }
         }
 
-        SpeechUtil.initSpeech(CoursePlayActivity.this, 28, 50, 50, 1);
-        mTts = SpeechUtil.getmTts();
-
+        WakeLockUtils.acquireWakeLock(this);
+        mTts = SpeechUtils.getTts(this);
         mPresenter = new CoursePlayPresenter(this, this);
 
         mToolbar.setTitle(unitTitle != null ? unitTitle : "");
@@ -247,8 +246,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
         mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
 
-        if (SpeechUtils.getAppids() == null || SpeechUtils.getAppids().size() <= 0) {
-            SpeechUtils.setAppids(this);
+        if (com.yc.english.base.utils.SpeechUtils.getAppids() == null || com.yc.english.base.utils.SpeechUtils.getAppids().size() <= 0) {
+            com.yc.english.base.utils.SpeechUtils.setAppids(this);
         }
     }
 
@@ -343,7 +342,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 speekContinue(++playPosition);
             } else if (error != null) {
                 if (error.getErrorDescription().contains("权")) {
-                    SpeechUtils.resetAppid(CoursePlayActivity.this);
+                    com.yc.english.base.utils.SpeechUtils.resetAppid(CoursePlayActivity.this);
                     return;
                 }
                 speekContinue(playPosition);
@@ -399,12 +398,14 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         if (null != mTts) {
             mTts.stopSpeaking();
             mTts.destroy();
+            mTts = null;
         }
+        WakeLockUtils.releaseWakeLock();
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         if (mTts.isSpeaking()) {
             mTts.stopSpeaking();
         }

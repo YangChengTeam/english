@@ -20,10 +20,10 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.yc.english.R;
-import com.yc.english.base.utils.SpeechUtils;
+import com.yc.english.base.utils.WakeLockUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
-import com.yc.english.read.common.SpeechUtil;
+import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.contract.ReadWordContract;
 import com.yc.english.read.model.domain.WordDetailInfo;
 import com.yc.english.read.model.domain.WordInfo;
@@ -131,15 +131,14 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             unitId = bundle.getString("unit_id");
             unitTitle = bundle.getString("unit_title");
         }
-
+        WakeLockUtils.acquireWakeLock(this);
         mPresenter = new ReadWordPresenter(this, this);
         mToolbar.setTitle(unitTitle);
         mToolbar.showNavigationIcon();
 
         mediaPlayer = new MediaPlayer();
 
-        SpeechUtil.initSpeech(ReadWordActivity.this, 28, 50, 50, 1);
-        mTts = SpeechUtil.getmTts();
+        mTts = SpeechUtils.getTts(this);
 
         mReadWordExpandAdapter = new ReadWordExpandAdapter(ReadWordActivity.this, wordInfos, wordDetailInfos);
         mReadWordExpandAdapter.setExpandableListView(mWordListView);
@@ -205,8 +204,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
         mPresenter.getWordListByUnitId(0, 0, unitId);
 
-        if (SpeechUtils.getAppids() == null || SpeechUtils.getAppids().size() <= 0) {
-            SpeechUtils.setAppids(this);
+        if (com.yc.english.base.utils.SpeechUtils.getAppids() == null || com.yc.english.base.utils.SpeechUtils.getAppids().size() <= 0) {
+            com.yc.english.base.utils.SpeechUtils.setAppids(this);
         }
     }
 
@@ -382,7 +381,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                 });
             } else if (error != null) {
                 if (error.getErrorDescription().contains("权")) {
-                    SpeechUtils.resetAppid(ReadWordActivity.this);
+                    com.yc.english.base.utils.SpeechUtils.resetAppid(ReadWordActivity.this);
                     return;
                 }
                 if (disableWordDetailState()) {
@@ -455,8 +454,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         if (mTts.isSpeaking()) {
             mTts.stopSpeaking();
         }
@@ -527,6 +526,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             mTts.stopSpeaking();
             // 退出时释放连接
             mTts.destroy();
+            mTts = null;
         }
+        WakeLockUtils.releaseWakeLock();
     }
 }

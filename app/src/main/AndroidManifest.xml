@@ -13,6 +13,9 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DEVICE_POWER"/>
+
 
     <application
         android:name=".EnglishApp"
@@ -28,7 +31,8 @@
 
         <activity
             android:name=".main.view.activitys.SplashActivity"
-            android:theme="@style/Splash">
+            android:theme="@style/Splash"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

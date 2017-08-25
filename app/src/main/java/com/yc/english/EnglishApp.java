@@ -47,7 +47,7 @@ public class EnglishApp extends MultiDexApplication {
                 GroupApp.init(EnglishApp.this);
                 ReadApp.init(EnglishApp.this);
                 Utils.init(EnglishApp.this);
-                SpeechUtility.createUtility(EnglishApp.this, "appid=" + getString(R.string.app_id));
+                SpeechUtils.setDefaultAppid(EnglishApp.this);
                 init();
             }
         });

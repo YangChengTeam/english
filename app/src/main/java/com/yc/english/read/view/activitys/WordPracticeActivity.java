@@ -24,7 +24,7 @@ import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.DrawableUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
-import com.yc.english.read.common.SpeechUtil;
+import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.contract.ReadWordContract;
 import com.yc.english.read.model.domain.LetterInfo;
 import com.yc.english.read.model.domain.WordInfo;
@@ -44,7 +44,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import rx.functions.Action1;
 
-import static com.yc.english.read.common.SpeechUtil.mContext;
+import static com.yc.english.read.common.SpeechUtils.mContext;
 
 /**
  * Created by admin on 2017/7/26.
@@ -147,8 +147,7 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
 
         mToolbar.showNavigationIcon();
 
-        SpeechUtil.initSpeech(WordPracticeActivity.this, 28, 50, 50, 1);
-        mTts = SpeechUtil.getmTts();
+        mTts = SpeechUtils.getTts(this);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false);
         mLetterRecyclerView.setLayoutManager(layoutManager);
@@ -399,6 +398,7 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
             mTts.stopSpeaking();
             // 退出时释放连接
             mTts.destroy();
+            mTts = null;
         }
     }
 

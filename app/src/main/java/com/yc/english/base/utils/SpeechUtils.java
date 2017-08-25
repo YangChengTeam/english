@@ -61,11 +61,24 @@ public class SpeechUtils {
         });
     }
 
+    public static void setDefaultAppid(Context context) {
+        int index = getIndex();
+        if (index == -1) {
+            SpeechUtility.createUtility(context, "appid=" + context.getString(R.string.app_id));
+        } else {
+            String appid = getAppid();
+            SpeechUtility.createUtility(context, "appid=" + appid);
+        }
+    }
+
+
     public static void resetAppid(Context context) {
         List<String> appids = getAppids();
         int index = getIndex() + 1;
         if (appids.size() <= index) {
             return;
+        } else {
+            index = -1;
         }
         String appid = appids.get(index);
         setIndex(index);
