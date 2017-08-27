@@ -4,95 +4,106 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/group_distance_90"
         android:layout_marginBottom="@dimen/group_distance_10"
         android:layout_marginLeft="@dimen/group_distance_15"
         android:layout_marginRight="@dimen/group_distance_15"
-        android:background="@drawable/group_group_manager_bg"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/group_distance_15"
-        android:paddingRight="@dimen/group_distance_15">
+        android:background="@drawable/group_group_manager_bg">
 
         <ImageView
-            android:id="@+id/m_iv_group_img"
-            android:layout_width="@dimen/group_distance_50"
-            android:layout_height="@dimen/group_distance_50"
-            android:src="@mipmap/default_avatar" />
+            android:id="@+id/m_iv_pay_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/default_avatar"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/group_distance_15"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/group_distance_15"
+            android:paddingRight="@dimen/group_distance_15">
 
+            <ImageView
+                android:id="@+id/m_iv_group_img"
+                android:layout_width="@dimen/group_distance_50"
+                android:layout_height="@dimen/group_distance_50"
+                android:src="@mipmap/default_avatar" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/m_tv_group_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="武汉街道口小学一年级5班"
-                    android:textColor="@color/black_333333"
-                    android:textSize="@dimen/group_text_16" />
-
-                <TextView
-                    android:id="@+id/m_tv_notification_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/group_notification_circle_bg"
-                    android:gravity="center"
-                    android:text="9"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/group_text_12"
-                    android:visibility="invisible"/>
-
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/group_distance_15"
+                android:orientation="vertical">
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/group_distance_10">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/m_tv_member_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="人数: 20"
-                    android:textColor="@color/group_gray_999"
-                    android:textSize="@dimen/group_text_14" />
+                    <TextView
+                        android:id="@+id/m_tv_group_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="武汉街道口小学一年级5班"
+                        android:textColor="@color/black_333333"
+                        android:textSize="@dimen/group_text_16" />
 
-                <TextView
-                    android:id="@+id/m_tv_group_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/group_distance_20"
-                    android:layout_toRightOf="@id/m_tv_member_count"
-                    android:text="群号: 88888"
-                    android:textColor="@color/primary"
-                    android:textSize="@dimen/group_text_14" />
+                    <TextView
+                        android:id="@+id/m_tv_notification_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/group_notification_circle_bg"
+                        android:gravity="center"
+                        android:text="9"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/group_text_12"
+                        android:visibility="invisible" />
 
-                <TextView
-                    android:id="@+id/m_tv_notification_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="[有新作业]"
-                    android:textColor="@color/group_orange_ff9a00"
-                    android:textSize="@dimen/group_text_14"
-                    android:visibility="invisible"/>
-            </RelativeLayout>
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/group_distance_10">
+
+                    <TextView
+                        android:id="@+id/m_tv_member_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="人数: 20"
+                        android:textColor="@color/group_gray_999"
+                        android:textSize="@dimen/group_text_14" />
+
+                    <TextView
+                        android:id="@+id/m_tv_group_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/group_distance_20"
+                        android:layout_toRightOf="@id/m_tv_member_count"
+                        android:text="群号: 88888"
+                        android:textColor="@color/primary"
+                        android:textSize="@dimen/group_text_14" />
+
+                    <TextView
+                        android:id="@+id/m_tv_notification_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="[有新作业]"
+                        android:textColor="@color/group_orange_ff9a00"
+                        android:textSize="@dimen/group_text_14"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
 
         </LinearLayout>
-
-
-    </LinearLayout>
-
+    </RelativeLayout>
 
 </LinearLayout>
