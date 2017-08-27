@@ -69,7 +69,6 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
                         saveGroup(classInfo.data.getInfo());
                     }
                 });
-
             }
         });
         mSubscriptions.add(subscription);

@@ -8,13 +8,14 @@ import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.read.view.activitys.ReadWordActivity;
 
 /**
  * Created by admin on 2017/8/8.
  * 语音播放
  */
 
-public class SpeechUtil {
+public class SpeechUtils {
 
     public static Context mContext;
 
@@ -35,18 +36,17 @@ public class SpeechUtil {
 
     public static boolean isSpeechSuccess = true;
 
-    public static SpeechSynthesizer getmTts() {
+    public static SpeechSynthesizer getTts(Context context) {
+        initSpeech(context, 28, 50, 50, 1);
         return mTts;
     }
 
-    public static void setmTts(SpeechSynthesizer mTts) {
-        mTts = mTts;
-    }
 
     public static void initSpeech(Context context, int speed, int pitch, int volume, int streamType) {
         mContext = context;
-        mTts = SpeechSynthesizer.createSynthesizer(context, mTtsInitListener);
-
+        if (mTts == null) {
+            mTts = SpeechSynthesizer.createSynthesizer(context, mTtsInitListener);
+        }
         //语音播放参数设置
         //mTts.setParameter(SpeechConstant.PARAMS, null);//清空参数
         // 根据合成引擎设置相应参数

@@ -120,6 +120,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
                 return false;
             }
         });
+
     }
 
     //页面跳转

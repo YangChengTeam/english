@@ -29,6 +29,8 @@ public class URLConfig {
 
     public static final String SHARE_INFO_URL = getBaseUrl() + "index/share_info";
 
+    public static final String APPIDS_URL = getBaseUrl() + "index/xfapp_list";
+
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }
