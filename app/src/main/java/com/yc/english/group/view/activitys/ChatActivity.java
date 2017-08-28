@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -28,6 +30,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
+import io.rong.message.RichContentMessage;
 
 
 /**
@@ -38,14 +41,15 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
 
     private static final String TAG = "ChatActivity";
 
+    private String groupId = null;
+    private String title = null;
 
     private void initData() {
         Intent intent = getIntent();
         if (intent != null && intent.getData() != null && intent.getData().getScheme().equals("rong")) {
 
             //rong://com.yc.english/conversation/group?targetId=654321&title=%E9%BE%99
-            String groupId = null;
-            String title = null;
+
             Uri data = intent.getData();
             if (data.getQueryParameter("title") != null) {
                 title = data.getQueryParameter("title");

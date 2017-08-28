@@ -41,7 +41,6 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
     EditText etClassGroup;
     @BindView(R.id.ib_delete)
     ImageButton ibDelete;
-
     @BindView(R.id.tv_class_name)
     TextView tvClassName;
     @BindView(R.id.ll_class_name)
@@ -52,7 +51,7 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
     ImageView roundView;
     @BindView(R.id.m_tv_tint)
     TextView mTvTint;
-    private String className;
+
     private String vali_type;
 
     @Override
@@ -121,7 +120,7 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
         if (classInfo != null) {
 
             vali_type = classInfo.getVali_type();
-            className = classInfo.getClassName();
+            String className = classInfo.getClassName();
             tvClassName.setText(className);
             llClassName.setVisibility(View.VISIBLE);
             btnJoin.setVisibility(View.VISIBLE);

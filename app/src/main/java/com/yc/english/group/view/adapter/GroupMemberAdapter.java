@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.model.bean.StudentInfo;
-import com.yc.english.main.hepler.UserInfoHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +22,7 @@ import me.yokeyword.indexablerv.IndexableAdapter;
 
 public class GroupMemberAdapter extends IndexableAdapter<StudentInfo> {
     private static final String TAG = "GroupMemberAdapter";
+
 
     private LayoutInflater mInflater;
     private Context mContext;
@@ -57,6 +57,8 @@ public class GroupMemberAdapter extends IndexableAdapter<StudentInfo> {
         GlideHelper.circleImageView(mContext, memberContentVH.ivMemberImg, entity.getFace(), R.mipmap.default_avatar);
         memberContentVH.tvMemberName.setText(entity.getNick_name());
         memberContentVH.tvMemberOwner.setText(entity.getUser_id().equals(entity.getMaster_id()) ? "老师" : "");
+        memberContentVH.tvMemberPhone.setText(entity.getUser_name());
+        memberContentVH.tvMemberPhone.setVisibility(entity.getUser_name().equals(entity.getNick_name()) ? View.GONE : View.VISIBLE);
     }
 
     private class MemberTitleVH extends RecyclerView.ViewHolder {
@@ -77,6 +79,8 @@ public class GroupMemberAdapter extends IndexableAdapter<StudentInfo> {
         TextView tvMemberOwner;
         @BindView(R.id.view_divider)
         View viewDivider;
+        @BindView(R.id.tv_member_phone)
+        TextView tvMemberPhone;
 
         public MemberContentVH(View itemView) {
             super(itemView);

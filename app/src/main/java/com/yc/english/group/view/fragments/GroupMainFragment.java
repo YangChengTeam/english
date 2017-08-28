@@ -60,6 +60,7 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
 
 
     private GroupGroupAdapter adapter;
+    private List<ClassInfo> mClassInfo;
 
 
     @Override
@@ -123,6 +124,7 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
     @Override
     public void showMyGroupList(List<ClassInfo> classInfos) {
         if (classInfos != null && classInfos.size() > 0) {
+            this.mClassInfo = classInfos;
             llDataContainer.setVisibility(View.VISIBLE);
             llEmptyContainer.setVisibility(View.GONE);
             adapter.setData(classInfos);
@@ -152,15 +154,21 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
                     @Tag(BusAction.UNREAD_MESSAGE)
             }
     )
-    public void getMessage(final Message message) {
+    public void getMessage(Message message) {
         LogUtils.e(TAG, message.getContent() + "---" + message.getTargetId() + "---" + message.getReceivedStatus().isRead() + "---" + message.getReceivedTime());
+
         if (message.getContent() instanceof RichContentMessage) {
             adapter.setMessage(message);
         }
-        adapter.notifyDataSetChanged();
-
+        for (int i = 0; i < mClassInfo.size(); i++) {
+            if (mClassInfo.get(i).getClass_id().equals(message.getTargetId())) {
+                adapter.notifyItemRangeChanged(i, 1);
+            }
+        }
 
     }
+
+
 
     @Override
     public void hideStateView() {

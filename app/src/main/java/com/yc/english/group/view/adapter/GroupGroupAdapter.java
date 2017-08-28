@@ -5,11 +5,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.common.GroupApp;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.main.hepler.UserInfoHelper;
 
@@ -52,7 +57,6 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
                     holder.getView(R.id.m_tv_notification_count).setVisibility(View.INVISIBLE);
                     holder.getView(R.id.m_tv_notification_content).setVisibility(View.INVISIBLE);
                 } else {
-
                     holder.getView(R.id.m_tv_notification_count).setVisibility(View.VISIBLE);
 
                     if (mMessage != null && classInfo.getClass_id().equals(mMessage.getTargetId()) && !mMessage.getReceivedStatus().isRead()) {
@@ -112,9 +116,9 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
         return R.layout.group_class_item;
     }
 
+
     public void setMessage(Message message) {
         this.mMessage = message;
-
     }
 
     private OnJoinListener onJoinListener;
@@ -126,4 +130,5 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
     public interface OnJoinListener {
         void onJoin(ClassInfo classInfo);
     }
+
 }

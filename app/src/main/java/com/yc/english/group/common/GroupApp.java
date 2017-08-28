@@ -169,13 +169,12 @@ public class GroupApp {
         @Override
         public boolean onReceived(Message message, int i) {
 
+            LogUtils.e(TAG, message.getContent() + "---" + message.getTargetId() + "---" + message.getReceivedStatus().isRead() + "---" + message.getReceivedTime());
 
             RxBus.get().post(BusAction.UNREAD_MESSAGE, message);
 
             RongIMUtil.refreshUserInfo(mApplication, message.getSenderUserId());
 
-
-            LogUtils.e(TAG, message.getContent() + "---" + message.getTargetId() + "---" + message.getReceivedStatus().isRead() + "---" + message.getReceivedTime());
 
             return true;
         }
