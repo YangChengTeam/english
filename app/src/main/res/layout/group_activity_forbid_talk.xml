@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/group_distance_10"
-            android:text="被禁言的成员"
+            android:text="@string/forbid_member"
             android:textColor="@color/group_gray_999"
             android:textSize="@dimen/group_text_14" />
 
@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:background="@color/white" />
 
-        <include layout="@layout/group_common_divider" />
 
         <LinearLayout
             android:id="@+id/m_ll_add_forbid_member"
@@ -48,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/group_distance_10"
-                android:text="添加禁言成员"
+                android:text="@string/add_forbid_member"
                 android:textColor="@color/black_333333"
                 android:textSize="@dimen/group_text_16" />
 

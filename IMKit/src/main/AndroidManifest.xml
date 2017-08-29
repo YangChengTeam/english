@@ -37,9 +37,6 @@
             android:name="io.rong.imkit.plugin.image.PictureSelectorActivity"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name="io.rong.imkit.plugin.image.PicturePreviewActivity"
-            android:screenOrientation="portrait" />
 
         <!-- 开发者可以修改 RongBaseActivity 的 rc_base_activity_layout 布局文件调整 actionbar-->
         <activity
@@ -71,12 +68,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name="io.rong.imkit.activity.FileManagerActivity" />
         <activity android:name="io.rong.imkit.activity.FileListActivity" />
-        <activity android:name="io.rong.imkit.activity.FilePreviewActivity" >
-        <intent-filter>
-            <action android:name="io.rong.imkit.intent.action.openfile" />
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
-        </activity>
+
 
         <activity
             android:name=".activity.CSLeaveMessageActivity"

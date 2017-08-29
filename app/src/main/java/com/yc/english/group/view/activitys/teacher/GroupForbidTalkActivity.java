@@ -9,6 +9,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
+import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
@@ -41,6 +42,8 @@ public class GroupForbidTalkActivity extends FullScreenActivity implements Compo
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupForbidedMemberAdapter(this, null);
         mRecyclerView.setAdapter(adapter);
+        BaseItemDecoration itemDecoration = new BaseItemDecoration(this);
+        mRecyclerView.addItemDecoration(itemDecoration);
         initListener();
 
     }

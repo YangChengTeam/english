@@ -2,6 +2,7 @@ package com.yc.english.group.view.adapter;
 
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,12 +28,19 @@ public class GroupForbidedMemberAdapter extends BaseAdapter<StudentInfo> {
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, int position) {
-        StudentInfo studentInfo = mList.get(position);
+    protected void convert(BaseViewHolder holder, final int position) {
+        final StudentInfo studentInfo = mList.get(position);
         holder.setText(R.id.m_tv_forbid_name, studentInfo.getNick_name());
         GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.m_iv_forbid), studentInfo.getFace(), R.mipmap.default_avatar);
         String str = mContext.getString(R.string.forbid_time);
         holder.setText(R.id.m_tv_forbid_time, String.format(str, mTime));
+        holder.setOnClickListener(R.id.m_tv_stop_forbid, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mList.remove(position);
+                notifyItemRangeChanged(position, 1);
+            }
+        });
 
     }
 

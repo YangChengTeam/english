@@ -60,6 +60,7 @@
     <string name="forbid_confirm">确定(%1$d/%2$d)</string>
     <string name="add_forbid_member">添加禁言成员</string>
     <string name="forbid_time">约%1$s后解除禁言</string>
+    <string name="forbid_member">被禁言的成员</string>
 
 
     <string-array name="task_finish_result">
