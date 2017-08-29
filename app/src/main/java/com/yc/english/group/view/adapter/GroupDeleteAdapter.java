@@ -44,7 +44,7 @@ public class GroupDeleteAdapter extends BaseAdapter<StudentInfo> {
                 public void onClick(View v) {
                     if (listener != null) {
                         boolean flag = !(boolean) view.getTag();
-                        listener.onClick(position, holder.getView(R.id.iv_delete_select), flag, studentInfo);
+                        listener.onClick(holder.getView(R.id.iv_delete_select), flag, studentInfo);
                         view.setTag(flag);
 
                     }

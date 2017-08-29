@@ -25,8 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/group_gray_e6f2fb"
-             />
+            android:background="@color/group_gray_e6f2fb" />
 
         <TextView
             android:id="@+id/tv_share_group"

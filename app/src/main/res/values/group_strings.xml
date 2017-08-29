@@ -53,6 +53,13 @@
     <string name="look_detail">查看详情</string>
     <string name="pack_up">收起</string>
     <string name="do_homework">交作业</string>
+    <string name="group_forbid">群内禁言</string>
+    <string name="group_all_forbid">全员禁言</string>
+    <string name="stop_forbid">解禁</string>
+    <string name="group_member">群成员</string>
+    <string name="forbid_confirm">确定(%1$d/%2$d)</string>
+    <string name="add_forbid_member">添加禁言成员</string>
+    <string name="forbid_time">约%1$s后解除禁言</string>
 
 
     <string-array name="task_finish_result">
@@ -63,6 +70,14 @@
         <item>已查阅（%1$d）</item>
         <item>未查阅（%1$d）</item>
 
+    </string-array>
+
+    <string-array name="forbid_time">
+        <item>5分钟</item>
+        <item>一小时</item>
+        <item>1天</item>
+        <item>7天</item>
+        <item>30天</item>
     </string-array>
 
 

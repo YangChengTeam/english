@@ -67,7 +67,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
     }
 
     @OnClick({R.id.rl_group_image, R.id.rl_group_name, R.id.rl_group_delete_member,
-            R.id.tv_permission_check, R.id.rl_group_check, R.id.rl_group_transfer, R.id.btn_resolving_group})
+            R.id.tv_permission_check, R.id.rl_group_check, R.id.rl_group_transfer, R.id.btn_resolving_group, R.id.rl_group_forbid})
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -101,7 +101,9 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
                     }
                 });
                 alertDialog.show();
-
+                break;
+            case R.id.rl_group_forbid:
+                startActivity(new Intent(this, GroupForbidTalkActivity.class));
                 break;
         }
     }
