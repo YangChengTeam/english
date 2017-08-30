@@ -115,4 +115,6 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'me.yokeyword:indexablerecyclerview:1.3.0'
     compile project(':securityhttp')
+
+    compile 'com.shizhefei:ViewPagerIndicator:1.1.6'
 }

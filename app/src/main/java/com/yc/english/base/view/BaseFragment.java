@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.RxBus;
+import com.shizhefei.fragment.LazyFragment;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.base.presenter.BasePresenter;
 

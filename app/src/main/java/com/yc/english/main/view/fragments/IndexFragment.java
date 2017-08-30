@@ -2,11 +2,8 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,6 +32,7 @@ import com.yc.english.main.view.activitys.MainActivity;
 import com.yc.english.main.view.wdigets.IndexMenuView;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
+import com.yc.english.weixin.activitys.CourseActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -43,7 +41,6 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
-
 
 
 /**
@@ -80,6 +77,12 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @BindView(R.id.im_game)
     IndexMenuView mGameMenuView;
+
+    @BindView(R.id.im_course)
+    IndexMenuView mCourseMenuView;
+
+    @BindView(R.id.im_weibo)
+    IndexMenuView mWeiboMenuView;
 
     @BindView(R.id.banner)
     Banner mBanner;
@@ -143,11 +146,26 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
+        RxView.clicks(mCourseMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), CourseActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mWeiboMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+
+            }
+        });
+
         mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
                 SlideInfo slideInfo = mPresenter.getSlideInfo(position);
-                Intent intent = new Intent(getActivity() ,WebActivity.class);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("title", slideInfo.getTitle());
                 intent.putExtra("url", slideInfo.getTypeValue());
                 startActivity(intent);

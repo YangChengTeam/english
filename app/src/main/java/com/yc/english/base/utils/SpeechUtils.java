@@ -5,7 +5,6 @@ import android.content.Context;
 import com.blankj.utilcode.util.SPUtils;
 import com.iflytek.cloud.SpeechUtility;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.yc.english.EnglishApp;
 import com.yc.english.R;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.read.common.AppidsInfo;
