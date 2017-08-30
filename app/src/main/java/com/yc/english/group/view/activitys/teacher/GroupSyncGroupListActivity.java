@@ -106,7 +106,7 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
     private ArrayList<ClassInfo> classInfos = new ArrayList<>();
 
     @Override
-    public void onClick(int position, View view, boolean isClicked, ClassInfo classInfo) {
+    public void onClick(View view, boolean isClicked, ClassInfo classInfo) {
         if (view instanceof ImageView) {
             if (isClicked) {
                 ((ImageView) view).setImageDrawable(getResources().getDrawable(R.mipmap.group24));

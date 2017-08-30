@@ -25,6 +25,7 @@ import java.util.List;
 import io.rong.imlib.IRongCallback;
 import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by wanglin  on 2017/8/3 16:46.
@@ -43,7 +44,7 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
     @Override
     public void getMemberList(Context context, String class_id, String status, String master_id, String flag) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, flag).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

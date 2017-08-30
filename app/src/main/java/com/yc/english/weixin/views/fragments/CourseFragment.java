@@ -1,4 +1,4 @@
-package com.yc.english.weixin.fragments;
+package com.yc.english.weixin.views.fragments;
 
 import android.support.v7.widget.RecyclerView;
 

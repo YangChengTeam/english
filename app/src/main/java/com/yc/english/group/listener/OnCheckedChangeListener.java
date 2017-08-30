@@ -11,5 +11,5 @@ import com.yc.english.group.model.bean.StudentInfo;
 
 public interface OnCheckedChangeListener<T> {
 
-    void onClick(int position, View view, boolean isClicked, T studentInfo);
+    void onClick(View view, boolean isClicked, T studentInfo);
 }

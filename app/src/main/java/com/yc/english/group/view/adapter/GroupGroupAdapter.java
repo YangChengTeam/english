@@ -103,7 +103,6 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
                         onJoinListener.onJoin(classInfo);
                     }
                 }
-
                 holder.getView(R.id.m_tv_notification_count).setVisibility(View.INVISIBLE);
                 holder.getView(R.id.m_tv_notification_content).setVisibility(View.INVISIBLE);
                 mMessage = null;

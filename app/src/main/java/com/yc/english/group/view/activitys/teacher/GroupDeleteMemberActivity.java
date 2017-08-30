@@ -87,7 +87,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
 
 
     @Override
-    public void onClick(int position, View view, boolean isChecked, StudentInfo studentInfo) {
+    public void onClick(View view, boolean isChecked, StudentInfo studentInfo) {
 
         if (view instanceof ImageView) {
             if (isChecked) {
@@ -103,7 +103,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
             }
         }
 
-        LogUtils.e(position + "---" + isChecked + "----" + count + "---" + studentInfos.size());
+        LogUtils.e(isChecked + "----" + count + "---" + studentInfos.size());
 
         tvConfirmDeleteGroup.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
         mToolbar.setMenuTitleColor(count > 0 ? getResources().getColor(R.color.primary) : getResources().getColor(R.color.gray_aaa));

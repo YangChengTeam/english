@@ -20,6 +20,7 @@ import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.WebActivity;
+import com.yc.english.community.view.activitys.CommunityActivity;
 import com.yc.english.group.view.activitys.GroupCommonClassActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
@@ -32,7 +33,7 @@ import com.yc.english.main.view.activitys.MainActivity;
 import com.yc.english.main.view.wdigets.IndexMenuView;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
-import com.yc.english.weixin.activitys.CourseActivity;
+import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 

@@ -1,4 +1,4 @@
-package com.yc.english.weixin.activitys;
+package com.yc.english.weixin.views.activitys;
 
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,14 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.weixin.fragments.CourseFragment;
+import com.yc.english.weixin.views.fragments.CourseFragment;
 
 import butterknife.BindView;
 

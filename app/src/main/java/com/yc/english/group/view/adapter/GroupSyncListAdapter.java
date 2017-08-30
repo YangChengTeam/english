@@ -49,7 +49,7 @@ public class GroupSyncListAdapter extends BaseAdapter<ClassInfo> {
             public void onClick(View v) {
                 if (listener != null) {
                     boolean flag = !(boolean) view.getTag();
-                    listener.onClick(position, holder.getView(R.id.m_iv_group_select), flag, classInfo);
+                    listener.onClick(holder.getView(R.id.m_iv_group_select), flag, classInfo);
                     view.setTag(flag);
 
                 }

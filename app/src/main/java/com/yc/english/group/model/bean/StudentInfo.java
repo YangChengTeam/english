@@ -1,10 +1,15 @@
 package com.yc.english.group.model.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+
+import java.util.Map;
 
 import me.yokeyword.indexablerv.IndexableEntity;
 
@@ -14,7 +19,7 @@ import me.yokeyword.indexablerv.IndexableEntity;
  */
 
 @Entity
-public class StudentInfo implements IndexableEntity{
+public class StudentInfo implements IndexableEntity, Parcelable {
     @Id(autoincrement = true)
     private long sId;
     private String add_date;
@@ -31,11 +36,33 @@ public class StudentInfo implements IndexableEntity{
     @JSONField(name = "user_face")
     private String face;
 
+
+
+   
+
+    @Generated(hash = 2016856731)
+    public StudentInfo() {
+    }
+
+    public StudentInfo(Parcel source) {
+        add_date = source.readString();
+        add_time = source.readString();
+        class_id = source.readString();
+        id = source.readString();
+        nick_name = source.readString();
+        user_id = source.readString();
+        user_name = source.readString();
+        class_name = source.readString();
+        sn = source.readString();
+        master_id = source.readString();
+        face = source.readString();
+    }
+
     @Generated(hash = 939309314)
     public StudentInfo(long sId, String add_date, String add_time, String class_id,
-                       String id, String nick_name, String user_id, String user_name,
-                       String class_name, String sn, String master_id, boolean isAudit,
-                       String face) {
+            String id, String nick_name, String user_id, String user_name,
+            String class_name, String sn, String master_id, boolean isAudit,
+            String face) {
         this.sId = sId;
         this.add_date = add_date;
         this.add_time = add_time;
@@ -49,10 +76,6 @@ public class StudentInfo implements IndexableEntity{
         this.master_id = master_id;
         this.isAudit = isAudit;
         this.face = face;
-    }
-
-    @Generated(hash = 2016856731)
-    public StudentInfo() {
     }
 
     public long getSId() {
@@ -167,11 +190,44 @@ public class StudentInfo implements IndexableEntity{
 
     @Override
     public void setFieldIndexBy(String indexField) {
-            this.nick_name=indexField;
+        this.nick_name = indexField;
     }
 
     @Override
     public void setFieldPinyinIndexBy(String pinyin) {
 
     }
+
+    public static final Creator<StudentInfo> CREATOR = new Creator<StudentInfo>() {
+        @Override
+        public StudentInfo createFromParcel(Parcel source) {
+            return new StudentInfo(source);
+        }
+
+        @Override
+        public StudentInfo[] newArray(int size) {
+            return new StudentInfo[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(add_date);
+        dest.writeString(add_time);
+        dest.writeString(class_id);
+        dest.writeString(id);
+        dest.writeString(nick_name);
+        dest.writeString(user_id);
+        dest.writeString(user_name);
+        dest.writeString(class_name);
+        dest.writeString(sn);
+        dest.writeString(master_id);
+        dest.writeString(face);
+    }
+
 }
