@@ -77,10 +77,12 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupMyMemberL
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
-                Intent intent = getIntent();
-                intent.putParcelableArrayListExtra("studentList", studentInfos);
-                setResult(RESULT_OK, intent);
-                finish();
+                if (studentInfos.size() > 0) {
+                    Intent intent = getIntent();
+                    intent.putParcelableArrayListExtra("studentList", studentInfos);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         });
     }
