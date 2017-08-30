@@ -1,13 +1,9 @@
 package com.yc.english.weixin.views.fragments;
 
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +11,10 @@ import android.widget.TextView;
 
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.Indicator;
-import com.shizhefei.view.indicator.IndicatorViewPager;
-import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
-import com.shizhefei.view.viewpager.SViewPager;
 import com.yc.english.R;
 import com.yc.english.base.view.ToolbarFragment;
-import com.yc.english.group.view.fragments.GroupMainFragment;
-import com.yc.english.main.view.activitys.MainActivity;
-import com.yc.english.main.view.fragments.IndexFragment;
-import com.yc.english.setting.view.fragments.MyFragment;
 
 import butterknife.BindView;
 
