@@ -1,6 +1,5 @@
 package com.yc.english.main.view.activitys;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,12 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.umeng.socialize.UMShareAPI;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseToolBar;
-import com.yc.english.group.view.fragments.GroupMainFragment;
+import com.yc.english.group.view.fragments.GroupMainActivity;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
 import com.yc.english.main.view.fragments.IndexFragment;
