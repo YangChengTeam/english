@@ -3,10 +3,14 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupForbidMemberContract;
+import com.yc.english.group.model.bean.GroupInfoHelper;
+import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.engin.GroupForbidMemberEngine;
 import com.yc.english.group.rong.models.CodeSuccessResult;
+import com.yc.english.group.utils.EngineUtils;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -27,10 +31,12 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
 
+        if (!forceUpdate) return;
+        getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
     }
 
     @Override
-    public void addForbidMember(String userId, String groupId, String minute) {
+    public void addForbidMember(final String userId, final String nickName, final String groupId, String minute, final boolean allForbid) {
         mView.showLoadingDialog("添加禁言成员中，请稍候...");
         Subscription subscription = mEngin.addForbidMember(userId, groupId, minute).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<CodeSuccessResult>() {
             @Override
@@ -47,7 +53,7 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
             @Override
             public void onNext(CodeSuccessResult codeSuccessResult) {
                 if (codeSuccessResult != null && codeSuccessResult.getCode() == 200) {
-                    mView.showForbidResult();
+                    mView.showForbidResult(userId, nickName, groupId, allForbid);
                 }
 
             }
@@ -56,7 +62,7 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
     }
 
     @Override
-    public void rollBackMember(String[] userId, String groupId) {
+    public void rollBackMember(String[] userId, final String nickName, final String groupId, final boolean allForbid) {
         mView.showLoadingDialog("正在解禁用户，请稍候...");
         Subscription subscription = mEngin.rollBackMember(userId, groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<CodeSuccessResult>() {
             @Override
@@ -72,10 +78,36 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
             @Override
             public void onNext(CodeSuccessResult codeSuccessResult) {
                 if (codeSuccessResult != null && codeSuccessResult.getCode() == 200) {
-                    mView.showRollBackResult();
+                    mView.showRollBackResult(nickName,groupId,allForbid);
                 }
             }
         });
         mSubscriptions.add(subscription);
+    }
+
+    public void getMemberList(String sn, String status, String master_id, String flag) {
+        Subscription subscription = EngineUtils.getMemberList(mContext, sn, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<StudentInfoWrapper> studentInfoWrapperResultInfo) {
+                handleResultInfo(studentInfoWrapperResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.showMemberList(studentInfoWrapperResultInfo.data.getList());
+                    }
+                });
+            }
+        });
+        mSubscriptions.add(subscription);
+
     }
 }

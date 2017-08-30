@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -15,8 +14,8 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
+import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
-import com.yc.english.base.view.ToolbarFragment;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupMyGroupListContract;
 import com.yc.english.group.model.bean.ClassInfo;
@@ -27,25 +26,20 @@ import com.yc.english.group.view.activitys.teacher.GroupCreateActivity;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.main.model.domain.UserInfo;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.message.RichContentMessage;
-import io.rong.message.TextMessage;
 
 /**
  * Created by wanglin  on 2017/7/24 17:59.
  */
 
-public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter> implements GroupMyGroupListContract.View {
-    private static final String TAG = "GroupMainFragment";
+public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresenter> implements GroupMyGroupListContract.View {
+    private static final String TAG = "GroupMainActivity";
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -65,26 +59,22 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
 
     @Override
     public void init() {
-        super.init();
-        mPresenter = new GroupMyGroupListPresenter(getActivity(), this);
+
+        mPresenter = new GroupMyGroupListPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group));
 
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
-                startActivity(new Intent(getActivity(), GroupVerifyActivity.class));
+                startActivity(new Intent(GroupMainActivity.this, GroupVerifyActivity.class));
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new GroupGroupAdapter(getContext(), true, null);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new GroupGroupAdapter(this, true, null);
         recyclerView.setAdapter(adapter);
 
     }
 
-    @Override
-    public boolean isInstallToolbar() {
-        return true;
-    }
 
     @Override
     public int getLayoutId() {
@@ -98,13 +88,13 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         switch (view.getId()) {
             case R.id.btn_create_class:
             case R.id.btn_create_class1:
-                if (!UserInfoHelper.isGotoLogin(getActivity()))
-                    startActivity(new Intent(getActivity(), GroupCreateActivity.class));
+                if (!UserInfoHelper.isGotoLogin(this))
+                    startActivity(new Intent(this, GroupCreateActivity.class));
                 break;
             case R.id.btn_join_class:
             case R.id.btn_join_class1:
-                if (!UserInfoHelper.isGotoLogin(getActivity()))
-                    startActivity(new Intent(getActivity(), GroupJoinActivity.class));
+                if (!UserInfoHelper.isGotoLogin(this))
+                    startActivity(new Intent(GroupMainActivity.this, GroupJoinActivity.class));
                 break;
         }
 
@@ -145,7 +135,7 @@ public class GroupMainFragment extends ToolbarFragment<GroupMyGroupListPresenter
         } else {
             mToolbar.setMenuIcon(R.mipmap.group66);
         }
-        getActivity().invalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 
 
