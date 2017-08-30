@@ -118,13 +118,13 @@
                     </com.yc.english.main.view.wdigets.IndexMenuView>
 
                     <com.yc.english.main.view.wdigets.IndexMenuView
-                        android:id="@+id/im_task"
+                        android:id="@+id/im_course"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        eng:desc="@string/main_task_desc"
-                        eng:src="@mipmap/main_task"
-                        eng:text="@string/main_task">
+                        eng:desc="@string/main_course_desc"
+                        eng:src="@mipmap/main_course"
+                        eng:text="@string/main_course">
                     </com.yc.english.main.view.wdigets.IndexMenuView>
 
 
@@ -137,24 +137,24 @@
                     android:orientation="horizontal">
 
                     <com.yc.english.main.view.wdigets.IndexMenuView
-                        android:id="@+id/im_course"
+                        android:id="@+id/im_game"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
-                        eng:desc="@string/main_course_desc"
-                        eng:src="@mipmap/main_course"
-                        eng:text="@string/main_course">
-                    </com.yc.english.main.view.wdigets.IndexMenuView>
-
-                    <com.yc.english.main.view.wdigets.IndexMenuView
-                        android:id="@+id/im_game"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         eng:desc="@string/main_game_desc"
                         eng:src="@mipmap/main_game"
                         eng:text="@string/main_game">
+                    </com.yc.english.main.view.wdigets.IndexMenuView>
+
+                    <com.yc.english.main.view.wdigets.IndexMenuView
+                        android:id="@+id/im_task"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        eng:desc="@string/main_task_desc"
+                        eng:src="@mipmap/main_task"
+                        eng:text="@string/main_task">
                     </com.yc.english.main.view.wdigets.IndexMenuView>
                 </LinearLayout>
 

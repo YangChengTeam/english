@@ -33,7 +33,6 @@ import com.yc.english.main.view.activitys.MainActivity;
 import com.yc.english.main.view.wdigets.IndexMenuView;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
-import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -126,8 +125,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mTaskMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                MainActivity mainActivity = (MainActivity) getActivity();
-                mainActivity.goToTask();
+                Intent intent = new Intent(getActivity(), GroupMainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -150,8 +149,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mCourseMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), CourseActivity.class);
-                startActivity(intent);
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.goToTask();
             }
         });
 

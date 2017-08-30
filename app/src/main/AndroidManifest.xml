@@ -200,8 +200,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".weixin.views.activitys.CourseActivity"></activity>
-
     </application>
 
 </manifest>
