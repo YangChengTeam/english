@@ -157,7 +157,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mWeiboMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-
+                Intent intent = new Intent(getActivity(), CommunityActivity.class);
+                startActivity(intent);
             }
         });
 
