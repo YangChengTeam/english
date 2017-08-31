@@ -9,10 +9,13 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
+import com.kk.guide.GuideCallback;
 import com.kk.guide.GuidePopupWindow;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
@@ -59,6 +62,8 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     Button btnCreateClass;
     @BindView(R.id.btn_join_class)
     Button btnJoinClass;
+    @BindView(R.id.rootView)
+    LinearLayout rootView;
 
 
     private GroupGroupAdapter adapter;
@@ -83,46 +88,44 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
 
     }
 
-    private void showGuide() {
+    private void showCreateGuide() {
         GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
-        final GuidePopupWindow guidePopupWindow = builder.setTargetView(btnCreateClass)
+        final GuidePopupWindow guidePopupWindow = builder.setDelay(1f).setTargetView(btnCreateClass).setCorner(5).setGuideCallback(new GuideCallback() {
+            @Override
+            public void onClick(GuidePopupWindow guidePopupWindow) {
+                startActivity(new Intent(GroupMainActivity.this, GroupCreateActivity.class));
+            }
+        })
                 .build(this);
-        guidePopupWindow.addImageView(R.mipmap.guide_create_group, 100, 300, 910, 186);
-        guidePopupWindow.addImageView(R.mipmap.guide_arrow, getWindowManager().getDefaultDisplay().getWidth() / 2, 500, 74, 290);
-        guidePopupWindow.addImageView(R.mipmap.guide_next, getWindowManager().getDefaultDisplay().getWidth() / 2, getWindowManager().getDefaultDisplay().getHeight() * 3 / 4, 395, 186, new View.OnClickListener() {
+        guidePopupWindow.addCustomView(R.layout.guide_create_view, R.id.btn_ok, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    showJoinGuide();
+                showJoinGuide();
+                guidePopupWindow.dismiss();
             }
         });
-        guidePopupWindow.setOffset(-10, 20, -10, 20);
         guidePopupWindow.setDebug(true);
-        guidePopupWindow.show("create");
+        guidePopupWindow.show(rootView,"create");
     }
 
     private void showJoinGuide() {
         GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
-        final GuidePopupWindow guidePopupWindow = builder.setTargetView(btnJoinClass)
-                .build(this);
-        guidePopupWindow.addImageView(R.mipmap.guide_join_group, 100, 500, 910, 186, new View.OnClickListener() {
+        final GuidePopupWindow guidePopupWindow = builder.setDelay(0).setTargetView(btnJoinClass).setCorner(5).setGuideCallback(new GuideCallback() {
             @Override
-            public void onClick(View v) {
-                guidePopupWindow.dismiss();
+            public void onClick(GuidePopupWindow guidePopupWindow) {
+                startActivity(new Intent(GroupMainActivity.this, GroupJoinActivity.class));
             }
-        });
+        })
+                .build(this);
 
-        guidePopupWindow.addImageView(R.mipmap.guide_arrow, getWindowManager().getDefaultDisplay().getWidth() / 2, 700, 74, 290);
 
-        guidePopupWindow.setOffset(-10, 20, -10, 20);
         guidePopupWindow.setDebug(true);
-        guidePopupWindow.show("create");
+        guidePopupWindow.show(rootView,"join");
     }
 
     @Override
     public int getLayoutId() {
-
         return R.layout.group_fragment_list_main;
-
     }
 
     @OnClick({R.id.btn_create_class, R.id.btn_create_class1, R.id.btn_join_class, R.id.btn_join_class1})
@@ -164,7 +167,9 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             llDataContainer.setVisibility(View.GONE);
             llEmptyContainer.setVisibility(View.VISIBLE);
             hideStateView();
-            showGuide();
+            if (ActivityUtils.isValidContext(this)) {
+                showCreateGuide();
+            }
         }
 
     }

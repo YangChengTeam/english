@@ -2,7 +2,6 @@ package com.kk.guide;
 
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import java.util.ArrayList;
@@ -26,8 +24,9 @@ public class GuidePopupWindow extends PopupWindow {
     private Activity mContext;
     private FrameLayout mRootView;
     private float mDelay;
-    private List<ImageInfo> imageInfos;
     private boolean isDebug;
+    private View customeView;
+    private View okButton;
 
     public void setDebug(boolean debug) {
         isDebug = debug;
@@ -36,7 +35,6 @@ public class GuidePopupWindow extends PopupWindow {
     public GuidePopupWindow(Activity context) {
         super(context);
         this.mContext = context;
-        imageInfos = new ArrayList<>();
         mRootView = new FrameLayout(context);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
@@ -76,19 +74,17 @@ public class GuidePopupWindow extends PopupWindow {
                 mRootView.addView(guideView);
                 targetView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-                for (ImageInfo imageInfo : imageInfos) {
-                    addImageView(imageInfo);
-                }
+                addCustomView(customeView);
             }
         });
     }
 
 
-    public void addCustomView(final View customView, final int x, final int y) {
+    public void addCustomView(final View customView) {
         if (customView != null) {
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(x, y, 0, 0);
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            layoutParams.setMargins(0, 0, 0, 0);
             customView.setLayoutParams(layoutParams);
             mRootView.addView(customView);
             mRootView.bringChildToFront(customView);
@@ -96,43 +92,24 @@ public class GuidePopupWindow extends PopupWindow {
         }
     }
 
-    public void addImageView(int imageId, int x, int y, int w, int h, View.OnClickListener onClickListener) {
-        ImageInfo imageInfo = new ImageInfo();
-        imageInfo.setImageId(imageId);
-        imageInfo.setX(x);
-        imageInfo.setY(y);
-        imageInfo.setW(w);
-        imageInfo.setH(h);
-        imageInfo.setOnClickListener(onClickListener);
-        imageInfos.add(imageInfo);
+    public void addCustomView(int layoudId, int okid, final View.OnClickListener onClickListener) {
+        customeView = mContext.getLayoutInflater().inflate(layoudId, null);
+
+        if(okid == 0) return;
+
+        okButton = customeView.findViewById(okid);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onClickListener != null){
+                    onClickListener.onClick(v);
+                }
+            }
+        });
     }
 
-    private void addImageView(ImageInfo imageInfo) {
-        ImageView imageView = new ImageView(mContext);
-        imageView.setImageDrawable(ContextCompat.getDrawable(mContext, imageInfo.getImageId()));
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.width = GuideUtil.dip2px(mContext, imageInfo.getW() / 3);
-        layoutParams.height = GuideUtil.dip2px(mContext, imageInfo.getH() / 3);
-        layoutParams.setMargins(GuideUtil.dip2px(mContext, imageInfo.getX() / 3), GuideUtil.dip2px(mContext,
-                imageInfo.getY() / 3), 0, 0);
-        if (imageInfo.getOnClickListener() != null) {
-            imageView.setOnClickListener(imageInfo.getOnClickListener());
-        }
-        imageView.setLayoutParams(layoutParams);
-        mRootView.addView(imageView);
-        mRootView.bringChildToFront(imageView);
-        mRootView.updateViewLayout(imageView, imageView.getLayoutParams());
-    }
-
-    public void addImageView(int imageId, int x, int y, int w, int h) {
-        addImageView(imageId, x, y, w, h, null);
-    }
-
-
-    public void addCustomView(int layoudId, int x, int y) {
-        View customeView = mContext.getLayoutInflater().inflate(layoudId, null);
-        addCustomView(customeView, x, y);
+    public void addCustomView(int layoudId) {
+        addCustomView(layoudId, 0, null);
     }
 
     public void show(final String key) {
@@ -142,6 +119,19 @@ public class GuidePopupWindow extends PopupWindow {
                 public void run() {
                     View rootView = mContext.getWindow().getDecorView().getRootView();
                     GuidePopupWindow.this.showAtLocation(rootView
+                            , Gravity.NO_GRAVITY, 0, 0);
+                    GuideUtil.putString(mContext, key, key);
+                }
+            });
+        }
+    }
+
+    public void show(final View view, final String key) {
+        if (GuideUtil.getString(mContext, key).isEmpty() || isDebug) {
+            GuideUtil.postDelayed((long) mDelay * 1000, new Runnable() {
+                @Override
+                public void run() {
+                    GuidePopupWindow.this.showAtLocation(view
                             , Gravity.NO_GRAVITY, 0, 0);
                     GuideUtil.putString(mContext, key, key);
                 }
