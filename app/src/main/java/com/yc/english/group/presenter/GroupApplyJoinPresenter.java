@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
@@ -16,7 +17,6 @@ import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
-import com.yc.english.group.model.engin.GroupApplyJoinEngine;
 import com.yc.english.group.utils.EngineUtils;
 
 import java.util.ArrayList;
@@ -30,10 +30,9 @@ import rx.Subscription;
  * Created by wanglin  on 2017/8/2 16:40.
  */
 
-public class GroupApplyJoinPresenter extends BasePresenter<GroupApplyJoinEngine, GroupApplyJoinContract.View> implements GroupApplyJoinContract.Presenter {
+public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApplyJoinContract.View> implements GroupApplyJoinContract.Presenter {
     public GroupApplyJoinPresenter(Context context, GroupApplyJoinContract.View view) {
         super(context, view);
-        mEngin = new GroupApplyJoinEngine(context);
     }
 
     @Override

@@ -11,10 +11,12 @@ import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.group.contract.GroupGetForbidMemberContract;
 import com.yc.english.group.contract.GroupMyMemberListContract;
 import com.yc.english.group.listener.OnCheckedChangeListener;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
+import com.yc.english.group.presenter.GroupGetForbidMemberPresenter;
 import com.yc.english.group.presenter.GroupMyMemberListPresenter;
 import com.yc.english.group.view.adapter.GroupForbidMemberAdapter;
 
@@ -29,7 +31,7 @@ import me.yokeyword.indexablerv.IndexableLayout;
  * Created by wanglin  on 2017/8/29 10:06.
  */
 
-public class GroupForbidMemberActivity extends FullScreenActivity<GroupMyMemberListPresenter> implements GroupMyMemberListContract.View {
+public class GroupForbidMemberActivity extends FullScreenActivity<GroupGetForbidMemberPresenter> implements GroupGetForbidMemberContract.View {
     @BindView(R.id.mIndexableLayout)
     IndexableLayout mIndexableLayout;
     @BindView(R.id.stateView)
@@ -39,15 +41,13 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupMyMemberL
 
     @Override
     public void init() {
-        mPresenter = new GroupMyMemberListPresenter(this, this);
+        mPresenter = new GroupGetForbidMemberPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group_member));
         mToolbar.showNavigationIcon();
         mIndexableLayout.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupForbidMemberAdapter(this);
         mIndexableLayout.setAdapter(adapter);
-        getData();
-
-
+        mIndexableLayout.setOverlayStyle_Center();
     }
 
     private int count;
@@ -125,12 +125,13 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupMyMemberL
         list.remove(0);
         this.mList = list;
         adapter.setDatas(list);
+
         setMenuTitle(list.size(), 0, R.color.gray_999);
         initListener();
     }
 
     private void getData() {
-        mPresenter.getMemberList(this, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
+        mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
     }
 
     private void setMenuTitle(int totalSize, int selectSize, int colorId) {

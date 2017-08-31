@@ -13,15 +13,16 @@ import java.util.List;
 
 public interface GroupForbidMemberContract {
     interface View extends IView, IDialog {
-        void showForbidResult(String id, String userId, String groupId, boolean allForbid);
 
         void showRollBackResult(String nickName, String groupId, boolean allForbid);
 
         void showMemberList(List<StudentInfo> list);
+
+        void showForbidResult(StudentInfo studentInfo, boolean allForbid);
     }
 
     interface Presenter extends IPresenter {
-        void addForbidMember(String userId, String nickName, String groupId, String minute, boolean flag);
+        void addForbidMember(StudentInfo studentInfo, String minute, boolean flag);
 
         void rollBackMember(String[] userId, String nickName, String groupId, boolean allForbid);
     }

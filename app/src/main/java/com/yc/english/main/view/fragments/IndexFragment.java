@@ -24,7 +24,7 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.community.view.activitys.CommunityActivity;
 import com.yc.english.group.view.activitys.GroupCommonClassActivity;
-import com.yc.english.group.view.fragments.GroupMainActivity;
+import com.yc.english.group.view.activitys.GroupMainActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.model.domain.Constant;

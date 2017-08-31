@@ -129,7 +129,7 @@
         <activity android:name=".group.view.activitys.GroupPictureDetailActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupForbidTalkActivity" />
         <activity android:name=".group.view.activitys.teacher.GroupForbidMemberActivity" />
-        <activity android:name=".group.view.fragments.GroupMainActivity" />
+        <activity android:name=".group.view.activitys.GroupMainActivity" />
         <activity
             android:name=".group.view.activitys.FilePreviewExActivity"
             android:screenOrientation="portrait">

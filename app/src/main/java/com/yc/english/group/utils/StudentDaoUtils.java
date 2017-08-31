@@ -32,8 +32,6 @@ public class StudentDaoUtils {
                         infoDao.saveInTx(studentInfo);
                     }
                 }
-
-
                 List<StudentInfo> infos = infoDao.queryBuilder().list();
                 if (infos != null && infos.size() > 0) {
 

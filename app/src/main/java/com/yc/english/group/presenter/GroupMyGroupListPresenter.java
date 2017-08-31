@@ -5,11 +5,11 @@ import android.content.Context;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupMyGroupListContract;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
-import com.yc.english.group.model.engin.GroupMyGroupListEngine;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
@@ -21,10 +21,9 @@ import rx.Subscription;
  * Created by wanglin  on 2017/8/3 11:58.
  */
 
-public class GroupMyGroupListPresenter extends BasePresenter<GroupMyGroupListEngine, GroupMyGroupListContract.View> implements GroupMyGroupListContract.Presenter {
+public class GroupMyGroupListPresenter extends BasePresenter<BaseEngin, GroupMyGroupListContract.View> implements GroupMyGroupListContract.Presenter {
     public GroupMyGroupListPresenter(Context context, GroupMyGroupListContract.View view) {
         super(context, view);
-        mEngin = new GroupMyGroupListEngine(context);
 
     }
 

@@ -1,16 +1,22 @@
-package com.yc.english.group.view.fragments;
+package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
+import com.kk.guide.GuideCallback;
+import com.kk.guide.GuidePopupWindow;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
@@ -30,6 +36,7 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imlib.model.Message;
 import io.rong.message.RichContentMessage;
@@ -51,6 +58,12 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     StateView sViewLoading;
     @BindView(R.id.content_view)
     FrameLayout contentView;
+    @BindView(R.id.btn_create_class)
+    Button btnCreateClass;
+    @BindView(R.id.btn_join_class)
+    Button btnJoinClass;
+    @BindView(R.id.rootView)
+    LinearLayout rootView;
 
 
     private GroupGroupAdapter adapter;
@@ -62,7 +75,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
 
         mPresenter = new GroupMyGroupListPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group));
-
+        mToolbar.showNavigationIcon();
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
@@ -75,12 +88,44 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
 
     }
 
+    private void showCreateGuide() {
+        GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
+        final GuidePopupWindow guidePopupWindow = builder.setDelay(1f).setTargetView(btnCreateClass).setCorner(5).setGuideCallback(new GuideCallback() {
+            @Override
+            public void onClick(GuidePopupWindow guidePopupWindow) {
+                startActivity(new Intent(GroupMainActivity.this, GroupCreateActivity.class));
+            }
+        })
+                .build(this);
+        guidePopupWindow.addCustomView(R.layout.guide_create_view, R.id.btn_ok, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showJoinGuide();
+                guidePopupWindow.dismiss();
+            }
+        });
+        guidePopupWindow.setDebug(true);
+        guidePopupWindow.show(rootView,"create");
+    }
+
+    private void showJoinGuide() {
+        GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
+        final GuidePopupWindow guidePopupWindow = builder.setDelay(0).setTargetView(btnJoinClass).setCorner(5).setGuideCallback(new GuideCallback() {
+            @Override
+            public void onClick(GuidePopupWindow guidePopupWindow) {
+                startActivity(new Intent(GroupMainActivity.this, GroupJoinActivity.class));
+            }
+        })
+                .build(this);
+
+
+        guidePopupWindow.setDebug(true);
+        guidePopupWindow.show(rootView,"join");
+    }
 
     @Override
     public int getLayoutId() {
-
         return R.layout.group_fragment_list_main;
-
     }
 
     @OnClick({R.id.btn_create_class, R.id.btn_create_class1, R.id.btn_join_class, R.id.btn_join_class1})
@@ -122,6 +167,9 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             llDataContainer.setVisibility(View.GONE);
             llEmptyContainer.setVisibility(View.VISIBLE);
             hideStateView();
+            if (ActivityUtils.isValidContext(this)) {
+                showCreateGuide();
+            }
         }
 
     }
@@ -183,5 +231,12 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     @Override
     public void showLoading() {
         sViewLoading.showLoading(contentView);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

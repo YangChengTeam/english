@@ -4,28 +4,24 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupDeleteMemberContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.bean.StudentRemoveInfo;
-import com.yc.english.group.model.engin.GroupDeleteMemberEngine;
-import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.utils.EngineUtils;
 
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/8/2 19:25.
  */
 
-public class GroupDeleteMemberPresenter extends BasePresenter<GroupDeleteMemberEngine, GroupDeleteMemberContract.View> implements GroupDeleteMemberContract.Presenter {
+public class GroupDeleteMemberPresenter extends BasePresenter<BaseEngin, GroupDeleteMemberContract.View> implements GroupDeleteMemberContract.Presenter {
     public GroupDeleteMemberPresenter(Context context, GroupDeleteMemberContract.View view) {
         super(context, view);
-        mEngin = new GroupDeleteMemberEngine(context);
     }
 
     @Override

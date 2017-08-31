@@ -4,10 +4,10 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupPublishTaskListContract;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
-import com.yc.english.group.model.engin.GroupPublishTaskListEngine;
 import com.yc.english.group.utils.EngineUtils;
 
 import java.util.List;
@@ -19,10 +19,9 @@ import rx.Subscription;
  * Created by wanglin  on 2017/8/8 15:52.
  */
 
-public class GroupPublishTaskListPresenter extends BasePresenter<GroupPublishTaskListEngine, GroupPublishTaskListContract.View> implements GroupPublishTaskListContract.Presenter {
+public class GroupPublishTaskListPresenter extends BasePresenter<BaseEngin, GroupPublishTaskListContract.View> implements GroupPublishTaskListContract.Presenter {
     public GroupPublishTaskListPresenter(Context context, GroupPublishTaskListContract.View view) {
         super(context, view);
-        mEngin = new GroupPublishTaskListEngine(context);
     }
 
 
