@@ -37,5 +37,7 @@ public interface GroupConstant {
 
     String ALL_GROUP_FORBID_STATE = "ALL_GROUP_FORBID_STATE";
 
+    String FORBID_MEMBER = "forbid_member";
+
 
 }

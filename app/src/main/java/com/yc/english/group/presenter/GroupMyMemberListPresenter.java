@@ -71,8 +71,13 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
                     @Override
                     public void reulstInfoOk() {
 
-                        mView.showMemberList(studentInfoWrapperResultInfo.data.getList());
-                        mView.hideStateView();
+                        StudentInfoWrapper data = studentInfoWrapperResultInfo.data;
+                        if (data != null && data.getList() != null && data.getList().size() > 0) {
+                            mView.showMemberList(data.getList());
+                            mView.hideStateView();
+                        } else {
+                            mView.showNoData();
+                        }
                     }
                 });
 

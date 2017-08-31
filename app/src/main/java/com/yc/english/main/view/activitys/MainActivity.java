@@ -13,7 +13,6 @@ import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseToolBar;
-import com.yc.english.group.view.fragments.GroupMainActivity;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
 import com.yc.english.main.view.fragments.IndexFragment;

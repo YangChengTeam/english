@@ -7,6 +7,7 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupForbidMemberContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
+import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.engin.GroupForbidMemberEngine;
 import com.yc.english.group.rong.models.CodeSuccessResult;
@@ -36,9 +37,9 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
     }
 
     @Override
-    public void addForbidMember(final String userId, final String nickName, final String groupId, String minute, final boolean allForbid) {
+    public void addForbidMember(final StudentInfo studentInfo, final String minute, final boolean allForbid) {
         mView.showLoadingDialog("添加禁言成员中，请稍候...");
-        Subscription subscription = mEngin.addForbidMember(userId, groupId, minute).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<CodeSuccessResult>() {
+        Subscription subscription = mEngin.addForbidMember(studentInfo.getUser_id(), studentInfo.getClass_id(), minute).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<CodeSuccessResult>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -53,7 +54,7 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
             @Override
             public void onNext(CodeSuccessResult codeSuccessResult) {
                 if (codeSuccessResult != null && codeSuccessResult.getCode() == 200) {
-                    mView.showForbidResult(userId, nickName, groupId, allForbid);
+                    mView.showForbidResult(studentInfo, allForbid);
                 }
 
             }
@@ -78,7 +79,7 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
             @Override
             public void onNext(CodeSuccessResult codeSuccessResult) {
                 if (codeSuccessResult != null && codeSuccessResult.getCode() == 200) {
-                    mView.showRollBackResult(nickName,groupId,allForbid);
+                    mView.showRollBackResult(nickName, groupId, allForbid);
                 }
             }
         });

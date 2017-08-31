@@ -1,4 +1,4 @@
-package com.yc.english.group.view.fragments;
+package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
@@ -62,7 +62,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
 
         mPresenter = new GroupMyGroupListPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group));
-
+        mToolbar.showNavigationIcon();
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
