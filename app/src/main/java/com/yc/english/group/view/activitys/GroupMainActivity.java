@@ -87,17 +87,35 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
         final GuidePopupWindow guidePopupWindow = builder.setTargetView(btnCreateClass)
                 .build(this);
-        guidePopupWindow.addImageView(R.mipmap.guide_create_group, 100, 300, 910, 186, new View.OnClickListener() {
+        guidePopupWindow.addImageView(R.mipmap.guide_create_group, 100, 300, 910, 186);
+        guidePopupWindow.addImageView(R.mipmap.guide_arrow, getWindowManager().getDefaultDisplay().getWidth() / 2, 500, 74, 290);
+        guidePopupWindow.addImageView(R.mipmap.guide_next, getWindowManager().getDefaultDisplay().getWidth() / 2, getWindowManager().getDefaultDisplay().getHeight() * 3 / 4, 395, 186, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    showJoinGuide();
+            }
+        });
+        guidePopupWindow.setOffset(-10, 20, -10, 20);
+        guidePopupWindow.setDebug(true);
+        guidePopupWindow.show("create");
+    }
+
+    private void showJoinGuide() {
+        GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
+        final GuidePopupWindow guidePopupWindow = builder.setTargetView(btnJoinClass)
+                .build(this);
+        guidePopupWindow.addImageView(R.mipmap.guide_join_group, 100, 500, 910, 186, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 guidePopupWindow.dismiss();
             }
         });
 
-        guidePopupWindow.addImageView(R.mipmap.guide_arrow, getWindowManager().getDefaultDisplay().getWidth()/2, 500, 74, 290);
+        guidePopupWindow.addImageView(R.mipmap.guide_arrow, getWindowManager().getDefaultDisplay().getWidth() / 2, 700, 74, 290);
+
         guidePopupWindow.setOffset(-10, 20, -10, 20);
         guidePopupWindow.setDebug(true);
-        guidePopupWindow.show("index");
+        guidePopupWindow.show("create");
     }
 
     @Override
