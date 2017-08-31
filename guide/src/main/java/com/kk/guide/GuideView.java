@@ -54,7 +54,19 @@ public class GuideView extends View {
     }
 
     public void setMeasure(float l, float t, float r, float b) {
-        mRectF = new RectF(l - 5, t - 5, r + 5, b + 5);
+        mRectF = new RectF(l - pl , t - pt , r + pr, b + pb );
+    }
+
+    private float pl;
+    private float pt;
+    private float pr;
+    private float pb;
+
+    public void setOffset(float pl, float pt, float pr, float pb) {
+        this.pl = pl;
+        this.pt = pt;
+        this.pr = pr;
+        this.pb = pb;
     }
 
     public void setType(GuideType type) {

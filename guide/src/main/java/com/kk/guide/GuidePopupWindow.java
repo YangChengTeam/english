@@ -28,7 +28,10 @@ public class GuidePopupWindow extends PopupWindow {
     private FrameLayout mRootView;
     private float mDelay;
     private List<ImageInfo> imageInfos;
-
+    private float pl;
+    private float pt;
+    private float pr;
+    private float pb;
 
     public GuidePopupWindow(Activity context) {
         super(context);
@@ -69,6 +72,7 @@ public class GuidePopupWindow extends PopupWindow {
                 guideView.setGuidePopupWindow(GuidePopupWindow.this);
                 guideView.setType(builder.type);
                 guideView.setMeasure(x, y, x + w, y + h);
+                guideView.setOffset(pl, pt, pr, pt);
                 mRootView.addView(guideView);
                 targetView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
@@ -79,6 +83,12 @@ public class GuidePopupWindow extends PopupWindow {
         });
     }
 
+    public void setOffset(float pl, float pt, float pr, float pb) {
+        this.pl = pl;
+        this.pt = pt;
+        this.pr = pr;
+        this.pb = pb;
+    }
 
     public void addCustomView(final View customView, final int x, final int y) {
         if (customView != null) {
@@ -110,7 +120,8 @@ public class GuidePopupWindow extends PopupWindow {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.width = GuideUtil.dip2px(mContext, imageInfo.getW() / 3);
         layoutParams.height = GuideUtil.dip2px(mContext, imageInfo.getH() / 3);
-        layoutParams.setMargins(imageInfo.getX(), imageInfo.getY(), 0, 0);
+        layoutParams.setMargins( GuideUtil.dip2px(mContext, imageInfo.getX() / 3),  GuideUtil.dip2px(mContext,
+                imageInfo.getY() / 3), 0, 0);
         if (imageInfo.getOnClickListener() != null) {
             imageView.setOnClickListener(imageInfo.getOnClickListener());
         }
