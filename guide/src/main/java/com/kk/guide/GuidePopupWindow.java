@@ -32,6 +32,11 @@ public class GuidePopupWindow extends PopupWindow {
     private float pt;
     private float pr;
     private float pb;
+    private boolean isDebug;
+
+    public void setDebug(boolean debug) {
+        isDebug = debug;
+    }
 
     public GuidePopupWindow(Activity context) {
         super(context);
@@ -142,7 +147,7 @@ public class GuidePopupWindow extends PopupWindow {
     }
 
     public void show(final String key) {
-        if (GuideUtil.getString(mContext, key).isEmpty()) {
+        if (GuideUtil.getString(mContext, key).isEmpty() || isDebug) {
             GuideUtil.postDelayed((long) mDelay * 1000, new Runnable() {
                 @Override
                 public void run() {
