@@ -13,6 +13,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.annotation.Size;
 import android.util.AttributeSet;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -31,14 +32,18 @@ public class GuideView extends View {
     private RectF mRectF;
     private int bgColor;
     private GuidePopupWindow guidePopupWindow;
-    private boolean isDraw;
     private GuideType type = GuideType.OVAL;
+    private float border;
+
+    public void setBorder(float border) {
+        border = GuideUtil.dip2px(mContext, border);
+        this.border = border;
+    }
 
     public GuideView(Context context) {
         super(context);
         this.mContext = context;
-        setBgAlpha(0.5f);
-
+        setBgAlpha(0.4f);
     }
 
     public GuideView(Context context, @Nullable AttributeSet attrs) {
@@ -54,20 +59,9 @@ public class GuideView extends View {
     }
 
     public void setMeasure(float l, float t, float r, float b) {
-        mRectF = new RectF(l - pl , t - pt , r + pr, b + pb );
+        mRectF = new RectF(l , t , r, b );
     }
 
-    private float pl;
-    private float pt;
-    private float pr;
-    private float pb;
-
-    public void setOffset(float pl, float pt, float pr, float pb) {
-        this.pl = pl;
-        this.pt = pt;
-        this.pr = pr;
-        this.pb = pb;
-    }
 
     public void setType(GuideType type) {
         this.type = type;
@@ -115,7 +109,7 @@ public class GuideView extends View {
         paint.setStyle(Paint.Style.FILL);
 
         if (type == GuideType.OVAL) {
-            canvas.drawRoundRect(mRectF, 5, 5, paint);
+            canvas.drawRoundRect(mRectF, border, border, paint);
         } else if (type == GuideType.CIRCLE) {
             float cx = (mRectF.left + mRectF.right) / 2;
             float cy = (mRectF.top + mRectF.bottom) / 2;
