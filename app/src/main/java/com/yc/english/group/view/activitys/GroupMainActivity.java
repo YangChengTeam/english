@@ -1,9 +1,11 @@
 package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -11,6 +13,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
+import com.kk.guide.GuidePopupWindow;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
@@ -30,6 +33,7 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imlib.model.Message;
 import io.rong.message.RichContentMessage;
@@ -51,6 +55,10 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     StateView sViewLoading;
     @BindView(R.id.content_view)
     FrameLayout contentView;
+    @BindView(R.id.btn_create_class)
+    Button btnCreateClass;
+    @BindView(R.id.btn_join_class)
+    Button btnJoinClass;
 
 
     private GroupGroupAdapter adapter;
@@ -75,6 +83,19 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
 
     }
 
+    private void showGuide() {
+        GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
+        final GuidePopupWindow guidePopupWindow = builder.setTargetView(btnCreateClass)
+                .build(this);
+        guidePopupWindow.addImageView(R.mipmap.guide_create_group, 100, 100, 395, 186, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guidePopupWindow.dismiss();
+            }
+        });
+        guidePopupWindow.addImageView(R.mipmap.guide_arrow, 100, 100, 74, 290);
+        guidePopupWindow.show("index");
+    }
 
     @Override
     public int getLayoutId() {
@@ -122,6 +143,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             llDataContainer.setVisibility(View.GONE);
             llEmptyContainer.setVisibility(View.VISIBLE);
             hideStateView();
+            showGuide();
         }
 
     }
@@ -183,5 +205,12 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     @Override
     public void showLoading() {
         sViewLoading.showLoading(contentView);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
