@@ -115,7 +115,7 @@ public class GuideView extends View {
         paint.setStyle(Paint.Style.FILL);
 
         if (type == GuideType.OVAL) {
-            canvas.drawOval(mRectF, paint);
+            canvas.drawRoundRect(mRectF, 5, 5, paint);
         } else if (type == GuideType.CIRCLE) {
             float cx = (mRectF.left + mRectF.right) / 2;
             float cy = (mRectF.top + mRectF.bottom) / 2;
