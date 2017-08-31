@@ -2,7 +2,6 @@ package com.kk.guide;
 
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.Size;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -28,10 +27,6 @@ public class GuidePopupWindow extends PopupWindow {
     private FrameLayout mRootView;
     private float mDelay;
     private List<ImageInfo> imageInfos;
-    private float pl;
-    private float pt;
-    private float pr;
-    private float pb;
     private boolean isDebug;
 
     public void setDebug(boolean debug) {
@@ -76,8 +71,8 @@ public class GuidePopupWindow extends PopupWindow {
                 guideView.setBgAlpha(builder.alpha);
                 guideView.setGuidePopupWindow(GuidePopupWindow.this);
                 guideView.setType(builder.type);
+                guideView.setBorder(builder.corner);
                 guideView.setMeasure(x, y, x + w, y + h);
-                guideView.setOffset(pl, pt, pr, pt);
                 mRootView.addView(guideView);
                 targetView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
@@ -88,12 +83,6 @@ public class GuidePopupWindow extends PopupWindow {
         });
     }
 
-    public void setOffset(float pl, float pt, float pr, float pb) {
-        this.pl = pl;
-        this.pt = pt;
-        this.pr = pr;
-        this.pb = pb;
-    }
 
     public void addCustomView(final View customView, final int x, final int y) {
         if (customView != null) {
@@ -125,7 +114,7 @@ public class GuidePopupWindow extends PopupWindow {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.width = GuideUtil.dip2px(mContext, imageInfo.getW() / 3);
         layoutParams.height = GuideUtil.dip2px(mContext, imageInfo.getH() / 3);
-        layoutParams.setMargins( GuideUtil.dip2px(mContext, imageInfo.getX() / 3),  GuideUtil.dip2px(mContext,
+        layoutParams.setMargins(GuideUtil.dip2px(mContext, imageInfo.getX() / 3), GuideUtil.dip2px(mContext,
                 imageInfo.getY() / 3), 0, 0);
         if (imageInfo.getOnClickListener() != null) {
             imageView.setOnClickListener(imageInfo.getOnClickListener());
@@ -170,6 +159,13 @@ public class GuidePopupWindow extends PopupWindow {
         private GuideCallback callback;
         private float alpha = 0.3f;
         private float delay = 1.0f;
+        private float corner = 3f;
+
+        public Builder setCorner(float corner) {
+            this.corner = corner;
+            return this;
+        }
+
         private GuideView.GuideType type = GuideView.GuideType.OVAL;
 
         public Builder setType(GuideView.GuideType type) {
@@ -222,6 +218,7 @@ public class GuidePopupWindow extends PopupWindow {
                         default:
                             break;
                     }
+
                     return false;
                 }
             });
