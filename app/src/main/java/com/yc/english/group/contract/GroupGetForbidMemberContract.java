@@ -6,6 +6,7 @@ import com.yc.english.base.view.INoData;
 import com.yc.english.base.view.INoNet;
 import com.yc.english.base.view.IView;
 import com.yc.english.group.model.bean.StudentInfo;
+import com.yc.english.group.rong.models.GagGroupUser;
 
 import java.util.List;
 
@@ -17,9 +18,14 @@ public interface GroupGetForbidMemberContract {
 
     interface View extends IView, INoData, INoNet, ILoading {
         void showMemberList(List<StudentInfo> list);
+
+        void showGagUserResult(List<GagGroupUser> users);
     }
 
     interface Presenter extends IPresenter {
         void getMemberList(String sn, String status, String master_id, String flag);
+
+        void lisGagUser(String groupId);
+
     }
 }

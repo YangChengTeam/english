@@ -116,6 +116,12 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
             List<StudentInfo> studentList = data.getParcelableArrayListExtra("studentList");
 
+            if (studentInfoList == null) {
+                studentInfoList = new ArrayList<>();
+            } else {
+                studentInfoList.clear();
+            }
+
             for (StudentInfo studentInfo : studentList) {
                 studentInfoList.add(studentInfo);
             }
@@ -167,15 +173,19 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
                         break;
                     }
                 }
-            }
-            if (!flag) {
+                if (!flag) {
+                    forbidStuList.add(studentInfo);
+                    adapter.addData(forbidStuList);
+
+                }
+            } else {
                 forbidStuList.add(studentInfo);
                 adapter.setData(forbidStuList);
-                adapter.setForbidTime(mForbidTime);
-                insertMessage(studentInfo.getNick_name(), studentInfo.getClass_id(), mForbidTime, true);
 
-                saveForbidStu(forbidStuList, mForbidTime);
             }
+            adapter.setForbidTime(mForbidTime);
+            insertMessage(studentInfo.getNick_name(), studentInfo.getClass_id(), mForbidTime, true);
+            saveForbidStu(forbidStuList, mForbidTime);
         } else {
             if (count >= 1) {
                 insertMessage(null, GroupInfoHelper.getGroupInfo().getId(), null, true);
@@ -202,6 +212,7 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
                 adapter.setData(studentInfoList);
 
                 adapter.setForbidTime(split[1]);
+
             }
         }
     }

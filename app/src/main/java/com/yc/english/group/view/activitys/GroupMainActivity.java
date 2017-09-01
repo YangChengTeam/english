@@ -105,7 +105,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             }
         });
         guidePopupWindow.setDebug(true);
-        guidePopupWindow.show(rootView,"create");
+        guidePopupWindow.show(rootView, "create");
     }
 
     private void showJoinGuide() {
@@ -117,10 +117,14 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             }
         })
                 .build(this);
-
-
+        guidePopupWindow.addCustomView(R.layout.group_guide_join, R.id.m_btn_OK, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guidePopupWindow.dismiss();
+            }
+        });
         guidePopupWindow.setDebug(true);
-        guidePopupWindow.show(rootView,"join");
+        guidePopupWindow.show(rootView, "join");
     }
 
     @Override

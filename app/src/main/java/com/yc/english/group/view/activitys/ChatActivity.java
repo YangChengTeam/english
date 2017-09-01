@@ -74,6 +74,8 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
         mPresenter = new GroupApplyJoinPresenter(this, this);
         initData();
         initListener();
+
+
     }
 
     private void initListener() {
