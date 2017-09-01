@@ -159,27 +159,10 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
 
     private int count = 1;
 
-    private List<StudentInfo> forbidStuList = new ArrayList<>();
-    private boolean flag;
-
     @Override
     public void showForbidResult(StudentInfo studentInfo, boolean allForbid) {
         if (!allForbid) {
-            if (forbidStuList.size() > 0) {
-                for (StudentInfo info : forbidStuList) {
-                    if (info.getUser_id().equals(studentInfo.getUser_id())) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if (!flag) {
-                    forbidStuList.add(studentInfo);
-                    adapter.addData(forbidStuList);
-                }
-            } else {
-                forbidStuList.add(studentInfo);
-                adapter.setData(forbidStuList);
-            }
+
             adapter.setData(studentInfoList);
 
             insertMessage(studentInfo.getNick_name(), studentInfo.getClass_id(), studentInfo.getForbidTime(), true);
