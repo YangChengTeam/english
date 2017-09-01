@@ -118,4 +118,5 @@ dependencies {
     compile project(':securityhttp')
 
     compile 'com.shizhefei:ViewPagerIndicator:1.1.6'
+    compile 'com.zhihu.android:matisse:0.4.3'
 }

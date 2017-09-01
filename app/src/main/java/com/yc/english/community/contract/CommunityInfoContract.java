@@ -18,9 +18,13 @@ import java.util.List;
 public interface CommunityInfoContract {
     interface View extends IView, IDialog, IFinish, ILoading, INoData, INoNet {
         void showCommunityInfoListData(List<CommunityInfo> list);
+
+        void addCommunityInfo(CommunityInfo communityInfo);
     }
 
     interface Presenter extends IPresenter {
         void communityInfoList(int currentPage, int pageCount);
+
+        void addCommunityInfo(CommunityInfo communityInfo);
     }
 }

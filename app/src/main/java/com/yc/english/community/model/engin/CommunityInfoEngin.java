@@ -31,6 +31,7 @@ public class CommunityInfoEngin extends BaseEngin {
         Map<String, String> params = new HashMap<>();
         params.put("current_page", currentPage + "");
         params.put("page_count", pageCount + "");
+
         return HttpCoreEngin.get(context).rxpost(URLConfig.WORD_UNIT_LIST_URL, new TypeReference<ResultInfo<CommunityInfo>>() {
                 }.getType(), params,
                 true, true,

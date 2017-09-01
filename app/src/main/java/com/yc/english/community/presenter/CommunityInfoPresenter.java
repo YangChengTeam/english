@@ -6,6 +6,7 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.community.contract.CommunityInfoContract;
+import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.community.model.domain.CommunityInfoList;
 import com.yc.english.community.model.engin.CommunityInfoEngin;
 
@@ -66,6 +67,10 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
         mSubscriptions.add(subscribe);
 
+    }
+
+    @Override
+    public void addCommunityInfo(CommunityInfo communityInfo) {
     }
 
     @Override
