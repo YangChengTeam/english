@@ -78,7 +78,6 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
                     @Override
                     public void onClick(View v) {
                         QQUtils.joinQQGroup(FeedbackActivity.this, "C9GzeOgLm4zrKerAk3Hr8gUiWsOhMzR7");
-
                     }
                 });
                 alertDialog.show();
