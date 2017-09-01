@@ -7,22 +7,18 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupGetForbidMemberContract;
-import com.yc.english.group.contract.GroupMyMemberListContract;
 import com.yc.english.group.listener.OnCheckedChangeListener;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupGetForbidMemberPresenter;
-import com.yc.english.group.presenter.GroupMyMemberListPresenter;
 import com.yc.english.group.rong.models.GagGroupUser;
 import com.yc.english.group.view.adapter.GroupForbidMemberAdapter;
 
@@ -30,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import me.yokeyword.indexablerv.IndexableAdapter;
 import me.yokeyword.indexablerv.IndexableLayout;
 
 /**
@@ -132,21 +127,19 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupGetForbid
         list.remove(0);
         this.mList = list;
         adapter.setDatas(list);
-        getForbidStu(list);
+//        getForbidStu(list);
 
         initListener();
     }
 
     @Override
-    public void showGagUserResult(List<GagGroupUser> users) {
-        for (GagGroupUser user : users) {
-            LogUtils.e(user.toString());
-        }
+    public void showGagUserResult(List<GagGroupUser> users, List<StudentInfo> list) {
+        setMenuTitle(list.size(), users == null ? 0 : users.size(), R.color.group_gray_999);
     }
 
     private void getData() {
         mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
-        mPresenter.lisGagUser(GroupInfoHelper.getGroupInfo().getId());
+        mPresenter.lisGagUser(GroupInfoHelper.getGroupInfo().getId(), mList);
     }
 
     private void setMenuTitle(int totalSize, int selectSize, int colorId) {

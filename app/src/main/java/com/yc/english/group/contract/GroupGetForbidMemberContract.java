@@ -19,13 +19,13 @@ public interface GroupGetForbidMemberContract {
     interface View extends IView, INoData, INoNet, ILoading {
         void showMemberList(List<StudentInfo> list);
 
-        void showGagUserResult(List<GagGroupUser> users);
+        void showGagUserResult(List<GagGroupUser> users, List<StudentInfo> list);
     }
 
     interface Presenter extends IPresenter {
         void getMemberList(String sn, String status, String master_id, String flag);
 
-        void lisGagUser(String groupId);
+        void lisGagUser(String groupId, List<StudentInfo> list);
 
     }
 }
