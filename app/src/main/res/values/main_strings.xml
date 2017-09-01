@@ -58,7 +58,7 @@
     <string name="setting_name">姓名</string>
     <string name="setting_school">学校</string>
     <string name="setting_phone">手机号码</string>
-    <string name="setting_modify_password">修改密码</string>q
+    <string name="setting_modify_password">修改密码</string>
 
     <string name="setting_push">推送接受消息</string>
     <string name="setting_play">允许后台播放</string>

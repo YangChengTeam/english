@@ -10,6 +10,7 @@ import com.kk.utils.EncryptUtils;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -123,14 +124,23 @@ public final class OKHttpUtil {
                 builder.addFormDataPart(key, value);
             }
         }
-        if(upFileInfo.file != null) {
+        if (upFileInfo.file != null) {
             builder.addFormDataPart(upFileInfo.name, upFileInfo.filename, RequestBody.create(MediaType.parse
                             ("multipart/form-data"),
                     upFileInfo.file));
-        }else if(upFileInfo.buffer != null){
+        } else if (upFileInfo.buffer != null) {
             builder.addFormDataPart(upFileInfo.name, upFileInfo.filename, RequestBody.create(MediaType.parse
                             ("multipart/form-data"),
                     upFileInfo.buffer));
+        }
+        if (upFileInfo.files != null && upFileInfo.files.size() > 0) {
+            int i = 0;
+            for (File file : upFileInfo.files) {
+                builder.addFormDataPart(upFileInfo.name + (++i), i + upFileInfo.filename, RequestBody.create
+                        (MediaType.parse
+                                        ("multipart/form-data"),
+                                upFileInfo.buffer));
+            }
         }
         return builder;
     }
@@ -184,7 +194,7 @@ public final class OKHttpUtil {
     }
 
     //< 获取Request 3
-    public static Request getRequest(String url,  Map<String, String> headers, MediaType type, String body) {
+    public static Request getRequest(String url, Map<String, String> headers, MediaType type, String body) {
         RequestBody requestBody = RequestBody.create(type, body);
         Request.Builder builder = new Request.Builder()
                 .url(url)
@@ -234,8 +244,6 @@ public final class OKHttpUtil {
             params.putAll(defaultParams);
         }
     }
-
-
 
 
     public static void setDefaultParams(Map<String, String> params) {
