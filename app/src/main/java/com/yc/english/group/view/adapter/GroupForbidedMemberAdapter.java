@@ -38,8 +38,7 @@ public class GroupForbidedMemberAdapter extends BaseAdapter<StudentInfo> {
         String str = mContext.getString(R.string.forbid_time);
 
 
-
-        holder.setText(R.id.m_tv_forbid_time, String.format(str, mTime));
+        holder.setText(R.id.m_tv_forbid_time, String.format(str, studentInfo.getForbidTime()));
         holder.setOnClickListener(R.id.m_tv_stop_forbid, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

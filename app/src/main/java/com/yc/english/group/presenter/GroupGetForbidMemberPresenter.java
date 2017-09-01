@@ -2,14 +2,15 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupGetForbidMemberContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
-import com.yc.english.group.model.engin.GroupGetForbidMemEngine;
 import com.yc.english.group.rong.models.ListGagGroupUserResult;
 import com.yc.english.group.utils.EngineUtils;
 
@@ -23,10 +24,10 @@ import rx.android.schedulers.AndroidSchedulers;
  * Created by wanglin  on 2017/8/31 09:18.
  */
 
-public class GroupGetForbidMemberPresenter extends BasePresenter<GroupGetForbidMemEngine, GroupGetForbidMemberContract.View> implements GroupGetForbidMemberContract.Presenter {
+public class GroupGetForbidMemberPresenter extends BasePresenter<BaseEngin, GroupGetForbidMemberContract.View> implements GroupGetForbidMemberContract.Presenter {
     public GroupGetForbidMemberPresenter(Context context, GroupGetForbidMemberContract.View view) {
         super(context, view);
-        mEngin = new GroupGetForbidMemEngine(context);
+
     }
 
     @Override
@@ -67,7 +68,6 @@ public class GroupGetForbidMemberPresenter extends BasePresenter<GroupGetForbidM
                     public void reulstInfoOk() {
                         StudentInfoWrapper data = studentInfoWrapperResultInfo.data;
                         if (data != null && data.getList() != null && data.getList().size() > 1) {
-                            mView.showMemberList(data.getList());
                             mView.hideStateView();
                             lisGagUser(sn, data.getList());
                         } else {
@@ -82,7 +82,7 @@ public class GroupGetForbidMemberPresenter extends BasePresenter<GroupGetForbidM
 
     @Override
     public void lisGagUser(String groupId, final List<StudentInfo> list) {
-        Subscription subscription = mEngin.lisGagUser(groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<ListGagGroupUserResult>() {
+        Subscription subscription = EngineUtils.lisGagUser(groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<ListGagGroupUserResult>() {
             @Override
             public void onCompleted() {
 
