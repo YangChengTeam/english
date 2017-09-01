@@ -88,7 +88,8 @@ public class OKHttpRequest implements IHttpRequest {
 
     @Override
     public com.kk.securityhttp.net.entry.Response uploadFile(String url, UpFileInfo upFileInfo, Map<String, String> params, Map<String, String> headers, boolean isEncryptResponse) throws IOException {
-        if (upFileInfo == null || (upFileInfo.file == null && upFileInfo.buffer == null)) throw new FileNotFoundException("file is null");
+        if (upFileInfo == null || (upFileInfo.file == null && upFileInfo.buffer == null && upFileInfo.files == null)
+                ) throw new FileNotFoundException("file is null");
 
         Request request = OKHttpUtil.getRequest(url, params, headers, upFileInfo, isEncryptResponse);
 
@@ -100,7 +101,7 @@ public class OKHttpRequest implements IHttpRequest {
     public void auploadFile(String url, UpFileInfo upFileInfo, Map<String, String> params, Map<String, String> headers, boolean isEncryptResponse, OnHttpResonseListener httpResonseListener) throws IOException, NullResonseListenerException {
         if (httpResonseListener == null) throw new NullResonseListenerException();
 
-        if (upFileInfo == null || (upFileInfo.file == null && upFileInfo.buffer == null)) throw new
+        if (upFileInfo == null || (upFileInfo.file == null && upFileInfo.buffer == null && upFileInfo.files == null)) throw new
                 FileNotFoundException
                 ("file is" +
                 " null");
