@@ -8,9 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.DrawableUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.community.contract.CommunityInfoContract;
@@ -21,6 +25,7 @@ import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.PicassoEngine;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -49,6 +54,8 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
 
     List<Uri> mSelectedImages;
 
+    private Uri mAddUri;
+
     @Override
     public int getLayoutId() {
         return R.layout.community_note_add;
@@ -56,6 +63,10 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
 
     @Override
     public void init() {
+
+        mPresenter = new CommunityInfoPresenter(this, this);
+        mAddUri = DrawableUtils.getAddUri(CommunityAddActivity.this);
+
         mToolbar.setTitle(getString(R.string.add_note_name));
         mToolbar.showNavigationIcon();
 
@@ -71,7 +82,41 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
         RxView.clicks(mSendNoteButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                if (StringUtils.isEmpty(mCommunityContextEditText.getText())) {
+                    TipsHelper.tips(CommunityAddActivity.this, "请输入发帖内容");
+                    return;
+                }
 
+                if (mImageSelectedAdapter.getData() != null) {
+                    if (mImageSelectedAdapter.getData().size() == 1 && mImageSelectedAdapter.getData().get(0).compareTo(mAddUri) == 0) {
+                        TipsHelper.tips(CommunityAddActivity.this, "请选择图片");
+                        return;
+                    }
+
+                    UpFileInfo upFileInfo = new UpFileInfo();
+                    try {
+                        upFileInfo.filename = "file.jpg";
+                        upFileInfo.name = "file";
+                        List<File> files = new ArrayList<File>();
+                        for (int i = 0; i < mImageSelectedAdapter.getData().size(); i++) {
+                            File tempFile = new File(mImageSelectedAdapter.getData().get(i).getPath());
+                            files.add(tempFile);
+                        }
+                        upFileInfo.files = files;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    CommunityInfo tempCommunityInfo = new CommunityInfo(CommunityInfo.CLICK_ITEM_VIEW);
+                    tempCommunityInfo.setUserId("1213");
+                    tempCommunityInfo.setContent(mCommunityContextEditText.getText().toString());
+                    tempCommunityInfo.setcType("1");
+
+                    mPresenter.addCommunityInfo(tempCommunityInfo, upFileInfo);
+
+                } else {
+                    ToastUtils.showLong("发帖失败");
+                }
             }
         });
 
@@ -92,8 +137,8 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
 
                 if (mImageSelectedAdapter.getData() != null && mImageSelectedAdapter.getData().size() < 3) {
 
-                    if(!mImageSelectedAdapter.getData().contains(DrawableUtils.getAddUri(CommunityAddActivity.this))){
-                        mImageSelectedAdapter.getData().add(0, DrawableUtils.getAddUri(CommunityAddActivity.this));
+                    if (!mImageSelectedAdapter.getData().contains(mAddUri)) {
+                        mImageSelectedAdapter.getData().add(0, mAddUri);
                     }
                 }
                 mImageSelectedAdapter.notifyDataSetChanged();
@@ -143,8 +188,10 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
     }
 
     @Override
-    public void addCommunityInfo(CommunityInfo communityInfo) {
-
+    public void showAddCommunityInfo(CommunityInfo communityInfo) {
+        if (communityInfo != null) {
+            ToastUtils.showLong("发帖成功");
+        }
     }
 
     @Override

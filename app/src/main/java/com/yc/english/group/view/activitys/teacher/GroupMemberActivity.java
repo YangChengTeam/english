@@ -83,7 +83,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupMemberAdapter(this);
         recyclerView.setAdapter(adapter);
-
+        recyclerView.setOverlayStyle_Center();
         getData();
     }
 

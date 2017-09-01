@@ -11,12 +11,13 @@
         android:layout_alignParentTop="true">
     </com.yc.english.base.view.MainToolBar>
 
-    <com.shizhefei.view.indicator.ScrollIndicatorView
-        android:id="@+id/indicator"
+    
+    <com.shizhefei.view.indicator.FixedIndicatorView
+        android:id="@+id/fiv_indicator"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white"></com.shizhefei.view.indicator.ScrollIndicatorView>
-
+        android:background="@color/white"
+        android:layout_height="40dp"></com.shizhefei.view.indicator.FixedIndicatorView>
+    
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"

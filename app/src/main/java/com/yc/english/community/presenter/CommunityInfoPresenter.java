@@ -3,6 +3,7 @@ package com.yc.english.community.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.community.contract.CommunityInfoContract;
@@ -70,7 +71,47 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
     }
 
     @Override
-    public void addCommunityInfo(CommunityInfo communityInfo) {
+    public void addCommunityInfo(CommunityInfo communityInfo, UpFileInfo upFileInfo) {
+        mView.showLoading();
+        mView.showLoading();
+        Subscription subscribe = mEngin.addCommunityInfo(communityInfo, upFileInfo).subscribe(new Subscriber<ResultInfo<CommunityInfo>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.showNoNet();
+            }
+
+            @Override
+            public void onNext(final ResultInfo<CommunityInfo> resultInfo) {
+
+                ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (resultInfo != null && resultInfo.data != null) {
+                            mView.showAddCommunityInfo(resultInfo.data);
+                            mView.hideStateView();
+                        }
+                    }
+                });
+
+            }
+        });
+
+        mSubscriptions.add(subscribe);
     }
 
     @Override

@@ -171,9 +171,11 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
     public void showUserInfo(UserInfo userInfo) {
         GlideHelper.circleBorderImageView(getActivity(), mAvatarImageView, userInfo.getAvatar(), R.mipmap
                 .default_avatar, 0.5f, Color.WHITE);
+
         if (!StringUtils.isEmpty(userInfo.getSchool())) {
             mSchoolTextView.setText(userInfo.getSchool());
         }
+
         if (!StringUtils.isEmpty(userInfo.getNickname())) {
             mNickNameTextView.setText(userInfo.getNickname());
         }

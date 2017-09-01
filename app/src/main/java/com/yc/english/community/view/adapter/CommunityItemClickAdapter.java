@@ -28,10 +28,10 @@ public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, B
 
     @Override
     protected void convert(final BaseViewHolder helper, final CommunityInfo item) {
-        helper.setText(R.id.tv_note_title, item.getCommunityNoteTitle());
+        helper.setText(R.id.tv_note_title, item.getContent());
         GlideHelper.imageView(mContext, (ImageView) helper.getConvertView().findViewById(R.id.iv_note_user_img), null, R.mipmap.main_tab_my);
 
-        CommunityImageAdapter communityImageAdapter = new CommunityImageAdapter(mContext, item.getImgUrls());
+        CommunityImageAdapter communityImageAdapter = new CommunityImageAdapter(mContext, item.getImages());
         RecyclerView imagesRecyclerView = (RecyclerView) helper.getConvertView().findViewById(R.id.imgs_list);
         imagesRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
         imagesRecyclerView.setAdapter(communityImageAdapter);
@@ -40,7 +40,7 @@ public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, B
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(mContext, CommunityImageShowActivity.class);
-                intent.putExtra("images", (Serializable)item.getImgUrls());
+                intent.putExtra("images", (Serializable)item.getImages());
                 mContext.startActivity(intent);
             }
         });

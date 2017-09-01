@@ -120,8 +120,8 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
 
         for (int i = 0; i < 10; i++) {
             CommunityInfo communityInfo = new CommunityInfo(CommunityInfo.CLICK_ITEM_VIEW);
-            communityInfo.setCommunityNoteTitle("测试发帖标题" + i + 1);
-            communityInfo.setImgUrls(imgs);
+            communityInfo.setContent("测试发帖标题" + i + 1);
+            communityInfo.setImages(imgs);
             list.add(communityInfo);
         }
 
@@ -200,7 +200,7 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
     };
 
     @Override
-    public void addCommunityInfo(CommunityInfo communityInfo) {
+    public void showAddCommunityInfo(CommunityInfo communityInfo) {
 
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="main_tab_index">首页</string>
-    <string name="main_tab_task">作业</string>
+    <string name="main_tab_task">微课</string>
     <string name="main_tab_my">我的</string>
     <string name="main_tab_grade">班级</string>
 
@@ -28,8 +28,8 @@
     <string name="main_task_desc">听说读写背 学习成绩佳</string>
     <string name="main_game_desc">教学同步行 助学考高分</string>
     <string name="main_word_desc">闯关学单词 理解记句型</string>
-    <string name="main_course_desc">每日微课</string>
-    <string name="main_weibo_desc">社区互动</string>
+    <string name="main_course_desc">微课天天上 英语流利说</string>
+    <string name="main_weibo_desc">我学我要秀 交友共提高</string>
 
 
     <string name="main_share">分享</string>
@@ -58,7 +58,7 @@
     <string name="setting_name">姓名</string>
     <string name="setting_school">学校</string>
     <string name="setting_phone">手机号码</string>
-    <string name="setting_modify_password">修改密码</string>q
+    <string name="setting_modify_password">修改密码</string>
 
     <string name="setting_push">推送接受消息</string>
     <string name="setting_play">允许后台播放</string>

@@ -28,6 +28,8 @@ public class URLConfig {
 
     public static final String WORD_LIST_URL = getBaseUrl() + "book/words_list";
 
+    public static final String ADD_NOTE_URL = getBaseUrl() + "note/add";
+
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }

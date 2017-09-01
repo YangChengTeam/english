@@ -43,7 +43,6 @@ public class GroupForbidMemberAdapter extends IndexableAdapter<StudentInfo> {
     @Override
     public RecyclerView.ViewHolder onCreateContentViewHolder(ViewGroup parent) {
         View view = mInflater.inflate(R.layout.group_delete_member_item, parent, false);
-
         return new MemberContentVH(view);
     }
 
@@ -61,6 +60,7 @@ public class GroupForbidMemberAdapter extends IndexableAdapter<StudentInfo> {
         memberContentVH.tvMemberName.setText(entity.getNick_name());
         memberContentVH.tvMemberOwner.setVisibility(View.GONE);
         memberContentVH.viewDivider.setVisibility(View.VISIBLE);
+
         memberContentVH.ivDeleteSelect.setTag(false);
 
         memberContentVH.llContainer.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +74,6 @@ public class GroupForbidMemberAdapter extends IndexableAdapter<StudentInfo> {
                 }
             }
         });
-//
     }
 
     public class MemberTitleVH extends RecyclerView.ViewHolder {

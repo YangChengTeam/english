@@ -25,4 +25,6 @@ public class BusAction {
 
     public static final String DELETE_FILE = "delete_file";
 
+    public static final String FORBID_MEMBER = "forbid_member";
+
 }

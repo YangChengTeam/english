@@ -107,7 +107,6 @@ public class SharePopupWindow extends BasePopupWindow {
         public void onStart(SHARE_MEDIA share_media) {
             loadingDialog.setMessage("正在分享...");
             loadingDialog.show();
-
         }
 
         @Override

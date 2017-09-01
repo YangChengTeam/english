@@ -1,6 +1,5 @@
 package com.yc.english.main.view.activitys;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,17 +9,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.umeng.socialize.UMShareAPI;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseToolBar;
-import com.yc.english.group.view.fragments.GroupMainFragment;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
 import com.yc.english.main.view.fragments.IndexFragment;
 import com.yc.english.main.view.wdigets.TabBar;
 import com.yc.english.setting.view.fragments.MyFragment;
+import com.yc.english.weixin.views.fragments.CourseTypeFragment;
 
 import butterknife.BindView;
 
@@ -88,7 +86,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
 
     private IndexFragment mIndexFragment;
-    private GroupMainFragment mClassMainFragment;
+    private CourseTypeFragment mClassMainFragment;
     private MyFragment mMyFragment;
 
     class FragmentAdapter extends FragmentStatePagerAdapter {
@@ -105,7 +103,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mIndexFragment;
             } else if (position == 1) {
                 if (mClassMainFragment == null) {
-                    mClassMainFragment = new GroupMainFragment();
+                    mClassMainFragment = new CourseTypeFragment();
                 }
                 return mClassMainFragment;
             } else if (position == 2) {

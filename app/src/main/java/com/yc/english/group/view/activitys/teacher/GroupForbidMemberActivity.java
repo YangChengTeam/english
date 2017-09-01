@@ -2,20 +2,28 @@ package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.group.contract.GroupGetForbidMemberContract;
 import com.yc.english.group.contract.GroupMyMemberListContract;
 import com.yc.english.group.listener.OnCheckedChangeListener;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
+import com.yc.english.group.presenter.GroupGetForbidMemberPresenter;
 import com.yc.english.group.presenter.GroupMyMemberListPresenter;
+import com.yc.english.group.rong.models.GagGroupUser;
 import com.yc.english.group.view.adapter.GroupForbidMemberAdapter;
 
 import java.util.ArrayList;
@@ -29,7 +37,7 @@ import me.yokeyword.indexablerv.IndexableLayout;
  * Created by wanglin  on 2017/8/29 10:06.
  */
 
-public class GroupForbidMemberActivity extends FullScreenActivity<GroupMyMemberListPresenter> implements GroupMyMemberListContract.View {
+public class GroupForbidMemberActivity extends FullScreenActivity<GroupGetForbidMemberPresenter> implements GroupGetForbidMemberContract.View {
     @BindView(R.id.mIndexableLayout)
     IndexableLayout mIndexableLayout;
     @BindView(R.id.stateView)
@@ -39,14 +47,13 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupMyMemberL
 
     @Override
     public void init() {
-        mPresenter = new GroupMyMemberListPresenter(this, this);
+        mPresenter = new GroupGetForbidMemberPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group_member));
         mToolbar.showNavigationIcon();
         mIndexableLayout.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupForbidMemberAdapter(this);
         mIndexableLayout.setAdapter(adapter);
-        getData();
-
+        mIndexableLayout.setOverlayStyle_Center();
 
     }
 
@@ -77,10 +84,12 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupMyMemberL
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
-                Intent intent = getIntent();
-                intent.putParcelableArrayListExtra("studentList", studentInfos);
-                setResult(RESULT_OK, intent);
-                finish();
+                if (studentInfos.size() > 0) {
+                    Intent intent = getIntent();
+                    intent.putParcelableArrayListExtra("studentList", studentInfos);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         });
     }
@@ -123,12 +132,21 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupMyMemberL
         list.remove(0);
         this.mList = list;
         adapter.setDatas(list);
-        setMenuTitle(list.size(), 0, R.color.gray_999);
+        getForbidStu(list);
+
         initListener();
     }
 
+    @Override
+    public void showGagUserResult(List<GagGroupUser> users) {
+        for (GagGroupUser user : users) {
+            LogUtils.e(user.toString());
+        }
+    }
+
     private void getData() {
-        mPresenter.getMemberList(this, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
+        mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
+        mPresenter.lisGagUser(GroupInfoHelper.getGroupInfo().getId());
     }
 
     private void setMenuTitle(int totalSize, int selectSize, int colorId) {
@@ -136,5 +154,16 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupMyMemberL
         mToolbar.setMenuTitle(String.format(str, selectSize, totalSize));
         mToolbar.setMenuTitleColor(getResources().getColor(colorId));
         invalidateOptionsMenu();
+    }
+
+    private void getForbidStu(List<StudentInfo> list) {
+        String str = SPUtils.getInstance().getString(GroupConstant.FORBID_MEMBER + GroupInfoHelper.getGroupInfo().getId());
+        if (!TextUtils.isEmpty(str)) {
+            String[] split = str.split("--");
+            List<StudentInfo> studentInfoList = JSONObject.parseArray(split[0], StudentInfo.class);
+
+            setMenuTitle(list.size(), studentInfoList == null ? 0 : studentInfoList.size(), R.color.group_gray_999);
+
+        }
     }
 }

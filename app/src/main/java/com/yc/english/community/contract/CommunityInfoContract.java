@@ -1,5 +1,6 @@
 package com.yc.english.community.contract;
 
+import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.IDialog;
 import com.yc.english.base.view.IFinish;
@@ -19,12 +20,12 @@ public interface CommunityInfoContract {
     interface View extends IView, IDialog, IFinish, ILoading, INoData, INoNet {
         void showCommunityInfoListData(List<CommunityInfo> list);
 
-        void addCommunityInfo(CommunityInfo communityInfo);
+        void showAddCommunityInfo(CommunityInfo communityInfo);
     }
 
     interface Presenter extends IPresenter {
         void communityInfoList(int currentPage, int pageCount);
 
-        void addCommunityInfo(CommunityInfo communityInfo);
+        void addCommunityInfo(CommunityInfo communityInfo, UpFileInfo upFileInfo);
     }
 }

@@ -17,6 +17,8 @@ import com.yc.english.group.model.bean.StudentRemoveInfo;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.model.bean.TaskInfoWrapper;
 import com.yc.english.group.model.bean.TaskUploadInfo;
+import com.yc.english.group.rong.models.ListGagGroupUserResult;
+import com.yc.english.group.rong.util.RongIMUtil;
 
 import java.io.File;
 import java.util.HashMap;
@@ -205,6 +207,7 @@ public class EngineUtils {
 
     /**
      * 申请加入班群
+     *
      * @param context
      * @param user_id
      * @param sn
@@ -222,6 +225,7 @@ public class EngineUtils {
 
     /**
      * 获取发布作业列表
+     *
      * @param context
      * @param publisher
      * @param class_id
@@ -257,4 +261,7 @@ public class EngineUtils {
         return HttpCoreEngin.get(context).rxpost(NetConstant.del_group_member, new TypeReference<ResultInfo<StudentRemoveInfo>>() {
         }.getType(), params, true, true, true);
     }
+
+
+
 }

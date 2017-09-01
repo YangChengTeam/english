@@ -3,10 +3,10 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupChangeInfoContract;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
-import com.yc.english.group.model.engin.GroupChangeInfoEngine;
 import com.yc.english.group.utils.EngineUtils;
 
 import rx.Subscriber;
@@ -17,10 +17,10 @@ import rx.Subscription;
  * 修改个人信息
  */
 
-public class GroupChangeInfoPresenter extends BasePresenter<GroupChangeInfoEngine, GroupChangeInfoContract.View> implements GroupChangeInfoContract.Presenter {
+public class GroupChangeInfoPresenter extends BasePresenter<BaseEngin, GroupChangeInfoContract.View> implements GroupChangeInfoContract.Presenter {
     public GroupChangeInfoPresenter(Context context, GroupChangeInfoContract.View view) {
         super(context, view);
-        mEngin = new GroupChangeInfoEngine(context);
+
     }
 
     @Override

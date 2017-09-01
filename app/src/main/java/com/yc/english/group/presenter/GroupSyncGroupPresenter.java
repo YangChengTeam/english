@@ -4,11 +4,11 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupSyncGroupContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoList;
-import com.yc.english.group.model.engin.GroupSyncGroupEngine;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
 
@@ -21,10 +21,10 @@ import rx.Subscription;
  * Created by wanglin  on 2017/8/7 11:16.
  */
 
-public class GroupSyncGroupPresenter extends BasePresenter<GroupSyncGroupEngine, GroupSyncGroupContract.View> implements GroupSyncGroupContract.Presenter {
+public class GroupSyncGroupPresenter extends BasePresenter<BaseEngin, GroupSyncGroupContract.View> implements GroupSyncGroupContract.Presenter {
     public GroupSyncGroupPresenter(Context context, GroupSyncGroupContract.View view) {
         super(context, view);
-        mEngin = new GroupSyncGroupEngine(context);
+
     }
 
     @Override

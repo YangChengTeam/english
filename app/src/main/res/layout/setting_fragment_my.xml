@@ -135,7 +135,7 @@
                 android:gravity="center"
                 android:layout_marginTop="30dp"
                 android:text="语音技术由科大讯飞提供"
-                android:textColor="@color/group_red_fb4c30"
+                android:textColor="@color/gray_ddd"
                 android:textSize="@dimen/font_snormal"/>
 
         </LinearLayout>

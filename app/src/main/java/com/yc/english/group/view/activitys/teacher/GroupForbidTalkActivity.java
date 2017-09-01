@@ -6,27 +6,45 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
+import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.SPUtils;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.group.constant.BusAction;
+import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.group.contract.GroupForbidMemberContract;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
+import com.yc.english.group.presenter.GroupForbidMemberPresenter;
 import com.yc.english.group.view.adapter.GroupForbidedMemberAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.IRongCallback;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.message.InformationNotificationMessage;
 import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/8/29 09:13.
  */
 
-public class GroupForbidTalkActivity extends FullScreenActivity implements CompoundButton.OnCheckedChangeListener {
+public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMemberPresenter> implements CompoundButton.OnCheckedChangeListener, GroupForbidMemberContract.View {
     @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.m_ll_add_forbid_member)
@@ -37,13 +55,17 @@ public class GroupForbidTalkActivity extends FullScreenActivity implements Compo
 
     @Override
     public void init() {
+        mPresenter = new GroupForbidMemberPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group_forbid));
         mToolbar.showNavigationIcon();
+        mSwitchCompat.setChecked(SPUtils.getInstance().getBoolean(GroupConstant.ALL_GROUP_FORBID_STATE + GroupInfoHelper.getGroupInfo().getId()));
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupForbidedMemberAdapter(this, null);
         mRecyclerView.setAdapter(adapter);
         BaseItemDecoration itemDecoration = new BaseItemDecoration(this);
         mRecyclerView.addItemDecoration(itemDecoration);
+        getForbidStu();
         initListener();
 
     }
@@ -66,22 +88,51 @@ public class GroupForbidTalkActivity extends FullScreenActivity implements Compo
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            if (allList != null && allList.size() > 0) {
+                for (StudentInfo studentInfo : allList) {
+                    mPresenter.addForbidMember(studentInfo, "0", true);
+                }
+            } else {
+                mSwitchCompat.setChecked(false);
+            }
+        } else {
+            String[] strs = new String[allList.size()];
+            for (int i = 0; i < allList.size(); i++) {
+                strs[i] = allList.get(i).getUser_id();
+            }
 
+            mPresenter.rollBackMember(strs, null, GroupInfoHelper.getGroupInfo().getId(), true);
+        }
+
+        SPUtils.getInstance().put(GroupConstant.ALL_GROUP_FORBID_STATE + GroupInfoHelper.getGroupInfo().getId(), mSwitchCompat.isChecked());
     }
+
+    private List<StudentInfo> studentInfoList;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
             List<StudentInfo> studentList = data.getParcelableArrayListExtra("studentList");
-            showDialog(studentList);
 
+            if (studentInfoList == null) {
+                studentInfoList = new ArrayList<>();
+            } else {
+                studentInfoList.clear();
+            }
+
+            for (StudentInfo studentInfo : studentList) {
+                studentInfoList.add(studentInfo);
+            }
+
+            showDialog(studentInfoList);
         }
     }
 
+    private String mForbidTime;
 
     public void showDialog(final List<StudentInfo> studentList) {
-
 
         // 创建数据
         final String[] items = getResources().getStringArray(R.array.forbid_time);
@@ -94,10 +145,166 @@ public class GroupForbidTalkActivity extends FullScreenActivity implements Compo
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        adapter.setData(studentList);
-                        adapter.setForbidTime(items[which]);
+
+                        if (studentList != null && studentList.size() > 0) {
+                            for (StudentInfo studentInfo : studentList) {
+                                mPresenter.addForbidMember(studentInfo, getTime(which), false);
+                            }
+                        }
+                        mForbidTime = items[which];
                     }
                 });
         builder.create().show();
+    }
+
+    private int count = 1;
+
+    private List<StudentInfo> forbidStuList = new ArrayList<>();
+    private boolean flag;
+
+    @Override
+    public void showForbidResult(StudentInfo studentInfo, boolean allForbid) {
+        if (!allForbid) {
+
+            if (forbidStuList.size() > 0) {
+                for (StudentInfo info : forbidStuList) {
+                    if (info.getUser_id().equals(studentInfo.getUser_id())) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    forbidStuList.add(studentInfo);
+                    adapter.addData(forbidStuList);
+
+                }
+            } else {
+                forbidStuList.add(studentInfo);
+                adapter.setData(forbidStuList);
+
+            }
+            adapter.setForbidTime(mForbidTime);
+            insertMessage(studentInfo.getNick_name(), studentInfo.getClass_id(), mForbidTime, true);
+            saveForbidStu(forbidStuList, mForbidTime);
+        } else {
+            if (count >= 1) {
+                insertMessage(null, GroupInfoHelper.getGroupInfo().getId(), null, true);
+                count--;
+            }
+
+        }
+
+
+    }
+
+    private void saveForbidStu(List<StudentInfo> forbidStuList, String mForbidTime) {
+
+        SPUtils.getInstance().put(GroupConstant.FORBID_MEMBER + GroupInfoHelper.getGroupInfo().getId(), JSONObject.toJSONString(forbidStuList) + "--" + mForbidTime);
+
+    }
+
+    private void getForbidStu() {
+        String str = SPUtils.getInstance().getString(GroupConstant.FORBID_MEMBER + GroupInfoHelper.getGroupInfo().getId());
+        if (!TextUtils.isEmpty(str)) {
+            String[] split = str.split("--");
+            studentInfoList = JSONObject.parseArray(split[0], StudentInfo.class);
+            if (studentInfoList != null && studentInfoList.size() > 0) {
+                adapter.setData(studentInfoList);
+
+                adapter.setForbidTime(split[1]);
+
+            }
+        }
+    }
+
+    public String getTime(int which) {
+        String strTime = null;
+        switch (which) {
+            case 0:
+                strTime = "5";
+                break;
+            case 1:
+                strTime = "60";
+                break;
+            case 2:
+                strTime = 24 * 60 + "";
+                break;
+            case 3:
+                strTime = 7 * 24 * 60 + "";
+                break;
+            case 4:
+                strTime = 30 * 24 * 60 + "";
+                break;
+        }
+        return strTime;
+    }
+
+    private StudentInfo mStudentInfo;
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.FORBID_MEMBER)
+            }
+    )
+    public void forbidMember(StudentInfo studentInfo) {
+        mPresenter.rollBackMember(new String[]{studentInfo.getUser_id()}, studentInfo.getNick_name(), studentInfo.getClass_id(), false);
+        mStudentInfo = studentInfo;
+    }
+
+    @Override
+    public void showRollBackResult(String nickName, String groupId, boolean allForbid) {
+        if (allForbid) {
+            insertMessage(null, GroupInfoHelper.getGroupInfo().getId(), null, false);
+
+        } else {
+            forbidStuList.remove(mStudentInfo);
+            adapter.notifyDataSetChanged();
+            insertMessage(nickName, groupId, null, false);
+        }
+    }
+
+    private List<StudentInfo> allList;
+
+    @Override
+    public void showMemberList(List<StudentInfo> list) {
+        list.remove(0);
+        allList = list;
+    }
+
+
+    public void insertMessage(String nickName, String groupId, String time, boolean forbid) {
+        InformationNotificationMessage message;
+        if (forbid) {
+            if (TextUtils.isEmpty(nickName)) {
+                message = InformationNotificationMessage.obtain("该群开启了全员禁言");
+            } else {
+                message = InformationNotificationMessage.obtain(nickName + "已被群主禁言" + time);
+            }
+        } else {
+            if (TextUtils.isEmpty(nickName)) {
+                message = InformationNotificationMessage.obtain("该群关闭了全员禁言");
+            } else {
+                message = InformationNotificationMessage.obtain(nickName + "已被群主解禁");
+            }
+        }
+        Message message1 = Message.obtain(groupId, Conversation.ConversationType.GROUP, message);
+        RongIM.getInstance().sendMessage(message1, null, null, new IRongCallback.ISendMessageCallback() {
+            @Override
+            public void onAttached(Message message) {
+
+            }
+
+            @Override
+            public void onSuccess(Message message) {
+
+            }
+
+            @Override
+            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+
+            }
+        });
+
     }
 }

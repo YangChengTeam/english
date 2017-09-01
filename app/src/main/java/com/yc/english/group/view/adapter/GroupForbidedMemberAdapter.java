@@ -4,15 +4,18 @@ package com.yc.english.group.view.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
+import com.hwangjr.rxbus.RxBus;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.StudentInfo;
 
 import java.util.List;
+
+import rx.Observable;
 
 
 /**
@@ -33,12 +36,14 @@ public class GroupForbidedMemberAdapter extends BaseAdapter<StudentInfo> {
         holder.setText(R.id.m_tv_forbid_name, studentInfo.getNick_name());
         GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.m_iv_forbid), studentInfo.getFace(), R.mipmap.default_avatar);
         String str = mContext.getString(R.string.forbid_time);
+
+
+
         holder.setText(R.id.m_tv_forbid_time, String.format(str, mTime));
         holder.setOnClickListener(R.id.m_tv_stop_forbid, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mList.remove(position);
-                notifyItemRangeChanged(position, 1);
+                RxBus.get().post(BusAction.FORBID_MEMBER, studentInfo);
             }
         });
 

@@ -1,5 +1,6 @@
 package com.yc.english.community.model.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.List;
@@ -11,67 +12,26 @@ public class CommunityInfo implements MultiItemEntity {
 
     public static final int CLICK_ITEM_VIEW = 1;
 
-    private String communityNoteTitle;//标题
+    private String id;
+    @JSONField(name = "user_id")
+    private String userId;
+    private String content;
+    private List<String> notice;
 
-    private String communityNoteContent;//内容
+    @JSONField(name = "type")
+    private String cType;
 
-    private String communityNoteDate;//发帖时间
+    private String flag;
+    private String sort;
+    private String follow_count;
+    private String agree_count;
+    private String status;
+    @JSONField(name = "add_time")
+    private String addTime;
 
-    private String commentCount;//评论数
-
-    private String praiseCount;//点赞数
-
-    private List<String> imgUrls;
+    private List<String> images;
 
     public int Type;
-
-    public String getCommunityNoteTitle() {
-        return communityNoteTitle;
-    }
-
-    public void setCommunityNoteTitle(String communityNoteTitle) {
-        this.communityNoteTitle = communityNoteTitle;
-    }
-
-    public String getCommunityNoteContent() {
-        return communityNoteContent;
-    }
-
-    public void setCommunityNoteContent(String communityNoteContent) {
-        this.communityNoteContent = communityNoteContent;
-    }
-
-    public String getCommunityNoteDate() {
-        return communityNoteDate;
-    }
-
-    public void setCommunityNoteDate(String communityNoteDate) {
-        this.communityNoteDate = communityNoteDate;
-    }
-
-    public String getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(String commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    public String getPraiseCount() {
-        return praiseCount;
-    }
-
-    public void setPraiseCount(String praiseCount) {
-        this.praiseCount = praiseCount;
-    }
-
-    public List<String> getImgUrls() {
-        return imgUrls;
-    }
-
-    public void setImgUrls(List<String> imgUrls) {
-        this.imgUrls = imgUrls;
-    }
 
     public CommunityInfo() {
         super();
@@ -79,6 +39,102 @@ public class CommunityInfo implements MultiItemEntity {
 
     public CommunityInfo(final int type) {
         Type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public List<String> getNotice() {
+        return notice;
+    }
+
+    public void setNotice(List<String> notice) {
+        this.notice = notice;
+    }
+
+    public String getcType() {
+        return cType;
+    }
+
+    public void setcType(String cType) {
+        this.cType = cType;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    public String getFollow_count() {
+        return follow_count;
+    }
+
+    public void setFollow_count(String follow_count) {
+        this.follow_count = follow_count;
+    }
+
+    public String getAgree_count() {
+        return agree_count;
+    }
+
+    public void setAgree_count(String agree_count) {
+        this.agree_count = agree_count;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(String addTime) {
+        this.addTime = addTime;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     @Override
