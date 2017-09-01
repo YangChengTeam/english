@@ -139,7 +139,7 @@ public final class OKHttpUtil {
                 builder.addFormDataPart(upFileInfo.name + (++i), i + upFileInfo.filename, RequestBody.create
                         (MediaType.parse
                                         ("multipart/form-data"),
-                                upFileInfo.buffer));
+                                file));
             }
         }
         return builder;
