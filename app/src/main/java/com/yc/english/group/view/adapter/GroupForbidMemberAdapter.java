@@ -63,7 +63,7 @@ public class GroupForbidMemberAdapter extends IndexableAdapter<StudentInfo> {
         memberContentVH.tvMemberOwner.setVisibility(View.GONE);
         memberContentVH.viewDivider.setVisibility(View.VISIBLE);
 
-        memberContentVH.ivDeleteSelect.setImageDrawable(entity.getIsForbid() ? mContext.getResources().getDrawable(R.mipmap.group24) : mContext.getResources().getDrawable(R.mipmap.group23));
+        memberContentVH.ivDeleteSelect.setImageDrawable(entity.getIsForbid() ? mContext.getResources().getDrawable(R.mipmap.group73) : mContext.getResources().getDrawable(R.mipmap.group23));
 
         memberContentVH.ivDeleteSelect.setTag(entity.getIsForbid());
 

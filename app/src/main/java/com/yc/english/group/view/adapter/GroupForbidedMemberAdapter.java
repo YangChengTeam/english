@@ -24,7 +24,6 @@ import rx.Observable;
  */
 
 public class GroupForbidedMemberAdapter extends BaseAdapter<StudentInfo> {
-    private String mTime;
 
     public GroupForbidedMemberAdapter(Context context, List<StudentInfo> mList) {
         super(context, mList);
@@ -53,8 +52,4 @@ public class GroupForbidedMemberAdapter extends BaseAdapter<StudentInfo> {
         return R.layout.group_forbid_member_item;
     }
 
-    public void setForbidTime(String item) {
-        this.mTime = item;
-        notifyDataSetChanged();
-    }
 }

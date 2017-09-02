@@ -164,7 +164,6 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         if (!allForbid) {
 
             adapter.setData(studentInfoList);
-
             insertMessage(studentInfo.getNick_name(), studentInfo.getClass_id(), studentInfo.getForbidTime(), true);
             saveForbidStu(studentInfoList);
         } else {
