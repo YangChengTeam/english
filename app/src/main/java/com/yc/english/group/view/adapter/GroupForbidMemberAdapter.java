@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.group.listener.OnCheckedChangeListener;
 import com.yc.english.group.model.bean.StudentInfo;
 
@@ -61,19 +60,23 @@ public class GroupForbidMemberAdapter extends IndexableAdapter<StudentInfo> {
         memberContentVH.tvMemberOwner.setVisibility(View.GONE);
         memberContentVH.viewDivider.setVisibility(View.VISIBLE);
 
-        memberContentVH.ivDeleteSelect.setTag(false);
+        memberContentVH.ivDeleteSelect.setImageDrawable(entity.getIsForbid() ? mContext.getResources().getDrawable(R.mipmap.group73) : mContext.getResources().getDrawable(R.mipmap.group23));
 
-        memberContentVH.llContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        memberContentVH.ivDeleteSelect.setTag(entity.getIsForbid());
 
-                if (onCheckedChangeListener != null) {
-                    boolean flag = !(boolean) memberContentVH.ivDeleteSelect.getTag();
-                    onCheckedChangeListener.onClick(memberContentVH.ivDeleteSelect, flag, entity);
-                    memberContentVH.ivDeleteSelect.setTag(flag);
+        if (!entity.getIsForbid()) {
+            memberContentVH.llContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (onCheckedChangeListener != null) {
+                        boolean flag = !(boolean) memberContentVH.ivDeleteSelect.getTag();
+                        onCheckedChangeListener.onClick(memberContentVH.ivDeleteSelect, flag, entity);
+                        memberContentVH.ivDeleteSelect.setTag(flag);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public class MemberTitleVH extends RecyclerView.ViewHolder {

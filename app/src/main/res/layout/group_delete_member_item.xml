@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/iv_member_img"
-            android:layout_width="@dimen/group_distance_40"
-            android:layout_height="@dimen/group_distance_40"
+            android:layout_width="@dimen/group_distance_35"
+            android:layout_height="@dimen/group_distance_35"
             android:src="@mipmap/default_avatar" />
 
         <TextView

@@ -36,9 +36,9 @@ public class StudentInfo implements IndexableEntity, Parcelable {
     @JSONField(name = "user_face")
     private String face;
 
+    private boolean isForbid;//是否被禁言
 
-
-   
+    private String forbidTime;//禁言的时间
 
     @Generated(hash = 2016856731)
     public StudentInfo() {
@@ -56,13 +56,14 @@ public class StudentInfo implements IndexableEntity, Parcelable {
         sn = source.readString();
         master_id = source.readString();
         face = source.readString();
+        isForbid = source.readByte() != 0;
+        forbidTime = source.readString();
     }
 
-    @Generated(hash = 939309314)
-    public StudentInfo(long sId, String add_date, String add_time, String class_id,
-            String id, String nick_name, String user_id, String user_name,
-            String class_name, String sn, String master_id, boolean isAudit,
-            String face) {
+    @Generated(hash = 735190035)
+    public StudentInfo(long sId, String add_date, String add_time, String class_id, String id,
+                       String nick_name, String user_id, String user_name, String class_name, String sn,
+                       String master_id, boolean isAudit, String face, boolean isForbid, String forbidTime) {
         this.sId = sId;
         this.add_date = add_date;
         this.add_time = add_time;
@@ -76,6 +77,8 @@ public class StudentInfo implements IndexableEntity, Parcelable {
         this.master_id = master_id;
         this.isAudit = isAudit;
         this.face = face;
+        this.isForbid = isForbid;
+        this.forbidTime = forbidTime;
     }
 
     public long getSId() {
@@ -228,6 +231,24 @@ public class StudentInfo implements IndexableEntity, Parcelable {
         dest.writeString(sn);
         dest.writeString(master_id);
         dest.writeString(face);
+        dest.writeByte((byte) (isForbid ? 1 : 0));
+        dest.writeString(forbidTime);
+    }
+
+    public boolean getIsForbid() {
+        return this.isForbid;
+    }
+
+    public void setIsForbid(boolean isForbid) {
+        this.isForbid = isForbid;
+    }
+
+    public String getForbidTime() {
+        return this.forbidTime;
+    }
+
+    public void setForbidTime(String forbidTime) {
+        this.forbidTime = forbidTime;
     }
 
 }

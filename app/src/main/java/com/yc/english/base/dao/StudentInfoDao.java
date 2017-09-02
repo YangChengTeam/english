@@ -37,6 +37,8 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
         public final static Property Master_id = new Property(10, String.class, "master_id", false, "MASTER_ID");
         public final static Property IsAudit = new Property(11, boolean.class, "isAudit", false, "IS_AUDIT");
         public final static Property Face = new Property(12, String.class, "face", false, "FACE");
+        public final static Property IsForbid = new Property(13, boolean.class, "isForbid", false, "IS_FORBID");
+        public final static Property ForbidTime = new Property(14, String.class, "forbidTime", false, "FORBID_TIME");
     }
 
 
@@ -64,7 +66,9 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
                 "\"SN\" TEXT," + // 9: sn
                 "\"MASTER_ID\" TEXT," + // 10: master_id
                 "\"IS_AUDIT\" INTEGER NOT NULL ," + // 11: isAudit
-                "\"FACE\" TEXT);"); // 12: face
+                "\"FACE\" TEXT," + // 12: face
+                "\"IS_FORBID\" INTEGER NOT NULL ," + // 13: isForbid
+                "\"FORBID_TIME\" TEXT);"); // 14: forbidTime
     }
 
     /** Drops the underlying database table. */
@@ -133,6 +137,12 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
         if (face != null) {
             stmt.bindString(13, face);
         }
+        stmt.bindLong(14, entity.getIsForbid() ? 1L: 0L);
+ 
+        String forbidTime = entity.getForbidTime();
+        if (forbidTime != null) {
+            stmt.bindString(15, forbidTime);
+        }
     }
 
     @Override
@@ -195,6 +205,12 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
         if (face != null) {
             stmt.bindString(13, face);
         }
+        stmt.bindLong(14, entity.getIsForbid() ? 1L: 0L);
+ 
+        String forbidTime = entity.getForbidTime();
+        if (forbidTime != null) {
+            stmt.bindString(15, forbidTime);
+        }
     }
 
     @Override
@@ -217,7 +233,9 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // sn
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // master_id
             cursor.getShort(offset + 11) != 0, // isAudit
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // face
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // face
+            cursor.getShort(offset + 13) != 0, // isForbid
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // forbidTime
         );
         return entity;
     }
@@ -237,6 +255,8 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
         entity.setMaster_id(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setIsAudit(cursor.getShort(offset + 11) != 0);
         entity.setFace(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setIsForbid(cursor.getShort(offset + 13) != 0);
+        entity.setForbidTime(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
      }
     
     @Override

@@ -11,7 +11,10 @@ import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.engin.GroupForbidMemberEngine;
 import com.yc.english.group.rong.models.CodeSuccessResult;
+import com.yc.english.group.rong.models.ListGagGroupUserResult;
 import com.yc.english.group.utils.EngineUtils;
+
+import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -63,7 +66,7 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
     }
 
     @Override
-    public void rollBackMember(String[] userId, final String nickName, final String groupId, final boolean allForbid) {
+    public void rollBackMember(final String[] userId, final String nickName, final String groupId, final boolean allForbid) {
         mView.showLoadingDialog("正在解禁用户，请稍候...");
         Subscription subscription = mEngin.rollBackMember(userId, groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<CodeSuccessResult>() {
             @Override
@@ -79,14 +82,15 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
             @Override
             public void onNext(CodeSuccessResult codeSuccessResult) {
                 if (codeSuccessResult != null && codeSuccessResult.getCode() == 200) {
-                    mView.showRollBackResult(nickName, groupId, allForbid);
+                    mView.showRollBackResult(userId,nickName, groupId, allForbid);
                 }
             }
         });
         mSubscriptions.add(subscription);
     }
 
-    public void getMemberList(String sn, String status, String master_id, String flag) {
+
+    public void getMemberList(final String sn, String status, String master_id, String flag) {
         Subscription subscription = EngineUtils.getMemberList(mContext, sn, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
@@ -103,7 +107,10 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
                 handleResultInfo(studentInfoWrapperResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        mView.showMemberList(studentInfoWrapperResultInfo.data.getList());
+                        if (studentInfoWrapperResultInfo.data != null && studentInfoWrapperResultInfo.data.getList() != null) {
+                            lisGagUser(sn, studentInfoWrapperResultInfo.data.getList());
+                        }
+
                     }
                 });
             }
@@ -111,4 +118,30 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
         mSubscriptions.add(subscription);
 
     }
+
+    @Override
+    public void lisGagUser(String groupId, final List<StudentInfo> list) {
+        Subscription subscription = EngineUtils.lisGagUser(groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<ListGagGroupUserResult>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ListGagGroupUserResult listGagGroupUserResult) {
+
+                if (listGagGroupUserResult.getCode() == 200) {
+                    mView.showLisGagUserResult(listGagGroupUserResult.getUsers(), list);
+                }
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
 }

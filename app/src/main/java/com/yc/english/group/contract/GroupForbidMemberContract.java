@@ -4,6 +4,7 @@ import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.IDialog;
 import com.yc.english.base.view.IView;
 import com.yc.english.group.model.bean.StudentInfo;
+import com.yc.english.group.rong.models.GagGroupUser;
 
 import java.util.List;
 
@@ -14,9 +15,9 @@ import java.util.List;
 public interface GroupForbidMemberContract {
     interface View extends IView, IDialog {
 
-        void showRollBackResult(String nickName, String groupId, boolean allForbid);
+        void showRollBackResult(String[] userId, String nickName, String groupId, boolean allForbid);
 
-        void showMemberList(List<StudentInfo> list);
+        void showLisGagUserResult(List<GagGroupUser> users, List<StudentInfo> list);
 
         void showForbidResult(StudentInfo studentInfo, boolean allForbid);
     }
@@ -25,6 +26,8 @@ public interface GroupForbidMemberContract {
         void addForbidMember(StudentInfo studentInfo, String minute, boolean flag);
 
         void rollBackMember(String[] userId, String nickName, String groupId, boolean allForbid);
+
+        void lisGagUser(String groupId, List<StudentInfo> list);
     }
 
 }

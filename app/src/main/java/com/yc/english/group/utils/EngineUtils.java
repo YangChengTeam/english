@@ -262,6 +262,13 @@ public class EngineUtils {
         }.getType(), params, true, true, true);
     }
 
-
+    /**
+     * 获取禁言成员
+     * @param groupId
+     * @return
+     */
+    public static Observable<ListGagGroupUserResult> lisGagUser(String groupId) {
+        return RongIMUtil.lisGagUser(groupId);
+    }
 
 }

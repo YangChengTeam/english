@@ -24,7 +24,6 @@ import rx.Observable;
  */
 
 public class GroupForbidedMemberAdapter extends BaseAdapter<StudentInfo> {
-    private String mTime;
 
     public GroupForbidedMemberAdapter(Context context, List<StudentInfo> mList) {
         super(context, mList);
@@ -38,8 +37,7 @@ public class GroupForbidedMemberAdapter extends BaseAdapter<StudentInfo> {
         String str = mContext.getString(R.string.forbid_time);
 
 
-
-        holder.setText(R.id.m_tv_forbid_time, String.format(str, mTime));
+        holder.setText(R.id.m_tv_forbid_time, String.format(str, studentInfo.getForbidTime()));
         holder.setOnClickListener(R.id.m_tv_stop_forbid, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,8 +52,4 @@ public class GroupForbidedMemberAdapter extends BaseAdapter<StudentInfo> {
         return R.layout.group_forbid_member_item;
     }
 
-    public void setForbidTime(String item) {
-        this.mTime = item;
-        notifyDataSetChanged();
-    }
 }

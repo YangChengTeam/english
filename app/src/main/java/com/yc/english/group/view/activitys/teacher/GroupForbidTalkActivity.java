@@ -25,6 +25,7 @@ import com.yc.english.group.contract.GroupForbidMemberContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupForbidMemberPresenter;
+import com.yc.english.group.rong.models.GagGroupUser;
 import com.yc.english.group.view.adapter.GroupForbidedMemberAdapter;
 
 import java.util.ArrayList;
@@ -65,7 +66,6 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         mRecyclerView.setAdapter(adapter);
         BaseItemDecoration itemDecoration = new BaseItemDecoration(this);
         mRecyclerView.addItemDecoration(itemDecoration);
-        getForbidStu();
         initListener();
 
     }
@@ -108,7 +108,7 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         SPUtils.getInstance().put(GroupConstant.ALL_GROUP_FORBID_STATE + GroupInfoHelper.getGroupInfo().getId(), mSwitchCompat.isChecked());
     }
 
-    private List<StudentInfo> studentInfoList;
+    private List<StudentInfo> studentInfoList = new ArrayList<>();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -116,11 +116,9 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
             List<StudentInfo> studentList = data.getParcelableArrayListExtra("studentList");
 
-            if (studentInfoList == null) {
-                studentInfoList = new ArrayList<>();
-            } else {
-                studentInfoList.clear();
-            }
+//            if (studentInfoList == null) {
+//                studentInfoList = new ArrayList<>();
+//            }
 
             for (StudentInfo studentInfo : studentList) {
                 studentInfoList.add(studentInfo);
@@ -130,7 +128,6 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         }
     }
 
-    private String mForbidTime;
 
     public void showDialog(final List<StudentInfo> studentList) {
 
@@ -146,12 +143,15 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        if (studentList != null && studentList.size() > 0) {
-                            for (StudentInfo studentInfo : studentList) {
+                        for (StudentInfo studentInfo : studentList) {
+                            if (!studentInfo.getIsForbid()) {
+                                studentInfo.setForbidTime(items[which]);
+                                studentInfo.setIsForbid(true);
                                 mPresenter.addForbidMember(studentInfo, getTime(which), false);
                             }
+
                         }
-                        mForbidTime = items[which];
+
                     }
                 });
         builder.create().show();
@@ -159,33 +159,12 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
 
     private int count = 1;
 
-    private List<StudentInfo> forbidStuList = new ArrayList<>();
-    private boolean flag;
-
     @Override
     public void showForbidResult(StudentInfo studentInfo, boolean allForbid) {
         if (!allForbid) {
-
-            if (forbidStuList.size() > 0) {
-                for (StudentInfo info : forbidStuList) {
-                    if (info.getUser_id().equals(studentInfo.getUser_id())) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if (!flag) {
-                    forbidStuList.add(studentInfo);
-                    adapter.addData(forbidStuList);
-
-                }
-            } else {
-                forbidStuList.add(studentInfo);
-                adapter.setData(forbidStuList);
-
-            }
-            adapter.setForbidTime(mForbidTime);
-            insertMessage(studentInfo.getNick_name(), studentInfo.getClass_id(), mForbidTime, true);
-            saveForbidStu(forbidStuList, mForbidTime);
+            adapter.setData(studentInfoList);
+            insertMessage(studentInfo.getNick_name(), studentInfo.getClass_id(), studentInfo.getForbidTime(), true);
+            saveForbidStu(studentInfoList);
         } else {
             if (count >= 1) {
                 insertMessage(null, GroupInfoHelper.getGroupInfo().getId(), null, true);
@@ -197,25 +176,12 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
 
     }
 
-    private void saveForbidStu(List<StudentInfo> forbidStuList, String mForbidTime) {
+    private void saveForbidStu(List<StudentInfo> studentInfoList) {
 
-        SPUtils.getInstance().put(GroupConstant.FORBID_MEMBER + GroupInfoHelper.getGroupInfo().getId(), JSONObject.toJSONString(forbidStuList) + "--" + mForbidTime);
+        SPUtils.getInstance().put(GroupConstant.FORBID_MEMBER + GroupInfoHelper.getGroupInfo().getId(), JSONObject.toJSONString(studentInfoList));
 
     }
 
-    private void getForbidStu() {
-        String str = SPUtils.getInstance().getString(GroupConstant.FORBID_MEMBER + GroupInfoHelper.getGroupInfo().getId());
-        if (!TextUtils.isEmpty(str)) {
-            String[] split = str.split("--");
-            studentInfoList = JSONObject.parseArray(split[0], StudentInfo.class);
-            if (studentInfoList != null && studentInfoList.size() > 0) {
-                adapter.setData(studentInfoList);
-
-                adapter.setForbidTime(split[1]);
-
-            }
-        }
-    }
 
     public String getTime(int which) {
         String strTime = null;
@@ -253,25 +219,72 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
     }
 
     @Override
-    public void showRollBackResult(String nickName, String groupId, boolean allForbid) {
+    public void showRollBackResult(String[] userId, String nickName, String groupId, boolean allForbid) {
         if (allForbid) {
             insertMessage(null, GroupInfoHelper.getGroupInfo().getId(), null, false);
-
+            studentInfoList.clear();
+            adapter.notifyDataSetChanged();
+            SPUtils.getInstance().put(GroupConstant.FORBID_MEMBER + GroupInfoHelper.getGroupInfo().getId(), "");
         } else {
-            forbidStuList.remove(mStudentInfo);
+            studentInfoList.remove(mStudentInfo);
             adapter.notifyDataSetChanged();
             insertMessage(nickName, groupId, null, false);
+            clearForbidStu(userId[0]);
         }
     }
 
     private List<StudentInfo> allList;
 
     @Override
-    public void showMemberList(List<StudentInfo> list) {
+    public void showLisGagUserResult(List<GagGroupUser> users, List<StudentInfo> list) {
         list.remove(0);
         allList = list;
+        getForbidStu(users);
     }
 
+
+    private void getForbidStu(List<GagGroupUser> users) {
+        if (users != null && users.size() > 0) {
+
+            String str = SPUtils.getInstance().getString(GroupConstant.FORBID_MEMBER + GroupInfoHelper.getGroupInfo().getId());
+
+            List<StudentInfo> list = JSONObject.parseArray(str, StudentInfo.class);
+            for (StudentInfo studentInfo : list) {
+                for (GagGroupUser user : users) {
+                    if (user.getUserId().equals(studentInfo.getUser_id())) {
+                        studentInfoList.add(studentInfo);
+                        break;
+                    }
+                }
+            }
+            adapter.setData(studentInfoList);
+            saveForbidStu(studentInfoList);
+        } else {
+            SPUtils.getInstance().put(GroupConstant.FORBID_MEMBER + GroupInfoHelper.getGroupInfo().getId(), "");
+        }
+
+    }
+
+    private StudentInfo curStu;
+
+    private void clearForbidStu(String userId) {
+        String str = SPUtils.getInstance().getString(GroupConstant.FORBID_MEMBER + GroupInfoHelper.getGroupInfo().getId());
+        boolean unForbid = false;
+        List<StudentInfo> studentInfos = JSONObject.parseArray(str, StudentInfo.class);
+        if (studentInfos != null && studentInfos.size() > 0) {
+            for (StudentInfo info : studentInfos) {
+                if (userId.equals(info.getUser_id())) {
+                    unForbid = true;
+                    curStu = info;
+                    break;
+                }
+            }
+            if (unForbid) {
+                studentInfos.remove(curStu);
+                saveForbidStu(studentInfos);
+            }
+        }
+    }
 
     public void insertMessage(String nickName, String groupId, String time, boolean forbid) {
         InformationNotificationMessage message;
