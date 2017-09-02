@@ -18,6 +18,7 @@ import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.DrawableUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.community.contract.CommunityInfoContract;
+import com.yc.english.community.model.domain.CommentInfo;
 import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.community.presenter.CommunityInfoPresenter;
 import com.yc.english.community.view.adapter.ImageSelectedAdapter;
@@ -99,7 +100,7 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
                         upFileInfo.name = "file";
                         List<File> files = new ArrayList<File>();
                         for (int i = 0; i < mImageSelectedAdapter.getData().size(); i++) {
-                            File tempFile = new File(mImageSelectedAdapter.getData().get(i).getPath());
+                            File tempFile = new File(DrawableUtils.getPathBuUri(CommunityAddActivity.this, mImageSelectedAdapter.getData().get(i)));
                             files.add(tempFile);
                         }
                         upFileInfo.files = files;
@@ -107,8 +108,8 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
                         e.printStackTrace();
                     }
 
-                    CommunityInfo tempCommunityInfo = new CommunityInfo(CommunityInfo.CLICK_ITEM_VIEW);
-                    tempCommunityInfo.setUserId("1213");
+                    CommunityInfo tempCommunityInfo = new CommunityInfo();
+                    tempCommunityInfo.setUserId("35");
                     tempCommunityInfo.setContent(mCommunityContextEditText.getText().toString());
                     tempCommunityInfo.setcType("1");
 
@@ -195,6 +196,11 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
     }
 
     @Override
+    public void showCommentList(List<CommentInfo> list) {
+
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
@@ -205,5 +211,14 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
             }
             mImageSelectedAdapter.setNewData(mSelectedImages);
         }
+    }
+    @Override
+    public void showAddComment(CommentInfo commentInfo) {
+
+    }
+
+    @Override
+    public void showAgreeInfo(boolean flag) {
+
     }
 }

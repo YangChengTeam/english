@@ -1,9 +1,12 @@
 package com.yc.english.base.utils;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 
 import com.blankj.utilcode.util.SizeUtils;
@@ -44,4 +47,19 @@ public class DrawableUtils {
                 + context.getResources().getResourceEntryName(R.mipmap.note_image_add_icon));
         return addUri;
     }
+
+    /**
+     * 根据
+     * @param context
+     * @param uri
+     * @return
+     */
+    public static String getPathBuUri(Context context, Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = ((Activity) context).getContentResolver().query(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
 }

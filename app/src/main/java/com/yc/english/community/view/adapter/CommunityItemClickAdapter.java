@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
@@ -28,8 +30,18 @@ public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, B
 
     @Override
     protected void convert(final BaseViewHolder helper, final CommunityInfo item) {
-        helper.setText(R.id.tv_note_title, item.getContent());
-        GlideHelper.imageView(mContext, (ImageView) helper.getConvertView().findViewById(R.id.iv_note_user_img), null, R.mipmap.main_tab_my);
+        helper.setText(R.id.tv_note_title, item.getContent())
+                .setText(R.id.tv_note_user_name, item.getUserName())
+                .setText(R.id.tv_comment_count, item.getFollowCount())
+                .setText(R.id.tv_praise_count, item.getAgreeCount());
+
+        if (!StringUtils.isEmpty(item.getAddTime())) {
+            long addTime = Long.parseLong(item.getAddTime()) * 1000;
+            helper.setText(R.id.tv_note_date, TimeUtils.millis2String(addTime));
+        }
+        GlideHelper.circleImageView(mContext, (ImageView) helper.getConvertView().findViewById(R.id.iv_note_user_img), item.getFace(), R.mipmap.main_tab_my);
+
+        helper.addOnClickListener(R.id.comment_layout).addOnClickListener(R.id.praise_count_layout);
 
         CommunityImageAdapter communityImageAdapter = new CommunityImageAdapter(mContext, item.getImages());
         RecyclerView imagesRecyclerView = (RecyclerView) helper.getConvertView().findViewById(R.id.imgs_list);
@@ -40,7 +52,7 @@ public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, B
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(mContext, CommunityImageShowActivity.class);
-                intent.putExtra("images", (Serializable)item.getImages());
+                intent.putExtra("images", (Serializable) item.getImages());
                 mContext.startActivity(intent);
             }
         });

@@ -8,6 +8,7 @@ import com.yc.english.base.view.ILoading;
 import com.yc.english.base.view.INoData;
 import com.yc.english.base.view.INoNet;
 import com.yc.english.base.view.IView;
+import com.yc.english.community.model.domain.CommentInfo;
 import com.yc.english.community.model.domain.CommunityInfo;
 
 import java.util.List;
@@ -21,11 +22,23 @@ public interface CommunityInfoContract {
         void showCommunityInfoListData(List<CommunityInfo> list);
 
         void showAddCommunityInfo(CommunityInfo communityInfo);
+
+        void showCommentList(List<CommentInfo> list);
+
+        void showAddComment(CommentInfo commentInfo);
+
+        void showAgreeInfo(boolean flag);
     }
 
     interface Presenter extends IPresenter {
-        void communityInfoList(int currentPage, int pageCount);
+        void communityInfoList(int type, int currentPage, int pageCount);
 
         void addCommunityInfo(CommunityInfo communityInfo, UpFileInfo upFileInfo);
+
+        void commentInfoList(int nid, int currentPage, int pageCount);
+
+        void addCommentInfo(CommentInfo commentInfo);
+
+        void addAgreeInfo(String userId,String noteId);
     }
 }

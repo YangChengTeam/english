@@ -60,7 +60,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/tv_top_note"
-                android:src="@mipmap/boy_icon"/>
+                android:src="@mipmap/boy_icon"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tv_note_date"
@@ -79,19 +80,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_margin="12sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
             android:text="发帖的标题，测试发帖的标题"
             android:textColor="@color/black_333"
-            android:textSize="14sp"/>
+            android:textSize="16sp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/imgs_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:divider="#f1f1f1"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
+            android:background="@color/white"
+            android:divider="#f1f1f1"
             android:dividerHeight="2dp"/>
 
         <View
@@ -138,7 +141,7 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/tv_praise_count_count"
+                    android:id="@+id/tv_praise_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

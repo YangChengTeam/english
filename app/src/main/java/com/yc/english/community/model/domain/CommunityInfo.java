@@ -1,20 +1,26 @@
 package com.yc.english.community.model.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 互动社区-帖子信息
  */
-public class CommunityInfo implements MultiItemEntity {
+public class CommunityInfo implements Serializable {
 
-    public static final int CLICK_ITEM_VIEW = 1;
+    private static final long serialVersionUID = -7060210533600464481L;
 
     private String id;
     @JSONField(name = "user_id")
     private String userId;
+
+    @JSONField(name = "user_name")
+    private String userName;
+
+    private String face;
+
     private String content;
     private List<String> notice;
 
@@ -23,8 +29,10 @@ public class CommunityInfo implements MultiItemEntity {
 
     private String flag;
     private String sort;
-    private String follow_count;
-    private String agree_count;
+    @JSONField(name = "follow_count")
+    private String followCount;
+    @JSONField(name = "agree_count")
+    private String agreeCount;
     private String status;
     @JSONField(name = "add_time")
     private String addTime;
@@ -55,6 +63,14 @@ public class CommunityInfo implements MultiItemEntity {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getContent() {
@@ -89,6 +105,14 @@ public class CommunityInfo implements MultiItemEntity {
         this.flag = flag;
     }
 
+    public String getFace() {
+        return face;
+    }
+
+    public void setFace(String face) {
+        this.face = face;
+    }
+
     public String getSort() {
         return sort;
     }
@@ -97,20 +121,20 @@ public class CommunityInfo implements MultiItemEntity {
         this.sort = sort;
     }
 
-    public String getFollow_count() {
-        return follow_count;
+    public String getFollowCount() {
+        return followCount;
     }
 
-    public void setFollow_count(String follow_count) {
-        this.follow_count = follow_count;
+    public void setFollowCount(String followCount) {
+        this.followCount = followCount;
     }
 
-    public String getAgree_count() {
-        return agree_count;
+    public String getAgreeCount() {
+        return agreeCount;
     }
 
-    public void setAgree_count(String agree_count) {
-        this.agree_count = agree_count;
+    public void setAgreeCount(String agreeCount) {
+        this.agreeCount = agreeCount;
     }
 
     public String getStatus() {
@@ -137,8 +161,5 @@ public class CommunityInfo implements MultiItemEntity {
         this.images = images;
     }
 
-    @Override
-    public int getItemType() {
-        return Type;
-    }
+
 }

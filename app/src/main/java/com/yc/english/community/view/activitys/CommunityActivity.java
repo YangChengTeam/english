@@ -12,16 +12,18 @@ import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.community.contract.CommunityInfoContract;
+import com.yc.english.community.model.domain.CommentInfo;
 import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.community.presenter.CommunityInfoPresenter;
 import com.yc.english.community.view.adapter.CommunityItemClickAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -49,7 +51,7 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
     @BindView(R.id.tv_friends_circle)
     TextView mFriendsCircleTextView;
 
-    CommunityItemClickAdapter mAdapter;
+    CommunityItemClickAdapter mCommunityItemAdapter;
 
     private int[] location;
 
@@ -103,41 +105,48 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
         qq_friend_out = AnimationUtils.loadAnimation(this, R.anim.english_out);
         take_photo_out = AnimationUtils.loadAnimation(this, R.anim.friends_out);
 
-        menuLayout.setOnClickListener(new View.OnClickListener() {
+        mPresenter = new CommunityInfoPresenter(this, this);
+        mCommunityItemAdapter = new CommunityItemClickAdapter(this, null);
+        mAllNoteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAllNoteRecyclerView.setAdapter(mCommunityItemAdapter);
+
+        RxView.clicks(menuLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
-            public void onClick(View v) {
+            public void call(Void aVoid) {
                 closeMenu();
             }
         });
-
-        //mPresenter = new CommunityInfoPresenter(this, this);
-        List<CommunityInfo> list = new ArrayList<CommunityInfo>();
-
-        List<String> imgs = new ArrayList<String>();
-        imgs.add("http://image17-c.poco.cn/mypoco/myphoto/20170829/16/17857099520170829161014035.jpg?800x800_120");
-        imgs.add("http://image17-c.poco.cn/mypoco/myphoto/20170829/16/17857099520170829161506072.jpg?800x533_120");
-        imgs.add("http://image17-c.poco.cn/mypoco/myphoto/20170829/16/17857099520170829161507010.jpg?800x533_120");
-
-        for (int i = 0; i < 10; i++) {
-            CommunityInfo communityInfo = new CommunityInfo(CommunityInfo.CLICK_ITEM_VIEW);
-            communityInfo.setContent("测试发帖标题" + i + 1);
-            communityInfo.setImages(imgs);
-            list.add(communityInfo);
-        }
-
-        mAdapter = new CommunityItemClickAdapter(this, list);
-        mAllNoteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAllNoteRecyclerView.setAdapter(mAdapter);
 
         //英语圈
         RxView.clicks(mEnglishCircleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(CommunityActivity.this,CommunityAddActivity.class);
+                Intent intent = new Intent(CommunityActivity.this, CommunityAddActivity.class);
                 startActivity(intent);
                 closeMenu();
             }
         });
+
+        mCommunityItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(CommunityActivity.this, CommunityDetailActivity.class);
+                intent.putExtra("community_info", mCommunityItemAdapter.getData().get(position));
+                startActivity(intent);
+            }
+        });
+
+        mCommunityItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.praise_count_layout) {
+                    mPresenter.addAgreeInfo("35", ((CommunityInfo) adapter.getData().get(position)).getId());
+                }
+                return false;
+            }
+        });
+
+        mPresenter.communityInfoList(1, 1, 10);
     }
 
     @Override
@@ -167,6 +176,16 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
 
     @Override
     public void showCommunityInfoListData(List<CommunityInfo> list) {
+        mCommunityItemAdapter.setNewData(list);
+    }
+
+    @Override
+    public void showAddCommunityInfo(CommunityInfo communityInfo) {
+
+    }
+
+    @Override
+    public void showCommentList(List<CommentInfo> list) {
 
     }
 
@@ -199,11 +218,6 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
         }
     };
 
-    @Override
-    public void showAddCommunityInfo(CommunityInfo communityInfo) {
-
-    }
-
     /**
      * 关闭菜单
      */
@@ -216,5 +230,15 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
         animationClose.setFillAfter(true);
         groundView.startAnimation(animationClose);
         isShow = false;
+    }
+
+    @Override
+    public void showAddComment(CommentInfo commentInfo) {
+
+    }
+
+    @Override
+    public void showAgreeInfo(boolean flag) {
+        ToastUtils.showLong("点赞成功");
     }
 }

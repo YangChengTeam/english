@@ -8,18 +8,18 @@ import java.util.List;
  * Created by admin on 2017/7/26.
  */
 
-public class CommunityInfoList {
+public class CommentInfoList {
 
     @JSONField(name = "page_count")
     public int pageCount;
 
-    public List<CommunityInfo> list;
+    public List<CommentInfo> list;
 
-    public List<CommunityInfo> getList() {
+    public List<CommentInfo> getList() {
         return list;
     }
 
-    public void setList(List<CommunityInfo> list) {
+    public void setList(List<CommentInfo> list) {
         this.list = list;
     }
 }
