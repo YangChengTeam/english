@@ -1,6 +1,7 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,11 +49,13 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupGetForbid
 
     }
 
+    private int curCount;
     private int count;
     private ArrayList<StudentInfo> studentInfos = new ArrayList<>();
 
     private void initListener() {
-
+        curCount = count;
+        studentInfos.clear();
         adapter.setOnCheckedChangeListener(new OnCheckedChangeListener<StudentInfo>() {
             @Override
             public void onClick(View view, boolean isClicked, StudentInfo studentInfo) {
@@ -68,7 +71,7 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupGetForbid
                     }
                 }
 
-                setMenuTitle(totalList.size(), count, count > 0 ? R.color.group_blue_21b5f8 : R.color.group_gray_999);
+                setMenuTitle(totalList.size(), count, count > curCount ? R.color.group_blue_21b5f8 : R.color.group_gray_999);
             }
         });
 

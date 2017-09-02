@@ -75,7 +75,7 @@
 
     <string-array name="forbid_time">
         <item>5分钟</item>
-        <item>一小时</item>
+        <item>1小时</item>
         <item>1天</item>
         <item>7天</item>
         <item>30天</item>
