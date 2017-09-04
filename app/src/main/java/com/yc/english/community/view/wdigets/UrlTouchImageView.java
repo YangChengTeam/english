@@ -17,12 +17,10 @@
  */
 package com.yc.english.community.view.wdigets;
 
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,12 +29,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.wang.avi.AVLoadingIndicatorView;
 import com.yc.english.R;
-import com.yc.english.base.helper.TipsHelper;
-
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class UrlTouchImageView extends RelativeLayout {
 
@@ -44,26 +41,13 @@ public class UrlTouchImageView extends RelativeLayout {
 
     protected Context mContext;
 
+    public View loadingView;
+
+    public AVLoadingIndicatorView mAvLoading;
+
     private String mImageUrl;
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 0:
-                    TipsHelper.tips(mContext, "图片已保存");
-                    break;
-                case 1:
-                    TipsHelper.tips(mContext, "图片保存失败");
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
-
-    public UrlTouchImageView(Context ctx,String imgUrl) {
+    public UrlTouchImageView(Context ctx, String imgUrl) {
         super(ctx);
         mContext = ctx;
         mImageUrl = imgUrl;
@@ -80,94 +64,38 @@ public class UrlTouchImageView extends RelativeLayout {
         return mShowImageView;
     }
 
-    @SuppressWarnings("deprecation")
     protected void init() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.community_touch_image_view, null);
         mShowImageView = (TouchImageView) view.findViewById(R.id.touch_image_view);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.FILL_PARENT);
-
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         this.addView(view, params);
 
-        LayoutParams paramsLoad = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-        paramsLoad.addRule(RelativeLayout.CENTER_VERTICAL);
-        paramsLoad.setMargins(30, 0, 30, 0);
-
         //加载进度控件View
-        //loadingView = LayoutInflater.from(mContext).inflate(R.layout.image_loading, null);
-        //this.addView(loadingView, paramsLoad);
-
-        //Glide.with(mContext).load(mImageUrl).into(mShowImageView);
-
-        //Glide.with(mContext).load(R.mipmap.main_logo).into((ImageView)mShowImageView);
-
-        new ImageLoadTask().execute(mImageUrl);
+        LayoutParams loadParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        loadParams.addRule(RelativeLayout.CENTER_VERTICAL);
+        loadParams.setMargins(30, 0, 30, 0);
+        loadingView = LayoutInflater.from(mContext).inflate(R.layout.note_image_loading, null);
+        this.addView(loadingView, loadParams);
 
         mShowImageView.setVisibility(VISIBLE);
         mShowImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //loadingView.setVisibility(GONE);
-                //((ShowImageListActivity) mContext).finish();
-                //((ShowImageListActivity) mContext).overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+                loadingView.setVisibility(GONE);
+                ((Activity) mContext).finish();
+                ((Activity) mContext).overridePendingTransition(R.anim.note_img_zoomin, R.anim.note_img_zoomout);
+            }
+        });
+
+        Glide.with(mContext).load(mImageUrl).into(new SimpleTarget<Drawable>() {
+            @Override
+            public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
+                loadingView.setVisibility(GONE);
+                mShowImageView.setScaleType(ImageView.ScaleType.MATRIX);
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) resource;
+                mShowImageView.setImageBitmap(bitmapDrawable.getBitmap());
             }
         });
     }
 
-    public void setUrl(final String imageUrl) {
-
-        new ImageLoadTask().execute(imageUrl);
-
-        //Glide.with(mContext).load(imageUrl).into(mShowImageView);
-    }
-
-
-    //No caching load
-    public class ImageLoadTask extends AsyncTask<String, Integer, Bitmap> {
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            String url = strings[0];
-            Bitmap bm = null;
-            try {
-                URL aURL = new URL(url);
-                URLConnection conn = aURL.openConnection();
-                conn.connect();
-                InputStream is = conn.getInputStream();
-                int totalLen = conn.getContentLength();
-                InputStreamWrapper bis = new InputStreamWrapper(is, 8192, totalLen);
-                bis.setProgressListener(new InputStreamWrapper.InputStreamProgressListener() {
-                    @Override
-                    public void onProgress(float progressValue, long bytesLoaded,
-                                           long bytesTotal) {
-                        publishProgress((int) (progressValue * 100));
-                    }
-                });
-                bm = BitmapFactory.decodeStream(bis);
-                bis.close();
-                is.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return bm;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            if (bitmap == null) {
-                mShowImageView.setScaleType(ImageView.ScaleType.CENTER);
-                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.loading);
-                mShowImageView.setImageBitmap(bitmap);
-            } else {
-                mShowImageView.setScaleType(ImageView.ScaleType.MATRIX);
-                mShowImageView.setImageBitmap(bitmap);
-            }
-
-            mShowImageView.setVisibility(VISIBLE);
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            //mProgressBar.setProgress(values[0]);
-        }
-    }
 }

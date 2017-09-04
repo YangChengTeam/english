@@ -28,9 +28,12 @@ import java.util.List;
 
 public class UrlPagerAdapter extends BasePagerAdapter {
 
+    private Context mContext;
+
 	public UrlPagerAdapter(Context context, List<String> resources)
 	{
 		super(context, resources);
+        this.mContext = context;
 	}
 
     @Override

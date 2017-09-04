@@ -74,7 +74,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".community.view.activitys.CommunityImageShowActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/ImageShowStyle"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".community.view.activitys.CommunityDetailActivity"
