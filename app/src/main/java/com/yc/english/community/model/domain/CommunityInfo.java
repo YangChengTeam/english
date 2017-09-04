@@ -41,6 +41,8 @@ public class CommunityInfo implements Serializable {
 
     public int Type;
 
+    private String agreed;
+
     public CommunityInfo() {
         super();
     }
@@ -161,5 +163,11 @@ public class CommunityInfo implements Serializable {
         this.images = images;
     }
 
+    public String getAgreed() {
+        return agreed;
+    }
 
+    public void setAgreed(String agreed) {
+        this.agreed = agreed;
+    }
 }

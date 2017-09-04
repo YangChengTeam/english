@@ -1,15 +1,19 @@
 package com.yc.english.community.view.activitys;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
@@ -20,7 +24,9 @@ import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.community.presenter.CommunityInfoPresenter;
 import com.yc.english.community.view.adapter.CommentItemAdapter;
 import com.yc.english.community.view.adapter.ImageDetailSelectedAdapter;
+import com.yc.english.main.hepler.UserInfoHelper;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -79,12 +85,16 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         Intent intent = getIntent();
         communityInfo = (CommunityInfo) intent.getSerializableExtra("community_info");
 
+        mToolbar.setTitle(communityInfo.getcType().equals("1") ? "学友圈" : "英语圈");
+        mToolbar.showNavigationIcon();
+
         mPresenter = new CommunityInfoPresenter(this, this);
         mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mCommentItemAdapter = new CommentItemAdapter(this, null);
         mCommentRecyclerView.setAdapter(mCommentItemAdapter);
 
         if (communityInfo != null) {
+            setPraiseStatus(communityInfo.getAgreed());
             imageList = communityInfo.getImages();
             mNoteDetailImagesRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
             mImageDetailSelectedAdapter = new ImageDetailSelectedAdapter(this, imageList);
@@ -121,6 +131,30 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
                 }
             }
         });
+        RxView.clicks(mPraiseCountTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                if (communityInfo != null) {
+                    mPresenter.addAgreeInfo(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", communityInfo.getId());
+                } else {
+                    TipsHelper.tips(CommunityDetailActivity.this, "数据异常");
+                }
+            }
+        });
+
+        mImageDetailSelectedAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (communityInfo != null) {
+                    Intent intent = new Intent(CommunityDetailActivity.this, CommunityImageShowActivity.class);
+                    intent.putExtra("images", (Serializable) communityInfo.getImages());
+                    startActivity(intent);
+                } else {
+                    TipsHelper.tips(CommunityDetailActivity.this, "数据异常");
+                }
+            }
+        });
+
     }
 
     @Override
@@ -161,11 +195,29 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
     @Override
     public void showAddComment(CommentInfo commentInfo) {
         ToastUtils.showLong("回复成功");
+        mCommentContentEditText.setText("");
+        if (UserInfoHelper.getUserInfo() != null) {
+            commentInfo.setUserName(UserInfoHelper.getUserInfo().getNickname());
+        }
+        mCommentItemAdapter.setData(0, commentInfo);
         mCommentItemAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showAgreeInfo(boolean flag) {
+        ToastUtils.showLong("点赞成功");
+        setPraiseStatus("1");
+    }
 
+    public void setPraiseStatus(String type) {
+        if (type.equals("1")) {
+            Drawable isZan = ContextCompat.getDrawable(CommunityDetailActivity.this, R.mipmap.is_zan_icon);
+            isZan.setBounds(0, 0, isZan.getMinimumWidth(), isZan.getMinimumHeight());
+            mPraiseCountTextView.setCompoundDrawables(isZan, null, null, null);
+        } else {
+            Drawable noZan = ContextCompat.getDrawable(CommunityDetailActivity.this, R.mipmap.no_zan_icon);
+            noZan.setBounds(0, 0, noZan.getMinimumWidth(), noZan.getMinimumHeight());
+            mPraiseCountTextView.setCompoundDrawables(noZan, null, null, null);
+        }
     }
 }

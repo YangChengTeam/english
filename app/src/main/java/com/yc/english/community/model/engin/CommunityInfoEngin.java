@@ -30,8 +30,9 @@ public class CommunityInfoEngin extends BaseEngin {
         super(context);
     }
 
-    public Observable<ResultInfo<CommunityInfoList>> communityInfoList(int type, int currentPage, int pageCount) {
+    public Observable<ResultInfo<CommunityInfoList>> communityInfoList(String userId,int type, int currentPage, int pageCount) {
         Map<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
         params.put("type", type + "");
         params.put("page", currentPage + "");
         params.put("limit", pageCount + "");

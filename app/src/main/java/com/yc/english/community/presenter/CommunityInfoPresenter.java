@@ -28,9 +28,9 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
     }
 
     @Override
-    public void communityInfoList(int type, int currentPage, int pageCount) {
+    public void communityInfoList(String userId,int type, int currentPage, int pageCount) {
         mView.showLoading();
-        Subscription subscribe = mEngin.communityInfoList(type, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<CommunityInfoList>>() {
+        Subscription subscribe = mEngin.communityInfoList(userId,type, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<CommunityInfoList>>() {
             @Override
             public void onCompleted() {
 

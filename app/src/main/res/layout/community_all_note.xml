@@ -54,32 +54,33 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_english_circle"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="50dp"
-                    android:clickable="true"
-                    android:drawableLeft="@mipmap/english_circle_icon"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:text="英语圈"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"/>
-
-                <TextView
                     android:id="@+id/tv_friends_circle"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_english_circle"
-                    android:layout_marginTop="25dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="40dp"
                     android:clickable="true"
-                    android:drawableLeft="@mipmap/friends_circle_icon"
+                    android:drawableLeft="@mipmap/friends_icon"
                     android:drawablePadding="6dp"
                     android:gravity="center"
                     android:text="学友圈"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_english_circle"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+
+                    android:layout_below="@+id/tv_friends_circle"
+                    android:layout_marginTop="25dp"
+                    android:clickable="true"
+                    android:drawableLeft="@mipmap/english_icon"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="英语圈"
                     android:textColor="@color/black"
                     android:textSize="16sp"/>
             </RelativeLayout>

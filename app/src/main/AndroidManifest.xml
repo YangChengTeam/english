@@ -79,7 +79,7 @@
         <activity
             android:name=".community.view.activitys.CommunityDetailActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".group.view.activitys.teacher.GroupCreateActivity"
             android:screenOrientation="portrait"

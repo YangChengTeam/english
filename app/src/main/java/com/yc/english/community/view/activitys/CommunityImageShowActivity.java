@@ -36,6 +36,7 @@ public class CommunityImageShowActivity extends BaseActivity {
                 UrlPagerAdapter pagerAdapter = new UrlPagerAdapter(this, items);
                 viewPager.setOffscreenPageLimit(3);
                 viewPager.setAdapter(pagerAdapter);
+                viewPager.setCurrentItem(bundle.getInt("current_position", 0));
             }
         } else {
             TipsHelper.tips(this, "图片地址有误，请稍后重试");

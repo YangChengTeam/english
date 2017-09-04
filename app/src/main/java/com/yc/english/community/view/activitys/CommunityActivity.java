@@ -23,6 +23,7 @@ import com.yc.english.community.model.domain.CommentInfo;
 import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.community.presenter.CommunityInfoPresenter;
 import com.yc.english.community.view.adapter.CommunityItemClickAdapter;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -63,6 +64,12 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
     float lastSize = 0;
 
     public boolean isShow = false;
+
+    private int currentChildPosition;
+
+    LinearLayoutManager mLinearLayoutManager;
+
+    private int currentPage = 1;
 
     @Override
     public int getLayoutId() {
@@ -106,8 +113,9 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
         take_photo_out = AnimationUtils.loadAnimation(this, R.anim.friends_out);
 
         mPresenter = new CommunityInfoPresenter(this, this);
+        mLinearLayoutManager = new LinearLayoutManager(this);
         mCommunityItemAdapter = new CommunityItemClickAdapter(this, null);
-        mAllNoteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAllNoteRecyclerView.setLayoutManager(mLinearLayoutManager);
         mAllNoteRecyclerView.setAdapter(mCommunityItemAdapter);
 
         RxView.clicks(menuLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -117,13 +125,19 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
             }
         });
 
-        //英语圈
+        //学友圈type:1
+        RxView.clicks(mFriendsCircleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                toAddNoteActivity("1");
+            }
+        });
+
+        //英语圈type:2
         RxView.clicks(mEnglishCircleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(CommunityActivity.this, CommunityAddActivity.class);
-                startActivity(intent);
-                closeMenu();
+                toAddNoteActivity("2");
             }
         });
 
@@ -139,14 +153,55 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
         mCommunityItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.praise_count_layout) {
-                    mPresenter.addAgreeInfo("35", ((CommunityInfo) adapter.getData().get(position)).getId());
+                if (view.getId() == R.id.praise_count_layout && mCommunityItemAdapter.getData().get(position).getAgreed().equals("0")) {
+                    currentChildPosition = position;
+                    mPresenter.addAgreeInfo(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", ((CommunityInfo) adapter.getData().get(position)).getId());
+                }
+                if (view.getId() == R.id.comment_layout) {
+                    Intent intent = new Intent(CommunityActivity.this, CommunityDetailActivity.class);
+                    intent.putExtra("community_info", mCommunityItemAdapter.getData().get(position));
+                    startActivity(intent);
                 }
                 return false;
             }
         });
 
-        mPresenter.communityInfoList(1, 1, 10);
+        mAllNoteRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (isSlideToBottom(recyclerView)) {
+                    currentPage++;
+                    mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", 1, currentPage, 10);
+                }
+            }
+        });
+
+        mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", 1, currentPage, 10);
+    }
+
+    public void toAddNoteActivity(String type) {
+        if (UserInfoHelper.getUserInfo() != null) {
+            Intent intent = new Intent(CommunityActivity.this, CommunityAddActivity.class);
+            intent.putExtra("note_type", type);
+            startActivity(intent);
+            closeMenu();
+        } else {
+            closeMenu();
+            UserInfoHelper.isGotoLogin(CommunityActivity.this);
+        }
+    }
+
+    protected boolean isSlideToBottom(RecyclerView recyclerView) {
+        if (recyclerView == null) return false;
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
     }
 
     @Override
@@ -240,5 +295,8 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
     @Override
     public void showAgreeInfo(boolean flag) {
         ToastUtils.showLong("点赞成功");
+        mCommunityItemAdapter.getData().get(currentChildPosition).setAgreed("1");
+        //mCommunityItemAdapter.notifyItemChanged(currentChildPosition);
+        mCommunityItemAdapter.changeView(mLinearLayoutManager.findViewByPosition(currentChildPosition), currentChildPosition);
     }
 }

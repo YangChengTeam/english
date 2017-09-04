@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_6"
     android:layout_marginLeft="@dimen/dp_6"
     android:layout_marginRight="@dimen/dp_6"
-    android:layout_marginTop="@dimen/dp_6"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground">
 
@@ -80,9 +80,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="8dp"
             android:text="发帖的标题，测试发帖的标题"
             android:textColor="@color/black_333"
             android:textSize="16sp"/>
@@ -146,6 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:drawableLeft="@mipmap/no_zan_icon"
+                    android:drawablePadding="3dp"
                     android:text="0"
                     android:textSize="14sp"/>
             </LinearLayout>

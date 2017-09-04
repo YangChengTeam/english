@@ -2,6 +2,7 @@ package com.yc.english.community.view.activitys;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.yc.english.community.model.domain.CommentInfo;
 import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.community.presenter.CommunityInfoPresenter;
 import com.yc.english.community.view.adapter.ImageSelectedAdapter;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.PicassoEngine;
@@ -57,6 +59,8 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
 
     private Uri mAddUri;
 
+    private String noteType;
+
     @Override
     public int getLayoutId() {
         return R.layout.community_note_add;
@@ -64,6 +68,13 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
 
     @Override
     public void init() {
+
+        Intent intent = getIntent();
+
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            noteType = bundle.getString("note_type");
+        }
 
         mPresenter = new CommunityInfoPresenter(this, this);
         mAddUri = DrawableUtils.getAddUri(CommunityAddActivity.this);
@@ -109,9 +120,9 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
                     }
 
                     CommunityInfo tempCommunityInfo = new CommunityInfo();
-                    tempCommunityInfo.setUserId("35");
+                    tempCommunityInfo.setUserId(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
                     tempCommunityInfo.setContent(mCommunityContextEditText.getText().toString());
-                    tempCommunityInfo.setcType("1");
+                    tempCommunityInfo.setcType(noteType != null ? noteType : "");
 
                     mPresenter.addCommunityInfo(tempCommunityInfo, upFileInfo);
 
@@ -212,6 +223,7 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
             mImageSelectedAdapter.setNewData(mSelectedImages);
         }
     }
+
     @Override
     public void showAddComment(CommentInfo commentInfo) {
 

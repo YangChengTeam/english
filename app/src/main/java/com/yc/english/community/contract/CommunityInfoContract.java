@@ -31,7 +31,7 @@ public interface CommunityInfoContract {
     }
 
     interface Presenter extends IPresenter {
-        void communityInfoList(int type, int currentPage, int pageCount);
+        void communityInfoList(String userId,int type, int currentPage, int pageCount);
 
         void addCommunityInfo(CommunityInfo communityInfo, UpFileInfo upFileInfo);
 
