@@ -74,6 +74,8 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
 
     List<String> imageList;
 
+    private int currentPage = 1;
+
     @Override
     public int getLayoutId() {
         return R.layout.community_note_detail;
@@ -111,7 +113,7 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
             mCommentCountTextView.setText(communityInfo.getFollowCount());
             mPraiseCountTextView.setText(communityInfo.getAgreeCount());
 
-            mPresenter.commentInfoList(Integer.parseInt(communityInfo.getId()), 1, 10);
+            mPresenter.commentInfoList(Integer.parseInt(communityInfo.getId()), currentPage, 10);
         }
 
         RxView.clicks(mSendCommentTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -155,6 +157,29 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
             }
         });
 
+        mCommentRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (isSlideToBottom(recyclerView) && mCommentItemAdapter.getData().size() >= 10) {
+                    currentPage++;
+                    mPresenter.commentInfoList(Integer.parseInt(communityInfo.getId()), currentPage, 10);
+                }
+            }
+        });
+
+    }
+
+    protected boolean isSlideToBottom(RecyclerView recyclerView) {
+        if (recyclerView == null) return false;
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
     }
 
     @Override
@@ -189,7 +214,11 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
 
     @Override
     public void showCommentList(List<CommentInfo> list) {
-        mCommentItemAdapter.setNewData(list);
+        if (currentPage > 1) {
+            mCommentItemAdapter.addData(list);
+        } else {
+            mCommentItemAdapter.setNewData(list);
+        }
     }
 
     @Override
