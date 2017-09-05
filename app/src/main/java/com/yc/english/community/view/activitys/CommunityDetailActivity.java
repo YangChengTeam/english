@@ -103,7 +103,7 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         if (communityInfo != null) {
             setPraiseStatus(communityInfo.getAgreed());
             imageList = communityInfo.getImages();
-            GlideHelper.circleImageView(this,noteUserImageView,communityInfo.getFace(),R.mipmap.main_tab_my);
+            GlideHelper.circleImageView(this, noteUserImageView, communityInfo.getFace(), R.mipmap.main_tab_my);
             mNoteDetailImagesRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
             mImageDetailSelectedAdapter = new ImageDetailSelectedAdapter(this, imageList);
             mNoteDetailImagesRecyclerView.setAdapter(mImageDetailSelectedAdapter);
@@ -132,7 +132,7 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
                 if (communityInfo != null) {
                     CommentInfo commentInfo = new CommentInfo();
                     commentInfo.setNoteId(communityInfo.getId());
-                    commentInfo.setUserId("35");
+                    commentInfo.setUserId(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
                     commentInfo.setContent(mCommentContentEditText.getText().toString());
 
                     mPresenter.addCommentInfo(commentInfo);
@@ -178,7 +178,6 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
                 }
             }
         });
-
     }
 
     protected boolean isSlideToBottom(RecyclerView recyclerView) {
@@ -234,7 +233,11 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         if (UserInfoHelper.getUserInfo() != null) {
             commentInfo.setUserName(UserInfoHelper.getUserInfo().getNickname());
         }
-        mCommentItemAdapter.setData(0, commentInfo);
+        if (mCommentItemAdapter.getData().size() == 0) {
+            mCommentItemAdapter.addData(commentInfo);
+        } else {
+            mCommentItemAdapter.setData(0, commentInfo);
+        }
         mCommentItemAdapter.notifyDataSetChanged();
     }
 

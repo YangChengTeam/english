@@ -60,10 +60,15 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                     @Override
                     public void reulstInfoOk() {
                         if (resultInfo != null && resultInfo.data != null) {
-                            mView.showCommunityInfoListData(resultInfo.data.list);
-                            if (currentPage == 1) {
-                                mView.hideStateView();
+                            mView.hideStateView();
+
+                            if (resultInfo.data.list != null && resultInfo.data.list.size() > 0) {
+                                mView.showCommunityInfoListData(resultInfo.data.list);
+                            } else {
+                                mView.showNoData();
                             }
+                        } else {
+                            mView.showNoData();
                         }
                     }
                 });
