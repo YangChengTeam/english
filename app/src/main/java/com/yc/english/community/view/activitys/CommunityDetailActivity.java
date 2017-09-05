@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -16,6 +17,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.community.contract.CommunityInfoContract;
@@ -38,6 +40,9 @@ import rx.functions.Action1;
  */
 
 public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPresenter> implements CommunityInfoContract.View {
+
+    @BindView(R.id.iv_note_user_img)
+    ImageView noteUserImageView;
 
     @BindView(R.id.tv_note_user_name)
     TextView mUserNameTextView;
@@ -98,6 +103,7 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         if (communityInfo != null) {
             setPraiseStatus(communityInfo.getAgreed());
             imageList = communityInfo.getImages();
+            GlideHelper.circleImageView(this, noteUserImageView, communityInfo.getFace(), R.mipmap.main_tab_my);
             mNoteDetailImagesRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
             mImageDetailSelectedAdapter = new ImageDetailSelectedAdapter(this, imageList);
             mNoteDetailImagesRecyclerView.setAdapter(mImageDetailSelectedAdapter);
@@ -126,7 +132,7 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
                 if (communityInfo != null) {
                     CommentInfo commentInfo = new CommentInfo();
                     commentInfo.setNoteId(communityInfo.getId());
-                    commentInfo.setUserId("35");
+                    commentInfo.setUserId(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
                     commentInfo.setContent(mCommentContentEditText.getText().toString());
 
                     mPresenter.addCommentInfo(commentInfo);
@@ -172,7 +178,6 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
                 }
             }
         });
-
     }
 
     protected boolean isSlideToBottom(RecyclerView recyclerView) {
@@ -228,7 +233,11 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         if (UserInfoHelper.getUserInfo() != null) {
             commentInfo.setUserName(UserInfoHelper.getUserInfo().getNickname());
         }
-        mCommentItemAdapter.setData(0, commentInfo);
+        if (mCommentItemAdapter.getData().size() == 0) {
+            mCommentItemAdapter.addData(commentInfo);
+        } else {
+            mCommentItemAdapter.setData(0, commentInfo);
+        }
         mCommentItemAdapter.notifyDataSetChanged();
     }
 

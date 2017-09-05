@@ -146,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:drawableLeft="@mipmap/no_zan_icon"
-                    android:drawablePadding="3dp"
+                    android:drawablePadding="2dp"
                     android:text="0"
                     android:textSize="14sp"/>
             </LinearLayout>

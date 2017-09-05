@@ -30,7 +30,9 @@ import com.zhihu.matisse.engine.impl.PicassoEngine;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -160,10 +162,14 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
     }
 
     public void selectImages() {
+        Set<MimeType> sets = new HashSet<MimeType>();
+        sets.add(MimeType.PNG);
+        sets.add(MimeType.JPEG);
+
         Matisse.from(CommunityAddActivity.this)
-                .choose(MimeType.allOf())
+                .choose(sets)
                 .theme(R.style.Matisse_Dracula)
-                .countable(false)
+                .countable(true)
                 .maxSelectable(3)
                 .imageEngine(new PicassoEngine())
                 .forResult(REQUEST_CODE_CHOOSE);
