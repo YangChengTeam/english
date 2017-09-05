@@ -1,77 +1,47 @@
 package com.yc.english.community.model.domain;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.alibaba.fastjson.annotation.JSONField;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 互动社区-帖子信息
  */
-public class CommunityInfo implements MultiItemEntity {
+public class CommunityInfo implements Serializable {
 
-    public static final int CLICK_ITEM_VIEW = 1;
+    private static final long serialVersionUID = -7060210533600464481L;
 
-    private String communityNoteTitle;//标题
+    private String id;
+    @JSONField(name = "user_id")
+    private String userId;
 
-    private String communityNoteContent;//内容
+    @JSONField(name = "user_name")
+    private String userName;
 
-    private String communityNoteDate;//发帖时间
+    private String face;
 
-    private String commentCount;//评论数
+    private String content;
+    private List<String> notice;
 
-    private String praiseCount;//点赞数
+    @JSONField(name = "type")
+    private String cType;
 
-    private List<String> imgUrls;
+    private String flag;
+    private String sort;
+    @JSONField(name = "follow_count")
+    private String followCount;
+    @JSONField(name = "agree_count")
+    private String agreeCount;
+    private String status;
+    @JSONField(name = "add_time")
+    private String addTime;
+
+    private List<String> images;
 
     public int Type;
 
-    public String getCommunityNoteTitle() {
-        return communityNoteTitle;
-    }
-
-    public void setCommunityNoteTitle(String communityNoteTitle) {
-        this.communityNoteTitle = communityNoteTitle;
-    }
-
-    public String getCommunityNoteContent() {
-        return communityNoteContent;
-    }
-
-    public void setCommunityNoteContent(String communityNoteContent) {
-        this.communityNoteContent = communityNoteContent;
-    }
-
-    public String getCommunityNoteDate() {
-        return communityNoteDate;
-    }
-
-    public void setCommunityNoteDate(String communityNoteDate) {
-        this.communityNoteDate = communityNoteDate;
-    }
-
-    public String getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(String commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    public String getPraiseCount() {
-        return praiseCount;
-    }
-
-    public void setPraiseCount(String praiseCount) {
-        this.praiseCount = praiseCount;
-    }
-
-    public List<String> getImgUrls() {
-        return imgUrls;
-    }
-
-    public void setImgUrls(List<String> imgUrls) {
-        this.imgUrls = imgUrls;
-    }
+    private String agreed;
 
     public CommunityInfo() {
         super();
@@ -81,8 +51,123 @@ public class CommunityInfo implements MultiItemEntity {
         Type = type;
     }
 
-    @Override
-    public int getItemType() {
-        return Type;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public List<String> getNotice() {
+        return notice;
+    }
+
+    public void setNotice(List<String> notice) {
+        this.notice = notice;
+    }
+
+    public String getcType() {
+        return cType;
+    }
+
+    public void setcType(String cType) {
+        this.cType = cType;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public String getFace() {
+        return face;
+    }
+
+    public void setFace(String face) {
+        this.face = face;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    public String getFollowCount() {
+        return followCount;
+    }
+
+    public void setFollowCount(String followCount) {
+        this.followCount = followCount;
+    }
+
+    public String getAgreeCount() {
+        return agreeCount;
+    }
+
+    public void setAgreeCount(String agreeCount) {
+        this.agreeCount = agreeCount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(String addTime) {
+        this.addTime = addTime;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public String getAgreed() {
+        return agreed;
+    }
+
+    public void setAgreed(String agreed) {
+        this.agreed = agreed;
     }
 }

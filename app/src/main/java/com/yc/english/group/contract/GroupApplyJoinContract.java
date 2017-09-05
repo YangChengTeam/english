@@ -4,8 +4,10 @@ import android.content.Context;
 
 import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.IDialog;
+import com.yc.english.base.view.IFinish;
 import com.yc.english.base.view.IView;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.StudentInfo;
 
 import java.util.List;
 
@@ -17,10 +19,8 @@ import io.rong.imlib.model.UserInfo;
 
 public interface GroupApplyJoinContract {
 
-    interface View extends IView, IDialog {
+    interface View extends IView, IDialog, IFinish {
         void showGroup(ClassInfo classInfo);
-
-        void apply(int type);
 
         void showMemberList(List<UserInfo> list);
     }
@@ -31,6 +31,8 @@ public interface GroupApplyJoinContract {
         void queryGroupById(Context context, String id, String sn);
 
         void getMemberList(String sn, String status, String master_id, String flag);
+
+        void addForbidMember(StudentInfo studentInfo);
     }
 
 }

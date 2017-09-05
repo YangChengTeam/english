@@ -5,9 +5,11 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.R;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.constant.BusAction;
@@ -15,8 +17,10 @@ import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
+import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.utils.EngineUtils;
 
 import java.util.ArrayList;
@@ -25,6 +29,7 @@ import java.util.List;
 import io.rong.imlib.model.UserInfo;
 import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by wanglin  on 2017/8/2 16:40.
@@ -70,14 +75,26 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        GroupApplyInfo applyInfo = stringResultInfo.data;
-                        int vali_type = Integer.parseInt(applyInfo.getVali_type());
+                        if (stringResultInfo != null && stringResultInfo.data != null) {
+                            GroupApplyInfo applyInfo = stringResultInfo.data;
+                            int type = Integer.parseInt(applyInfo.getVali_type());
 
-                        if (vali_type == GroupConstant.CONDITION_ALL_ALLOW) {
-                            mView.apply(vali_type);
-                            RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
-                        } else {
-                            mView.apply(vali_type);
+                            if (type == GroupConstant.CONDITION_ALL_ALLOW) {
+                                ToastUtils.showShort(mContext.getString(R.string.congratulation_join_group));
+                                RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
+
+                                StudentInfo studentInfo = new StudentInfo();
+                                studentInfo.setUser_id(applyInfo.getUser_id());
+                                studentInfo.setClass_id(applyInfo.getClass_id());
+                                if (SPUtils.getInstance().getBoolean(GroupConstant.ALL_GROUP_FORBID_STATE + applyInfo.getClass_id())) {
+                                    addForbidMember(studentInfo);
+                                }
+
+                            } else if (type == GroupConstant.CONDITION_VERIFY_JOIN) {
+
+                                ToastUtils.showShort(mContext.getString(R.string.commit_apply_join));
+                            }
+                            mView.finish();
                         }
                     }
                 });
@@ -147,6 +164,31 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
                         }
                     }
                 });
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void addForbidMember(StudentInfo studentInfo) {
+        Subscription subscription = EngineUtils.addForbidMember(studentInfo.getUser_id(), studentInfo.getClass_id(), "0").observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<CodeSuccessResult>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+                LogUtils.e(e.getMessage());
+            }
+
+            @Override
+            public void onNext(CodeSuccessResult codeSuccessResult) {
+                if (codeSuccessResult != null && codeSuccessResult.getCode() == 200) {
+
+                }
 
             }
         });

@@ -96,13 +96,7 @@ public class GroupMyGroupListPresenter extends BasePresenter<BaseEngin, GroupMyG
                 handleResultInfo(studentInfoWrapperResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        UIUitls.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                mView.showMemberList(studentInfoWrapperResultInfo.data.getList());
-                            }
-                        });
-
+                        mView.showMemberList(studentInfoWrapperResultInfo.data.getList());
 
                     }
                 });

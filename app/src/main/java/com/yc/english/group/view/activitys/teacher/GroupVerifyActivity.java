@@ -2,7 +2,6 @@ package com.yc.english.group.view.activitys.teacher;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -15,7 +14,6 @@ import com.yc.english.group.contract.GroupApplyVerifyContract;
 import com.yc.english.group.listener.OnItemClickListener;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupApplyVerifyPresenter;
-import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.group.view.adapter.GroupVerifyAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
 
@@ -37,7 +35,7 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
     LinearLayout llContainer;
 
     private GroupVerifyAdapter adapter;
-    private String uid;
+
     private String flag;
 
     @Override
@@ -51,10 +49,7 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupVerifyAdapter(this, null);
         recyclerView.setAdapter(adapter);
-        uid = UserInfoHelper.getUserInfo().getUid();
-        String uid = UserInfoHelper.getUserInfo().getUid();
-        mPresenter.getMemberList(this, "", "0", uid, flag);
-
+        getData();
 
     }
 
@@ -75,7 +70,7 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
     public void showApplyResult(String data) {
         mHolder.setVisible(R.id.m_tv_accept, false);
         mHolder.setVisible(R.id.m_tv_already_add, true);
-//        adapter.notifyDataSetChanged();
+
     }
 
     private BaseViewHolder mHolder;
@@ -85,7 +80,7 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
         adapter.setOnItemClickListener(new OnItemClickListener<StudentInfo>() {
             @Override
             public void onItemClick(BaseViewHolder holder, int position, StudentInfo studentInfo) {
-                mPresenter.acceptApply(studentInfo.getClass_id(), uid, studentInfo.getUser_id());
+                mPresenter.acceptApply(studentInfo);
                 mHolder = holder;
             }
         });
@@ -103,7 +98,7 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
         stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadData(true);
+                getData();
             }
         });
     }
@@ -116,5 +111,10 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
     @Override
     public void showLoading() {
         stateView.showLoading(llContainer);
+    }
+
+    private void getData() {
+        String uid = UserInfoHelper.getUserInfo().getUid();
+        mPresenter.getMemberList(this, "", "0", uid, flag);
     }
 }

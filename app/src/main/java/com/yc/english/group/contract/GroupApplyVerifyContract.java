@@ -23,8 +23,10 @@ public interface GroupApplyVerifyContract {
     }
 
     interface Presenter extends IPresenter {
-        void getMemberList(Context context, String class_id, String status, String master_id,String flag);
+        void getMemberList(Context context, String class_id, String status, String master_id, String flag);
 
-        void acceptApply(String class_id, String master_id, String user_ids);
+        void acceptApply(StudentInfo studentInfo);
+
+        void addForbidMember(StudentInfo studentInfo);
     }
 }

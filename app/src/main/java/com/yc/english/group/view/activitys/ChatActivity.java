@@ -130,9 +130,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
         mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
     }
 
-    @Override
-    public void apply(int type) {
-    }
 
     @Override
     public void showMemberList(final List<UserInfo> list) {

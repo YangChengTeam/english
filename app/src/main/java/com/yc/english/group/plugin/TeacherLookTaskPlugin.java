@@ -69,7 +69,6 @@ public class TeacherLookTaskPlugin implements IPluginModule {
             Message message = Message.obtain(targetId, conversationType, customMessage);
             RongIM.getInstance().sendMessage(message, "app:custom", null, new IRongCallback.ISendMessageCallback() {
 
-
                 @Override
                 public void onAttached(Message message) {
 

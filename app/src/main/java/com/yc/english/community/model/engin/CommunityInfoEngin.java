@@ -5,7 +5,10 @@ import android.content.Context;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
+import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.base.model.BaseEngin;
+import com.yc.english.community.model.domain.CommentInfo;
+import com.yc.english.community.model.domain.CommentInfoList;
 import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.community.model.domain.CommunityInfoList;
 import com.yc.english.read.model.domain.URLConfig;
@@ -27,13 +30,64 @@ public class CommunityInfoEngin extends BaseEngin {
         super(context);
     }
 
-    public Observable<ResultInfo<CommunityInfoList>> communityInfoList(int currentPage, int pageCount) {
+    public Observable<ResultInfo<CommunityInfoList>> communityInfoList(String userId,int type, int currentPage, int pageCount) {
         Map<String, String> params = new HashMap<>();
-        params.put("current_page", currentPage + "");
-        params.put("page_count", pageCount + "");
-        return HttpCoreEngin.get(context).rxpost(URLConfig.WORD_UNIT_LIST_URL, new TypeReference<ResultInfo<CommunityInfo>>() {
+        params.put("user_id", userId);
+        params.put("type", type + "");
+        params.put("page", currentPage + "");
+        params.put("limit", pageCount + "");
+
+        return HttpCoreEngin.get(context).rxpost(URLConfig.NOTE_LIST_URL, new TypeReference<ResultInfo<CommunityInfoList>>() {
                 }.getType(), params,
                 true, true,
                 true);
     }
+
+    public Observable<ResultInfo<CommunityInfo>> addCommunityInfo(CommunityInfo communityInfo, UpFileInfo upFileInfo) {
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", communityInfo.getUserId());
+        params.put("content", communityInfo.getContent());
+        params.put("type", communityInfo.getcType());
+
+        return HttpCoreEngin.get(context).rxuploadFile(URLConfig.ADD_NOTE_URL, new TypeReference<ResultInfo<CommunityInfo>>() {
+                }.getType(), upFileInfo, params,
+                true);
+    }
+
+
+    public Observable<ResultInfo<CommentInfoList>> commentInfoList(int nid, int currentPage, int pageCount) {
+        Map<String, String> params = new HashMap<>();
+        params.put("note_id", nid + "");
+        params.put("page", currentPage + "");
+        params.put("limit", pageCount + "");
+
+        return HttpCoreEngin.get(context).rxpost(URLConfig.FOLLOW_LIST_URL, new TypeReference<ResultInfo<CommentInfoList>>() {
+                }.getType(), params,
+                true, true,
+                true);
+    }
+
+    public Observable<ResultInfo<CommentInfo>> addCommentInfo(CommentInfo commentInfo) {
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", commentInfo.getUserId());
+        params.put("note_id", commentInfo.getNoteId());
+        params.put("content", commentInfo.getContent());
+        params.put("follow_id", "0");
+        params.put("notice", "");
+
+        return HttpCoreEngin.get(context).rxpost(URLConfig.ADD_COMMENT_URL, new TypeReference<ResultInfo<CommentInfo>>() {
+                }.getType(), params,
+                true, true, true);
+    }
+
+    public Observable<ResultInfo> addAgreeInfo(String userId,String noteId) {
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("note_id", noteId);
+
+        return HttpCoreEngin.get(context).rxpost(URLConfig.ADD_AGREE_URL, new TypeReference<ResultInfo<CommentInfo>>() {
+                }.getType(), params,
+                true, true, true);
+    }
+
 }

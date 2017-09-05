@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_6"
     android:layout_marginLeft="@dimen/dp_6"
     android:layout_marginRight="@dimen/dp_6"
-    android:layout_marginTop="@dimen/dp_6"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground">
 
@@ -21,11 +21,11 @@
 
             <ImageView
                 android:id="@+id/iv_note_user_img"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="6dp"
                 android:padding="3dp"/>
 
             <TextView
@@ -33,10 +33,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@+id/iv_note_user_img"
                 android:text="火星用户"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/tv_top_note"
@@ -60,7 +60,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/tv_top_note"
-                android:src="@mipmap/boy_icon"/>
+                android:src="@mipmap/boy_icon"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tv_note_date"
@@ -79,25 +80,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_margin="12sp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
             android:text="发帖的标题，测试发帖的标题"
             android:textColor="@color/black_333"
-            android:textSize="14sp"/>
+            android:textSize="16sp"/>
 
-        <GridView
-            android:id="@+id/note_image_list"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/imgs_list"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:columnWidth="120dp"
-            android:gravity="center"
-            android:horizontalSpacing="1.5dp"
-            android:numColumns="3"
-            android:scrollbars="none"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="1.5dp">
-        </GridView>
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/white"
+            android:divider="#f1f1f1"
+            android:dividerHeight="2dp"/>
 
         <View
             android:layout_width="match_parent"
@@ -136,7 +134,7 @@
                 android:background="@color/community_line_color"></View>
 
             <LinearLayout
-                android:id="@+id/praise_layout"
+                android:id="@+id/praise_count_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -148,6 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:drawableLeft="@mipmap/no_zan_icon"
+                    android:drawablePadding="3dp"
                     android:text="0"
                     android:textSize="14sp"/>
             </LinearLayout>

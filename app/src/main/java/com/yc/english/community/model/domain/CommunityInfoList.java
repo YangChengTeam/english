@@ -1,5 +1,7 @@
 package com.yc.english.community.model.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.List;
 
 /**
@@ -7,6 +9,10 @@ import java.util.List;
  */
 
 public class CommunityInfoList {
+
+    @JSONField(name = "page_count")
+    public int pageCount;
+
     public List<CommunityInfo> list;
 
     public List<CommunityInfo> getList() {

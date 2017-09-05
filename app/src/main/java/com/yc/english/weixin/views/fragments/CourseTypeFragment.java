@@ -32,7 +32,6 @@ public class CourseTypeFragment extends ToolbarFragment {
 
     private FragmentAdapter mFragmentAdapter;
 
-
     @Override
     public void init() {
         mToolbar.setTitle("每日微课");

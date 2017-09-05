@@ -1,7 +1,6 @@
 package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,8 +9,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -36,7 +33,6 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imlib.model.Message;
 import io.rong.message.RichContentMessage;
@@ -46,7 +42,7 @@ import io.rong.message.RichContentMessage;
  */
 
 public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresenter> implements GroupMyGroupListContract.View {
-    private static final String TAG = "GroupMainActivity";
+    private static final String TAG = "UnionMainActivity";
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -103,7 +99,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
                 guidePopupWindow.dismiss();
             }
         });
-//        guidePopupWindow.setDebug(true);
+
         guidePopupWindow.show(rootView, "create");
     }
 
@@ -122,7 +118,6 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
                 guidePopupWindow.dismiss();
             }
         });
-//        guidePopupWindow.setDebug(true);
         guidePopupWindow.show(rootView, "join");
     }
 

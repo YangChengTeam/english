@@ -41,6 +41,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         public final static Property Master_nick_name = new Property(14, String.class, "master_nick_name", false, "MASTER_NICK_NAME");
         public final static Property Class_id = new Property(15, String.class, "class_id", false, "CLASS_ID");
         public final static Property Flag = new Property(16, String.class, "flag", false, "FLAG");
+        public final static Property Fee_type = new Property(17, int.class, "fee_type", false, "FEE_TYPE");
     }
 
 
@@ -72,7 +73,8 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
                 "\"MASTER_NAME\" TEXT," + // 13: master_name
                 "\"MASTER_NICK_NAME\" TEXT," + // 14: master_nick_name
                 "\"CLASS_ID\" TEXT," + // 15: class_id
-                "\"FLAG\" TEXT);"); // 16: flag
+                "\"FLAG\" TEXT," + // 16: flag
+                "\"FEE_TYPE\" INTEGER NOT NULL );"); // 17: fee_type
     }
 
     /** Drops the underlying database table. */
@@ -165,6 +167,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         if (flag != null) {
             stmt.bindString(17, flag);
         }
+        stmt.bindLong(18, entity.getFee_type());
     }
 
     @Override
@@ -251,6 +254,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         if (flag != null) {
             stmt.bindString(17, flag);
         }
+        stmt.bindLong(18, entity.getFee_type());
     }
 
     @Override
@@ -277,7 +281,8 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // master_name
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // master_nick_name
             cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // class_id
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16) // flag
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // flag
+            cursor.getInt(offset + 17) // fee_type
         );
         return entity;
     }
@@ -301,6 +306,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         entity.setMaster_nick_name(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
         entity.setClass_id(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
         entity.setFlag(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setFee_type(cursor.getInt(offset + 17));
      }
     
     @Override
