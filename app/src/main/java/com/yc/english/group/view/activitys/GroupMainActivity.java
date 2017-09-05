@@ -65,10 +65,8 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     @BindView(R.id.rootView)
     LinearLayout rootView;
 
-
     private GroupGroupAdapter adapter;
     private List<ClassInfo> mClassInfo;
-
 
     @Override
     public void init() {
@@ -93,6 +91,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         final GuidePopupWindow guidePopupWindow = builder.setDelay(1f).setTargetView(btnCreateClass).setCorner(5).setGuideCallback(new GuideCallback() {
             @Override
             public void onClick(GuidePopupWindow guidePopupWindow) {
+
                 startActivity(new Intent(GroupMainActivity.this, GroupCreateActivity.class));
             }
         })
@@ -104,7 +103,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
                 guidePopupWindow.dismiss();
             }
         });
-        guidePopupWindow.setDebug(true);
+//        guidePopupWindow.setDebug(true);
         guidePopupWindow.show(rootView, "create");
     }
 
@@ -123,7 +122,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
                 guidePopupWindow.dismiss();
             }
         });
-        guidePopupWindow.setDebug(true);
+//        guidePopupWindow.setDebug(true);
         guidePopupWindow.show(rootView, "join");
     }
 
@@ -137,14 +136,20 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         switch (view.getId()) {
             case R.id.btn_create_class:
             case R.id.btn_create_class1:
-                if (!UserInfoHelper.isGotoLogin(this))
-                    startActivity(new Intent(this, GroupCreateActivity.class));
+                goToActivity(GroupCreateActivity.class);
+
                 break;
             case R.id.btn_join_class:
             case R.id.btn_join_class1:
-                if (!UserInfoHelper.isGotoLogin(this))
-                    startActivity(new Intent(GroupMainActivity.this, GroupJoinActivity.class));
+                goToActivity(GroupJoinActivity.class);
                 break;
+        }
+
+    }
+
+    private void goToActivity(Class activity) {
+        if (!UserInfoHelper.isGotoLogin(this)) {
+            startActivity(new Intent(this, activity));
         }
 
     }
@@ -198,7 +203,6 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             }
     )
     public void getMessage(Message message) {
-        LogUtils.e(TAG, message.getContent() + "---" + message.getTargetId() + "---" + message.getReceivedStatus().isRead() + "---" + message.getReceivedTime());
 
         if (message.getContent() instanceof RichContentMessage) {
             adapter.setMessage(message);
@@ -210,7 +214,6 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         }
 
     }
-
 
     @Override
     public void hideStateView() {
@@ -237,10 +240,4 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         sViewLoading.showLoading(contentView);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

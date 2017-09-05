@@ -1,7 +1,6 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
