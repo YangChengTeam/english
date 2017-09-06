@@ -5,8 +5,8 @@ import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.Utils;
-import com.iflytek.cloud.SpeechUtility;
 import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
@@ -21,7 +21,6 @@ import com.yc.english.base.utils.SpeechUtils;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.read.common.AppidsInfo;
 import com.yc.english.read.common.ReadApp;
 
 import java.util.HashMap;
@@ -67,7 +66,6 @@ public class EnglishApp extends MultiDexApplication {
         UMGameAgent.init(this);
         UMGameAgent.setPlayerLevel(1);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
-
         //全局信息初始化
         GoagalInfo.get().init(getApplicationContext());
         HttpConfig.setPublickey("-----BEGIN PUBLIC KEY-----\n" +

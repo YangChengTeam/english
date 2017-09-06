@@ -3,8 +3,6 @@ package com.yc.english.main.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.engin.HttpCoreEngin;
-import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.contract.IndexContract;
@@ -19,7 +17,6 @@ import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
-import rx.functions.Action1;
 
 /**
  * Created by zhangkai on 2017/7/26.
@@ -78,10 +75,6 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                                 mView.showBanner(images);
                             }
                         }
-                        if(resultInfo.data.getCountInfo() != null){
-                            mView.showCountInfo(resultInfo.data.getCountInfo());
-                        }
-
                     }
                 });
             }

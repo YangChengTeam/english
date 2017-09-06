@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.Request;
@@ -112,7 +113,9 @@ public class StateView extends BaseView {
         mMessageTextView.setText(message);
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.override(SizeUtils.dp2px(312 / 3), SizeUtils.dp2px(370 / 3));
-        Glide.with(this).load(R.mipmap.base_no_wifi).apply(requestOptions).into(mLoadingImageView);
+        if (ActivityUtils.isValidContext(getContext())) {
+            Glide.with(this).load(R.mipmap.base_no_wifi).apply(requestOptions).into(mLoadingImageView);
+        }
         RxView.clicks(mRefreshButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {

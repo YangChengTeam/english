@@ -41,4 +41,7 @@
         <item name="colorControlActivated">@color/group_blue_21b5f8</item>
     </style>
 
+    <style name="ImageShowStyle" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>

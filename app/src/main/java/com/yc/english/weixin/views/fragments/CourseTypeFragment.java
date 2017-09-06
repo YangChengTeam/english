@@ -32,12 +32,11 @@ public class CourseTypeFragment extends ToolbarFragment {
 
     private FragmentAdapter mFragmentAdapter;
 
-
     @Override
     public void init() {
         mToolbar.setTitle("每日微课");
 
-        mFixedIndicatorView.setAdapter(new MyAdapter(3));
+        mFixedIndicatorView.setAdapter(new MyAdapter());
 
         mFixedIndicatorView.setScrollBar(new ColorBar(getActivity(), ContextCompat.getColor(getActivity(), R.color
                 .primary), 6));
@@ -120,23 +119,21 @@ public class CourseTypeFragment extends ToolbarFragment {
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
     }
 
     private class MyAdapter extends Indicator.IndicatorAdapter {
-        private final String[] titles = new String[]{"图文微课", "音频微客", "视频微客"};
+        private final String[] titles = new String[]{"音频微课", "视频微课"};
 
-        private final int count;
 
-        public MyAdapter(int count) {
+        public MyAdapter() {
             super();
-            this.count = count;
         }
 
         @Override
         public int getCount() {
-            return count;
+            return titles.length;
         }
 
         @Override

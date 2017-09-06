@@ -3,19 +3,29 @@ package com.yc.english.main.view.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.guide.GuidePopupWindow;
-import com.kk.guide.GuideView;
+import com.shizhefei.view.indicator.FixedIndicatorView;
+import com.shizhefei.view.indicator.Indicator;
+import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.BaseFragment;
@@ -27,18 +37,23 @@ import com.yc.english.group.view.activitys.GroupCommonClassActivity;
 import com.yc.english.group.view.activitys.GroupMainActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
+import com.yc.english.main.model.domain.ArticleInfo;
+import com.yc.english.main.model.domain.CommunityInfo;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.CountInfo;
 import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.presenter.IndexPresenter;
 import com.yc.english.main.view.activitys.MainActivity;
+import com.yc.english.main.view.adapters.AritleAdapter;
+import com.yc.english.main.view.adapters.CommunityAdapter;
 import com.yc.english.main.view.wdigets.IndexMenuView;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -57,47 +72,67 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @BindView(R.id.sv_loading)
     StateView mLoadingStateView;
 
-    @BindView(R.id.tv_student_number)
-    TextView mStudentNumberTextView;
-
-    @BindView(R.id.tv_teacher_number)
-    TextView mTeacherNumberTextView;
-
     @BindView(R.id.iv_avatar)
     ImageView mAvatarImageView;
 
     @BindView(R.id.ll_share)
     LinearLayout mShareLinearLayout;
 
-    @BindView(R.id.im_read)
-    IndexMenuView mReadMenuView;
+    @BindView(R.id.iv_book_read)
+    ImageView mReadImageView;
 
-    @BindView(R.id.im_task)
-    IndexMenuView mTaskMenuView;
+    @BindView(R.id.iv_guild)
+    ImageView mGuildImageView;
 
-    @BindView(R.id.im_word)
-    IndexMenuView mWordMenuView;
+    @BindView(R.id.iv_microclass)
+    ImageView mMicroclassImageView;
 
-    @BindView(R.id.im_game)
-    IndexMenuView mGameMenuView;
+    @BindView(R.id.iv_word)
+    ImageView mWordImageView;
 
-    @BindView(R.id.im_course)
-    IndexMenuView mCourseMenuView;
+    @BindView(R.id.iv_task)
+    ImageView mTaskImageView;
 
-    @BindView(R.id.im_weibo)
-    IndexMenuView mWeiboMenuView;
+    @BindView(R.id.iv_community)
+    ImageView mCommunityImageView;
+
+    @BindView(R.id.iv_tutor)
+    ImageView mTutorImageView;
+
+    @BindView(R.id.iv_english_work)
+    ImageView mEnglishImageView;
+
+    @BindView(R.id.iv_one_to_nine)
+    ImageView mOTNImageView;
+
+    @BindView(R.id.iv_one_to_to)
+    ImageView mOneToToImageView;
 
     @BindView(R.id.banner)
     Banner mBanner;
+
+    private FragmentAdapter mFragmentAdapter;
+    @BindView(R.id.viewpager)
+    ViewPager mViewPager;
+    @BindView(R.id.fiv_indicator)
+    FixedIndicatorView mFixedIndicatorView;
+
+
+    @BindView(R.id.rv_hot)
+    RecyclerView mHotMircoClassRecyclerView;
+    private AritleAdapter mHotMircoClassAdapter;
+
+
+    @BindView(R.id.rv_community)
+    RecyclerView mCommunityRecyclerView;
+    private CommunityAdapter mHotCommunityAdapter;
 
     @Override
     public void init() {
         mPresenter = new IndexPresenter(getActivity(), this);
 
-        mStudentNumberTextView.setTypeface(null, Typeface.BOLD_ITALIC);
-        mTeacherNumberTextView.setTypeface(null, Typeface.BOLD_ITALIC);
 
-        RxView.clicks(mReadMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mReadImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 ReadApp.READ_COMMON_TYPE = 1;
@@ -107,7 +142,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-        RxView.clicks(mWordMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mWordImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 ReadApp.READ_COMMON_TYPE = 2;
@@ -117,7 +152,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-        RxView.clicks(mGameMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mTutorImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), GroupCommonClassActivity.class);
@@ -125,7 +160,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-        RxView.clicks(mTaskMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mTaskImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), GroupMainActivity.class);
@@ -149,7 +184,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-        RxView.clicks(mCourseMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mMicroclassImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 MainActivity mainActivity = (MainActivity) getActivity();
@@ -157,10 +192,42 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-        RxView.clicks(mWeiboMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mCommunityImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), CommunityActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mGuildImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), CommunityActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mEnglishImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), GroupCommonClassActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mOneToToImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), GroupCommonClassActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mOTNImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), GroupCommonClassActivity.class);
                 startActivity(intent);
             }
         });
@@ -173,6 +240,84 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 intent.putExtra("title", slideInfo.getTitle());
                 intent.putExtra("url", slideInfo.getTypeValue());
                 startActivity(intent);
+            }
+        });
+
+        mFixedIndicatorView.setAdapter(new MyAdapter(5));
+
+        mFixedIndicatorView.setScrollBar(new ColorBar(getActivity(), ContextCompat.getColor(getActivity(), R.color
+                .primary), 8));
+
+        float unSelectSize = 15;
+        float selectSize = 15;
+        int selectColor = ContextCompat.getColor(getActivity(), R.color.primary);
+        int unSelectColor = ContextCompat.getColor(getActivity(), R.color.black_333);
+        mFixedIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
+        mFixedIndicatorView.setOnIndicatorItemClickListener(new Indicator.OnIndicatorItemClickListener() {
+            @Override
+            public boolean onItemClick(View clickItemView, int position) {
+                mViewPager.setCurrentItem(position);
+                return false;
+            }
+        });
+        mFixedIndicatorView.setCurrentItem(0, true);
+
+        mFragmentAdapter = new FragmentAdapter(getChildFragmentManager());
+        mViewPager.setAdapter(mFragmentAdapter);
+        mViewPager.setCurrentItem(0);
+        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                mFixedIndicatorView.setCurrentItem(i, true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+
+        List<ArticleInfo> articleInfos = new ArrayList<>();
+        ArticleInfo articleInfo = new ArticleInfo();
+        ArticleInfo articleInfo2 = new ArticleInfo();
+        ArticleInfo articleInfo3 = new ArticleInfo();
+        articleInfos.add(articleInfo);
+        articleInfos.add(articleInfo2);
+        articleInfos.add(articleInfo3);
+
+
+        mHotMircoClassRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mHotMircoClassAdapter = new AritleAdapter(articleInfos, 1);
+        mHotMircoClassRecyclerView.setAdapter(mHotMircoClassAdapter);
+
+        mHotMircoClassAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
+
+
+        List<CommunityInfo> communityInfos = new ArrayList<>();
+        CommunityInfo communityInfo = new CommunityInfo();
+        CommunityInfo communityInfo2 = new CommunityInfo();
+        CommunityInfo communityInfo3 = new CommunityInfo();
+        communityInfos.add(communityInfo);
+        communityInfos.add(communityInfo2);
+        communityInfos.add(communityInfo3);
+        mCommunityRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mHotCommunityAdapter = new CommunityAdapter(communityInfos);
+        mCommunityRecyclerView.setAdapter(mHotCommunityAdapter);
+        mHotCommunityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
             }
         });
     }
@@ -227,12 +372,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 .default_avatar, 0.5f, Color.parseColor("#dbdbe0"));
     }
 
-    @Override
-    public void showCountInfo(CountInfo countInfo) {
-        mStudentNumberTextView.setText(countInfo.getStudentCount() + " ");
-        mTeacherNumberTextView.setText(countInfo.getTeacherCount() + " ");
-    }
-
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
@@ -256,5 +395,48 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @Override
     public void showNoData() {
         mLoadingStateView.showNoData(mContextScrollView);
+    }
+
+
+    class FragmentAdapter extends FragmentStatePagerAdapter {
+        public FragmentAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return new ArticleFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return 5;
+        }
+    }
+
+    private class MyAdapter extends Indicator.IndicatorAdapter {
+        private final String[] titles = new String[]{"词汇", "语法", "句型", "", "作文", "听力"};
+
+        private final int count;
+
+        public MyAdapter(int count) {
+            super();
+            this.count = count;
+        }
+
+        @Override
+        public int getCount() {
+            return count;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.index_tab, parent, false);
+            }
+            TextView textView = (TextView) convertView;
+            textView.setText(titles[position]);
+            return convertView;
+        }
     }
 }

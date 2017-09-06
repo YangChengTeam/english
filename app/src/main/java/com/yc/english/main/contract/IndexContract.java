@@ -19,8 +19,6 @@ public interface IndexContract {
     interface View extends IView, ILoading, INoNet, INoData {
         void showBanner(List<String> images);
         void showAvatar(UserInfo userInfo);
-        void showCountInfo(CountInfo countInfo);
-
     }
     interface Presenter extends IPresenter {
         void getIndexInfo();

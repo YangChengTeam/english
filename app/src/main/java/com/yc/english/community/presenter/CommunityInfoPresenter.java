@@ -28,9 +28,11 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
     }
 
     @Override
-    public void communityInfoList(int type, int currentPage, int pageCount) {
-        mView.showLoading();
-        Subscription subscribe = mEngin.communityInfoList(type, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<CommunityInfoList>>() {
+    public void communityInfoList(String userId, int type, final int currentPage, int pageCount) {
+        if (currentPage == 1) {
+            mView.showLoading();
+        }
+        Subscription subscribe = mEngin.communityInfoList(userId, type, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<CommunityInfoList>>() {
             @Override
             public void onCompleted() {
 
@@ -59,7 +61,9 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                     public void reulstInfoOk() {
                         if (resultInfo != null && resultInfo.data != null) {
                             mView.showCommunityInfoListData(resultInfo.data.list);
-                            mView.hideStateView();
+                            if (currentPage == 1) {
+                                mView.hideStateView();
+                            }
                         }
                     }
                 });

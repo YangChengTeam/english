@@ -421,6 +421,10 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
     private void endableState(int index) {
+        if(index <= 0 && index < mReadWordExpandAdapter.getWordInfos().size()){
+            return;
+        }
+
         resetPlay();
         mReadWordExpandAdapter.setViewPlayState(index, mWordListView, true);
         mReadWordExpandAdapter.getWordInfos().get(index).setPlay(true);
@@ -429,6 +433,10 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
     private void disableState(int index) {
+        if(index <= 0 && index < mReadWordExpandAdapter.getWordInfos().size()){
+            return;
+        }
+
         mReadWordExpandAdapter.setViewPlayState(index, mWordListView, false);
         mReadWordExpandAdapter.getWordInfos().get(index).setPlay(false);
         if (mTts.isSpeaking()) {

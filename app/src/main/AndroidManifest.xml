@@ -74,12 +74,12 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".community.view.activitys.CommunityImageShowActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/ImageShowStyle"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".community.view.activitys.CommunityDetailActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".group.view.activitys.teacher.GroupCreateActivity"
             android:screenOrientation="portrait"

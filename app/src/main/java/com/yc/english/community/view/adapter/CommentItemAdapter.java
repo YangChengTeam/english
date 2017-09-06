@@ -11,7 +11,9 @@ import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.community.model.domain.CommentInfo;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CommentItemAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHolder> {
 
@@ -29,7 +31,7 @@ public class CommentItemAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHo
 
         if (!StringUtils.isEmpty(item.getAddTime())) {
             long addTime = Long.parseLong(item.getAddTime()) * 1000;
-            helper.setText(R.id.tv_comment_date, TimeUtils.millis2String(addTime));
+            helper.setText(R.id.tv_comment_date, TimeUtils.millis2String(addTime,new SimpleDateFormat("HH:mm:ss", Locale.getDefault())));
         }
 
         GlideHelper.circleImageView(mContext, (ImageView) helper.getConvertView().findViewById(R.id.iv_comment_user_img), item.getFace(), R.mipmap.main_tab_my);

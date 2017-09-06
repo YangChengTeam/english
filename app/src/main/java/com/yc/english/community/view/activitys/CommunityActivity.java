@@ -2,9 +2,14 @@ package com.yc.english.community.view.activitys;
 
 import android.content.Intent;
 import android.graphics.Matrix;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -12,19 +17,18 @@ import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ToastUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
+import com.shizhefei.view.indicator.FixedIndicatorView;
+import com.shizhefei.view.indicator.Indicator;
+import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.community.contract.CommunityInfoContract;
-import com.yc.english.community.model.domain.CommentInfo;
-import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.community.presenter.CommunityInfoPresenter;
-import com.yc.english.community.view.adapter.CommunityItemClickAdapter;
+import com.yc.english.community.view.fragments.CommunityFragment;
+import com.yc.english.main.hepler.UserInfoHelper;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -34,10 +38,13 @@ import rx.functions.Action1;
  * Created by admin on 2017/7/25.
  */
 
-public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter> implements CommunityInfoContract.View {
+public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter> {
 
-    @BindView(R.id.all_note_list)
-    RecyclerView mAllNoteRecyclerView;
+    @BindView(R.id.viewpager)
+    ViewPager mViewPager;
+
+    @BindView(R.id.note_indicator)
+    FixedIndicatorView mFixedIndicatorView;
 
     @BindView(R.id.menu_layout)
     LinearLayout menuLayout;
@@ -51,7 +58,7 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
     @BindView(R.id.tv_friends_circle)
     TextView mFriendsCircleTextView;
 
-    CommunityItemClickAdapter mCommunityItemAdapter;
+    private FragmentAdapter mFragmentAdapter;
 
     private int[] location;
 
@@ -66,11 +73,20 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
 
     @Override
     public int getLayoutId() {
-        return R.layout.community_all_note;
+        return R.layout.activity_community;
     }
 
     @Override
     public void init() {
+
+        location = new int[]{1000, 0};
+        maxSize = 2.5f * 15;
+
+        qq_friend_in = AnimationUtils.loadAnimation(this, R.anim.english_in);
+        take_photo_in = AnimationUtils.loadAnimation(this, R.anim.friends_in);
+        qq_friend_out = AnimationUtils.loadAnimation(this, R.anim.english_out);
+        take_photo_out = AnimationUtils.loadAnimation(this, R.anim.friends_out);
+
         mToolbar.setTitle(getString(R.string.community_name));
         mToolbar.showNavigationIcon();
         mToolbar.setMenuIcon(R.mipmap.add_note_icon);
@@ -97,18 +113,45 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
             }
         });
 
-        location = new int[]{1000, 0};
-        maxSize = 2.5f * 15;
+        mFixedIndicatorView.setAdapter(new MyAdapter(3));
 
-        qq_friend_in = AnimationUtils.loadAnimation(this, R.anim.english_in);
-        take_photo_in = AnimationUtils.loadAnimation(this, R.anim.friends_in);
-        qq_friend_out = AnimationUtils.loadAnimation(this, R.anim.english_out);
-        take_photo_out = AnimationUtils.loadAnimation(this, R.anim.friends_out);
+        mFixedIndicatorView.setScrollBar(new ColorBar(this, ContextCompat.getColor(this, R.color
+                .primary), 6));
 
-        mPresenter = new CommunityInfoPresenter(this, this);
-        mCommunityItemAdapter = new CommunityItemClickAdapter(this, null);
-        mAllNoteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAllNoteRecyclerView.setAdapter(mCommunityItemAdapter);
+        float unSelectSize = 15;
+        float selectSize = 15;
+        int selectColor = ContextCompat.getColor(this, R.color.primary);
+        int unSelectColor = ContextCompat.getColor(this, R.color.black_333);
+        mFixedIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
+        mFixedIndicatorView.setOnIndicatorItemClickListener(new Indicator.OnIndicatorItemClickListener() {
+            @Override
+            public boolean onItemClick(View clickItemView, int position) {
+                mViewPager.setCurrentItem(position);
+                return false;
+            }
+        });
+        mFixedIndicatorView.setCurrentItem(0, true);
+
+        mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mFragmentAdapter);
+        mViewPager.setCurrentItem(0);
+        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                mFixedIndicatorView.setCurrentItem(i, true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
 
         RxView.clicks(menuLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -117,77 +160,105 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
             }
         });
 
-        //英语圈
+        //学友圈type:1
+        RxView.clicks(mFriendsCircleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                toAddNoteActivity("1");
+            }
+        });
+
+        //英语圈type:2
         RxView.clicks(mEnglishCircleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(CommunityActivity.this, CommunityAddActivity.class);
-                startActivity(intent);
-                closeMenu();
+                toAddNoteActivity("2");
             }
         });
 
-        mCommunityItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(CommunityActivity.this, CommunityDetailActivity.class);
-                intent.putExtra("community_info", mCommunityItemAdapter.getData().get(position));
-                startActivity(intent);
-            }
-        });
+    }
 
-        mCommunityItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.praise_count_layout) {
-                    mPresenter.addAgreeInfo("35", ((CommunityInfo) adapter.getData().get(position)).getId());
+    public void toAddNoteActivity(String type) {
+        if (UserInfoHelper.getUserInfo() != null) {
+            Intent intent = new Intent(this, CommunityAddActivity.class);
+            intent.putExtra("note_type", type);
+            startActivity(intent);
+            closeMenu();
+        } else {
+            closeMenu();
+            UserInfoHelper.isGotoLogin(this);
+        }
+    }
+
+    private CommunityFragment courseFragment1;
+    private CommunityFragment courseFragment2;
+    private CommunityFragment courseFragment3;
+
+    class FragmentAdapter extends FragmentStatePagerAdapter {
+        public FragmentAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Bundle bundle = new Bundle();
+            if (position == 0) {
+                if (courseFragment1 == null) {
+                    bundle.putInt("type", 3);
+                    courseFragment1 = new CommunityFragment();
+                    courseFragment1.setArguments(bundle);
                 }
-                return false;
+                return courseFragment1;
+            } else if (position == 1) {
+                if (courseFragment2 == null) {
+                    bundle.putInt("type", 1);
+                    courseFragment2 = new CommunityFragment();
+                    courseFragment2.setArguments(bundle);
+                }
+                return courseFragment2;
+            } else if (position == 2) {
+                if (courseFragment3 == null) {
+                    bundle.putInt("type", 2);
+                    courseFragment3 = new CommunityFragment();
+                    courseFragment3.setArguments(bundle);
+                }
+                return courseFragment3;
             }
-        });
+            return null;
+        }
 
-        mPresenter.communityInfoList(1, 1, 10);
+        @Override
+        public int getCount() {
+            return 3;
+        }
     }
 
-    @Override
-    public void hideStateView() {
-        //mStateView.hide();
-    }
+    private class MyAdapter extends Indicator.IndicatorAdapter {
+        private final String[] titles = new String[]{"热门", "学友圈", "英语圈"};
 
-    @Override
-    public void showNoNet() {
-        /*mStateView.showNoNet(mLayoutContext, "网络不给力", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //mPresenter.getBookInfoById(bookId);
+        private final int count;
+
+        public MyAdapter(int count) {
+            super();
+            this.count = count;
+        }
+
+        @Override
+        public int getCount() {
+            return count;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.weixin_tab, parent, false);
             }
-        });*/
+            TextView textView = (TextView) convertView;
+            textView.setText(titles[position]);
+            return convertView;
+        }
     }
 
-    @Override
-    public void showNoData() {
-        //mStateView.showNoData(mLayoutContext);
-    }
-
-    @Override
-    public void showLoading() {
-        //mStateView.showLoading(mLayoutContext);
-    }
-
-    @Override
-    public void showCommunityInfoListData(List<CommunityInfo> list) {
-        mCommunityItemAdapter.setNewData(list);
-    }
-
-    @Override
-    public void showAddCommunityInfo(CommunityInfo communityInfo) {
-
-    }
-
-    @Override
-    public void showCommentList(List<CommentInfo> list) {
-
-    }
 
     private Animation animationOpen = new Animation() {
         @Override
@@ -230,15 +301,5 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
         animationClose.setFillAfter(true);
         groundView.startAnimation(animationClose);
         isShow = false;
-    }
-
-    @Override
-    public void showAddComment(CommentInfo commentInfo) {
-
-    }
-
-    @Override
-    public void showAgreeInfo(boolean flag) {
-        ToastUtils.showLong("点赞成功");
     }
 }

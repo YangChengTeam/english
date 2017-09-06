@@ -33,9 +33,10 @@ public class CommunityImageShowActivity extends BaseActivity {
         if (bundle != null && bundle.getSerializable("images") != null) {
             List<String> items = (List<String>) bundle.getSerializable("images");
             if (items != null && items.size() > 0) {
-                UrlPagerAdapter pagerAdapter = new UrlPagerAdapter(this, items);
+                UrlPagerAdapter pagerAdapter = new UrlPagerAdapter(CommunityImageShowActivity.this, items);
                 viewPager.setOffscreenPageLimit(3);
                 viewPager.setAdapter(pagerAdapter);
+                viewPager.setCurrentItem(bundle.getInt("current_position", 0));
             }
         } else {
             TipsHelper.tips(this, "图片地址有误，请稍后重试");
