@@ -26,8 +26,8 @@ import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupMyGroupListPresenter;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.union.view.activitys.student.UnionJoinActivity;
-import com.yc.english.union.view.activitys.teacher.UnionCreateActivity;
 import com.yc.english.union.view.activitys.teacher.GroupVerifyActivity;
+import com.yc.english.union.view.activitys.teacher.UnionCreateActivity;
 import com.yc.english.union.view.adapter.GroupGroupAdapter;
 
 import java.util.List;
@@ -102,34 +102,18 @@ public class UnionMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             }
         })
                 .build(this);
-        guidePopupWindow.addCustomView(R.layout.guide_create_view, R.id.btn_ok, new View.OnClickListener() {
+        guidePopupWindow.addCustomView(R.layout.guide_create_union_view, R.id.btn_ok, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showJoinGuide();
+
                 guidePopupWindow.dismiss();
             }
         });
 
-        guidePopupWindow.show(rootView, "create");
+        guidePopupWindow.show(rootView, "create_union");
     }
 
-    private void showJoinGuide() {
-        GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
-        final GuidePopupWindow guidePopupWindow = builder.setDelay(0).setTargetView(btnJoinClass).setCorner(5).setGuideCallback(new GuideCallback() {
-            @Override
-            public void onClick(GuidePopupWindow guidePopupWindow) {
-                startActivity(new Intent(UnionMainActivity.this, UnionJoinActivity.class));
-            }
-        })
-                .build(this);
-        guidePopupWindow.addCustomView(R.layout.group_guide_join, R.id.m_btn_OK, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                guidePopupWindow.dismiss();
-            }
-        });
-        guidePopupWindow.show(rootView, "join");
-    }
+
 
     @Override
     public int getLayoutId() {

@@ -92,7 +92,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             }
         })
                 .build(this);
-        guidePopupWindow.addCustomView(R.layout.guide_create_view, R.id.btn_ok, new View.OnClickListener() {
+        guidePopupWindow.addCustomView(R.layout.guide_create_group_view, R.id.btn_ok, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showJoinGuide();
@@ -100,7 +100,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             }
         });
 
-        guidePopupWindow.show(rootView, "create");
+        guidePopupWindow.show(rootView, "create_group");
     }
 
     private void showJoinGuide() {

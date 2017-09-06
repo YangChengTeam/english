@@ -144,6 +144,10 @@
         <activity android:name=".union.view.activitys.UnionMainActivity" />
         <activity android:name=".union.view.activitys.student.UnionJoinActivity" />
         <activity android:name=".union.view.activitys.teacher.UnionCreateActivity" />
+        <activity
+            android:name=".news.view.NewsDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".group.view.activitys.FilePreviewExActivity"

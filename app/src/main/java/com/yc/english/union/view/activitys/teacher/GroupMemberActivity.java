@@ -44,7 +44,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
 
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
-    @BindView(R.id.tv_share_group)
+    @BindView(R.id.tv_exit_group)
     TextView tvShareGroup;
     private GroupMemberAdapter adapter;
     private SimpleHeaderAdapter<StudentInfo> simpleHeaderAdapter;
@@ -87,10 +87,10 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         return R.layout.group_activity_class_manager;
     }
 
-    @OnClick({R.id.tv_share_group})
+    @OnClick({R.id.tv_exit_group})
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_share_group:
+            case R.id.tv_exit_group:
                 final AlertDialog alertDialog = new AlertDialog(this);
                 alertDialog.setDesc("是否退出班群");
                 alertDialog.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +110,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         if (simpleHeaderAdapter != null) {
             recyclerView.removeHeaderAdapter(simpleHeaderAdapter);
         }
-        simpleHeaderAdapter = new SimpleHeaderAdapter<>(this.adapter, "", "", list.subList(0, 1));
+        simpleHeaderAdapter = new SimpleHeaderAdapter<>(this.adapter, null, null, list.subList(0, 1));
         recyclerView.addHeaderAdapter(simpleHeaderAdapter);
         list.remove(0);
         adapter.setDatas(list);
