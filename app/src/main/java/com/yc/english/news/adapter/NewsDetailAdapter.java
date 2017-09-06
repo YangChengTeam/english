@@ -10,7 +10,7 @@ import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.news.bean.NewsInfo;
-import com.yc.english.news.view.NewsDetailActivity;
+import com.yc.english.news.view.activity.NewsDetailActivity;
 
 import java.util.List;
 

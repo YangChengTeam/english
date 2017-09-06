@@ -9,78 +9,154 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:id="@+id/ll_rootView"
+    <ScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/group_gray_e6f2fb"
-        android:orientation="vertical">
-
-        <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
-            android:id="@+id/mJCVideoPlayer"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="@dimen/group_distance_10" />
-
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/white" />
+        android:descendantFocusability="blocksDescendants">
 
         <LinearLayout
+            android:id="@+id/ll_rootView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/group_distance_10"
+            android:background="@color/white"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="@dimen/group_distance_10">
 
                 <TextView
+                    android:id="@+id/mTextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/recommend_course"
+                    android:text="戳中痛点的英文应该这样说"
                     android:textColor="@color/black_333333"
                     android:textSize="@dimen/group_text_16" />
 
-                <LinearLayout
-                    android:id="@+id/mLinearLayoutMore"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center">
+                    android:layout_marginTop="@dimen/group_distance_2">
+
+                    <TextView
+                        android:id="@+id/mTextViewFrom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="来自于：说说英语"
+                        android:textColor="@color/group_gray_999"
+                        android:textSize="@dimen/group_text_12" />
+
+                    <TextView
+                        android:id="@+id/mTextViewTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="2017-09-05 11:14:23"
+                        android:textColor="@color/group_gray_999"
+                        android:textSize="@dimen/group_text_12" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_05"
+                android:layout_marginLeft="@dimen/group_distance_10"
+                android:layout_marginRight="@dimen/group_distance_10"
+                android:background="@color/group_gary_ddd" />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+                    android:id="@+id/mJCVideoPlayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="@dimen/group_distance_10"
+                    android:visibility="gone" />
+
+                <com.yc.english.news.view.widget.MediaPlayerView
+                    android:id="@+id/mMediaPlayerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_10" />
+
+            <LinearLayout
+                android:id="@+id/m_ll_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/group_distance_10">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/recommend_course"
+                        android:textColor="@color/black_333333"
+                        android:textSize="@dimen/group_text_16" />
+
+                    <LinearLayout
+                        android:id="@+id/mLinearLayoutMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/group_distance_2"
-                        android:text="@string/query_more"
-                        android:textColor="@color/group_gray_aaa"
-                        android:textSize="@dimen/group_text_14" />
+                        android:gravity="center">
 
-                    <ImageView
-                        android:layout_width="@dimen/group_distance_10"
-                        android:layout_height="@dimen/group_distance_10"
-                        android:src="@mipmap/arrow_right" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/group_distance_2"
+                            android:text="@string/query_more"
+                            android:textColor="@color/group_gray_aaa"
+                            android:textSize="@dimen/group_text_14" />
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="@dimen/group_distance_10"
+                            android:layout_height="@dimen/group_distance_10"
+                            android:src="@mipmap/arrow_right" />
 
-            </RelativeLayout>
+                    </LinearLayout>
 
-            <include layout="@layout/group_common_divider" />
+                </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/mRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/group_distance_1"
+                    android:background="@color/group_gary_ddd" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
-
-    </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>

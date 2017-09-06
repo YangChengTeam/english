@@ -14,8 +14,6 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.guide.GuidePopupWindow;
-import com.kk.guide.GuideView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.BaseFragment;
@@ -34,7 +32,7 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.presenter.IndexPresenter;
 import com.yc.english.main.view.activitys.MainActivity;
 import com.yc.english.main.view.wdigets.IndexMenuView;
-import com.yc.english.news.view.NewsDetailActivity;
+import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.youth.banner.Banner;
@@ -129,8 +127,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mTaskMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-//                Intent intent = new Intent(getActivity(), GroupMainActivity.class);
-                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                Intent intent = new Intent(getActivity(), GroupMainActivity.class);
+
                 startActivity(intent);
             }
         });

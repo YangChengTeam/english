@@ -1,13 +1,16 @@
-package com.yc.english.news.view;
+package com.yc.english.news.view.activity;
 
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
+import android.view.View;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.jakewharton.rxbinding.view.RxView;
@@ -17,8 +20,8 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.news.adapter.NewsDetailAdapter;
 import com.yc.english.news.bean.NewsInfo;
+import com.yc.english.news.view.widget.MediaPlayerView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -42,6 +45,13 @@ public class NewsDetailActivity extends FullScreenActivity {
     RecyclerView mRecyclerView;
     @BindView(R.id.ll_rootView)
     LinearLayout llRootView;
+    @BindView(R.id.nestedScrollView)
+    ScrollView nestedScrollView;
+    @BindView(R.id.m_ll_recommend)
+    LinearLayout mLlRecommend;
+    @BindView(R.id.mMediaPlayerView)
+    MediaPlayerView mMediaPlayerView;
+
     private NewsDetailAdapter newsDetailAdapter;
 
     @Override
@@ -52,8 +62,10 @@ public class NewsDetailActivity extends FullScreenActivity {
 
         if (getIntent() != null) {
             NewsInfo newsInfo = (NewsInfo) getIntent().getSerializableExtra("newsInfo");
+//            mMediaPlayerView.setPath();
+//            mMediaPlayerView.startPlay();
         }
-
+        playAudio("http://play.baidu.com/?__m=mboxCtrl.playSong&__a=100575177&__o=song/100575177||playBtn&fr=-1||www.baidu.com#");
 
         initWebView();
         initRecycleView();
@@ -72,11 +84,25 @@ public class NewsDetailActivity extends FullScreenActivity {
         RxView.clicks(mLinearLayoutMore).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                // TODO: 2017/9/6 调转到更多新闻页面
+                // TODO: 2017/9/6 跳转到更多新闻页面
 
             }
         });
+
+//        webView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (event.getAction() == MotionEvent.ACTION_UP) {
+//                    nestedScrollView.requestDisallowInterceptTouchEvent(false);
+//                } else {
+//                    nestedScrollView.requestDisallowInterceptTouchEvent(true);
+//                }
+//                return false;
+//            }
+//        });
+
     }
+
 
     private void initData() {
         List<NewsInfo> list = new ArrayList<>();
@@ -98,6 +124,8 @@ public class NewsDetailActivity extends FullScreenActivity {
     }
 
     private void initWebView() {
+        final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) webView.getLayoutParams();
+
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
@@ -112,28 +140,45 @@ public class NewsDetailActivity extends FullScreenActivity {
         webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
 
         //其他细节操作
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); //关闭webview中缓存
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); //关闭webview中缓存 //优先使用缓存:
         webSettings.setAllowFileAccess(true); //设置可以访问文件
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
 
-        //优先使用缓存:
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-//        webView.loadUrl("http://www.baidu.com");
-        webView.setWebViewClient(new WebViewClient(){
-//            @Override
-//            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-//
-//                return super.shouldOverrideUrlLoading(view, request);
-//            }
+        webView.loadUrl("http://www.cnblogs.com/xiaoQLu/archive/2011/04/24/2026520.html");
+        webView.setWebViewClient(new WebViewClient() {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl("http://www.baidu.com");
+                view.loadUrl(url);
                 return true;
             }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                layoutParams.height = view.getContentHeight();
+                view.setLayoutParams(layoutParams);
+
+            }
         });
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                if (newProgress == 100) {
+
+                    mLlRecommend.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+
+            }
+        });
+
 
     }
 
@@ -143,5 +188,28 @@ public class NewsDetailActivity extends FullScreenActivity {
         return R.layout.common_activity_news_detail;
     }
 
+    /**
+     * 播放音频
+     *
+     * @param path
+     */
+    private void playAudio(String path) {
+        mMediaPlayerView.setVisibility(View.VISIBLE);
+        mJCVideoPlayer.setVisibility(View.GONE);
+        mMediaPlayerView.setPath(path);
+        mMediaPlayerView.startPlay();
+    }
+
+    /**
+     * 播放视频
+     *
+     * @param url
+     */
+    private void playVideo(String url) {
+        mJCVideoPlayer.setVisibility(View.VISIBLE);
+        mMediaPlayerView.setVisibility(View.GONE);
+        mJCVideoPlayer.setUp(url, JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL);
+        mJCVideoPlayer.thumbImageView.setImageURI(Uri.parse("http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640"));
+    }
 
 }

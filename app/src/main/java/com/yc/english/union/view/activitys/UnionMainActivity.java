@@ -110,9 +110,9 @@ public class UnionMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             }
         });
 
+        guidePopupWindow.setDebug(true);
         guidePopupWindow.show(rootView, "create_union");
     }
-
 
 
     @Override
