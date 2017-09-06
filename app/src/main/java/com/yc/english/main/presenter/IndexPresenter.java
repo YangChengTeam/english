@@ -67,13 +67,14 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                     @Override
                     public void reulstInfoOk() {
                         mView.hideStateView();
-                        if(resultInfo.data.getSlideInfo() != null){
+                        if (resultInfo.data.getSlideInfo() != null) {
                             List<String> images = new ArrayList<String>();
                             slideInfos = resultInfo.data.getSlideInfo();
-                            for(SlideInfo slideInfo : resultInfo.data.getSlideInfo()){
+                            for (SlideInfo slideInfo : resultInfo.data.getSlideInfo()) {
                                 images.add(slideInfo.getImg());
                                 mView.showBanner(images);
                             }
+                            mView.showInfo(resultInfo.data);
                         }
                     }
                 });
@@ -87,7 +88,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
 
     @Override
     public SlideInfo getSlideInfo(int position) {
-        if(slideInfos != null && slideInfos.size() > position){
+        if (slideInfos != null && slideInfos.size() > position) {
             return slideInfos.get(position);
         }
         return null;

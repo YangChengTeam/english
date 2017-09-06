@@ -50,7 +50,7 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
         holder.setText(R.id.m_tv_group_number, String.format(mContext.getString(R.string.groupId), classInfo.getGroupId()));
         GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.m_iv_group_img), classInfo.getImageUrl(), R.mipmap.default_avatar);
         holder.setImageDrawable(R.id.m_iv_pay_money, mContext.getResources().getDrawable(R.mipmap.group74));
-        holder.setVisible(R.id.m_iv_pay_money, classInfo.getClassName().contains("【付费】"));
+        holder.setVisible(R.id.m_iv_pay_money, classInfo.getFee_type() == 1);
 
         RongIM.getInstance().getUnreadCount(Conversation.ConversationType.GROUP, classInfo.getClass_id(), new RongIMClient.ResultCallback<Integer>() {
             @Override

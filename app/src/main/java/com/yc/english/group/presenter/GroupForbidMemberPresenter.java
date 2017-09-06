@@ -42,7 +42,7 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
     @Override
     public void addForbidMember(final StudentInfo studentInfo, final String minute, final boolean allForbid) {
         mView.showLoadingDialog("添加禁言成员中，请稍候...");
-        Subscription subscription = mEngin.addForbidMember(studentInfo.getUser_id(), studentInfo.getClass_id(), minute).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<CodeSuccessResult>() {
+        Subscription subscription = EngineUtils.addForbidMember(studentInfo.getUser_id(), studentInfo.getClass_id(), minute).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<CodeSuccessResult>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();

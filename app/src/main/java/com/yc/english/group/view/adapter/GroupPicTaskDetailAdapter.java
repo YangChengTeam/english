@@ -1,7 +1,6 @@
 package com.yc.english.group.view.adapter;
 
 
-import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 import com.yc.english.R;
 
 import java.util.List;

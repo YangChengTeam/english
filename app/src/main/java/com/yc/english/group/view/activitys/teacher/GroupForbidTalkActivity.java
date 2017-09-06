@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -22,6 +23,7 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupForbidMemberContract;
+import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupForbidMemberPresenter;
@@ -115,10 +117,6 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
             List<StudentInfo> studentList = data.getParcelableArrayListExtra("studentList");
-
-//            if (studentInfoList == null) {
-//                studentInfoList = new ArrayList<>();
-//            }
 
             for (StudentInfo studentInfo : studentList) {
                 studentInfoList.add(studentInfo);
@@ -239,6 +237,7 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
     public void showLisGagUserResult(List<GagGroupUser> users, List<StudentInfo> list) {
         list.remove(0);
         allList = list;
+
         getForbidStu(users);
     }
 
@@ -320,4 +319,5 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         });
 
     }
+
 }

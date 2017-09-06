@@ -2,7 +2,6 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -37,10 +37,8 @@ import com.yc.english.group.view.activitys.GroupCommonClassActivity;
 import com.yc.english.group.view.activitys.GroupMainActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
-import com.yc.english.main.model.domain.ArticleInfo;
-import com.yc.english.main.model.domain.CommunityInfo;
 import com.yc.english.main.model.domain.Constant;
-import com.yc.english.main.model.domain.CountInfo;
+import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.presenter.IndexPresenter;
@@ -48,8 +46,12 @@ import com.yc.english.main.view.activitys.MainActivity;
 import com.yc.english.main.view.adapters.AritleAdapter;
 import com.yc.english.main.view.adapters.CommunityAdapter;
 import com.yc.english.main.view.wdigets.IndexMenuView;
+import com.yc.english.news.view.NewsDetailActivity;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
+import com.yc.english.union.view.activitys.UnionMainActivity;
+import com.yc.english.weixin.views.activitys.CourseActivity;
+import com.yc.english.weixin.views.activitys.CourseTypeActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -117,7 +119,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @BindView(R.id.fiv_indicator)
     FixedIndicatorView mFixedIndicatorView;
 
-
     @BindView(R.id.rv_hot)
     RecyclerView mHotMircoClassRecyclerView;
     private AritleAdapter mHotMircoClassAdapter;
@@ -127,10 +128,96 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     RecyclerView mCommunityRecyclerView;
     private CommunityAdapter mHotCommunityAdapter;
 
+    @BindView(R.id.rl_use_more)
+    RelativeLayout mUserMoreRelativeLayout;
+
+    @BindView(R.id.ll_community_more)
+    LinearLayout mCommunityMoreLinearLayout;
+
+    @BindView(R.id.ll_morcoclass_more)
+    LinearLayout mMorcoclassMoreLinearLayout;
+
+    @BindView(R.id.tv_hot_title)
+    TextView mHotTitleTextView;
+
+    @BindView(R.id.tv_more)
+    TextView mMoreTextView;
+
+    @BindView(R.id.im_lex)
+    IndexMenuView mLexIndexMenuView;
+
+    @BindView(R.id.im_grammar)
+    IndexMenuView mGrammarIndexMenuView;
+
+    @BindView(R.id.im_sentence)
+    IndexMenuView mSentenceIndexMenuView;
+
+    @BindView(R.id.im_composition)
+    IndexMenuView mCompositionIndexMenuView;
+
+    @BindView(R.id.im_hearing)
+    IndexMenuView mHearingIndexMenuView;
+
+
     @Override
     public void init() {
         mPresenter = new IndexPresenter(getActivity(), this);
 
+
+        RxView.clicks(mLexIndexMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), CourseTypeActivity.class);
+                intent.putExtra("index", 0);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mGrammarIndexMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), CourseTypeActivity.class);
+                intent.putExtra("index", 1);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mSentenceIndexMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), CourseTypeActivity.class);
+                intent.putExtra("index", 2);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mCompositionIndexMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), CourseTypeActivity.class);
+                intent.putExtra("index", 3);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mHearingIndexMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), CourseTypeActivity.class);
+                intent.putExtra("index", 4);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mMoreTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), CourseActivity.class);
+                intent.putExtra("title", "今日热点");
+                intent.putExtra("type", "3");
+                startActivity(intent);
+            }
+        });
 
         RxView.clicks(mReadImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -203,7 +290,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mGuildImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), CommunityActivity.class);
+                Intent intent = new Intent(getActivity(), UnionMainActivity.class);
                 startActivity(intent);
             }
         });
@@ -211,7 +298,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mEnglishImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), GroupCommonClassActivity.class);
+                Intent intent = new Intent(getActivity(), CourseActivity.class);
+                intent.putExtra("title", "英语练习题");
+                intent.putExtra("type", "4");
                 startActivity(intent);
             }
         });
@@ -219,7 +308,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mOneToToImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), GroupCommonClassActivity.class);
+                Intent intent = new Intent(getActivity(), CourseActivity.class);
+                intent.putExtra("title", "初升高试卷");
+                intent.putExtra("type", "5");
                 startActivity(intent);
             }
         });
@@ -227,7 +318,33 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mOTNImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), GroupCommonClassActivity.class);
+                Intent intent = new Intent(getActivity(), CourseActivity.class);
+                intent.putExtra("title", "小升初试卷");
+                intent.putExtra("type", "6");
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mCommunityMoreLinearLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), CommunityActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mMorcoclassMoreLinearLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.goToTask();
+            }
+        });
+
+        RxView.clicks(mUserMoreRelativeLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), CourseTypeActivity.class);
                 startActivity(intent);
             }
         });
@@ -262,38 +379,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         });
         mFixedIndicatorView.setCurrentItem(0, true);
 
-        mFragmentAdapter = new FragmentAdapter(getChildFragmentManager());
-        mViewPager.setAdapter(mFragmentAdapter);
-        mViewPager.setCurrentItem(0);
-        mViewPager.setOffscreenPageLimit(3);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                mFixedIndicatorView.setCurrentItem(i, true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
-
-        List<ArticleInfo> articleInfos = new ArrayList<>();
-        ArticleInfo articleInfo = new ArticleInfo();
-        ArticleInfo articleInfo2 = new ArticleInfo();
-        ArticleInfo articleInfo3 = new ArticleInfo();
-        articleInfos.add(articleInfo);
-        articleInfos.add(articleInfo2);
-        articleInfos.add(articleInfo3);
-
 
         mHotMircoClassRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mHotMircoClassAdapter = new AritleAdapter(articleInfos, 1);
+        mHotMircoClassAdapter = new AritleAdapter(null, 1);
         mHotMircoClassRecyclerView.setAdapter(mHotMircoClassAdapter);
 
         mHotMircoClassAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -304,15 +392,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         });
 
 
-        List<CommunityInfo> communityInfos = new ArrayList<>();
-        CommunityInfo communityInfo = new CommunityInfo();
-        CommunityInfo communityInfo2 = new CommunityInfo();
-        CommunityInfo communityInfo3 = new CommunityInfo();
-        communityInfos.add(communityInfo);
-        communityInfos.add(communityInfo2);
-        communityInfos.add(communityInfo3);
         mCommunityRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mHotCommunityAdapter = new CommunityAdapter(communityInfos);
+        mHotCommunityAdapter = new CommunityAdapter(null);
         mCommunityRecyclerView.setAdapter(mHotCommunityAdapter);
         mHotCommunityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -360,6 +441,43 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     }
 
 
+    @Override
+    public void showInfo(IndexInfo indexInfo) {
+        mFragmentAdapter = new FragmentAdapter(getChildFragmentManager(), indexInfo);
+        mViewPager.setAdapter(mFragmentAdapter);
+        mViewPager.setCurrentItem(0);
+        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                mFixedIndicatorView.setCurrentItem(i, true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+        if (indexInfo.getRedian() != null && indexInfo.getRedian().size() > 0) {
+            mHotTitleTextView.setText(indexInfo.getRedian().get(0).getTitle());
+            RxView.clicks(mHotTitleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+                @Override
+                public void call(Void aVoid) {
+                    Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+        }
+        mHotCommunityAdapter.addData(indexInfo.getShequ());
+        mHotMircoClassAdapter.addData(indexInfo.getWeike());
+    }
+
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
@@ -399,13 +517,30 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
 
     class FragmentAdapter extends FragmentStatePagerAdapter {
-        public FragmentAdapter(FragmentManager fm) {
+        private List<ArticleFragment> articleFragments = new ArrayList<>();
+
+        public FragmentAdapter(FragmentManager fm, IndexInfo indexInfo) {
             super(fm);
+            for (int i = 0; i < 5; i++) {
+                ArticleFragment articleFragment = new ArticleFragment();
+                if (i == 0) {
+                    articleFragment.setCourseInfos(indexInfo.getCihui());
+                } else if (i == 1) {
+                    articleFragment.setCourseInfos(indexInfo.getYufa());
+                } else if (i == 2) {
+                    articleFragment.setCourseInfos(indexInfo.getJuxing());
+                } else if (i == 3) {
+                    articleFragment.setCourseInfos(indexInfo.getZuowen());
+                } else if (i == 4) {
+                    articleFragment.setCourseInfos(indexInfo.getTingli());
+                }
+                articleFragments.add(articleFragment);
+            }
         }
 
         @Override
         public Fragment getItem(int position) {
-            return new ArticleFragment();
+            return articleFragments.get(position);
         }
 
         @Override
@@ -415,7 +550,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     }
 
     private class MyAdapter extends Indicator.IndicatorAdapter {
-        private final String[] titles = new String[]{"词汇", "语法", "句型", "", "作文", "听力"};
+        private final String[] titles = new String[]{"词汇", "语法", "句型", "作文", "听力"};
 
         private final int count;
 

@@ -2,18 +2,25 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.constant.BusAction;
+import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyVerifyContract;
+import com.yc.english.group.model.bean.GroupApplyInfo;
+import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.engin.GroupApplyVerifyEngine;
+import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
 
 import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by wanglin  on 2017/8/2 18:06.
@@ -38,7 +45,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
      * @param status
      */
     @Override
-    public void getMemberList(Context context, String class_id, String status, String master_id,String flag) {
+    public void getMemberList(Context context, String class_id, String status, String master_id, String flag) {
         mView.showLoading();
         Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
@@ -73,13 +80,11 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
     /**
      * 接受加群
      *
-     * @param class_id
-     * @param master_id
-     * @param user_ids
+     * @param studentInfo
      */
     @Override
-    public void acceptApply(String class_id, String master_id, String user_ids) {
-        Subscription subscription = mEngin.acceptApply(class_id, master_id, user_ids).subscribe(new Subscriber<ResultInfo<String>>() {
+    public void acceptApply(final StudentInfo studentInfo) {
+        Subscription subscription = mEngin.acceptApply(studentInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid(), studentInfo.getUser_id()).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
 
@@ -97,8 +102,37 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
                     public void run() {
                         mView.showApplyResult(stringResultInfo.data);
                         RxBus.get().post(BusAction.GROUP_LIST, "join Group");
+                        if (SPUtils.getInstance().getBoolean(GroupConstant.ALL_GROUP_FORBID_STATE + studentInfo.getClass_id())) {
+                            addForbidMember(studentInfo);
+                        }
+
                     }
                 });
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void addForbidMember(StudentInfo studentInfo) {
+        Subscription subscription = EngineUtils.addForbidMember(studentInfo.getUser_id(), studentInfo.getClass_id(), "0").observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<CodeSuccessResult>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+                LogUtils.e(e.getMessage());
+            }
+
+            @Override
+            public void onNext(CodeSuccessResult codeSuccessResult) {
+                if (codeSuccessResult != null && codeSuccessResult.getCode() == 200) {
+
+                }
+
             }
         });
         mSubscriptions.add(subscription);

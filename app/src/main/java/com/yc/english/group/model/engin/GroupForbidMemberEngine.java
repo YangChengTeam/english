@@ -18,11 +18,6 @@ public class GroupForbidMemberEngine extends BaseEngin {
         super(context);
     }
 
-
-    public Observable<CodeSuccessResult> addForbidMember(String userId, String groupId, String minute) {
-        return RongIMUtil.addGagUser(userId, groupId, minute);
-    }
-
     public Observable<CodeSuccessResult> rollBackMember(String[] userId, String groupId) {
         return RongIMUtil.rollBackGagUser(userId, groupId);
     }

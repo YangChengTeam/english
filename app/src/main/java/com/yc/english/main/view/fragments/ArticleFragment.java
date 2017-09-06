@@ -7,8 +7,8 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
-import com.yc.english.main.model.domain.ArticleInfo;
 import com.yc.english.main.view.adapters.AritleAdapter;
+import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,21 +25,16 @@ public class ArticleFragment extends BaseFragment {
     RecyclerView mRecyclerView;
 
     private AritleAdapter mAritleAdapter;
+    private List<CourseInfo> courseInfos;
+
+    public void setCourseInfos(List<CourseInfo> courseInfos) {
+        this.courseInfos = courseInfos;
+    }
 
     @Override
     public void init() {
-
-        List<ArticleInfo> articleInfos = new ArrayList<>();
-        ArticleInfo articleInfo = new ArticleInfo();
-        ArticleInfo articleInfo2 = new ArticleInfo();
-        ArticleInfo articleInfo3 = new ArticleInfo();
-        articleInfos.add(articleInfo);
-        articleInfos.add(articleInfo2);
-        articleInfos.add(articleInfo3);
-
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAritleAdapter = new AritleAdapter(articleInfos, 0);
+        mAritleAdapter = new AritleAdapter(courseInfos, 0);
         mRecyclerView.setAdapter(mAritleAdapter);
 
         mAritleAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -48,8 +43,6 @@ public class ArticleFragment extends BaseFragment {
 
             }
         });
-
-
     }
 
     @Override

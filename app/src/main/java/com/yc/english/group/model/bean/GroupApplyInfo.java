@@ -11,6 +11,7 @@ public class GroupApplyInfo {
     private String vali_type;
     private String class_name;
 
+
     public String getClass_id() {
         return class_id;
     }

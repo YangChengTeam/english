@@ -1,7 +1,6 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -18,21 +17,16 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupMyMemberListContract;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupMyMemberListPresenter;
-import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.adapter.GroupMemberAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import me.yokeyword.indexablerv.EntityWrapper;
-import me.yokeyword.indexablerv.IndexableAdapter;
 import me.yokeyword.indexablerv.IndexableLayout;
 import me.yokeyword.indexablerv.SimpleHeaderAdapter;
 
@@ -50,8 +44,8 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
 
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
-    @BindView(R.id.tv_share_group)
-    TextView tvShareGroup;
+    @BindView(R.id.tv_exit_group)
+    TextView tvExitGroup;
     private GroupMemberAdapter adapter;
     private SimpleHeaderAdapter<StudentInfo> simpleHeaderAdapter;
 
@@ -65,9 +59,9 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         if (GroupInfoHelper.getClassInfo() != null && GroupInfoHelper.getClassInfo().getMaster_id() != null) {
             if (GroupInfoHelper.getClassInfo().getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
                 mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
-                tvShareGroup.setVisibility(View.GONE);
+                tvExitGroup.setVisibility(View.GONE);
             } else {
-                tvShareGroup.setVisibility(View.VISIBLE);
+                tvExitGroup.setVisibility(View.VISIBLE);
             }
         }
 
@@ -93,10 +87,10 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         return R.layout.group_activity_class_manager;
     }
 
-    @OnClick({R.id.tv_share_group})
+    @OnClick({R.id.tv_exit_group})
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_share_group:
+            case R.id.tv_exit_group:
                 final AlertDialog alertDialog = new AlertDialog(this);
                 alertDialog.setDesc("是否退出班群");
                 alertDialog.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +110,9 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         if (simpleHeaderAdapter != null) {
             recyclerView.removeHeaderAdapter(simpleHeaderAdapter);
         }
-        simpleHeaderAdapter = new SimpleHeaderAdapter<>(this.adapter, "", "", list.subList(0, 1));
+
+        simpleHeaderAdapter = new SimpleHeaderAdapter<>(adapter, null, null, list.subList(0, 1));
+
         recyclerView.addHeaderAdapter(simpleHeaderAdapter);
         list.remove(0);
         adapter.setDatas(list);

@@ -15,6 +15,7 @@ import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
 import com.yc.english.base.view.ToolbarFragment;
+import com.yc.english.weixin.views.utils.TabsUtils;
 
 import butterknife.BindView;
 
@@ -30,17 +31,15 @@ public class CourseTypeFragment extends ToolbarFragment {
     @BindView(R.id.fiv_indicator)
     FixedIndicatorView mFixedIndicatorView;
 
-    private FragmentAdapter mFragmentAdapter;
+
+    private final String[] titles = new String[]{"音频微课", "视频微课"};
 
     @Override
     public void init() {
         mToolbar.setTitle("每日微课");
-
-        mFixedIndicatorView.setAdapter(new MyAdapter());
-
+        mFixedIndicatorView.setAdapter(new TabsUtils.MyAdapter(getActivity(), titles));
         mFixedIndicatorView.setScrollBar(new ColorBar(getActivity(), ContextCompat.getColor(getActivity(), R.color
                 .primary), 6));
-
         float unSelectSize = 15;
         float selectSize = 15;
         int selectColor = ContextCompat.getColor(getActivity(), R.color.primary);
@@ -55,7 +54,8 @@ public class CourseTypeFragment extends ToolbarFragment {
         });
         mFixedIndicatorView.setCurrentItem(0, true);
 
-        mFragmentAdapter = new FragmentAdapter(getChildFragmentManager());
+        TabsUtils.MyFragmentAdapter mFragmentAdapter = new TabsUtils.MyFragmentAdapter(getChildFragmentManager(),
+                new String[]{"7", "8"});
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setCurrentItem(0);
         mViewPager.setOffscreenPageLimit(3);
@@ -87,63 +87,4 @@ public class CourseTypeFragment extends ToolbarFragment {
         return R.layout.weixin_fragment_course_type;
     }
 
-    private CourseFragment courseFragment1;
-    private CourseFragment courseFragment2;
-    private CourseFragment courseFragment3;
-
-    class FragmentAdapter extends FragmentStatePagerAdapter {
-        public FragmentAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            if (position == 0) {
-                if (courseFragment1 == null) {
-                    courseFragment1 = new CourseFragment();
-                }
-                return courseFragment1;
-            } else if (position == 1) {
-                if (courseFragment2 == null) {
-                    courseFragment2 = new CourseFragment();
-                }
-                return courseFragment2;
-            } else if (position == 2) {
-                if (courseFragment3 == null) {
-                    courseFragment3 = new CourseFragment();
-                }
-                return courseFragment3;
-            }
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-    }
-
-    private class MyAdapter extends Indicator.IndicatorAdapter {
-        private final String[] titles = new String[]{"音频微课", "视频微课"};
-
-
-        public MyAdapter() {
-            super();
-        }
-
-        @Override
-        public int getCount() {
-            return titles.length;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.weixin_tab, parent, false);
-            }
-            TextView textView = (TextView) convertView;
-            textView.setText(titles[position]);
-            return convertView;
-        }
-    }
 }

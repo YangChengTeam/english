@@ -23,7 +23,7 @@ import rx.functions.Action1;
 
 public class GroupCreateActivity extends FullScreenActivity<GroupCreatePresenter> implements GroupCreateContract.View {
 
-    private static final String TAG = "GroupCreateActivity";
+    private static final String TAG = "UnionCreateActivity";
     @BindView(R.id.et_class_group)
     EditText etClassGroup;
     @BindView(R.id.btn_create)

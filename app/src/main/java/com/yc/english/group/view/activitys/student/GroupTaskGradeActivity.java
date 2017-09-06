@@ -116,7 +116,6 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
             } else {
                 taskId = getIntent().getStringExtra("taskId");
                 classId = getIntent().getStringExtra("classId");
-                String id = getIntent().getStringExtra("id");
                 userId = getIntent().getStringExtra("userId");
             }
             getData();
@@ -275,7 +274,6 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
         if (requestCode == 300 && resultCode == -1 && data != null) {
 
             uriList = data.getParcelableArrayListExtra("android.intent.extra.RETURN_RESULT");
@@ -355,6 +353,7 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
             }
         });
     }
+
     private boolean isPictureExsited;
     private String currentPicturePath;
     private boolean isVoiceExsited;

@@ -61,6 +61,9 @@
     <string name="add_forbid_member">添加禁言成员</string>
     <string name="forbid_time">约%1$s后解除禁言</string>
     <string name="forbid_member">被禁言的成员</string>
+    <string name="english_union">英语工会</string>
+    <string name="create_union">创建工会</string>
+    <string name="join_union">加入工会</string>
 
 
     <string-array name="task_finish_result">

@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.model.bean.ClassInfo;
@@ -36,7 +38,7 @@ import rx.functions.Action1;
  */
 
 public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresenter> implements GroupApplyJoinContract.View {
-    private static final String TAG = "GroupJoinActivity";
+    private static final String TAG = "UnionJoinActivity";
     @BindView(R.id.et_class_group)
     EditText etClassGroup;
     @BindView(R.id.ib_delete)
@@ -133,16 +135,6 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
         }
     }
 
-    @Override
-    public void apply(int type) {
-        if (type == GroupConstant.CONDITION_ALL_ALLOW) {
-            ToastUtils.showShort(getString(R.string.congratulation_join_group));
-
-        } else if (type == GroupConstant.CONDITION_VERIFY_JOIN) {
-            ToastUtils.showShort(getString(R.string.commit_apply_join));
-        }
-        finish();
-    }
 
     @Override
     public void showMemberList(List<UserInfo> list) {

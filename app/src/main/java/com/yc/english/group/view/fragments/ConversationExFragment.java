@@ -64,19 +64,4 @@ public class ConversationExFragment extends ConversationFragment {
         guidePopupWindow.show("plguin");
     }
 
-
-    @Override
-    public void onPluginToggleClick(View v, ViewGroup extensionBoard) {
-        super.onPluginToggleClick(v, extensionBoard);
-
-        RelativeLayout relativeLayout = (RelativeLayout) extensionBoard.getChildAt(0);
-        LinearLayout linearLayout = (LinearLayout) relativeLayout.getChildAt(0);
-        LinearLayout layout = (LinearLayout) linearLayout.getChildAt(2);
-
-        for (int i = 0; i < layout.getChildCount(); i++) {
-            View childAt = layout.getChildAt(i);
-            LogUtils.e(childAt);
-        }
-
-    }
 }

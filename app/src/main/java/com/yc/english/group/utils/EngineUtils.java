@@ -17,6 +17,7 @@ import com.yc.english.group.model.bean.StudentRemoveInfo;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.model.bean.TaskInfoWrapper;
 import com.yc.english.group.model.bean.TaskUploadInfo;
+import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.ListGagGroupUserResult;
 import com.yc.english.group.rong.util.RongIMUtil;
 
@@ -264,11 +265,23 @@ public class EngineUtils {
 
     /**
      * 获取禁言成员
+     *
      * @param groupId
      * @return
      */
     public static Observable<ListGagGroupUserResult> lisGagUser(String groupId) {
         return RongIMUtil.lisGagUser(groupId);
+    }
+
+    /**
+     * 添加禁言成员
+     * @param userId
+     * @param groupId
+     * @param minute
+     * @return
+     */
+    public static Observable<CodeSuccessResult> addForbidMember(String userId, String groupId, String minute) {
+        return RongIMUtil.addGagUser(userId, groupId, minute);
     }
 
 }

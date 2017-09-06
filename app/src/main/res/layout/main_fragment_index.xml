@@ -108,6 +108,7 @@
                     android:src="@mipmap/index_hot"/>
 
                 <TextView
+                    android:id="@+id/tv_hot_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -298,6 +299,7 @@
                 android:background="@color/white"></android.support.v4.view.ViewPager>
 
             <RelativeLayout
+                android:id="@+id/rl_use_more"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginBottom="7dp"
@@ -307,7 +309,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -371,14 +374,15 @@
                     android:background="@color/gray_ddd"></View>
 
                 <LinearLayout
+                    android:id="@+id/ll_morcoclass_more"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:orientation="horizontal">
-
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
@@ -481,6 +485,7 @@
                     android:background="@color/gray_ddd"></View>
 
                 <LinearLayout
+                    android:id="@+id/ll_community_more"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
