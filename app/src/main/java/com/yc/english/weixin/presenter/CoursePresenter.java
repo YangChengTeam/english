@@ -32,10 +32,12 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
     }
 
     @Override
-    public void getWeiXinList(String type_id, String page,
+    public void getWeiXinList(String type_id,final String page,
                               String
                                       page_size) {
-        mView.showLoading();
+        if(page.equals("1") ) {
+            mView.showLoading();
+        }
         Subscription subscription = mEngin.getWeixinList(type_id, page, page_size).subscribe(new Subscriber<ResultInfo<CourseInfoWrapper>>() {
             @Override
             public void onCompleted() {
@@ -44,7 +46,9 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
+                if(page.equals("1") ) {
+                    mView.showNoNet();
+                }
             }
 
             @Override
@@ -52,21 +56,29 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
                 ResultInfoHelper.handleResultInfo(courseInfoResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.showNoNet();
+                        if(page.equals("1") ) {
+                            mView.showNoNet();
+                        }
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.showNoNet();
+                        if(page.equals("1") ) {
+                            mView.showNoNet();
+                        }
                     }
 
                     @Override
                     public void reulstInfoOk() {
                         if (courseInfoResultInfo.data != null) {
                             mView.showWeixinList(courseInfoResultInfo.data.getList());
-                            mView.hideStateView();
+                            if(page.equals("1") ) {
+                                mView.hideStateView();
+                            }
                         } else {
-                            mView.showNoData();
+                            if(page.equals("1") ) {
+                                mView.showNoData();
+                            }
                         }
                     }
                 });
