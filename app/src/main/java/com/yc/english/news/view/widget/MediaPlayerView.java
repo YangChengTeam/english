@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.kk.utils.PathUtils;
 import com.umeng.socialize.sina.helper.MD5;
 import com.yc.english.R;
@@ -18,6 +19,7 @@ import com.yc.english.base.helper.RxUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -120,7 +122,6 @@ public class MediaPlayerView extends LinearLayout {
     public void setPath(String path) {
         if (mediaPlayer != null) {
 
-
             RxUtils.getFile(mContext, path).observeOn
                     (AndroidSchedulers.mainThread()).subscribe(new Action1<File>() {
                 @Override
@@ -143,7 +144,8 @@ public class MediaPlayerView extends LinearLayout {
                         e.printStackTrace();
                     }
                     mSeekbar.setMax(mediaPlayer.getDuration());//设置进度条
-                    mTextViewTime.setText(mediaPlayer.getDuration() / 1000 + "");
+
+                    mTextViewTime.setText(TimeUtils.millis2String(mediaPlayer.getDuration(), new SimpleDateFormat("mm:ss")));
                     //----------定时器记录播放进度---------//
                     mTimer = new Timer();
                     mTimerTask = new TimerTask() {
@@ -172,6 +174,8 @@ public class MediaPlayerView extends LinearLayout {
 
 
     }
+
+
 
     public void destory() {
         if (mTimer != null) {
