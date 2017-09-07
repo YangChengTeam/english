@@ -1,5 +1,6 @@
 package com.yc.english.setting.view.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SnackbarUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -191,8 +193,10 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
     )
     @Override
     public void showNoLogin(Boolean flag) {
-        mAvatarImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.default_big_avatar));
-        mNickNameTextView.setText("还没有登录，点击立即登录");
-        mSchoolTextView.setText("");
+        if(ActivityUtils.isValidContext(getActivity())) {
+            mAvatarImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.default_big_avatar));
+            mNickNameTextView.setText("还没有登录，点击立即登录");
+            mSchoolTextView.setText("");
+        }
     }
 }

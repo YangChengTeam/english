@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yc.english">
+<manifest package="com.yc.english"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.DEVICE_POWER" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.DEVICE_POWER"/>
 
     <application
         android:name=".EnglishApp"
@@ -25,65 +25,65 @@
 
         <activity
             android:name=".main.view.activitys.MainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
 
         <activity
             android:name=".main.view.activitys.SplashActivity"
             android:theme="@style/Splash">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <activity android:name=".main.view.activitys.LoginActivity">
 
         </activity>
-        <activity android:name=".base.view.WebActivity" />
+        <activity android:name=".base.view.WebActivity"/>
 
         <activity
             android:name=".read.view.activitys.BookActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".read.view.activitys.CoursePlayActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".read.view.activitys.AddBookActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".read.view.activitys.BookUnitActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".read.view.activitys.WordUnitActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".read.view.activitys.ReadWordActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".read.view.activitys.WordPracticeActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".community.view.activitys.CommunityActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".community.view.activitys.CommunityAddActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".community.view.activitys.CommunityImageShowActivity"
             android:theme="@style/ImageShowStyle"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".community.view.activitys.CommunityDetailActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".group.view.activitys.teacher.GroupCreateActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
 
         <!--会话界面-->
         <activity
@@ -92,14 +92,14 @@
             android:windowSoftInputMode="stateHidden|adjustPan">
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
 
                 <data
                     android:host="com.yc.english"
                     android:pathPrefix="/conversation/"
-                    android:scheme="rong" />
+                    android:scheme="rong"/>
             </intent-filter>
         </activity>
         <!--会话列表-->
@@ -109,59 +109,59 @@
             android:windowSoftInputMode="stateHidden|adjustResize">
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
 
                 <data
                     android:host="com.yc.english"
                     android:pathPrefix="/conversationlist"
-                    android:scheme="rong" />
+                    android:scheme="rong"/>
             </intent-filter>
         </activity>
-        <activity android:name=".group.view.activitys.teacher.GroupManagerActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupChangeNameActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupDeleteMemberActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupTransferActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupIssueTaskActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupSyncGroupListActivity" />
-        <activity android:name=".group.view.activitys.student.GroupMyTaskDetailActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupPublishTaskListActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupTaskFinishAndUnfinshActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupVerifyActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupVerifyConditionActivity" />
-        <activity android:name=".group.view.activitys.GroupCommonClassActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupTaskFinishDetailActivity" />
-        <activity android:name=".group.view.activitys.student.GroupMyTaskListActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupPublishTaskLookAndUnLookActivity" />
-        <activity android:name=".group.view.activitys.student.GroupJoinActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupMemberActivity" />
-        <activity android:name=".group.view.activitys.student.GroupTaskGradeActivity" />
-        <activity android:name=".group.view.activitys.GroupPictureDetailActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupForbidTalkActivity" />
-        <activity android:name=".group.view.activitys.teacher.GroupForbidMemberActivity" />
-        <activity android:name=".group.view.activitys.GroupMainActivity" />
-        <activity android:name=".union.view.activitys.UnionMainActivity" />
-        <activity android:name=".union.view.activitys.student.UnionJoinActivity" />
-        <activity android:name=".union.view.activitys.teacher.UnionCreateActivity" />
+        <activity android:name=".group.view.activitys.teacher.GroupManagerActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupChangeNameActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupDeleteMemberActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupTransferActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupIssueTaskActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupSyncGroupListActivity"/>
+        <activity android:name=".group.view.activitys.student.GroupMyTaskDetailActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupPublishTaskListActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupTaskFinishAndUnfinshActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupVerifyActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupVerifyConditionActivity"/>
+        <activity android:name=".group.view.activitys.GroupCommonClassActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupTaskFinishDetailActivity"/>
+        <activity android:name=".group.view.activitys.student.GroupMyTaskListActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupPublishTaskLookAndUnLookActivity"/>
+        <activity android:name=".group.view.activitys.student.GroupJoinActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupMemberActivity"/>
+        <activity android:name=".group.view.activitys.student.GroupTaskGradeActivity"/>
+        <activity android:name=".group.view.activitys.GroupPictureDetailActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupForbidTalkActivity"/>
+        <activity android:name=".group.view.activitys.teacher.GroupForbidMemberActivity"/>
+        <activity android:name=".group.view.activitys.GroupMainActivity"/>
+        <activity android:name=".union.view.activitys.UnionMainActivity"/>
+        <activity android:name=".union.view.activitys.student.UnionJoinActivity"/>
+        <activity android:name=".union.view.activitys.teacher.UnionCreateActivity"/>
         <activity
             android:name=".news.view.activity.NewsDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".group.view.activitys.FilePreviewExActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="io.rong.imkit.intent.action.openfile" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="io.rong.imkit.intent.action.openfile"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 
 
         <activity
             android:name="io.rong.imkit.plugin.image.PicturePreviewActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -170,60 +170,63 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/rc_file_path" />
+                android:resource="@xml/rc_file_path"/>
         </provider>
 
         <receiver
             android:name=".group.view.receiver.GroupNotificationReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
-                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
-                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
-                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED"/>
+                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED"/>
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED"/>
+                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED"/>
             </intent-filter>
         </receiver>
 
-        <activity android:name=".setting.view.activitys.SettingActivity" />
-        <activity android:name=".setting.view.activitys.FeedbackActivity" />
-        <activity android:name=".setting.view.activitys.PersonCenterActivity" />
-        <activity android:name=".main.view.activitys.RegisterActivity" />
-        <activity android:name=".main.view.activitys.ForgotActivity" />
-        <activity android:name=".setting.view.activitys.ModifyPasswordActivity" />
-        <activity android:name=".setting.view.activitys.NameSettingActivity" />
+        <activity android:name=".setting.view.activitys.SettingActivity"/>
+        <activity android:name=".setting.view.activitys.FeedbackActivity"/>
+        <activity android:name=".setting.view.activitys.PersonCenterActivity"/>
+        <activity android:name=".main.view.activitys.RegisterActivity"/>
+        <activity android:name=".main.view.activitys.ForgotActivity"/>
+        <activity android:name=".setting.view.activitys.ModifyPasswordActivity"/>
+        <activity android:name=".setting.view.activitys.NameSettingActivity"/>
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="59719ccc04e20564f70004b6" />
+            android:value="59719ccc04e20564f70004b6"/>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="app_online" />
+            android:value="app_online"/>
 
         <meta-data
             android:name="com.yc.english.base.helper.GlideConfiguration"
-            android:value="AppGlideModule" />
+            android:value="AppGlideModule"/>
 
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
-            android:theme="@android:style/Theme.Translucent" />
+            android:theme="@android:style/Theme.Translucent"/>
 
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
         <activity
             android:name=".WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".weixin.views.activitys.CourseActivity"></activity>
+        <activity android:name=".weixin.views.activitys.CourseTypeActivity"></activity>
 
     </application>
 

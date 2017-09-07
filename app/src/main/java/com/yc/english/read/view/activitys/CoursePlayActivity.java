@@ -194,7 +194,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 if (languageType > 3) {
                     languageType = 1;
                 }
-                if (playPosition > -1) {
+                if (playPosition > -1 && playPosition < mItemAdapter.getData().size()) {
                     mItemAdapter.getData().get(playPosition).setPlay(true);
                 }
                 switch (languageType) {
@@ -370,7 +370,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     }
 
     public void enableState(int postion) {
-        if (postion == -1) {
+        if (postion == -1 && postion < mItemAdapter.getData().size()) {
             return;
         }
         if (playPosition > 2) {

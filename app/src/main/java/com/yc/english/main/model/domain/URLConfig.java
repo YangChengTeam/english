@@ -31,6 +31,10 @@ public class URLConfig {
 
     public static final String APPIDS_URL = getBaseUrl() + "index/xfapp_list";
 
+    public static final String NEWS_URL = getBaseUrl() + "news/search";
+
+    public static final String NEWS_INFO_URL = getBaseUrl() + "news/info";
+
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }

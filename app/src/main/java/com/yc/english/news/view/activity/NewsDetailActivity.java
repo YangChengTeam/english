@@ -3,7 +3,6 @@ package com.yc.english.news.view.activity;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -12,6 +11,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
@@ -21,6 +21,7 @@ import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.news.adapter.NewsDetailAdapter;
 import com.yc.english.news.bean.NewsInfo;
 import com.yc.english.news.view.widget.MediaPlayerView;
+import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,13 +60,13 @@ public class NewsDetailActivity extends FullScreenActivity {
         mToolbar.setTitle("");
         mToolbar.setMenuTitle(getString(R.string.share));
         mToolbar.showNavigationIcon();
+        mToolbar.setMenuTitleColor(R.color.black_333333);
 
         if (getIntent() != null) {
-            NewsInfo newsInfo = (NewsInfo) getIntent().getSerializableExtra("newsInfo");
-//            mMediaPlayerView.setPath();
-//            mMediaPlayerView.startPlay();
+            CourseInfo courseInfo = getIntent().getParcelableExtra("info");
+
         }
-        playAudio("http://play.baidu.com/?__m=mboxCtrl.playSong&__a=100575177&__o=song/100575177||playBtn&fr=-1||www.baidu.com#");
+//        playAudio("http://play.baidu.com/?__m=mboxCtrl.playSong&__a=100575177&__o=song/100575177||playBtn&fr=-1||www.baidu.com#");
 
         initWebView();
         initRecycleView();
@@ -89,18 +90,6 @@ public class NewsDetailActivity extends FullScreenActivity {
             }
         });
 
-//        webView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction() == MotionEvent.ACTION_UP) {
-//                    nestedScrollView.requestDisallowInterceptTouchEvent(false);
-//                } else {
-//                    nestedScrollView.requestDisallowInterceptTouchEvent(true);
-//                }
-//                return false;
-//            }
-//        });
-
     }
 
 
@@ -115,6 +104,7 @@ public class NewsDetailActivity extends FullScreenActivity {
     }
 
     private void initRecycleView() {
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         newsDetailAdapter = new NewsDetailAdapter(this, null);
         mRecyclerView.setAdapter(newsDetailAdapter);
@@ -124,23 +114,17 @@ public class NewsDetailActivity extends FullScreenActivity {
     }
 
     private void initWebView() {
-        final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) webView.getLayoutParams();
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-
 
         //设置自适应屏幕，两者合用
         webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
 
-        //缩放操作
-        webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
-        webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
-        webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
-
+        webView.addJavascriptInterface(new JavascriptInterface(), "HTML");
         //其他细节操作
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); //关闭webview中缓存 //优先使用缓存:
+        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); //关闭webview中缓存 //优先使用缓存:
         webSettings.setAllowFileAccess(true); //设置可以访问文件
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
@@ -158,8 +142,7 @@ public class NewsDetailActivity extends FullScreenActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                layoutParams.height = view.getContentHeight();
-                view.setLayoutParams(layoutParams);
+                view.loadUrl("javascript:window.HTML.getContentHeight(document.getElementByTagName('html')");
 
             }
         });
@@ -171,11 +154,6 @@ public class NewsDetailActivity extends FullScreenActivity {
 
                     mLlRecommend.setVisibility(View.VISIBLE);
                 }
-            }
-
-            @Override
-            public void onReceivedTitle(WebView view, String title) {
-
             }
         });
 
@@ -212,4 +190,15 @@ public class NewsDetailActivity extends FullScreenActivity {
         mJCVideoPlayer.thumbImageView.setImageURI(Uri.parse("http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640"));
     }
 
+    private class JavascriptInterface {
+        public void getContentHeight(String value) {
+            if (value != null) {
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) webView.getLayoutParams();
+                int webviewContentHeight = Integer.parseInt(value);
+                LogUtils.d("result from js" + webviewContentHeight);
+                layoutParams.height = webviewContentHeight;
+                webView.setLayoutParams(layoutParams);
+            }
+        }
+    }
 }

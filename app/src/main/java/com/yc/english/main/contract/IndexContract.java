@@ -6,6 +6,7 @@ import com.yc.english.base.view.INoData;
 import com.yc.english.base.view.INoNet;
 import com.yc.english.base.view.IView;
 import com.yc.english.main.model.domain.CountInfo;
+import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.model.domain.UserInfo;
 
@@ -17,10 +18,9 @@ import java.util.List;
 
 public interface IndexContract {
     interface View extends IView, ILoading, INoNet, INoData {
-        void showBanner(List<String> images);
+        void showInfo(IndexInfo indexInfo);
         void showAvatar(UserInfo userInfo);
-        void showCountInfo(CountInfo countInfo);
-
+        void showBanner(List<String> images);
     }
     interface Presenter extends IPresenter {
         void getIndexInfo();
