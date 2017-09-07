@@ -54,7 +54,7 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
-                intent.putExtra("news_id", "");
+                intent.putExtra("info", mCourseAdapter.getData().get(position));
                 startActivity(intent);
             }
         });
