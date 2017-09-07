@@ -5,4 +5,7 @@
 
     <color name="black_alpha_30">#DFFFFFFF</color>
     <color name="note_bg_color">#dbdbdb</color>
+
+    <color name="comment_item_bg_color">#3Ff1f1f1</color>
+    <color name="comment_line_color">#7fdddddd</color>
 </resources>

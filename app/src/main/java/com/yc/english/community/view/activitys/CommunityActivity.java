@@ -76,6 +76,8 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
         return R.layout.activity_community;
     }
 
+    private int currentPosition;
+
     @Override
     public void init() {
 
@@ -160,16 +162,16 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
             }
         });
 
-        //学友圈type:1
-        RxView.clicks(mFriendsCircleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        //英粉圈type:1
+        RxView.clicks(mEnglishCircleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 toAddNoteActivity("1");
             }
         });
 
-        //英语圈type:2
-        RxView.clicks(mEnglishCircleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        //学习圈type:2
+        RxView.clicks(mFriendsCircleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 toAddNoteActivity("2");
@@ -201,6 +203,7 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
 
         @Override
         public Fragment getItem(int position) {
+            currentPosition = position;
             Bundle bundle = new Bundle();
             if (position == 0) {
                 if (courseFragment1 == null) {
@@ -234,7 +237,7 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
     }
 
     private class MyAdapter extends Indicator.IndicatorAdapter {
-        private final String[] titles = new String[]{"热门", "学友圈", "英语圈"};
+        private final String[] titles = new String[]{"热门", "英粉圈", "学习圈"};
 
         private final int count;
 
@@ -301,5 +304,10 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
         animationClose.setFillAfter(true);
         groundView.startAnimation(animationClose);
         isShow = false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
