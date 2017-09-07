@@ -35,6 +35,7 @@ import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.community.view.activitys.CommunityActivity;
+import com.yc.english.community.view.activitys.CommunityDetailActivity;
 import com.yc.english.group.view.activitys.GroupCommonClassActivity;
 import com.yc.english.group.view.activitys.GroupMainActivity;
 import com.yc.english.main.contract.IndexContract;
@@ -390,7 +391,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         mHotMircoClassAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                intent.putExtra("info", mHotMircoClassAdapter.getData().get(position));
+                startActivity(intent);
             }
         });
 
@@ -401,7 +404,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         mHotCommunityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                Intent intent = new Intent(getActivity(), CommunityDetailActivity.class);
+                intent.putExtra("community_info", mHotCommunityAdapter.getData().get(position));
+                startActivity(intent);
             }
         });
     }
@@ -445,7 +450,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
 
     @Override
-    public void showInfo(IndexInfo indexInfo) {
+    public void showInfo(final IndexInfo indexInfo) {
         mFragmentAdapter = new FragmentAdapter(getChildFragmentManager(), indexInfo);
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setCurrentItem(0);
@@ -472,6 +477,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 @Override
                 public void call(Void aVoid) {
                     Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                    intent.putExtra("info", indexInfo.getRedian().get(0));
                     startActivity(intent);
                 }
             });

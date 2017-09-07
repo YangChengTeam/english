@@ -1,5 +1,6 @@
 package com.yc.english.main.view.fragments;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,9 +9,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.main.view.adapters.AritleAdapter;
+import com.yc.english.news.view.NewsDetailActivity;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,7 +41,9 @@ public class ArticleFragment extends BaseFragment {
         mAritleAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                intent.putExtra("info", mAritleAdapter.getData().get(position));
+                startActivity(intent);
             }
         });
     }
