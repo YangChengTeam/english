@@ -5,14 +5,14 @@
     android:id="@+id/head_type_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/comment_item_bg_color"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="2dp">
 
         <ImageView
             android:id="@+id/iv_comment_user_img"
@@ -20,7 +20,7 @@
             android:layout_height="26dp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="2dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:padding="3dp"
             android:src="@mipmap/main_tab_my"/>
 
@@ -34,7 +34,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="2dp">
 
                 <TextView
                     android:id="@+id/tv_comment_user_name"
@@ -71,5 +71,9 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="@color/comment_line_color"></View>
 </LinearLayout>
 

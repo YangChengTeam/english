@@ -26,7 +26,10 @@
                 android:layout_height="40dp"
                 android:background="@color/white">
             </com.shizhefei.view.indicator.FixedIndicatorView>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_ddd"></View>
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
@@ -58,33 +61,32 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_friends_circle"
+                    android:id="@+id/tv_english_circle"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="40dp"
                     android:clickable="true"
-                    android:drawableLeft="@mipmap/friends_icon"
+                    android:drawableLeft="@mipmap/english_icon"
                     android:drawablePadding="6dp"
                     android:gravity="center"
-                    android:text="学友圈"
+                    android:text="英粉圈"
                     android:textColor="@color/black"
                     android:textSize="16sp"/>
 
                 <TextView
-                    android:id="@+id/tv_english_circle"
+                    android:id="@+id/tv_friends_circle"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-
-                    android:layout_below="@+id/tv_friends_circle"
+                    android:layout_below="@+id/tv_english_circle"
                     android:layout_marginTop="25dp"
                     android:clickable="true"
-                    android:drawableLeft="@mipmap/english_icon"
+                    android:drawableLeft="@mipmap/friends_icon"
                     android:drawablePadding="4dp"
                     android:gravity="center"
-                    android:text="英语圈"
+                    android:text="学习圈"
                     android:textColor="@color/black"
                     android:textSize="16sp"/>
             </RelativeLayout>

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.R;
@@ -24,6 +25,7 @@ import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.community.presenter.CommunityInfoPresenter;
 import com.yc.english.community.view.adapter.ImageSelectedAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.PicassoEngine;
@@ -208,7 +210,8 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
     @Override
     public void showAddCommunityInfo(CommunityInfo communityInfo) {
         if (communityInfo != null) {
-            ToastUtils.showLong("发帖成功");
+            RxBus.get().post(Constant.COMMUNITY_REFRESH, "from add communityInfo");
+            finish();
         }
     }
 

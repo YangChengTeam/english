@@ -7,8 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.StateView;
@@ -19,6 +23,7 @@ import com.yc.english.community.presenter.CommunityInfoPresenter;
 import com.yc.english.community.view.activitys.CommunityDetailActivity;
 import com.yc.english.community.view.adapter.CommunityItemClickAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
 
 import java.util.List;
 
@@ -143,10 +148,10 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
     public void setCurrentPage() {
         switch (type) {
             case 1:
-                currentFriendsPage++;
+                currentEnglishPage++;
                 break;
             case 2:
-                currentEnglishPage++;
+                currentFriendsPage++;
                 break;
             case 3:
                 currentHotPage++;
@@ -154,13 +159,24 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         }
     }
 
+
     @Override
     public void onRefresh() {
         currentPage = 1;
         currentHotPage = 1;
-        currentFriendsPage = 1;
         currentEnglishPage = 1;
+        currentFriendsPage = 1;
         mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", type, getCurrentPageByType(type), 10);
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.COMMUNITY_REFRESH)
+            }
+    )
+    public void rxRefresh(String tag) {
+        onRefresh();
     }
 
     protected boolean isSlideToBottom(RecyclerView recyclerView) {
@@ -243,4 +259,10 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         //mCommunityItemAdapter.notifyItemChanged(currentChildPosition);
         mCommunityItemAdapter.changeView(mLinearLayoutManager.findViewByPosition(currentChildPosition), currentChildPosition);
     }
+
+    public  void refreshData(){
+        LogUtils.e("type--->" + type + "page --->" + getCurrentPageByType(type));
+        mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", type, getCurrentPageByType(type), 10);
+    }
+
 }

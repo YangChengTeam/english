@@ -3,6 +3,6 @@
 
     <solid android:color="@color/read_word_pass_color"/>
 
-    <corners android:radius="5dp"/>
+    <corners android:radius="3dp"/>
 
 </shape>

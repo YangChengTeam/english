@@ -3,6 +3,6 @@
 
     <solid android:color="@color/read_all_word_color" />
 
-    <corners android:radius="5dp" />
+    <corners android:radius="3dp" />
 
 </shape>
