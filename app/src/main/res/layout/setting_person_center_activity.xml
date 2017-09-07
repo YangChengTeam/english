@@ -51,6 +51,18 @@
             android:layout_height="45dp"
             eng:text="@string/setting_school">
         </com.yc.english.setting.view.widgets.SettingItemView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/primaryDark"></View>
+
+        <com.yc.english.setting.view.widgets.SettingItemView
+            android:id="@+id/si_grade"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            eng:text="年级">
+        </com.yc.english.setting.view.widgets.SettingItemView>
     </LinearLayout>
 
     <LinearLayout
@@ -59,8 +71,8 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:background="@drawable/setting_item_bg">
+        android:background="@drawable/setting_item_bg"
+        android:orientation="vertical">
 
         <com.yc.english.setting.view.widgets.SettingItemView
             android:id="@+id/si_phone"

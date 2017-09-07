@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -29,6 +31,7 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.BaseFragment;
+import com.yc.english.base.view.SelectGradePopupWindow;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.WebActivity;
@@ -406,6 +409,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 startActivity(intent);
             }
         });
+
+        if (SPUtils.getInstance().getString("period", "").isEmpty()) {
+            SelectGradePopupWindow selectGradePopupWindow = new SelectGradePopupWindow(getActivity());
+            selectGradePopupWindow.show(mContextScrollView, Gravity.CENTER);
+        }
     }
 
 

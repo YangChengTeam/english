@@ -34,6 +34,16 @@ public class DrawableUtils {
         return gradientDrawable;
     }
 
+
+    public static GradientDrawable setBg(Context mContext, int radius, int width, int resColor) {
+        int roundRadius = SizeUtils.dp2px(radius);
+        int widthpx = SizeUtils.dp2px(width);
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setCornerRadius(roundRadius);
+        gradientDrawable.setStroke(widthpx, ContextCompat.getColor(mContext, resColor));
+        return gradientDrawable;
+    }
+
     /**
      * 获取资源下的图片Uri
      *

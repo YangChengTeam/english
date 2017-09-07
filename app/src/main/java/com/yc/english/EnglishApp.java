@@ -40,6 +40,7 @@ public class EnglishApp extends MultiDexApplication {
 
     @Override
     public void onCreate() {
+        gEnglishApp = this;
         super.onCreate();
         Observable.just("").observeOn(Schedulers.io()).subscribe(new Action1<String>() {
             @Override
@@ -83,26 +84,7 @@ public class EnglishApp extends MultiDexApplication {
                 "vvSb829OOi6npw9i9pJ8CwMCAwEAAQ==\n" +
                 "-----END PUBLIC KEY-----");
 
-        //设置http默认参数
-        String agent_id = "1";
-        Map<String, String> params = new HashMap<>();
-        if (GoagalInfo.get().channelInfo != null && GoagalInfo.get().channelInfo.agent_id != null) {
-            params.put("from_id", GoagalInfo.get().channelInfo.from_id + "");
-            params.put("author", GoagalInfo.get().channelInfo.author + "");
-            agent_id = GoagalInfo.get().channelInfo.agent_id;
-        }
-        params.put("agent_id", agent_id);
-        params.put("ts", System.currentTimeMillis() + "");
-        params.put("device_type", "2");
-        params.put("imeil", GoagalInfo.get().uuid);
-        String sv = android.os.Build.MODEL.contains(android.os.Build.BRAND) ? android.os.Build.MODEL + " " + android
-                .os.Build.VERSION.RELEASE : Build.BRAND + " " + android
-                .os.Build.MODEL + " " + android.os.Build.VERSION.RELEASE;
-        params.put("sys_version", sv);
-        if (GoagalInfo.get().appInfo != null) {
-            params.put("app_version", GoagalInfo.get().appInfo.getVersionName() + "");
-        }
-        HttpConfig.setDefaultParams(params);
+        setHttpDefaultParams();
 
         UserInfoHelper.login(this);
 
@@ -125,6 +107,41 @@ public class EnglishApp extends MultiDexApplication {
         });
 
 
+    }
+
+    private static EnglishApp gEnglishApp;
+
+    public static EnglishApp get() {
+        return gEnglishApp;
+    }
+
+    public void setHttpDefaultParams() {
+        //设置http默认参数
+        String agent_id = "1";
+        Map<String, String> params = new HashMap<>();
+        if (GoagalInfo.get().channelInfo != null && GoagalInfo.get().channelInfo.agent_id != null) {
+            params.put("from_id", GoagalInfo.get().channelInfo.from_id + "");
+            params.put("author", GoagalInfo.get().channelInfo.author + "");
+            agent_id = GoagalInfo.get().channelInfo.agent_id;
+        }
+        params.put("agent_id", agent_id);
+        params.put("ts", System.currentTimeMillis() + "");
+        params.put("device_type", "2");
+        if (!SPUtils.getInstance().getString("period", "").isEmpty()) {
+            params.put("period", SPUtils.getInstance().getString("period", ""));
+        }
+        if (SPUtils.getInstance().getInt("grade", 0) != 0) {
+            params.put("grade", SPUtils.getInstance().getInt("grade", 0) + "");
+        }
+        params.put("imeil", GoagalInfo.get().uuid);
+        String sv = android.os.Build.MODEL.contains(android.os.Build.BRAND) ? android.os.Build.MODEL + " " + android
+                .os.Build.VERSION.RELEASE : Build.BRAND + " " + android
+                .os.Build.MODEL + " " + android.os.Build.VERSION.RELEASE;
+        params.put("sys_version", sv);
+        if (GoagalInfo.get().appInfo != null) {
+            params.put("app_version", GoagalInfo.get().appInfo.getVersionName() + "");
+        }
+        HttpConfig.setDefaultParams(params);
     }
 
     @Override

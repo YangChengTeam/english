@@ -26,7 +26,7 @@ public class CourseTypeActivity extends FullScreenActivity {
     @BindView(R.id.fiv_indicator)
     FixedIndicatorView mFixedIndicatorView;
 
-    private final String[] titles = new String[]{"句法", "语法", "句型", "作文", "听力"};
+    private final String[] titles = new String[]{"句型", "语法", "句型", "作文", "听力"};
     private int index = 0;
 
     @Override
