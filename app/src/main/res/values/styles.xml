@@ -49,4 +49,5 @@
         <item name="android:progressDrawable">@drawable/seekbar_progress_bg</item>
         <item name="android:thumb">@drawable/seekbar_themb_bg</item>
     </style>
+
 </resources>

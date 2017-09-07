@@ -9,7 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.yc.english.base.view.MyScrollview
+    <com.yc.english.base.view.StateView
+        android:id="@+id/stateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.yc.english.news.view.widget.NewsScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -84,7 +89,8 @@
                 <com.yc.english.news.view.widget.MediaPlayerView
                     android:id="@+id/mMediaPlayerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
             </FrameLayout>
 
 
@@ -168,5 +174,5 @@
 
 
         </LinearLayout>
-    </com.yc.english.base.view.MyScrollview>
+    </com.yc.english.news.view.widget.NewsScrollView>
 </LinearLayout>

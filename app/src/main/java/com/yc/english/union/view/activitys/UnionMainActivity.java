@@ -20,13 +20,14 @@ import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.constant.BusAction;
-import com.yc.english.group.contract.GroupMyGroupListContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
-import com.yc.english.group.presenter.GroupMyGroupListPresenter;
+import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.union.contract.UnionListContract;
+import com.yc.english.union.presenter.UnionListPresenter;
 import com.yc.english.union.view.activitys.student.UnionJoinActivity;
-import com.yc.english.union.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.union.view.activitys.teacher.UnionCreateActivity;
 import com.yc.english.union.view.adapter.GroupGroupAdapter;
 
@@ -41,7 +42,7 @@ import io.rong.message.RichContentMessage;
  * Created by wanglin  on 2017/7/24 17:59.
  */
 
-public class UnionMainActivity extends FullScreenActivity<GroupMyGroupListPresenter> implements GroupMyGroupListContract.View {
+public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> implements UnionListContract.View {
     private static final String TAG = "UnionMainActivity";
 
     @BindView(R.id.recyclerView)
@@ -71,7 +72,7 @@ public class UnionMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     @Override
     public void init() {
 
-        mPresenter = new GroupMyGroupListPresenter(this, this);
+        mPresenter = new UnionListPresenter(this, this);
         mToolbar.setTitle(getString(R.string.english_union));
 
         btnCreateClass.setText(getString(R.string.create_union));
@@ -89,7 +90,7 @@ public class UnionMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, true, null);
         recyclerView.setAdapter(adapter);
-
+        getData();
     }
 
     private void showCreateGuide() {
@@ -150,12 +151,12 @@ public class UnionMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             }
     )
     public void getList(String group) {
-        mPresenter.loadData(true);
+       getData();
     }
 
 
     @Override
-    public void showMyGroupList(List<ClassInfo> classInfos) {
+    public void showUnionList(List<ClassInfo> classInfos) {
         if (classInfos != null && classInfos.size() > 0) {
             this.mClassInfo = classInfos;
             llDataContainer.setVisibility(View.VISIBLE);
@@ -169,9 +170,7 @@ public class UnionMainActivity extends FullScreenActivity<GroupMyGroupListPresen
                 showCreateGuide();
             }
         }
-
     }
-
 
     @Override
     public void showMemberList(List<StudentInfo> count) {
@@ -214,7 +213,7 @@ public class UnionMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         sViewLoading.showNoNet(contentView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadData(true);
+                getData();
             }
         });
     }
@@ -227,6 +226,17 @@ public class UnionMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     @Override
     public void showLoading() {
         sViewLoading.showLoading(contentView);
+    }
+
+    private void getData() {
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo != null) {
+            String uid = userInfo.getUid();
+            mPresenter.getUnionList("1", "", 1, 10);
+            mPresenter.getMemberList(this, "", "0", uid);
+        } else {
+            showMemberList(null);
+        }
     }
 
 }

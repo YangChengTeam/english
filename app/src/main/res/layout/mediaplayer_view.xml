@@ -24,10 +24,13 @@
 
         <SeekBar
             android:id="@+id/mSeekBar"
+            style="@style/seekbar_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/mTextViewTime"
-            android:layout_toRightOf="@id/mImageView" />
+            android:layout_toRightOf="@id/mImageView"
+            android:maxHeight="@dimen/group_distance_5"
+            android:minHeight="@dimen/group_distance_5" />
     </RelativeLayout>
 </LinearLayout>

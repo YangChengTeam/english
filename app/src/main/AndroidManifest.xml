@@ -144,6 +144,8 @@
         <activity android:name=".union.view.activitys.UnionMainActivity"/>
         <activity android:name=".union.view.activitys.student.UnionJoinActivity"/>
         <activity android:name=".union.view.activitys.teacher.UnionCreateActivity"/>
+        <activity android:name=".union.view.activitys.teacher.UnionIssueTaskActivity"/>
+        <activity android:name=".union.view.activitys.teacher.UnionSyncGroupListActivity"/>
         <activity
             android:name=".news.view.activity.NewsDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"

@@ -36,6 +36,11 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         public final static Property Add_date = new Property(9, String.class, "add_date", false, "ADD_DATE");
         public final static Property Img = new Property(10, String.class, "img", false, "IMG");
         public final static Property Html = new Property(11, String.class, "html", false, "HTML");
+        public final static Property Url_type = new Property(12, int.class, "url_type", false, "URL_TYPE");
+        public final static Property Body = new Property(13, String.class, "body", false, "BODY");
+        public final static Property Ip_num = new Property(14, String.class, "ip_num", false, "IP_NUM");
+        public final static Property Pv_num = new Property(15, String.class, "pv_num", false, "PV_NUM");
+        public final static Property Sort = new Property(16, String.class, "sort", false, "SORT");
     }
 
 
@@ -62,7 +67,12 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
                 "\"ADD_TIME\" TEXT," + // 8: add_time
                 "\"ADD_DATE\" TEXT," + // 9: add_date
                 "\"IMG\" TEXT," + // 10: img
-                "\"HTML\" TEXT);"); // 11: html
+                "\"HTML\" TEXT," + // 11: html
+                "\"URL_TYPE\" INTEGER NOT NULL ," + // 12: url_type
+                "\"BODY\" TEXT," + // 13: body
+                "\"IP_NUM\" TEXT," + // 14: ip_num
+                "\"PV_NUM\" TEXT," + // 15: pv_num
+                "\"SORT\" TEXT);"); // 16: sort
     }
 
     /** Drops the underlying database table. */
@@ -134,6 +144,27 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         if (html != null) {
             stmt.bindString(12, html);
         }
+        stmt.bindLong(13, entity.getUrl_type());
+ 
+        String body = entity.getBody();
+        if (body != null) {
+            stmt.bindString(14, body);
+        }
+ 
+        String ip_num = entity.getIp_num();
+        if (ip_num != null) {
+            stmt.bindString(15, ip_num);
+        }
+ 
+        String pv_num = entity.getPv_num();
+        if (pv_num != null) {
+            stmt.bindString(16, pv_num);
+        }
+ 
+        String sort = entity.getSort();
+        if (sort != null) {
+            stmt.bindString(17, sort);
+        }
     }
 
     @Override
@@ -199,6 +230,27 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         if (html != null) {
             stmt.bindString(12, html);
         }
+        stmt.bindLong(13, entity.getUrl_type());
+ 
+        String body = entity.getBody();
+        if (body != null) {
+            stmt.bindString(14, body);
+        }
+ 
+        String ip_num = entity.getIp_num();
+        if (ip_num != null) {
+            stmt.bindString(15, ip_num);
+        }
+ 
+        String pv_num = entity.getPv_num();
+        if (pv_num != null) {
+            stmt.bindString(16, pv_num);
+        }
+ 
+        String sort = entity.getSort();
+        if (sort != null) {
+            stmt.bindString(17, sort);
+        }
     }
 
     @Override
@@ -220,7 +272,12 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // add_time
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // add_date
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // img
-            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11) // html
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // html
+            cursor.getInt(offset + 12), // url_type
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // body
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // ip_num
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // pv_num
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16) // sort
         );
         return entity;
     }
@@ -239,6 +296,11 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         entity.setAdd_date(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setImg(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setHtml(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setUrl_type(cursor.getInt(offset + 12));
+        entity.setBody(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setIp_num(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setPv_num(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setSort(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
      }
     
     @Override

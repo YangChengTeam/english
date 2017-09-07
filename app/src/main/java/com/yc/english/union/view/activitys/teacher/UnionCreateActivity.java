@@ -43,7 +43,7 @@ public class UnionCreateActivity extends FullScreenActivity<GroupCreatePresenter
             @Override
             public void call(Void aVoid) {
 
-                mPresenter.createGroup(UserInfoHelper.getUserInfo().getUid(), etClassGroup.getText().toString().trim(), "");
+                mPresenter.createGroup(UserInfoHelper.getUserInfo().getUid(), etClassGroup.getText().toString().trim(), "", "1");
             }
         });
 

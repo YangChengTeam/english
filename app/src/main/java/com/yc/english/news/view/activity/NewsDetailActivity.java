@@ -1,41 +1,49 @@
 package com.yc.english.news.view.activity;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.Utils;
+import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
-import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
+import com.yc.english.base.view.StateView;
 import com.yc.english.news.adapter.NewsDetailAdapter;
-import com.yc.english.news.bean.NewsInfo;
+import com.yc.english.news.bean.CourseInfoWrapper;
+import com.yc.english.news.contract.NewsDetailContract;
+import com.yc.english.news.presenter.NewsDetailPresenter;
 import com.yc.english.news.view.widget.MediaPlayerView;
+import com.yc.english.news.view.widget.NewsScrollView;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
-import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/9/6 08:32.
  */
 
-public class NewsDetailActivity extends FullScreenActivity {
+public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> implements NewsDetailContract.View {
     @BindView(R.id.mJCVideoPlayer)
     JCVideoPlayerStandard mJCVideoPlayer;
     @BindView(R.id.webView)
@@ -46,17 +54,28 @@ public class NewsDetailActivity extends FullScreenActivity {
     RecyclerView mRecyclerView;
     @BindView(R.id.ll_rootView)
     LinearLayout llRootView;
-    @BindView(R.id.nestedScrollView)
-    ScrollView nestedScrollView;
+
     @BindView(R.id.m_ll_recommend)
     LinearLayout mLlRecommend;
     @BindView(R.id.mMediaPlayerView)
     MediaPlayerView mMediaPlayerView;
+    @BindView(R.id.mTextViewTitle)
+    TextView mTextViewTitle;
+    @BindView(R.id.mTextViewTime)
+    TextView mTextViewTime;
+    @BindView(R.id.nestedScrollView)
+    NewsScrollView nestedScrollView;
+    @BindView(R.id.stateView)
+    StateView stateView;
 
     private NewsDetailAdapter newsDetailAdapter;
+    private String title;
+    private int screenHeight;
+    private String id;
 
     @Override
     public void init() {
+        mPresenter = new NewsDetailPresenter(this, this);
         mToolbar.setTitle("");
         mToolbar.setMenuTitle(getString(R.string.share));
         mToolbar.showNavigationIcon();
@@ -64,13 +83,36 @@ public class NewsDetailActivity extends FullScreenActivity {
 
         if (getIntent() != null) {
             CourseInfo courseInfo = getIntent().getParcelableExtra("info");
-
+            id = courseInfo.getId();
+            mPresenter.getWeixinInfo(id);
         }
-//        playAudio("http://play.baidu.com/?__m=mboxCtrl.playSong&__a=100575177&__o=song/100575177||playBtn&fr=-1||www.baidu.com#");
+        Utils.init(this);
+        screenHeight = ScreenUtils.getScreenHeight();
 
-        initWebView();
         initRecycleView();
         initListener();
+
+    }
+
+
+    private void initData(CourseInfo courseInfo) {
+        title = courseInfo.getTitle();
+        mTextViewTitle.setText(title);
+
+        String time = null;
+        if (!TextUtils.isEmpty(courseInfo.getAdd_time())) {
+            time = TimeUtils.millis2String(Long.parseLong(courseInfo.getAdd_time()) * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+        }
+
+        mTextViewTime.setText(time);
+
+        String url = courseInfo.getUrl();
+        if (courseInfo.getUrl_type() == 1) {
+            playAudio(url);
+        } else if (courseInfo.getUrl_type() == 2) {
+            playVideo(url, courseInfo.getImg());
+        }
+
 
     }
 
@@ -82,26 +124,19 @@ public class NewsDetailActivity extends FullScreenActivity {
                 sharePopupWindow.show(llRootView);
             }
         });
-        RxView.clicks(mLinearLayoutMore).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        nestedScrollView.setListener(new NewsScrollView.onScrollChangeListener() {
             @Override
-            public void call(Void aVoid) {
-                // TODO: 2017/9/6 跳转到更多新闻页面
-
+            public void onScrollChange(int l, int t, int oldl, int oldt) {
+//                LogUtils.e("l-->" + l + "  t-->" + t + "  oldl-->" + oldl + "  oldt-->" + oldt);
+                if (t > screenHeight / 2) {
+                    mToolbar.setTitle(title);
+                } else {
+                    mToolbar.setTitle("");
+                }
             }
         });
-
     }
 
-
-    private void initData() {
-        List<NewsInfo> list = new ArrayList<>();
-        list.add(new NewsInfo("1.12生肖的英文怎么说", "http://www.baidu.com"));
-        list.add(new NewsInfo("2.这么积极向上的‘kill’你见过吗", "http://www.baidu.com"));
-        list.add(new NewsInfo("3.一组英文漫画，戳中了多少家庭的痛点", "http://www.baidu.com"));
-        list.add(new NewsInfo("4.每一个结局，都会是一个新的起点", "http://www.baidu.com"));
-        list.add(new NewsInfo("5.醒来见到你，我心便安然", "http://www.baidu.com"));
-        newsDetailAdapter.setData(list);
-    }
 
     private void initRecycleView() {
 
@@ -110,10 +145,23 @@ public class NewsDetailActivity extends FullScreenActivity {
         mRecyclerView.setAdapter(newsDetailAdapter);
         RecyclerView.ItemDecoration itemDecoration = new BaseItemDecoration(this);
         mRecyclerView.addItemDecoration(itemDecoration);
-        initData();
+
     }
 
-    private void initWebView() {
+    private String makeBody(String data) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<html><head><meta charset=\"utf-8\" /><meta content=\"yes\" name=\"apple-mobile-web-app-capable\" />\n" +
+                "    <meta content=\"yes\" name=\"apple-touch-fullscreen\" />\n" +
+                "    <meta content=\"telephone=no,email=no\" name=\"format-detection\" />\n" +
+                "    <meta name=\"App-Config\" content=\"fullscreen=yes,useHistoryState=yes,transition=yes\" /><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no\" />");
+        stringBuilder.append("</style></head><body>");
+        stringBuilder.append(data);
+        stringBuilder.append("</body></html>");
+        return stringBuilder.toString();
+    }
+
+    private void initWebView(String body) {
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -130,15 +178,10 @@ public class NewsDetailActivity extends FullScreenActivity {
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
 
-        webView.loadUrl("http://www.cnblogs.com/xiaoQLu/archive/2011/04/24/2026520.html");
+        body = makeBody(body);
+        webView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null);
+
         webView.setWebViewClient(new WebViewClient() {
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -146,6 +189,7 @@ public class NewsDetailActivity extends FullScreenActivity {
 
             }
         });
+
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
@@ -183,22 +227,77 @@ public class NewsDetailActivity extends FullScreenActivity {
      *
      * @param url
      */
-    private void playVideo(String url) {
+    private void playVideo(String url, String imgUrl) {
         mJCVideoPlayer.setVisibility(View.VISIBLE);
         mMediaPlayerView.setVisibility(View.GONE);
         mJCVideoPlayer.setUp(url, JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL);
-        mJCVideoPlayer.thumbImageView.setImageURI(Uri.parse("http://p.qpic.cn/videoyun/0/2449_43b6f696980311e59ed467f22794e792_1/640"));
+        Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
+        mJCVideoPlayer.battery_level.setVisibility(View.GONE);
+        mJCVideoPlayer.backButton.setVisibility(View.GONE);
     }
+
+
+    @Override
+    public void showCourseResult(CourseInfoWrapper data) {
+        initWebView(data.getInfo().getBody());
+        initData(data.getInfo());
+        newsDetailAdapter.setData(data.getRecommend());
+    }
+
+    @Override
+    public void hideStateView() {
+        stateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(nestedScrollView, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getWeixinInfo(id);
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        stateView.showNoData(nestedScrollView);
+    }
+
+    @Override
+    public void showLoading() {
+        stateView.showLoading(nestedScrollView);
+    }
+
 
     private class JavascriptInterface {
         public void getContentHeight(String value) {
             if (value != null) {
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) webView.getLayoutParams();
-                int webviewContentHeight = Integer.parseInt(value);
-                LogUtils.d("result from js" + webviewContentHeight);
-                layoutParams.height = webviewContentHeight;
+                layoutParams.height = Integer.parseInt(value);
                 webView.setLayoutParams(layoutParams);
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mMediaPlayerView.destory();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
     }
 }

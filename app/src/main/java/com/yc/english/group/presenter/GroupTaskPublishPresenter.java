@@ -43,8 +43,7 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
-        String uid = UserInfoHelper.getUserInfo().getUid();
-        getGroupList(mContext, uid, "1");
+
     }
 
     @Override
@@ -141,8 +140,8 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
         mSubscriptions.add(subscription);
     }
 
-    private void getGroupList(Context context, String user_id, String is_admin) {
-        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, is_admin).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
+    public void getGroupList(Context context, String user_id, String is_admin, String type) {
+        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, is_admin, type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
 
             public void onCompleted() {
@@ -169,8 +168,8 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
 
     private void sendMessageToOtherGroup(TaskInfo taskInfo) {
         String desp = taskInfo.getDesp();
-        if (TextUtils.isEmpty(desp)){
-            desp="点击查看详情";
+        if (TextUtils.isEmpty(desp)) {
+            desp = "点击查看详情";
         }
         RichContentMessage customMessage = RichContentMessage.obtain("家庭作业", desp, "");
         customMessage.setExtra(JSONObject.toJSONString(taskInfo));
