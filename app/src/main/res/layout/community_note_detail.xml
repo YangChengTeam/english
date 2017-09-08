@@ -30,8 +30,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="3dp">
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="5dp">
 
                 <ImageView
                     android:id="@+id/iv_note_user_img"
@@ -106,10 +106,12 @@
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.3dp"
                 android:background="@color/comment_line_color"></View>
+
             <TextView
                 android:id="@+id/tv_note_title"
                 android:layout_width="wrap_content"
@@ -184,6 +186,7 @@
                 android:id="@+id/comment_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="45dp"
                 />
         </LinearLayout>
     </com.yc.english.base.view.MyScrollview>
