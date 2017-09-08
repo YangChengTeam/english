@@ -24,7 +24,6 @@ public class EnginHelper {
                                                                                                                      page_size) {
         Map<String, String> params = new HashMap<>();
         params.put("type_id", type_id);
-        params.put("period", SPUtils.getInstance().getString("period", "0"));
         params.put("flag", "0");
         params.put("page", page);
         params.put("page_size", page_size);

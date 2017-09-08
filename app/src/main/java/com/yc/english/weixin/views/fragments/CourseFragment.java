@@ -110,4 +110,14 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
             mCourseAdapter.loadMoreEnd();
         }
     }
+
+    @Override
+    public void fail() {
+        mCourseAdapter.loadMoreFail();
+    }
+
+    @Override
+    public void end() {
+        mCourseAdapter.loadMoreEnd();
+    }
 }

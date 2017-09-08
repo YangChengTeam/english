@@ -59,6 +59,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
                         if(page.equals("1") ) {
                             mView.showNoNet();
                         }
+                        mView.fail();
                     }
 
                     @Override
@@ -66,6 +67,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
                         if(page.equals("1") ) {
                             mView.showNoNet();
                         }
+                        mView.fail();
                     }
 
                     @Override
@@ -79,7 +81,9 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
                             if(page.equals("1") ) {
                                 mView.showNoData();
                             }
+                            mView.end();
                         }
+
                     }
                 });
             }
