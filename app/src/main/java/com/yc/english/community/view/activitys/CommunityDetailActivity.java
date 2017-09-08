@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
@@ -27,6 +28,7 @@ import com.yc.english.community.presenter.CommunityInfoPresenter;
 import com.yc.english.community.view.adapter.CommentItemAdapter;
 import com.yc.english.community.view.adapter.ImageDetailSelectedAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
 
 import java.io.Serializable;
 import java.util.List;
@@ -232,19 +234,19 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         mCommentContentEditText.setText("");
         if (UserInfoHelper.getUserInfo() != null) {
             commentInfo.setUserName(UserInfoHelper.getUserInfo().getNickname());
+            commentInfo.setFace(UserInfoHelper.getUserInfo().getAvatar());
         }
-        if (mCommentItemAdapter.getData().size() == 0) {
-            mCommentItemAdapter.addData(commentInfo);
-        } else {
-            mCommentItemAdapter.setData(0, commentInfo);
-        }
+        mCommentItemAdapter.addData(0, commentInfo);
+
         mCommentItemAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showAgreeInfo(boolean flag) {
-        ToastUtils.showLong("点赞成功");
+        //ToastUtils.showLong("点赞成功");
         setPraiseStatus("1");
+        //RxBus.get().post(Constant.PRAISE_REFRESH, "from community detail");
+        RxBus.get().post(Constant.COMMUNITY_REFRESH, "from add communityInfo");
     }
 
     public void setPraiseStatus(String type) {

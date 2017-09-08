@@ -7,8 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -60,6 +58,8 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
 
     private int type;
 
+    private int currentItemPosition;
+
     @Override
     public int getLayoutId() {
         return R.layout.community_all_note;
@@ -74,10 +74,10 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         }
 
         swipeLayout.setColorSchemeResources(
-                android.R.color.holo_red_light,
+                R.color.primary,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
-                android.R.color.holo_blue_light);
+                R.color.primaryDark);
         swipeLayout.setOnRefreshListener(this);
 
         mPresenter = new CommunityInfoPresenter(getActivity(), this);
@@ -89,6 +89,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         mCommunityItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                currentItemPosition = position;
                 Intent intent = new Intent(getActivity(), CommunityDetailActivity.class);
                 intent.putExtra("community_info", mCommunityItemAdapter.getData().get(position));
                 startActivity(intent);
@@ -103,6 +104,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
                     mPresenter.addAgreeInfo(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", ((CommunityInfo) adapter.getData().get(position)).getId());
                 }
                 if (view.getId() == R.id.comment_layout) {
+                    currentItemPosition = position;
                     Intent intent = new Intent(getActivity(), CommunityDetailActivity.class);
                     intent.putExtra("community_info", mCommunityItemAdapter.getData().get(position));
                     startActivity(intent);
@@ -254,15 +256,20 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
 
     @Override
     public void showAgreeInfo(boolean flag) {
-        ToastUtils.showLong("点赞成功");
-        mCommunityItemAdapter.getData().get(currentChildPosition).setAgreed("1");
+        //ToastUtils.showLong("点赞成功");
+        mCommunityItemAdapter.getData().get(currentItemPosition).setAgreed("1");
         //mCommunityItemAdapter.notifyItemChanged(currentChildPosition);
-        mCommunityItemAdapter.changeView(mLinearLayoutManager.findViewByPosition(currentChildPosition), currentChildPosition);
+        mCommunityItemAdapter.changeView(mLinearLayoutManager.findViewByPosition(currentItemPosition), currentChildPosition);
     }
 
-    public  void refreshData(){
-        LogUtils.e("type--->" + type + "page --->" + getCurrentPageByType(type));
-        mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", type, getCurrentPageByType(type), 10);
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.PRAISE_REFRESH)
+            }
+    )
+    public void rxRefreshItemPraise(String tag) {
+        showAgreeInfo(true);
     }
 
 }
