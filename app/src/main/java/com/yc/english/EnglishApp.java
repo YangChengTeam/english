@@ -42,19 +42,17 @@ public class EnglishApp extends MultiDexApplication {
     public void onCreate() {
         gEnglishApp = this;
         super.onCreate();
+        Utils.init(EnglishApp.this);
         Observable.just("").observeOn(Schedulers.io()).subscribe(new Action1<String>() {
             @Override
             public void call(String s) {
                 GroupApp.init(EnglishApp.this);
                 ReadApp.init(EnglishApp.this);
-                Utils.init(EnglishApp.this);
                 SpeechUtils.setDefaultAppid(EnglishApp.this);
                 init();
             }
         });
-
         SpeechUtils.setAppids(this);
-
     }
 
 

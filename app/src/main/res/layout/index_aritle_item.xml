@@ -7,7 +7,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="68dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/base_tran_ripple_bg">
 
         <ImageView
             android:id="@+id/iv_icon"

@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/base_tran_ripple_bg">
 
         <ImageView
             android:id="@+id/iv_icon"
