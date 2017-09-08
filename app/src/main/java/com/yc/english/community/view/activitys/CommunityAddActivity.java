@@ -115,8 +115,10 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
                         upFileInfo.name = "file";
                         List<File> files = new ArrayList<File>();
                         for (int i = 0; i < mImageSelectedAdapter.getData().size(); i++) {
-                            File tempFile = new File(DrawableUtils.getPathBuUri(CommunityAddActivity.this, mImageSelectedAdapter.getData().get(i)));
-                            files.add(tempFile);
+                            if(mImageSelectedAdapter.getData().get(i).compareTo(mAddUri) != 0){
+                                File tempFile = new File(DrawableUtils.getPathBuUri(CommunityAddActivity.this, mImageSelectedAdapter.getData().get(i)));
+                                files.add(tempFile);
+                            }
                         }
                         upFileInfo.files = files;
                     } catch (Exception e) {
