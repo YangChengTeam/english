@@ -72,8 +72,8 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                             slideInfos = resultInfo.data.getSlideInfo();
                             for (SlideInfo slideInfo : resultInfo.data.getSlideInfo()) {
                                 images.add(slideInfo.getImg());
-                                mView.showBanner(images);
                             }
+                            mView.showBanner(images);
                             mView.showInfo(resultInfo.data);
                         }
                     }

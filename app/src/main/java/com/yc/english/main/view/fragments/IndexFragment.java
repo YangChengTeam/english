@@ -459,6 +459,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showInfo(final IndexInfo indexInfo) {
+
         mFragmentAdapter = new FragmentAdapter(getChildFragmentManager(), indexInfo);
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setCurrentItem(0);
@@ -491,8 +492,16 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             });
 
         }
-        mHotCommunityAdapter.addData(indexInfo.getShequ());
-        mHotMircoClassAdapter.addData(indexInfo.getWeike());
+
+        if(indexInfo.getShequ() != null) {
+            mHotCommunityAdapter.addData(indexInfo.getShequ());
+        }
+
+        if(indexInfo.getWeike()!= null) {
+            mHotMircoClassAdapter.addData(indexInfo.getWeike());
+        }
+
+
     }
 
     @Subscribe(

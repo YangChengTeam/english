@@ -250,7 +250,7 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
     }
 
     public void setPraiseStatus(String type) {
-        if (type.equals("1")) {
+        if (type!=null && type.equals("1")) {
             Drawable isZan = ContextCompat.getDrawable(CommunityDetailActivity.this, R.mipmap.is_zan_icon);
             isZan.setBounds(0, 0, isZan.getMinimumWidth(), isZan.getMinimumHeight());
             mPraiseCountTextView.setCompoundDrawables(isZan, null, null, null);

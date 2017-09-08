@@ -102,7 +102,7 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
 
     @Override
     public void showWeixinList(List<CourseInfo> list) {
-        if(list == null){
+        if (list == null) {
             mCourseAdapter.loadMoreEnd();
             return;
         }
