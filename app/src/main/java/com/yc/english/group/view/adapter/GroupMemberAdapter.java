@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 
 import butterknife.BindView;
@@ -21,7 +22,7 @@ import me.yokeyword.indexablerv.IndexableAdapter;
  */
 
 public class GroupMemberAdapter extends IndexableAdapter<StudentInfo> {
-    private static final String TAG = "GroupMemberAdapter";
+    private static final String TAG = "UnionMemberAdapter";
 
 
     private LayoutInflater mInflater;
@@ -56,7 +57,11 @@ public class GroupMemberAdapter extends IndexableAdapter<StudentInfo> {
         MemberContentVH memberContentVH = (MemberContentVH) holder;
         GlideHelper.circleImageView(mContext, memberContentVH.ivMemberImg, entity.getFace(), R.mipmap.default_avatar);
         memberContentVH.tvMemberName.setText(entity.getNick_name());
-        memberContentVH.tvMemberOwner.setText(entity.getUser_id().equals(entity.getMaster_id()) ? "老师" : "");
+        if (GroupInfoHelper.getClassInfo().getType().equals("0")){
+            memberContentVH.tvMemberOwner.setText(entity.getUser_id().equals(entity.getMaster_id()) ? "老师" : "");
+        }else if (GroupInfoHelper.getClassInfo().getType().equals("1")){
+            memberContentVH.tvMemberOwner.setText(entity.getUser_id().equals(entity.getMaster_id()) ? "会主" : "");
+        }
         memberContentVH.tvMemberPhone.setText(entity.getUser_name());
         memberContentVH.tvMemberPhone.setVisibility(entity.getUser_name().equals(entity.getNick_name()) ? View.GONE : View.VISIBLE);
     }

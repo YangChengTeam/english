@@ -46,8 +46,10 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
     }
 
 
-    public void getUnionList(String type, String flag, int page, int page_size, final boolean isLoadMore, final boolean isFitst) {
-        mView.showLoading();
+    public void getUnionList(String type, String flag, final int page, int page_size, final boolean isFitst) {
+        if (page == 1 && isFitst) {
+            mView.showLoading();
+        }
         Subscription subscription = EngineUtils.getUnionList(mContext, type, flag, page, page_size).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
             public void onCompleted() {
@@ -56,7 +58,9 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
+                if (page == 1&& isFitst) {
+                    mView.showNoNet();
+                }
             }
 
             @Override
@@ -64,18 +68,24 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
                 ResultInfoHelper.handleResultInfo(classInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.showNoNet();
+                        if (page == 1&& isFitst) {
+                            mView.showNoNet();
+                        }
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.showNoNet();
+                        if (page == 1&& isFitst) {
+                            mView.showNoData();
+                        }
                     }
 
                     @Override
                     public void reulstInfoOk() {
-                        mView.hideStateView();
-                        mView.showUnionList(classInfo.data.getList(), isLoadMore, isFitst);
+                        if (page == 1&& isFitst) {
+                            mView.hideStateView();
+                        }
+                        mView.showUnionList(classInfo.data.getList(), page, isFitst);
                     }
                 });
 

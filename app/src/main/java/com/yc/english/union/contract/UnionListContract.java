@@ -19,7 +19,7 @@ import java.util.List;
 public interface UnionListContract {
     interface View extends IView,ILoading,INoData,INoNet,IDialog,IFinish {
 
-        void showUnionList(List<ClassInfo> data, boolean isLoadMore, boolean isFitst);
+        void showUnionList(List<ClassInfo> data, int isLoadMore, boolean isFitst);
 
         void showMemberList(List<StudentInfo> list);
 

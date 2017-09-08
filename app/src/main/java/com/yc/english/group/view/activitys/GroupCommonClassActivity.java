@@ -91,7 +91,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
             @Override
             public void onJoin(ClassInfo classInfo) {
                 GroupCommonClassActivity.this.mClassInfo = classInfo;
-                int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + "member");
+                int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid());
                 if (!UserInfoHelper.isGotoLogin(GroupCommonClassActivity.this)) {
                     if (result == 1) {
                         setMode(classInfo);
@@ -118,7 +118,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
     @Override
     public void showIsMember(int is_member) {
 
-        SPUtils.getInstance().put(mClassInfo.getClass_id() + "member", is_member);
+        SPUtils.getInstance().put(mClassInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid(), is_member);
 
         if (is_member == 1) {//已经是班群成员
             setMode(mClassInfo);
@@ -175,9 +175,9 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
 
     private void setMode(ClassInfo classInfo) {
         if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-            GroupApp.setMyExtensionModule(true,true);
+            GroupApp.setMyExtensionModule(true, true);
         } else {
-            GroupApp.setMyExtensionModule(false,true);
+            GroupApp.setMyExtensionModule(false, true);
         }
     }
 

@@ -97,8 +97,8 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupUnionAdapter(null);
         recyclerView.setAdapter(adapter);
-        initListener();
         getData(false, true);
+        initListener();
 
     }
 
@@ -107,9 +107,8 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ClassInfo classInfo = (ClassInfo)adapter.getData().get(position);
-
-                int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + "union");
+                ClassInfo classInfo = (ClassInfo) adapter.getItem(position);
+                int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid());
                 if (!UserInfoHelper.isGotoLogin(UnionMainActivity.this)) {
                     if (result == 1) {
                         setMode(classInfo);
@@ -119,7 +118,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
                 }
             }
         });
-
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -208,36 +206,36 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             }
     )
     public void getList(String group) {
-        getData(false, true);
+        getData(false, false);
     }
 
 
     @Override
-    public void showUnionList(List<ClassInfo> classInfos, boolean isLoadMore, boolean isFitst) {
+    public void showUnionList(List<ClassInfo> classInfos, int page, boolean isFitst) {
 
-        if (!isLoadMore) {
-            if (classInfos != null && classInfos.size() > 0) {
-                if (isFitst) {
-                    llDataContainer.setVisibility(View.VISIBLE);
-                    llEmptyContainer.setVisibility(View.GONE);
-                }
+        if (classInfos != null && classInfos.size() > 0) {
+            if (page == 1) {
+                llDataContainer.setVisibility(View.VISIBLE);
+                llEmptyContainer.setVisibility(View.GONE);
                 adapter.setNewData(classInfos);
             } else {
-                llDataContainer.setVisibility(View.GONE);
-                llEmptyContainer.setVisibility(View.VISIBLE);
-                hideStateView();
-                if (ActivityUtils.isValidContext(this)) {
-                    showCreateGuide();
+                if (classInfos.size() == 10) {
+                    adapter.loadMoreComplete();
+                    adapter.addData(classInfos);
+                } else {
+                    adapter.loadMoreEnd();
                 }
             }
+
         } else {
-            if (classInfos.size() == 10) {
-                adapter.loadMoreComplete();
-                adapter.addData(classInfos);
-            } else {
-                adapter.loadMoreEnd();
+            llDataContainer.setVisibility(View.GONE);
+            llEmptyContainer.setVisibility(View.VISIBLE);
+            hideStateView();
+            if (ActivityUtils.isValidContext(this)) {
+                showCreateGuide();
             }
         }
+
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
@@ -257,7 +255,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
     @Override
     public void showIsMember(int is_member, final ClassInfo classInfo) {
-        SPUtils.getInstance().put(classInfo.getClass_id() + "union", is_member);
+        SPUtils.getInstance().put(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid(), is_member);
 
         if (is_member == 1) {//已经是班群成员
             setMode(classInfo);
@@ -309,10 +307,10 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             if (isLoadMore) {
                 page++;
             }
-            mPresenter.getUnionList("1", "", page, 10, isLoadMore, isFirst);
+            mPresenter.getUnionList("1", "", page, 10, isFirst);
             mPresenter.getMemberList(this, "", "0", uid);
         } else {
-            showUnionList(null, false, true);
+            showUnionList(null, 0, true);
         }
     }
 

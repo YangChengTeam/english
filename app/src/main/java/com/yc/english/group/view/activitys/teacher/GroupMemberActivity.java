@@ -74,8 +74,6 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
 
         ClassInfo classInfo = GroupInfoHelper.getClassInfo();
         if (classInfo != null && classInfo.getMaster_id() != null) {
-
-
             if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
                 mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
                 tvExitGroup.setVisibility(View.GONE);
