@@ -99,11 +99,16 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         mCommunityItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.praise_count_layout && mCommunityItemAdapter.getData().get(position).getAgreed().equals("0")) {
-                    currentChildPosition = position;
-                    mPresenter.addAgreeInfo(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", ((CommunityInfo) adapter.getData().get(position)).getId());
+                if (view.getId() == R.id.tv_praise_count && mCommunityItemAdapter.getData().get(position).getAgreed().equals("0")) {
+
+                    if (UserInfoHelper.getUserInfo() == null) {
+                        UserInfoHelper.isGotoLogin(getActivity());
+                    } else {
+                        currentChildPosition = position;
+                        mPresenter.addAgreeInfo(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", ((CommunityInfo) adapter.getData().get(position)).getId());
+                    }
                 }
-                if (view.getId() == R.id.comment_layout) {
+                if (view.getId() == R.id.tv_comment_count) {
                     currentItemPosition = position;
                     Intent intent = new Intent(getActivity(), CommunityDetailActivity.class);
                     intent.putExtra("community_info", mCommunityItemAdapter.getData().get(position));

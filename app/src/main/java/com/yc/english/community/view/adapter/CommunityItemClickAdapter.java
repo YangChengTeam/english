@@ -52,7 +52,7 @@ public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, B
         }
         GlideHelper.circleImageView(mContext, (ImageView) helper.getConvertView().findViewById(R.id.iv_note_user_img), item.getFace(), R.mipmap.main_tab_my);
 
-        helper.addOnClickListener(R.id.comment_layout).addOnClickListener(R.id.praise_count_layout);
+        helper.addOnClickListener(R.id.tv_comment_count).addOnClickListener(R.id.tv_praise_count);
 
         CommunityImageAdapter communityImageAdapter = new CommunityImageAdapter(mContext, item.getImages());
         RecyclerView imagesRecyclerView = (RecyclerView) helper.getConvertView().findViewById(R.id.imgs_list);
