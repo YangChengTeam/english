@@ -7,8 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -60,6 +58,10 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
 
     private int type;
 
+    private int currentItemPosition;
+
+    private int pageSize = 10;
+
     @Override
     public int getLayoutId() {
         return R.layout.community_all_note;
@@ -74,10 +76,10 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         }
 
         swipeLayout.setColorSchemeResources(
-                android.R.color.holo_red_light,
+                R.color.primary,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
-                android.R.color.holo_blue_light);
+                R.color.primaryDark);
         swipeLayout.setOnRefreshListener(this);
 
         mPresenter = new CommunityInfoPresenter(getActivity(), this);
@@ -89,6 +91,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         mCommunityItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                currentItemPosition = position;
                 Intent intent = new Intent(getActivity(), CommunityDetailActivity.class);
                 intent.putExtra("community_info", mCommunityItemAdapter.getData().get(position));
                 startActivity(intent);
@@ -98,11 +101,17 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         mCommunityItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.praise_count_layout && mCommunityItemAdapter.getData().get(position).getAgreed().equals("0")) {
-                    currentChildPosition = position;
-                    mPresenter.addAgreeInfo(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", ((CommunityInfo) adapter.getData().get(position)).getId());
+                if (view.getId() == R.id.tv_praise_count && mCommunityItemAdapter.getData().get(position).getAgreed().equals("0")) {
+
+                    if (UserInfoHelper.getUserInfo() == null) {
+                        UserInfoHelper.isGotoLogin(getActivity());
+                    } else {
+                        currentChildPosition = position;
+                        mPresenter.addAgreeInfo(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", ((CommunityInfo) adapter.getData().get(position)).getId());
+                    }
                 }
-                if (view.getId() == R.id.comment_layout) {
+                if (view.getId() == R.id.tv_comment_count) {
+                    currentItemPosition = position;
                     Intent intent = new Intent(getActivity(), CommunityDetailActivity.class);
                     intent.putExtra("community_info", mCommunityItemAdapter.getData().get(position));
                     startActivity(intent);
@@ -111,32 +120,23 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
             }
         });
 
-        mAllNoteRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mCommunityItemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+            public void onLoadMoreRequested() {
+                mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", type, getCurrentPageByType(type), pageSize);
             }
+        }, mAllNoteRecyclerView);
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (isSlideToBottom(recyclerView) && mCommunityItemAdapter.getData().size() >= 10) {
-                    setCurrentPage();
-                    mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", type, getCurrentPageByType(type), 10);
-                }
-            }
-        });
-
-        mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", type, getCurrentPageByType(type), 10);
+        mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", type, getCurrentPageByType(type), pageSize);
     }
 
     public int getCurrentPageByType(int type) {
         switch (type) {
             case 1:
-                currentPage = currentFriendsPage;
+                currentPage = currentEnglishPage;
                 break;
             case 2:
-                currentPage = currentEnglishPage;
+                currentPage = currentFriendsPage;
                 break;
             case 3:
                 currentPage = currentHotPage;
@@ -166,7 +166,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         currentHotPage = 1;
         currentEnglishPage = 1;
         currentFriendsPage = 1;
-        mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", type, getCurrentPageByType(type), 10);
+        mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", type, getCurrentPageByType(type), pageSize);
     }
 
     @Subscribe(
@@ -177,13 +177,6 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
     )
     public void rxRefresh(String tag) {
         onRefresh();
-    }
-
-    protected boolean isSlideToBottom(RecyclerView recyclerView) {
-        if (recyclerView == null) return false;
-        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange())
-            return true;
-        return false;
     }
 
     @Override
@@ -229,10 +222,17 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
     @Override
     public void showCommunityInfoListData(List<CommunityInfo> list) {
         swipeLayout.setRefreshing(false);
-        if (getCurrentPageByType(type) > 1) {
-            mCommunityItemAdapter.addData(list);
-        } else {
+        if (getCurrentPageByType(type) == 1) {
             mCommunityItemAdapter.setNewData(list);
+        } else {
+            mCommunityItemAdapter.addData(list);
+        }
+
+        if (list.size() == pageSize) {
+            setCurrentPage();
+            mCommunityItemAdapter.loadMoreComplete();
+        } else {
+            mCommunityItemAdapter.loadMoreEnd();
         }
     }
 
@@ -254,15 +254,20 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
 
     @Override
     public void showAgreeInfo(boolean flag) {
-        ToastUtils.showLong("点赞成功");
-        mCommunityItemAdapter.getData().get(currentChildPosition).setAgreed("1");
+        //ToastUtils.showLong("点赞成功");
+        mCommunityItemAdapter.getData().get(currentItemPosition).setAgreed("1");
         //mCommunityItemAdapter.notifyItemChanged(currentChildPosition);
-        mCommunityItemAdapter.changeView(mLinearLayoutManager.findViewByPosition(currentChildPosition), currentChildPosition);
+        mCommunityItemAdapter.changeView(mLinearLayoutManager.findViewByPosition(currentItemPosition), currentChildPosition);
     }
 
-    public  void refreshData(){
-        LogUtils.e("type--->" + type + "page --->" + getCurrentPageByType(type));
-        mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", type, getCurrentPageByType(type), 10);
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.PRAISE_REFRESH)
+            }
+    )
+    public void rxRefreshItemPraise(String tag) {
+        showAgreeInfo(true);
     }
 
 }

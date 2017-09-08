@@ -10,8 +10,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.Gravity;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -26,6 +28,7 @@ import com.yc.english.base.helper.GlideCircleTransformation;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.SelectGradePopupWindow;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
@@ -60,17 +63,22 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
     @BindView(R.id.si_password)
     SettingItemView mPasswordSettingItemView;
 
+    @BindView(R.id.si_grade)
+    SettingItemView mGradeSettingItemView;
+
     @Override
     public void init() {
         mToolbar.setTitle("个人信息");
         mToolbar.showNavigationIcon();
+
+        setGradeInfo();
 
         mPhoneSettingItemView.hideArrow();
 
         RxView.clicks(mAvatarSettingItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-               AvatarHelper.openAlbum(PersonCenterActivity.this);
+                AvatarHelper.openAlbum(PersonCenterActivity.this);
             }
         });
 
@@ -107,6 +115,19 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
             }
         });
 
+        RxView.clicks(mGradeSettingItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                SelectGradePopupWindow selectGradePopupWindow = new SelectGradePopupWindow(PersonCenterActivity.this);
+                selectGradePopupWindow.show(getWindow().getDecorView().getRootView(), new Runnable() {
+                    @Override
+                    public void run() {
+                        setGradeInfo();
+                    }
+                });
+            }
+        });
+
         mPresenter = new PersonCenterPresenter(this, this);
     }
 
@@ -139,6 +160,45 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
         }
 
         mPhoneSettingItemView.setInfo(userInfo.getMobile());
+    }
+
+    private void setGradeInfo() {
+        String grade = "一年级";
+        switch (SPUtils.getInstance().getInt("grade", 0)) {
+            case 0:
+                mGradeSettingItemView.setHintInfo("请选择年级");
+                break;
+            case 1:
+                grade = "一年级";
+                break;
+            case 2:
+                grade = "二年级";
+                break;
+            case 3:
+                grade = "三年级";
+                break;
+            case 4:
+                grade = "四年级";
+                break;
+            case 5:
+                grade = "五年级";
+                break;
+            case 6:
+                grade = "六年级";
+                break;
+            case 7:
+                grade = "七年级";
+                break;
+            case 8:
+                grade = "八年级";
+                break;
+            case 9:
+                grade = "九年级";
+                break;
+
+        }
+        mGradeSettingItemView.setInfo(grade);
+
     }
 
     @Override

@@ -15,4 +15,7 @@ public class Constant {
 
     public static final String COMMUNITY_REFRESH = "community_refresh";
 
+    public static final String PRAISE_REFRESH = "praise_refresh";
+
+    public static final String COMMUNITY_ADD_REFRESH = "community_add_refresh";
 }

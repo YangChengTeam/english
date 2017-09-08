@@ -99,7 +99,11 @@ public abstract class BasePopupWindow extends PopupWindow implements IView {
     }
 
     public void show(View view) {
-        showAtLocation(view, Gravity.BOTTOM, 0, NavgationBarUtils.getNavigationBarHeight(mContext));
+        show(view, Gravity.BOTTOM);
+    }
+
+    public void show(View view, int gravity) {
+        showAtLocation(view, gravity, 0, NavgationBarUtils.getNavigationBarHeight(mContext));
     }
 
     @Override

@@ -17,6 +17,10 @@ import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.Indicator;
@@ -28,6 +32,7 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.community.presenter.CommunityInfoPresenter;
 import com.yc.english.community.view.fragments.CommunityFragment;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
 
 import java.util.concurrent.TimeUnit;
 
@@ -189,6 +194,20 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
         } else {
             closeMenu();
             UserInfoHelper.isGotoLogin(this);
+        }
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.COMMUNITY_ADD_REFRESH)
+            }
+    )
+    public void rxSetCurrentFragment(String tag) {
+        if (!StringUtils.isEmpty(tag)) {
+            int addItem = Integer.parseInt(tag);
+            mFixedIndicatorView.setCurrentItem(addItem, true);
+            mViewPager.setCurrentItem(addItem);
         }
     }
 

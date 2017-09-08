@@ -18,6 +18,8 @@ import java.util.List;
 public interface CourseContract {
     interface View extends IView, ILoading, INoData, INoNet {
         void showWeixinList(List<CourseInfo> list);
+        void fail();
+        void end();
     }
 
     interface Presenter extends IPresenter {

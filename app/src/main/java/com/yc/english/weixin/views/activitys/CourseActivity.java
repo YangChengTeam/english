@@ -34,7 +34,7 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
     private CourseAdapter mCourseAdapter;
     private String type = "";
     private int page = 1;
-    private int pageSize = 10;
+    private int pageSize = 20;
 
     @Override
     public void init() {
@@ -87,29 +87,42 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
                 mPresenter.getWeiXinList(type, page + "", pageSize + "");
             }
         });
-        mCourseAdapter.loadMoreFail();
+
     }
 
     @Override
     public void showNoData() {
         mLoadingStateView.showNoData(mCourseRecyclerView);
-        mCourseAdapter.loadMoreFail();
     }
 
     @Override
     public void showLoading() {
         mLoadingStateView.showLoading(mCourseRecyclerView);
-        mCourseAdapter.loadMoreFail();
     }
 
     @Override
     public void showWeixinList(List<CourseInfo> list) {
+        if (list == null) {
+            mCourseAdapter.loadMoreEnd();
+            return;
+        }
         mCourseAdapter.addData(list);
+
         if (list.size() == pageSize) {
             page++;
             mCourseAdapter.loadMoreComplete();
         } else {
             mCourseAdapter.loadMoreEnd();
         }
+    }
+
+    @Override
+    public void fail() {
+        mCourseAdapter.loadMoreFail();
+    }
+
+    @Override
+    public void end() {
+        mCourseAdapter.loadMoreEnd();
     }
 }
