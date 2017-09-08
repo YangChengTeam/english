@@ -29,8 +29,8 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
 
     }
 
-    @Override
-    public void getUnionList(String type, String flag, int page, int page_size) {
+
+    public void getUnionList(String type, String flag, int page, int page_size, final boolean isLoadMore, final boolean isFitst) {
         mView.showLoading();
         Subscription subscription = EngineUtils.getUnionList(mContext, type, flag, page, page_size).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
@@ -59,7 +59,7 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
                     @Override
                     public void reulstInfoOk() {
                         mView.hideStateView();
-                        mView.showUnionList(classInfo.data.getList());
+                        mView.showUnionList(classInfo.data.getList(), isLoadMore, isFitst);
                     }
                 });
 

@@ -27,15 +27,30 @@
             android:layout_weight="1"
             android:background="@color/group_gray_e6f2fb" />
 
-        <TextView
-            android:id="@+id/tv_exit_group"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/group_distance_45"
-            android:background="@color/group_red_fb4c30"
-            android:gravity="center"
-            android:text="@string/exit_group"
-            android:textColor="@color/white"
-            android:textSize="@dimen/group_text_16" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_exit_group"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_45"
+                android:background="@color/group_red_fb4c30"
+                android:gravity="center"
+                android:text="@string/exit_group"
+                android:textColor="@color/white"
+                android:textSize="@dimen/group_text_16" />
+
+            <TextView
+                android:id="@+id/tv_join_group"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_45"
+                android:background="@color/primary"
+                android:gravity="center"
+                android:text="@string/join_group"
+                android:textColor="@color/white"
+                android:textSize="@dimen/group_text_16" />
+        </FrameLayout>
     </LinearLayout>
 
 </LinearLayout>

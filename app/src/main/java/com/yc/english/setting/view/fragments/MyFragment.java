@@ -146,8 +146,7 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
         RxView.clicks(mSettingMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-//                Intent intent = new Intent(getActivity(), SettingActivity.class);
-                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
                 startActivity(intent);
             }
         });

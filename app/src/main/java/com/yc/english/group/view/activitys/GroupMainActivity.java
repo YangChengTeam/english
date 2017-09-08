@@ -1,6 +1,8 @@
 package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -34,6 +36,7 @@ import com.yc.english.main.model.domain.UserInfo;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imlib.model.Message;
 import io.rong.message.RichContentMessage;
@@ -61,6 +64,8 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     Button btnJoinClass;
     @BindView(R.id.rootView)
     LinearLayout rootView;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private GroupGroupAdapter adapter;
     private List<ClassInfo> mClassInfo;
@@ -80,6 +85,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, true, null);
         recyclerView.setAdapter(adapter);
+        swipeRefreshLayout.setEnabled(false);
         getData();
     }
 
@@ -100,7 +106,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
                 guidePopupWindow.dismiss();
             }
         });
-
+        guidePopupWindow.setDebug(true);
         guidePopupWindow.show(rootView, "create_group");
     }
 
@@ -119,6 +125,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
                 guidePopupWindow.dismiss();
             }
         });
+        guidePopupWindow.setDebug(true);
         guidePopupWindow.show(rootView, "join");
     }
 

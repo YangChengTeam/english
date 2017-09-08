@@ -1,6 +1,7 @@
 package com.yc.english.union.view.activitys;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.example.comm_recyclviewadapter.RecycleViewUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -65,9 +67,15 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
     Button btnCreateClass1;
     @BindView(R.id.btn_join_class1)
     Button btnJoinClass1;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private GroupGroupAdapter adapter;
     private List<ClassInfo> mClassInfo;
+
+    private int page = 1;
+    private RecycleViewUtils recycleViewUtils;
+    private boolean isScorll = true;
 
     @Override
     public void init() {
@@ -90,7 +98,44 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, true, null);
         recyclerView.setAdapter(adapter);
-        getData();
+        getData(false, true);
+        initListener();
+    }
+
+    private void initListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setColorSchemeColors(getResources().getColor(android.R.color.holo_blue_light),
+                        getResources().getColor(android.R.color.holo_red_light), getResources().getColor(android.R.color.holo_orange_light),
+                        getResources().getColor(android.R.color.holo_green_light));
+                page = 1;
+                getData(false, false);
+            }
+        });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            private LinearLayoutManager layoutManager;
+            private int lastVisibleItemPosition;
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                int itemCount = layoutManager.getItemCount();
+                recycleViewUtils = new RecycleViewUtils(recyclerView);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItemPosition == itemCount - 1 && isScorll &&
+                        recycleViewUtils.isFullScreen()) {
+                    getData(true, false);
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+            }
+        });
     }
 
     private void showCreateGuide() {
@@ -151,25 +196,37 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             }
     )
     public void getList(String group) {
-       getData();
+        getData(false, true);
     }
 
 
     @Override
-    public void showUnionList(List<ClassInfo> classInfos) {
-        if (classInfos != null && classInfos.size() > 0) {
-            this.mClassInfo = classInfos;
-            llDataContainer.setVisibility(View.VISIBLE);
-            llEmptyContainer.setVisibility(View.GONE);
-            adapter.setData(classInfos);
-        } else {
-            llDataContainer.setVisibility(View.GONE);
-            llEmptyContainer.setVisibility(View.VISIBLE);
-            hideStateView();
-            if (ActivityUtils.isValidContext(this)) {
-                showCreateGuide();
+    public void showUnionList(List<ClassInfo> classInfos, boolean isLoadMore, boolean isFitst) {
+
+        if (!isLoadMore) {
+            if (classInfos != null && classInfos.size() > 0) {
+                this.mClassInfo = classInfos;
+                if (isFitst) {
+                    llDataContainer.setVisibility(View.VISIBLE);
+                    llEmptyContainer.setVisibility(View.GONE);
+                }
+                adapter.setData(classInfos, isScorll);
+            } else {
+                llDataContainer.setVisibility(View.GONE);
+                llEmptyContainer.setVisibility(View.VISIBLE);
+                hideStateView();
+                if (ActivityUtils.isValidContext(this)) {
+                    showCreateGuide();
+                }
             }
+        } else {
+            isScorll = !(classInfos == null || classInfos.isEmpty());
+            adapter.addData(classInfos, isScorll, recycleViewUtils.isFullScreen());
         }
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
     }
 
     @Override
@@ -213,7 +270,8 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         sViewLoading.showNoNet(contentView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getData();
+                page = 1;
+                getData(false, true);
             }
         });
     }
@@ -228,14 +286,17 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         sViewLoading.showLoading(contentView);
     }
 
-    private void getData() {
+    private void getData(boolean isLoadMore, boolean isFirst) {
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (userInfo != null) {
             String uid = userInfo.getUid();
-            mPresenter.getUnionList("1", "", 1, 10);
+            if (isLoadMore) {
+                page++;
+            }
+            mPresenter.getUnionList("1", "", page, 10, isLoadMore, isFirst);
             mPresenter.getMemberList(this, "", "0", uid);
         } else {
-            showMemberList(null);
+            showUnionList(null,false,true);
         }
     }
 
