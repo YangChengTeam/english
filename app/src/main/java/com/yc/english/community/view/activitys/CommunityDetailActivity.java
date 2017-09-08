@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
@@ -170,7 +169,7 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (communityInfo != null) {
                     Intent intent = new Intent(CommunityDetailActivity.this, CommunityImageShowActivity.class);
-                    intent.putExtra("current_position",position);
+                    intent.putExtra("current_position", position);
                     intent.putExtra("images", (Serializable) communityInfo.getImages());
                     startActivity(intent);
                 } else {
@@ -244,15 +243,27 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
 
     @Override
     public void showAddComment(CommentInfo commentInfo) {
-        ToastUtils.showLong("回复成功");
+        //ToastUtils.showLong("回复成功");
         mCommentContentEditText.setText("");
         if (UserInfoHelper.getUserInfo() != null) {
             commentInfo.setUserName(UserInfoHelper.getUserInfo().getNickname());
             commentInfo.setFace(UserInfoHelper.getUserInfo().getAvatar());
         }
-        mCommentItemAdapter.addData(0, commentInfo);
 
+
+        if (communityInfo != null && !StringUtils.isEmpty(communityInfo.getFollowCount())) {
+            try {
+                int resCount = Integer.parseInt(communityInfo.getFollowCount()) + 1;
+                mCommentCountTextView.setText(resCount + "");
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
+        mCommentItemAdapter.addData(0, commentInfo);
         mCommentItemAdapter.notifyDataSetChanged();
+
+        RxBus.get().post(Constant.COMMUNITY_REFRESH, "from add communityInfo");
     }
 
     @Override
