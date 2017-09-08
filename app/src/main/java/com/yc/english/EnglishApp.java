@@ -129,7 +129,7 @@ public class EnglishApp extends MultiDexApplication {
             params.put("period", SPUtils.getInstance().getString("period", ""));
         }
         if (SPUtils.getInstance().getInt("grade", 0) != 0) {
-            params.put("grade", SPUtils.getInstance().getInt("grade", 0) + "");
+            params.put("default_grade", SPUtils.getInstance().getInt("grade", 0) + "");
         }
         params.put("imeil", GoagalInfo.get().uuid);
         String sv = android.os.Build.MODEL.contains(android.os.Build.BRAND) ? android.os.Build.MODEL + " " + android

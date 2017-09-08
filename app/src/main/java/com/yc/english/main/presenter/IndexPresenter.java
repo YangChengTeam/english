@@ -56,12 +56,12 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.showNoNet();
+                        mView.showNoData();
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.showNoNet();
+                        mView.showNoData();
                     }
 
                     @Override
