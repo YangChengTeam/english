@@ -30,20 +30,13 @@ public class GroupMyGroupListPresenter extends BasePresenter<BaseEngin, GroupMyG
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
-        UserInfo userInfo = UserInfoHelper.getUserInfo();
-        if (userInfo != null) {
-            String uid = userInfo.getUid();
-            getMyGroupList(mContext, uid, "0");
-            getMemberList(mContext, "", "0", uid);
-        } else {
-            mView.showMyGroupList(null);
-        }
+
     }
 
     @Override
-    public void getMyGroupList(Context context, String user_id, String is_admin) {
+    public void getMyGroupList(Context context, String user_id, String is_admin,String type) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, is_admin).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
+        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, is_admin,type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
             public void onCompleted() {
 

@@ -29,6 +29,7 @@ import com.yc.english.group.view.activitys.teacher.GroupCreateActivity;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
 
 import java.util.List;
 
@@ -79,7 +80,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, true, null);
         recyclerView.setAdapter(adapter);
-
+        getData();
     }
 
     private void showCreateGuide() {
@@ -156,7 +157,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             }
     )
     public void getList(String group) {
-        mPresenter.loadData(true);
+        getData();
     }
 
 
@@ -220,7 +221,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         sViewLoading.showNoNet(contentView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadData(true);
+                getData();
             }
         });
     }
@@ -233,6 +234,17 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     @Override
     public void showLoading() {
         sViewLoading.showLoading(contentView);
+    }
+
+    private void getData() {
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo != null) {
+            String uid = userInfo.getUid();
+            mPresenter.getMyGroupList(this, uid, "0", "0");
+            mPresenter.getMemberList(this, "", "0", uid);
+        } else {
+            showMyGroupList(null);
+        }
     }
 
 }

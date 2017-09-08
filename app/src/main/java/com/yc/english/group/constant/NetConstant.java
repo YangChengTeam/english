@@ -68,7 +68,7 @@ public interface NetConstant {
      * 根据群号查找群
      */
 
-    String query_group_by_groupId = (isDebug ? debug_base_url : baser_url)+ "class/info";
+    String query_group_by_groupId = (isDebug ? debug_base_url : baser_url) + "class/info";
 
     /**
      * 修改班群信息
@@ -83,7 +83,7 @@ public interface NetConstant {
      * 修改作业
      */
 
-    String update_publish_task =(isDebug ? debug_base_url : baser_url) + "task/upd_publish";
+    String update_publish_task = (isDebug ? debug_base_url : baser_url) + "task/upd_publish";
     /**
      * 作业详情
      */
@@ -100,11 +100,11 @@ public interface NetConstant {
     /**
      * 学生完成作业详情
      */
-    String detail_do_task = (isDebug ? debug_base_url : baser_url)+ "task/detail_do";
+    String detail_do_task = (isDebug ? debug_base_url : baser_url) + "task/detail_do";
     /**
      * 发布作业列表
      */
-    String list_publish_task = (isDebug ? debug_base_url : baser_url)+ "task/list_publish";
+    String list_publish_task = (isDebug ? debug_base_url : baser_url) + "task/list_publish";
     /**
      * 完成作业列表
      */
@@ -121,7 +121,7 @@ public interface NetConstant {
      * 老师评分
      */
 
-    String task_score =(isDebug ? debug_base_url : baser_url)+ "task/score";
+    String task_score = (isDebug ? debug_base_url : baser_url) + "task/score";
     /**
      * 是否完成
      */
@@ -142,5 +142,11 @@ public interface NetConstant {
     /**
      * 是否是班群成员
      */
-    String is_member =(isDebug ? debug_base_url : baser_url) + "class/is_member";
+    String is_member = (isDebug ? debug_base_url : baser_url) + "class/is_member";
+
+    /**
+     * 公会列表
+     */
+
+    String union_class_list = (isDebug ? debug_base_url : baser_url) + "class/class_list";
 }

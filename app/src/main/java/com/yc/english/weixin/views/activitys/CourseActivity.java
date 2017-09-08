@@ -9,7 +9,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
-import com.yc.english.news.view.NewsDetailActivity;
+
+import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.weixin.contract.CourseContract;
 import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.presenter.CoursePresenter;

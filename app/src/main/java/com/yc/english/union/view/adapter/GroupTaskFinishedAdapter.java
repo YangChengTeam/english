@@ -10,7 +10,7 @@ import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.model.bean.StudentFinishTaskInfo;
-import com.yc.english.union.view.activitys.teacher.GroupTaskFinishDetailActivity;
+import com.yc.english.group.view.activitys.teacher.GroupTaskFinishDetailActivity;
 
 import java.util.List;
 

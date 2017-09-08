@@ -26,6 +26,7 @@ import com.yc.english.base.view.ToolbarFragment;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
 import com.yc.english.setting.contract.MyContract;
 import com.yc.english.setting.presenter.MyPresenter;
@@ -145,7 +146,8 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
         RxView.clicks(mSettingMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), SettingActivity.class);
+//                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                 startActivity(intent);
             }
         });

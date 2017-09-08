@@ -34,6 +34,7 @@ import com.yc.english.group.presenter.GroupTaskPublishPresenter;
 import com.yc.english.group.view.adapter.GroupFileAdapter;
 import com.yc.english.group.view.adapter.GroupPictureAdapter;
 import com.yc.english.group.view.adapter.GroupVoiceAdapter;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -105,7 +106,10 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         if (getIntent() != null) {
             targetId = getIntent().getStringExtra("targetId");
             mPresenter.getGroupInfo(this, targetId);
+
         }
+        String uid = UserInfoHelper.getUserInfo().getUid();
+        mPresenter.getGroupList(this, uid, "1","0");
         restoreTaskData();
 
         initListener();

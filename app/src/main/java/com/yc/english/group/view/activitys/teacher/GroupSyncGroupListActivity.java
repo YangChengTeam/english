@@ -60,7 +60,7 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
 
         adapter = new GroupSyncListAdapter(this, null);
         mRecyclerView.setAdapter(adapter);
-
+        getData();
         initListener();
 
     }
@@ -164,8 +164,7 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
         stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String uid = UserInfoHelper.getUserInfo().getUid();
-                mPresenter.getGroupList(GroupSyncGroupListActivity.this, uid, "1");
+                getData();
             }
         });
     }
@@ -180,5 +179,9 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
         stateView.showLoading(llContainer);
     }
 
+    private void getData() {
+        String uid = UserInfoHelper.getUserInfo().getUid();
+        mPresenter.getGroupList(GroupSyncGroupListActivity.this, uid, "1", "0");
+    }
 
 }
