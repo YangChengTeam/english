@@ -97,15 +97,17 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupUnionAdapter(null);
         recyclerView.setAdapter(adapter);
-        getData(false, true);
         initListener();
+        getData(false, true);
+
     }
 
     private void initListener() {
 
-        adapter.setOnJoinListener(new GroupUnionAdapter.OnJoinListener() {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onJoin(ClassInfo classInfo) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ClassInfo classInfo = (ClassInfo)adapter.getData().get(position);
 
                 int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + "union");
                 if (!UserInfoHelper.isGotoLogin(UnionMainActivity.this)) {
@@ -117,6 +119,8 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
                 }
             }
         });
+
+
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -213,7 +217,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
         if (!isLoadMore) {
             if (classInfos != null && classInfos.size() > 0) {
-//                this.mClassInfo = classInfos;
                 if (isFitst) {
                     llDataContainer.setVisibility(View.VISIBLE);
                     llEmptyContainer.setVisibility(View.GONE);
