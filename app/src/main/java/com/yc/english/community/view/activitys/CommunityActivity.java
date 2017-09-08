@@ -200,7 +200,7 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
-                    @Tag(Constant.COMMUNITY_REFRESH)
+                    @Tag(Constant.COMMUNITY_ADD_REFRESH)
             }
     )
     public void rxSetCurrentFragment(String tag) {
