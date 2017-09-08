@@ -37,7 +37,6 @@
                     android:id="@+id/mTextViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="戳中痛点的英文应该这样说"
                     android:textColor="@color/black_333333"
                     android:textSize="@dimen/group_text_16" />
 
@@ -59,7 +58,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="2017-09-05 11:14:23"
                         android:textColor="@color/group_gray_999"
                         android:textSize="@dimen/group_text_12" />
                 </RelativeLayout>
@@ -90,7 +88,7 @@
                     android:id="@+id/mMediaPlayerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </FrameLayout>
 
 
@@ -102,10 +100,6 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/group_distance_10"
-                android:background="@color/group_gray_e6f2fb" />
 
             <LinearLayout
                 android:id="@+id/m_ll_recommend"
@@ -114,12 +108,18 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/group_distance_10"
+                    android:background="@color/group_gray_e6f2fb" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/group_distance_10">
 
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"

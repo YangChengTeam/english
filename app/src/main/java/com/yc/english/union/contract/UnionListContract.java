@@ -17,12 +17,12 @@ import java.util.List;
 public interface UnionListContract {
     interface View extends IView,ILoading,INoData,INoNet {
 
-        void showUnionList(List<ClassInfo> data);
+        void showUnionList(List<ClassInfo> data, boolean isLoadMore, boolean isFitst);
 
         void showMemberList(List<StudentInfo> list);
     }
 
     interface Presenter extends IPresenter {
-        void getUnionList(String type, String flag, int page, int page_size);
+
     }
 }

@@ -1,6 +1,7 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
+import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
@@ -17,6 +19,7 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupMyMemberListContract;
+import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupMyMemberListPresenter;
@@ -24,11 +27,14 @@ import com.yc.english.group.view.adapter.GroupMemberAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.yokeyword.indexablerv.IndexableLayout;
 import me.yokeyword.indexablerv.SimpleHeaderAdapter;
+import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/7/26 14:41.
@@ -46,6 +52,8 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     LinearLayout llContainer;
     @BindView(R.id.tv_exit_group)
     TextView tvExitGroup;
+    @BindView(R.id.tv_join_group)
+    TextView tvJoinGroup;
     private GroupMemberAdapter adapter;
     private SimpleHeaderAdapter<StudentInfo> simpleHeaderAdapter;
 
@@ -56,14 +64,6 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         mToolbar.setTitle(GroupInfoHelper.getGroupInfo().getName());
         mToolbar.showNavigationIcon();
 
-        if (GroupInfoHelper.getClassInfo() != null && GroupInfoHelper.getClassInfo().getMaster_id() != null) {
-            if (GroupInfoHelper.getClassInfo().getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
-                tvExitGroup.setVisibility(View.GONE);
-            } else {
-                tvExitGroup.setVisibility(View.VISIBLE);
-            }
-        }
 
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
@@ -79,19 +79,15 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         recyclerView.setAdapter(adapter);
         recyclerView.setOverlayStyle_Center();
         getData();
+        initListener();
+
     }
 
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.group_activity_class_manager;
-    }
-
-    @OnClick({R.id.tv_exit_group})
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_exit_group:
-                final AlertDialog alertDialog = new AlertDialog(this);
+    private void initListener() {
+        RxView.clicks(tvExitGroup).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                final AlertDialog alertDialog = new AlertDialog(GroupMemberActivity.this);
                 alertDialog.setDesc("是否退出班群");
                 alertDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -101,9 +97,32 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
                     }
                 });
                 alertDialog.show();
-                break;
-        }
+            }
+        });
+
+        RxView.clicks(tvJoinGroup).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                final AlertDialog alertDialog = new AlertDialog(GroupMemberActivity.this);
+                alertDialog.setDesc("是否申请加入班群");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mPresenter.applyJoinGroup(UserInfoHelper.getUserInfo().getUid(), GroupInfoHelper.getClassInfo().getGroupId() + "");
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+            }
+        });
     }
+
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.group_activity_class_manager;
+    }
+
 
     @Override
     public void showMemberList(List<StudentInfo> list) {
@@ -116,7 +135,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         recyclerView.addHeaderAdapter(simpleHeaderAdapter);
         list.remove(0);
         adapter.setDatas(list);
-
+        setClassInfoState(list);
     }
 
     @Subscribe(
@@ -183,4 +202,51 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         mPresenter.getMemberList(this, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
     }
 
+
+    private void setClassInfoState(List<StudentInfo> list) {
+        boolean flag = false;
+        ClassInfo classInfo = GroupInfoHelper.getClassInfo();
+        if (classInfo != null) {
+            if (classInfo.getType().equals("0")) {//普通班群
+                if (classInfo.getMaster_id() != null) {
+                    if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
+                        mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
+                        tvExitGroup.setVisibility(View.GONE);
+
+                    } else {
+                        tvExitGroup.setVisibility(View.VISIBLE);
+                    }
+                    tvJoinGroup.setVisibility(View.GONE);
+                }
+            } else if (classInfo.getType().equals("1")) {//公会
+                if (classInfo.getMaster_id() != null) {
+                    if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
+                        mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
+                        tvJoinGroup.setVisibility(View.GONE);
+                        tvExitGroup.setVisibility(View.GONE);
+                    } else {
+                        if (list != null && list.size() > 0) {
+                            for (StudentInfo studentInfo : list) {
+                                if (studentInfo.getUser_id().equals(UserInfoHelper.getUserInfo().getUid())) {
+                                    flag = true;
+                                    break;
+                                }
+                            }
+
+                        }
+                        if (flag) {
+                            tvJoinGroup.setVisibility(View.GONE);
+                            tvExitGroup.setVisibility(View.VISIBLE);
+                        } else {
+                            tvExitGroup.setVisibility(View.GONE);
+                            tvJoinGroup.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+
+                }
+            }
+
+        }
+    }
 }
