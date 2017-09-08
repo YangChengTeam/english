@@ -31,7 +31,8 @@ public class CommentItemAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHo
 
         if (!StringUtils.isEmpty(item.getAddTime())) {
             long addTime = Long.parseLong(item.getAddTime()) * 1000;
-            helper.setText(R.id.tv_comment_date, TimeUtils.millis2String(addTime,new SimpleDateFormat("HH:mm:ss", Locale.getDefault())));
+            helper.setText(R.id.tv_comment_date, TimeUtils.millis2String(addTime,new SimpleDateFormat("MM-dd HH:mm",
+                    Locale.getDefault())));
         }
 
         GlideHelper.circleImageView(mContext, (ImageView) helper.getConvertView().findViewById(R.id.iv_comment_user_img), item.getFace(), R.mipmap.main_tab_my);

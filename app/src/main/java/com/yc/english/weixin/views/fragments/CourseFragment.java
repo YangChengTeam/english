@@ -6,10 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.StateView;
 
+import com.yc.english.main.model.domain.Constant;
 import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.weixin.contract.CourseContract;
 import com.yc.english.weixin.model.domain.CourseInfo;
@@ -38,8 +42,19 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
 
     private CourseAdapter mCourseAdapter;
 
+
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.GRADE_REFRESH)
+            }
+    )
+    public void refresh(String tag) {
+        mPresenter.getWeiXinList(type, page + "", pageSize + "");
     }
 
     @Override
@@ -102,7 +117,11 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
 
     @Override
     public void showWeixinList(List<CourseInfo> list) {
-        mCourseAdapter.addData(list);
+        if (page == 1) {
+            mCourseAdapter.setNewData(list);
+        } else {
+            mCourseAdapter.addData(list);
+        }
         if (list.size() == pageSize) {
             page++;
             mCourseAdapter.loadMoreComplete();
@@ -116,8 +135,11 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
         mCourseAdapter.loadMoreFail();
     }
 
+
     @Override
     public void end() {
         mCourseAdapter.loadMoreEnd();
     }
+
+
 }

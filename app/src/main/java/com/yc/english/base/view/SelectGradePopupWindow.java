@@ -1,7 +1,6 @@
 package com.yc.english.base.view;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -10,12 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.EnglishApp;
 import com.yc.english.R;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.DrawableUtils;
-import com.yc.english.weixin.views.activitys.CourseTypeActivity;
+import com.yc.english.main.model.domain.Constant;
 
 import java.util.concurrent.TimeUnit;
 
@@ -55,6 +54,9 @@ public class SelectGradePopupWindow extends BasePopupWindow {
     @BindView(R.id.tv_9)
     TextView m9TextView;
 
+    @BindView(R.id.tv_0)
+    TextView m0TextView;
+
     @BindView(R.id.btn_comein)
     Button mComeinButton;
 
@@ -70,7 +72,10 @@ public class SelectGradePopupWindow extends BasePopupWindow {
 
         final int tgrade = SPUtils.getInstance().getInt("grade", 0);
         grade = tgrade;
-        switch (tgrade){
+        switch (tgrade) {
+            case 0:
+                select(m0TextView);
+                break;
             case 1:
                 select(m1TextView);
                 break;
@@ -99,6 +104,14 @@ public class SelectGradePopupWindow extends BasePopupWindow {
                 select(m9TextView);
                 break;
         }
+
+        RxView.clicks(m0TextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                select(m0TextView);
+                grade = 0;
+            }
+        });
 
         RxView.clicks(m1TextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -175,35 +188,29 @@ public class SelectGradePopupWindow extends BasePopupWindow {
         RxView.clicks(mComeinButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if(grade == 0){
-                    TipsHelper.tips(mContext, "请选择就读年级");
-                    return;
-                }
-
                 dismiss();
 
-                if(tgrade == grade){
-                    return;
-                }
-
                 SPUtils.getInstance().put("grade", grade);
-                String period = "0";
+                String period = "-1";
                 if (grade > 6) {
                     period = "1";
+                } else if (grade > 0 && grade <= 6) {
+                    period = "0";
                 }
                 SPUtils.getInstance().put("period", period);
                 EnglishApp.get().setHttpDefaultParams();
-                if(mRunnable != null){
+                if (mRunnable != null) {
                     mRunnable.run();
                 }
+
+                RxBus.get().post(Constant.GRADE_REFRESH, "from select grade");
             }
         });
     }
 
     private void clear() {
 
-
-
+        m0TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
         m1TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
         m2TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
         m3TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
@@ -214,6 +221,7 @@ public class SelectGradePopupWindow extends BasePopupWindow {
         m8TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
         m9TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
 
+        m0TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
         m1TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
         m2TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
         m3TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
@@ -224,11 +232,11 @@ public class SelectGradePopupWindow extends BasePopupWindow {
         m8TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
         m9TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
 
-
     }
 
     private Runnable mRunnable;
-    public void show(View view, Runnable runnable){
+
+    public void show(View view, Runnable runnable) {
         show(view, Gravity.CENTER);
         mRunnable = runnable;
 
@@ -242,7 +250,7 @@ public class SelectGradePopupWindow extends BasePopupWindow {
 
     @Override
     public void setContentView(View contentView) {
-        if(contentView != null) {
+        if (contentView != null) {
             super.setContentView(contentView);
             setFocusable(true);
             setTouchable(true);
@@ -263,10 +271,6 @@ public class SelectGradePopupWindow extends BasePopupWindow {
             });
         }
     }
-
-
-
-
 
 
     @Override

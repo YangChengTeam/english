@@ -5,7 +5,7 @@
     android:id="@+id/head_type_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/comment_line_color"
+    android:background="@color/primaryDark"
     android:orientation="vertical">
 
     <com.yc.english.base.view.MainToolBar
@@ -15,11 +15,11 @@
         android:layout_alignParentTop="true">
     </com.yc.english.base.view.MainToolBar>
 
-    <ScrollView
+    <com.yc.english.base.view.MyScrollview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:background="@color/white">
+        android:background="@color/primaryDark">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -184,15 +184,15 @@
                 android:id="@+id/comment_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"/>
+                />
         </LinearLayout>
-    </ScrollView>
+    </com.yc.english.base.view.MyScrollview>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="@color/gray_ddd"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center_vertical"

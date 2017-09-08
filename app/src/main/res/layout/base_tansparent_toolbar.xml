@@ -20,6 +20,7 @@
             android:layout_gravity="center"
             android:singleLine="true"
             android:text="@string/app_name"
+            android:maxLength="12"
             android:textColor="@color/white"
             android:textSize="@dimen/font_large"/>
     </android.support.v7.widget.Toolbar>

@@ -166,7 +166,7 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
         String grade = "一年级";
         switch (SPUtils.getInstance().getInt("grade", 0)) {
             case 0:
-                mGradeSettingItemView.setHintInfo("请选择年级");
+                grade = "通用";
                 break;
             case 1:
                 grade = "一年级";

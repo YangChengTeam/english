@@ -57,7 +57,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
                     @Override
                     public void resultInfoEmpty(String message) {
                         if(page.equals("1") ) {
-                            mView.showNoNet();
+                            mView.showNoData();
                         }
                         mView.fail();
                     }
@@ -65,14 +65,15 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
                     @Override
                     public void resultInfoNotOk(String message) {
                         if(page.equals("1") ) {
-                            mView.showNoNet();
+                            mView.showNoData();
                         }
                         mView.fail();
                     }
 
                     @Override
                     public void reulstInfoOk() {
-                        if (courseInfoResultInfo.data != null) {
+                        if (courseInfoResultInfo.data != null && courseInfoResultInfo.data.getList() != null &&
+                                courseInfoResultInfo.data.getList().size() > 0) {
                             mView.showWeixinList(courseInfoResultInfo.data.getList());
                             if(page.equals("1") ) {
                                 mView.hideStateView();
@@ -83,7 +84,6 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
                             }
                             mView.end();
                         }
-
                     }
                 });
             }

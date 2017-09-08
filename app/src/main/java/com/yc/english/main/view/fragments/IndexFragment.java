@@ -169,7 +169,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     public void init() {
         mPresenter = new IndexPresenter(getActivity(), this);
 
-
         RxView.clicks(mLexIndexMenuView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -400,7 +399,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-
         mCommunityRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mHotCommunityAdapter = new CommunityAdapter(null);
         mCommunityRecyclerView.setAdapter(mHotCommunityAdapter);
@@ -493,15 +491,25 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
         }
 
-        if(indexInfo.getShequ() != null) {
+        if (indexInfo.getShequ() != null) {
             mHotCommunityAdapter.addData(indexInfo.getShequ());
         }
 
-        if(indexInfo.getWeike()!= null) {
+        if (indexInfo.getWeike() != null) {
             mHotMircoClassAdapter.addData(indexInfo.getWeike());
         }
 
 
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.GRADE_REFRESH)
+            }
+    )
+    public void refresh(String tag) {
+        mPresenter.loadData(true, false);
     }
 
     @Subscribe(

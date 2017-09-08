@@ -13,6 +13,8 @@ public class Constant {
 
     public static final String PHONE = "phone";
 
+    public static final String GRADE_REFRESH = "grade_refresh";
+
     public static final String COMMUNITY_REFRESH = "community_refresh";
 
     public static final String PRAISE_REFRESH = "praise_refresh";
