@@ -1,6 +1,8 @@
 package com.yc.english.union.contract;
 
 import com.yc.english.base.presenter.IPresenter;
+import com.yc.english.base.view.IDialog;
+import com.yc.english.base.view.IFinish;
 import com.yc.english.base.view.ILoading;
 import com.yc.english.base.view.INoData;
 import com.yc.english.base.view.INoNet;
@@ -15,11 +17,14 @@ import java.util.List;
  */
 
 public interface UnionListContract {
-    interface View extends IView,ILoading,INoData,INoNet {
+    interface View extends IView,ILoading,INoData,INoNet,IDialog,IFinish {
 
         void showUnionList(List<ClassInfo> data, boolean isLoadMore, boolean isFitst);
 
         void showMemberList(List<StudentInfo> list);
+
+        void showIsMember(int is_member, ClassInfo class_id);
+
     }
 
     interface Presenter extends IPresenter {

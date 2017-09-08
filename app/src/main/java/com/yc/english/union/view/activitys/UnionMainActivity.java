@@ -10,7 +10,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.example.comm_recyclviewadapter.RecycleViewUtils;
+import com.blankj.utilcode.util.SPUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -18,9 +19,11 @@ import com.kk.guide.GuideCallback;
 import com.kk.guide.GuidePopupWindow;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
@@ -31,14 +34,13 @@ import com.yc.english.union.contract.UnionListContract;
 import com.yc.english.union.presenter.UnionListPresenter;
 import com.yc.english.union.view.activitys.student.UnionJoinActivity;
 import com.yc.english.union.view.activitys.teacher.UnionCreateActivity;
-import com.yc.english.union.view.adapter.GroupGroupAdapter;
+import com.yc.english.union.view.adapter.GroupUnionAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.rong.imlib.model.Message;
-import io.rong.message.RichContentMessage;
+import io.rong.imkit.RongIM;
 
 /**
  * Created by wanglin  on 2017/7/24 17:59.
@@ -70,12 +72,9 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    private GroupGroupAdapter adapter;
-    private List<ClassInfo> mClassInfo;
+    private GroupUnionAdapter adapter;
 
     private int page = 1;
-    private RecycleViewUtils recycleViewUtils;
-    private boolean isScorll = true;
 
     @Override
     public void init() {
@@ -96,13 +95,29 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new GroupGroupAdapter(this, true, null);
+        adapter = new GroupUnionAdapter(null);
         recyclerView.setAdapter(adapter);
         getData(false, true);
         initListener();
     }
 
     private void initListener() {
+
+        adapter.setOnJoinListener(new GroupUnionAdapter.OnJoinListener() {
+            @Override
+            public void onJoin(ClassInfo classInfo) {
+
+                int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + "union");
+                if (!UserInfoHelper.isGotoLogin(UnionMainActivity.this)) {
+                    if (result == 1) {
+                        setMode(classInfo);
+                    } else {
+                        mPresenter.isUnionMember(classInfo);
+                    }
+                }
+            }
+        });
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -113,29 +128,22 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
                 getData(false, false);
             }
         });
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
-            private LinearLayoutManager layoutManager;
-            private int lastVisibleItemPosition;
-
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                int itemCount = layoutManager.getItemCount();
-                recycleViewUtils = new RecycleViewUtils(recyclerView);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItemPosition == itemCount - 1 && isScorll &&
-                        recycleViewUtils.isFullScreen()) {
-                    getData(true, false);
-                }
-            }
+            public void onLoadMoreRequested() {
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                getData(true, false);
             }
-        });
+        }, recyclerView);
+
+    }
+
+    private void setMode(ClassInfo classInfo) {
+
+        GroupApp.setMyExtensionModule(false, false);
+
+        RongIM.getInstance().startGroupChat(this, classInfo.getClass_id(), classInfo.getClassName());
     }
 
     private void showCreateGuide() {
@@ -205,12 +213,12 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
         if (!isLoadMore) {
             if (classInfos != null && classInfos.size() > 0) {
-                this.mClassInfo = classInfos;
+//                this.mClassInfo = classInfos;
                 if (isFitst) {
                     llDataContainer.setVisibility(View.VISIBLE);
                     llEmptyContainer.setVisibility(View.GONE);
                 }
-                adapter.setData(classInfos, isScorll);
+                adapter.setNewData(classInfos);
             } else {
                 llDataContainer.setVisibility(View.GONE);
                 llEmptyContainer.setVisibility(View.VISIBLE);
@@ -220,8 +228,12 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
                 }
             }
         } else {
-            isScorll = !(classInfos == null || classInfos.isEmpty());
-            adapter.addData(classInfos, isScorll, recycleViewUtils.isFullScreen());
+            if (classInfos.size() == 10) {
+                adapter.loadMoreComplete();
+                adapter.addData(classInfos);
+            } else {
+                adapter.loadMoreEnd();
+            }
         }
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
@@ -240,25 +252,26 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         invalidateOptionsMenu();
     }
 
+    @Override
+    public void showIsMember(int is_member, final ClassInfo classInfo) {
+        SPUtils.getInstance().put(classInfo.getClass_id() + "union", is_member);
 
-    @Subscribe(
-            thread = EventThread.MAIN_THREAD,
-            tags = {
-                    @Tag(BusAction.UNREAD_MESSAGE)
-            }
-    )
-    public void getMessage(Message message) {
-
-        if (message.getContent() instanceof RichContentMessage) {
-            adapter.setMessage(message);
+        if (is_member == 1) {//已经是班群成员
+            setMode(classInfo);
+        } else {
+            final AlertDialog dialog = new AlertDialog(this);
+            dialog.setDesc("是否申请加入该班群?");
+            dialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPresenter.applyJoinGroup(UserInfoHelper.getUserInfo().getUid(), classInfo);
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
         }
-        for (int i = 0; i < mClassInfo.size(); i++) {
-            if (mClassInfo.get(i).getClass_id().equals(message.getTargetId())) {
-                adapter.notifyItemRangeChanged(i, 1);
-            }
-        }
-
     }
+
 
     @Override
     public void hideStateView() {
@@ -296,7 +309,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             mPresenter.getUnionList("1", "", page, 10, isLoadMore, isFirst);
             mPresenter.getMemberList(this, "", "0", uid);
         } else {
-            showUnionList(null,false,true);
+            showUnionList(null, false, true);
         }
     }
 

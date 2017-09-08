@@ -12,6 +12,7 @@ import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
+import com.yc.english.group.model.bean.MemberInfo;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.bean.StudentRemoveInfo;
@@ -299,6 +300,23 @@ public class EngineUtils {
         return HttpCoreEngin.get(context).rxpost(NetConstant.union_class_list, new TypeReference<ResultInfo<ClassInfoList>>() {
         }.getType(), params, true, true, true);
 
+    }
+
+
+    /**
+     * 是否是班群成员
+     *
+     * @param context
+     * @param class_id
+     * @param user_id
+     * @return
+     */
+    public static Observable<ResultInfo<MemberInfo>> isGroupMember(Context context, String class_id, String user_id) {
+        Map<String, String> params = new HashMap<>();
+        params.put("class_id", class_id);
+        params.put("user_id", user_id);
+        return HttpCoreEngin.get(context).rxpost(NetConstant.is_member, new TypeReference<ResultInfo<MemberInfo>>() {
+        }.getType(), params, true, true, true);
     }
 
 }

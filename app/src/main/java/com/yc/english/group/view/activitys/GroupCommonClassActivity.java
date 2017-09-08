@@ -175,9 +175,9 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
 
     private void setMode(ClassInfo classInfo) {
         if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-            GroupApp.setMyExtensionModule(true);
+            GroupApp.setMyExtensionModule(true,true);
         } else {
-            GroupApp.setMyExtensionModule(false);
+            GroupApp.setMyExtensionModule(false,true);
         }
     }
 

@@ -124,7 +124,7 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
 
     @Override
     public void isGroupMember(String class_id, String user_id) {
-        Subscription subscription = mEngin.isGroupMember(class_id, user_id).subscribe(new Subscriber<ResultInfo<MemberInfo>>() {
+        Subscription subscription = EngineUtils.isGroupMember(mContext,class_id, user_id).subscribe(new Subscriber<ResultInfo<MemberInfo>>() {
             @Override
             public void onCompleted() {
 
