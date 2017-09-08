@@ -127,10 +127,17 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         RxView.clicks(mSendCommentTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+
                 if (StringUtils.isEmpty(mCommentContentEditText.getText())) {
                     TipsHelper.tips(CommunityDetailActivity.this, "请输入回复内容");
                     return;
                 }
+
+                if (UserInfoHelper.getUserInfo() == null) {
+                    UserInfoHelper.isGotoLogin(CommunityDetailActivity.this);
+                    return;
+                }
+
                 if (communityInfo != null) {
                     CommentInfo commentInfo = new CommentInfo();
                     commentInfo.setNoteId(communityInfo.getId());
@@ -144,6 +151,12 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         RxView.clicks(mPraiseCountTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+
+                if (UserInfoHelper.getUserInfo() == null) {
+                    UserInfoHelper.isGotoLogin(CommunityDetailActivity.this);
+                    return;
+                }
+
                 if (communityInfo != null) {
                     mPresenter.addAgreeInfo(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", communityInfo.getId());
                 } else {
@@ -157,6 +170,7 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (communityInfo != null) {
                     Intent intent = new Intent(CommunityDetailActivity.this, CommunityImageShowActivity.class);
+                    intent.putExtra("current_position",position);
                     intent.putExtra("images", (Serializable) communityInfo.getImages());
                     startActivity(intent);
                 } else {

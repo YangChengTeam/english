@@ -212,7 +212,7 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
     @Override
     public void showAddCommunityInfo(CommunityInfo communityInfo) {
         if (communityInfo != null) {
-            RxBus.get().post(Constant.COMMUNITY_REFRESH, "from add communityInfo");
+            RxBus.get().post(Constant.COMMUNITY_REFRESH, noteType);
             finish();
         }
     }
