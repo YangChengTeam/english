@@ -250,7 +250,6 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
             commentInfo.setFace(UserInfoHelper.getUserInfo().getAvatar());
         }
 
-
         if (communityInfo != null && !StringUtils.isEmpty(communityInfo.getFollowCount())) {
             try {
                 int resCount = Integer.parseInt(communityInfo.getFollowCount()) + 1;
@@ -270,6 +269,16 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
     public void showAgreeInfo(boolean flag) {
         //ToastUtils.showLong("点赞成功");
         setPraiseStatus("1");
+
+        if (communityInfo != null && !StringUtils.isEmpty(communityInfo.getAgreeCount())) {
+            try {
+                int resCount = Integer.parseInt(communityInfo.getAgreeCount()) + 1;
+                mPraiseCountTextView.setText(resCount + "");
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
         //RxBus.get().post(Constant.PRAISE_REFRESH, "from community detail");
         RxBus.get().post(Constant.COMMUNITY_REFRESH, "from add communityInfo");
     }
