@@ -1,7 +1,10 @@
 package com.yc.english.news.view.activity;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -91,7 +94,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         initRecycleView();
         initListener();
-
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mSensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
     }
 
 
@@ -161,7 +165,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         return stringBuilder.toString();
     }
 
-    private void initWebView(String body) {
+    private void initWebView(final CourseInfo courseInfo) {
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -178,7 +182,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
 
-        body = makeBody(body);
+        String body = makeBody(courseInfo.getBody());
         webView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null);
 
         webView.setWebViewClient(new WebViewClient() {
@@ -186,18 +190,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 view.loadUrl("javascript:window.HTML.getContentHeight(document.getElementByTagName('html')");
+                initData(courseInfo);
 
-            }
-        });
-
-        webView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-                if (newProgress == 100) {
-
-                    mLlRecommend.setVisibility(View.VISIBLE);
-                }
             }
         });
 
@@ -240,9 +234,15 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     @Override
     public void showCourseResult(CourseInfoWrapper data) {
-        initWebView(data.getInfo().getBody());
-        initData(data.getInfo());
-        newsDetailAdapter.setData(data.getRecommend());
+        initWebView(data.getInfo());
+        if (data.getRecommend() != null && data.getRecommend().size() > 0) {
+            newsDetailAdapter.setData(data.getRecommend());
+            mLlRecommend.setVisibility(View.VISIBLE);
+        } else {
+            mLlRecommend.setVisibility(View.GONE);
+        }
+
+
     }
 
     @Override
@@ -296,9 +296,26 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         super.onBackPressed();
     }
 
+
+    private JCVideoPlayer.JCAutoFullscreenListener mSensorEventListener;
+
+    private SensorManager mSensorManager;
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Sensor accelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(mSensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+
     @Override
     protected void onPause() {
         super.onPause();
         JCVideoPlayer.releaseAllVideos();
+        mSensorManager.unregisterListener(mSensorEventListener);
+        JCVideoPlayer.clearSavedProgress(this, null);
     }
+
 }

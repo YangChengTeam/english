@@ -41,6 +41,7 @@ public class ClassInfo implements Parcelable {
     private String flag;
     //0免费，1收费
     private int fee_type;
+    private String type;//0.班群 1.公会
 
 
     public static final Creator<ClassInfo> CREATOR = new Creator<ClassInfo>() {
@@ -84,12 +85,12 @@ public class ClassInfo implements Parcelable {
     }
 
 
-    @Generated(hash = 1088485272)
+    @Generated(hash = 942792277)
     public ClassInfo(Long cId, String imageUrl, String className, String count, int groupId,
             String founder_id, String master_id, String vali_type, String is_del,
             String add_time, String add_date, String del_time, String sort,
             String master_name, String master_nick_name, String class_id, String flag,
-            int fee_type) {
+            int fee_type, String type) {
         this.cId = cId;
         this.imageUrl = imageUrl;
         this.className = className;
@@ -108,6 +109,7 @@ public class ClassInfo implements Parcelable {
         this.class_id = class_id;
         this.flag = flag;
         this.fee_type = fee_type;
+        this.type = type;
     }
 
 
@@ -286,5 +288,15 @@ public class ClassInfo implements Parcelable {
 
     public void setFee_type(int fee_type) {
         this.fee_type = fee_type;
+    }
+
+
+    public String getType() {
+        return this.type;
+    }
+
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

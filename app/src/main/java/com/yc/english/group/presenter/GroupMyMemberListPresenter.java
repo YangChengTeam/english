@@ -1,23 +1,30 @@
 package com.yc.english.group.presenter;
 
 import android.content.Context;
+import android.text.TextUtils;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.Bus;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.utils.UIUitls;
+import com.yc.english.R;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.constant.BusAction;
+import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupMyMemberListContract;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
+import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.bean.StudentRemoveInfo;
+import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.utils.EngineUtils;
 
 import java.util.List;
@@ -140,4 +147,83 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
         mSubscriptions.add(subscription);
     }
 
+    /**
+     * 申请加入班群
+     *
+     * @param user_id
+     * @param sn
+     */
+
+    public void applyJoinGroup(String user_id, String sn) {
+
+        mView.showLoadingDialog("正在申请加入班级，请稍候");
+        Subscription subscription = EngineUtils.applyJoinGroup(mContext, user_id, sn).subscribe(new Subscriber<ResultInfo<GroupApplyInfo>>() {
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.dismissLoadingDialog();
+                LogUtils.e("onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onNext(final ResultInfo<GroupApplyInfo> stringResultInfo) {
+                handleResultInfo(stringResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        if (stringResultInfo != null && stringResultInfo.data != null) {
+                            GroupApplyInfo applyInfo = stringResultInfo.data;
+                            int type = Integer.parseInt(applyInfo.getVali_type());
+
+                            if (type == GroupConstant.CONDITION_ALL_ALLOW) {
+                                ToastUtils.showShort(mContext.getString(R.string.congratulation_join_group));
+                                RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
+
+                                StudentInfo studentInfo = new StudentInfo();
+                                studentInfo.setUser_id(applyInfo.getUser_id());
+                                studentInfo.setClass_id(applyInfo.getClass_id());
+                                if (SPUtils.getInstance().getBoolean(GroupConstant.ALL_GROUP_FORBID_STATE + applyInfo.getClass_id())) {
+                                    addForbidMember(studentInfo);
+                                }
+
+                            } else if (type == GroupConstant.CONDITION_VERIFY_JOIN) {
+
+                                ToastUtils.showShort(mContext.getString(R.string.commit_apply_join));
+                            }
+                            mView.finish();
+                        }
+                    }
+                });
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+
+    public void addForbidMember(StudentInfo studentInfo) {
+        Subscription subscription = EngineUtils.addForbidMember(studentInfo.getUser_id(), studentInfo.getClass_id(), "0").observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<CodeSuccessResult>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+                LogUtils.e(e.getMessage());
+            }
+
+            @Override
+            public void onNext(CodeSuccessResult codeSuccessResult) {
+                if (codeSuccessResult != null && codeSuccessResult.getCode() == 200) {
+
+                }
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
 }
