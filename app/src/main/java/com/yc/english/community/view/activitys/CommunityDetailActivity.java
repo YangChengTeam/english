@@ -81,6 +81,7 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
     List<String> imageList;
 
     private int currentPage = 1;
+    private int pageSize = 10;
 
     @Override
     public int getLayoutId() {
@@ -93,7 +94,7 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         Intent intent = getIntent();
         communityInfo = (CommunityInfo) intent.getSerializableExtra("community_info");
 
-        mToolbar.setTitle(communityInfo.getcType().equals("1") ? "学友圈" : "英语圈");
+        mToolbar.setTitle(communityInfo.getcType().equals("1") ? "学友圈" : "英粉圈");
         mToolbar.showNavigationIcon();
 
         mPresenter = new CommunityInfoPresenter(this, this);
@@ -178,21 +179,14 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
             }
         });
 
-        mCommentRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
 
+        mCommentItemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (isSlideToBottom(recyclerView) && mCommentItemAdapter.getData().size() >= 10) {
-                    currentPage++;
-                    mPresenter.commentInfoList(Integer.parseInt(communityInfo.getId()), currentPage, 10);
-                }
+            public void onLoadMoreRequested() {
+                mPresenter.commentInfoList(Integer.parseInt(communityInfo.getId()), currentPage, pageSize);
             }
-        });
+        }, mCommentRecyclerView);
+
     }
 
     protected boolean isSlideToBottom(RecyclerView recyclerView) {
@@ -239,11 +233,18 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         } else {
             mCommentItemAdapter.setNewData(list);
         }
+
+        if (list.size() == pageSize) {
+            currentPage ++;
+            mCommentItemAdapter.loadMoreComplete();
+        } else {
+            mCommentItemAdapter.loadMoreEnd();
+        }
+
     }
 
     @Override
     public void showAddComment(CommentInfo commentInfo) {
-        //ToastUtils.showLong("回复成功");
         mCommentContentEditText.setText("");
         if (UserInfoHelper.getUserInfo() != null) {
             commentInfo.setUserName(UserInfoHelper.getUserInfo().getNickname());
@@ -267,7 +268,6 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
 
     @Override
     public void showAgreeInfo(boolean flag) {
-        //ToastUtils.showLong("点赞成功");
         setPraiseStatus("1");
 
         if (communityInfo != null && !StringUtils.isEmpty(communityInfo.getAgreeCount())) {
@@ -278,8 +278,6 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
                 e.printStackTrace();
             }
         }
-
-        //RxBus.get().post(Constant.PRAISE_REFRESH, "from community detail");
         RxBus.get().post(Constant.COMMUNITY_REFRESH, "from add communityInfo");
     }
 

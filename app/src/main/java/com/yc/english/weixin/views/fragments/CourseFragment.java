@@ -43,7 +43,6 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
     private CourseAdapter mCourseAdapter;
 
 
-
     public void setType(String type) {
         this.type = type;
     }
@@ -118,7 +117,11 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
 
     @Override
     public void showWeixinList(List<CourseInfo> list) {
-        mCourseAdapter.addData(list);
+        if (page == 1) {
+            mCourseAdapter.setNewData(list);
+        } else {
+            mCourseAdapter.addData(list);
+        }
         if (list.size() == pageSize) {
             page++;
             mCourseAdapter.loadMoreComplete();
@@ -131,7 +134,6 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
     public void fail() {
         mCourseAdapter.loadMoreFail();
     }
-
 
 
     @Override
