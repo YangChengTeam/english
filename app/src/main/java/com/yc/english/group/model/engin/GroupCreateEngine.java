@@ -28,13 +28,14 @@ public class GroupCreateEngine extends BaseEngin<ResultInfo<ClassInfoWarpper>> {
         return NetConstant.create_group;
     }
 
-    public Observable<ResultInfo<ClassInfoWarpper>> createGroup(String user_id, String groupName, String face) {
+    public Observable<ResultInfo<ClassInfoWarpper>> createGroup(String user_id, String groupName, String face, String type) {
 
         Map<String, String> params = new HashMap<>();
         params.put("user_id", user_id);
         params.put("name", groupName);
         if (!TextUtils.isEmpty(face))
             params.put("face", face);
+        params.put("type", type);
         return rxpost(new TypeReference<ResultInfo<ClassInfoWarpper>>() {
         }.getType(), params, true, true, true);
 

@@ -12,7 +12,7 @@ import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
-import com.yc.english.union.view.activitys.teacher.GroupTaskFinishAndUnfinshActivity;
+import com.yc.english.group.view.activitys.teacher.GroupTaskFinishAndUnfinshActivity;
 
 import java.util.List;
 

@@ -22,7 +22,7 @@ public interface GroupSyncGroupContract {
     }
 
     interface Presenter extends IPresenter {
-        void getGroupList(Context context, String user_id,String is_admin);
+        void getGroupList(Context context, String user_id,String is_admin,String type);
     }
 
 }

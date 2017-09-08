@@ -12,7 +12,7 @@ import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
-import com.yc.english.union.view.activitys.student.GroupTaskGradeActivity;
+import com.yc.english.group.view.activitys.student.GroupTaskGradeActivity;
 
 import java.util.List;
 

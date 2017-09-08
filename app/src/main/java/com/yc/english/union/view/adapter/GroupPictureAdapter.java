@@ -11,7 +11,7 @@ import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.hwangjr.rxbus.RxBus;
 import com.yc.english.R;
 import com.yc.english.group.constant.BusAction;
-import com.yc.english.union.view.activitys.GroupPictureDetailActivity;
+import com.yc.english.group.view.activitys.GroupPictureDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,6 +8,7 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.group.constant.NetConstant;
+import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
@@ -69,11 +70,12 @@ public class EngineUtils {
      * @param is_admin 1为管理员，0为所有
      * @return
      */
-    public static Observable<ResultInfo<ClassInfoList>> getMyGroupList(Context context, String user_id, String is_admin) {
+    public static Observable<ResultInfo<ClassInfoList>> getMyGroupList(Context context, String user_id, String is_admin, String type) {
 
         Map<String, String> params = new HashMap<>();
         params.put("user_id", user_id);
         params.put("is_admin", is_admin);
+        params.put("type", type);
 
         return HttpCoreEngin.get(context).rxpost(NetConstant.my_group_list, new TypeReference<ResultInfo<ClassInfoList>>() {
         }.getType(), params, true, true, true);
@@ -275,6 +277,7 @@ public class EngineUtils {
 
     /**
      * 添加禁言成员
+     *
      * @param userId
      * @param groupId
      * @param minute
@@ -282,6 +285,20 @@ public class EngineUtils {
      */
     public static Observable<CodeSuccessResult> addForbidMember(String userId, String groupId, String minute) {
         return RongIMUtil.addGagUser(userId, groupId, minute);
+    }
+
+
+    public static Observable<ResultInfo<ClassInfoList>> getUnionList(Context context, String type, String flag, int page, int page_size) {
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("type", type);
+        if (!TextUtils.isEmpty(flag))
+            params.put("flag", flag);
+        params.put("page", page);
+        params.put("page_size", page_size);
+        return HttpCoreEngin.get(context).rxpost(NetConstant.union_class_list, new TypeReference<ResultInfo<ClassInfoList>>() {
+        }.getType(), params, true, true, true);
+
     }
 
 }

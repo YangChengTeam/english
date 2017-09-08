@@ -37,7 +37,7 @@ public interface GroupMyGroupListContract {
 
     interface Presenter extends IPresenter {
 
-        void getMyGroupList(Context context, String user_id, String is_admin);
+        void getMyGroupList(Context context, String user_id, String is_admin,String type);
 
         void getMemberList(Context context, String class_id, String status, String master_id);
     }

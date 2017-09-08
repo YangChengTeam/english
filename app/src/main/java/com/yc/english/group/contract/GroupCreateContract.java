@@ -15,7 +15,7 @@ public interface GroupCreateContract {
     }
 
     interface Presenter extends IPresenter {
-        void createGroup(String user_id, String groupName, String face);
+        void createGroup(String user_id, String groupName, String face,String type);
     }
 
 }
