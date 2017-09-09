@@ -124,7 +124,9 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
     @Override
     public void commentInfoList(int nid, int currentPage, int pageCount) {
-        mView.showLoading();
+        if (currentPage == 1) {
+            mView.showLoading();
+        }
         Subscription subscribe = mEngin.commentInfoList(nid, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<CommentInfoList>>() {
             @Override
             public void onCompleted() {
