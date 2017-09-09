@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
-
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -34,7 +33,6 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import rx.functions.Action1;
 
-import static com.yc.english.read.common.SpeechUtils.mContext;
 
 /**
  * Created by admin on 2017/9/1.
@@ -120,12 +118,12 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
             public void call(Void aVoid) {
 
                 if (StringUtils.isEmpty(mCommentContentEditText.getText())) {
-                    TipsHelper.tips(mContext, "请输入回复内容");
+                    TipsHelper.tips(CommunityDetailActivity.this, "请输入回复内容");
                     return;
                 }
 
                 if (UserInfoHelper.getUserInfo() == null) {
-                    UserInfoHelper.isGotoLogin(mContext);
+                    UserInfoHelper.isGotoLogin(CommunityDetailActivity.this);
                     return;
                 }
 
@@ -215,11 +213,8 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         if (list.size() == pageSize) {
             currentPage++;
             mCommentItemAdapter.loadMoreComplete();
-
         } else {
-            if (currentPage > 1) {
-                mCommentItemAdapter.loadMoreEnd();
-            }
+            mCommentItemAdapter.loadMoreEnd();
         }
     }
 

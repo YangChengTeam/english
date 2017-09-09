@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.entry.UpFileInfo;
+import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.community.contract.CommunityInfoContract;
 import com.yc.english.community.model.domain.CommentInfo;
@@ -194,7 +196,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.showNoNet();
+                        mView.showNoData();
                     }
 
                     @Override
@@ -230,12 +232,17 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.showNoNet();
+
                     }
 
                     @Override
-                    public void resultInfoNotOk(String message) {
-                        mView.showNoNet();
+                    public void resultInfoNotOk(final String message) {
+                        UIUitls.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                TipsHelper.tips(mContext, message);
+                            }
+                        });
                     }
 
                     @Override
