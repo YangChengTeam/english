@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -77,6 +78,9 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
     CommentItemAdapter mCommentItemAdapter;
 
     private CommunityInfo communityInfo;
+
+    @BindView(R.id.mysv_content)
+    ScrollView mContextScrollView;
 
     List<String> imageList;
 
@@ -180,21 +184,8 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         });
 
 
-        mCommentItemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                mPresenter.commentInfoList(Integer.parseInt(communityInfo.getId()), currentPage, pageSize);
-            }
-        }, mCommentRecyclerView);
-
     }
 
-    protected boolean isSlideToBottom(RecyclerView recyclerView) {
-        if (recyclerView == null) return false;
-        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange())
-            return true;
-        return false;
-    }
 
     @Override
     public void hideStateView() {
@@ -235,10 +226,13 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         }
 
         if (list.size() == pageSize) {
-            currentPage ++;
+            currentPage++;
             mCommentItemAdapter.loadMoreComplete();
+
         } else {
-            mCommentItemAdapter.loadMoreEnd();
+            if (currentPage > 1) {
+                mCommentItemAdapter.loadMoreEnd();
+            }
         }
 
     }
@@ -282,7 +276,7 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
     }
 
     public void setPraiseStatus(String type) {
-        if (type!=null && type.equals("1")) {
+        if (type != null && type.equals("1")) {
             Drawable isZan = ContextCompat.getDrawable(CommunityDetailActivity.this, R.mipmap.is_zan_icon);
             isZan.setBounds(0, 0, isZan.getMinimumWidth(), isZan.getMinimumHeight());
             mPraiseCountTextView.setCompoundDrawables(isZan, null, null, null);

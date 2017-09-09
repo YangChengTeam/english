@@ -5,7 +5,7 @@
     android:id="@+id/head_type_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/comment_item_bg_color"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout

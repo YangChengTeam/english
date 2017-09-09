@@ -16,6 +16,7 @@
     </com.yc.english.base.view.MainToolBar>
 
     <com.yc.english.base.view.MyScrollview
+        android:id="@+id/mysv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"

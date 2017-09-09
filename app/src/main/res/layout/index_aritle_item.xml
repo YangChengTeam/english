@@ -44,6 +44,7 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:text="小学三年级英语句子集锦!"
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_normal"/>

@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -311,21 +312,21 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-        RxView.clicks(mOneToToImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), CourseActivity.class);
-                intent.putExtra("title", "初升高试卷");
-                intent.putExtra("type", "5");
-                startActivity(intent);
-            }
-        });
-
         RxView.clicks(mOTNImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), CourseActivity.class);
                 intent.putExtra("title", "小升初试卷");
+                intent.putExtra("type", "5");
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mOneToToImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), CourseActivity.class);
+                intent.putExtra("title", "初升高试卷");
                 intent.putExtra("type", "6");
                 startActivity(intent);
             }
@@ -359,6 +360,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void OnBannerClick(int position) {
                 SlideInfo slideInfo = mPresenter.getSlideInfo(position);
+                if (slideInfo == null || EmptyUtils.isEmpty(slideInfo.getTypeValue())) {
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("title", slideInfo.getTitle());
                 intent.putExtra("url", slideInfo.getTypeValue());
