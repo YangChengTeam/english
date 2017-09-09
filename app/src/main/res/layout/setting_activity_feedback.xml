@@ -67,7 +67,7 @@
             android:layout_below="@+id/si_qq"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="642708280"
+            android:text="524651117"
             android:textColor="@color/black_333"
             android:textSize="@dimen/font_small"/>
 
@@ -119,5 +119,13 @@
             android:visibility="gone"/>
     </RelativeLayout>
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:text="友情提示：很多亲在使用时，发现课本正常点读，但没有声音，这时请打开手机设置页面，有个声音选项，点选后，调整系统声音，就能放大和听到声音了"
+        android:textColor="@color/group_red_fb4c30"
+        android:textSize="@dimen/font_snormal" />
 </LinearLayout>

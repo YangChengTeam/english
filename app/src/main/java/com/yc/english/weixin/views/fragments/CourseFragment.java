@@ -54,6 +54,7 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
             }
     )
     public void refresh(String tag) {
+        page = 1;
         mPresenter.getWeiXinList(type, page + "", pageSize + "");
     }
 

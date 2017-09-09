@@ -37,7 +37,7 @@ public class SpeechUtils {
     public static boolean isSpeechSuccess = true;
 
     public static SpeechSynthesizer getTts(Context context) {
-        initSpeech(context, 28, 50, 50, 1);
+        initSpeech(context, 28, 50, 50, 3);
         return mTts;
     }
 

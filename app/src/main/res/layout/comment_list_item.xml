@@ -76,4 +76,3 @@
         android:layout_height="1px"
         android:background="@color/gray_ddd"></View>
 </LinearLayout>
-

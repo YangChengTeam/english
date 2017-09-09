@@ -2,4 +2,7 @@
 
     <string name="community_name">英粉社区</string>
     <string name="add_note_name">发帖</string>
+    <string name="friends_name">学习圈</string>
+    <string name="english_name">英粉圈</string>
+    <string name="hot_data_name">热门</string>
 </resources>
