@@ -31,7 +31,7 @@ import io.rong.message.RichContentMessage;
  */
 
 public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
-    private static final String TAG = "GroupGroupAdapter";
+    private static final String TAG = "GroupUnionAdapter";
 
     private boolean mIsJoin;
     private Message mMessage;
@@ -90,9 +90,9 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
             public void onClick(View v) {
                 if (mIsJoin) {
                     if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                        GroupApp.setMyExtensionModule(true);
+                        GroupApp.setMyExtensionModule(true,true);
                     } else {
-                        GroupApp.setMyExtensionModule(false);
+                        GroupApp.setMyExtensionModule(false,true);
                     }
                     RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
                     if (mMessage != null) {

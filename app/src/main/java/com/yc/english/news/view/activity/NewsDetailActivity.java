@@ -165,7 +165,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         return stringBuilder.toString();
     }
 
-    private void initWebView(final CourseInfo courseInfo) {
+    private void initWebView(final CourseInfoWrapper data) {
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -182,7 +182,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
 
-        String body = makeBody(courseInfo.getBody());
+        String body = makeBody(data.getInfo().getBody());
         webView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null);
 
         webView.setWebViewClient(new WebViewClient() {
@@ -190,7 +190,14 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 view.loadUrl("javascript:window.HTML.getContentHeight(document.getElementByTagName('html')");
-                initData(courseInfo);
+
+                initData(data.getInfo());
+                if (data.getRecommend() != null && data.getRecommend().size() > 0) {
+                    newsDetailAdapter.setData(data.getRecommend());
+                    mLlRecommend.setVisibility(View.VISIBLE);
+                } else {
+                    mLlRecommend.setVisibility(View.GONE);
+                }
 
             }
         });
@@ -234,14 +241,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     @Override
     public void showCourseResult(CourseInfoWrapper data) {
-        initWebView(data.getInfo());
-        if (data.getRecommend() != null && data.getRecommend().size() > 0) {
-            newsDetailAdapter.setData(data.getRecommend());
-            mLlRecommend.setVisibility(View.VISIBLE);
-        } else {
-            mLlRecommend.setVisibility(View.GONE);
-        }
-
+        initWebView(data);
 
     }
 

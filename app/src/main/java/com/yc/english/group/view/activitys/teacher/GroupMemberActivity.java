@@ -52,8 +52,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     LinearLayout llContainer;
     @BindView(R.id.tv_exit_group)
     TextView tvExitGroup;
-    @BindView(R.id.tv_join_group)
-    TextView tvJoinGroup;
+
     private GroupMemberAdapter adapter;
     private SimpleHeaderAdapter<StudentInfo> simpleHeaderAdapter;
 
@@ -64,7 +63,6 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         mToolbar.setTitle(GroupInfoHelper.getGroupInfo().getName());
         mToolbar.showNavigationIcon();
 
-
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
@@ -73,6 +71,18 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
                 startActivity(intent);
             }
         });
+
+        ClassInfo classInfo = GroupInfoHelper.getClassInfo();
+        if (classInfo != null && classInfo.getMaster_id() != null) {
+            if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
+                mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
+                tvExitGroup.setVisibility(View.GONE);
+
+            } else {
+                tvExitGroup.setVisibility(View.VISIBLE);
+            }
+        }
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupMemberAdapter(this);
@@ -100,21 +110,6 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             }
         });
 
-        RxView.clicks(tvJoinGroup).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                final AlertDialog alertDialog = new AlertDialog(GroupMemberActivity.this);
-                alertDialog.setDesc("是否申请加入班群");
-                alertDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mPresenter.applyJoinGroup(UserInfoHelper.getUserInfo().getUid(), GroupInfoHelper.getClassInfo().getGroupId() + "");
-                        alertDialog.dismiss();
-                    }
-                });
-                alertDialog.show();
-            }
-        });
     }
 
 
@@ -135,7 +130,6 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         recyclerView.addHeaderAdapter(simpleHeaderAdapter);
         list.remove(0);
         adapter.setDatas(list);
-        setClassInfoState(list);
     }
 
     @Subscribe(
@@ -202,51 +196,4 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         mPresenter.getMemberList(this, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
     }
 
-
-    private void setClassInfoState(List<StudentInfo> list) {
-        boolean flag = false;
-        ClassInfo classInfo = GroupInfoHelper.getClassInfo();
-        if (classInfo != null) {
-            if (classInfo.getType().equals("0")) {//普通班群
-                if (classInfo.getMaster_id() != null) {
-                    if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                        mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
-                        tvExitGroup.setVisibility(View.GONE);
-
-                    } else {
-                        tvExitGroup.setVisibility(View.VISIBLE);
-                    }
-                    tvJoinGroup.setVisibility(View.GONE);
-                }
-            } else if (classInfo.getType().equals("1")) {//公会
-                if (classInfo.getMaster_id() != null) {
-                    if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                        mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
-                        tvJoinGroup.setVisibility(View.GONE);
-                        tvExitGroup.setVisibility(View.GONE);
-                    } else {
-                        if (list != null && list.size() > 0) {
-                            for (StudentInfo studentInfo : list) {
-                                if (studentInfo.getUser_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                                    flag = true;
-                                    break;
-                                }
-                            }
-
-                        }
-                        if (flag) {
-                            tvJoinGroup.setVisibility(View.GONE);
-                            tvExitGroup.setVisibility(View.VISIBLE);
-                        } else {
-                            tvExitGroup.setVisibility(View.GONE);
-                            tvJoinGroup.setVisibility(View.VISIBLE);
-                        }
-
-                    }
-
-                }
-            }
-
-        }
-    }
 }

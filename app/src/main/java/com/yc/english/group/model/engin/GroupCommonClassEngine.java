@@ -31,11 +31,5 @@ public class GroupCommonClassEngine extends BaseEngin {
     }
 
 
-    public Observable<ResultInfo<MemberInfo>> isGroupMember(String class_id, String user_id) {
-        Map<String, String> params = new HashMap<>();
-        params.put("class_id", class_id);
-        params.put("user_id", user_id);
-        return HttpCoreEngin.get(mContext).rxpost(NetConstant.is_member, new TypeReference<ResultInfo<MemberInfo>>() {
-        }.getType(), params, true, true, true);
-    }
+
 }

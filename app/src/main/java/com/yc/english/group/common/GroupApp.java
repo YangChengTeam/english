@@ -118,7 +118,7 @@ public class GroupApp {
         return null;
     }
 
-    public static void setMyExtensionModule(boolean isMaster) {
+    public static void setMyExtensionModule(boolean isMaster, boolean isTask) {
         List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
         IExtensionModule defaultModule = null;
         if (moduleList != null) {
@@ -130,7 +130,7 @@ public class GroupApp {
             }
             if (defaultModule != null) {
                 RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule);
-                RongExtensionManager.getInstance().registerExtensionModule(new GroupExtensionModule(isMaster));
+                RongExtensionManager.getInstance().registerExtensionModule(new GroupExtensionModule(isMaster, isTask));
             }
         }
     }
