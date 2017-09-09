@@ -161,7 +161,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                 "    <meta content=\"yes\" name=\"apple-touch-fullscreen\" />\n" +
                 "    <meta content=\"telephone=no,email=no\" name=\"format-detection\" />\n" +
                 "    <meta name=\"App-Config\" content=\"fullscreen=yes,useHistoryState=yes,transition=yes\" /><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no\" />");
-        stringBuilder.append("<style> html,body{overflow:hidden;} img {margin:10px; width:100%; height:100%; overflow:hidden;}</style></head><body>");
+        stringBuilder.append("<style> html,body{overflow:hidden;} img {margin:10px; width:100%; height:auto; overflow:hidden;}</style></head><body>");
         stringBuilder.append(data);
         stringBuilder.append("</body></html>");
         return stringBuilder.toString();
@@ -272,12 +272,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         stateView.showLoading(nestedScrollView);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
 
     private class JavascriptInterface {
