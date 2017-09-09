@@ -15,6 +15,7 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyJoinContract;
+import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.bean.GroupInfoHelper;
@@ -22,6 +23,7 @@ import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.utils.EngineUtils;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,17 +50,16 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
     /**
      * 申请加入班群
      *
-     * @param user_id
-     * @param sn
+     * @param classInfo
      */
     @Override
-    public void applyJoinGroup(String user_id, String sn) {
-        if (TextUtils.isEmpty(sn)) {
+    public void applyJoinGroup(final ClassInfo classInfo) {
+        if (TextUtils.isEmpty(classInfo.getGroupId() + "")) {
             ToastUtils.showShort("请输入班群号");
             return;
         }
         mView.showLoadingDialog("正在申请加入班级，请稍候");
-        Subscription subscription = EngineUtils.applyJoinGroup(mContext, user_id, sn).subscribe(new Subscriber<ResultInfo<GroupApplyInfo>>() {
+        Subscription subscription = EngineUtils.applyJoinGroup(mContext, UserInfoHelper.getUserInfo().getUid(), classInfo.getGroupId() + "").subscribe(new Subscriber<ResultInfo<GroupApplyInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -86,7 +87,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
                                 StudentInfo studentInfo = new StudentInfo();
                                 studentInfo.setUser_id(applyInfo.getUser_id());
                                 studentInfo.setClass_id(applyInfo.getClass_id());
-                                if (SPUtils.getInstance().getBoolean(GroupConstant.ALL_GROUP_FORBID_STATE + applyInfo.getClass_id())) {
+                                if (classInfo.getIs_allow_talk() == 0) {
                                     addForbidMember(studentInfo);
                                 }
 

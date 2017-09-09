@@ -26,6 +26,7 @@ import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.bean.StudentRemoveInfo;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.utils.EngineUtils;
+import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
 
@@ -137,7 +138,7 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
                     public void reulstInfoOk() {
                         RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
                         RxBus.get().post(BusAction.GROUP_LIST, "exit group");
-                        SPUtils.getInstance().remove(class_id + "member");
+                        SPUtils.getInstance().remove(class_id + UserInfoHelper.getUserInfo().getUid());
                         mView.finish();
                     }
                 });

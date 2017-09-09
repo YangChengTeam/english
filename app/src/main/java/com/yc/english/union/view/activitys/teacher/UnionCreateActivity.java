@@ -34,6 +34,7 @@ public class UnionCreateActivity extends FullScreenActivity<GroupCreatePresenter
         mPresenter = new GroupCreatePresenter(this, this);
         mToolbar.showNavigationIcon();
         mToolbar.setTitle(getResources().getString(R.string.create_union));
+        etClassGroup.setHint(getString(R.string.write_union_name));
         initListener();
     }
 

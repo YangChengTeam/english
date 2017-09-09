@@ -26,7 +26,7 @@ public interface GroupCommonClassContract {
 
     interface Presenter extends IPresenter {
         void  getCommonClassList();
-        void applyJoinGroup(String user_id, String sn);
+        void applyJoinGroup(ClassInfo classInfo);
         void isGroupMember(String class_id, String user_id);
         void getMemberList(String class_id, String status, String master_id,String flag);
     }

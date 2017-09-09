@@ -2,14 +2,11 @@ package com.yc.english.news.view.activity;
 
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -70,6 +67,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     NewsScrollView nestedScrollView;
     @BindView(R.id.stateView)
     StateView stateView;
+    @BindView(R.id.mTextViewFrom)
+    TextView mTextViewFrom;
 
     private NewsDetailAdapter newsDetailAdapter;
     private String title;
@@ -103,6 +102,10 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         title = courseInfo.getTitle();
         mTextViewTitle.setText(title);
 
+        String str = getString(R.string.from_author);
+        mTextViewFrom.setText(String.format(str,
+                TextUtils.isEmpty(courseInfo.getAuthor()) ? getString(R.string.app_name) : courseInfo.getAuthor()));
+
         String time = null;
         if (!TextUtils.isEmpty(courseInfo.getAdd_time())) {
             time = TimeUtils.millis2String(Long.parseLong(courseInfo.getAdd_time()) * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
@@ -131,7 +134,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         nestedScrollView.setListener(new NewsScrollView.onScrollChangeListener() {
             @Override
             public void onScrollChange(int l, int t, int oldl, int oldt) {
-//                LogUtils.e("l-->" + l + "  t-->" + t + "  oldl-->" + oldl + "  oldt-->" + oldt);
                 if (t > screenHeight / 2) {
                     mToolbar.setTitle(title);
                 } else {
@@ -159,7 +161,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                 "    <meta content=\"yes\" name=\"apple-touch-fullscreen\" />\n" +
                 "    <meta content=\"telephone=no,email=no\" name=\"format-detection\" />\n" +
                 "    <meta name=\"App-Config\" content=\"fullscreen=yes,useHistoryState=yes,transition=yes\" /><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no\" />");
-        stringBuilder.append("</style></head><body>");
+        stringBuilder.append("<style> html,body{overflow:hidden;} img {margin:10px; width:100%; height:100%; overflow:hidden;}</style></head><body>");
         stringBuilder.append(data);
         stringBuilder.append("</body></html>");
         return stringBuilder.toString();
@@ -268,6 +270,13 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     @Override
     public void showLoading() {
         stateView.showLoading(nestedScrollView);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
 

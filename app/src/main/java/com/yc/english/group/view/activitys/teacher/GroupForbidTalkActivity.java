@@ -92,6 +92,7 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             if (allList != null && allList.size() > 0) {
+                mPresenter.changeGroupInfo(GroupInfoHelper.getGroupInfo().getId(), "0");
                 for (StudentInfo studentInfo : allList) {
                     mPresenter.addForbidMember(studentInfo, "0", true);
                 }
@@ -103,7 +104,7 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
             for (int i = 0; i < allList.size(); i++) {
                 strs[i] = allList.get(i).getUser_id();
             }
-
+            mPresenter.changeGroupInfo(GroupInfoHelper.getGroupInfo().getId(), "1");
             mPresenter.rollBackMember(strs, null, GroupInfoHelper.getGroupInfo().getId(), true);
         }
 

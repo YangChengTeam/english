@@ -1,10 +1,12 @@
 package com.yc.english.group.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
@@ -13,6 +15,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.ClassInfo;
@@ -37,6 +40,7 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
     private Message mMessage;
 
 
+
     public GroupGroupAdapter(Context context, boolean isJoin, List<ClassInfo> mList) {
         super(context, mList);
         this.mIsJoin = isJoin;
@@ -51,6 +55,26 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
         GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.m_iv_group_img), classInfo.getImageUrl(), R.mipmap.default_avatar);
         holder.setImageDrawable(R.id.m_iv_pay_money, mContext.getResources().getDrawable(R.mipmap.group74));
         holder.setVisible(R.id.m_iv_pay_money, classInfo.getFee_type() == 1);
+        holder.setVisible(R.id.btn_introduce, classInfo.getFlag().equals("comm"));
+        holder.setOnClickListener(R.id.btn_introduce, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //介绍
+                String title = classInfo.getTitle();
+                if(EmptyUtils.isEmpty(title)){
+                    title = "名师辅导介绍";
+                }
+                String url = classInfo.getUrl();
+                if(EmptyUtils.isEmpty(url)){
+                    url = "http://en.upkao.com/teacher/teacher_detail.html";
+                }
+                Intent intent = new Intent(mContext, WebActivity.class);
+                intent.putExtra("title", title);
+                intent.putExtra("url",url );
+                mContext.startActivity(intent);
+            }
+        });
+
 
         RongIM.getInstance().getUnreadCount(Conversation.ConversationType.GROUP, classInfo.getClass_id(), new RongIMClient.ResultCallback<Integer>() {
             @Override
@@ -90,9 +114,9 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
             public void onClick(View v) {
                 if (mIsJoin) {
                     if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                        GroupApp.setMyExtensionModule(true,true);
+                        GroupApp.setMyExtensionModule(true, true);
                     } else {
-                        GroupApp.setMyExtensionModule(false,true);
+                        GroupApp.setMyExtensionModule(false, true);
                     }
                     RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
                     if (mMessage != null) {

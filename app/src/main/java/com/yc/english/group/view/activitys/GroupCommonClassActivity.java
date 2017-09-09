@@ -129,7 +129,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
             dialog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mPresenter.applyJoinGroup(UserInfoHelper.getUserInfo().getUid(), mClassInfo.getGroupId() + "");
+                    mPresenter.applyJoinGroup(mClassInfo);
                     dialog.dismiss();
                 }
             });

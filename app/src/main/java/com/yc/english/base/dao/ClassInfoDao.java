@@ -43,6 +43,9 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         public final static Property Flag = new Property(16, String.class, "flag", false, "FLAG");
         public final static Property Fee_type = new Property(17, int.class, "fee_type", false, "FEE_TYPE");
         public final static Property Type = new Property(18, String.class, "type", false, "TYPE");
+        public final static Property Is_allow_talk = new Property(19, int.class, "is_allow_talk", false, "IS_ALLOW_TALK");
+        public final static Property Url = new Property(20, String.class, "url", false, "URL");
+        public final static Property Title = new Property(21, String.class, "title", false, "TITLE");
     }
 
 
@@ -76,7 +79,10 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
                 "\"CLASS_ID\" TEXT," + // 15: class_id
                 "\"FLAG\" TEXT," + // 16: flag
                 "\"FEE_TYPE\" INTEGER NOT NULL ," + // 17: fee_type
-                "\"TYPE\" TEXT);"); // 18: type
+                "\"TYPE\" TEXT," + // 18: type
+                "\"IS_ALLOW_TALK\" INTEGER NOT NULL ," + // 19: is_allow_talk
+                "\"URL\" TEXT," + // 20: url
+                "\"TITLE\" TEXT);"); // 21: title
     }
 
     /** Drops the underlying database table. */
@@ -175,6 +181,17 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         if (type != null) {
             stmt.bindString(19, type);
         }
+        stmt.bindLong(20, entity.getIs_allow_talk());
+ 
+        String url = entity.getUrl();
+        if (url != null) {
+            stmt.bindString(21, url);
+        }
+ 
+        String title = entity.getTitle();
+        if (title != null) {
+            stmt.bindString(22, title);
+        }
     }
 
     @Override
@@ -267,6 +284,17 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         if (type != null) {
             stmt.bindString(19, type);
         }
+        stmt.bindLong(20, entity.getIs_allow_talk());
+ 
+        String url = entity.getUrl();
+        if (url != null) {
+            stmt.bindString(21, url);
+        }
+ 
+        String title = entity.getTitle();
+        if (title != null) {
+            stmt.bindString(22, title);
+        }
     }
 
     @Override
@@ -295,7 +323,10 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
             cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // class_id
             cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // flag
             cursor.getInt(offset + 17), // fee_type
-            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18) // type
+            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // type
+            cursor.getInt(offset + 19), // is_allow_talk
+            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // url
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21) // title
         );
         return entity;
     }
@@ -321,6 +352,9 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         entity.setFlag(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
         entity.setFee_type(cursor.getInt(offset + 17));
         entity.setType(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setIs_allow_talk(cursor.getInt(offset + 19));
+        entity.setUrl(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
+        entity.setTitle(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
      }
     
     @Override

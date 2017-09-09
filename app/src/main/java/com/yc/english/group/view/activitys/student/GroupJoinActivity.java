@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
+import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
@@ -77,28 +78,27 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
         return R.layout.group_activity_join_class;
     }
 
-    @OnClick({R.id.btn_join, R.id.ib_delete})
+    @OnClick({R.id.ib_delete})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_join:
-                String groupId = etClassGroup.getText().toString();
-                String uid = UserInfoHelper.getUserInfo().getUid();
-                KeyboardUtils.hideSoftInput(this);
-                int valiType = Integer.parseInt(vali_type);
 
-                if (GroupConstant.CONDITION_ALL_FORBID == valiType) {//禁止所有人加入
-                    TipsHelper.tips(this, getString(R.string.forbid_join));
-                } else {
-                    mPresenter.applyJoinGroup(uid, groupId);
-                }
-                break;
             case R.id.ib_delete:
                 etClassGroup.setText("");
                 break;
         }
 
     }
+    private void applyJoinGroup(ClassInfo classInfo) {
 
+        KeyboardUtils.hideSoftInput(this);
+        int valiType = Integer.parseInt(vali_type);
+
+        if (GroupConstant.CONDITION_ALL_FORBID == valiType) {//禁止所有人加入
+            TipsHelper.tips(this, getString(R.string.forbid_join));
+        } else {
+            mPresenter.applyJoinGroup(classInfo);
+        }
+    }
 
     public void showOrHideView(String s) {
         if (!TextUtils.isEmpty(s)) {
@@ -118,7 +118,7 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
      * @param
      */
     @Override
-    public void showGroup(ClassInfo classInfo) {
+    public void showGroup(final ClassInfo classInfo) {
         if (classInfo != null) {
 
             vali_type = classInfo.getVali_type();
@@ -128,6 +128,13 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
             btnJoin.setVisibility(View.VISIBLE);
             mTvTint.setVisibility(View.GONE);
             GlideHelper.circleImageView(this, roundView, classInfo.getImageUrl(), R.mipmap.default_avatar);
+            RxView.clicks(btnJoin).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+                @Override
+                public void call(Void aVoid) {
+                    applyJoinGroup(classInfo);
+                }
+            });
+
         } else {
             mTvTint.setVisibility(View.VISIBLE);
             llClassName.setVisibility(View.GONE);

@@ -12,8 +12,8 @@
     <com.yc.english.base.view.StateView
         android:id="@+id/stateView"
         android:layout_width="match_parent"
-        android:background="@color/primaryDark"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/primaryDark" />
 
     <com.yc.english.news.view.widget.NewsScrollView
         android:id="@+id/nestedScrollView"
@@ -50,7 +50,6 @@
                         android:id="@+id/mTextViewFrom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="来自于：说说英语"
                         android:textColor="@color/group_gray_999"
                         android:textSize="@dimen/group_text_12" />
 

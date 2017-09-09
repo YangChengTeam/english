@@ -32,7 +32,7 @@ public class GroupChangeInfoPresenter extends BasePresenter<BaseEngin, GroupChan
     @Override
     public void changeGroupInfo(Context context, String class_id, String name, String face, String vali_type) {
         mView.showLoadingDialog("正在修改，请稍候！");
-        Subscription subscription = EngineUtils.changeGroupInfo(context, class_id, name, face, vali_type).subscribe(new Subscriber<ResultInfo<RemoveGroupInfo>>() {
+        Subscription subscription = EngineUtils.changeGroupInfo(context, class_id, name, face, vali_type,"").subscribe(new Subscriber<ResultInfo<RemoveGroupInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();

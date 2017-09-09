@@ -27,6 +27,7 @@ import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupTaskPublishContract;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.model.bean.Voice;
@@ -109,7 +110,7 @@ public class UnionIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             mPresenter.getGroupInfo(this, targetId);
         }
         String uid = UserInfoHelper.getUserInfo().getUid();
-        mPresenter.getGroupList(this, uid, "1", "1");
+        mPresenter.getGroupList(this, uid, "1", GroupInfoHelper.getClassInfo().getType());
 
         restoreTaskData();
 

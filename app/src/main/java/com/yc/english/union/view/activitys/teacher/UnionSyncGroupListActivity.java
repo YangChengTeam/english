@@ -17,6 +17,7 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupSyncGroupContract;
 import com.yc.english.group.listener.OnCheckedChangeListener;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.presenter.GroupSyncGroupPresenter;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.union.view.adapter.GroupSyncListAdapter;
@@ -179,7 +180,7 @@ public class UnionSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
 
     private void getData() {
         String uid = UserInfoHelper.getUserInfo().getUid();
-        mPresenter.getGroupList(this, uid, "1", "1");
+        mPresenter.getGroupList(this, uid, "1", GroupInfoHelper.getClassInfo().getType());
     }
 
 

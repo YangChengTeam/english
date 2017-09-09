@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
@@ -58,6 +59,7 @@ public class UnionJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
         mPresenter = new GroupApplyJoinPresenter(this, this);
         mToolbar.showNavigationIcon();
         mToolbar.setTitle(getString(R.string.join_union));
+        etClassGroup.setHint("请填写会主提供的群号");
 
         RxTextView.textChanges(etClassGroup)
                 .debounce(1, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread())
@@ -74,21 +76,10 @@ public class UnionJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
         return R.layout.group_activity_join_class;
     }
 
-    @OnClick({R.id.btn_join, R.id.ib_delete})
+    @OnClick({R.id.ib_delete})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_join:
-                String groupId = etClassGroup.getText().toString();
-                String uid = UserInfoHelper.getUserInfo().getUid();
-                KeyboardUtils.hideSoftInput(this);
-                int valiType = Integer.parseInt(vali_type);
 
-                if (GroupConstant.CONDITION_ALL_FORBID == valiType) {//禁止所有人加入
-                    TipsHelper.tips(this, getString(R.string.forbid_join));
-                } else {
-                    mPresenter.applyJoinGroup(uid, groupId);
-                }
-                break;
             case R.id.ib_delete:
                 etClassGroup.setText("");
                 break;
@@ -109,13 +100,25 @@ public class UnionJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
         }
     }
 
+    private void applyJoinGroup(ClassInfo classInfo) {
+
+        KeyboardUtils.hideSoftInput(this);
+        int valiType = Integer.parseInt(vali_type);
+
+        if (GroupConstant.CONDITION_ALL_FORBID == valiType) {//禁止所有人加入
+            TipsHelper.tips(this, getString(R.string.forbid_join));
+        } else {
+            mPresenter.applyJoinGroup(classInfo);
+        }
+    }
+
     /**
      * 根据群号查询班群
      *
      * @param
      */
     @Override
-    public void showGroup(ClassInfo classInfo) {
+    public void showGroup(final ClassInfo classInfo) {
         if (classInfo != null) {
 
             vali_type = classInfo.getVali_type();
@@ -125,6 +128,14 @@ public class UnionJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
             btnJoin.setVisibility(View.VISIBLE);
             mTvTint.setVisibility(View.GONE);
             GlideHelper.circleImageView(this, roundView, classInfo.getImageUrl(), R.mipmap.default_avatar);
+            RxView.clicks(btnJoin).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+                @Override
+                public void call(Void aVoid) {
+                    applyJoinGroup(classInfo);
+                }
+            });
+
+
         } else {
             mTvTint.setVisibility(View.VISIBLE);
             llClassName.setVisibility(View.GONE);

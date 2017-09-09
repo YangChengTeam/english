@@ -69,6 +69,7 @@ public class EngineUtils {
      * @param context
      * @param user_id
      * @param is_admin 1为管理员，0为所有
+     * @param type     0 作业 1.公会 2 名师辅导
      * @return
      */
     public static Observable<ResultInfo<ClassInfoList>> getMyGroupList(Context context, String user_id, String is_admin, String type) {
@@ -111,7 +112,7 @@ public class EngineUtils {
      * @param vali_type 验证类型，0：不验证加入，1：验证加入，2：拒绝加入
      * @return
      */
-    public static Observable<ResultInfo<RemoveGroupInfo>> changeGroupInfo(Context context, String class_id, String name, String face, String vali_type) {
+    public static Observable<ResultInfo<RemoveGroupInfo>> changeGroupInfo(Context context, String class_id, String name, String face, String vali_type,String is_allow_talk ) {
         Map<String, String> params = new HashMap<>();
         params.put("id", class_id);
         if (!TextUtils.isEmpty(name))
@@ -120,6 +121,9 @@ public class EngineUtils {
             params.put("face", face);
         if (!TextUtils.isEmpty(vali_type))
             params.put("vali_type", vali_type);
+        if (!TextUtils.isEmpty(is_allow_talk)){
+            params.put("is_allow_talk",is_allow_talk);
+        }
 
         return HttpCoreEngin.get(context).rxpost(NetConstant.change_group_info, new TypeReference<ResultInfo<RemoveGroupInfo>>() {
         }.getType(), params, false, true, true);

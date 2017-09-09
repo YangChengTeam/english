@@ -261,7 +261,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             setMode(classInfo);
         } else {
             final AlertDialog dialog = new AlertDialog(this);
-            dialog.setDesc("是否申请加入该班群?");
+            dialog.setDesc("是否申请加入该公会?");
             dialog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

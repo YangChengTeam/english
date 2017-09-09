@@ -7,6 +7,7 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupForbidMemberContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
+import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.engin.GroupForbidMemberEngine;
@@ -82,7 +83,7 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
             @Override
             public void onNext(CodeSuccessResult codeSuccessResult) {
                 if (codeSuccessResult != null && codeSuccessResult.getCode() == 200) {
-                    mView.showRollBackResult(userId,nickName, groupId, allForbid);
+                    mView.showRollBackResult(userId, nickName, groupId, allForbid);
                 }
             }
         });
@@ -138,6 +139,26 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
                 if (listGagGroupUserResult.getCode() == 200) {
                     mView.showLisGagUserResult(listGagGroupUserResult.getUsers(), list);
                 }
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+    public void changeGroupInfo(String class_id, String is_allow_talk) {
+        Subscription subscription = EngineUtils.changeGroupInfo(mContext, class_id, "", "", "", is_allow_talk).subscribe(new Subscriber<ResultInfo<RemoveGroupInfo>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ResultInfo<RemoveGroupInfo> removeGroupInfoResultInfo) {
 
             }
         });

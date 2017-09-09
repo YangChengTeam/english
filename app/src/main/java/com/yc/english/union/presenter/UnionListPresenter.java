@@ -186,7 +186,7 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
                                 StudentInfo studentInfo = new StudentInfo();
                                 studentInfo.setUser_id(applyInfo.getUser_id());
                                 studentInfo.setClass_id(applyInfo.getClass_id());
-                                if (SPUtils.getInstance().getBoolean(GroupConstant.ALL_GROUP_FORBID_STATE + applyInfo.getClass_id())) {
+                                if (classInfo.getIs_allow_talk()==0) {
                                     addForbidMember(studentInfo);
                                 }
                                 setMode(classInfo);
@@ -231,7 +231,6 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
     private void setMode(ClassInfo classInfo) {
 
         GroupApp.setMyExtensionModule(false, false);
-
         RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
     }
 }

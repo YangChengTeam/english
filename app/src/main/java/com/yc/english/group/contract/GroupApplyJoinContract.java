@@ -26,7 +26,7 @@ public interface GroupApplyJoinContract {
     }
 
     interface Presenter extends IPresenter {
-        void applyJoinGroup(String user_id, String sn);
+        void applyJoinGroup(ClassInfo classInfo);
 
         void queryGroupById(Context context, String id, String sn);
 

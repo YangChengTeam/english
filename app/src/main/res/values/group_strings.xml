@@ -67,6 +67,9 @@
     <string name="about_recommend">相关推荐</string>
     <string name="query_more">查看更多</string>
     <string name="share">分享</string>
+    <string name="write_union_name">请填写要创建的公会名称</string>
+    <string name="from_author">来自于：%1$s</string>
+    <string name="introduce">介绍</string>
 
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>
