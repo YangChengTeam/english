@@ -77,7 +77,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
             btnResolvingGroup.setText(getString(R.string.resolving_union));
             mToolbar.setTitle(getString(R.string.union_manager));
 
-        }else if (GroupInfoHelper.getClassInfo().getType().equals("0")){
+        } else {
             mToolbar.setTitle(getString(R.string.group_manager));
         }
     }
