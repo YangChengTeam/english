@@ -14,30 +14,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.kk.guide.GuideCallback;
 import com.kk.guide.GuidePopupWindow;
-import com.kk.securityhttp.net.contains.HttpConfig;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
-import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
-import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.union.contract.UnionListContract;
-import com.yc.english.union.presenter.UnionListPresenter;
 import com.yc.english.union.view.activitys.student.UnionJoinActivity;
 import com.yc.english.union.view.activitys.teacher.UnionCreateActivity;
 import com.yc.english.union.view.fragment.UnionFragment;
@@ -46,7 +41,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.rong.imkit.RongIM;
 
 /**
  * Created by wanglin  on 2017/7/24 17:59.
@@ -102,6 +96,11 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         initViewPager();
     }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f2baf4ead17799bf25026dbd15a7bb9a2a5d4d99
 
     private void showCreateGuide() {
         GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
@@ -153,6 +152,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
     }
 
+<<<<<<< HEAD
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
@@ -162,6 +162,8 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
     public void getList(String group) {
         mPresenter.loadData(true);
     }
+=======
+>>>>>>> f2baf4ead17799bf25026dbd15a7bb9a2a5d4d99
 
 
     @Override
@@ -176,6 +178,10 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
     }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f2baf4ead17799bf25026dbd15a7bb9a2a5d4d99
     @Override
     public void showUnionList1(List<ClassInfo> classInfos) {
         if (classInfos != null && classInfos.size() > 0) {
@@ -224,6 +230,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             public void onPageScrolled(int i, float v, int i1) {
 
             }
+<<<<<<< HEAD
 
             @Override
             public void onPageSelected(int i) {
@@ -238,6 +245,94 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
     }
 
 
+    private UnionFragment unionCreateFragment;
+    private UnionFragment unionJoinFragment;
+    private UnionFragment unionAllFragment;
+
+
+    class FragmentAdapter extends FragmentStatePagerAdapter {
+
+        public FragmentAdapter(FragmentManager fm) {
+            super(fm);
+
+        }
+=======
+
+            @Override
+            public void onPageSelected(int i) {
+                fivIndicator.setCurrentItem(i, true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+    }
+>>>>>>> f2baf4ead17799bf25026dbd15a7bb9a2a5d4d99
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 0) {
+                if (unionAllFragment == null) {
+                    unionAllFragment = new UnionFragment();
+                    unionAllFragment.setType(-1);
+                }
+                return unionAllFragment;
+            } else if (position == 1) {
+                if (unionJoinFragment == null) {
+
+                    unionJoinFragment = new UnionFragment();
+                    unionJoinFragment.setType(2);
+                }
+                return unionJoinFragment;
+            } else if (position == 2) {
+
+<<<<<<< HEAD
+
+                if (unionCreateFragment == null) {
+                    unionCreateFragment = new UnionFragment();
+                    unionCreateFragment.setType(0);
+                }
+                return unionCreateFragment;
+=======
+    @Override
+    public void showNoNet() {
+        sViewLoading.showNoNet(contentView, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.loadData(true);
+
+>>>>>>> f2baf4ead17799bf25026dbd15a7bb9a2a5d4d99
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+    }
+
+    private class MyAdapter extends Indicator.IndicatorAdapter {
+
+
+<<<<<<< HEAD
+        public MyAdapter() {
+            super();
+        }
+
+        @Override
+        public int getCount() {
+            return titles.length;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.weixin_tab, parent, false);
+            }
+=======
     private UnionFragment unionCreateFragment;
     private UnionFragment unionJoinFragment;
     private UnionFragment unionAllFragment;
@@ -300,6 +395,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(R.layout.weixin_tab, parent, false);
             }
+>>>>>>> f2baf4ead17799bf25026dbd15a7bb9a2a5d4d99
             TextView textView = (TextView) convertView;
             textView.setText(titles[position]);
             return convertView;

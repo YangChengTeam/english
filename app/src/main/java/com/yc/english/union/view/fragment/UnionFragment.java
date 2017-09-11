@@ -1,13 +1,20 @@
 package com.yc.english.union.view.fragment;
 
+<<<<<<< HEAD
 import android.os.Bundle;
+=======
+>>>>>>> f2baf4ead17799bf25026dbd15a7bb9a2a5d4d99
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+<<<<<<< HEAD
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+=======
+import android.view.View;
+>>>>>>> f2baf4ead17799bf25026dbd15a7bb9a2a5d4d99
 
 import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -30,8 +37,11 @@ import com.yc.english.union.presenter.UnionListPresenter1;
 import java.util.List;
 
 import butterknife.BindView;
+<<<<<<< HEAD
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+=======
+>>>>>>> f2baf4ead17799bf25026dbd15a7bb9a2a5d4d99
 import io.rong.imkit.RongIM;
 
 /**
