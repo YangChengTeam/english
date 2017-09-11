@@ -16,6 +16,7 @@
     <string name="group_name">班群名称</string>
     <string name="delete_member">删除成员</string>
     <string name="exit_group">退出班群</string>
+    <string name="exit_union">退出公会</string>
 
     <string name="confirm_delete">确定移除（%1$d个）</string>
     <string name="confirm_sync">确定同步（%1$d个）</string>

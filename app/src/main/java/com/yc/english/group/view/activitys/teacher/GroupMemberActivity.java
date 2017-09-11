@@ -78,12 +78,18 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
                 if (classInfo.getType().equals("0")) {
                     mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
+
                 } else if (classInfo.getType().equals("1")) {
                     mToolbar.setMenuTitle(getResources().getString(R.string.union_manager));
                 }
                 tvExitGroup.setVisibility(View.GONE);
             } else {
                 tvExitGroup.setVisibility(View.VISIBLE);
+                if (classInfo.getType().equals("0")) {
+                    tvExitGroup.setText(getResources().getString(R.string.exit_group));
+                } else if (classInfo.getType().equals("1")) {
+                    mToolbar.setMenuTitle(getResources().getString(R.string.exit_union));
+                }
             }
         }
 
