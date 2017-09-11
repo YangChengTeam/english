@@ -74,15 +74,13 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     }
 
     private void setTint() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("免责声明");
         builder.setMessage(getString(R.string.relief_introduce));
-        final AlertDialog alertDialog = builder.create();
-
         builder.setPositiveButton(getString(R.string.i_konw), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                alertDialog.dismiss();
+                dialog.dismiss();
             }
         });
         builder.show();

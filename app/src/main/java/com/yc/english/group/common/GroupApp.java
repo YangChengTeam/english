@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Vibrator;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -91,6 +92,9 @@ public class GroupApp {
         }
         setDatabase(application);
         Stetho.initializeWithDefaults(application);
+
+        Vibrator vibrator = (Vibrator) mApplication.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.cancel();
     }
 
 
@@ -174,7 +178,6 @@ public class GroupApp {
             RxBus.get().post(BusAction.UNREAD_MESSAGE, message);
 
             RongIMUtil.refreshUserInfo(mApplication, message.getSenderUserId());
-
 
             return true;
         }

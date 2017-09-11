@@ -61,7 +61,8 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         mPresenter = new GroupForbidMemberPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group_forbid));
         mToolbar.showNavigationIcon();
-        mSwitchCompat.setChecked(SPUtils.getInstance().getBoolean(GroupConstant.ALL_GROUP_FORBID_STATE + GroupInfoHelper.getGroupInfo().getId()));
+
+        mSwitchCompat.setChecked(GroupInfoHelper.getClassInfo().getIs_allow_talk() == 0);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupForbidedMemberAdapter(this, null);
@@ -108,7 +109,6 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
             mPresenter.rollBackMember(strs, null, GroupInfoHelper.getGroupInfo().getId(), true);
         }
 
-        SPUtils.getInstance().put(GroupConstant.ALL_GROUP_FORBID_STATE + GroupInfoHelper.getGroupInfo().getId(), mSwitchCompat.isChecked());
     }
 
     private List<StudentInfo> studentInfoList = new ArrayList<>();
