@@ -31,9 +31,9 @@ public class CourseAdapter extends BaseQuickAdapter<CourseInfo, BaseViewHolder> 
     protected void convert(BaseViewHolder helper, CourseInfo item) {
         helper.setText(R.id.tv_title, item.getTitle());
         long addTime = Long.parseLong(item.getAdd_time()) * 1000;
-        helper.setText(R.id.tv_time, TimeUtils.millis2String(addTime,new SimpleDateFormat("yyyy-MM-dd " +
+        helper.setText(R.id.tv_time, TimeUtils.millis2String(addTime, new SimpleDateFormat("yyyy-MM-dd " +
                 "HH:mm:ss",
                 Locale.getDefault())));
-        GlideHelper.imageView(mContext, (ImageView)helper.getView(R.id.iv_icon), item.getImg(), R.drawable.sample);
+        GlideHelper.imageView(mContext, (ImageView) helper.getView(R.id.iv_icon), item.getImg(), 0);
     }
 }

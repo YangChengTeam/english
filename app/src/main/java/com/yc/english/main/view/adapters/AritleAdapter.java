@@ -34,7 +34,7 @@ public class AritleAdapter extends BaseQuickAdapter<CourseInfo, BaseViewHolder> 
                 "HH:mm:ss",
                 Locale.getDefault())));
         helper.setText(R.id.tv_title, item.getTitle());
-        GlideHelper.imageView(mContext, (ImageView) helper.getView(R.id.iv_icon), item.getImg(), R.drawable.sample);
+        GlideHelper.imageView(mContext, (ImageView) helper.getView(R.id.iv_icon), item.getImg(), 0);
         helper.setVisible(R.id.iv_microclass_type, false);
         if (mType == 1) {
             helper.setVisible(R.id.iv_microclass_type, true);

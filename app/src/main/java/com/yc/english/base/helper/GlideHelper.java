@@ -17,10 +17,13 @@ public class GlideHelper {
     public static void circleBorderImageView(final Context context, ImageView imageView, String url, int
             placehorder, float borderwidth, int bordercolor) {
         RequestOptions options = new RequestOptions();
-        options.placeholder(placehorder).transform(new GlideCircleTransformation(context, borderwidth,
+        if (placehorder != 0) {
+            options.placeholder(placehorder);
+        }
+        options.transform(new GlideCircleTransformation(context, borderwidth,
                 bordercolor));
 
-        if(ActivityUtils.isValidContext(context)) {
+        if (ActivityUtils.isValidContext(context)) {
             Glide.with(context).load(url).apply(options).into(imageView);
         }
     }
@@ -33,18 +36,22 @@ public class GlideHelper {
     public static void imageView(final Context context, ImageView imageView, String url, int
             placehorder) {
         RequestOptions options = new RequestOptions();
-        options.placeholder(placehorder);
-        if(ActivityUtils.isValidContext(context)) {
+        if (placehorder != 0) {
+            options.placeholder(placehorder);
+        }
+        if (ActivityUtils.isValidContext(context)) {
             Glide.with(context).load(url).apply(options).into(imageView);
         }
     }
 
     public static void imageView(final Context context, ImageView imageView, String url, int
-            placehorder, int width , int height) {
+            placehorder, int width, int height) {
         RequestOptions options = new RequestOptions();
-        options.placeholder(placehorder);
+        if (placehorder != 0) {
+            options.placeholder(placehorder);
+        }
         options.override(width, height);
-        if(ActivityUtils.isValidContext(context)) {
+        if (ActivityUtils.isValidContext(context)) {
             Glide.with(context).load(url).apply(options).into(imageView);
         }
     }
