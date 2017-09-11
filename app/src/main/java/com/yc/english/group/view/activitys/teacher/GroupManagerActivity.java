@@ -55,7 +55,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
     @Override
     public void init() {
         mPresenter = new GroupResolvingPresenter(this, this);
-        mToolbar.setTitle(getString(R.string.group_manager));
+        initData();
         mToolbar.showNavigationIcon();
 
         tvGroupName.setText(GroupInfoHelper.getGroupInfo().getName());
@@ -66,7 +66,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         }
         setVerify_reslut(condition);
         GlideHelper.circleImageView(this, ivGroupImage, GroupInfoHelper.getClassInfo().getImageUrl(), R.mipmap.default_avatar);
-        initData();
+
     }
 
     private void initData() {
@@ -75,6 +75,10 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
             mTvGroupName.setText(getString(R.string.union_name));
             mTvGroupTransfer.setText(getString(R.string.transfer_union));
             btnResolvingGroup.setText(getString(R.string.resolving_union));
+            mToolbar.setTitle(getString(R.string.union_manager));
+
+        }else if (GroupInfoHelper.getClassInfo().getType().equals("0")){
+            mToolbar.setTitle(getString(R.string.group_manager));
         }
     }
 
