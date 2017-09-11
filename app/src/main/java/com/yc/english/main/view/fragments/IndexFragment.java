@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -164,6 +165,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @BindView(R.id.im_hearing)
     IndexMenuView mHearingIndexMenuView;
+
+    @BindView(R.id.refresh)
+    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
 
 
     @Override
@@ -419,8 +423,15 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             SelectGradePopupWindow selectGradePopupWindow = new SelectGradePopupWindow(getActivity());
             selectGradePopupWindow.show(mContextScrollView, Gravity.CENTER);
         }
-    }
 
+        mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
+        mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.getIndexInfo();
+            }
+        });
+    }
 
     @Override
     public void onStart() {
@@ -441,7 +452,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showLoading() {
-        mLoadingStateView.showLoading(mContextScrollView);
+        if(!mRefreshSwipeRefreshLayout.isRefreshing())
+            mLoadingStateView.showLoading(mContextScrollView);
     }
 
     @Override
@@ -461,7 +473,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showInfo(final IndexInfo indexInfo) {
-
         mFragmentAdapter = new FragmentAdapter(getChildFragmentManager(), indexInfo);
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setCurrentItem(0);
@@ -502,8 +513,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         if (indexInfo.getWeike() != null) {
             mHotMircoClassAdapter.addData(indexInfo.getWeike());
         }
-
-
+        mRefreshSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Subscribe(
