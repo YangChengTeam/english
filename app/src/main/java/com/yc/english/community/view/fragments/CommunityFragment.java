@@ -56,6 +56,8 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
 
     private int currentEnglishPage = 1;
 
+    private int currentMyPage = 1;
+
     private int type;
 
     private int currentItemPosition;
@@ -141,6 +143,9 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
             case 3:
                 currentPage = currentHotPage;
                 break;
+            case 4:
+                currentPage = currentMyPage;
+                break;
         }
         return currentPage;
     }
@@ -156,6 +161,9 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
             case 3:
                 currentHotPage++;
                 break;
+            case 4:
+                currentMyPage++;
+                break;
         }
     }
 
@@ -166,6 +174,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         currentHotPage = 1;
         currentEnglishPage = 1;
         currentFriendsPage = 1;
+        currentMyPage = 1;
         mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", type, getCurrentPageByType(type), pageSize);
     }
 

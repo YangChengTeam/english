@@ -120,29 +120,8 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
             }
         });
 
-        mFixedIndicatorView.setAdapter(new MyAdapter(3));
+        rxActivityRefresh("1");
 
-        mFixedIndicatorView.setScrollBar(new ColorBar(this, ContextCompat.getColor(this, R.color
-                .primary), 6));
-
-        float unSelectSize = 15;
-        float selectSize = 15;
-        int selectColor = ContextCompat.getColor(this, R.color.primary);
-        int unSelectColor = ContextCompat.getColor(this, R.color.black_333);
-        mFixedIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
-        mFixedIndicatorView.setOnIndicatorItemClickListener(new Indicator.OnIndicatorItemClickListener() {
-            @Override
-            public boolean onItemClick(View clickItemView, int position) {
-                mViewPager.setCurrentItem(position);
-                return false;
-            }
-        });
-        mFixedIndicatorView.setCurrentItem(0, true);
-
-        mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mFragmentAdapter);
-        mViewPager.setCurrentItem(0);
-        mViewPager.setOffscreenPageLimit(3);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -185,6 +164,37 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
 
     }
 
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.COMMUNITY_ACTIVITY_REFRESH)
+            }
+    )
+    public void rxActivityRefresh(String tag) {
+        mFixedIndicatorView.setAdapter(new MyAdapter(UserInfoHelper.getUserInfo() != null ? 4 : 3));
+        mFixedIndicatorView.setScrollBar(new ColorBar(this, ContextCompat.getColor(this, R.color
+                .primary), 6));
+
+        float unSelectSize = 15;
+        float selectSize = 15;
+        int selectColor = ContextCompat.getColor(this, R.color.primary);
+        int unSelectColor = ContextCompat.getColor(this, R.color.black_333);
+        mFixedIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
+        mFixedIndicatorView.setOnIndicatorItemClickListener(new Indicator.OnIndicatorItemClickListener() {
+            @Override
+            public boolean onItemClick(View clickItemView, int position) {
+                mViewPager.setCurrentItem(position);
+                return false;
+            }
+        });
+        mFixedIndicatorView.setCurrentItem(0, true);
+
+        mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mFragmentAdapter);
+        mViewPager.setCurrentItem(0);
+        mViewPager.setOffscreenPageLimit(UserInfoHelper.getUserInfo() != null ? 4 : 3);
+    }
+
     public void toAddNoteActivity(String type) {
         if (UserInfoHelper.getUserInfo() != null) {
             Intent intent = new Intent(this, CommunityAddActivity.class);
@@ -214,6 +224,7 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
     private CommunityFragment courseFragment1;
     private CommunityFragment courseFragment2;
     private CommunityFragment courseFragment3;
+    private CommunityFragment courseFragment4;
 
     class FragmentAdapter extends FragmentStatePagerAdapter {
         public FragmentAdapter(FragmentManager fm) {
@@ -245,18 +256,25 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
                     courseFragment3.setArguments(bundle);
                 }
                 return courseFragment3;
+            } else if (position == 3) {
+                if (courseFragment4 == null) {
+                    bundle.putInt("type", 4);
+                    courseFragment4 = new CommunityFragment();
+                    courseFragment4.setArguments(bundle);
+                }
+                return courseFragment4;
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return UserInfoHelper.getUserInfo() != null ? 4 : 3;
         }
     }
 
     private class MyAdapter extends Indicator.IndicatorAdapter {
-        private final String[] titles = new String[]{"热门", "英粉圈", "学习圈"};
+        private final String[] titles = new String[]{"热门", "英粉圈", "学习圈", "我的"};
 
         private final int count;
 
