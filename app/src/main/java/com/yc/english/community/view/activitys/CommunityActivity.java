@@ -81,7 +81,7 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
         return R.layout.activity_community;
     }
 
-    private int currentPosition;
+    private MyAdapter myAdapter;
 
     @Override
     public void init() {
@@ -171,28 +171,54 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
             }
     )
     public void rxActivityRefresh(String tag) {
-        mFixedIndicatorView.setAdapter(new MyAdapter(UserInfoHelper.getUserInfo() != null ? 4 : 3));
-        mFixedIndicatorView.setScrollBar(new ColorBar(this, ContextCompat.getColor(this, R.color
-                .primary), 6));
+        if (myAdapter == null) {
+            myAdapter = new MyAdapter();
+            mFixedIndicatorView.setAdapter(myAdapter);
+            mFixedIndicatorView.setScrollBar(new ColorBar(this, ContextCompat.getColor(this, R.color
+                    .primary), 6));
 
-        float unSelectSize = 15;
-        float selectSize = 15;
-        int selectColor = ContextCompat.getColor(this, R.color.primary);
-        int unSelectColor = ContextCompat.getColor(this, R.color.black_333);
-        mFixedIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
-        mFixedIndicatorView.setOnIndicatorItemClickListener(new Indicator.OnIndicatorItemClickListener() {
-            @Override
-            public boolean onItemClick(View clickItemView, int position) {
-                mViewPager.setCurrentItem(position);
-                return false;
-            }
-        });
-        mFixedIndicatorView.setCurrentItem(0, true);
+            float unSelectSize = 15;
+            float selectSize = 15;
+            int selectColor = ContextCompat.getColor(this, R.color.primary);
+            int unSelectColor = ContextCompat.getColor(this, R.color.black_333);
+            mFixedIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
+            mFixedIndicatorView.setOnIndicatorItemClickListener(new Indicator.OnIndicatorItemClickListener() {
+                @Override
+                public boolean onItemClick(View clickItemView, int position) {
+                    mViewPager.setCurrentItem(position);
+                    return false;
+                }
+            });
+            mFixedIndicatorView.setCurrentItem(0, true);
+        } else {
+            myAdapter.notifyDataSetChanged();
+        }
 
-        mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mFragmentAdapter);
-        mViewPager.setCurrentItem(0);
-        mViewPager.setOffscreenPageLimit(UserInfoHelper.getUserInfo() != null ? 4 : 3);
+        if (mFragmentAdapter == null) {
+            mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
+            mViewPager.setAdapter(mFragmentAdapter);
+            mViewPager.setCurrentItem(0);
+            mViewPager.setOffscreenPageLimit(3);
+            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int i, float v, int i1) {
+
+                }
+
+                @Override
+                public void onPageSelected(int i) {
+                    mFixedIndicatorView.setCurrentItem(i, true);
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int i) {
+
+                }
+            });
+
+        } else {
+            mFragmentAdapter.notifyDataSetChanged();
+        }
     }
 
     public void toAddNoteActivity(String type) {
@@ -233,7 +259,6 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
 
         @Override
         public Fragment getItem(int position) {
-            currentPosition = position;
             Bundle bundle = new Bundle();
             if (position == 0) {
                 if (courseFragment1 == null) {
@@ -268,24 +293,27 @@ public class CommunityActivity extends FullScreenActivity<CommunityInfoPresenter
         }
 
         @Override
+        public int getItemPosition(Object object) {
+            // 最简单解决 notifyDataSetChanged() 页面不刷新问题的方法
+            return POSITION_NONE;
+        }
+
+        @Override
         public int getCount() {
-            return UserInfoHelper.getUserInfo() != null ? 4 : 3;
+            return UserInfoHelper.isLogin() ? 4 : 3;
         }
     }
 
     private class MyAdapter extends Indicator.IndicatorAdapter {
         private final String[] titles = new String[]{"热门", "英粉圈", "学习圈", "我的"};
 
-        private final int count;
-
-        public MyAdapter(int count) {
+        public MyAdapter() {
             super();
-            this.count = count;
         }
 
         @Override
         public int getCount() {
-            return count;
+            return UserInfoHelper.isLogin() ? 4 : 3;
         }
 
         @Override
