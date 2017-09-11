@@ -19,6 +19,7 @@ import com.yc.english.base.view.BaseView;
 import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.community.view.adapter.ImageDetailSelectedAdapter;
 
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -66,6 +67,7 @@ public class CommunityHeadView extends BaseView {
 
     public interface CommunityDetailListener {
         void praiseClick();
+
         void imageShow(int position);
     }
 
@@ -101,8 +103,12 @@ public class CommunityHeadView extends BaseView {
             long addTime = Long.parseLong(communityInfo.getAddTime()) * 1000;
             mNoteDateTextView.setText(TimeUtils.millis2String(addTime));
         }
+        try {
+            mNoteTitleTextView.setText(URLDecoder.decode(communityInfo.getContent(), "UTF-8"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        mNoteTitleTextView.setText(communityInfo.getContent());
         mCommentCountTextView.setText(communityInfo.getFollowCount());
         mPraiseCountTextView.setText(communityInfo.getAgreeCount());
 
