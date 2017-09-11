@@ -1,8 +1,10 @@
 package com.yc.english.group.view.activitys;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -12,6 +14,7 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
+
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
@@ -44,6 +47,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     private String groupId = null;
     private String title = null;
 
+
     private void initData() {
         Intent intent = getIntent();
         if (intent != null && intent.getData() != null && intent.getData().getScheme().equals("rong")) {
@@ -67,6 +71,21 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             mPresenter.queryGroupById(this, groupId, "");
         }
 
+    }
+
+    private void setTint() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("免责声明");
+        builder.setMessage(getString(R.string.relief_introduce));
+        final AlertDialog alertDialog = builder.create();
+
+        builder.setPositiveButton(getString(R.string.i_konw), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
     @Override
@@ -128,6 +147,9 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     public void showGroup(ClassInfo classInfo) {
         GroupInfoHelper.setClassInfo(classInfo);
         mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
+        if (GroupInfoHelper.getClassInfo().getType().equals("1")) {
+            setTint();
+        }
     }
 
 
