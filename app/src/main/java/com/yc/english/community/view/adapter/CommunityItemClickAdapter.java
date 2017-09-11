@@ -22,6 +22,7 @@ import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.community.view.activitys.CommunityImageShowActivity;
 
 import java.io.Serializable;
+import java.net.URLDecoder;
 import java.util.List;
 
 public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, BaseViewHolder> {
@@ -35,10 +36,14 @@ public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, B
 
     @Override
     protected void convert(final BaseViewHolder helper, final CommunityInfo item) {
-        helper.setText(R.id.tv_note_title, item.getContent())
-                .setText(R.id.tv_note_user_name, item.getUserName())
-                .setText(R.id.tv_comment_count, item.getFollowCount())
-                .setText(R.id.tv_praise_count, item.getAgreeCount());
+        try {
+            helper.setText(R.id.tv_note_title, URLDecoder.decode(item.getContent(), "UTF-8"))
+                    .setText(R.id.tv_note_user_name, item.getUserName())
+                    .setText(R.id.tv_comment_count, item.getFollowCount())
+                    .setText(R.id.tv_praise_count, item.getAgreeCount());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (helper.getAdapterPosition() == 0) {
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -75,7 +80,7 @@ public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, B
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(mContext, CommunityImageShowActivity.class);
-                intent.putExtra("current_position",position);
+                intent.putExtra("current_position", position);
                 intent.putExtra("images", (Serializable) item.getImages());
                 mContext.startActivity(intent);
             }
