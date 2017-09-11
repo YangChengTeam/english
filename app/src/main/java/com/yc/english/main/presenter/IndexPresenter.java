@@ -39,6 +39,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
     @Override
     public void getIndexInfo() {
         getAvatar();
+
         mView.showLoading();
         Subscription subscription = mEngin.getIndexInfo().subscribe(new Subscriber<ResultInfo<IndexInfo>>() {
             @Override

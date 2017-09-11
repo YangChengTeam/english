@@ -1,6 +1,8 @@
 package com.yc.english.weixin.views.fragments;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -41,6 +43,9 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
     private int pageSize = 20;
 
     private CourseAdapter mCourseAdapter;
+
+    @BindView(R.id.refresh)
+    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
 
 
     public void setType(String type) {
@@ -84,6 +89,13 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
         }, mCourseRecyclerView);
 
         mPresenter.getWeiXinList(type, page + "", pageSize + "");
+        mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
+        mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh("mRefreshSwipeRefreshLayout");
+            }
+        });
     }
 
     @Override
@@ -113,7 +125,9 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
 
     @Override
     public void showLoading() {
-        mLoadingStateView.showLoading(mCourseRecyclerView);
+        if (!mRefreshSwipeRefreshLayout.isRefreshing() || (mCourseAdapter.getData() == null || mCourseAdapter.getData()
+                .size() == 0))
+            mLoadingStateView.showLoading(mCourseRecyclerView);
     }
 
     @Override
@@ -129,6 +143,7 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
         } else {
             mCourseAdapter.loadMoreEnd();
         }
+        mRefreshSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
