@@ -46,6 +46,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         public final static Property Is_allow_talk = new Property(19, int.class, "is_allow_talk", false, "IS_ALLOW_TALK");
         public final static Property Desp_url = new Property(20, String.class, "desp_url", false, "DESP_URL");
         public final static Property Title = new Property(21, String.class, "title", false, "TITLE");
+        public final static Property Role = new Property(22, int.class, "role", false, "ROLE");
     }
 
 
@@ -82,7 +83,8 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
                 "\"TYPE\" TEXT," + // 18: type
                 "\"IS_ALLOW_TALK\" INTEGER NOT NULL ," + // 19: is_allow_talk
                 "\"DESP_URL\" TEXT," + // 20: desp_url
-                "\"TITLE\" TEXT);"); // 21: title
+                "\"TITLE\" TEXT," + // 21: title
+                "\"ROLE\" INTEGER NOT NULL );"); // 22: role
     }
 
     /** Drops the underlying database table. */
@@ -192,6 +194,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         if (title != null) {
             stmt.bindString(22, title);
         }
+        stmt.bindLong(23, entity.getRole());
     }
 
     @Override
@@ -295,6 +298,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         if (title != null) {
             stmt.bindString(22, title);
         }
+        stmt.bindLong(23, entity.getRole());
     }
 
     @Override
@@ -326,7 +330,8 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
             cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // type
             cursor.getInt(offset + 19), // is_allow_talk
             cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // desp_url
-            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21) // title
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // title
+            cursor.getInt(offset + 22) // role
         );
         return entity;
     }
@@ -355,6 +360,7 @@ public class ClassInfoDao extends AbstractDao<ClassInfo, Long> {
         entity.setIs_allow_talk(cursor.getInt(offset + 19));
         entity.setDesp_url(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
         entity.setTitle(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
+        entity.setRole(cursor.getInt(offset + 22));
      }
     
     @Override

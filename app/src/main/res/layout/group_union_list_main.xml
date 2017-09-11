@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.yc.english.base.view.MainToolBar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.yc.english.base.view.StateView
+        android:id="@+id/sView_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_empty_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/group_distance_15"
+            android:paddingRight="@dimen/group_distance_15">
+
+            <Button
+                android:id="@+id/btn_create_class"
+                style="@style/group_btn_blue_style"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_40"
+                android:text="@string/create_union" />
+
+            <Button
+                android:id="@+id/btn_join_class"
+                style="@style/group_btn_white_style"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_40"
+                android:layout_marginTop="@dimen/group_distance_10"
+                android:text="@string/join_union" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_data_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.shizhefei.view.indicator.FixedIndicatorView
+                    android:id="@+id/fiv_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray_ddd" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryDark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_40"
+                android:layout_marginBottom="@dimen/group_distance_10"
+                android:layout_marginLeft="@dimen/group_distance_15"
+                android:layout_marginRight="@dimen/group_distance_15"
+                android:layout_marginTop="@dimen/group_distance_10">
+
+                <Button
+                    android:id="@+id/btn_create_class1"
+                    style="@style/group_btn_blue_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/create_union" />
+
+                <Button
+                    android:id="@+id/btn_join_class1"
+                    style="@style/group_btn_white_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/group_distance_10"
+                    android:layout_weight="1"
+                    android:text="@string/join_union" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+
+</LinearLayout>
