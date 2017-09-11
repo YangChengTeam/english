@@ -75,6 +75,10 @@
     <string name="union_name">公会名称</string>
     <string name="transfer_union">转让公会</string>
     <string name="resolving_union">解散公会</string>
+    <string name="delete_union_member">移除会员</string>
+    <string name="relief_introduce">英语公会免责声明：我们有正向引导用户、打造健康网络环境的责任。在尊重用户隐私的前提下，
+        我们通过多个维度净化网络环境。公会群内严禁发布色情、反动、涉毒等非法信息，如有违规者责任自负，造成恶劣影响直至触犯法律者，将依法追究法律责任。</string>
+    <string name="i_konw">我知道啦</string>
 
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>
