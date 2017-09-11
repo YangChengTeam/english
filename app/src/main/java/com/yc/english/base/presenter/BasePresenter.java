@@ -17,7 +17,7 @@ import rx.subscriptions.CompositeSubscription;
 public abstract class BasePresenter<M, V extends IView> implements IPresenter {
     @NonNull
     protected CompositeSubscription mSubscriptions;
-    private boolean mFirstLoad = true;
+    protected boolean mFirstLoad = true;
 
     protected M mEngin;
     protected V mView;

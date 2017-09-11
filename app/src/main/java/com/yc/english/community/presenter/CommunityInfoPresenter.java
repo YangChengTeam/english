@@ -62,7 +62,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                     @Override
                     public void resultInfoNotOk(String message) {
                         if (currentPage == 1) {
-                            mView.showNoNet();
+                            mView.showNoData();
                         }
                     }
 
@@ -87,7 +87,6 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                         }
                     }
                 });
-
             }
         });
 
@@ -139,7 +138,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
     @Override
     public void commentInfoList(int nid, final int currentPage, int pageCount) {
-        if (currentPage == 1) {
+        if (currentPage == 1 && mFirstLoad) {
             mView.showLoading();
         }
         Subscription subscribe = mEngin.commentInfoList(nid, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<CommentInfoList>>() {
@@ -150,7 +149,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
             @Override
             public void onError(Throwable e) {
-                if (currentPage == 1) {
+                if (currentPage == 1 && mFirstLoad) {
                     mView.showNoNet();
                 }
             }
@@ -161,25 +160,26 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        if (currentPage == 1) {
+                        if (currentPage == 1 && !mFirstLoad) {
                             mView.showNoNet();
                         }
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        if (currentPage == 1) {
+                        if (currentPage == 1 && !mFirstLoad) {
                             mView.showNoData();
                         }
                     }
 
                     @Override
                     public void reulstInfoOk() {
+                        if (currentPage == 1  && !mFirstLoad) {
+                            mView.hideStateView();
+                        }
+
                         if (resultInfo != null && resultInfo.data != null) {
                             mView.showCommentList(resultInfo.data.list);
-                            if (currentPage == 1) {
-                                mView.hideStateView();
-                            }
                         }
                     }
                 });
