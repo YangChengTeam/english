@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -49,6 +50,12 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
     TextView mTvGroupTransfer;
     @BindView(R.id.btn_resolving_group)
     Button btnResolvingGroup;
+    @BindView(R.id.m_tv_group_delete)
+    TextView mTvGroupDelete;
+    @BindView(R.id.iv_arrow_check)
+    ImageView ivArrowCheck;
+    @BindView(R.id.rl_group_check)
+    RelativeLayout rlGroupCheck;
     private AlertDialog alertDialog;
     private int condition;
 
@@ -71,11 +78,13 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
 
     private void initData() {
         if (GroupInfoHelper.getClassInfo().getType().equals("1")) {
+            mToolbar.setTitle(getString(R.string.union_manager));
             mTvGroupImage.setText(getString(R.string.union_image));
             mTvGroupName.setText(getString(R.string.union_name));
             mTvGroupTransfer.setText(getString(R.string.transfer_union));
             btnResolvingGroup.setText(getString(R.string.resolving_union));
-            mToolbar.setTitle(getString(R.string.union_manager));
+            mTvGroupDelete.setText(getString(R.string.delete_union_member));
+
 
         } else {
             mToolbar.setTitle(getString(R.string.group_manager));
@@ -198,11 +207,4 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         }
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }
