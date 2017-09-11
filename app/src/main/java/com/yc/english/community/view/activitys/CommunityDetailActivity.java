@@ -27,6 +27,8 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -131,7 +133,11 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
                     CommentInfo commentInfo = new CommentInfo();
                     commentInfo.setNoteId(communityInfo.getId());
                     commentInfo.setUserId(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
-                    commentInfo.setContent(mCommentContentEditText.getText().toString());
+                    try {
+                        commentInfo.setContent(URLEncoder.encode(mCommentContentEditText.getText().toString(), "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
 
                     mPresenter.addCommentInfo(commentInfo);
                 }

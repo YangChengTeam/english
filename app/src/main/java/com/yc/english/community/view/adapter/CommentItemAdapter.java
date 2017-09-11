@@ -11,6 +11,7 @@ import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.community.model.domain.CommentInfo;
 
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -26,12 +27,15 @@ public class CommentItemAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHo
 
     @Override
     protected void convert(final BaseViewHolder helper, final CommentInfo item) {
-        helper.setText(R.id.tv_comment_user_name, item.getUserName())
-                .setText(R.id.tv_comment_content, item.getContent());
-
+        try {
+            helper.setText(R.id.tv_comment_user_name, item.getUserName())
+                    .setText(R.id.tv_comment_content, URLEncoder.encode(item.getContent(), "UTF-8"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (!StringUtils.isEmpty(item.getAddTime())) {
             long addTime = Long.parseLong(item.getAddTime()) * 1000;
-            helper.setText(R.id.tv_comment_date, TimeUtils.millis2String(addTime,new SimpleDateFormat("MM-dd HH:mm",
+            helper.setText(R.id.tv_comment_date, TimeUtils.millis2String(addTime, new SimpleDateFormat("MM-dd HH:mm",
                     Locale.getDefault())));
         }
 
