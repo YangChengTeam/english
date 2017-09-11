@@ -51,6 +51,7 @@ public class GroupPicTaskDetailAdapter extends PagerAdapter {
         ImageView imageView = (ImageView) view.findViewById(R.id.iv_picture_detail);
         container.addView(view);
         String path = mList.get(position);
+
         Glide.with(mActivity).load(path).into(imageView);
         view.setOnClickListener(new View.OnClickListener() {
             @Override

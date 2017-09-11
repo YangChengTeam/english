@@ -7,17 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.common.GroupApp;
-import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.main.hepler.UserInfoHelper;
 
@@ -27,7 +22,6 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
-import io.rong.message.RichContentMessage;
 
 /**
  * Created by wanglin  on 2017/7/29 10:11.
@@ -38,7 +32,6 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
 
     private boolean mIsJoin;
     private Message mMessage;
-
 
 
     public GroupGroupAdapter(Context context, boolean isJoin, List<ClassInfo> mList) {
@@ -61,16 +54,16 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
             public void onClick(View v) {
                 //介绍
                 String title = classInfo.getTitle();
-                if(EmptyUtils.isEmpty(title)){
+                if (EmptyUtils.isEmpty(title)) {
                     title = "名师辅导介绍";
                 }
-                String url = classInfo.getUrl();
-                if(EmptyUtils.isEmpty(url)){
+                String url = classInfo.getDesp_url();
+                if (EmptyUtils.isEmpty(url)) {
                     url = "http://en.upkao.com/teacher/teacher_detail.html";
                 }
                 Intent intent = new Intent(mContext, WebActivity.class);
                 intent.putExtra("title", title);
-                intent.putExtra("url",url );
+                intent.putExtra("url", url);
                 mContext.startActivity(intent);
             }
         });
