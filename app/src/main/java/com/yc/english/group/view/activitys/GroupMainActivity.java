@@ -1,7 +1,6 @@
 package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +35,6 @@ import com.yc.english.main.model.domain.UserInfo;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imlib.model.Message;
 import io.rong.message.RichContentMessage;
@@ -69,6 +67,8 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
 
     private GroupGroupAdapter adapter;
     private List<ClassInfo> mClassInfo;
+    private GuidePopupWindow guideCreatePopupWindow;
+    private GuidePopupWindow guideJoinPopupWindow;
 
     @Override
     public void init() {
@@ -91,42 +91,42 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
 
     private void showCreateGuide() {
         GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
-        final GuidePopupWindow guidePopupWindow = builder.setDelay(1f).setTargetView(btnCreateClass).setCorner(5).setGuideCallback(new GuideCallback() {
+        guideCreatePopupWindow = builder.setDelay(1f).setTargetView(btnCreateClass).setCorner(5).setGuideCallback(new GuideCallback() {
             @Override
             public void onClick(GuidePopupWindow guidePopupWindow) {
 
-                startActivity(new Intent(GroupMainActivity.this, GroupCreateActivity.class));
+                goToActivity(GroupCreateActivity.class);
             }
         })
                 .build(this);
-        guidePopupWindow.addCustomView(R.layout.guide_create_group_view, R.id.btn_ok, new View.OnClickListener() {
+        guideCreatePopupWindow.addCustomView(R.layout.guide_create_group_view, R.id.btn_ok, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showJoinGuide();
-                guidePopupWindow.dismiss();
+                guideCreatePopupWindow.dismiss();
             }
         });
-        guidePopupWindow.setDebug(true);
-        guidePopupWindow.show(rootView, "create_group");
+        guideCreatePopupWindow.setDebug(true);
+        guideCreatePopupWindow.show(rootView, "create_group");
     }
 
     private void showJoinGuide() {
         GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
-        final GuidePopupWindow guidePopupWindow = builder.setDelay(0).setTargetView(btnJoinClass).setCorner(5).setGuideCallback(new GuideCallback() {
+        guideJoinPopupWindow = builder.setDelay(0).setTargetView(btnJoinClass).setCorner(5).setGuideCallback(new GuideCallback() {
             @Override
             public void onClick(GuidePopupWindow guidePopupWindow) {
-                startActivity(new Intent(GroupMainActivity.this, GroupJoinActivity.class));
+                goToActivity(GroupJoinActivity.class);
             }
         })
                 .build(this);
-        guidePopupWindow.addCustomView(R.layout.group_guide_join, R.id.m_btn_OK, new View.OnClickListener() {
+        guideJoinPopupWindow.addCustomView(R.layout.group_guide_join, R.id.m_btn_OK, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                guidePopupWindow.dismiss();
+                guideJoinPopupWindow.dismiss();
             }
         });
-        guidePopupWindow.setDebug(true);
-        guidePopupWindow.show(rootView, "join");
+        guideJoinPopupWindow.setDebug(true);
+        guideJoinPopupWindow.show(rootView, "join");
     }
 
     @Override
@@ -172,6 +172,12 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     public void showMyGroupList(List<ClassInfo> classInfos) {
         if (classInfos != null && classInfos.size() > 0) {
             this.mClassInfo = classInfos;
+            if (guideCreatePopupWindow != null && guideCreatePopupWindow.isShowing()) {
+                guideCreatePopupWindow.dismiss();
+            }
+            if (guideJoinPopupWindow != null && guideJoinPopupWindow.isShowing()) {
+                guideJoinPopupWindow.dismiss();
+            }
             llDataContainer.setVisibility(View.VISIBLE);
             llEmptyContainer.setVisibility(View.GONE);
             adapter.setData(classInfos);

@@ -74,6 +74,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
     private GroupUnionAdapter adapter;
 
+    private GuidePopupWindow guidePopupWindow;
     private int page = 1;
 
     @Override
@@ -150,14 +151,12 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
     private void showCreateGuide() {
         GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
-        final GuidePopupWindow guidePopupWindow = builder.setDelay(1f).setTargetView(btnCreateClass).setCorner(5).setGuideCallback(new GuideCallback() {
+        guidePopupWindow = builder.setDelay(1f).setTargetView(btnCreateClass).setCorner(5).setGuideCallback(new GuideCallback() {
             @Override
             public void onClick(GuidePopupWindow guidePopupWindow) {
-
-                startActivity(new Intent(UnionMainActivity.this, UnionCreateActivity.class));
+                goToActivity(UnionCreateActivity.class);
             }
-        })
-                .build(this);
+        }).build(this);
         guidePopupWindow.addCustomView(R.layout.guide_create_union_view, R.id.btn_ok, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,6 +167,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
         guidePopupWindow.setDebug(true);
         guidePopupWindow.show(rootView, "create_union");
+
     }
 
 
@@ -215,6 +215,10 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
         if (classInfos != null && classInfos.size() > 0) {
             if (page == 1) {
+
+                if (guidePopupWindow != null && guidePopupWindow.isShowing()) {
+                    guidePopupWindow.dismiss();
+                }
                 llDataContainer.setVisibility(View.VISIBLE);
                 llEmptyContainer.setVisibility(View.GONE);
                 adapter.setNewData(classInfos);

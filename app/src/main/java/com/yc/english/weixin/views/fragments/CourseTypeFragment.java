@@ -58,7 +58,7 @@ public class CourseTypeFragment extends ToolbarFragment {
                 new String[]{"7", "8"});
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setCurrentItem(0);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
