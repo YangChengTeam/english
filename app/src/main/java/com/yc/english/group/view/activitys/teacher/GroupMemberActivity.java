@@ -63,6 +63,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         mToolbar.setTitle(GroupInfoHelper.getGroupInfo().getName());
         mToolbar.showNavigationIcon();
 
+
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
@@ -75,12 +76,16 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         ClassInfo classInfo = GroupInfoHelper.getClassInfo();
         if (classInfo != null && classInfo.getMaster_id() != null) {
             if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
-                tvExitGroup.setVisibility(View.GONE);
-
-            } else {
-                tvExitGroup.setVisibility(View.VISIBLE);
+                if (classInfo.getType().equals("0")) {
+                    mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
+                } else if (classInfo.getType().equals("1")) {
+                    mToolbar.setMenuTitle(getResources().getString(R.string.union_manager));
+                }
             }
+            tvExitGroup.setVisibility(View.GONE);
+
+        } else {
+            tvExitGroup.setVisibility(View.VISIBLE);
         }
 
 
@@ -88,7 +93,9 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         adapter = new GroupMemberAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setOverlayStyle_Center();
+
         getData();
+
         initListener();
 
     }
