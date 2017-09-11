@@ -32,7 +32,7 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityInfo, BaseViewHo
         helper.setText(R.id.tv_time, TimeUtils.millis2String(addTime,new SimpleDateFormat("yyyy-MM-dd " +
                 "HH:mm:ss",
                 Locale.getDefault())));
-        GlideHelper.circleImageView(mContext, (ImageView) helper.getView(R.id.iv_icon), item.getFace(), 0);
+        GlideHelper.circleImageView(mContext, (ImageView) helper.getView(R.id.iv_icon), item.getFace(), R.mipmap.default_avatar);
         if (getData().size() - 1 == position) {
             helper.setVisible(R.id.line, false);
         }

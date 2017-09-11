@@ -42,9 +42,9 @@ public class AritleAdapter extends BaseQuickAdapter<CourseInfo, BaseViewHolder> 
                 helper.setVisible(R.id.line, false);
             }
             if (item.getType_id().equals("7")) {
-                helper.setImageResource(R.id.iv_icon, R.mipmap.index_microclass_audio);
+                helper.setImageResource(R.id.iv_microclass_type, R.mipmap.index_microclass_audio);
             } else if (item.getType_id().equals("8")) {
-                helper.setImageResource(R.id.iv_icon, R.mipmap.index_microclass_video);
+                helper.setImageResource(R.id.iv_microclass_type, R.mipmap.index_microclass_video);
             }
         }
     }
