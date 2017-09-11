@@ -12,6 +12,8 @@ import com.yc.english.R;
 
 import java.util.List;
 
+import cn.kejin.ximageview.XImageView;
+
 /**
  * Created by wanglin  on 2017/7/24 17:37.
  * 显示发布图片作业详情的信息
@@ -51,6 +53,7 @@ public class GroupPicTaskDetailAdapter extends PagerAdapter {
         ImageView imageView = (ImageView) view.findViewById(R.id.iv_picture_detail);
         container.addView(view);
         String path = mList.get(position);
+
         Glide.with(mActivity).load(path).into(imageView);
         view.setOnClickListener(new View.OnClickListener() {
             @Override

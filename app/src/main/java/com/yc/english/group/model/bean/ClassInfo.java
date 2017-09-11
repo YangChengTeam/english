@@ -44,14 +44,9 @@ public class ClassInfo implements Parcelable {
     private String type;//0.班群 1.公会 2.名师辅导
 
     private int is_allow_talk;
-    
-    public String getUrl() {
-        return url;
-    }
+    private String desp_url;
+    private String title;
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     public String getTitle() {
         return title;
@@ -61,8 +56,7 @@ public class ClassInfo implements Parcelable {
         this.title = title;
     }
 
-    private String url;
-    private String title;
+
 
 
     public static final Creator<ClassInfo> CREATOR = new Creator<ClassInfo>() {
@@ -105,13 +99,13 @@ public class ClassInfo implements Parcelable {
         flag = source.readString();
     }
 
-
-    @Generated(hash = 1702172416)
-    public ClassInfo(Long cId, String imageUrl, String className, String count, int groupId,
-            String founder_id, String master_id, String vali_type, String is_del, String add_time,
-            String add_date, String del_time, String sort, String master_name, String master_nick_name,
-            String class_id, String flag, int fee_type, String type, int is_allow_talk, String url,
-            String title) {
+    @Generated(hash = 982909784)
+    public ClassInfo(Long cId, String imageUrl, String className, String count,
+            int groupId, String founder_id, String master_id, String vali_type,
+            String is_del, String add_time, String add_date, String del_time,
+            String sort, String master_name, String master_nick_name,
+            String class_id, String flag, int fee_type, String type,
+            int is_allow_talk, String desp_url, String title) {
         this.cId = cId;
         this.imageUrl = imageUrl;
         this.className = className;
@@ -132,9 +126,12 @@ public class ClassInfo implements Parcelable {
         this.fee_type = fee_type;
         this.type = type;
         this.is_allow_talk = is_allow_talk;
-        this.url = url;
+        this.desp_url = desp_url;
         this.title = title;
     }
+
+
+    
 
     public String getImageUrl() {
         return imageUrl;
@@ -329,5 +326,13 @@ public class ClassInfo implements Parcelable {
 
     public void setIs_allow_talk(int is_allow_talk) {
         this.is_allow_talk = is_allow_talk;
+    }
+
+    public String getDesp_url() {
+        return this.desp_url;
+    }
+
+    public void setDesp_url(String desp_url) {
+        this.desp_url = desp_url;
     }
 }
