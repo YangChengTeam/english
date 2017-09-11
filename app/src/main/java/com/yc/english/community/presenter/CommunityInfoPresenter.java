@@ -3,6 +3,7 @@ package com.yc.english.community.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.ResultInfoHelper;
@@ -42,7 +43,9 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
+                if (currentPage == 1) {
+                    mView.showNoNet();
+                }
             }
 
             @Override
@@ -51,26 +54,36 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.showNoNet();
+                        if (currentPage == 1) {
+                            mView.showNoNet();
+                        }
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.showNoNet();
+                        if (currentPage == 1) {
+                            mView.showNoNet();
+                        }
                     }
 
                     @Override
                     public void reulstInfoOk() {
                         if (resultInfo != null && resultInfo.data != null) {
-                            mView.hideStateView();
+                            if (currentPage == 1) {
+                                mView.hideStateView();
+                            }
 
                             if (resultInfo.data.list != null && resultInfo.data.list.size() > 0) {
                                 mView.showCommunityInfoListData(resultInfo.data.list);
                             } else {
-                                mView.showNoData();
+                                if (currentPage == 1) {
+                                    mView.showNoData();
+                                }
                             }
                         } else {
-                            mView.showNoData();
+                            if (currentPage == 1) {
+                                mView.showNoData();
+                            }
                         }
                     }
                 });
@@ -92,7 +105,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
+                TipsHelper.tips(mContext, HttpConfig.NET_ERROR);
                 mView.dismissLoadingDialog();
             }
 
@@ -102,12 +115,12 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.showNoNet();
+                        TipsHelper.tips(mContext, message);
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.showNoNet();
+                        TipsHelper.tips(mContext, message);
                     }
 
                     @Override
@@ -125,7 +138,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
     }
 
     @Override
-    public void commentInfoList(int nid, int currentPage, int pageCount) {
+    public void commentInfoList(int nid, final int currentPage, int pageCount) {
         if (currentPage == 1) {
             mView.showLoading();
         }
@@ -137,7 +150,9 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
+                if (currentPage == 1) {
+                    mView.showNoNet();
+                }
             }
 
             @Override
@@ -146,19 +161,25 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.showNoNet();
+                        if (currentPage == 1) {
+                            mView.showNoNet();
+                        }
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.showNoNet();
+                        if (currentPage == 1) {
+                            mView.showNoData();
+                        }
                     }
 
                     @Override
                     public void reulstInfoOk() {
                         if (resultInfo != null && resultInfo.data != null) {
                             mView.showCommentList(resultInfo.data.list);
-                            mView.hideStateView();
+                            if (currentPage == 1) {
+                                mView.hideStateView();
+                            }
                         }
                     }
                 });
@@ -181,8 +202,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
-                mView.dismissLoadingDialog();
+                TipsHelper.tips(mContext, HttpConfig.NET_ERROR);
             }
 
             @Override
@@ -191,12 +211,12 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.showNoNet();
+                        TipsHelper.tips(mContext, message);
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.showNoData();
+                        TipsHelper.tips(mContext, message);
                     }
 
                     @Override
@@ -223,7 +243,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
+                TipsHelper.tips(mContext, HttpConfig.SERVICE_ERROR);
             }
 
             @Override
@@ -232,7 +252,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-
+                        TipsHelper.tips(mContext, message);
                     }
 
                     @Override
