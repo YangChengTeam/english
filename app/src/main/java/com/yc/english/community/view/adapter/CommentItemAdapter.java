@@ -11,7 +11,7 @@ import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.community.model.domain.CommentInfo;
 
-import java.net.URLEncoder;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +29,7 @@ public class CommentItemAdapter extends BaseQuickAdapter<CommentInfo, BaseViewHo
     protected void convert(final BaseViewHolder helper, final CommentInfo item) {
         try {
             helper.setText(R.id.tv_comment_user_name, item.getUserName())
-                    .setText(R.id.tv_comment_content, URLEncoder.encode(item.getContent(), "UTF-8"));
+                    .setText(R.id.tv_comment_content, URLDecoder.decode(item.getContent(),"UTF-8"));
         } catch (Exception e) {
             e.printStackTrace();
         }
