@@ -31,6 +31,8 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.PicassoEngine;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -115,7 +117,7 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
                         upFileInfo.name = "file";
                         List<File> files = new ArrayList<File>();
                         for (int i = 0; i < mImageSelectedAdapter.getData().size(); i++) {
-                            if(mImageSelectedAdapter.getData().get(i).compareTo(mAddUri) != 0){
+                            if (mImageSelectedAdapter.getData().get(i).compareTo(mAddUri) != 0) {
                                 File tempFile = new File(DrawableUtils.getPathBuUri(CommunityAddActivity.this, mImageSelectedAdapter.getData().get(i)));
                                 files.add(tempFile);
                             }
@@ -127,9 +129,12 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
 
                     CommunityInfo tempCommunityInfo = new CommunityInfo();
                     tempCommunityInfo.setUserId(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
-                    tempCommunityInfo.setContent(mCommunityContextEditText.getText().toString());
+                    try {
+                        tempCommunityInfo.setContent(URLEncoder.encode(mCommunityContextEditText.getText().toString(), "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     tempCommunityInfo.setcType(noteType != null ? noteType : "");
-
                     mPresenter.addCommunityInfo(tempCommunityInfo, upFileInfo);
 
                 } else {

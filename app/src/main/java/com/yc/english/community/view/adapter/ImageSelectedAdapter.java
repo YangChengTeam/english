@@ -29,6 +29,7 @@ public class ImageSelectedAdapter extends BaseQuickAdapter<Uri, BaseViewHolder> 
         }else{
             helper.setVisible(R.id.iv_delete_image, true);
         }
+        helper.setBackgroundRes(R.id.iv_community_add_note,R.color.transparent);
         helper.addOnClickListener(R.id.iv_delete_image);
     }
 }

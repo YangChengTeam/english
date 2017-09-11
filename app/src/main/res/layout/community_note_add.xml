@@ -39,10 +39,11 @@
                     android:focusable="true"
                     android:gravity="top"
                     android:hint="说点什么吧"
-                    android:maxLength="200"
+                    android:maxLength="30"
                     android:padding="5dp"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/community_line_color"
+                    android:textCursorDrawable="@drawable/add_color_cursor"
+                    android:textColorHint="@color/note_bg_color"
                     android:textSize="16sp"/>
 
             </LinearLayout>
