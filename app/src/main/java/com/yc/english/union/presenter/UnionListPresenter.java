@@ -56,6 +56,8 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
 
     public void getUnionList1(String user_id, String is_admin, String type) {
 
+        mView.showLoading();
+
         Subscription subscription = EngineUtils.getMyGroupList(mContext, user_id, is_admin, type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
             public void onCompleted() {
@@ -65,6 +67,7 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
             @Override
             public void onError(Throwable e) {
 
+                mView.showNoNet();
 
             }
 
@@ -74,20 +77,21 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
                     @Override
                     public void resultInfoEmpty(String message) {
 
-
+                        mView.showNoNet();
 
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
 
+                        mView.showNoData();
 
                     }
 
                     @Override
                     public void reulstInfoOk() {
 
-
+                        mView.hideStateView();
                         mView.showUnionList1(classInfo.data.getList());
 
 

@@ -103,6 +103,8 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
     }
 
 
+
+
     private void showCreateGuide() {
         GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
         guidePopupWindow = builder.setDelay(1f).setTargetView(btnCreateClass).setCorner(5).setGuideCallback(new GuideCallback() {
@@ -153,15 +155,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
     }
 
-    @Subscribe(
-            thread = EventThread.MAIN_THREAD,
-            tags = {
-                    @Tag(BusAction.GROUP_LIST)
-            }
-    )
-    public void getList(String group) {
-        mPresenter.loadData(true);
-    }
 
 
     @Override
@@ -174,6 +167,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         }
         invalidateOptionsMenu();
     }
+
 
 
     @Override
@@ -189,6 +183,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         } else {
             llDataContainer.setVisibility(View.GONE);
             llEmptyContainer.setVisibility(View.VISIBLE);
+            hideStateView();
             if (ActivityUtils.isValidContext(this)) {
                 showCreateGuide();
             }
@@ -235,6 +230,33 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
             }
         });
+    }
+
+
+    @Override
+    public void hideStateView() {
+        sViewLoading.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        sViewLoading.showNoNet(contentView, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.loadData(true);
+
+            }
+        });
+    }
+
+    @Override
+    public void showNoData() {
+        hideStateView();
+    }
+
+    @Override
+    public void showLoading() {
+        sViewLoading.showLoading(contentView);
     }
 
 

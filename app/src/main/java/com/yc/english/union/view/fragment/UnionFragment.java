@@ -1,13 +1,10 @@
 package com.yc.english.union.view.fragment;
 
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -30,8 +27,6 @@ import com.yc.english.union.presenter.UnionListPresenter1;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import io.rong.imkit.RongIM;
 
 /**

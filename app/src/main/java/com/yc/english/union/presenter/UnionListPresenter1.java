@@ -75,14 +75,12 @@ public class UnionListPresenter1 extends BasePresenter<BaseEngin, UnionListContr
 
                     @Override
                     public void reulstInfoOk() {
-                        if (classInfo.data!=null&&classInfo.data.getList()!=null){
+                        if (classInfo.data != null && classInfo.data.getList() != null && classInfo.data.getList().size() > 0) {
                             mView.showUnionList1(classInfo.data.getList());
                             mView.hideStateView();
-                        }else {
+                        } else {
                             mView.showNoData();
                         }
-
-
 
 
                     }
