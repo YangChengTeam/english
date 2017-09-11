@@ -238,8 +238,6 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
         }
 
         mCommentItemAdapter.addData(0, commentInfo);
-        mCommentItemAdapter.notifyDataSetChanged();
-
         RxBus.get().post(Constant.COMMUNITY_REFRESH, "from add communityInfo");
     }
 

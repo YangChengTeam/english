@@ -66,7 +66,9 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
                 handleResultInfo(classInfo, new Runnable() {
                     @Override
                     public void run() {
-                        saveGroup(classInfo.data.getInfo());
+                        RxBus.get().post(BusAction.GROUP_LIST, "create group");
+                        RongIM.getInstance().startGroupChat(mContext, classInfo.data.getInfo().getClass_id(), classInfo.data.getInfo().getClassName());
+                        mView.finish();
                     }
                 });
             }

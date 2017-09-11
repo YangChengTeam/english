@@ -34,6 +34,7 @@
                 android:paddingRight="@dimen/group_distance_15">
 
                 <TextView
+                    android:id="@+id/m_tv_group_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -73,7 +74,7 @@
                 android:paddingRight="@dimen/group_distance_15">
 
                 <TextView
-
+                    android:id="@+id/m_tv_group_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -211,6 +212,7 @@
                 android:paddingRight="@dimen/group_distance_15">
 
                 <TextView
+                    android:id="@+id/m_tv_group_transfer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

@@ -1,7 +1,9 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,14 +20,12 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupResolvingContract;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.presenter.GroupResolvingPresenter;
-import com.yc.english.group.rong.models.CodeSuccessResult;
-import com.yc.english.group.rong.models.GroupInfo;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -41,6 +41,14 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
     TextView tvGroupName;
     @BindView(R.id.tv_permission_check)
     TextView tvPermissionCheck;
+    @BindView(R.id.m_tv_group_image)
+    TextView mTvGroupImage;
+    @BindView(R.id.m_tv_group_name)
+    TextView mTvGroupName;
+    @BindView(R.id.m_tv_group_transfer)
+    TextView mTvGroupTransfer;
+    @BindView(R.id.btn_resolving_group)
+    Button btnResolvingGroup;
     private AlertDialog alertDialog;
     private int condition;
 
@@ -58,7 +66,16 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         }
         setVerify_reslut(condition);
         GlideHelper.circleImageView(this, ivGroupImage, GroupInfoHelper.getClassInfo().getImageUrl(), R.mipmap.default_avatar);
+        initData();
+    }
 
+    private void initData() {
+        if (GroupInfoHelper.getClassInfo().getType().equals("1")) {
+            mTvGroupImage.setText(getString(R.string.union_image));
+            mTvGroupName.setText(getString(R.string.union_name));
+            mTvGroupTransfer.setText(getString(R.string.transfer_union));
+            btnResolvingGroup.setText(getString(R.string.resolving_union));
+        }
     }
 
     @Override
@@ -178,4 +195,10 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

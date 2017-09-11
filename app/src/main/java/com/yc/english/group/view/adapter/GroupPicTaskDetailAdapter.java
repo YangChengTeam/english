@@ -49,6 +49,7 @@ public class GroupPicTaskDetailAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
 
         View view = View.inflate(mActivity, R.layout.group_task_picture_item, null);
+
         ImageView imageView = (ImageView) view.findViewById(R.id.iv_picture_detail);
         container.addView(view);
         String path = mList.get(position);

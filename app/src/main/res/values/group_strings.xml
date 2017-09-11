@@ -71,6 +71,10 @@
     <string name="write_union_name">请填写要创建的公会名称</string>
     <string name="from_author">来自于：%1$s</string>
     <string name="introduce">介绍</string>
+    <string name="union_image">公会图像</string>
+    <string name="union_name">公会名称</string>
+    <string name="transfer_union">转让公会</string>
+    <string name="resolving_union">解算公会</string>
 
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>

@@ -3,10 +3,10 @@ package com.yc.english.community.view.adapter;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideHelper;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class ImageDetailSelectedAdapter extends BaseQuickAdapter<String, BaseVie
 
     @Override
     protected void convert(final BaseViewHolder helper, final String imgUrl) {
-        Glide.with(mContext).load(imgUrl).into((ImageView) helper.getConvertView().findViewById(R.id.iv_community_add_note));
+        GlideHelper.imageView(mContext, (ImageView) helper.getConvertView().findViewById(R.id.iv_community_add_note), imgUrl, 0);
         helper.setVisible(R.id.iv_delete_image, false);
     }
 }
