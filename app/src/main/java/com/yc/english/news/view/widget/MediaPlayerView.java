@@ -2,7 +2,6 @@ package com.yc.english.news.view.widget;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -13,21 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.TimeUtils;
-import com.kk.utils.PathUtils;
-import com.umeng.socialize.sina.helper.MD5;
 import com.yc.english.R;
-import com.yc.english.base.helper.RxUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/9/6 15:15.
@@ -37,7 +28,7 @@ public class MediaPlayerView extends LinearLayout {
     private Context mContext;
     private boolean isPlay;
     private MediaPlayer mediaPlayer;
-    private SeekBar mSeekbar;
+    private SeekBar mSeekBar;
     private boolean isChanging = true;
     private Timer mTimer;
     private TimerTask mTimerTask;
@@ -62,9 +53,9 @@ public class MediaPlayerView extends LinearLayout {
     private void init(final Context context) {
         View view = View.inflate(context, R.layout.mediaplayer_view, null);
         mImageView = (ImageView) view.findViewById(R.id.mImageView);
-        mSeekbar = (SeekBar) view.findViewById(R.id.mSeekBar);
+        mSeekBar = (SeekBar) view.findViewById(R.id.mSeekBar);
         mTextViewTime = (TextView) view.findViewById(R.id.mTextViewTime);
-        mSeekbar.setOnSeekBarChangeListener(new MySeekbarListenter());
+        mSeekBar.setOnSeekBarChangeListener(new MySeekbarListenter());
         addView(view);
 
     }
@@ -137,7 +128,7 @@ public class MediaPlayerView extends LinearLayout {
 
             mediaPlayer.prepare();// 准备
 
-            mSeekbar.setMax(mediaPlayer.getDuration());//设置进度条
+            mSeekBar.setMax(mediaPlayer.getDuration());//设置进度条
 
             mTextViewTime.setText(TimeUtils.millis2String(mediaPlayer.getDuration(), new SimpleDateFormat("mm:ss")));
             //----------定时器记录播放进度---------//
@@ -149,7 +140,7 @@ public class MediaPlayerView extends LinearLayout {
                     if (isChanging) {
                         return;
                     }
-                    mSeekbar.setProgress(mediaPlayer.getCurrentPosition());
+                    mSeekBar.setProgress(mediaPlayer.getCurrentPosition());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
