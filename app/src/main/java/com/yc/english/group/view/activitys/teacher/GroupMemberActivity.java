@@ -81,13 +81,11 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
                 } else if (classInfo.getType().equals("1")) {
                     mToolbar.setMenuTitle(getResources().getString(R.string.union_manager));
                 }
+                tvExitGroup.setVisibility(View.GONE);
+            } else {
+                tvExitGroup.setVisibility(View.VISIBLE);
             }
-            tvExitGroup.setVisibility(View.GONE);
-
-        } else {
-            tvExitGroup.setVisibility(View.VISIBLE);
         }
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupMemberAdapter(this);
