@@ -12,8 +12,6 @@ import com.yc.english.R;
 
 import java.util.List;
 
-import cn.kejin.ximageview.XImageView;
-
 /**
  * Created by wanglin  on 2017/7/24 17:37.
  * 显示发布图片作业详情的信息
