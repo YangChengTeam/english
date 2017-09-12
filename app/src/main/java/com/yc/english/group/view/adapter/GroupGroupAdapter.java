@@ -106,10 +106,14 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
             @Override
             public void onClick(View v) {
                 if (mIsJoin) {
-                    if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                        GroupApp.setMyExtensionModule(true, true);
+                    if (classInfo.getType().equals("1")) {
+                        GroupApp.setMyExtensionModule(false, false);
                     } else {
-                        GroupApp.setMyExtensionModule(false, true);
+                        if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
+                            GroupApp.setMyExtensionModule(true, true);
+                        } else {
+                            GroupApp.setMyExtensionModule(false, true);
+                        }
                     }
                     RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
                     if (mMessage != null) {

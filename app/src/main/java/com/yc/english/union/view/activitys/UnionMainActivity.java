@@ -233,7 +233,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         });
     }
 
-
     @Override
     public void hideStateView() {
         sViewLoading.hide();
@@ -270,7 +269,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
         public FragmentAdapter(FragmentManager fm) {
             super(fm);
-
         }
 
         @Override
