@@ -33,9 +33,9 @@ public class GroupSyncGroupPresenter extends BasePresenter<BaseEngin, GroupSyncG
 
     }
 
-    public void getGroupList(Context context, String user_id, String is_admin,String type) {
+    public void getGroupList(Context context, String user_id, String role,String type) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, is_admin,type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
+        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, role,type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
 
             public void onCompleted() {

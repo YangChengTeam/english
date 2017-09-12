@@ -110,7 +110,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
 
         }
         String uid = UserInfoHelper.getUserInfo().getUid();
-        mPresenter.getGroupList(this, uid, "1", GroupInfoHelper.getClassInfo().getType());
+        mPresenter.getGroupList(this, uid, "2", GroupInfoHelper.getClassInfo().getType());
         restoreTaskData();
 
         initListener();
