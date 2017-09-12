@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
@@ -18,7 +17,6 @@ import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
-import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.rong.models.CodeSuccessResult;
@@ -54,11 +52,22 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
      */
     @Override
     public void applyJoinGroup(final ClassInfo classInfo) {
+        String groupName = "";
+        String masterName = "";
+        if ("0".equals(classInfo.getType())) {
+            groupName = "班群";
+            masterName = "群主";
+        } else if ("1".equals(classInfo.getType())) {
+            groupName = "公会";
+            masterName = "会主";
+        }
         if (TextUtils.isEmpty(classInfo.getGroupId() + "")) {
-            ToastUtils.showShort("请输入班群号");
+            ToastUtils.showShort("请输入" + groupName + "号");
             return;
         }
-        mView.showLoadingDialog("正在申请加入班级，请稍候");
+        mView.showLoadingDialog("正在申请加入" + groupName + "，请稍候");
+        final String finalGroupName = groupName;
+        final String finalMasterName = masterName;
         Subscription subscription = EngineUtils.applyJoinGroup(mContext, UserInfoHelper.getUserInfo().getUid(), classInfo.getGroupId() + "").subscribe(new Subscriber<ResultInfo<GroupApplyInfo>>() {
             @Override
             public void onCompleted() {
@@ -81,7 +90,8 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
                             int type = Integer.parseInt(applyInfo.getVali_type());
 
                             if (type == GroupConstant.CONDITION_ALL_ALLOW) {
-                                ToastUtils.showShort(mContext.getString(R.string.congratulation_join_group));
+
+                                ToastUtils.showShort(String.format(mContext.getString(R.string.congratulation_join), finalGroupName));
                                 RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
 
                                 StudentInfo studentInfo = new StudentInfo();
@@ -93,7 +103,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
 
                             } else if (type == GroupConstant.CONDITION_VERIFY_JOIN) {
 
-                                ToastUtils.showShort(mContext.getString(R.string.commit_apply_join));
+                                ToastUtils.showShort(String.format(mContext.getString(R.string.commit_apply_join), finalGroupName, finalMasterName));
                             }
                             mView.finish();
                         }

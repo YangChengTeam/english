@@ -62,7 +62,6 @@ public class GroupMemberAdapter extends IndexableAdapter<StudentInfo> {
         } else {
             memberContentVH.tvMemberOwner.setText(entity.getUser_id().equals(entity.getMaster_id()) ? "老师" : "");
         }
-
         memberContentVH.tvMemberPhone.setText(entity.getUser_name());
         memberContentVH.tvMemberPhone.setVisibility(entity.getUser_name().equals(entity.getNick_name()) ? View.GONE : View.VISIBLE);
     }

@@ -6,10 +6,8 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
@@ -125,7 +123,7 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
                             int type = Integer.parseInt(applyInfo.getVali_type());
 
                             if (type == GroupConstant.CONDITION_ALL_ALLOW) {
-                                ToastUtils.showShort(mContext.getString(R.string.congratulation_join_group));
+                                ToastUtils.showShort(mContext.getString(R.string.congratulation_join));
                                 RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
 
                                 StudentInfo studentInfo = new StudentInfo();

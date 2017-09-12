@@ -68,38 +68,16 @@ public class UnionFragment extends BaseFragment<UnionListPresenter1> implements 
     }
 
     private void initListener() {
-        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primary), ContextCompat.getColor(getActivity(), R.color.primary));
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primary));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
                 getData();
             }
         });
 
-        adapter.setOnJoinListener(new GroupGroupAdapter.OnJoinListener() {
-            @Override
-            public void onJoin(ClassInfo classInfo) {
-                int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid());
-                if (!UserInfoHelper.isGotoLogin(getActivity())) {
-                    if (result == 1) {
-                        setMode(classInfo);
-                        RongIM.getInstance().startGroupChat(getActivity(), classInfo.getClass_id(), classInfo.getClassName());
-                    } else {
-                        mPresenter.isUnionMember(classInfo);
-                    }
-                }
-            }
-        });
-
     }
 
-    private void setMode(ClassInfo classInfo) {
-
-        GroupApp.setMyExtensionModule(false, false);
-
-        RongIM.getInstance().startGroupChat(getActivity(), classInfo.getClass_id(), classInfo.getClassName());
-    }
 
     private void getData() {
         if (UserInfoHelper.getUserInfo() != null) {
@@ -115,27 +93,6 @@ public class UnionFragment extends BaseFragment<UnionListPresenter1> implements 
         recyclerView.setAdapter(adapter);
     }
 
-
-    @Override
-    public void showIsMember(int is_member, final ClassInfo classInfo) {
-        SPUtils.getInstance().put(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid(), is_member);
-
-        if (is_member == 1) {//已经是班群成员
-            setMode(classInfo);
-            RongIM.getInstance().startGroupChat(getActivity(), classInfo.getClass_id(), classInfo.getClassName());
-        } else {
-            final AlertDialog dialog = new AlertDialog(getActivity());
-            dialog.setDesc("是否申请加入该公会?");
-            dialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mPresenter.applyJoinGroup(UserInfoHelper.getUserInfo().getUid(), classInfo);
-                    dialog.dismiss();
-                }
-            });
-            dialog.show();
-        }
-    }
 
     @Override
     public void showUnionList1(List<ClassInfo> classInfos) {

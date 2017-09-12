@@ -51,11 +51,9 @@
     <string name="teacher_education">名师辅导</string>
     <string name="task">作业</string>
     <string name="apply">申请</string>
-    <string name="forbid_join">该群禁止所有人加入，请联系群主！</string>
-    <string name="congratulation_join_group">恭喜你加入该群！</string>
-    <string name="congratulation_join_union">恭喜你加入该公会！</string>
-    <string name="commit_apply_join">你的加群请求已提交，请等待群主审核</string>
-    <string name="commit_apply_join_union">你的加公会请求已提交，请等待会主审核</string>
+    <string name="forbid_join">该%1$s禁止所有人加入，请联系群主！</string>
+    <string name="congratulation_join">恭喜你加入该%1$s！</string>
+    <string name="commit_apply_join">你的加%1$s请求已提交，请等待%2$s审核</string>
     <string name="look_detail">查看详情</string>
     <string name="pack_up">收起</string>
     <string name="do_homework">交作业</string>

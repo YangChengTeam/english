@@ -94,7 +94,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             }
         });
 
-
         initViewPager();
     }
 
@@ -157,11 +156,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             }
     )
     public void getList(String group) {
-        UserInfo userInfo = UserInfoHelper.getUserInfo();
-        if (group.equals("from login")) {
-            mPresenter.getUnionList1(userInfo.getUid(), "-1", "1");
-        }
-        mPresenter.getMemberList(this, "", "0",userInfo.getUid());
+        mPresenter.loadData(true);
     }
 
     @Override
@@ -185,7 +180,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             }
             llDataContainer.setVisibility(View.VISIBLE);
             llEmptyContainer.setVisibility(View.GONE);
-            initViewPager();
         } else {
             llDataContainer.setVisibility(View.GONE);
             llEmptyContainer.setVisibility(View.VISIBLE);
@@ -194,6 +188,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
                 showCreateGuide();
             }
         }
+
     }
 
     private void initViewPager() {

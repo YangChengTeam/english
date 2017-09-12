@@ -19,9 +19,6 @@ import java.util.List;
 public interface UnionListContract1 {
     interface View extends IView,IDialog,ILoading,INoData,INoNet {
 
-
-        void showIsMember(int is_member, ClassInfo class_id);
-
         void showUnionList1(List<ClassInfo> list);
     }
 
