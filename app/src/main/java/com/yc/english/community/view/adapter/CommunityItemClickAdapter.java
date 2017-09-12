@@ -30,6 +30,16 @@ public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, B
     private Context mContext;
     private boolean isShowDelete;
 
+    public interface PraiseListener{
+        void praiseItem(int parentPosition);
+    }
+
+    public PraiseListener praiseListener;
+
+    public void setPraiseListener(PraiseListener praiseListener) {
+        this.praiseListener = praiseListener;
+    }
+
     public CommunityItemClickAdapter(Context context, List<CommunityInfo> datas, boolean isDelete) {
         super(R.layout.community_note_list_item, datas);
         this.mContext = context;
@@ -70,6 +80,13 @@ public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, B
         GlideHelper.circleImageView(mContext, (ImageView) helper.getConvertView().findViewById(R.id.iv_note_user_img), item.getFace(), R.mipmap.main_tab_my);
         helper.addOnClickListener(R.id.tv_comment_count).addOnClickListener(R.id.iv_delete);
 
+        helper.getConvertView().findViewById(R.id.tv_praise_count).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                praiseListener.praiseItem(helper.getAdapterPosition());
+            }
+        });
+
         CommunityImageAdapter communityImageAdapter = new CommunityImageAdapter(mContext, item.getImages());
         RecyclerView imagesRecyclerView = (RecyclerView) helper.getConvertView().findViewById(R.id.imgs_list);
         imagesRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
@@ -105,7 +122,7 @@ public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, B
             Drawable isZan = ContextCompat.getDrawable(mContext, R.mipmap.is_zan_icon);
             isZan.setBounds(0, 0, isZan.getMinimumWidth(), isZan.getMinimumHeight());
             praiseTextView.setCompoundDrawables(isZan, null, null, null);
-            praiseTextView.setText((Integer.parseInt(this.getData().get(pos).getAgreeCount()) + 1) + "");
+            praiseTextView.setText(this.getData().get(pos).getAgreeCount());
         } else {
             Drawable isZan = ContextCompat.getDrawable(mContext, R.mipmap.no_zan_icon);
             isZan.setBounds(0, 0, isZan.getMinimumWidth(), isZan.getMinimumHeight());

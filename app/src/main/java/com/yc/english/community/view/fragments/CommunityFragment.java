@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -33,7 +34,7 @@ import butterknife.BindView;
  * Created by admin on 2017/7/25.
  */
 
-public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> implements CommunityInfoContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> implements CommunityInfoContract.View, SwipeRefreshLayout.OnRefreshListener, CommunityItemClickAdapter.PraiseListener {
 
     @BindView(R.id.sv_loading)
     StateView mStateView;
@@ -45,8 +46,6 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
     RecyclerView mAllNoteRecyclerView;
 
     CommunityItemClickAdapter mCommunityItemAdapter;
-
-    private int currentChildPosition;
 
     LinearLayoutManager mLinearLayoutManager;
 
@@ -101,6 +100,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         mPresenter = new CommunityInfoPresenter(getActivity(), this);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mCommunityItemAdapter = new CommunityItemClickAdapter(getActivity(), null, isShowDelete);
+        mCommunityItemAdapter.setPraiseListener(this);
         mAllNoteRecyclerView.setLayoutManager(mLinearLayoutManager);
         mAllNoteRecyclerView.setAdapter(mCommunityItemAdapter);
 
@@ -117,15 +117,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         mCommunityItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
-                if (view.getId() == R.id.tv_praise_count && mCommunityItemAdapter.getData().get(position).getAgreed().equals("0")) {
 
-                    if (UserInfoHelper.getUserInfo() == null) {
-                        UserInfoHelper.isGotoLogin(getActivity());
-                    } else {
-                        currentChildPosition = position;
-                        mPresenter.addAgreeInfo(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", ((CommunityInfo) adapter.getData().get(position)).getId());
-                    }
-                }
                 if (view.getId() == R.id.tv_comment_count) {
                     Intent intent = new Intent(getActivity(), CommunityDetailActivity.class);
                     intent.putExtra("community_info", mCommunityItemAdapter.getData().get(position));
@@ -155,6 +147,18 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         }, mAllNoteRecyclerView);
 
         mPresenter.communityInfoList(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", type, getCurrentPageByType(type), pageSize);
+    }
+
+    @Override
+    public void praiseItem(int parentPosition) {
+        if (mCommunityItemAdapter.getData().get(parentPosition).getAgreed().equals("0")) {
+            currentItemPosition = parentPosition;
+            if (UserInfoHelper.getUserInfo() == null) {
+                UserInfoHelper.isGotoLogin(getActivity());
+            } else {
+                mPresenter.addAgreeInfo(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", ((CommunityInfo) mCommunityItemAdapter.getData().get(currentItemPosition)).getId());
+            }
+        }
     }
 
     public int getCurrentPageByType(int type) {
@@ -290,8 +294,11 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
     public void showAgreeInfo(boolean flag) {
         //ToastUtils.showLong("点赞成功");
         mCommunityItemAdapter.getData().get(currentItemPosition).setAgreed("1");
-        //mCommunityItemAdapter.notifyItemChanged(currentChildPosition);
-        mCommunityItemAdapter.changeView(mLinearLayoutManager.findViewByPosition(currentItemPosition), currentChildPosition);
+        //mCommunityItemAdapter.notifyItemChanged(currentChildPosition);(Integer.parseInt(this.getData().get(pos).getAgreeCount()) + 1) + "");
+        if (!StringUtils.isEmpty(mCommunityItemAdapter.getData().get(currentItemPosition).getAgreeCount())) {
+            mCommunityItemAdapter.getData().get(currentItemPosition).setAgreeCount((Integer.parseInt(mCommunityItemAdapter.getData().get(currentItemPosition).getAgreeCount()) + 1) + "");
+        }
+        mCommunityItemAdapter.changeView(mLinearLayoutManager.findViewByPosition(currentItemPosition), currentItemPosition);
     }
 
     @Subscribe(
@@ -308,7 +315,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
     public void showNoteDelete(boolean flag) {
         if (flag) {
             if (mCommunityItemAdapter.getData() != null && currentItemPosition < mCommunityItemAdapter.getData().size()) {
-                mCommunityItemAdapter.getData().remove(currentChildPosition);
+                mCommunityItemAdapter.getData().remove(currentItemPosition);
                 if (mCommunityItemAdapter.getData().size() == 0) {
                     mStateView.showNoData(swipeLayout);
                 } else {
