@@ -14,10 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
 import com.kk.guide.GuideCallback;
 import com.kk.guide.GuidePopupWindow;
 import com.kk.securityhttp.net.contains.HttpConfig;
@@ -26,12 +22,9 @@ import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
-import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
-import com.yc.english.group.common.GroupApp;
-import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
@@ -46,7 +39,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.rong.imkit.RongIM;
 
 /**
  * Created by wanglin  on 2017/7/24 17:59.
@@ -79,7 +71,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
 
     private GuidePopupWindow guidePopupWindow;
-    private int page = 1;
 
     private final String[] titles = new String[]{"所有的", "我创建的", "我参与的"};
 
@@ -154,7 +145,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         }
 
     }
-
 
 
     @Override
