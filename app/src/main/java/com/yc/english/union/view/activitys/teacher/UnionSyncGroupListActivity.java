@@ -180,7 +180,7 @@ public class UnionSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
 
     private void getData() {
         String uid = UserInfoHelper.getUserInfo().getUid();
-        mPresenter.getGroupList(this, uid, "1", GroupInfoHelper.getClassInfo().getType());
+        mPresenter.getGroupList(this, uid, "2", GroupInfoHelper.getClassInfo().getType());
     }
 
 

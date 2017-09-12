@@ -182,7 +182,7 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
 
     private void getData() {
         String uid = UserInfoHelper.getUserInfo().getUid();
-        mPresenter.getGroupList(GroupSyncGroupListActivity.this, uid, "1", GroupInfoHelper.getClassInfo().getType());
+        mPresenter.getGroupList(GroupSyncGroupListActivity.this, uid, "2", GroupInfoHelper.getClassInfo().getType());
     }
 
 }

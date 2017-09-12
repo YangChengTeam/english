@@ -140,8 +140,8 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
         mSubscriptions.add(subscription);
     }
 
-    public void getGroupList(Context context, String user_id, String is_admin, String type) {
-        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, is_admin, type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
+    public void getGroupList(Context context, String user_id, String role, String type) {
+        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, role, type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
 
             public void onCompleted() {
