@@ -56,6 +56,8 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     private GroupMemberAdapter adapter;
     private SimpleHeaderAdapter<StudentInfo> simpleHeaderAdapter;
 
+    private String exitGroup = "";
+
     @Override
     public void init() {
         mPresenter = new GroupMyMemberListPresenter(this, this);
@@ -85,10 +87,12 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             } else {
                 tvExitGroup.setVisibility(View.VISIBLE);
                 if (classInfo.getType().equals("1")) {
-                    tvExitGroup.setText(getResources().getString(R.string.exit_union));
+                    exitGroup = getResources().getString(R.string.exit_union);
+
                 } else {
-                    tvExitGroup.setText(getResources().getString(R.string.exit_group));
+                    exitGroup = getResources().getString(R.string.exit_group);
                 }
+                tvExitGroup.setText(exitGroup);
             }
         }
 
@@ -108,7 +112,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             @Override
             public void call(Void aVoid) {
                 final AlertDialog alertDialog = new AlertDialog(GroupMemberActivity.this);
-                alertDialog.setDesc("是否退出班群");
+                alertDialog.setDesc(exitGroup + "?");
                 alertDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
