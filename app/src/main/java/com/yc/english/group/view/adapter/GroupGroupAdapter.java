@@ -2,6 +2,7 @@ package com.yc.english.group.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -109,10 +110,12 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
                     if (classInfo.getType().equals("1")) {
                         GroupApp.setMyExtensionModule(false, false);
                     } else {
-                        if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                            GroupApp.setMyExtensionModule(true, true);
-                        } else {
-                            GroupApp.setMyExtensionModule(false, true);
+                        if (UserInfoHelper.getUserInfo() != null && !TextUtils.isEmpty(UserInfoHelper.getUserInfo().getUid())) {
+                            if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
+                                GroupApp.setMyExtensionModule(true, true);
+                            } else {
+                                GroupApp.setMyExtensionModule(false, true);
+                            }
                         }
                     }
                     RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
