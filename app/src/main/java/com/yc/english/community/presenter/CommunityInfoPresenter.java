@@ -32,7 +32,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
     @Override
     public void communityInfoList(String userId, int type, final int currentPage, int pageCount) {
-        if (currentPage == 1) {
+        if (currentPage == 1&& mFirstLoad) {
             mView.showLoading();
         }
         Subscription subscribe = mEngin.communityInfoList(userId, type, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<CommunityInfoList>>() {
@@ -43,7 +43,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
             @Override
             public void onError(Throwable e) {
-                if (currentPage == 1) {
+                if (currentPage == 1 && mFirstLoad) {
                     mView.showNoNet();
                 }
             }
@@ -54,14 +54,14 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        if (currentPage == 1) {
+                        if (currentPage == 1 && !mFirstLoad) {
                             mView.showNoNet();
                         }
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        if (currentPage == 1) {
+                        if (currentPage == 1 && !mFirstLoad) {
                             mView.showNoData();
                         }
                     }
@@ -69,19 +69,19 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                     @Override
                     public void reulstInfoOk() {
                         if (resultInfo != null && resultInfo.data != null) {
-                            if (currentPage == 1) {
+                            if (currentPage == 1 && !mFirstLoad) {
                                 mView.hideStateView();
                             }
 
                             if (resultInfo.data.list != null && resultInfo.data.list.size() > 0) {
                                 mView.showCommunityInfoListData(resultInfo.data.list);
                             } else {
-                                if (currentPage == 1) {
+                                if (currentPage == 1 && !mFirstLoad) {
                                     mView.showNoData();
                                 }
                             }
                         } else {
-                            if (currentPage == 1) {
+                            if (currentPage == 1 && !mFirstLoad) {
                                 mView.showNoData();
                             }
                         }
