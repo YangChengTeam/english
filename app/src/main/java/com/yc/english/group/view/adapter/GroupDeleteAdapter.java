@@ -11,6 +11,7 @@ import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.listener.OnCheckedChangeListener;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.main.hepler.UserInfoHelper;
 
@@ -54,7 +55,12 @@ public class GroupDeleteAdapter extends BaseAdapter<StudentInfo> {
         }
         GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.iv_member_img), studentInfo.getFace(), R.mipmap.default_avatar);
         holder.setText(R.id.tv_member_name, studentInfo.getNick_name());
-        holder.setText(R.id.tv_member_owner, studentInfo.getUser_id().equals(UserInfoHelper.getUserInfo().getUid()) ? "老师" : "");
+        if (GroupInfoHelper.getClassInfo().getType().equals("1")){
+            holder.setText(R.id.tv_member_owner, studentInfo.getUser_id().equals(UserInfoHelper.getUserInfo().getUid()) ? "会主" : "");
+        }else {
+            holder.setText(R.id.tv_member_owner, studentInfo.getUser_id().equals(UserInfoHelper.getUserInfo().getUid()) ? "老师" : "");
+        }
+
     }
 
     boolean mIsClick;
