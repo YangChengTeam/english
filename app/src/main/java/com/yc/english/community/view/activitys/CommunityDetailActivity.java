@@ -275,4 +275,9 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
             headView.updatePraiseState(noZan);
         }
     }
+
+    @Override
+    public void showNoteDelete(boolean flag) {
+
+    }
 }

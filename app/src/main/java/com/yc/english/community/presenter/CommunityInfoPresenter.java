@@ -174,7 +174,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
                     @Override
                     public void reulstInfoOk() {
-                        if (currentPage == 1  && !mFirstLoad) {
+                        if (currentPage == 1 && !mFirstLoad) {
                             mView.hideStateView();
                         }
 
@@ -235,7 +235,6 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
     @Override
     public void addAgreeInfo(String userId, String noteId) {
-
         Subscription subscribe = mEngin.addAgreeInfo(userId, noteId).subscribe(new Subscriber<ResultInfo>() {
             @Override
             public void onCompleted() {
@@ -271,6 +270,53 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                             mView.showAgreeInfo(true);
                         } else {
                             mView.showAgreeInfo(false);
+                        }
+                    }
+                });
+            }
+        });
+
+        mSubscriptions.add(subscribe);
+    }
+
+    @Override
+    public void deleteNote(String userId, String noteId) {
+        Subscription subscribe = mEngin.deleteNote(userId, noteId).subscribe(new Subscriber<ResultInfo>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                TipsHelper.tips(mContext, HttpConfig.SERVICE_ERROR);
+            }
+
+            @Override
+            public void onNext(final ResultInfo resultInfo) {
+
+                ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+                        TipsHelper.tips(mContext, message);
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(final String message) {
+                        UIUitls.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mView.showNoteDelete(false);
+                                TipsHelper.tips(mContext, message);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (resultInfo != null) {
+                            mView.showNoteDelete(true);
+                        } else {
+                            mView.showNoteDelete(false);
                         }
                     }
                 });

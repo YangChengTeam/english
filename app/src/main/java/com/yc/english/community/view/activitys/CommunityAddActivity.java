@@ -250,4 +250,9 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
     public void showAgreeInfo(boolean flag) {
 
     }
+
+    @Override
+    public void showNoteDelete(boolean flag) {
+
+    }
 }
