@@ -57,11 +57,12 @@ public class GroupMemberAdapter extends IndexableAdapter<StudentInfo> {
         MemberContentVH memberContentVH = (MemberContentVH) holder;
         GlideHelper.circleImageView(mContext, memberContentVH.ivMemberImg, entity.getFace(), R.mipmap.default_avatar);
         memberContentVH.tvMemberName.setText(entity.getNick_name());
-        if (GroupInfoHelper.getClassInfo().getType().equals("0")){
-            memberContentVH.tvMemberOwner.setText(entity.getUser_id().equals(entity.getMaster_id()) ? "老师" : "");
-        }else if (GroupInfoHelper.getClassInfo().getType().equals("1")){
+        if (GroupInfoHelper.getClassInfo().getType().equals("1")) {
             memberContentVH.tvMemberOwner.setText(entity.getUser_id().equals(entity.getMaster_id()) ? "会主" : "");
+        } else {
+            memberContentVH.tvMemberOwner.setText(entity.getUser_id().equals(entity.getMaster_id()) ? "老师" : "");
         }
+
         memberContentVH.tvMemberPhone.setText(entity.getUser_name());
         memberContentVH.tvMemberPhone.setVisibility(entity.getUser_name().equals(entity.getNick_name()) ? View.GONE : View.VISIBLE);
     }

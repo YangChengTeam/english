@@ -271,7 +271,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
     private UnionFragment unionAllFragment;
 
 
-    class FragmentAdapter extends FragmentStatePagerAdapter {
+    private class FragmentAdapter extends FragmentStatePagerAdapter {
 
         public FragmentAdapter(FragmentManager fm) {
             super(fm);
