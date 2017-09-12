@@ -364,13 +364,23 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void OnBannerClick(int position) {
                 SlideInfo slideInfo = mPresenter.getSlideInfo(position);
-                if (slideInfo == null || EmptyUtils.isEmpty(slideInfo.getTypeValue())) {
-                    return;
+                if (slideInfo.getType().equals("0")) {
+                    if (slideInfo == null || EmptyUtils.isEmpty(slideInfo.getTypeValue())) {
+                        return;
+                    }
+                    Intent intent = new Intent(getActivity(), WebActivity.class);
+                    intent.putExtra("title", slideInfo.getTitle());
+                    intent.putExtra("url", slideInfo.getTypeValue());
+                    startActivity(intent);
+                } else if (slideInfo.getType().equals("1")) {
+                    try {
+                        Class clazz = Class.forName(slideInfo.getTypeValue());
+                        Intent intent = new Intent(getActivity(), clazz);
+                        startActivity(intent);
+                    } catch (Exception e) {
+
+                    }
                 }
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("title", slideInfo.getTitle());
-                intent.putExtra("url", slideInfo.getTypeValue());
-                startActivity(intent);
             }
         });
 
@@ -452,7 +462,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showLoading() {
-        if(!mRefreshSwipeRefreshLayout.isRefreshing())
+        if (!mRefreshSwipeRefreshLayout.isRefreshing())
             mLoadingStateView.showLoading(mContextScrollView);
     }
 

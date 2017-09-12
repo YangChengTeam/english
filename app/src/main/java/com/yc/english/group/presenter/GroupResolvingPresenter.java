@@ -33,7 +33,7 @@ public class GroupResolvingPresenter extends BasePresenter<GroupResolvingEngine,
     @Override
     public void resolvingGroup(String class_id, String master_id) {
 
-        mView.showLoadingDialog("解算班群中，请稍候！");
+        mView.showLoadingDialog("解算中，请稍候！");
 
         Subscription subscription = mEngin.resolvingGroup(class_id, master_id).subscribe(new Subscriber<ResultInfo<RemoveGroupInfo>>() {
             @Override

@@ -122,7 +122,11 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
                 if (alertDialog == null) {
                     alertDialog = new AlertDialog(this);
                 }
-                alertDialog.setDesc("是否解散班群");
+                if (GroupInfoHelper.getClassInfo().getType().equals("1")) {
+                    alertDialog.setDesc("是否解散公会");
+                } else {
+                    alertDialog.setDesc("是否解散班群");
+                }
                 alertDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
