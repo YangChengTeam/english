@@ -85,9 +85,9 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             } else {
                 tvExitGroup.setVisibility(View.VISIBLE);
                 if (classInfo.getType().equals("1")) {
-                    mToolbar.setMenuTitle(getResources().getString(R.string.exit_union));
+                    tvExitGroup.setText(getResources().getString(R.string.exit_union));
                 } else {
-                    mToolbar.setMenuTitle(getResources().getString(R.string.exit_group));
+                    tvExitGroup.setText(getResources().getString(R.string.exit_group));
                 }
             }
         }
