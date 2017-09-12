@@ -8,10 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.StateView;
 import com.yc.english.community.contract.CommunityInfoContract;
@@ -64,6 +66,8 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
 
     private int pageSize = 10;
 
+    private boolean isShowDelete = false;
+
     @Override
     public int getLayoutId() {
         return R.layout.community_all_note;
@@ -75,6 +79,16 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         Bundle bundle = getArguments();
         if (bundle != null) {
             type = getArguments().getInt("type");
+            switch (type) {
+                case 1:
+                case 2:
+                case 3:
+                    isShowDelete = false;
+                    break;
+                case 4:
+                    isShowDelete = true;
+                    break;
+            }
         }
 
         swipeLayout.setColorSchemeResources(
@@ -86,7 +100,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
 
         mPresenter = new CommunityInfoPresenter(getActivity(), this);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        mCommunityItemAdapter = new CommunityItemClickAdapter(getActivity(), null);
+        mCommunityItemAdapter = new CommunityItemClickAdapter(getActivity(), null, isShowDelete);
         mAllNoteRecyclerView.setLayoutManager(mLinearLayoutManager);
         mAllNoteRecyclerView.setAdapter(mCommunityItemAdapter);
 
@@ -102,7 +116,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
 
         mCommunityItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public boolean onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
                 if (view.getId() == R.id.tv_praise_count && mCommunityItemAdapter.getData().get(position).getAgreed().equals("0")) {
 
                     if (UserInfoHelper.getUserInfo() == null) {
@@ -113,10 +127,21 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
                     }
                 }
                 if (view.getId() == R.id.tv_comment_count) {
-                    currentItemPosition = position;
                     Intent intent = new Intent(getActivity(), CommunityDetailActivity.class);
                     intent.putExtra("community_info", mCommunityItemAdapter.getData().get(position));
                     startActivity(intent);
+                }
+                if (view.getId() == R.id.iv_delete) {
+                    final AlertDialog alertDialog = new AlertDialog(getActivity());
+                    alertDialog.setDesc("确认删除该帖子？");
+                    alertDialog.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                            mPresenter.deleteNote(UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "", ((CommunityInfo) adapter.getData().get(position)).getId());
+                        }
+                    });
+                    alertDialog.show();
                 }
                 return false;
             }
@@ -279,4 +304,18 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
         showAgreeInfo(true);
     }
 
+    @Override
+    public void showNoteDelete(boolean flag) {
+        if (flag) {
+            if (mCommunityItemAdapter.getData() != null && currentItemPosition < mCommunityItemAdapter.getData().size()) {
+                mCommunityItemAdapter.getData().remove(currentChildPosition);
+                if (mCommunityItemAdapter.getData().size() == 0) {
+                    mStateView.showNoData(swipeLayout);
+                } else {
+                    mCommunityItemAdapter.notifyDataSetChanged();
+                }
+                RxBus.get().post(Constant.COMMUNITY_REFRESH, "from add communityInfo");
+            }
+        }
+    }
 }

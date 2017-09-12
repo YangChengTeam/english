@@ -3,6 +3,7 @@ package com.yc.english.community.model.engin;
 import android.content.Context;
 
 import com.alibaba.fastjson.TypeReference;
+import com.blankj.utilcode.util.EncryptUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
@@ -11,6 +12,7 @@ import com.yc.english.community.model.domain.CommentInfo;
 import com.yc.english.community.model.domain.CommentInfoList;
 import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.community.model.domain.CommunityInfoList;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.read.model.domain.URLConfig;
 
 import java.util.HashMap;
@@ -30,7 +32,7 @@ public class CommunityInfoEngin extends BaseEngin {
         super(context);
     }
 
-    public Observable<ResultInfo<CommunityInfoList>> communityInfoList(String userId,int type, int currentPage, int pageCount) {
+    public Observable<ResultInfo<CommunityInfoList>> communityInfoList(String userId, int type, int currentPage, int pageCount) {
         Map<String, String> params = new HashMap<>();
         params.put("user_id", userId);
         params.put("type", type + "");
@@ -49,11 +51,15 @@ public class CommunityInfoEngin extends BaseEngin {
         params.put("content", communityInfo.getContent());
         params.put("type", communityInfo.getcType());
 
+        Map<String, String> headParams = new HashMap<>();
+
+        String sign = EncryptUtils.encryptMD5ToString("english" + (UserInfoHelper.isLogin() ? UserInfoHelper.getUserInfo().getUid() : ""));
+        headParams.put("sign",sign);
+
         return HttpCoreEngin.get(context).rxuploadFile(URLConfig.ADD_NOTE_URL, new TypeReference<ResultInfo<CommunityInfo>>() {
-                }.getType(), upFileInfo, params,
+                }.getType(), upFileInfo, params,headParams,
                 true);
     }
-
 
     public Observable<ResultInfo<CommentInfoList>> commentInfoList(int nid, int currentPage, int pageCount) {
         Map<String, String> params = new HashMap<>();
@@ -80,12 +86,22 @@ public class CommunityInfoEngin extends BaseEngin {
                 true, true, true);
     }
 
-    public Observable<ResultInfo> addAgreeInfo(String userId,String noteId) {
+    public Observable<ResultInfo> addAgreeInfo(String userId, String noteId) {
         Map<String, String> params = new HashMap<>();
         params.put("user_id", userId);
         params.put("note_id", noteId);
 
         return HttpCoreEngin.get(context).rxpost(URLConfig.ADD_AGREE_URL, new TypeReference<ResultInfo<CommentInfo>>() {
+                }.getType(), params,
+                true, true, true);
+    }
+
+    public Observable<ResultInfo> deleteNote(String userId, String noteId) {
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("note_id", noteId);
+
+        return HttpCoreEngin.get(context).rxpost(URLConfig.DELETE_NOTE_URL, new TypeReference<ResultInfo<CommentInfo>>() {
                 }.getType(), params,
                 true, true, true);
     }

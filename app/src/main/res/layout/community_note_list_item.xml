@@ -35,9 +35,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@+id/iv_note_user_img"
+                android:ellipsize="end"
                 android:maxEms="11"
                 android:maxLines="1"
-                android:ellipsize="end"
                 android:text="火星用户"
                 android:textSize="14sp"/>
 
@@ -153,6 +153,30 @@
                     android:text="0"
                     android:textSize="14sp"/>
             </LinearLayout>
+
+            <View
+                android:id="@+id/line_delete"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/community_line_color"
+                android:visibility="gone"></View>
+
+            <LinearLayout
+                android:id="@+id/delete_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/delete_note_icon"/>
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

@@ -28,10 +28,12 @@ import java.util.List;
 public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, BaseViewHolder> {
 
     private Context mContext;
+    private boolean isShowDelete;
 
-    public CommunityItemClickAdapter(Context context, List<CommunityInfo> datas) {
+    public CommunityItemClickAdapter(Context context, List<CommunityInfo> datas, boolean isDelete) {
         super(R.layout.community_note_list_item, datas);
         this.mContext = context;
+        this.isShowDelete = isDelete;
     }
 
     @Override
@@ -45,6 +47,7 @@ public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, B
             e.printStackTrace();
         }
 
+        //第一条设计距离头部的距离
         if (helper.getAdapterPosition() == 0) {
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(SizeUtils.dp2px(6), SizeUtils.dp2px(6), SizeUtils.dp2px(6), SizeUtils.dp2px(6));
@@ -55,9 +58,17 @@ public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, B
             long addTime = Long.parseLong(item.getAddTime()) * 1000;
             helper.setText(R.id.tv_note_date, TimeUtils.millis2String(addTime));
         }
-        GlideHelper.circleImageView(mContext, (ImageView) helper.getConvertView().findViewById(R.id.iv_note_user_img), item.getFace(), R.mipmap.main_tab_my);
 
-        helper.addOnClickListener(R.id.tv_comment_count).addOnClickListener(R.id.tv_praise_count);
+        if (isShowDelete) {
+            helper.setVisible(R.id.line_delete, true);
+            helper.setVisible(R.id.delete_layout, true);
+        } else {
+            helper.setVisible(R.id.line_delete, false);
+            helper.setVisible(R.id.delete_layout, false);
+        }
+
+        GlideHelper.circleImageView(mContext, (ImageView) helper.getConvertView().findViewById(R.id.iv_note_user_img), item.getFace(), R.mipmap.main_tab_my);
+        helper.addOnClickListener(R.id.tv_comment_count).addOnClickListener(R.id.iv_delete);
 
         CommunityImageAdapter communityImageAdapter = new CommunityImageAdapter(mContext, item.getImages());
         RecyclerView imagesRecyclerView = (RecyclerView) helper.getConvertView().findViewById(R.id.imgs_list);

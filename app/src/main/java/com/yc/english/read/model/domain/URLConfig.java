@@ -38,6 +38,8 @@ public class URLConfig {
 
     public static final String ADD_AGREE_URL = getBaseUrl() + "note/agree";
 
+    public static final String DELETE_NOTE_URL = getBaseUrl() + "note/delNote";
+
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }

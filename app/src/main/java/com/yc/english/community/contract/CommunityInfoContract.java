@@ -28,10 +28,12 @@ public interface CommunityInfoContract {
         void showAddComment(CommentInfo commentInfo);
 
         void showAgreeInfo(boolean flag);
+
+        void showNoteDelete(boolean flag);
     }
 
     interface Presenter extends IPresenter {
-        void communityInfoList(String userId,int type, int currentPage, int pageCount);
+        void communityInfoList(String userId, int type, int currentPage, int pageCount);
 
         void addCommunityInfo(CommunityInfo communityInfo, UpFileInfo upFileInfo);
 
@@ -39,6 +41,8 @@ public interface CommunityInfoContract {
 
         void addCommentInfo(CommentInfo commentInfo);
 
-        void addAgreeInfo(String userId,String noteId);
+        void addAgreeInfo(String userId, String noteId);
+
+        void deleteNote(String userId, String noteId);
     }
 }
