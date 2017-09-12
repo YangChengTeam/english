@@ -27,8 +27,12 @@ public class UnionListPresenter1 extends BasePresenter<BaseEngin, UnionListContr
 
     }
 
+    private boolean isEmpty = true;
+
     public void getUnionList1(String user_id, String role, String type) {
-        mView.showLoading();
+        if (isEmpty) {
+            mView.showLoading();
+        }
 
         Subscription subscription = EngineUtils.getMyGroupList(mContext, user_id, role, type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
@@ -38,7 +42,9 @@ public class UnionListPresenter1 extends BasePresenter<BaseEngin, UnionListContr
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
+                if (isEmpty) {
+                    mView.showNoNet();
+                }
 
             }
 
@@ -47,13 +53,17 @@ public class UnionListPresenter1 extends BasePresenter<BaseEngin, UnionListContr
                 ResultInfoHelper.handleResultInfo(classInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.showNoNet();
+                        if (isEmpty) {
+                            mView.showNoNet();
+                        }
 
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.showNoData();
+                        if (isEmpty) {
+                            mView.showNoData();
+                        }
 
                     }
 
@@ -61,11 +71,13 @@ public class UnionListPresenter1 extends BasePresenter<BaseEngin, UnionListContr
                     public void reulstInfoOk() {
                         if (classInfo.data != null && classInfo.data.getList() != null && classInfo.data.getList().size() > 0) {
                             mView.showUnionList1(classInfo.data.getList());
-                            mView.hideStateView();
+                            if (isEmpty) {
+                                mView.hideStateView();
+                            }
+                            isEmpty = false;
                         } else {
                             mView.showNoData();
                         }
-
 
                     }
                 });
