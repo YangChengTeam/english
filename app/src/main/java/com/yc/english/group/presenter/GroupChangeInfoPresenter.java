@@ -28,7 +28,6 @@ public class GroupChangeInfoPresenter extends BasePresenter<BaseEngin, GroupChan
 
     }
 
-
     @Override
     public void changeGroupInfo(Context context, String class_id, String name, String face, String vali_type) {
         mView.showLoadingDialog("正在修改，请稍候！");

@@ -91,11 +91,11 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
             @Override
             public void onJoin(ClassInfo classInfo) {
                 GroupCommonClassActivity.this.mClassInfo = classInfo;
-                int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid());
+
                 if (!UserInfoHelper.isGotoLogin(GroupCommonClassActivity.this)) {
+                    int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid());
                     if (result == 1) {
                         setMode(classInfo);
-                        RongIM.getInstance().startGroupChat(GroupCommonClassActivity.this, classInfo.getClass_id(), classInfo.getClassName());
                     } else {
                         mPresenter.isGroupMember(classInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid());
                     }
@@ -122,7 +122,6 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
 
         if (is_member == 1) {//已经是班群成员
             setMode(mClassInfo);
-            RongIM.getInstance().startGroupChat(this, mClassInfo.getClass_id(), mClassInfo.getClassName());
         } else {
             final AlertDialog dialog = new AlertDialog(this);
             dialog.setDesc("是否申请加入该班群?");
@@ -174,11 +173,10 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
     }
 
     private void setMode(ClassInfo classInfo) {
-        if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-            GroupApp.setMyExtensionModule(true, true);
-        } else {
-            GroupApp.setMyExtensionModule(false, true);
-        }
+
+        GroupApp.setMyExtensionModule(false, true);
+
+        RongIM.getInstance().startGroupChat(this, classInfo.getClass_id(), classInfo.getClassName());
     }
 
     @Subscribe(
