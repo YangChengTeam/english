@@ -40,7 +40,7 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
-        if(!forceUpdate) return;
+        if (!forceUpdate) return;
         getPhone();
     }
 
@@ -74,6 +74,7 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
                     @Override
                     public void run() {
                         UserInfoHelper.utils(mContext, resultInfo);
+                        RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form login");
                         mView.finish();
                     }
                 });

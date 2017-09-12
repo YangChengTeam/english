@@ -3,15 +3,16 @@ package com.yc.english.group.view.activitys.teacher;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -23,7 +24,6 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupForbidMemberContract;
-import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupForbidMemberPresenter;
@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
@@ -54,6 +55,8 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
     LinearLayout mLlAddForbidMember;
     @BindView(R.id.mSwitchCompat)
     SwitchCompat mSwitchCompat;
+    @BindView(R.id.m_tv_forbid_hint)
+    TextView mTvForbidHint;
     private GroupForbidedMemberAdapter adapter;
 
     @Override
@@ -61,13 +64,17 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         mPresenter = new GroupForbidMemberPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group_forbid));
         mToolbar.showNavigationIcon();
-        mSwitchCompat.setChecked(SPUtils.getInstance().getBoolean(GroupConstant.ALL_GROUP_FORBID_STATE + GroupInfoHelper.getGroupInfo().getId()));
+
+        mSwitchCompat.setChecked(GroupInfoHelper.getClassInfo().getIs_allow_talk() == 0);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupForbidedMemberAdapter(this, null);
         mRecyclerView.setAdapter(adapter);
         BaseItemDecoration itemDecoration = new BaseItemDecoration(this);
         mRecyclerView.addItemDecoration(itemDecoration);
+        if (GroupInfoHelper.getClassInfo().getType().equals("1")){
+            mTvForbidHint.setText("开启后，只允许会主发言");
+        }
         initListener();
 
     }
@@ -108,7 +115,6 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
             mPresenter.rollBackMember(strs, null, GroupInfoHelper.getGroupInfo().getId(), true);
         }
 
-        SPUtils.getInstance().put(GroupConstant.ALL_GROUP_FORBID_STATE + GroupInfoHelper.getGroupInfo().getId(), mSwitchCompat.isChecked());
     }
 
     private List<StudentInfo> studentInfoList = new ArrayList<>();

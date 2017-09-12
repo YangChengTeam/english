@@ -72,6 +72,8 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
         });
     }
 
+    
+
     @Override
     public int getLayoutId() {
         return R.layout.main_activity_login;

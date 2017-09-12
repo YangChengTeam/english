@@ -36,11 +36,15 @@ public class GroupChangeNameActivity extends FullScreenActivity<GroupChangeInfoP
     ImageButton ibDelete;
     @BindView(R.id.btn_create)
     Button btnCreate;
-
+    private String name;
 
     @Override
     public void init() {
-        mToolbar.setTitle(getResources().getString(R.string.group_name));
+
+        name = GroupInfoHelper.getClassInfo().getType().equals("1") ?
+                getResources().getString(R.string.union_name) : getResources().getString(R.string.group_name);
+
+        mToolbar.setTitle(name);
         mToolbar.showNavigationIcon();
         mPresenter = new GroupChangeInfoPresenter(this, this);
 
@@ -52,7 +56,7 @@ public class GroupChangeNameActivity extends FullScreenActivity<GroupChangeInfoP
             public Boolean call(Void aVoid) {
                 String etName = etClassGroup.getText().toString().trim();
                 if (TextUtils.isEmpty(etName))
-                    ToastUtils.showShort("请输入要修改的班群名称");
+                    ToastUtils.showShort("请输入要修改的" + name);
                 return !TextUtils.isEmpty(etName);
             }
         }).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {

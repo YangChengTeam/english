@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -74,15 +75,13 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     }
 
     private void setTint() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("免责声明");
         builder.setMessage(getString(R.string.relief_introduce));
-        final AlertDialog alertDialog = builder.create();
-
         builder.setPositiveButton(getString(R.string.i_konw), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                alertDialog.dismiss();
+                dialog.dismiss();
             }
         });
         builder.show();
@@ -147,8 +146,9 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     public void showGroup(ClassInfo classInfo) {
         GroupInfoHelper.setClassInfo(classInfo);
         mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
-        if (GroupInfoHelper.getClassInfo().getType().equals("1")) {
+        if (GroupInfoHelper.getClassInfo().getType().equals("1") && !SPUtils.getInstance().getBoolean(GroupInfoHelper.getClassInfo().getClass_id() + "isFirst", false)) {
             setTint();
+            SPUtils.getInstance().put(GroupInfoHelper.getClassInfo().getClass_id() + "isFirst", true);
         }
     }
 

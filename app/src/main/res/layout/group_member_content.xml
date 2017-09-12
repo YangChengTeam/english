@@ -34,7 +34,6 @@
                     android:id="@+id/tv_member_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="蔡同学"
                     android:textColor="@color/black_333333"
                     android:textSize="@dimen/group_text_16" />
 
@@ -43,7 +42,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/group_distance_8"
-                    android:text="13800000000"
                     android:textColor="@color/group_gray_999"
                     android:textSize="@dimen/group_text_14" />
             </LinearLayout>
@@ -53,7 +51,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="群主"
                 android:textColor="@color/group_gray_999"
                 android:textSize="@dimen/group_text_14" />
 

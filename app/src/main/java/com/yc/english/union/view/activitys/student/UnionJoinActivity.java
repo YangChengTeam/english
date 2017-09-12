@@ -106,7 +106,7 @@ public class UnionJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
         int valiType = Integer.parseInt(vali_type);
 
         if (GroupConstant.CONDITION_ALL_FORBID == valiType) {//禁止所有人加入
-            TipsHelper.tips(this, getString(R.string.forbid_join));
+            TipsHelper.tips(this, String.format(getString(R.string.forbid_join), "公会"));
         } else {
             mPresenter.applyJoinGroup(classInfo);
         }

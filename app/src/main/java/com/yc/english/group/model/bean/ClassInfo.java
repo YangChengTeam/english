@@ -46,6 +46,7 @@ public class ClassInfo implements Parcelable {
     private int is_allow_talk;
     private String desp_url;
     private String title;
+    private int role = -1;
 
 
     public String getTitle() {
@@ -55,8 +56,6 @@ public class ClassInfo implements Parcelable {
     public void setTitle(String title) {
         this.title = title;
     }
-
-
 
 
     public static final Creator<ClassInfo> CREATOR = new Creator<ClassInfo>() {
@@ -99,13 +98,13 @@ public class ClassInfo implements Parcelable {
         flag = source.readString();
     }
 
-    @Generated(hash = 982909784)
-    public ClassInfo(Long cId, String imageUrl, String className, String count,
-            int groupId, String founder_id, String master_id, String vali_type,
-            String is_del, String add_time, String add_date, String del_time,
-            String sort, String master_name, String master_nick_name,
-            String class_id, String flag, int fee_type, String type,
-            int is_allow_talk, String desp_url, String title) {
+    @Generated(hash = 867258681)
+    public ClassInfo(Long cId, String imageUrl, String className, String count, int groupId,
+            String founder_id, String master_id, String vali_type, String is_del,
+            String add_time, String add_date, String del_time, String sort,
+            String master_name, String master_nick_name, String class_id, String flag,
+            int fee_type, String type, int is_allow_talk, String desp_url, String title,
+            int role) {
         this.cId = cId;
         this.imageUrl = imageUrl;
         this.className = className;
@@ -128,10 +127,8 @@ public class ClassInfo implements Parcelable {
         this.is_allow_talk = is_allow_talk;
         this.desp_url = desp_url;
         this.title = title;
+        this.role = role;
     }
-
-
-    
 
     public String getImageUrl() {
         return imageUrl;
@@ -334,5 +331,13 @@ public class ClassInfo implements Parcelable {
 
     public void setDesp_url(String desp_url) {
         this.desp_url = desp_url;
+    }
+
+    public int getRole() {
+        return this.role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 }

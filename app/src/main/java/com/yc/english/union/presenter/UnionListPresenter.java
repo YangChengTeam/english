@@ -23,6 +23,7 @@ import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.union.contract.UnionListContract;
 
 import io.rong.imkit.RongIM;
@@ -42,15 +43,22 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
-
+        if (!forceUpdate) return;
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo != null) {
+            String uid = userInfo.getUid();
+            getUnionList1(uid, "-1", "1");
+            getMemberList(mContext, "", "0", uid);
+        } else {
+            mView.showUnionList1(null);
+        }
     }
 
+    public void getUnionList1(String user_id, String role, String type) {
 
-    public void getUnionList(String type, String flag, final int page, int page_size, final boolean isFitst) {
-        if (page == 1 && isFitst) {
-            mView.showLoading();
-        }
-        Subscription subscription = EngineUtils.getUnionList(mContext, type, flag, page, page_size).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
+        mView.showLoading();
+
+        Subscription subscription = EngineUtils.getMyGroupList(mContext, user_id, role, type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
             public void onCompleted() {
 
@@ -58,7 +66,58 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
 
             @Override
             public void onError(Throwable e) {
-                if (page == 1&& isFitst) {
+
+                mView.showNoNet();
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<ClassInfoList> classInfo) {
+                ResultInfoHelper.handleResultInfo(classInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+
+                        mView.showNoNet();
+
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+
+                        mView.showNoData();
+
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+
+                        mView.hideStateView();
+                        mView.showUnionList1(classInfo.data.getList());
+
+
+                    }
+                });
+
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+
+    public void getUnionList(String type, String flag, final int page, int page_size, final boolean isFitst) {
+        if (page == 1 && isFitst) {
+            mView.showLoading();
+        }
+        Subscription subscription = EngineUtils.getUnionList(mContext, type, flag, page, page_size, UserInfoHelper.getUserInfo().getUid()).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if (page == 1 && isFitst) {
                     mView.showNoNet();
                 }
             }
@@ -68,24 +127,24 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
                 ResultInfoHelper.handleResultInfo(classInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        if (page == 1&& isFitst) {
+                        if (page == 1 && isFitst) {
                             mView.showNoNet();
                         }
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        if (page == 1&& isFitst) {
+                        if (page == 1 && isFitst) {
                             mView.showNoData();
                         }
                     }
 
                     @Override
                     public void reulstInfoOk() {
-                        if (page == 1&& isFitst) {
+                        if (page == 1 && isFitst) {
                             mView.hideStateView();
                         }
-                        mView.showUnionList(classInfo.data.getList(), page, isFitst);
+//                        mView.showUnionList(classInfo.data.getList(), page, isFitst);
                     }
                 });
 
@@ -123,114 +182,5 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
     }
 
 
-    public void isUnionMember(final ClassInfo classInfo) {
-        Subscription subscription = EngineUtils.isGroupMember(mContext, classInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid()).subscribe(new Subscriber<ResultInfo<MemberInfo>>() {
-            @Override
-            public void onCompleted() {
 
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(final ResultInfo<MemberInfo> stringResultInfo) {
-                handleResultInfo(stringResultInfo, new Runnable() {
-                    @Override
-                    public void run() {
-                        mView.showIsMember(stringResultInfo.data.getIs_member(), classInfo);
-                    }
-                });
-            }
-        });
-        mSubscriptions.add(subscription);
-    }
-
-    /**
-     * 申请加入班群
-     *
-     * @param user_id
-     * @param classInfo
-     */
-
-    public void applyJoinGroup(String user_id, final ClassInfo classInfo) {
-
-        mView.showLoadingDialog("正在申请加入班级，请稍候");
-        Subscription subscription = EngineUtils.applyJoinGroup(mContext, user_id, classInfo.getGroupId() + "").subscribe(new Subscriber<ResultInfo<GroupApplyInfo>>() {
-            @Override
-            public void onCompleted() {
-                mView.dismissLoadingDialog();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
-                LogUtils.e("onError: " + e.getMessage());
-            }
-
-            @Override
-            public void onNext(final ResultInfo<GroupApplyInfo> stringResultInfo) {
-                handleResultInfo(stringResultInfo, new Runnable() {
-                    @Override
-                    public void run() {
-                        if (stringResultInfo != null && stringResultInfo.data != null) {
-                            GroupApplyInfo applyInfo = stringResultInfo.data;
-                            int type = Integer.parseInt(applyInfo.getVali_type());
-
-                            if (type == GroupConstant.CONDITION_ALL_ALLOW) {
-                                ToastUtils.showShort(mContext.getString(R.string.congratulation_join_group));
-                                RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
-
-                                StudentInfo studentInfo = new StudentInfo();
-                                studentInfo.setUser_id(applyInfo.getUser_id());
-                                studentInfo.setClass_id(applyInfo.getClass_id());
-                                if (classInfo.getIs_allow_talk()==0) {
-                                    addForbidMember(studentInfo);
-                                }
-                                setMode(classInfo);
-                            } else if (type == GroupConstant.CONDITION_VERIFY_JOIN) {
-
-                                ToastUtils.showShort(mContext.getString(R.string.commit_apply_join));
-                            }
-
-                        }
-                    }
-                });
-            }
-        });
-        mSubscriptions.add(subscription);
-    }
-
-
-    public void addForbidMember(StudentInfo studentInfo) {
-        Subscription subscription = EngineUtils.addForbidMember(studentInfo.getUser_id(), studentInfo.getClass_id(), "0").observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<CodeSuccessResult>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-                LogUtils.e(e.getMessage());
-            }
-
-            @Override
-            public void onNext(CodeSuccessResult codeSuccessResult) {
-                if (codeSuccessResult != null && codeSuccessResult.getCode() == 200) {
-
-                }
-
-            }
-        });
-        mSubscriptions.add(subscription);
-    }
-
-    private void setMode(ClassInfo classInfo) {
-
-        GroupApp.setMyExtensionModule(false, false);
-        RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
-    }
 }

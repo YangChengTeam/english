@@ -253,7 +253,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (userInfo != null) {
             String uid = userInfo.getUid();
-            mPresenter.getMyGroupList(this, uid, "0", "0");
+            mPresenter.getMyGroupList(this, uid, "-1", "0");
             mPresenter.getMemberList(this, "", "0", uid);
         } else {
             showMyGroupList(null);

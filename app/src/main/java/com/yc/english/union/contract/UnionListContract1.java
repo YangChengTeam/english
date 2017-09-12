@@ -16,14 +16,8 @@ import java.util.List;
  * Created by wanglin  on 2017/9/7 12:23.
  */
 
-public interface UnionListContract {
-    interface View extends IView,ILoading,INoData,INoNet,IDialog,IFinish {
-
-//        void showUnionList(List<ClassInfo> data, int isLoadMore, boolean isFitst);
-
-        void showMemberList(List<StudentInfo> list);
-
-
+public interface UnionListContract1 {
+    interface View extends IView,IDialog,ILoading,INoData,INoNet {
 
         void showUnionList1(List<ClassInfo> list);
     }

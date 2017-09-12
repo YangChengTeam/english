@@ -56,6 +56,8 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     private GroupMemberAdapter adapter;
     private SimpleHeaderAdapter<StudentInfo> simpleHeaderAdapter;
 
+    private String exitGroup = "";
+
     @Override
     public void init() {
         mPresenter = new GroupMyMemberListPresenter(this, this);
@@ -76,14 +78,21 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         ClassInfo classInfo = GroupInfoHelper.getClassInfo();
         if (classInfo != null && classInfo.getMaster_id() != null) {
             if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
-                if (classInfo.getType().equals("0")) {
-                    mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
-                } else if (classInfo.getType().equals("1")) {
+                if (classInfo.getType().equals("1")) {
                     mToolbar.setMenuTitle(getResources().getString(R.string.union_manager));
+                } else {
+                    mToolbar.setMenuTitle(getResources().getString(R.string.group_manager));
                 }
                 tvExitGroup.setVisibility(View.GONE);
             } else {
                 tvExitGroup.setVisibility(View.VISIBLE);
+                if (classInfo.getType().equals("1")) {
+                    exitGroup = getResources().getString(R.string.exit_union);
+                } else {
+                    exitGroup = getResources().getString(R.string.exit_group);
+
+                }
+                tvExitGroup.setText(exitGroup);
             }
         }
 
@@ -103,7 +112,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             @Override
             public void call(Void aVoid) {
                 final AlertDialog alertDialog = new AlertDialog(GroupMemberActivity.this);
-                alertDialog.setDesc("是否退出班群");
+                alertDialog.setDesc("是否" + exitGroup);
                 alertDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -97,7 +97,7 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
 
     @Override
     public void exitGroup(final String class_id, final String master_id, String members) {
-        mView.showLoadingDialog("正在退出班群，请稍候...");
+        mView.showLoadingDialog("正在退出，请稍候...");
         Subscription subscription = EngineUtils.deleteMember(mContext, class_id, master_id, members).subscribe(new Subscriber<ResultInfo<StudentRemoveInfo>>() {
             @Override
             public void onCompleted() {

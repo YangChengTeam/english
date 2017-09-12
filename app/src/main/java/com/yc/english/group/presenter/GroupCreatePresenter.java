@@ -45,11 +45,20 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
 
     @Override
     public void createGroup(String user_id, String groupName, String face, String type) {
+        String name = null;
+        if ("0".equals(type)) {
+            name = "班级";
+        } else if ("1".equals(type)) {
+            name = "公会";
+        }
+
         if (TextUtils.isEmpty(groupName)) {
-            ToastUtils.showShort("请输入班级名称");
+
+            ToastUtils.showShort("请输入" + name + "名称");
+
             return;
         }
-        mView.showLoadingDialog("正在创建班级，请稍候");
+        mView.showLoadingDialog("正在创建" + name + "，请稍候");
         Subscription subscription = mEngin.createGroup(user_id, groupName, face, type).subscribe(new Subscriber<ResultInfo<ClassInfoWarpper>>() {
             @Override
             public void onCompleted() {
