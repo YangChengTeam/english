@@ -63,7 +63,6 @@ public class UnionFragment extends BaseFragment<UnionListPresenter1> implements 
         mPresenter = new UnionListPresenter1(getActivity(), UnionFragment.this);
         initRecycleView();
         getData();
-
         initListener();
 
     }
@@ -126,7 +125,7 @@ public class UnionFragment extends BaseFragment<UnionListPresenter1> implements 
             RongIM.getInstance().startGroupChat(getActivity(), classInfo.getClass_id(), classInfo.getClassName());
         } else {
             final AlertDialog dialog = new AlertDialog(getActivity());
-            dialog.setDesc("是否申请加入该班群?");
+            dialog.setDesc("是否申请加入该公会?");
             dialog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

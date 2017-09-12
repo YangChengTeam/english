@@ -14,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.kk.guide.GuideCallback;
 import com.kk.guide.GuidePopupWindow;
 import com.kk.securityhttp.net.contains.HttpConfig;
@@ -25,10 +28,12 @@ import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.union.contract.UnionListContract;
 import com.yc.english.union.presenter.UnionListPresenter;
 import com.yc.english.union.view.activitys.student.UnionJoinActivity;
@@ -94,14 +99,13 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
     }
 
 
-
-
     private void showCreateGuide() {
         GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
         guidePopupWindow = builder.setDelay(1f).setTargetView(btnCreateClass).setCorner(5).setGuideCallback(new GuideCallback() {
             @Override
             public void onClick(GuidePopupWindow guidePopupWindow) {
                 goToActivity(UnionCreateActivity.class);
+                guidePopupWindow.dismiss();
             }
         }).build(this);
         guidePopupWindow.addCustomView(R.layout.guide_create_union_view, R.id.btn_ok, new View.OnClickListener() {
@@ -146,6 +150,19 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
     }
 
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(BusAction.GROUP_LIST)
+            }
+    )
+    public void getList(String group) {
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (group.equals("from login")) {
+            mPresenter.getUnionList1(userInfo.getUid(), "-1", "1");
+        }
+        mPresenter.getMemberList(this, "", "0",userInfo.getUid());
+    }
 
     @Override
     public void showMemberList(List<StudentInfo> count) {
@@ -157,7 +174,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         }
         invalidateOptionsMenu();
     }
-
 
 
     @Override
@@ -271,20 +287,19 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
                 }
                 return unionAllFragment;
             } else if (position == 1) {
-                if (unionJoinFragment == null) {
-
-                    unionJoinFragment = new UnionFragment();
-                    unionJoinFragment.setType(2);
-                }
-                return unionJoinFragment;
-            } else if (position == 2) {
-
-
                 if (unionCreateFragment == null) {
+
                     unionCreateFragment = new UnionFragment();
-                    unionCreateFragment.setType(0);
+                    unionCreateFragment.setType(2);
                 }
                 return unionCreateFragment;
+            } else if (position == 2) {
+
+                if (unionJoinFragment == null) {
+                    unionJoinFragment = new UnionFragment();
+                    unionJoinFragment.setType(0);
+                }
+                return unionJoinFragment;
             }
             return null;
         }

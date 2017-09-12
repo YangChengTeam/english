@@ -14,7 +14,6 @@ import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupTransferGroupContract;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.presenter.GroupTransferGroupPresenter;
 
@@ -37,14 +36,19 @@ public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroup
     @BindView(R.id.btn_create)
     Button btnCreate;
 
+    private String transferName = "";
 
     @Override
     public void init() {
         mPresenter = new GroupTransferGroupPresenter(this, this);
-        mToolbar.setTitle(getResources().getString(R.string.transfer_group));
+
+        mToolbar.setTitle(GroupInfoHelper.getClassInfo().getType().equals("1") ?
+                getResources().getString(R.string.transfer_union) : getResources().getString(R.string.transfer_group));
         mToolbar.showNavigationIcon();
         btnCreate.setText(getResources().getString(R.string.confirm_transfer));
-        etClassGroup.setHint(getResources().getString(R.string.recevicer_phone));
+        transferName = GroupInfoHelper.getClassInfo().getType().equals("1") ?
+                getResources().getString(R.string.recevicer_union_phone) : getResources().getString(R.string.recevicer_group_phone);
+        etClassGroup.setHint(transferName);
         etClassGroup.setInputType(EditorInfo.TYPE_CLASS_PHONE);
 
         etClassGroup.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
@@ -57,7 +61,7 @@ public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroup
             @Override
             public Boolean call(Void aVoid) {
                 if (TextUtils.isEmpty(etClassGroup.getText().toString().trim())) {
-                    TipsHelper.tips(GroupTransferActivity.this, getString(R.string.recevicer_phone));
+                    TipsHelper.tips(GroupTransferActivity.this, transferName);
                 }
                 return !TextUtils.isEmpty(etClassGroup.getText().toString().trim());
             }

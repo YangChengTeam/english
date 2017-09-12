@@ -47,18 +47,18 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (userInfo != null) {
             String uid = userInfo.getUid();
-            getUnionList1(uid, "0", "-1");
+            getUnionList1(uid, "-1", "1");
             getMemberList(mContext, "", "0", uid);
         } else {
             mView.showUnionList1(null);
         }
     }
 
-    public void getUnionList1(String user_id, String is_admin, String type) {
+    public void getUnionList1(String user_id, String role, String type) {
 
         mView.showLoading();
 
-        Subscription subscription = EngineUtils.getMyGroupList(mContext, user_id, is_admin, type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
+        Subscription subscription = EngineUtils.getMyGroupList(mContext, user_id, role, type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
             public void onCompleted() {
 

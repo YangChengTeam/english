@@ -126,7 +126,7 @@ public class UnionListPresenter1 extends BasePresenter<BaseEngin, UnionListContr
 
     public void applyJoinGroup(String user_id, final ClassInfo classInfo) {
 
-        mView.showLoadingDialog("正在申请加入班级，请稍候");
+        mView.showLoadingDialog("正在申请加入公会，请稍候");
         Subscription subscription = EngineUtils.applyJoinGroup(mContext, user_id, classInfo.getGroupId() + "").subscribe(new Subscriber<ResultInfo<GroupApplyInfo>>() {
             @Override
             public void onCompleted() {
@@ -149,7 +149,7 @@ public class UnionListPresenter1 extends BasePresenter<BaseEngin, UnionListContr
                             int type = Integer.parseInt(applyInfo.getVali_type());
 
                             if (type == GroupConstant.CONDITION_ALL_ALLOW) {
-                                ToastUtils.showShort(mContext.getString(R.string.congratulation_join_group));
+                                ToastUtils.showShort(mContext.getString(R.string.congratulation_join_union));
                                 RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
 
                                 StudentInfo studentInfo = new StudentInfo();
@@ -161,7 +161,7 @@ public class UnionListPresenter1 extends BasePresenter<BaseEngin, UnionListContr
                                 setMode(classInfo);
                             } else if (type == GroupConstant.CONDITION_VERIFY_JOIN) {
 
-                                ToastUtils.showShort(mContext.getString(R.string.commit_apply_join));
+                                ToastUtils.showShort(mContext.getString(R.string.commit_apply_join_union));
                             }
 
                         }

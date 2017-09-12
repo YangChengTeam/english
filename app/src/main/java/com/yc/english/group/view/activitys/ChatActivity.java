@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -145,8 +146,9 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     public void showGroup(ClassInfo classInfo) {
         GroupInfoHelper.setClassInfo(classInfo);
         mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
-        if (GroupInfoHelper.getClassInfo().getType().equals("1")) {
+        if (GroupInfoHelper.getClassInfo().getType().equals("1") && !SPUtils.getInstance().getBoolean(GroupInfoHelper.getClassInfo().getClass_id() + "isFirst", false)) {
             setTint();
+            SPUtils.getInstance().put(GroupInfoHelper.getClassInfo().getClass_id() + "isFirst", true);
         }
     }
 
