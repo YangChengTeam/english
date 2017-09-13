@@ -222,6 +222,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 if (position == playPosition) {
                     return;
                 }
+                isCountinue = false;
                 playPosition = position;
                 enableState(playPosition);
                 startSynthesizer(playPosition);
@@ -339,7 +340,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         @Override
         public void onCompleted(SpeechError error) {
             if (error == null) {
-                speekContinue(++playPosition);
+                speekContinue(isCountinue ? ++playPosition : playPosition);
             } else if (error != null) {
                 if (error.getErrorDescription().contains("权")) {
                     com.yc.english.base.utils.SpeechUtils.resetAppid(CoursePlayActivity.this);
@@ -370,13 +371,15 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     }
 
     public void enableState(int postion) {
-        if (postion == -1 && postion < mItemAdapter.getData().size()) {
+        if (postion < 0 || postion >= mItemAdapter.getData().size()) {
             return;
         }
         if (playPosition > 2) {
             linearLayoutManager.scrollToPositionWithOffset(playPosition - 2, 0);
         }
-        mTts.stopSpeaking();
+        if (mTts != null) {
+            mTts.stopSpeaking();
+        }
         resetPlay();
         mCoursePlayImageView.setBackgroundResource(R.drawable.read_playing_course_btn_selector);
         mItemAdapter.getData().get(postion).setPlay(true);

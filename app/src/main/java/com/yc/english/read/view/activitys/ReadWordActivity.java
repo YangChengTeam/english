@@ -20,6 +20,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.WakeLockUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
@@ -40,6 +41,8 @@ import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.subjects.PublishSubject;
+
+import static com.yc.english.read.common.SpeechUtils.mContext;
 
 /**
  * Created by admin on 2017/7/27.
@@ -308,15 +311,19 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     //单词朗读
     public void startSynthesizer(int position) {
         String text = wordInfos.get(position).getName();
-        int code = mTts.startSpeaking(text, mTtsListener);
-        if (code != ErrorCode.SUCCESS) {
-            if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
-                // 未安装则跳转到提示安装页面
-                //mInstaller.install();
-            } else {
-                ToastUtils.showLong("语音合成失败,错误码: " + code);
-                mTts.stopSpeaking();
+        if (mTts != null) {
+            int code = mTts.startSpeaking(text, mTtsListener);
+            if (code != ErrorCode.SUCCESS) {
+                if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
+                    // 未安装则跳转到提示安装页面
+                    //mInstaller.install();
+                } else {
+                    ToastUtils.showLong("语音合成失败,错误码: " + code);
+                    mTts.stopSpeaking();
+                }
             }
+        } else {
+            TipsHelper.tips(mContext, "语音播放初始化失败");
         }
     }
 
@@ -421,7 +428,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
     private void endableState(int index) {
-        if(index <= 0 && index < mReadWordExpandAdapter.getWordInfos().size()){
+        if (index < 0 || index >= mReadWordExpandAdapter.getWordInfos().size()) {
             return;
         }
 
@@ -433,7 +440,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
     private void disableState(int index) {
-        if(index <= 0 && index < mReadWordExpandAdapter.getWordInfos().size()){
+        if (index <= 0 && index < mReadWordExpandAdapter.getWordInfos().size()) {
             return;
         }
 
