@@ -207,7 +207,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     }
 
     private void getData() {
-        mPresenter.getMemberList(this, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
+        mPresenter.getMemberList(this, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getType());
     }
 
 }

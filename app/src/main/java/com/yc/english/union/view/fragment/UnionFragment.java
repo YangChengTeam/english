@@ -50,7 +50,6 @@ public class UnionFragment extends BaseFragment<UnionListPresenter1> implements 
 
     public void setType(int type) {
         this.mType = type;
-
     }
 
 
@@ -127,21 +126,27 @@ public class UnionFragment extends BaseFragment<UnionListPresenter1> implements 
 
     @Override
     public void showNoNet() {
-        stateView.showNoNet(swipeRefreshLayout, HttpConfig.NET_ERROR, new View.OnClickListener() {
+        stateView.showNoNet(recyclerView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getData();
             }
         });
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void showNoData() {
-        stateView.showNoData(swipeRefreshLayout);
+        stateView.showNoData(recyclerView);
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void showLoading() {
-        stateView.showLoading(swipeRefreshLayout);
+        stateView.showLoading(recyclerView);
     }
 }

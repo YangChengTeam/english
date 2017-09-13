@@ -27,13 +27,13 @@ public class GroupDeleteMemberPresenter extends BasePresenter<BaseEngin, GroupDe
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
-        getMemberList(mContext, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
+        getMemberList(mContext, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getType());
     }
 
 
     @Override
     public void deleteMember(String class_id, String master_id, String members) {
-        mView.showLoadingDialog("正在移除学生，请稍候！");
+        mView.showLoadingDialog("正在移除，请稍候！");
         Subscription subscription = EngineUtils.deleteMember(mContext, class_id, master_id, members).subscribe(new Subscriber<ResultInfo<StudentRemoveInfo>>() {
             @Override
             public void onCompleted() {
@@ -59,9 +59,9 @@ public class GroupDeleteMemberPresenter extends BasePresenter<BaseEngin, GroupDe
     }
 
     @Override
-    public void getMemberList(Context context, String class_id, String status, String master_id, String flag) {
+    public void getMemberList(Context context, String class_id, String status, String master_id, String type) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

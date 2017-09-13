@@ -144,7 +144,7 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupGetForbid
     }
 
     private void getData() {
-        mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
+        mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getType());
     }
 
     private void setMenuTitle(int totalSize, int selectSize, int colorId) {

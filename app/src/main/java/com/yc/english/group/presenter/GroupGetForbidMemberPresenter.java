@@ -33,14 +33,14 @@ public class GroupGetForbidMemberPresenter extends BasePresenter<BaseEngin, Grou
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
-        getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
+        getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getType());
 
     }
 
     @Override
-    public void getMemberList(final String sn, String status, String master_id, String flag) {
+    public void getMemberList(final String sn, String status, String master_id, String type) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(mContext, sn, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(mContext, sn,  status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

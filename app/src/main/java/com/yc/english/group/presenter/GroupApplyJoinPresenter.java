@@ -148,8 +148,8 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
     }
 
     @Override
-    public void getMemberList(String sn, String status, String master_id, String flag) {
-        Subscription subscription = EngineUtils.getMemberList(mContext, sn, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+    public void getMemberList(String sn, String status, String master_id, String type) {
+        Subscription subscription = EngineUtils.getMemberList(mContext, sn, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

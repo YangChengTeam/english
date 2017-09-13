@@ -145,7 +145,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     @Override
     public void showGroup(ClassInfo classInfo) {
         GroupInfoHelper.setClassInfo(classInfo);
-        mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
+        mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getType());
         if (GroupInfoHelper.getClassInfo().getType().equals("1") && !SPUtils.getInstance().getBoolean(GroupInfoHelper.getClassInfo().getClass_id() + "isFirst", false)) {
             setTint();
             SPUtils.getInstance().put(GroupInfoHelper.getClassInfo().getClass_id() + "isFirst", true);

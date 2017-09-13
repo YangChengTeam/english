@@ -66,7 +66,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
             @Override
             public void onClick() {
                 Intent intent = new Intent(GroupCommonClassActivity.this, GroupVerifyActivity.class);
-                intent.putExtra("flag", "comm");
+                intent.putExtra("type", "2");
                 startActivity(intent);
             }
         });

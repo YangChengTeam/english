@@ -12,6 +12,7 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupApplyVerifyContract;
 import com.yc.english.group.listener.OnItemClickListener;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupApplyVerifyPresenter;
 import com.yc.english.group.view.adapter.GroupVerifyAdapter;
@@ -36,7 +37,7 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
 
     private GroupVerifyAdapter adapter;
 
-    private String flag;
+    private String type;
 
     @Override
     public void init() {
@@ -44,7 +45,7 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
         mToolbar.setTitle(getString(R.string.friend_verify));
         mToolbar.showNavigationIcon();
         if (getIntent() != null) {
-            flag = getIntent().getStringExtra("flag");
+            type = getIntent().getStringExtra("type");
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupVerifyAdapter(this, null);
@@ -115,6 +116,6 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
 
     private void getData() {
         String uid = UserInfoHelper.getUserInfo().getUid();
-        mPresenter.getMemberList(this, "", "0", uid, flag);
+        mPresenter.getMemberList(this, "", "0", uid, type);
     }
 }

@@ -34,9 +34,9 @@ public class GroupMyGroupListPresenter extends BasePresenter<BaseEngin, GroupMyG
     }
 
     @Override
-    public void getMyGroupList(Context context, String user_id, String is_admin,String type) {
+    public void getMyGroupList(Context context, String user_id, String is_admin, String type) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, is_admin,type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
+        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, is_admin, type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
             public void onCompleted() {
 
@@ -72,8 +72,8 @@ public class GroupMyGroupListPresenter extends BasePresenter<BaseEngin, GroupMyG
     }
 
     @Override
-    public void getMemberList(Context context, String class_id, String status, String master_id) {
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, "").subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+    public void getMemberList(Context context, String class_id, String status, String master_id, String type) {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id,  status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

@@ -90,7 +90,9 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
-                startActivity(new Intent(UnionMainActivity.this, GroupVerifyActivity.class));
+                Intent intent = new Intent(UnionMainActivity.this, GroupVerifyActivity.class);
+                intent.putExtra("type", "1");
+                startActivity(intent);
             }
         });
 

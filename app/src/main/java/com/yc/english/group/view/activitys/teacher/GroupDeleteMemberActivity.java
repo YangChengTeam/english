@@ -200,7 +200,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
         stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getMemberList(GroupDeleteMemberActivity.this, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getFlag());
+                mPresenter.loadData(true);
             }
         });
     }

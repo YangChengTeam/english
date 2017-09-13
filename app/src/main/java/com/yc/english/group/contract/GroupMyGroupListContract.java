@@ -39,6 +39,6 @@ public interface GroupMyGroupListContract {
 
         void getMyGroupList(Context context, String user_id, String is_admin,String type);
 
-        void getMemberList(Context context, String class_id, String status, String master_id);
+        void getMemberList(Context context, String class_id, String status, String master_id,String type);
     }
 }

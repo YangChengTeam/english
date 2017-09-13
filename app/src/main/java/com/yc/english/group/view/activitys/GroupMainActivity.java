@@ -79,7 +79,9 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
             @Override
             public void onClick() {
-                startActivity(new Intent(GroupMainActivity.this, GroupVerifyActivity.class));
+                Intent intent = new Intent(GroupMainActivity.this, GroupVerifyActivity.class);
+                intent.putExtra("type", "0");
+                startActivity(intent);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -254,7 +256,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         if (userInfo != null) {
             String uid = userInfo.getUid();
             mPresenter.getMyGroupList(this, uid, "-1", "0");
-            mPresenter.getMemberList(this, "", "0", uid);
+            mPresenter.getMemberList(this, "", "0", uid, "0");
         } else {
             showMyGroupList(null);
         }

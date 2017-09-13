@@ -49,7 +49,7 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> {
         GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.m_iv_group_img), classInfo.getImageUrl(), R.mipmap.default_avatar);
         holder.setImageDrawable(R.id.m_iv_pay_money, mContext.getResources().getDrawable(R.mipmap.group74));
         holder.setVisible(R.id.m_iv_pay_money, classInfo.getFee_type() == 1);
-        holder.setVisible(R.id.btn_introduce, classInfo.getFlag().equals("comm"));
+        holder.setVisible(R.id.btn_introduce, classInfo.getType().equals("2"));
         holder.setOnClickListener(R.id.btn_introduce, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

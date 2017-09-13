@@ -47,16 +47,15 @@ public class EngineUtils {
      * @param status
      * @return sn群号
      */
-    public static Observable<ResultInfo<StudentInfoWrapper>> getMemberList(Context context, String sn, String status, String master_id, String flag) {
+    public static Observable<ResultInfo<StudentInfoWrapper>> getMemberList(Context context, String class_id, String status, String master_id, String type) {
 
         Map<String, String> params = new HashMap<>();
         params.put("status", status);
         if (!TextUtils.isEmpty(master_id))
             params.put("master_id", master_id);
-        if (!TextUtils.isEmpty(sn))
-            params.put("class_id", sn);
-        if (!TextUtils.isEmpty(flag))
-            params.put("flag", flag);
+        if (!TextUtils.isEmpty(class_id))
+            params.put("class_id", class_id);
+        params.put("type", type);
 
         return HttpCoreEngin.get(context).rxpost(NetConstant.member_list, new TypeReference<ResultInfo<StudentInfoWrapper>>() {
         }.getType(), params, true, true, true);

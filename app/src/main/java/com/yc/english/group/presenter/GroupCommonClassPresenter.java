@@ -92,7 +92,7 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (userInfo != null) {
             String uid = userInfo.getUid();
-            getMemberList("", "0", uid, "comm");
+            getMemberList("", "0", uid, "2");
         }
     }
 
@@ -174,8 +174,8 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
     }
 
     @Override
-    public void getMemberList(String class_id, String status, String master_id, String flag) {
-        Subscription subscription = EngineUtils.getMemberList(mContext, class_id, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+    public void getMemberList(String class_id, String status, String master_id, String type) {
+        Subscription subscription = EngineUtils.getMemberList(mContext, class_id,  status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

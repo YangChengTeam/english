@@ -48,7 +48,7 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
         if (userInfo != null) {
             String uid = userInfo.getUid();
             getUnionList1(uid, "-1", "1");
-            getMemberList(mContext, "", "0", uid);
+            getMemberList(mContext, "", "0", uid,"1");
         } else {
             mView.showUnionList1(null);
         }
@@ -155,8 +155,8 @@ public class UnionListPresenter extends BasePresenter<BaseEngin, UnionListContra
     }
 
 
-    public void getMemberList(Context context, String class_id, String status, String master_id) {
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, "").subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+    public void getMemberList(Context context, String class_id, String status, String master_id,String type) {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

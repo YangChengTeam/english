@@ -46,9 +46,9 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
      * @param status
      */
     @Override
-    public void getMemberList(Context context, String class_id, String status, String master_id, String flag) {
+    public void getMemberList(Context context, String class_id, String status, String master_id, String type) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, flag).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id,  status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
