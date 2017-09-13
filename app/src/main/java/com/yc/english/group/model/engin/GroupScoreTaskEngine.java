@@ -22,11 +22,12 @@ public class GroupScoreTaskEngine extends BaseEngin {
         super(context);
     }
 
-    public Observable<ResultInfo<String>> taskScore(String id,String score){
-        Map<String,String> params= new HashMap<>();
-        params.put("id",id);
-        params.put("score",score);
-        return HttpCoreEngin.get(mContext).rxpost(NetConstant.task_score,new TypeReference<ResultInfo<String>>(){}.getType(),params,true,true,true);
+    public Observable<ResultInfo<String>> taskScore(String id, String score) {
+        Map<String, String> params = new HashMap<>();
+        params.put("id", id);
+        params.put("score", score);
+        return HttpCoreEngin.get(mContext).rxpost(NetConstant.task_score, new TypeReference<ResultInfo<String>>() {
+        }.getType(), params, true, true, true);
 
     }
 

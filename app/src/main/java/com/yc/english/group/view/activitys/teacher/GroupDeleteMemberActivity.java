@@ -53,6 +53,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
     private List<StudentInfo> mList;
     private AlertDialog alertDialog;
 
+    private String name = "";
 
     @Override
     public void init() {
@@ -66,7 +67,11 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
         adapter = new GroupDeleteAdapter(this, null);
         recyclerView.setAdapter(adapter);
         initListener();
-
+        if (GroupInfoHelper.getClassInfo().getType().equals("1")) {
+            name = "会员";
+        } else {
+            name = "学生";
+        }
     }
 
     private void initListener() {
@@ -122,7 +127,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
                 if (alertDialog == null) {
                     alertDialog = new AlertDialog(GroupDeleteMemberActivity.this);
                 }
-                alertDialog.setDesc("是否删除学生");
+                alertDialog.setDesc("是否删除" + name);
                 alertDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

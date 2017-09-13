@@ -71,7 +71,7 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
                     public void reulstInfoOk() {
                         ClassInfoList data = classInfoListResultInfo.data;
                         if (data != null && data.getList() != null && data.getList().size() > 0) {
-                            mView.showCommonClassList(classInfoListResultInfo.data.getList());
+                            mView.showCommonClassList(data.getList());
                             mView.hideStateView();
                         } else {
                             mView.showNoData();
@@ -123,7 +123,7 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
                             int type = Integer.parseInt(applyInfo.getVali_type());
 
                             if (type == GroupConstant.CONDITION_ALL_ALLOW) {
-                                ToastUtils.showShort(mContext.getString(R.string.congratulation_join));
+                                ToastUtils.showShort(String.format(mContext.getString(R.string.congratulation_join), "群"));
                                 RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
 
                                 StudentInfo studentInfo = new StudentInfo();
@@ -135,7 +135,7 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
                                 setMode(classInfo);
                             } else if (type == GroupConstant.CONDITION_VERIFY_JOIN) {
 
-                                ToastUtils.showShort(mContext.getString(R.string.commit_apply_join));
+                                ToastUtils.showShort(String.format(mContext.getString(R.string.commit_apply_join), "群", "群主"));
                             }
 
                         }
@@ -227,7 +227,7 @@ public class GroupCommonClassPresenter extends BasePresenter<GroupCommonClassEng
 
     private void setMode(ClassInfo classInfo) {
 
-        GroupApp.setMyExtensionModule(false, false);
+        GroupApp.setMyExtensionModule(false, true);
         RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
     }
 }

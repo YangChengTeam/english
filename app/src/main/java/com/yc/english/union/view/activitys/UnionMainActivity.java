@@ -174,7 +174,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
     @Override
     public void showUnionList1(List<ClassInfo> classInfos) {
         if (classInfos != null && classInfos.size() > 0) {
-
             if (guidePopupWindow != null && guidePopupWindow.isShowing()) {
                 guidePopupWindow.dismiss();
             }

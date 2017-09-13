@@ -6,17 +6,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
-import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.StateView;
-import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
@@ -27,7 +24,6 @@ import com.yc.english.union.presenter.UnionListPresenter1;
 import java.util.List;
 
 import butterknife.BindView;
-import io.rong.imkit.RongIM;
 
 /**
  * Created by wanglin  on 2017/9/11 17:32.
@@ -96,10 +92,9 @@ public class UnionFragment extends BaseFragment<UnionListPresenter1> implements 
 
     @Override
     public void showUnionList1(List<ClassInfo> classInfos) {
-        if (classInfos != null && classInfos.size() > 0) {
-            adapter.setData(classInfos);
 
-        }
+        adapter.setData(classInfos);
+
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }

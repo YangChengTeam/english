@@ -10,6 +10,7 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyVerifyContract;
+import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
@@ -101,10 +102,8 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
                     @Override
                     public void run() {
                         mView.showApplyResult(stringResultInfo.data);
+                        queryGroup(studentInfo);
                         RxBus.get().post(BusAction.GROUP_LIST, "join Group");
-                        if (SPUtils.getInstance().getBoolean(GroupConstant.ALL_GROUP_FORBID_STATE + studentInfo.getClass_id())) {
-                            addForbidMember(studentInfo);
-                        }
 
                     }
                 });
@@ -138,5 +137,31 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
         mSubscriptions.add(subscription);
     }
 
+    private void queryGroup(final StudentInfo studentInfo) {
+        Subscription subscription = EngineUtils.queryGroupById(mContext, "", studentInfo.getSn()).subscribe(new Subscriber<ResultInfo<ClassInfoWarpper>>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onNext(final ResultInfo<ClassInfoWarpper> classInfoWarpperResultInfo) {
+                handleResultInfo(classInfoWarpperResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        if (classInfoWarpperResultInfo != null && classInfoWarpperResultInfo.data != null) {
+                            if (classInfoWarpperResultInfo.data.getInfo().getIs_allow_talk() == 0) {
+                                addForbidMember(studentInfo);
+                            }
+                        }
+                    }
+                });
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
 
 }
