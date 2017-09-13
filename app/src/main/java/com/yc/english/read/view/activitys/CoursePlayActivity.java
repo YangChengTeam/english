@@ -222,6 +222,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 if (position == playPosition) {
                     return;
                 }
+                isCountinue = false;
                 playPosition = position;
                 enableState(playPosition);
                 startSynthesizer(playPosition);
@@ -339,7 +340,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         @Override
         public void onCompleted(SpeechError error) {
             if (error == null) {
-                speekContinue(++playPosition);
+                speekContinue(isCountinue ? ++playPosition : playPosition);
             } else if (error != null) {
                 if (error.getErrorDescription().contains("权")) {
                     com.yc.english.base.utils.SpeechUtils.resetAppid(CoursePlayActivity.this);

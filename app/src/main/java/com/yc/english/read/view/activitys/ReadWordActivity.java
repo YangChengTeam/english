@@ -428,7 +428,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
     private void endableState(int index) {
-        if (index <= 0 && index < mReadWordExpandAdapter.getWordInfos().size()) {
+        if (index < 0 || index >= mReadWordExpandAdapter.getWordInfos().size()) {
             return;
         }
 
