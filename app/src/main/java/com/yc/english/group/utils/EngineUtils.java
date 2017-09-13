@@ -292,12 +292,10 @@ public class EngineUtils {
     }
 
 
-    public static Observable<ResultInfo<ClassInfoList>> getUnionList(Context context, String type, String flag, int page, int page_size, String user_id) {
+    public static Observable<ResultInfo<ClassInfoList>> getUnionList(Context context, String type, int page, int page_size, String user_id) {
 
         Map<String, Object> params = new HashMap<>();
         params.put("type", type);
-        if (!TextUtils.isEmpty(flag))
-            params.put("flag", flag);
         params.put("page", page);
         params.put("page_size", page_size);
         params.put("user_id", user_id);
@@ -321,6 +319,17 @@ public class EngineUtils {
         params.put("user_id", user_id);
         return HttpCoreEngin.get(context).rxpost(NetConstant.is_member, new TypeReference<ResultInfo<MemberInfo>>() {
         }.getType(), params, true, true, true);
+    }
+
+    /**
+     * 获取名师辅导班群列表
+     *
+     * @return
+     */
+    public static Observable<ResultInfo<ClassInfoList>> getCommonClassList(Context context) {
+
+        return HttpCoreEngin.get(context).rxpost(NetConstant.index_comm_class_list, new TypeReference<ResultInfo<ClassInfoList>>() {
+        }.getType(), null, true, true, true);
     }
 
 }

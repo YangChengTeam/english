@@ -1,14 +1,12 @@
 package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -22,21 +20,20 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
-import com.yc.english.group.contract.GroupCommonClassContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
-import com.yc.english.group.model.bean.TaskInfo;
-import com.yc.english.group.presenter.GroupCommonClassPresenter;
 import com.yc.english.group.view.activitys.student.GroupJoinActivity;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.union.contract.UnionCommonListContract;
+import com.yc.english.union.presenter.UnionCommonListPresenter;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
 import rx.functions.Action1;
 
@@ -44,7 +41,7 @@ import rx.functions.Action1;
  * Created by wanglin  on 2017/8/1 18:16.
  */
 
-public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClassPresenter> implements GroupCommonClassContract.View {
+public class GroupCommonClassActivity extends FullScreenActivity<UnionCommonListPresenter> implements UnionCommonListContract.View {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.btn_join_class)
@@ -54,11 +51,11 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
     private GroupGroupAdapter adapter;
-    private ClassInfo mClassInfo;
+
 
     @Override
     public void init() {
-        mPresenter = new GroupCommonClassPresenter(this, this);
+        mPresenter = new UnionCommonListPresenter(this, this);
         mToolbar.setTitle(getString(R.string.teacher_education));
         mToolbar.showNavigationIcon();
 
@@ -75,7 +72,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
         adapter = new GroupGroupAdapter(this, false, null);
         recyclerView.setAdapter(adapter);
         initListener();
-
+        getData();
     }
 
     private void initListener() {
@@ -90,14 +87,14 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
         adapter.setOnJoinListener(new GroupGroupAdapter.OnJoinListener() {
             @Override
             public void onJoin(ClassInfo classInfo) {
-                GroupCommonClassActivity.this.mClassInfo = classInfo;
+
 
                 if (!UserInfoHelper.isGotoLogin(GroupCommonClassActivity.this)) {
                     int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid());
                     if (result == 1) {
                         setMode(classInfo);
                     } else {
-                        mPresenter.isGroupMember(classInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid());
+                        mPresenter.isGroupMember(classInfo);
                     }
                 }
             }
@@ -111,24 +108,39 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
 
 
     @Override
+    public void showUnionList(List<ClassInfo> data, int page, boolean isFitst) {
+
+    }
+
+    @Override
+    public void showMemberList(List<StudentInfo> list) {
+
+    }
+
+    @Override
+    public void showUnionList1(List<ClassInfo> list) {
+
+    }
+
+    @Override
     public void showCommonClassList(List<ClassInfo> list) {
         adapter.setData(list);
     }
 
     @Override
-    public void showIsMember(int is_member) {
+    public void showIsMember(int is_member, final ClassInfo classInfo) {
 
-        SPUtils.getInstance().put(mClassInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid(), is_member);
+        SPUtils.getInstance().put(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid(), is_member);
 
         if (is_member == 1) {//已经是班群成员
-            setMode(mClassInfo);
+            setMode(classInfo);
         } else {
             final AlertDialog dialog = new AlertDialog(this);
             dialog.setDesc("是否申请加入该班群?");
             dialog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mPresenter.applyJoinGroup(mClassInfo);
+                    mPresenter.applyJoinGroup(classInfo);
                     dialog.dismiss();
                 }
             });
@@ -156,7 +168,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
         stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadData(true);
+                getData();
             }
         });
     }
@@ -186,6 +198,16 @@ public class GroupCommonClassActivity extends FullScreenActivity<GroupCommonClas
             }
     )
     public void getList(String group) {
-        mPresenter.loadData(true);
+        getData();
+    }
+
+
+    private void getData() {
+        mPresenter.getCommonClassList();
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo != null) {
+            String uid = userInfo.getUid();
+            mPresenter.getMemberList("", "0", uid, "2");
+        }
     }
 }

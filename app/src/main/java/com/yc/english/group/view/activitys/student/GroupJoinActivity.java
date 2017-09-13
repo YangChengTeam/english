@@ -39,7 +39,7 @@ import rx.functions.Action1;
  */
 
 public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresenter> implements GroupApplyJoinContract.View {
-    private static final String TAG = "UnionJoinActivity";
+    private static final String TAG = "GroupJoinActivity";
     @BindView(R.id.et_class_group)
     EditText etClassGroup;
     @BindView(R.id.ib_delete)

@@ -1,10 +1,18 @@
 package com.yc.english.group.rong.util;
 
+import android.text.TextUtils;
+
 import com.yc.english.group.constant.RongConstant;
 import com.yc.english.group.rong.RongCloud;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.ListGagGroupUserResult;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.IRongCallback;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.message.InformationNotificationMessage;
 import rx.Observable;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
@@ -87,6 +95,34 @@ public class RongIMUtil {
                 return null;
             }
         });
+    }
+
+    /**
+     * 插入系统消息
+     *
+     * @param contentMessage 消息的内容
+     * @param groupId
+     */
+    public static void insertMessage(String contentMessage, String groupId) {
+        InformationNotificationMessage message = InformationNotificationMessage.obtain(contentMessage);
+        Message message1 = Message.obtain(groupId, Conversation.ConversationType.GROUP, message);
+        RongIM.getInstance().sendMessage(message1, null, null, new IRongCallback.ISendMessageCallback() {
+            @Override
+            public void onAttached(Message message) {
+
+            }
+
+            @Override
+            public void onSuccess(Message message) {
+
+            }
+
+            @Override
+            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+
+            }
+        });
+
     }
 
 

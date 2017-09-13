@@ -20,6 +20,7 @@ import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.rong.models.CodeSuccessResult;
+import com.yc.english.group.rong.util.RongIMUtil;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
 
@@ -92,6 +93,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
                             if (type == GroupConstant.CONDITION_ALL_ALLOW) {
 
                                 ToastUtils.showShort(String.format(mContext.getString(R.string.congratulation_join), finalGroupName));
+                                RongIMUtil.insertMessage(UserInfoHelper.getUserInfo().getNickname() + "加入本群", classInfo.getClass_id());
                                 RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
 
                                 StudentInfo studentInfo = new StudentInfo();

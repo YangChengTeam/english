@@ -34,10 +34,11 @@ import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.union.contract.UnionListContract;
-import com.yc.english.union.presenter.UnionListPresenter;
+import com.yc.english.union.contract.UnionCommonListContract;
+import com.yc.english.union.presenter.UnionCommonListPresenter;
 import com.yc.english.union.view.activitys.student.UnionJoinActivity;
 import com.yc.english.union.view.activitys.teacher.UnionCreateActivity;
+import com.yc.english.union.view.fragment.UnionAllFragment;
 import com.yc.english.union.view.fragment.UnionFragment;
 
 import java.util.List;
@@ -49,7 +50,7 @@ import butterknife.OnClick;
  * Created by wanglin  on 2017/7/24 17:59.
  */
 
-public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> implements UnionListContract.View {
+public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresenter> implements UnionCommonListContract.View {
     private static final String TAG = "UnionMainActivity";
     @BindView(R.id.sView_loading)
     StateView sViewLoading;
@@ -83,7 +84,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
     @Override
     public void init() {
 
-        mPresenter = new UnionListPresenter(this, this);
+        mPresenter = new UnionCommonListPresenter(this, this);
         mToolbar.setTitle(getString(R.string.english_union));
 
         mToolbar.showNavigationIcon();
@@ -95,7 +96,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
                 startActivity(intent);
             }
         });
-
+        getData();
         initViewPager();
     }
 
@@ -158,7 +159,12 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             }
     )
     public void getList(String group) {
-        mPresenter.loadData(true);
+        getData();
+    }
+
+    @Override
+    public void showUnionList(List<ClassInfo> data, int isLoadMore, boolean isFitst) {
+
     }
 
     @Override
@@ -189,6 +195,21 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
                 showCreateGuide();
             }
         }
+
+    }
+
+    @Override
+    public void showCommonClassList(List<ClassInfo> list) {
+
+    }
+
+    @Override
+    public void showIsMember(int is_member, ClassInfo classInfo) {
+
+    }
+
+    @Override
+    public void showVerifyResult(List<StudentInfo> list) {
 
     }
 
@@ -244,7 +265,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         sViewLoading.showNoNet(contentView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadData(true);
+                getData();
 
             }
         });
@@ -263,7 +284,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
 
     private UnionFragment unionCreateFragment;
     private UnionFragment unionJoinFragment;
-    private UnionFragment unionAllFragment;
+    private UnionAllFragment unionAllFragment;
 
 
     private class FragmentAdapter extends FragmentStatePagerAdapter {
@@ -276,8 +297,8 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
         public Fragment getItem(int position) {
             if (position == 0) {
                 if (unionAllFragment == null) {
-                    unionAllFragment = new UnionFragment();
-                    unionAllFragment.setType(-1);
+                    unionAllFragment = new UnionAllFragment();
+                    unionAllFragment.setType(1);
                 }
                 return unionAllFragment;
             } else if (position == 1) {
@@ -324,6 +345,17 @@ public class UnionMainActivity extends FullScreenActivity<UnionListPresenter> im
             TextView textView = (TextView) convertView;
             textView.setText(titles[position]);
             return convertView;
+        }
+    }
+
+    private void getData() {
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo != null) {
+            String uid = userInfo.getUid();
+            mPresenter.getUnionList1(uid, "-1", "1");
+            mPresenter.getMemberList(this, "", "0", uid, "1");
+        } else {
+            showUnionList1(null);
         }
     }
 

@@ -30,13 +30,24 @@ public class GroupMyGroupListPresenter extends BasePresenter<BaseEngin, GroupMyG
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
-
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo != null) {
+            String uid = userInfo.getUid();
+            getMyGroupList(mContext, uid, "-1", "0");
+            getMemberList(mContext, "", "0", uid, "0");
+        } else {
+            mView.showMyGroupList(null);
+        }
     }
 
+    private boolean isEmpty = true;
+
     @Override
-    public void getMyGroupList(Context context, String user_id, String is_admin, String type) {
-        mView.showLoading();
-        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, is_admin, type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
+    public void getMyGroupList(Context context, String user_id, String role, String type) {
+        if (isEmpty) {
+            mView.showLoading();
+        }
+        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, role, type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
             public void onCompleted() {
 
@@ -64,6 +75,9 @@ public class GroupMyGroupListPresenter extends BasePresenter<BaseEngin, GroupMyG
                     public void reulstInfoOk() {
                         mView.hideStateView();
                         mView.showMyGroupList(classInfoResultInfo.data.getList());
+                        if (classInfoResultInfo.data != null && classInfoResultInfo.data.getList() != null && classInfoResultInfo.data.getList().size() > 0) {
+                            isEmpty = false;
+                        }
                     }
                 });
             }
@@ -73,7 +87,7 @@ public class GroupMyGroupListPresenter extends BasePresenter<BaseEngin, GroupMyG
 
     @Override
     public void getMemberList(Context context, String class_id, String status, String master_id, String type) {
-        Subscription subscription = EngineUtils.getMemberList(context, class_id,  status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

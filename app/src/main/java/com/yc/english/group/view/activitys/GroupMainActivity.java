@@ -1,6 +1,7 @@
 package com.yc.english.group.view.activitys;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -87,8 +88,18 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, true, null);
         recyclerView.setAdapter(adapter);
-        swipeRefreshLayout.setEnabled(false);
-        getData();
+
+        initListener();
+    }
+
+    private void initListener() {
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.primary));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.loadData(true);
+            }
+        });
     }
 
     private void showCreateGuide() {
@@ -166,7 +177,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             }
     )
     public void getList(String group) {
-        getData();
+        mPresenter.loadData(true);
     }
 
 
@@ -190,6 +201,10 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             if (ActivityUtils.isValidContext(this)) {
                 showCreateGuide();
             }
+        }
+
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
         }
 
     }
@@ -236,7 +251,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         sViewLoading.showNoNet(contentView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getData();
+                mPresenter.loadData(true);
             }
         });
     }
@@ -251,15 +266,5 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         sViewLoading.showLoading(contentView);
     }
 
-    private void getData() {
-        UserInfo userInfo = UserInfoHelper.getUserInfo();
-        if (userInfo != null) {
-            String uid = userInfo.getUid();
-            mPresenter.getMyGroupList(this, uid, "-1", "0");
-            mPresenter.getMemberList(this, "", "0", uid, "0");
-        } else {
-            showMyGroupList(null);
-        }
-    }
 
 }

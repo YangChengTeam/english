@@ -16,6 +16,7 @@ import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.engin.GroupApplyVerifyEngine;
 import com.yc.english.group.rong.models.CodeSuccessResult;
+import com.yc.english.group.rong.util.RongIMUtil;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
 
@@ -48,7 +49,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
     @Override
     public void getMemberList(Context context, String class_id, String status, String master_id, String type) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(context, class_id,  status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -103,6 +104,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
                     public void run() {
                         mView.showApplyResult(stringResultInfo.data);
                         queryGroup(studentInfo);
+                        RongIMUtil.insertMessage(studentInfo.getNick_name() + "加入本群", studentInfo.getClass_id());
                         RxBus.get().post(BusAction.GROUP_LIST, "join Group");
 
                     }
