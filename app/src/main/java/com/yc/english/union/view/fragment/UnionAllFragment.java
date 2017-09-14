@@ -49,10 +49,12 @@ public class UnionAllFragment extends BaseFragment<UnionCommonListPresenter> imp
     private int page = 1;
     private int page_size = 10;
 
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_union_list;
     }
+
     public void setType(int type) {
         this.mType = type;
     }
@@ -60,8 +62,10 @@ public class UnionAllFragment extends BaseFragment<UnionCommonListPresenter> imp
     @Override
     public void init() {
         mPresenter = new UnionCommonListPresenter(getActivity(), UnionAllFragment.this);
-        initRecycleView();
-        getData(false, true);
+        if (getArguments() != null) {
+            List<ClassInfo> classInfos = getArguments().getParcelableArrayList("classInfos");
+            initRecycleView(classInfos);
+        }
         initListener();
 
     }
@@ -88,15 +92,15 @@ public class UnionAllFragment extends BaseFragment<UnionCommonListPresenter> imp
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
                 ClassInfo classInfo = (ClassInfo) adapter.getItem(position);
-                if (!UserInfoHelper.isGotoLogin(getActivity())) {
-                    int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid());
-                    if (result == 1) {
-                        setMode(classInfo);
-                    } else {
-                        mPresenter.isGroupMember(classInfo);
-                    }
+
+                int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid());
+                if (result == 1) {
+                    setMode(classInfo);
+                } else {
+                    mPresenter.isGroupMember(classInfo);
                 }
             }
+
         });
     }
 
@@ -117,10 +121,11 @@ public class UnionAllFragment extends BaseFragment<UnionCommonListPresenter> imp
     }
 
 
-    private void initRecycleView() {
+    private void initRecycleView(List<ClassInfo> classInfos) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new GroupUnionAdapter(null);
+        adapter = new GroupUnionAdapter(classInfos);
         recyclerView.setAdapter(adapter);
+        hideStateView();
     }
 
 
@@ -181,7 +186,6 @@ public class UnionAllFragment extends BaseFragment<UnionCommonListPresenter> imp
 
     @Override
     public void showVerifyResult(List<StudentInfo> list) {
-
     }
 
     @Override

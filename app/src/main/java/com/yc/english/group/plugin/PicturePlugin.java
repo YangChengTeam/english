@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 
 import com.yc.english.R;
 
@@ -19,7 +20,7 @@ public class PicturePlugin extends ImagePlugin {
 
     @Override
     public Drawable obtainDrawable(Context context) {
-        return context.getResources().getDrawable(R.drawable.group_picture_selector);
+        return ContextCompat.getDrawable(context,R.drawable.group_picture_selector);
     }
 
 

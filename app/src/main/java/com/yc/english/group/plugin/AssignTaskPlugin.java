@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -40,7 +41,7 @@ public class AssignTaskPlugin implements IPluginModule {
 
     @Override
     public Drawable obtainDrawable(Context context) {
-        return context.getResources().getDrawable(R.drawable.group_task_selector);
+        return ContextCompat.getDrawable(context, R.drawable.group_task_selector);
     }
 
     @Override
@@ -72,8 +73,8 @@ public class AssignTaskPlugin implements IPluginModule {
             TaskInfo taskInfo = intent.getParcelableExtra("task");
 
             String desp = taskInfo.getDesp();
-            if (TextUtils.isEmpty(desp)){
-                desp="点击查看详情";
+            if (TextUtils.isEmpty(desp)) {
+                desp = "点击查看详情";
             }
 
             RichContentMessage customMessage = RichContentMessage.obtain("家庭作业", desp, "");

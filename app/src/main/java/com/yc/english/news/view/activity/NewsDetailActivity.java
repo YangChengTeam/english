@@ -7,12 +7,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.Utils;
@@ -74,6 +78,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     private String title;
     private int screenHeight;
     private String id;
+    private long aLong;
 
     @Override
     public void init() {
@@ -82,7 +87,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mToolbar.setMenuTitle(getString(R.string.share));
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitleColor(R.color.black_333333);
-
+        aLong = System.currentTimeMillis();
         if (getIntent() != null) {
             CourseInfo courseInfo = getIntent().getParcelableExtra("info");
             id = courseInfo.getId();
@@ -95,6 +100,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         initListener();
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
+
     }
 
 
@@ -169,7 +175,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     private void initWebView(final CourseInfoWrapper data) {
 
-        WebSettings webSettings = webView.getSettings();
+        final WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
         //设置自适应屏幕，两者合用
@@ -177,17 +183,21 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
 
         webView.addJavascriptInterface(new JavascriptInterface(), "HTML");
+//        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         //其他细节操作
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); //关闭webview中缓存 //优先使用缓存:
         webSettings.setAllowFileAccess(true); //设置可以访问文件
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
+        webSettings.setBlockNetworkImage(true);//设置不加载网络图片
 
         String body = makeBody(data.getInfo().getBody());
         webView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null);
 
         webView.setWebViewClient(new WebViewClient() {
+
+
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -201,6 +211,9 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                     mLlRecommend.setVisibility(View.GONE);
                 }
 
+                webSettings.setBlockNetworkImage(false);
+                LogUtils.e("webView " + (System.currentTimeMillis() - aLong));
+
             }
         });
 
@@ -209,7 +222,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     @Override
     public int getLayoutId() {
-
         return R.layout.common_activity_news_detail;
     }
 
@@ -244,6 +256,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     @Override
     public void showCourseResult(CourseInfoWrapper data) {
         initWebView(data);
+        LogUtils.e("showCourseResult " + (System.currentTimeMillis() - aLong));
 
     }
 
@@ -273,7 +286,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     }
 
 
-
     private class JavascriptInterface {
         public void getContentHeight(String value) {
             if (value != null) {
@@ -288,6 +300,13 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     protected void onDestroy() {
         super.onDestroy();
         mMediaPlayerView.destory();
+        if (webView != null) {
+            webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
+            webView.clearHistory();
+
+            llRootView.removeView(webView);
+            webView.destroy();
+        }
     }
 
 

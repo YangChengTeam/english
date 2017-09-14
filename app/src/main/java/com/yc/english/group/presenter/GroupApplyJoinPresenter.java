@@ -93,7 +93,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
                             if (type == GroupConstant.CONDITION_ALL_ALLOW) {
 
                                 ToastUtils.showShort(String.format(mContext.getString(R.string.congratulation_join), finalGroupName));
-                                RongIMUtil.insertMessage(UserInfoHelper.getUserInfo().getNickname() + "加入本群", classInfo.getClass_id());
+                                RongIMUtil.insertMessage("欢迎" + UserInfoHelper.getUserInfo().getNickname() + "加入本群", classInfo.getClass_id());
                                 RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
 
                                 StudentInfo studentInfo = new StudentInfo();

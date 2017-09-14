@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
@@ -36,7 +37,7 @@ public class TeacherLookTaskPlugin implements IPluginModule {
 
     @Override
     public Drawable obtainDrawable(Context context) {
-        return context.getResources().getDrawable(R.drawable.group_look_task_selector);
+        return ContextCompat.getDrawable(context, R.drawable.group_look_task_selector);
     }
 
     @Override

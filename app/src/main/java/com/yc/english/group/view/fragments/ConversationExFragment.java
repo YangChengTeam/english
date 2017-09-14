@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.kk.guide.GuideCallback;
 import com.kk.guide.GuidePopupWindow;
 import com.kk.guide.GuideView;
@@ -18,6 +19,7 @@ import com.yc.english.R;
 
 import io.rong.imkit.RongExtension;
 import io.rong.imkit.fragment.ConversationFragment;
+import io.rong.imlib.model.Message;
 
 /**
  * Created by wanglin  on 2017/8/31 16:19.
@@ -64,4 +66,9 @@ public class ConversationExFragment extends ConversationFragment {
         guidePopupWindow.show("plguin");
     }
 
+    @Override
+    public void onReadReceiptStateClick(Message message) {
+        super.onReadReceiptStateClick(message);
+        ToastUtils.showShort(message.getContent().toString());
+    }
 }

@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import com.yc.english.R;
@@ -38,7 +39,7 @@ public class FilePlugin implements IPluginModule {
     @Override
     public Drawable obtainDrawable(Context context) {
 
-        return context.getResources().getDrawable(R.drawable.group_file_selector);
+        return ContextCompat.getDrawable(context,R.drawable.group_file_selector);
     }
 
     @Override

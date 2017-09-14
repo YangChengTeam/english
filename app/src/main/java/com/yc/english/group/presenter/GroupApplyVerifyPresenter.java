@@ -104,7 +104,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
                     public void run() {
                         mView.showApplyResult(stringResultInfo.data);
                         queryGroup(studentInfo);
-                        RongIMUtil.insertMessage(studentInfo.getNick_name() + "加入本群", studentInfo.getClass_id());
+                        RongIMUtil.insertMessage("欢迎" + studentInfo.getNick_name() + "加入本群", studentInfo.getClass_id());
                         RxBus.get().post(BusAction.GROUP_LIST, "join Group");
 
                     }

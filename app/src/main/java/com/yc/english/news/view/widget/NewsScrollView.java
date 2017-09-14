@@ -14,7 +14,7 @@ public class NewsScrollView extends ScrollView {
 
     private int scaledTouchSlop;
     private int y;
-
+    private int x;
 
     public NewsScrollView(Context context) {
         this(context, null);
@@ -36,11 +36,15 @@ public class NewsScrollView extends ScrollView {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 y = (int) ev.getY();
+                x = (int) ev.getX();
                 break;
             case MotionEvent.ACTION_UP:
-                if (Math.abs(((int) ev.getY()) - y) > scaledTouchSlop) {
+                int curY = (int) ev.getY();
+                int curX = (int) ev.getX();
+                if (Math.abs(curY - y) > scaledTouchSlop) {
                     return true;
                 }
+
         }
 
         return super.onInterceptTouchEvent(ev);

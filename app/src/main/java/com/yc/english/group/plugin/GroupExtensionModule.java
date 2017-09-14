@@ -45,6 +45,7 @@ public class GroupExtensionModule extends DefaultExtensionModule {
 
     @Override
     public List<IEmoticonTab> getEmoticonTabs() {
+
         return super.getEmoticonTabs();
     }
 

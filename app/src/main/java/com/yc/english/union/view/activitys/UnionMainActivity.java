@@ -1,6 +1,7 @@
 package com.yc.english.union.view.activitys;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -41,6 +42,7 @@ import com.yc.english.union.view.activitys.teacher.UnionCreateActivity;
 import com.yc.english.union.view.fragment.UnionAllFragment;
 import com.yc.english.union.view.fragment.UnionFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -97,7 +99,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
             }
         });
         getData();
-        initViewPager();
     }
 
 
@@ -162,9 +163,26 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
         getData();
     }
 
-    @Override
-    public void showUnionList(List<ClassInfo> data, int isLoadMore, boolean isFitst) {
+    private ArrayList<ClassInfo> mClassInfos;
 
+    @Override
+    public void showUnionList(List<ClassInfo> classInfos, int page, boolean isFitst) {
+        if (classInfos != null && classInfos.size() > 0) {
+            if (guidePopupWindow != null && guidePopupWindow.isShowing()) {
+                guidePopupWindow.dismiss();
+            }
+            mClassInfos = (ArrayList<ClassInfo>) classInfos;
+            llDataContainer.setVisibility(View.VISIBLE);
+            llEmptyContainer.setVisibility(View.GONE);
+        } else {
+            llDataContainer.setVisibility(View.GONE);
+            llEmptyContainer.setVisibility(View.VISIBLE);
+            hideStateView();
+            if (ActivityUtils.isValidContext(this)) {
+                showCreateGuide();
+            }
+        }
+        initViewPager();
     }
 
     @Override
@@ -181,20 +199,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
 
     @Override
     public void showUnionList1(List<ClassInfo> classInfos) {
-        if (classInfos != null && classInfos.size() > 0) {
-            if (guidePopupWindow != null && guidePopupWindow.isShowing()) {
-                guidePopupWindow.dismiss();
-            }
-            llDataContainer.setVisibility(View.VISIBLE);
-            llEmptyContainer.setVisibility(View.GONE);
-        } else {
-            llDataContainer.setVisibility(View.GONE);
-            llEmptyContainer.setVisibility(View.VISIBLE);
-            hideStateView();
-            if (ActivityUtils.isValidContext(this)) {
-                showCreateGuide();
-            }
-        }
 
     }
 
@@ -296,8 +300,11 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
+                Bundle bundle = new Bundle();
                 if (unionAllFragment == null) {
                     unionAllFragment = new UnionAllFragment();
+                    bundle.putParcelableArrayList("classInfos", mClassInfos);
+                    unionAllFragment.setArguments(bundle);
                     unionAllFragment.setType(1);
                 }
                 return unionAllFragment;
@@ -352,10 +359,10 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (userInfo != null) {
             String uid = userInfo.getUid();
-            mPresenter.getUnionList1(uid, "-1", "1");
+            mPresenter.getUnionList("1", 1, 10, true);
             mPresenter.getMemberList(this, "", "0", uid, "1");
         } else {
-            showUnionList1(null);
+            showUnionList(null, 1, true);
         }
     }
 

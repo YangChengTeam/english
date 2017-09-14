@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+
     <LinearLayout
         android:id="@+id/ll_container"
         android:layout_width="match_parent"
@@ -61,7 +62,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/group_distance_5"
-                        android:text="2017-07-19 周三 17:20:32"
                         android:textColor="@color/group_gray_999"
                         android:textSize="@dimen/group_text_14" />
 
@@ -105,9 +105,8 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/m_viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
         </LinearLayout>
 
     </LinearLayout>
-
 </LinearLayout>

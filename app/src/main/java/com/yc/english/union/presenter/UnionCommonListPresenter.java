@@ -143,9 +143,9 @@ public class UnionCommonListPresenter extends BasePresenter<BaseEngin, UnionComm
 
                     @Override
                     public void reulstInfoOk() {
-                        if (page == 1 && isFitst) {
-                            mView.hideStateView();
-                        }
+//                        if (page == 1 && isFitst) {
+                        mView.hideStateView();
+//                        }
                         mView.showUnionList(classInfo.data.getList(), page, isFitst);
                     }
                 });
@@ -265,7 +265,7 @@ public class UnionCommonListPresenter extends BasePresenter<BaseEngin, UnionComm
                             if (type == GroupConstant.CONDITION_ALL_ALLOW) {
                                 ToastUtils.showShort(String.format(mContext.getString(R.string.congratulation_join), finalName));
                                 setMode(classInfo);
-                                RongIMUtil.insertMessage(UserInfoHelper.getUserInfo().getNickname() + "加入本群", classInfo.getClass_id());
+                                RongIMUtil.insertMessage("欢迎" + UserInfoHelper.getUserInfo().getNickname() + "加入本群", classInfo.getClass_id());
                                 RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
                                 StudentInfo studentInfo = new StudentInfo();
                                 studentInfo.setUser_id(applyInfo.getUser_id());
@@ -306,7 +306,7 @@ public class UnionCommonListPresenter extends BasePresenter<BaseEngin, UnionComm
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        mView.showIsMember(stringResultInfo.data.getIs_member(),classInfo);
+                        mView.showIsMember(stringResultInfo.data.getIs_member(), classInfo);
                     }
                 });
             }
@@ -367,8 +367,11 @@ public class UnionCommonListPresenter extends BasePresenter<BaseEngin, UnionComm
     }
 
     private void setMode(ClassInfo classInfo) {
-
-        GroupApp.setMyExtensionModule(false, true);
+        if (classInfo.getType().equals("1")) {//公会
+            GroupApp.setMyExtensionModule(false, false);
+        } else {
+            GroupApp.setMyExtensionModule(false, true);
+        }
         RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
     }
 }

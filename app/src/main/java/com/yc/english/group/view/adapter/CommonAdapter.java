@@ -21,7 +21,6 @@ public class CommonAdapter extends CommonNavigatorAdapter {
 
     private int mFinished;//已完成
     private int mUnFinished;//未完成
-    private Context mContext;
     private ViewPager mViewPage;
     private final String[] result_title;
     private int mType;
@@ -29,7 +28,6 @@ public class CommonAdapter extends CommonNavigatorAdapter {
 
     public CommonAdapter(Context context, int type, ViewPager viewPager, int finished, int unFinished) {
 
-        this.mContext = context;
         this.mViewPage = viewPager;
         this.mType = type;
         result_title = context.getResources().getStringArray(R.array.task_finish_result);
