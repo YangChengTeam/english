@@ -42,7 +42,9 @@ public class EnglishApp extends MultiDexApplication {
     public void onCreate() {
         gEnglishApp = this;
         super.onCreate();
+
         Utils.init(EnglishApp.this);
+
         Observable.just("").observeOn(Schedulers.io()).subscribe(new Action1<String>() {
             @Override
             public void call(String s) {

@@ -166,8 +166,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @BindView(R.id.im_hearing)
     IndexMenuView mHearingIndexMenuView;
 
-    @BindView(R.id.refresh)
-    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
+//    @BindView(R.id.refresh)
+//    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
 
 
     @Override
@@ -434,13 +434,13 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             selectGradePopupWindow.show(mContextScrollView, Gravity.CENTER);
         }
 
-        mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
-        mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mPresenter.getIndexInfo();
-            }
-        });
+//        mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
+//        mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                mPresenter.getIndexInfo();
+//            }
+//        });
     }
 
     @Override
@@ -462,7 +462,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showLoading() {
-        if (!mRefreshSwipeRefreshLayout.isRefreshing())
+//        if (!mRefreshSwipeRefreshLayout.isRefreshing())
             mLoadingStateView.showLoading(mContextScrollView);
     }
 
@@ -523,7 +523,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         if (indexInfo.getWeike() != null) {
             mHotMircoClassAdapter.addData(indexInfo.getWeike());
         }
-        mRefreshSwipeRefreshLayout.setRefreshing(false);
+//        mRefreshSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Subscribe(

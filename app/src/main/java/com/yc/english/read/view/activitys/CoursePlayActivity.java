@@ -297,6 +297,9 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
      * @param postion
      */
     public void startSynthesizer(int postion) {
+        if (postion < 0 || postion >= mItemAdapter.getData().size()) {
+            return;
+        }
         String text = mItemAdapter.getData().get(postion).getSubTitle();
         int code = mTts.startSpeaking(text, mTtsListener);
         if (code != ErrorCode.SUCCESS) {
