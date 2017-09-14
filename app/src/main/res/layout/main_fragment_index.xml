@@ -68,11 +68,11 @@
         >
     </com.yc.english.base.view.StateView>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
+        <!--android:id="@+id/refresh"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--&gt;-->
 
         <com.yc.english.base.view.MyScrollview
             android:id="@+id/sv_content"
@@ -531,5 +531,5 @@
                     android:background="@color/gray_ddd"></View>
             </LinearLayout>
         </com.yc.english.base.view.MyScrollview>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 </LinearLayout>
