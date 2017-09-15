@@ -300,6 +300,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         if (postion < 0 || postion >= mItemAdapter.getData().size()) {
             return;
         }
+        mTts = SpeechUtils.getTts(this);
         String text = mItemAdapter.getData().get(postion).getSubTitle();
         int code = mTts.startSpeaking(text, mTtsListener);
         if (code != ErrorCode.SUCCESS) {
