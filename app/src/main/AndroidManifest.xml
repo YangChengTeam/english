@@ -197,7 +197,7 @@
             android:value="59719ccc04e20564f70004b6" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="应用市场" />
+            android:value="app_online" />
 
         <meta-data
             android:name="com.yc.english.base.helper.GlideConfiguration"
