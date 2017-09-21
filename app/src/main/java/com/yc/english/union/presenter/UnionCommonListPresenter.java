@@ -48,7 +48,7 @@ public class UnionCommonListPresenter extends BasePresenter<BaseEngin, UnionComm
 
     private boolean isEmpty = true;
 
-    public void getUnionList1(String user_id, String role, String type) {
+    public void getMyGroupList(String user_id, String role, String type) {
         if (isEmpty) {
             mView.showLoading();
         }
@@ -89,7 +89,7 @@ public class UnionCommonListPresenter extends BasePresenter<BaseEngin, UnionComm
                     @Override
                     public void reulstInfoOk() {
                         if (classInfo.data != null && classInfo.data.getList() != null && classInfo.data.getList().size() > 0) {
-                            mView.showUnionList1(classInfo.data.getList());
+                            mView.showMyGroupList(classInfo.data.getList());
                             mView.hideStateView();
                             isEmpty = false;
                         } else {
@@ -202,33 +202,6 @@ public class UnionCommonListPresenter extends BasePresenter<BaseEngin, UnionComm
     }
 
 
-    public void getMemberList(Context context, String class_id, String status, String master_id, String type) {
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(final ResultInfo<StudentInfoWrapper> studentInfoWrapperResultInfo) {
-                handleResultInfo(studentInfoWrapperResultInfo, new Runnable() {
-                    @Override
-                    public void run() {
-                        mView.showMemberList(studentInfoWrapperResultInfo.data.getList());
-
-                    }
-                });
-            }
-        });
-        mSubscriptions.add(subscription);
-    }
-
-
     public void applyJoinGroup(final ClassInfo classInfo) {
         String name = "群";
         String masterName = "群主";
@@ -315,8 +288,10 @@ public class UnionCommonListPresenter extends BasePresenter<BaseEngin, UnionComm
     }
 
 
-    public void getMemberList(String class_id, String status, String master_id, String type) {
-        Subscription subscription = EngineUtils.getMemberList(mContext, class_id, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+
+
+    public void getMemberList(String class_id, String status,int page,int page_size, String master_id, String type) {
+        Subscription subscription = EngineUtils.getMemberList(mContext, class_id, page, page_size,status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -332,7 +307,7 @@ public class UnionCommonListPresenter extends BasePresenter<BaseEngin, UnionComm
                 handleResultInfo(studentInfoWrapperResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        mView.showVerifyResult(studentInfoWrapperResultInfo.data.getList());
+                        mView.showMemberList(studentInfoWrapperResultInfo.data.getList());
                     }
                 });
 

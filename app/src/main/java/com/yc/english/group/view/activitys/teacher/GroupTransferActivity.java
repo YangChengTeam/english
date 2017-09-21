@@ -57,15 +57,7 @@ public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroup
     }
 
     private void initListener() {
-        RxView.clicks(btnCreate).filter(new Func1<Void, Boolean>() {
-            @Override
-            public Boolean call(Void aVoid) {
-                if (TextUtils.isEmpty(etClassGroup.getText().toString().trim())) {
-                    TipsHelper.tips(GroupTransferActivity.this, transferName);
-                }
-                return !TextUtils.isEmpty(etClassGroup.getText().toString().trim());
-            }
-        }).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(btnCreate).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 mPresenter.transferGroup(GroupInfoHelper.getClassInfo().getClass_id(), GroupInfoHelper.getClassInfo().getMaster_id(), etClassGroup.getText().toString().trim());
@@ -79,10 +71,4 @@ public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroup
     }
 
 
-    @Override
-    public void showTransferResult() {
-        finish();
-        RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
-        RxBus.get().post(BusAction.GROUP_LIST, "transfer group");
-    }
 }

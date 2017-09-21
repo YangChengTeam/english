@@ -15,7 +15,7 @@ import java.util.List;
 public interface GroupForbidMemberContract {
     interface View extends IView, IDialog {
 
-        void showRollBackResult(String[] userId, String nickName, String groupId, boolean allForbid);
+        void showRollBackResult(String[] userId, String nickName, String groupId, int position, boolean allForbid);
 
         void showLisGagUserResult(List<GagGroupUser> users, List<StudentInfo> list);
 
@@ -25,7 +25,7 @@ public interface GroupForbidMemberContract {
     interface Presenter extends IPresenter {
         void addForbidMember(StudentInfo studentInfo, String minute, boolean flag);
 
-        void rollBackMember(String[] userId, String nickName, String groupId, boolean allForbid);
+        void rollBackMember(String[] userId, String nickName, String groupId, int position, boolean allForbid);
 
         void lisGagUser(String groupId, List<StudentInfo> list);
     }

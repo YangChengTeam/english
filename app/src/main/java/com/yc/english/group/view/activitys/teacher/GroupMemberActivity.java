@@ -70,7 +70,6 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             @Override
             public void onClick() {
                 Intent intent = new Intent(GroupMemberActivity.this, GroupManagerActivity.class);
-                intent.putExtra("group", GroupInfoHelper.getGroupInfo());
                 startActivity(intent);
             }
         });
@@ -123,6 +122,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
                 alertDialog.show();
             }
         });
+
 
     }
 
@@ -207,7 +207,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
     }
 
     private void getData() {
-        mPresenter.getMemberList(this, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getType());
+        mPresenter.getMemberList(this, GroupInfoHelper.getGroupInfo().getId(), 1, 1000, "1", "", GroupInfoHelper.getClassInfo().getType());
     }
 
 }

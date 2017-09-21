@@ -1,11 +1,18 @@
 package com.yc.english.group.presenter;
 
 import android.content.Context;
+import android.text.TextUtils;
 
+import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupTransferGroupContract;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.engin.GroupTransferGroupEngine;
+import com.yc.english.group.view.activitys.teacher.GroupTransferActivity;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -28,11 +35,19 @@ public class GroupTransferGroupPresenter extends BasePresenter<GroupTransferGrou
 
     @Override
     public void transferGroup(String class_id, String master_id, String user_name) {
-        mView.showLoadingDialog("正在转让班群，请稍候");
+
+
+        if (TextUtils.isEmpty(user_name)) {
+            TipsHelper.tips(mContext, GroupInfoHelper.getClassInfo().getType().equals("1") ?
+                    mContext.getResources().getString(R.string.recevicer_union_phone) : mContext.getResources().getString(R.string.recevicer_group_phone));
+            return;
+        }
+        mView.showLoadingDialog("正在" + (GroupInfoHelper.getClassInfo().getType().equals("1") ?
+                mContext.getResources().getString(R.string.transfer_union) : mContext.getResources().getString(R.string.transfer_group)) + "，请稍候");
         Subscription subscription = mEngin.transferGroup(class_id, master_id, user_name).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+
             }
 
             @Override
@@ -46,7 +61,11 @@ public class GroupTransferGroupPresenter extends BasePresenter<GroupTransferGrou
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        mView.showTransferResult();
+                        mView.dismissLoadingDialog();
+
+                        RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
+                        RxBus.get().post(BusAction.GROUP_LIST, "transfer group");
+                        mView.finish();
                     }
                 });
             }

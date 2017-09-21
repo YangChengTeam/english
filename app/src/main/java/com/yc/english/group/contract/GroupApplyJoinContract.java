@@ -30,7 +30,7 @@ public interface GroupApplyJoinContract {
 
         void queryGroupById(Context context, String id, String sn);
 
-        void getMemberList(String sn, String status, String master_id, String flag);
+        void getMemberList(String sn, String status,int page,int page_size, String master_id, String flag);
 
         void addForbidMember(StudentInfo studentInfo);
     }

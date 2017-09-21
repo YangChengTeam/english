@@ -121,5 +121,5 @@ dependencies {
     compile 'com.wang.avi:library:2.1.3'
     compile project(':guide')
     compile 'fm.jiecao:jiecaovideoplayer:5.8.1'
-
+    compile project(':sticker')
 }

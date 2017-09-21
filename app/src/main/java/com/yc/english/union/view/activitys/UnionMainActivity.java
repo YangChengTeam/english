@@ -58,18 +58,12 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
     StateView sViewLoading;
     @BindView(R.id.btn_create_class)
     Button btnCreateClass;
-    @BindView(R.id.btn_join_class)
-    Button btnJoinClass;
     @BindView(R.id.ll_empty_container)
     LinearLayout llEmptyContainer;
     @BindView(R.id.fiv_indicator)
     FixedIndicatorView fivIndicator;
     @BindView(R.id.viewpager)
     ViewPager viewpager;
-    @BindView(R.id.btn_create_class1)
-    Button btnCreateClass1;
-    @BindView(R.id.btn_join_class1)
-    Button btnJoinClass1;
     @BindView(R.id.ll_data_container)
     LinearLayout llDataContainer;
     @BindView(R.id.content_view)
@@ -82,7 +76,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
 
     private final String[] titles = new String[]{"所有的", "我创建的", "我参与的"};
 
-
     @Override
     public void init() {
 
@@ -90,15 +83,8 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
         mToolbar.setTitle(getString(R.string.english_union));
 
         mToolbar.showNavigationIcon();
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                Intent intent = new Intent(UnionMainActivity.this, GroupVerifyActivity.class);
-                intent.putExtra("type", "1");
-                startActivity(intent);
-            }
-        });
-        getData();
+
+        getData(true);
     }
 
 
@@ -160,7 +146,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
             }
     )
     public void getList(String group) {
-        getData();
+        getData(false);
     }
 
     private ArrayList<ClassInfo> mClassInfos;
@@ -182,23 +168,35 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
                 showCreateGuide();
             }
         }
-        initViewPager();
+        if (isFitst) {
+            initViewPager();
+        }
     }
 
     @Override
-    public void showMemberList(List<StudentInfo> count) {
+    public void showMemberList(final List<StudentInfo> studentInfoList) {
 
-        if (count != null && count.size() > 0) {
+        if (studentInfoList != null && studentInfoList.size() > 0) {
             mToolbar.setMenuIcon(R.mipmap.group65);
         } else {
             mToolbar.setMenuIcon(R.mipmap.group66);
         }
         invalidateOptionsMenu();
+
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
+            @Override
+            public void onClick() {
+                Intent intent = new Intent(UnionMainActivity.this, GroupVerifyActivity.class);
+                intent.putExtra("type", "1");
+                intent.putParcelableArrayListExtra("studentList", (ArrayList<StudentInfo>) studentInfoList);
+                startActivity(intent);
+            }
+        });
     }
 
 
     @Override
-    public void showUnionList1(List<ClassInfo> classInfos) {
+    public void showMyGroupList(List<ClassInfo> classInfos) {
 
     }
 
@@ -212,10 +210,6 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
 
     }
 
-    @Override
-    public void showVerifyResult(List<StudentInfo> list) {
-
-    }
 
     private void initViewPager() {
         fivIndicator.setAdapter(new MyAdapter());
@@ -269,7 +263,7 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
         sViewLoading.showNoNet(contentView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getData();
+                getData(true);
 
             }
         });
@@ -355,14 +349,14 @@ public class UnionMainActivity extends FullScreenActivity<UnionCommonListPresent
         }
     }
 
-    private void getData() {
+    private void getData(boolean isFirst) {
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (userInfo != null) {
             String uid = userInfo.getUid();
-            mPresenter.getUnionList("1", 1, 10, true);
-            mPresenter.getMemberList(this, "", "0", uid, "1");
+            mPresenter.getUnionList("1", 1, 10, isFirst);
+            mPresenter.getMemberList("", "0", 1, 10, uid, "1");
         } else {
-            showUnionList(null, 1, true);
+            showUnionList(null, 1, isFirst);
         }
     }
 

@@ -27,7 +27,7 @@ public class GroupDeleteMemberPresenter extends BasePresenter<BaseEngin, GroupDe
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
-        getMemberList(mContext, GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getType());
+        getMemberList(mContext, GroupInfoHelper.getGroupInfo().getId(), 1, 1000, "1", "", GroupInfoHelper.getClassInfo().getType());
     }
 
 
@@ -59,9 +59,9 @@ public class GroupDeleteMemberPresenter extends BasePresenter<BaseEngin, GroupDe
     }
 
     @Override
-    public void getMemberList(Context context, String class_id, String status, String master_id, String type) {
+    public void getMemberList(Context context, String class_id, int page, int page_size, String status, String master_id, String type) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id, page, page_size, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

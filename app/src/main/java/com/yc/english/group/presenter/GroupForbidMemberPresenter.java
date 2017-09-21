@@ -3,8 +3,11 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.hwangjr.rxbus.RxBus;
+import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupForbidMemberContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
@@ -37,7 +40,7 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
 
         if (!forceUpdate) return;
-        getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getType());
+        getMemberList(GroupInfoHelper.getGroupInfo().getId(), 1, 1000, "1", "", GroupInfoHelper.getClassInfo().getType());
     }
 
     @Override
@@ -67,8 +70,9 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
     }
 
     @Override
-    public void rollBackMember(final String[] userId, final String nickName, final String groupId, final boolean allForbid) {
+    public void rollBackMember(final String[] userId, final String nickName, final String groupId, final int position, final boolean allForbid) {
         mView.showLoadingDialog("正在解禁用户，请稍候...");
+
         Subscription subscription = mEngin.rollBackMember(userId, groupId).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<CodeSuccessResult>() {
             @Override
             public void onCompleted() {
@@ -83,7 +87,7 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
             @Override
             public void onNext(CodeSuccessResult codeSuccessResult) {
                 if (codeSuccessResult != null && codeSuccessResult.getCode() == 200) {
-                    mView.showRollBackResult(userId, nickName, groupId, allForbid);
+                    mView.showRollBackResult(userId, nickName, groupId, position, allForbid);
                 }
             }
         });
@@ -91,8 +95,8 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
     }
 
 
-    public void getMemberList(final String sn, String status, String master_id, String type) {
-        Subscription subscription = EngineUtils.getMemberList(mContext, sn, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+    public void getMemberList(final String sn, int page, int page_size, String status, String master_id, String type) {
+        Subscription subscription = EngineUtils.getMemberList(mContext, sn, page, page_size, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -158,8 +162,17 @@ public class GroupForbidMemberPresenter extends BasePresenter<GroupForbidMemberE
             }
 
             @Override
-            public void onNext(ResultInfo<RemoveGroupInfo> removeGroupInfoResultInfo) {
+            public void onNext(final ResultInfo<RemoveGroupInfo> removeGroupInfoResultInfo) {
+                handleResultInfo(removeGroupInfoResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        if (removeGroupInfoResultInfo != null && removeGroupInfoResultInfo.data != null) {
 
+                            GroupInfoHelper.getClassInfo().setIs_allow_talk(removeGroupInfoResultInfo.data.getIs_allow_talk());
+                        }
+                        RxBus.get().post(BusAction.GROUP_LIST, "forbid");
+                    }
+                });
             }
         });
         mSubscriptions.add(subscription);

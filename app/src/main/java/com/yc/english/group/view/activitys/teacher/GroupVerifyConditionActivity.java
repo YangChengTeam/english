@@ -34,7 +34,6 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
 
     private int currentConditon;
 
-
     @Override
     public void init() {
         mPresenter = new GroupChangeInfoPresenter(this, this);

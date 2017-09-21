@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.listener.OnCheckedChangeListener;
@@ -62,13 +63,19 @@ public class GroupForbidMemberAdapter extends IndexableAdapter<StudentInfo> {
 
         memberContentVH.ivDeleteSelect.setImageDrawable(entity.getIsForbid() ? mContext.getResources().getDrawable(R.mipmap.group73) : mContext.getResources().getDrawable(R.mipmap.group23));
 
-        memberContentVH.ivDeleteSelect.setTag(entity.getIsForbid());
+        memberContentVH.ivDeleteSelect.setTag(entity.getIsTempForbid());
 
+        if (!entity.getIsForbid()) {
+            memberContentVH.ivDeleteSelect.setImageDrawable(entity.getIsTempForbid() ? mContext.getResources().getDrawable(R.mipmap.group24) : mContext.getResources().getDrawable(R.mipmap.group23));
+        }
+
+        int position = holder.getLayoutPosition();
+
+        LogUtils.e(position + "---" + memberContentVH.ivDeleteSelect.getTag() + "--" + entity.getNick_name());
         if (!entity.getIsForbid()) {
             memberContentVH.llContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     if (onCheckedChangeListener != null) {
                         boolean flag = !(boolean) memberContentVH.ivDeleteSelect.getTag();
                         onCheckedChangeListener.onClick(memberContentVH.ivDeleteSelect, flag, entity);

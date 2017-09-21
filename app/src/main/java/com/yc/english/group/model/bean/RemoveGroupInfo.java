@@ -11,6 +11,7 @@ public class RemoveGroupInfo {
     private String class_id;
     private String class_name;
     private String face;
+    private int is_allow_talk;
 
     public String getMaster_id() {
         return master_id;
@@ -42,5 +43,13 @@ public class RemoveGroupInfo {
 
     public void setFace(String face) {
         this.face = face;
+    }
+
+    public int getIs_allow_talk() {
+        return is_allow_talk;
+    }
+
+    public void setIs_allow_talk(int is_allow_talk) {
+        this.is_allow_talk = is_allow_talk;
     }
 }

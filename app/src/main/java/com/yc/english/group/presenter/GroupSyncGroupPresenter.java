@@ -9,7 +9,9 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupSyncGroupContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoList;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.utils.EngineUtils;
+import com.yc.english.group.view.activitys.teacher.GroupSyncGroupListActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
@@ -30,12 +32,14 @@ public class GroupSyncGroupPresenter extends BasePresenter<BaseEngin, GroupSyncG
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
+        String uid = UserInfoHelper.getUserInfo().getUid();
+        getGroupList(mContext, uid, "2", GroupInfoHelper.getClassInfo().getType());
 
     }
 
-    public void getGroupList(Context context, String user_id, String role,String type) {
+    public void getGroupList(Context context, String user_id, String role, String type) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, role,type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
+        Subscription subscription = EngineUtils.getMyGroupList(context, user_id, role, type).subscribe(new Subscriber<ResultInfo<ClassInfoList>>() {
             @Override
 
             public void onCompleted() {
@@ -63,9 +67,10 @@ public class GroupSyncGroupPresenter extends BasePresenter<BaseEngin, GroupSyncG
                     @Override
                     public void reulstInfoOk() {
 
-                        List<ClassInfo> list = classInfoListResultInfo.data.getList();
-                        if (list != null && list.size() > 1) {
-                            mView.showMyGroupList(list);
+                        if (classInfoListResultInfo != null && classInfoListResultInfo.data != null
+                                && classInfoListResultInfo.data.getList() != null && classInfoListResultInfo.data.getList().size() > 1) {
+
+                            mView.showMyGroupList(classInfoListResultInfo.data.getList());
                             mView.hideStateView();
                         } else {
                             mView.showNoData();

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.IDialog;
+import com.yc.english.base.view.IFinish;
 import com.yc.english.base.view.IView;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 
@@ -13,7 +14,7 @@ import com.yc.english.group.model.bean.RemoveGroupInfo;
 
 public interface GroupChangeInfoContract {
 
-    interface View extends IView, IDialog {
+    interface View extends IView, IDialog,IFinish {
         void showChangeResult(RemoveGroupInfo data);
     }
 

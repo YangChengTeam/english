@@ -31,8 +31,8 @@ import com.yc.english.group.view.activitys.teacher.GroupCreateActivity;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.main.model.domain.UserInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -77,14 +77,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         mPresenter = new GroupMyGroupListPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group));
         mToolbar.showNavigationIcon();
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                Intent intent = new Intent(GroupMainActivity.this, GroupVerifyActivity.class);
-                intent.putExtra("type", "0");
-                startActivity(intent);
-            }
-        });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, true, null);
         recyclerView.setAdapter(adapter);
@@ -210,16 +203,30 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     }
 
 
-    @Override
-    public void showMemberList(List<StudentInfo> count) {
 
-        if (count != null && count.size() > 0) {
+
+    @Override
+    public void showMemberList(final List<StudentInfo> list) {
+
+        if (list != null && list.size() > 0) {
             mToolbar.setMenuIcon(R.mipmap.group65);
         } else {
             mToolbar.setMenuIcon(R.mipmap.group66);
         }
         invalidateOptionsMenu();
+
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
+            @Override
+            public void onClick() {
+                Intent intent = new Intent(GroupMainActivity.this, GroupVerifyActivity.class);
+                intent.putExtra("type", "0");
+                intent.putParcelableArrayListExtra("studentList", (ArrayList<StudentInfo>) list);
+                startActivity(intent);
+            }
+        });
     }
+
+
 
 
     @Subscribe(
@@ -251,7 +258,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         sViewLoading.showNoNet(contentView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadData(true);
+               mPresenter.loadData(true);
             }
         });
     }
@@ -265,6 +272,8 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     public void showLoading() {
         sViewLoading.showLoading(contentView);
     }
+
+
 
 
 }

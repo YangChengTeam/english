@@ -76,10 +76,9 @@ public class UnionFragment extends BaseFragment<UnionCommonListPresenter> implem
 
 
     private void getData() {
-
         if (UserInfoHelper.getUserInfo() != null) {
             String uid = UserInfoHelper.getUserInfo().getUid();
-            mPresenter.getUnionList1(uid, mType + "", "1");
+            mPresenter.getMyGroupList(uid, mType + "", "1");
         }
 
     }
@@ -103,7 +102,7 @@ public class UnionFragment extends BaseFragment<UnionCommonListPresenter> implem
     }
 
     @Override
-    public void showUnionList1(List<ClassInfo> classInfos) {
+    public void showMyGroupList(List<ClassInfo> classInfos) {
 
         adapter.setData(classInfos);
 
@@ -122,10 +121,6 @@ public class UnionFragment extends BaseFragment<UnionCommonListPresenter> implem
 
     }
 
-    @Override
-    public void showVerifyResult(List<StudentInfo> list) {
-
-    }
 
     @Override
     public void showLoadingDialog(String msg) {

@@ -1,5 +1,6 @@
 package com.yc.english.news.view.activity;
 
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -28,6 +30,7 @@ import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
+import com.yc.english.group.view.activitys.GroupPictureDetailActivity;
 import com.yc.english.news.adapter.NewsDetailAdapter;
 import com.yc.english.news.bean.CourseInfoWrapper;
 import com.yc.english.news.contract.NewsDetailContract;
@@ -37,6 +40,8 @@ import com.yc.english.news.view.widget.NewsScrollView;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,7 +83,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     private String title;
     private int screenHeight;
     private String id;
-    private long aLong;
 
     @Override
     public void init() {
@@ -87,7 +91,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mToolbar.setMenuTitle(getString(R.string.share));
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitleColor(R.color.black_333333);
-        aLong = System.currentTimeMillis();
+
         if (getIntent() != null) {
             CourseInfo courseInfo = getIntent().getParcelableExtra("info");
             id = courseInfo.getId();
@@ -162,15 +166,15 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     private String makeBody(String data) {
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("<html><head><meta charset=\"utf-8\" /><meta content=\"yes\" name=\"apple-mobile-web-app-capable\" />\n" +
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html><head><meta charset=\"utf-8\" /><meta content=\"yes\" name=\"apple-mobile-web-app-capable\" />\n" +
                 "    <meta content=\"yes\" name=\"apple-touch-fullscreen\" />\n" +
                 "    <meta content=\"telephone=no,email=no\" name=\"format-detection\" />\n" +
                 "    <meta name=\"App-Config\" content=\"fullscreen=yes,useHistoryState=yes,transition=yes\" /><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no\" />");
-        stringBuilder.append("<style> html,body{overflow:hidden;} img { width:100%; height:auto; overflow:hidden;}</style></head><body>");
-        stringBuilder.append(data);
-        stringBuilder.append("</body></html>");
-        return stringBuilder.toString();
+        sb.append("<style> html,body{overflow:hidden;} img { width:100%; height:auto; overflow:hidden;}</style></head><body>");
+        sb.append(data);
+        sb.append("</body></html>");
+        return sb.toString();
     }
 
     private void initWebView(final CourseInfoWrapper data) {
@@ -183,14 +187,14 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
 
         webView.addJavascriptInterface(new JavascriptInterface(), "HTML");
-//        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+
         //其他细节操作
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); //关闭webview中缓存 //优先使用缓存:
         webSettings.setAllowFileAccess(true); //设置可以访问文件
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
-        webSettings.setBlockNetworkImage(true);//设置不加载网络图片
+        webSettings.setBlockNetworkImage(true);//设置是否加载网络图片 true 为不加载 false 为加载
 
         String body = makeBody(data.getInfo().getBody());
         webView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null);
@@ -200,8 +204,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                view.loadUrl("javascript:window.HTML.getContentHeight(document.getElementByTagName('html')");
+//                view.loadUrl("javascript:window.HTML.getContentHeight(document.getElementsByTagName('html')[0].scrollHeight);");
+
 
                 initData(data.getInfo());
                 if (data.getRecommend() != null && data.getRecommend().size() > 0) {
@@ -212,7 +216,13 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                 }
 
                 webSettings.setBlockNetworkImage(false);
-                LogUtils.e("webView " + (System.currentTimeMillis() - aLong));
+
+                view.loadUrl("javascript:(function(){"
+                        + "var imgs=document.getElementsByTagName(\"img\");"
+                        + "for(var i=0;i<imgs.length;i++) " + "{"
+                        + "  imgs[i].onclick=function() " + "{ "
+                        + "    window.HTML.openImg(this.src); "
+                        + "   }  " + "}" + "}())");
 
             }
         });
@@ -256,7 +266,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     @Override
     public void showCourseResult(CourseInfoWrapper data) {
         initWebView(data);
-        LogUtils.e("showCourseResult " + (System.currentTimeMillis() - aLong));
 
     }
 
@@ -285,15 +294,24 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         stateView.showLoading(nestedScrollView);
     }
 
+    private ArrayList<String> imageList = new ArrayList<>();
 
     private class JavascriptInterface {
-        public void getContentHeight(String value) {
-            if (value != null) {
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) webView.getLayoutParams();
-                layoutParams.height = Integer.parseInt(value);
-                webView.setLayoutParams(layoutParams);
+
+        @android.webkit.JavascriptInterface
+        public void openImg(final String imgPath) {
+            if (imageList.indexOf(imgPath) == -1) {
+                imageList.add(imgPath);
             }
+            Intent intent = new Intent(NewsDetailActivity.this, GroupPictureDetailActivity.class);
+            intent.putExtra("mList", imageList);
+            intent.putExtra("position", imageList.indexOf(imgPath));
+            startActivity(intent);
+            LogUtils.e(imgPath);
+
+
         }
+
     }
 
     @Override

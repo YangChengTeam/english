@@ -16,10 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/group_distance_55"
         android:background="@color/white"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/group_distance_15"
-        android:paddingRight="@dimen/group_distance_30"
-        android:clickable="true">
+        android:paddingRight="@dimen/group_distance_30">
 
         <ImageView
             android:id="@+id/iv_delete_select"
@@ -40,7 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/group_distance_15"
             android:layout_weight="1"
-
+            android:ellipsize="end"
+            android:singleLine="true"
             android:textColor="@color/black_333333"
             android:textSize="@dimen/group_text_16" />
 

@@ -66,9 +66,4 @@ public class ConversationExFragment extends ConversationFragment {
         guidePopupWindow.show("plguin");
     }
 
-    @Override
-    public void onReadReceiptStateClick(Message message) {
-        super.onReadReceiptStateClick(message);
-        ToastUtils.showShort(message.getContent().toString());
-    }
 }

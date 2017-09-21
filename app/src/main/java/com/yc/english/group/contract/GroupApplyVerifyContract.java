@@ -1,7 +1,5 @@
 package com.yc.english.group.contract;
 
-import android.content.Context;
-
 import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.ILoading;
 import com.yc.english.base.view.INoData;
@@ -19,13 +17,12 @@ public interface GroupApplyVerifyContract {
     interface View extends IView, ILoading, INoData, INoNet {
         void showVerifyList(List<StudentInfo> list);
 
-        void showApplyResult(String data);
+        void showApplyResult(String data, int position);
     }
 
     interface Presenter extends IPresenter {
-        void getMemberList(Context context, String class_id, String status, String master_id, String flag);
 
-        void acceptApply(StudentInfo studentInfo);
+        void acceptApply(StudentInfo studentInfo,int position);
 
         void addForbidMember(StudentInfo studentInfo);
     }

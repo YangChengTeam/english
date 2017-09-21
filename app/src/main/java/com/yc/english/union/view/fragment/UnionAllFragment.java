@@ -117,31 +117,29 @@ public class UnionAllFragment extends BaseFragment<UnionCommonListPresenter> imp
             page++;
         }
         mPresenter.getUnionList(mType + "", page, page_size, isFirst);
-
     }
 
 
     private void initRecycleView(List<ClassInfo> classInfos) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new GroupUnionAdapter(classInfos);
+        adapter = new GroupUnionAdapter(null);
         recyclerView.setAdapter(adapter);
+        adapter.setNewData(classInfos);
         hideStateView();
+        adapter.disableLoadMoreIfNotFullPage(recyclerView);
     }
 
 
     @Override
     public void showUnionList(List<ClassInfo> data, int page, boolean isFitst) {
-        if (data != null && data.size() > 0) {
-            if (page == 1) {
-                adapter.setNewData(data);
-            } else {
-                adapter.addData(data);
-                if (data.size() >= page_size) {
-                    adapter.loadMoreComplete();
-                } else {
-                    adapter.loadMoreEnd();
-                }
-            }
+
+        if (page == 1) {
+            adapter.setNewData(data);
+        } else {
+            adapter.addData(data);
+        }
+        if (data.size() == page_size) {
+            adapter.loadMoreComplete();
         } else {
             adapter.loadMoreEnd();
         }
@@ -156,7 +154,7 @@ public class UnionAllFragment extends BaseFragment<UnionCommonListPresenter> imp
     }
 
     @Override
-    public void showUnionList1(List<ClassInfo> classInfos) {
+    public void showMyGroupList(List<ClassInfo> classInfos) {
     }
 
     @Override
@@ -184,9 +182,6 @@ public class UnionAllFragment extends BaseFragment<UnionCommonListPresenter> imp
         }
     }
 
-    @Override
-    public void showVerifyResult(List<StudentInfo> list) {
-    }
 
     @Override
     public void showLoadingDialog(String msg) {

@@ -40,14 +40,17 @@ public class EngineUtils {
      * 获取班群成员列表
      * status ：1 已审核
      * status ：0 未审核
-     * 查询好友请求列表时不用传sn
+     * 查询好友请求列表时不用传class_id
      * 查询具体某个班群时不用传master_id
+     * type 0为作业班群，1为英语公会，2为名师辅导
+     * page 分页的页码
+     *@param  page_size 每页请求的条数
      *
      * @param
      * @param status
      * @return sn群号
      */
-    public static Observable<ResultInfo<StudentInfoWrapper>> getMemberList(Context context, String class_id, String status, String master_id, String type) {
+    public static Observable<ResultInfo<StudentInfoWrapper>> getMemberList(Context context, String class_id, int page, int page_size, String status, String master_id, String type) {
 
         Map<String, String> params = new HashMap<>();
         params.put("status", status);
@@ -56,6 +59,9 @@ public class EngineUtils {
         if (!TextUtils.isEmpty(class_id))
             params.put("class_id", class_id);
         params.put("type", type);
+        params.put("page", page + "");
+        params.put("page_size", page_size + "");
+
 
         return HttpCoreEngin.get(context).rxpost(NetConstant.member_list, new TypeReference<ResultInfo<StudentInfoWrapper>>() {
         }.getType(), params, true, true, true);

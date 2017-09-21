@@ -3,13 +3,16 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.dao.ClassInfoDao;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
+import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupCreateContract;
 
 import com.yc.english.group.model.bean.ClassInfo;
@@ -56,6 +59,10 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
 
             ToastUtils.showShort("请输入" + name + "名称");
 
+            return;
+        }
+        if (!RegexUtils.isMatch(GroupConstant.REGEX_NAME, groupName)) {
+            TipsHelper.tips(mContext, "请输入中文、字母或数字组成的名称！");
             return;
         }
         mView.showLoadingDialog("正在创建" + name + "，请稍候");

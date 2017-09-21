@@ -5,10 +5,11 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.yc.english.R;
+import com.yc.english.group.view.widget.ZoomImageView;
 
 import java.util.List;
 
@@ -48,14 +49,13 @@ public class GroupPicTaskDetailAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        View view = View.inflate(mActivity, R.layout.group_task_picture_item, null);
+        View view = View.inflate(container.getContext(), R.layout.group_task_picture_item, null);
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.iv_picture_detail);
+        ZoomImageView imageView = (ZoomImageView) view.findViewById(R.id.iv_picture_detail);
         container.addView(view);
         String path = mList.get(position);
-
-        Glide.with(mActivity).load(path).into(imageView);
-        view.setOnClickListener(new View.OnClickListener() {
+        Glide.with(mActivity).setDefaultRequestOptions(RequestOptions.errorOf(R.mipmap.default_avatar)).asBitmap().load(path).into(imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mActivity.finish();

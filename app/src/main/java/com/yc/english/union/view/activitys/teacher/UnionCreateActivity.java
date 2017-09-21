@@ -43,7 +43,6 @@ public class UnionCreateActivity extends FullScreenActivity<GroupCreatePresenter
         RxView.clicks(btnCreate).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-
                 mPresenter.createGroup(UserInfoHelper.getUserInfo().getUid(), etClassGroup.getText().toString().trim(), "", "1");
             }
         });

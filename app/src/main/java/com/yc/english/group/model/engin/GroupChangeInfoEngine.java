@@ -18,8 +18,8 @@ import rx.Observable;
  * Created by wanglin  on 2017/8/4 15:48.
  */
 
-public class GroupResolvingEngine extends BaseEngin {
-    public GroupResolvingEngine(Context context) {
+public class GroupChangeInfoEngine extends BaseEngin {
+    public GroupChangeInfoEngine(Context context) {
         super(context);
     }
 

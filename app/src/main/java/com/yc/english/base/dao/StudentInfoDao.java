@@ -33,12 +33,14 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
         public final static Property User_id = new Property(6, String.class, "user_id", false, "USER_ID");
         public final static Property User_name = new Property(7, String.class, "user_name", false, "USER_NAME");
         public final static Property Class_name = new Property(8, String.class, "class_name", false, "CLASS_NAME");
-        public final static Property Sn = new Property(9, String.class, "sn", false, "SN");
+        public final static Property Class_sn = new Property(9, String.class, "class_sn", false, "CLASS_SN");
         public final static Property Master_id = new Property(10, String.class, "master_id", false, "MASTER_ID");
         public final static Property IsAudit = new Property(11, boolean.class, "isAudit", false, "IS_AUDIT");
         public final static Property Face = new Property(12, String.class, "face", false, "FACE");
         public final static Property IsForbid = new Property(13, boolean.class, "isForbid", false, "IS_FORBID");
         public final static Property ForbidTime = new Property(14, String.class, "forbidTime", false, "FORBID_TIME");
+        public final static Property IsSelected = new Property(15, boolean.class, "isSelected", false, "IS_SELECTED");
+        public final static Property IsTempForbid = new Property(16, boolean.class, "isTempForbid", false, "IS_TEMP_FORBID");
     }
 
 
@@ -63,12 +65,14 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
                 "\"USER_ID\" TEXT," + // 6: user_id
                 "\"USER_NAME\" TEXT," + // 7: user_name
                 "\"CLASS_NAME\" TEXT," + // 8: class_name
-                "\"SN\" TEXT," + // 9: sn
+                "\"CLASS_SN\" TEXT," + // 9: class_sn
                 "\"MASTER_ID\" TEXT," + // 10: master_id
                 "\"IS_AUDIT\" INTEGER NOT NULL ," + // 11: isAudit
                 "\"FACE\" TEXT," + // 12: face
                 "\"IS_FORBID\" INTEGER NOT NULL ," + // 13: isForbid
-                "\"FORBID_TIME\" TEXT);"); // 14: forbidTime
+                "\"FORBID_TIME\" TEXT," + // 14: forbidTime
+                "\"IS_SELECTED\" INTEGER NOT NULL ," + // 15: isSelected
+                "\"IS_TEMP_FORBID\" INTEGER NOT NULL );"); // 16: isTempForbid
     }
 
     /** Drops the underlying database table. */
@@ -122,9 +126,9 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
             stmt.bindString(9, class_name);
         }
  
-        String sn = entity.getSn();
-        if (sn != null) {
-            stmt.bindString(10, sn);
+        String class_sn = entity.getClass_sn();
+        if (class_sn != null) {
+            stmt.bindString(10, class_sn);
         }
  
         String master_id = entity.getMaster_id();
@@ -143,6 +147,8 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
         if (forbidTime != null) {
             stmt.bindString(15, forbidTime);
         }
+        stmt.bindLong(16, entity.getIsSelected() ? 1L: 0L);
+        stmt.bindLong(17, entity.getIsTempForbid() ? 1L: 0L);
     }
 
     @Override
@@ -190,9 +196,9 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
             stmt.bindString(9, class_name);
         }
  
-        String sn = entity.getSn();
-        if (sn != null) {
-            stmt.bindString(10, sn);
+        String class_sn = entity.getClass_sn();
+        if (class_sn != null) {
+            stmt.bindString(10, class_sn);
         }
  
         String master_id = entity.getMaster_id();
@@ -211,6 +217,8 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
         if (forbidTime != null) {
             stmt.bindString(15, forbidTime);
         }
+        stmt.bindLong(16, entity.getIsSelected() ? 1L: 0L);
+        stmt.bindLong(17, entity.getIsTempForbid() ? 1L: 0L);
     }
 
     @Override
@@ -230,12 +238,14 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // user_id
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // user_name
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // class_name
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // sn
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // class_sn
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // master_id
             cursor.getShort(offset + 11) != 0, // isAudit
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // face
             cursor.getShort(offset + 13) != 0, // isForbid
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // forbidTime
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // forbidTime
+            cursor.getShort(offset + 15) != 0, // isSelected
+            cursor.getShort(offset + 16) != 0 // isTempForbid
         );
         return entity;
     }
@@ -251,12 +261,14 @@ public class StudentInfoDao extends AbstractDao<StudentInfo, Long> {
         entity.setUser_id(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setUser_name(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setClass_name(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setSn(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setClass_sn(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setMaster_id(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setIsAudit(cursor.getShort(offset + 11) != 0);
         entity.setFace(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setIsForbid(cursor.getShort(offset + 13) != 0);
         entity.setForbidTime(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setIsSelected(cursor.getShort(offset + 15) != 0);
+        entity.setIsTempForbid(cursor.getShort(offset + 16) != 0);
      }
     
     @Override

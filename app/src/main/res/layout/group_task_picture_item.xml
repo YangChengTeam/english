@@ -4,11 +4,10 @@
     android:layout_height="match_parent">
 
 
-    <ImageView
+    <com.yc.english.group.view.widget.ZoomImageView
         android:id="@+id/iv_picture_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/default_avatar" />
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

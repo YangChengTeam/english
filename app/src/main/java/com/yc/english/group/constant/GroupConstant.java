@@ -40,4 +40,6 @@ public interface GroupConstant {
     String FORBID_MEMBER = "forbid_member";
 
 
+    String REGEX_NAME = "^[a-zA-Z0-9\\u4e00-\\u9fa5]+$";
+
 }
