@@ -13,7 +13,6 @@ import com.yc.english.news.bean.CourseInfoWrapper;
 
 public interface NewsDetailContract {
     interface View extends IView,ILoading,INoData,INoNet {
-
         void showCourseResult(CourseInfoWrapper data);
     }
 

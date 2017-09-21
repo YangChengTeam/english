@@ -18,7 +18,7 @@ public class BannerImageLoader extends ImageLoader {
         try {
             imageView.setBackgroundColor(Color.parseColor("#e0eaf4"));
             Glide.with(context).load(path).into(imageView);
-        }catch (Exception e){
+        } catch (Exception e){
             Log.e("BannerImageLoader",  e.getMessage());
         }
     }
