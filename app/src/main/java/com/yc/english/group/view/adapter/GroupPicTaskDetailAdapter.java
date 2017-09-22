@@ -13,6 +13,8 @@ import com.yc.english.group.view.widget.ZoomImageView;
 
 import java.util.List;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 
 /**
  * Created by wanglin  on 2017/7/24 17:37.
@@ -54,7 +56,9 @@ public class GroupPicTaskDetailAdapter extends PagerAdapter {
         ZoomImageView imageView = (ZoomImageView) view.findViewById(R.id.iv_picture_detail);
         container.addView(view);
         String path = mList.get(position);
-        Glide.with(mActivity).setDefaultRequestOptions(RequestOptions.errorOf(R.mipmap.default_avatar)).asBitmap().load(path).into(imageView);
+        Glide.with(mActivity).setDefaultRequestOptions(RequestOptions.errorOf(R.mipmap.default_avatar)
+                .placeholder(R.mipmap.pic_loading)).asBitmap().load(path).into(imageView);
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

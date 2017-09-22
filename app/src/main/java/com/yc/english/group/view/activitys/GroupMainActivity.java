@@ -81,7 +81,6 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, true, null);
         recyclerView.setAdapter(adapter);
-
         initListener();
     }
 

@@ -4,13 +4,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -22,26 +21,27 @@ import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.GroupInfoHelper;
+import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupApplyJoinPresenter;
 import com.yc.english.group.rong.models.GroupInfo;
 import com.yc.english.group.view.activitys.teacher.GroupMemberActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
-import io.rong.message.RichContentMessage;
 
 
 /**
  * Created by wanglin  on 2017/7/17 17:06.
  */
 
-public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> implements BaseToolBar.OnItemClickLisener, GroupApplyJoinContract.View {
+public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> implements GroupApplyJoinContract.View, BaseToolBar.OnItemClickLisener {
 
     private static final String TAG = "ChatActivity";
 
@@ -136,11 +136,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
         return R.layout.group_activity_chat;
     }
 
-    @Override
-    public void onClick() {
-        Intent intent = new Intent(this, GroupMemberActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public void showGroup(ClassInfo classInfo) {
@@ -152,9 +147,10 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
         }
     }
 
+    private List<StudentInfo> studentInfoList;
 
     @Override
-    public void showMemberList(final List<UserInfo> list) {
+    public void showMemberList(final List<UserInfo> list, final List<StudentInfo> dataList) {
         RongIM.getInstance().setGroupMembersProvider(new RongIM.IGroupMembersProvider() {
             @Override
             public void getGroupMembers(String groupId, RongIM.IGroupMemberCallback callback) {
@@ -162,6 +158,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
                 callback.onGetGroupMembersResult(list); // 调用 callback 的 onGetGroupMembersResult 回传群组信息
             }
         });
+        studentInfoList = dataList;
     }
 
     @Subscribe(
@@ -186,4 +183,10 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
         mToolbar.setTitle(result);
     }
 
+    @Override
+    public void onClick() {
+        Intent intent = new Intent(ChatActivity.this, GroupMemberActivity.class);
+        intent.putParcelableArrayListExtra("studentList", (ArrayList) studentInfoList);
+        startActivity(intent);
+    }
 }

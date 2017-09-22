@@ -1,6 +1,7 @@
 package com.yc.english.group.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,10 @@ import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
+import com.yc.english.group.view.activitys.GroupPictureDetailActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +58,7 @@ public class GroupMemberAdapter extends IndexableAdapter<StudentInfo> {
     }
 
     @Override
-    public void onBindContentViewHolder(RecyclerView.ViewHolder holder, StudentInfo entity) {
+    public void onBindContentViewHolder(RecyclerView.ViewHolder holder, final StudentInfo entity) {
         MemberContentVH memberContentVH = (MemberContentVH) holder;
         GlideHelper.circleImageView(mContext, memberContentVH.ivMemberImg, entity.getFace(), R.mipmap.default_avatar);
         memberContentVH.tvMemberName.setText(entity.getNick_name());
@@ -64,6 +69,7 @@ public class GroupMemberAdapter extends IndexableAdapter<StudentInfo> {
         }
         memberContentVH.tvMemberPhone.setText(entity.getUser_name());
         memberContentVH.tvMemberPhone.setVisibility(entity.getUser_name().equals(entity.getNick_name()) ? View.GONE : View.VISIBLE);
+
     }
 
     private class MemberTitleVH extends RecyclerView.ViewHolder {

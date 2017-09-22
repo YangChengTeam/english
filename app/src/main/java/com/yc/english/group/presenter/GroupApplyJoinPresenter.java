@@ -150,7 +150,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
 
     @Override
     public void getMemberList(String sn, String status, int page, int page_size, String master_id, String type) {
-        Subscription subscription = EngineUtils.getMemberList(mContext, sn, page, page_size, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(mContext, sn, page, page_size, status, master_id, type).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -172,7 +172,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
                             for (StudentInfo studentInfo : data.getList()) {
                                 list.add(new UserInfo(studentInfo.getUser_id(), studentInfo.getNick_name(), Uri.parse(studentInfo.getFace())));
                             }
-                            mView.showMemberList(list);
+                            mView.showMemberList(list, data.getList());
                         }
                     }
                 });

@@ -3,15 +3,10 @@ package com.yc.english.news.view.activity;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -41,10 +36,8 @@ import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
@@ -83,6 +76,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     private String title;
     private int screenHeight;
     private String id;
+    private long startTime;
 
     @Override
     public void init() {
@@ -92,12 +86,14 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitleColor(R.color.black_333333);
 
+        startTime = System.currentTimeMillis();
+
         if (getIntent() != null) {
             CourseInfo courseInfo = getIntent().getParcelableExtra("info");
             id = courseInfo.getId();
             mPresenter.getWeixinInfo(id);
         }
-        Utils.init(this);
+
         screenHeight = ScreenUtils.getScreenHeight();
 
         initRecycleView();
@@ -201,19 +197,12 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         webView.setWebViewClient(new WebViewClient() {
 
-
             @Override
             public void onPageFinished(WebView view, String url) {
 //                view.loadUrl("javascript:window.HTML.getContentHeight(document.getElementsByTagName('html')[0].scrollHeight);");
 
-
-                initData(data.getInfo());
-                if (data.getRecommend() != null && data.getRecommend().size() > 0) {
-                    newsDetailAdapter.setData(data.getRecommend());
-                    mLlRecommend.setVisibility(View.VISIBLE);
-                } else {
-                    mLlRecommend.setVisibility(View.GONE);
-                }
+                llRootView.setVisibility(View.VISIBLE);
+                LogUtils.e("startTime-->" + (System.currentTimeMillis() - startTime));
 
                 webSettings.setBlockNetworkImage(false);
 
@@ -266,7 +255,13 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     @Override
     public void showCourseResult(CourseInfoWrapper data) {
         initWebView(data);
-
+        initData(data.getInfo());
+        if (data.getRecommend() != null && data.getRecommend().size() > 0) {
+            newsDetailAdapter.setData(data.getRecommend());
+            mLlRecommend.setVisibility(View.VISIBLE);
+        } else {
+            mLlRecommend.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -317,7 +312,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mMediaPlayerView.destory();
+        mMediaPlayerView.destroy();
         if (webView != null) {
             webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
             webView.clearHistory();

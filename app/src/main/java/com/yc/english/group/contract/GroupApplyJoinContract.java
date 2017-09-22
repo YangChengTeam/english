@@ -22,7 +22,7 @@ public interface GroupApplyJoinContract {
     interface View extends IView, IDialog, IFinish {
         void showGroup(ClassInfo classInfo);
 
-        void showMemberList(List<UserInfo> list);
+        void showMemberList(List<UserInfo> list, List<StudentInfo> dataList);
     }
 
     interface Presenter extends IPresenter {

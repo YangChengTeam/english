@@ -65,15 +65,6 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         mToolbar.setTitle(GroupInfoHelper.getGroupInfo().getName());
         mToolbar.showNavigationIcon();
 
-
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                Intent intent = new Intent(GroupMemberActivity.this, GroupManagerActivity.class);
-                startActivity(intent);
-            }
-        });
-
         ClassInfo classInfo = GroupInfoHelper.getClassInfo();
         if (classInfo != null && classInfo.getMaster_id() != null) {
             if (classInfo.getMaster_id().equals(UserInfoHelper.getUserInfo().getUid())) {
@@ -99,11 +90,33 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
         adapter = new GroupMemberAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setOverlayStyle_Center();
+        if (getIntent() != null) {
+            List<StudentInfo> list = getIntent().getParcelableArrayListExtra("studentList");
+            if (list != null && list.size() > 0) {
 
-        getData();
+                setRecyclerViewData(list);
+                stateView.setVisibility(View.GONE);
+            } else {
+                stateView.setVisibility(View.VISIBLE);
+                getData();
+
+            }
+        }
 
         initListener();
 
+    }
+
+    private void setRecyclerViewData(List<StudentInfo> list) {
+        if (simpleHeaderAdapter != null) {
+            recyclerView.removeHeaderAdapter(simpleHeaderAdapter);
+        }
+
+        simpleHeaderAdapter = new SimpleHeaderAdapter<>(adapter, null, null, list.subList(0, 1));
+
+        recyclerView.addHeaderAdapter(simpleHeaderAdapter);
+        list.remove(0);
+        adapter.setDatas(list);
     }
 
     private void initListener() {
@@ -123,6 +136,13 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
             }
         });
 
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
+            @Override
+            public void onClick() {
+                Intent intent = new Intent(GroupMemberActivity.this, GroupManagerActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -135,15 +155,7 @@ public class GroupMemberActivity extends FullScreenActivity<GroupMyMemberListPre
 
     @Override
     public void showMemberList(List<StudentInfo> list) {
-        if (simpleHeaderAdapter != null) {
-            recyclerView.removeHeaderAdapter(simpleHeaderAdapter);
-        }
-
-        simpleHeaderAdapter = new SimpleHeaderAdapter<>(adapter, null, null, list.subList(0, 1));
-
-        recyclerView.addHeaderAdapter(simpleHeaderAdapter);
-        list.remove(0);
-        adapter.setDatas(list);
+        setRecyclerViewData(list);
     }
 
     @Subscribe(

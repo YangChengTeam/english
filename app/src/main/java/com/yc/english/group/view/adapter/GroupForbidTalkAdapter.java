@@ -33,6 +33,5 @@ public class GroupForbidTalkAdapter extends BaseQuickAdapter<StudentInfo, BaseVi
         holder.setText(R.id.m_tv_forbid_time, String.format(str, studentInfo.getForbidTime()))
                 .setText(R.id.m_tv_forbid_name, studentInfo.getNick_name())
                 .addOnClickListener(R.id.m_tv_stop_forbid);
-
     }
 }

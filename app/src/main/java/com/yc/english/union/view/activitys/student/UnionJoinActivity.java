@@ -19,8 +19,8 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupApplyJoinPresenter;
-import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -144,7 +144,7 @@ public class UnionJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
     }
 
     @Override
-    public void showMemberList(List<UserInfo> list) {
+    public void showMemberList(List<UserInfo> list, List<StudentInfo> dataList) {
 
     }
 }

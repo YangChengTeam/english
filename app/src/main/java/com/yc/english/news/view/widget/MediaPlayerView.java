@@ -25,6 +25,7 @@ import java.util.TimerTask;
  */
 
 public class MediaPlayerView extends LinearLayout {
+    private static final String TAG = "MediaPlayerView";
     private Context mContext;
     private boolean isPlay;
     private MediaPlayer mediaPlayer;
@@ -35,6 +36,8 @@ public class MediaPlayerView extends LinearLayout {
     private TextView mTextViewTime;
     private ImageView mImageView;
     private Handler handler = new Handler(Looper.getMainLooper());
+    private long startTime;
+    private MyRunnable myRunnable;
 
     public MediaPlayerView(Context context) {
         this(context, null);
@@ -55,8 +58,9 @@ public class MediaPlayerView extends LinearLayout {
         mImageView = (ImageView) view.findViewById(R.id.mImageView);
         mSeekBar = (SeekBar) view.findViewById(R.id.mSeekBar);
         mTextViewTime = (TextView) view.findViewById(R.id.mTextViewTime);
-        mSeekBar.setOnSeekBarChangeListener(new MySeekbarListenter());
+        mSeekBar.setOnSeekBarChangeListener(new MySeekBarListener());
         addView(view);
+
 
     }
 
@@ -72,10 +76,7 @@ public class MediaPlayerView extends LinearLayout {
                 isPlay = !isPlay;
 
                 if (isPlay) {
-                    mImageView.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.media_play));
-                    isChanging = false;
-
-                    mediaPlayer.start();// 开始
+                    setPlay();
                 } else {
                     mImageView.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.media_stop));
                     stop();
@@ -95,7 +96,7 @@ public class MediaPlayerView extends LinearLayout {
     }
 
     //进度条处理
-    private class MySeekbarListenter implements SeekBar.OnSeekBarChangeListener {
+    private class MySeekBarListener implements SeekBar.OnSeekBarChangeListener {
         public void onProgressChanged(SeekBar seekBar, int progress,
                                       boolean fromUser) {
         }
@@ -106,9 +107,18 @@ public class MediaPlayerView extends LinearLayout {
 
         public void onStopTrackingTouch(SeekBar seekBar) {
             mediaPlayer.seekTo(seekBar.getProgress());
-            isChanging = false;
+            mTextViewTime.setText(TimeUtils.millis2String(mediaPlayer.getCurrentPosition(), new SimpleDateFormat("mm:ss")));
+            setPlay();
+            isPlay = true;
         }
 
+    }
+
+    private void setPlay() {
+        mImageView.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.media_play));
+        isChanging = false;
+
+        mediaPlayer.start();// 开始
     }
 
     /**
@@ -120,40 +130,43 @@ public class MediaPlayerView extends LinearLayout {
 
         mediaPlayer = new MediaPlayer();
 
-
         try {
-
             mediaPlayer.reset();
             mediaPlayer.setDataSource(path);
 
-            mediaPlayer.prepare();// 准备
+            mediaPlayer.prepareAsync();// 准备
 
-            mSeekBar.setMax(mediaPlayer.getDuration());//设置进度条
-
-            mTextViewTime.setText(TimeUtils.millis2String(mediaPlayer.getDuration(), new SimpleDateFormat("mm:ss")));
-            //----------定时器记录播放进度---------//
-            mTimer = new Timer();
-
-            mTimerTask = new TimerTask() {
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
-                public void run() {
-                    if (isChanging) {
-                        return;
-                    }
-                    mSeekBar.setProgress(mediaPlayer.getCurrentPosition());
-                    handler.post(new Runnable() {
+                public void onPrepared(final MediaPlayer mp) {
+
+                    mSeekBar.setMax(mp.getDuration());//设置进度条
+
+
+                    mTextViewTime.setText(TimeUtils.millis2String(mp.getDuration(), new SimpleDateFormat("mm:ss")));
+                    //----------定时器记录播放进度---------//
+                    mTimer = new Timer();
+
+                    mTimerTask = new TimerTask() {
                         @Override
                         public void run() {
-                            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-
-                                mTextViewTime.setText(TimeUtils.millis2String(mediaPlayer.getCurrentPosition(), new SimpleDateFormat("mm:ss")));
+                            if (isChanging) {
+                                return;
                             }
+                            mSeekBar.setProgress(mp.getCurrentPosition());
+                            myRunnable = new MyRunnable(mp);
+                            handler.post(myRunnable);
+
+
+
                         }
-                    });
+                    };
+                    mTimer.schedule(mTimerTask, 0, 10);
+
 
                 }
-            };
-            mTimer.schedule(mTimerTask, 0, 10);
+            });
+
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
@@ -170,14 +183,33 @@ public class MediaPlayerView extends LinearLayout {
 
     }
 
+    private class MyRunnable implements Runnable {
+        private MediaPlayer mMediaPlayer;
 
-    public void destory() {
+        private MyRunnable(MediaPlayer mp) {
+            this.mMediaPlayer = mp;
+
+        }
+
+        @Override
+        public void run() {
+
+            if (mediaPlayer != null && mMediaPlayer.isPlaying()) {
+                mTextViewTime.setText(TimeUtils.millis2String(mMediaPlayer.getCurrentPosition(), new SimpleDateFormat("mm:ss")));
+            }
+        }
+    }
+
+
+    public void destroy() {
         isChanging = true;
+
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
         }
+        handler.removeCallbacks(myRunnable);
         if (mTimerTask != null) {
             mTimerTask.cancel();
             mTimerTask = null;

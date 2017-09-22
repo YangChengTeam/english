@@ -96,9 +96,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/group_distance_2"
                     android:layout_marginRight="@dimen/group_distance_20"
                     android:layout_toLeftOf="@id/iv_arrow_name"
-                    android:text="一年级5班"
+                    android:layout_toRightOf="@id/m_tv_group_name"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:maxLines="1"
                     android:textColor="@color/group_gray_999"
                     android:textSize="@dimen/group_text_14" />
             </RelativeLayout>
