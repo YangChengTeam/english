@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.Toast;
 
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
@@ -19,11 +18,7 @@ import com.yc.english.group.constant.BusAction;
 import java.io.File;
 import java.util.List;
 
-import io.rong.imkit.activity.FilePreviewActivity;
 import io.rong.imkit.model.FileInfo;
-import io.rong.imlib.model.Conversation;
-import io.rong.imlib.model.Message;
-import io.rong.message.FileMessage;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 

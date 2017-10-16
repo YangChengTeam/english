@@ -1,6 +1,7 @@
 package com.yc.english.group.view.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,12 +62,14 @@ public class GroupForbidMemberAdapter extends IndexableAdapter<StudentInfo> {
         memberContentVH.tvMemberOwner.setVisibility(View.GONE);
         memberContentVH.viewDivider.setVisibility(View.VISIBLE);
 
-        memberContentVH.ivDeleteSelect.setImageDrawable(entity.getIsForbid() ? mContext.getResources().getDrawable(R.mipmap.group73) : mContext.getResources().getDrawable(R.mipmap.group23));
+        memberContentVH.ivDeleteSelect.setImageDrawable(entity.getIsForbid() ?
+                ContextCompat.getDrawable(mContext,R.mipmap.group73) :  ContextCompat.getDrawable(mContext,R.mipmap.group23));
 
         memberContentVH.ivDeleteSelect.setTag(entity.getIsTempForbid());
 
         if (!entity.getIsForbid()) {
-            memberContentVH.ivDeleteSelect.setImageDrawable(entity.getIsTempForbid() ? mContext.getResources().getDrawable(R.mipmap.group24) : mContext.getResources().getDrawable(R.mipmap.group23));
+            memberContentVH.ivDeleteSelect.setImageDrawable(entity.getIsTempForbid() ?
+                    ContextCompat.getDrawable(mContext,R.mipmap.group24) :  ContextCompat.getDrawable(mContext,R.mipmap.group23));
         }
 
         int position = holder.getLayoutPosition();

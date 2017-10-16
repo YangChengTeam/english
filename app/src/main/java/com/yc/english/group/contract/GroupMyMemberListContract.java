@@ -9,7 +9,6 @@ import com.yc.english.base.view.ILoading;
 import com.yc.english.base.view.INoData;
 import com.yc.english.base.view.INoNet;
 import com.yc.english.base.view.IView;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 
 import java.util.List;

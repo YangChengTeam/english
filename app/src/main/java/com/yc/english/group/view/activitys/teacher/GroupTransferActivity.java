@@ -1,18 +1,14 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.text.InputFilter;
-import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupTransferGroupContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.presenter.GroupTransferGroupPresenter;
@@ -21,7 +17,6 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by wanglin  on 2017/7/27 14:04.
@@ -36,7 +31,6 @@ public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroup
     @BindView(R.id.btn_create)
     Button btnCreate;
 
-    private String transferName = "";
 
     @Override
     public void init() {
@@ -45,9 +39,11 @@ public class GroupTransferActivity extends FullScreenActivity<GroupTransferGroup
         mToolbar.setTitle(GroupInfoHelper.getClassInfo().getType().equals("1") ?
                 getResources().getString(R.string.transfer_union) : getResources().getString(R.string.transfer_group));
         mToolbar.showNavigationIcon();
+
         btnCreate.setText(getResources().getString(R.string.confirm_transfer));
-        transferName = GroupInfoHelper.getClassInfo().getType().equals("1") ?
-                getResources().getString(R.string.recevicer_union_phone) : getResources().getString(R.string.recevicer_group_phone);
+
+        String transferName = GroupInfoHelper.getClassInfo().getType().equals("1") ?
+                getResources().getString(R.string.receive_union_phone) : getResources().getString(R.string.receive_group_phone);
         etClassGroup.setHint(transferName);
         etClassGroup.setInputType(EditorInfo.TYPE_CLASS_PHONE);
 

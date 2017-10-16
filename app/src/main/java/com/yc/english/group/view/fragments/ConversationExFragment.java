@@ -3,23 +3,29 @@ package com.yc.english.group.view.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.kk.guide.GuideCallback;
 import com.kk.guide.GuidePopupWindow;
 import com.kk.guide.GuideView;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 
+import io.rong.imkit.InputBar;
 import io.rong.imkit.RongExtension;
 import io.rong.imkit.fragment.ConversationFragment;
-import io.rong.imlib.model.Message;
+import io.rong.imkit.plugin.IPluginModule;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.CustomServiceMode;
 
 /**
  * Created by wanglin  on 2017/8/31 16:19.
@@ -27,15 +33,17 @@ import io.rong.imlib.model.Message;
 
 public class ConversationExFragment extends ConversationFragment {
 
+    private static final String TAG = "ConversationExFragment";
     private ImageView iv;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        RongExtension rongExtension = (RongExtension) view.findViewById(io.rong.imkit.R.id.rc_extension);
-        iv = (ImageView) rongExtension.findViewById(io.rong.imkit.R.id.rc_plugin_toggle);
-
+        if (view != null) {
+            RongExtension rongExtension = (RongExtension) view.findViewById(io.rong.imkit.R.id.rc_extension);
+            iv = (ImageView) rongExtension.findViewById(io.rong.imkit.R.id.rc_plugin_toggle);
+        }
 
         return view;
     }
@@ -66,4 +74,23 @@ public class ConversationExFragment extends ConversationFragment {
         guidePopupWindow.show("plguin");
     }
 
+    @Override
+    public void onVoiceInputToggleTouch(View v, MotionEvent event) {
+
+        if (GroupInfoHelper.getClassInfo().getIs_allow_talk() == 0) {
+            TipsHelper.tips(getActivity(), GroupConstant.FORBID_CONTENT);
+            return;
+        }
+        super.onVoiceInputToggleTouch(v, event);
+    }
+
+
+    @Override
+    public void onSendToggleClick(View v, String text) {
+        if (GroupInfoHelper.getClassInfo().getIs_allow_talk() == 0) {
+            TipsHelper.tips(getActivity(), GroupConstant.FORBID_CONTENT);
+            return;
+        }
+        super.onSendToggleClick(v, text);
+    }
 }

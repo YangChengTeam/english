@@ -15,7 +15,7 @@ import com.yc.english.group.model.bean.RemoveGroupInfo;
 public interface GroupChangeInfoContract {
 
     interface View extends IView, IDialog,IFinish {
-        void showChangeResult(RemoveGroupInfo data);
+        void showChangeResult(RemoveGroupInfo data, String vali_type);
     }
 
     interface Presenter extends IPresenter {

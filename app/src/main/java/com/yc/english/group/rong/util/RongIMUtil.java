@@ -1,7 +1,5 @@
 package com.yc.english.group.rong.util;
 
-import android.text.TextUtils;
-
 import com.yc.english.group.constant.RongConstant;
 import com.yc.english.group.rong.RongCloud;
 import com.yc.english.group.rong.models.CodeSuccessResult;
@@ -14,8 +12,6 @@ import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.message.InformationNotificationMessage;
 import rx.Observable;
-import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 

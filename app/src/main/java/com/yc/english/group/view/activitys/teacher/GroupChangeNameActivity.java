@@ -15,7 +15,6 @@ import com.yc.english.group.contract.GroupChangeInfoContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.presenter.GroupChangeInfoPresenter;
-import com.yc.english.group.rong.models.GroupInfo;
 
 import java.util.concurrent.TimeUnit;
 
@@ -76,7 +75,7 @@ public class GroupChangeNameActivity extends FullScreenActivity<GroupChangeInfoP
 
 
     @Override
-    public void showChangeResult(RemoveGroupInfo data) {
+    public void showChangeResult(RemoveGroupInfo data, String vali_type) {
         RxBus.get().post(BusAction.CHANGE_NAME, data.getClass_name());
         RxBus.get().post(BusAction.GROUP_LIST, "changeName");
         finish();

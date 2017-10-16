@@ -90,7 +90,6 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     ImageView mIvGrade;
 
 
-    private List<Uri> uriList;
     private GroupVoiceAdapter voiceAdapter;
     private GroupFileAdapter fileAdapter;
     private GroupPictureAdapter adapter;
@@ -279,7 +278,7 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
 
         if (requestCode == 300 && resultCode == -1 && data != null) {
 
-            uriList = data.getParcelableArrayListExtra("android.intent.extra.RETURN_RESULT");
+            List<Uri> uriList = data.getParcelableArrayListExtra("android.intent.extra.RETURN_RESULT");
 
             if (uriList != null && uriList.size() > 0) {
                 for (Uri uri : uriList) {

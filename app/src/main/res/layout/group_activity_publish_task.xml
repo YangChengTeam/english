@@ -12,6 +12,7 @@
     <com.yc.english.base.view.StateView
         android:id="@+id/stateView"
         android:layout_width="match_parent"
+        android:background="@color/group_gray_e6f2fb"
         android:layout_height="match_parent" />
 
     <android.support.v7.widget.RecyclerView

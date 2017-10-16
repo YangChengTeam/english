@@ -16,7 +16,6 @@ import com.yc.english.group.model.bean.TaskInfoWrapper;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.model.engin.GroupTaskPublishEngine;
 import com.yc.english.group.utils.EngineUtils;
-import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.io.File;
 import java.util.List;
@@ -42,7 +41,6 @@ public class GroupTaskPublishPresenter extends BasePresenter<GroupTaskPublishEng
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
-        if (!forceUpdate) return;
 
     }
 

@@ -6,6 +6,7 @@ import android.hardware.SensorManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -16,7 +17,6 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.TimeUtils;
-import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.kk.securityhttp.net.contains.HttpConfig;
@@ -46,6 +46,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  */
 
 public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> implements NewsDetailContract.View {
+    private static final String TAG = "NewsDetailActivity";
     @BindView(R.id.mJCVideoPlayer)
     JCVideoPlayerStandard mJCVideoPlayer;
     @BindView(R.id.webView)
@@ -100,7 +101,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         initListener();
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
-
     }
 
 
@@ -142,6 +142,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             public void onScrollChange(int l, int t, int oldl, int oldt) {
                 if (t > screenHeight / 2) {
                     mToolbar.setTitle(title);
+
                 } else {
                     mToolbar.setTitle("");
                 }
@@ -159,6 +160,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mRecyclerView.addItemDecoration(itemDecoration);
 
     }
+
 
     private String makeBody(String data) {
 
@@ -202,9 +204,10 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 //                view.loadUrl("javascript:window.HTML.getContentHeight(document.getElementsByTagName('html')[0].scrollHeight);");
 
                 llRootView.setVisibility(View.VISIBLE);
-                LogUtils.e("startTime-->" + (System.currentTimeMillis() - startTime));
 
                 webSettings.setBlockNetworkImage(false);
+
+                LogUtils.e("startTime-->" + (System.currentTimeMillis() - startTime));
 
                 view.loadUrl("javascript:(function(){"
                         + "var imgs=document.getElementsByTagName(\"img\");"
@@ -298,39 +301,15 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             if (imageList.indexOf(imgPath) == -1) {
                 imageList.add(imgPath);
             }
+            Log.e(TAG, "openImg: "+imgPath );
             Intent intent = new Intent(NewsDetailActivity.this, GroupPictureDetailActivity.class);
             intent.putExtra("mList", imageList);
             intent.putExtra("position", imageList.indexOf(imgPath));
             startActivity(intent);
-            LogUtils.e(imgPath);
-
 
         }
 
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mMediaPlayerView.destroy();
-        if (webView != null) {
-            webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
-            webView.clearHistory();
-
-            llRootView.removeView(webView);
-            webView.destroy();
-        }
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        if (JCVideoPlayer.backPress()) {
-            return;
-        }
-        super.onBackPressed();
-    }
-
 
     private JCVideoPlayer.JCAutoFullscreenListener mSensorEventListener;
 
@@ -353,4 +332,24 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         JCVideoPlayer.clearSavedProgress(this, null);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mMediaPlayerView.destroy();
+        if (webView != null) {
+            webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
+            webView.clearHistory();
+
+            llRootView.removeView(webView);
+            webView.destroy();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
 }

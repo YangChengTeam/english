@@ -1,7 +1,6 @@
 package com.yc.english.group.view.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +12,6 @@ import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
-import com.yc.english.group.view.activitys.GroupPictureDetailActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

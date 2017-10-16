@@ -2,18 +2,13 @@ package com.yc.english.group.view.activitys.teacher;
 
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.contract.GroupCreateContract;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.presenter.GroupCreatePresenter;
 import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.union.view.activitys.teacher.UnionCreateActivity;
 
 import java.util.concurrent.TimeUnit;
 

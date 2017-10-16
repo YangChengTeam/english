@@ -2,7 +2,6 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.model.BaseEngin;

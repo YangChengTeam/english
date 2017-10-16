@@ -1,14 +1,11 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.media.Image;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
@@ -26,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import me.yokeyword.indexablerv.IndexableAdapter;
 import me.yokeyword.indexablerv.IndexableLayout;
 
 /**
@@ -66,12 +62,12 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupGetForbid
             public void onClick(View view, boolean isClicked, StudentInfo studentInfo) {
                 if (view instanceof ImageView) {
                     if (isClicked) {
-                        ((ImageView) view).setImageDrawable(getResources().getDrawable(R.mipmap.group24));
+                        ((ImageView) view).setImageDrawable(ContextCompat.getDrawable(GroupForbidMemberActivity.this, R.mipmap.group24));
                         count++;
                         studentInfos.add(studentInfo);
                         studentInfo.setIsTempForbid(true);
                     } else {
-                        ((ImageView) view).setImageDrawable(getResources().getDrawable(R.mipmap.group23));
+                        ((ImageView) view).setImageDrawable(ContextCompat.getDrawable(GroupForbidMemberActivity.this, R.mipmap.group23));
                         count--;
                         studentInfos.remove(studentInfo);
                         studentInfo.setIsTempForbid(false);
@@ -157,7 +153,7 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupGetForbid
     private void setMenuTitle(int totalSize, int selectSize, int colorId) {
         String str = getString(R.string.forbid_confirm);
         mToolbar.setMenuTitle(String.format(str, selectSize, totalSize));
-        mToolbar.setMenuTitleColor(getResources().getColor(colorId));
+        mToolbar.setMenuTitleColor(ContextCompat.getColor(GroupForbidMemberActivity.this, colorId));
         invalidateOptionsMenu();
     }
 

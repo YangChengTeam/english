@@ -57,6 +57,7 @@ import com.yc.english.main.view.wdigets.IndexMenuView;
 import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
+import com.yc.english.speak.view.activity.SpeakMainActivity;
 import com.yc.english.union.view.activitys.UnionMainActivity;
 import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.yc.english.weixin.views.activitys.CourseTypeActivity;
@@ -302,6 +303,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), UnionMainActivity.class);
+//                Intent intent = new Intent(getActivity(), SpeakMainActivity.class);
                 startActivity(intent);
             }
         });

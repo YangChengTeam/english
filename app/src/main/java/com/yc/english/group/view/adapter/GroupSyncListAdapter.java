@@ -2,9 +2,8 @@ package com.yc.english.group.view.adapter;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ImageUtils;
@@ -37,9 +36,9 @@ public class GroupSyncListAdapter extends BaseAdapter<ClassInfo> {
 
         boolean aBoolean = SPUtils.getInstance().getBoolean(classInfo.getClass_id() + "class");
         if (aBoolean) {
-            view.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.group24));
+            view.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.group24));
         } else {
-            view.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.group23));
+            view.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.group23));
         }
         view.setTag(aBoolean);
 

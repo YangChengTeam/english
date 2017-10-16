@@ -22,6 +22,8 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.union.contract.UnionCommonListContract;
 import com.yc.english.union.presenter.UnionCommonListPresenter;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -67,7 +69,6 @@ public class UnionFragment extends BaseFragment<UnionCommonListPresenter> implem
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
                 getData();
             }
         });
@@ -92,17 +93,13 @@ public class UnionFragment extends BaseFragment<UnionCommonListPresenter> implem
 
 
     @Override
-    public void showUnionList(List<ClassInfo> data, int page, boolean isFitst) {
-
-    }
-
-    @Override
-    public void showMemberList(List<StudentInfo> list) {
-
-    }
-
-    @Override
     public void showMyGroupList(List<ClassInfo> classInfos) {
+        Collections.sort(classInfos, new Comparator<ClassInfo>() {
+            @Override
+            public int compare(ClassInfo o1, ClassInfo o2) {
+                return Integer.parseInt(o2.getCount()) - Integer.parseInt(o1.getCount());
+            }
+        });
 
         adapter.setData(classInfos);
 
@@ -121,6 +118,15 @@ public class UnionFragment extends BaseFragment<UnionCommonListPresenter> implem
 
     }
 
+    @Override
+    public void showUnionList(List<ClassInfo> data, int page, boolean isFitst) {
+
+    }
+
+    @Override
+    public void showMemberList(List<StudentInfo> list) {
+
+    }
 
     @Override
     public void showLoadingDialog(String msg) {

@@ -3,7 +3,6 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;

@@ -3,9 +3,7 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupDoTaskListContract;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
@@ -16,7 +14,6 @@ import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by wanglin  on 2017/8/8 16:01.

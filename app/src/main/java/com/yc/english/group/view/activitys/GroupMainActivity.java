@@ -5,7 +5,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -26,6 +28,7 @@ import com.yc.english.group.contract.GroupMyGroupListContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupMyGroupListPresenter;
+import com.yc.english.group.utils.ItemTouchHelperCallback;
 import com.yc.english.group.view.activitys.student.GroupJoinActivity;
 import com.yc.english.group.view.activitys.teacher.GroupCreateActivity;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
@@ -81,6 +84,14 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, true, null);
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelperCallback helperCallback = new ItemTouchHelperCallback(this,adapter);
+
+        helperCallback.setSwipeEnable(false);
+        helperCallback.setDragEnable(true);
+        ItemTouchHelper helper = new ItemTouchHelper(helperCallback);
+        helper.attachToRecyclerView(recyclerView);
+
         initListener();
     }
 
@@ -186,6 +197,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             llDataContainer.setVisibility(View.VISIBLE);
             llEmptyContainer.setVisibility(View.GONE);
             adapter.setData(classInfos);
+
         } else {
             llDataContainer.setVisibility(View.GONE);
             llEmptyContainer.setVisibility(View.VISIBLE);
@@ -200,8 +212,6 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         }
 
     }
-
-
 
 
     @Override
@@ -224,8 +234,6 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             }
         });
     }
-
-
 
 
     @Subscribe(
@@ -257,7 +265,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         sViewLoading.showNoNet(contentView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               mPresenter.loadData(true);
+                mPresenter.loadData(true);
             }
         });
     }
@@ -271,8 +279,6 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
     public void showLoading() {
         sViewLoading.showLoading(contentView);
     }
-
-
 
 
 }

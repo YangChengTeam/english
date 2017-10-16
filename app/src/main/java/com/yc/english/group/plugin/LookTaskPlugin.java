@@ -9,6 +9,9 @@ import android.support.v4.content.ContextCompat;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.view.activitys.student.GroupMyTaskListActivity;
 import com.yc.english.group.view.provider.CustomMessage;
 
@@ -20,7 +23,6 @@ import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
-import io.rong.message.RichContentMessage;
 
 
 /**
@@ -52,6 +54,10 @@ public class LookTaskPlugin implements IPluginModule {
         conversationType = rongExtension.getConversationType();
         targetId = rongExtension.getTargetId();
         activity = fragment.getActivity();
+        if (GroupInfoHelper.getClassInfo().getIs_allow_talk()==0){
+            TipsHelper.tips(fragment.getActivity(), GroupConstant.FORBID_CONTENT);
+            return;
+        }
         String[] permissions = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
         if (PermissionCheckUtil.requestPermissions(fragment, permissions)) {
             Intent intent = new Intent(fragment.getActivity(), GroupMyTaskListActivity.class);

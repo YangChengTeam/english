@@ -10,6 +10,9 @@ import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -52,6 +55,12 @@ public class FilePlugin implements IPluginModule {
         this.conversationType = rongExtension.getConversationType();
         this.targetId = rongExtension.getTargetId();
         activity = fragment.getActivity();
+
+        if (GroupInfoHelper.getClassInfo().getIs_allow_talk()==0){
+            TipsHelper.tips(activity, GroupConstant.FORBID_CONTENT);
+            return;
+        }
+
         String[] permissions = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
         if (PermissionCheckUtil.requestPermissions(fragment, permissions)) {
             Intent intent = new Intent(activity, FileListActivity.class);
@@ -73,7 +82,8 @@ public class FilePlugin implements IPluginModule {
                 FileInfo fileInfo = (FileInfo) var5.next();
                 Uri filePath = Uri.parse("file://" + fileInfo.getFilePath());
 
-                /** 生成 Message 对象。
+                /**
+                 *  生成 Message 对象。
                  * "7127" 为目标 Id。根据不同的 conversationType，可能是用户 Id、讨论组 Id、群组 Id 或聊天室 Id。
                  * Conversation.ConversationType.PRIVATE 为私聊会话类型，根据需要，也可以传入其它会话类型，如群组，讨论组等。
                  */

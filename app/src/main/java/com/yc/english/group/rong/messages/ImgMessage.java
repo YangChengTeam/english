@@ -1,5 +1,7 @@
 package com.yc.english.group.rong.messages;
 
+import com.yc.english.group.rong.util.GsonUtil;
+
 /**
  *
  * 图片消息。
@@ -24,7 +26,7 @@ public class ImgMessage  {
 	/**
 	 * 获取表示图片缩略图，格式为 JPG，大小不超过 30k，注意在 Base64 进行 Encode 后需要将所有 \r\n 和 \r 和 \n 替换成空。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getContent() {
 		return content;
@@ -60,7 +62,7 @@ public class ImgMessage  {
 	/**
 	 * 获取图片 Url。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getImageUri() {
 		return imageUri;
@@ -75,8 +77,8 @@ public class ImgMessage  {
 		this.imageUri = imageUri;
 	}  
 	
-//	@Override
-//	public String toString() {
-//		return GsonUtil.toJson(this, ImgMessage.class);
-//	}
+	@Override
+	public String toString() {
+		return GsonUtil.toJson(this, ImgMessage.class);
+	}
 }

@@ -238,7 +238,7 @@ public class UnionCommonListPresenter extends BasePresenter<BaseEngin, UnionComm
                             if (type == GroupConstant.CONDITION_ALL_ALLOW) {
                                 ToastUtils.showShort(String.format(mContext.getString(R.string.congratulation_join), finalName));
                                 setMode(classInfo);
-                                RongIMUtil.insertMessage("欢迎" + UserInfoHelper.getUserInfo().getNickname() + "加入本群", classInfo.getClass_id());
+                                RongIMUtil.insertMessage("欢迎" + UserInfoHelper.getUserInfo().getNickname() + "加入本" + finalName, classInfo.getClass_id());
                                 RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
                                 StudentInfo studentInfo = new StudentInfo();
                                 studentInfo.setUser_id(applyInfo.getUser_id());
@@ -288,10 +288,8 @@ public class UnionCommonListPresenter extends BasePresenter<BaseEngin, UnionComm
     }
 
 
-
-
-    public void getMemberList(String class_id, String status,int page,int page_size, String master_id, String type) {
-        Subscription subscription = EngineUtils.getMemberList(mContext, class_id, page, page_size,status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+    public void getMemberList(String class_id, String status, int page, int page_size, String master_id, String type) {
+        Subscription subscription = EngineUtils.getMemberList(mContext, class_id, page, page_size, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

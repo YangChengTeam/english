@@ -122,9 +122,8 @@ public class UnionAllFragment extends BaseFragment<UnionCommonListPresenter> imp
 
     private void initRecycleView(List<ClassInfo> classInfos) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new GroupUnionAdapter(null);
+        adapter = new GroupUnionAdapter(classInfos);
         recyclerView.setAdapter(adapter);
-        adapter.setNewData(classInfos);
         hideStateView();
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
     }

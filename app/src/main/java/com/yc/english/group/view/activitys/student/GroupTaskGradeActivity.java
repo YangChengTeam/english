@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -96,7 +98,7 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
     @BindView(R.id.ll_do_task)
     LinearLayout llDoTask;
     private TaskInfo taskInfo;
-    private List<Uri> uriList;
+
     private GroupPictureAdapter groupPictureAdapter;
     private GroupVoiceAdapter groupVoiceAdapter;
     private GroupFileAdapter groupFileAdapter;
@@ -276,7 +278,7 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
 
         if (requestCode == 300 && resultCode == -1 && data != null) {
 
-            uriList = data.getParcelableArrayListExtra("android.intent.extra.RETURN_RESULT");
+            List<Uri> uriList = data.getParcelableArrayListExtra("android.intent.extra.RETURN_RESULT");
 
             if (uriList != null && uriList.size() > 0) {
                 for (Uri uri : uriList) {

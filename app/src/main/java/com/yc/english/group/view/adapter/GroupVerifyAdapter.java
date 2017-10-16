@@ -2,7 +2,6 @@ package com.yc.english.group.view.adapter;
 
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
@@ -37,23 +36,7 @@ public class GroupVerifyAdapter extends BaseQuickAdapter<StudentInfo, BaseViewHo
             holder.setVisible(R.id.view_divider, true);
         }
 
-
-//        holder.setOnClickListener(R.id.m_tv_accept, new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (onItemClickListener != null) {
-//                    onItemClickListener.onItemClick(holder, position, studentInfo);
-//                }
-//            }
-//        });
     }
-
-
-//    private OnItemClickListener<StudentInfo> onItemClickListener;
-//
-//    public void setOnItemClickListener(OnItemClickListener<StudentInfo> onItemClickListener) {
-//        this.onItemClickListener = onItemClickListener;
-//    }
 
 
 }

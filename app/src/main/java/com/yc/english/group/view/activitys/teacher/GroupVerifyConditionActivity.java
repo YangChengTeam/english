@@ -1,6 +1,7 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,7 +13,9 @@ import com.yc.english.group.contract.GroupChangeInfoContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.presenter.GroupChangeInfoPresenter;
-import com.yc.english.group.rong.models.GroupInfo;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -33,6 +36,7 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
     ImageView mIvVerifyJoin;
 
     private int currentConditon;
+    private List<ImageView> imageViews;
 
     @Override
     public void init() {
@@ -45,6 +49,9 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
                 back();
             }
         });
+
+        imageViews = Arrays.asList(mIvAllAllow, mIvAllForbid, mIvVerifyJoin);
+
         if (getIntent() != null) {
             int valiType = getIntent().getIntExtra("valiType", GroupConstant.CONDITION_ALL_ALLOW);
             setVerifyResult(valiType);
@@ -64,9 +71,10 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
             case R.id.m_rl_verify_join:
                 currentConditon = GroupConstant.CONDITION_VERIFY_JOIN;
                 break;
+            default:
+                break;
         }
-
-        setImageResoure(currentConditon);
+        mPresenter.changeGroupInfo(this, GroupInfoHelper.getGroupInfo().getId(), "", "", currentConditon + "");
 
     }
 
@@ -90,42 +98,24 @@ public class GroupVerifyConditionActivity extends FullScreenActivity<GroupChange
     }
 
     private void setVerifyResult(int code) {
+        for (ImageView imageView : imageViews) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.group23));
+        }
         switch (code) {
             case GroupConstant.CONDITION_ALL_ALLOW:
-                mIvAllAllow.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
+                mIvAllAllow.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.group24));
                 break;
             case GroupConstant.CONDITION_ALL_FORBID:
-                mIvAllForbid.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
+                mIvAllForbid.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.group24));
                 break;
             case GroupConstant.CONDITION_VERIFY_JOIN:
-                mIvVerifyJoin.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
+                mIvVerifyJoin.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.group24));
                 break;
         }
-    }
-
-    private void setImageResoure(int currentConditon) {
-        switch (currentConditon) {
-            case GroupConstant.CONDITION_ALL_ALLOW:
-                mIvAllAllow.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
-                mIvAllForbid.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
-                mIvVerifyJoin.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
-                break;
-            case GroupConstant.CONDITION_ALL_FORBID:
-                mIvAllForbid.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
-                mIvAllAllow.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
-                mIvVerifyJoin.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
-                break;
-            case GroupConstant.CONDITION_VERIFY_JOIN:
-                mIvVerifyJoin.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
-                mIvAllForbid.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
-                mIvAllAllow.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
-                break;
-        }
-        mPresenter.changeGroupInfo(this, GroupInfoHelper.getGroupInfo().getId(), "", "", currentConditon + "");
     }
 
     @Override
-    public void showChangeResult(RemoveGroupInfo data) {
-
+    public void showChangeResult(RemoveGroupInfo data, String vali_type) {
+        setVerifyResult(Integer.parseInt(vali_type));
     }
 }

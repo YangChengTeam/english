@@ -3,6 +3,7 @@ package com.yc.english.group.view.adapter;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -18,6 +19,7 @@ import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.model.bean.Voice;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -30,6 +32,7 @@ import rx.functions.Action1;
 
 public class GroupVoiceAdapter extends BaseAdapter<Voice> {
     private boolean mIsPublish;
+
 
     public GroupVoiceAdapter(Context context, boolean isPublish, List<Voice> mList) {
         super(context, mList);
@@ -64,10 +67,11 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
             @Override
             public void call(Void aVoid) {
                 Glide.with(mContext).load(R.mipmap.group59).into((ImageView) holder.getView(R.id.m_iv_play_voice));
-
+                MediaPlayer mPlayer = null;
                 if (mIsPublish) {
                     try {
-                        MediaPlayer mPlayer = new MediaPlayer();
+
+                        mPlayer = new MediaPlayer();
                         mPlayer.setDataSource(result.getFile().getPath());
                         mPlayer.prepare();
                         mPlayer.start();
@@ -76,14 +80,17 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
                             public void onCompletion(MediaPlayer mp) {
                                 mp.stop();
                                 mp.release();
-                                holder.setImageDrawable(R.id.m_iv_play_voice, mContext.getResources().getDrawable(R.mipmap.group67));
+                                holder.setImageDrawable(R.id.m_iv_play_voice, ContextCompat.getDrawable(mContext, R.mipmap.group67));
                             }
                         });
 
 
-                    } catch (Exception e) {
+                    } catch (IOException | RuntimeException e) {
                         LogUtils.e("播放失败");
-                        holder.setImageDrawable(R.id.m_iv_play_voice, mContext.getResources().getDrawable(R.mipmap.group67));
+                        if (mPlayer != null) {
+                            mPlayer.reset();
+                        }
+                        holder.setImageDrawable(R.id.m_iv_play_voice, ContextCompat.getDrawable(mContext, R.mipmap.group67));
                     }
                 } else {
                     RxUtils.getFile(mContext, result.getPath()).observeOn
@@ -101,13 +108,13 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
                                     public void onCompletion(MediaPlayer mp) {
                                         mp.stop();
                                         mp.release();
-                                        holder.setImageDrawable(R.id.m_iv_play_voice, mContext.getResources().getDrawable(R.mipmap.group67));
+                                        holder.setImageDrawable(R.id.m_iv_play_voice, ContextCompat.getDrawable(mContext, R.mipmap.group67));
                                     }
                                 });
 
                             } catch (Exception e) {
                                 e.printStackTrace();
-                                holder.setImageDrawable(R.id.m_iv_play_voice, mContext.getResources().getDrawable(R.mipmap.group67));
+                                holder.setImageDrawable(R.id.m_iv_play_voice, ContextCompat.getDrawable(mContext, R.mipmap.group67));
                             }
 
                         }
@@ -115,7 +122,6 @@ public class GroupVoiceAdapter extends BaseAdapter<Voice> {
                 }
             }
         });
-
     }
 
 

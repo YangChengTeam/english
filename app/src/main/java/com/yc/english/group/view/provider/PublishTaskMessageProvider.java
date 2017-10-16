@@ -10,25 +10,16 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
-import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
-import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.group.model.bean.TaskInfo;
-import com.yc.english.group.model.bean.TaskInfoWrapper;
-import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.group.view.activitys.student.GroupMyTaskDetailActivity;
-import com.yc.english.group.view.activitys.student.GroupTaskGradeActivity;
 import com.yc.english.group.view.activitys.teacher.GroupPublishTaskLookAndUnLookActivity;
-import com.yc.english.main.hepler.UserInfoHelper;
 
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
 import io.rong.imkit.widget.provider.IContainerItemProvider;
 import io.rong.imlib.model.Message;
 import io.rong.message.RichContentMessage;
-import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/7/26 08:34.

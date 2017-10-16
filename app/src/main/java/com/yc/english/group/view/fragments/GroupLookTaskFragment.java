@@ -22,7 +22,6 @@ public class GroupLookTaskFragment extends BaseFragment {
     @BindView(R.id.m_recyclerView)
     RecyclerView mRecyclerView;
 
-    private GroupTaskLookAdapter adapter;
 
     @Override
     public void init() {
@@ -31,7 +30,7 @@ public class GroupLookTaskFragment extends BaseFragment {
             List<StudentLookTaskInfo.ListBean.NoreadListBean> read_list = getArguments().getParcelableArrayList("look_list");
 
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            adapter = new GroupTaskLookAdapter(getActivity(), read_list);
+            GroupTaskLookAdapter adapter = new GroupTaskLookAdapter(getActivity(), read_list);
             mRecyclerView.setAdapter(adapter);
             BaseItemDecoration decoration = new BaseItemDecoration(getContext());
             mRecyclerView.addItemDecoration(decoration);

@@ -56,9 +56,7 @@ public class GroupCreatePresenter extends BasePresenter<GroupCreateEngine, Group
         }
 
         if (TextUtils.isEmpty(groupName)) {
-
-            ToastUtils.showShort("请输入" + name + "名称");
-
+            TipsHelper.tips(mContext,"请输入" + name + "名称");
             return;
         }
         if (!RegexUtils.isMatch(GroupConstant.REGEX_NAME, groupName)) {

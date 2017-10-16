@@ -12,7 +12,6 @@ import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupTransferGroupContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.engin.GroupTransferGroupEngine;
-import com.yc.english.group.view.activitys.teacher.GroupTransferActivity;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -36,10 +35,9 @@ public class GroupTransferGroupPresenter extends BasePresenter<GroupTransferGrou
     @Override
     public void transferGroup(String class_id, String master_id, String user_name) {
 
-
         if (TextUtils.isEmpty(user_name)) {
             TipsHelper.tips(mContext, GroupInfoHelper.getClassInfo().getType().equals("1") ?
-                    mContext.getResources().getString(R.string.recevicer_union_phone) : mContext.getResources().getString(R.string.recevicer_group_phone));
+                    mContext.getResources().getString(R.string.receive_union_phone) : mContext.getResources().getString(R.string.receive_group_phone));
             return;
         }
         mView.showLoadingDialog("正在" + (GroupInfoHelper.getClassInfo().getType().equals("1") ?

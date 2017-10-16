@@ -2,6 +2,7 @@ package com.yc.english.group.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -36,7 +37,7 @@ public class GroupMyTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskA
         tvContent.setVisibility(TextUtils.isEmpty(taskInfo.getDesp()) ? View.GONE : View.VISIBLE);
         TextView tv = new TextView(mContext);
         tv.setTextSize(16);
-        tv.setTextColor(mContext.getResources().getColor(R.color.black_333333));
+        tv.setTextColor(ContextCompat.getColor(mContext, R.color.black_333333));
         view.removeAllViews();
         switch (type) {
             case GroupConstant.TASK_TYPE_CHARACTER://纯文本
@@ -112,7 +113,7 @@ public class GroupMyTaskListAdapter extends BaseAdapter<TaskAllInfoWrapper.TaskA
     private TextView getTextView() {
         TextView tv1 = new TextView(mContext);
         tv1.setTextSize(16);
-        tv1.setTextColor(mContext.getResources().getColor(R.color.black_333333));
+        tv1.setTextColor(ContextCompat.getColor(mContext, R.color.black_333333));
         return tv1;
     }
 

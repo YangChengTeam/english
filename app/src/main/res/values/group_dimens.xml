@@ -31,4 +31,7 @@
     <dimen name="group_distance_18">18dp</dimen>
     <dimen name="group_distance_8">8dp</dimen>
     <dimen name="group_distance_110">110dp</dimen>
+    <dimen name="group_distance_37">37dp</dimen>
+    <dimen name="group_text_20">20sp</dimen>
+
 </resources>

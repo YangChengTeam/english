@@ -198,7 +198,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupChangeInfoPres
     }
 
     @Override
-    public void showChangeResult(RemoveGroupInfo data) {
+    public void showChangeResult(RemoveGroupInfo data, String vali_type) {
         GlideHelper.circleImageView(this, ivGroupImage, data.getFace(), R.mipmap.default_avatar);
     }
 }

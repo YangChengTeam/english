@@ -13,8 +13,6 @@ import com.yc.english.group.view.widget.ZoomImageView;
 
 import java.util.List;
 
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
-
 
 /**
  * Created by wanglin  on 2017/7/24 17:37.

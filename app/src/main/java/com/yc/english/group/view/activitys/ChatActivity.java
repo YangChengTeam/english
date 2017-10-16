@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Parcelable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,7 +14,6 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
-
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
@@ -57,8 +56,9 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
 
             Uri data = intent.getData();
             if (data.getQueryParameter("title") != null) {
+
                 title = data.getQueryParameter("title");
-                mToolbar.setTitle(title);
+
             }
             if (data.getQueryParameter("targetId") != null) {
                 groupId = data.getQueryParameter("targetId");
@@ -83,8 +83,8 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
-        });
-        builder.show();
+        }).show();
+
     }
 
     @Override
@@ -102,7 +102,8 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
             @Override
             public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
                 if (userInfo.getUserId().equals(UserInfoHelper.getUserInfo().getUid())) {
-                    startActivity(new Intent(ChatActivity.this, PersonCenterActivity.class));
+                    startActivity(new Intent(ChatActivity.this, PersonCenterActivity.class), ActivityOptionsCompat.makeSceneTransitionAnimation(ChatActivity.this).toBundle());
+//                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 }
                 return false;
             }
@@ -189,4 +190,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
         intent.putParcelableArrayListExtra("studentList", (ArrayList) studentInfoList);
         startActivity(intent);
     }
+
+
 }

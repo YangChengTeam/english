@@ -21,7 +21,7 @@ public class GroupUnLookTaskFragment extends BaseFragment {
 
     @BindView(R.id.m_recyclerView)
     RecyclerView mRecyclerView;
-    private GroupTaskLookAdapter adapter;
+
     @Override
     public void init() {
 
@@ -29,7 +29,7 @@ public class GroupUnLookTaskFragment extends BaseFragment {
             List<StudentLookTaskInfo.ListBean.NoreadListBean> noRead_list = getArguments().getParcelableArrayList("unLook_list");
 
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            adapter = new GroupTaskLookAdapter(getActivity(), noRead_list);
+            GroupTaskLookAdapter adapter = new GroupTaskLookAdapter(getActivity(), noRead_list);
             mRecyclerView.setAdapter(adapter);
             BaseItemDecoration decoration = new BaseItemDecoration(getContext());
             mRecyclerView.addItemDecoration(decoration);

@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,7 +37,6 @@ public class MediaPlayerView extends LinearLayout {
     private TextView mTextViewTime;
     private ImageView mImageView;
     private Handler handler = new Handler(Looper.getMainLooper());
-    private long startTime;
     private MyRunnable myRunnable;
 
     public MediaPlayerView(Context context) {
@@ -51,9 +51,10 @@ public class MediaPlayerView extends LinearLayout {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         init(context);
+
     }
 
-    private void init(final Context context) {
+    private void init(Context context) {
         View view = View.inflate(context, R.layout.mediaplayer_view, null);
         mImageView = (ImageView) view.findViewById(R.id.mImageView);
         mSeekBar = (SeekBar) view.findViewById(R.id.mSeekBar);
@@ -78,7 +79,6 @@ public class MediaPlayerView extends LinearLayout {
                 if (isPlay) {
                     setPlay();
                 } else {
-                    mImageView.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.media_stop));
                     stop();
                 }
 
@@ -90,6 +90,7 @@ public class MediaPlayerView extends LinearLayout {
 
 
     public void stop() {
+        mImageView.setImageDrawable(ContextCompat.getDrawable(mContext,R.mipmap.media_stop));
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
         }
@@ -156,7 +157,6 @@ public class MediaPlayerView extends LinearLayout {
                             mSeekBar.setProgress(mp.getCurrentPosition());
                             myRunnable = new MyRunnable(mp);
                             handler.post(myRunnable);
-
 
 
                         }

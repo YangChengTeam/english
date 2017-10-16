@@ -8,7 +8,6 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.group.constant.NetConstant;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.GroupApplyInfo;
@@ -44,8 +43,8 @@ public class EngineUtils {
      * 查询具体某个班群时不用传master_id
      * type 0为作业班群，1为英语公会，2为名师辅导
      * page 分页的页码
-     *@param  page_size 每页请求的条数
      *
+     * @param page_size 每页请求的条数
      * @param
      * @param status
      * @return sn群号
@@ -91,7 +90,7 @@ public class EngineUtils {
     /**
      * 根据群号查找群
      *
-     * @param context
+     * @param context 上下文
      * @param id      班级号
      * @param sn      群号
      *                两者传其中一个即可，必须传
@@ -111,10 +110,11 @@ public class EngineUtils {
 
 
     /**
-     * @param class_id  班级ID 必传
-     * @param name      班级名称 修改班群名称时传该字段
-     * @param face      班群图像 修改班群图像时传该字段
-     * @param vali_type 验证类型，0：不验证加入，1：验证加入，2：拒绝加入
+     * @param class_id      班级ID 必传
+     * @param name          班级名称 修改班群名称时传该字段
+     * @param face          班群图像 修改班群图像时传该字段
+     * @param vali_type     验证类型，0：不验证加入，1：验证加入，2：拒绝加入
+     * @param is_allow_talk 禁言状态 0：开启全员禁言 1：关闭全员禁言
      * @return
      */
     public static Observable<ResultInfo<RemoveGroupInfo>> changeGroupInfo(Context context, String class_id, String name, String face, String vali_type, String is_allow_talk) {

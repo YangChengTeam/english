@@ -21,7 +21,6 @@ public class GroupUnFinishTaskFragment extends BaseFragment {
 
     @BindView(R.id.m_recyclerView)
     RecyclerView mRecyclerView;
-    private GroupTaskFinishedAdapter adapter;
 
 
     @Override
@@ -31,7 +30,7 @@ public class GroupUnFinishTaskFragment extends BaseFragment {
 
             List<StudentFinishTaskInfo.ListBean.NoDoneListBean> noDone_list = getArguments().getParcelableArrayList("noDone_list");
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            adapter = new GroupTaskFinishedAdapter(getActivity(), noDone_list);
+            GroupTaskFinishedAdapter adapter = new GroupTaskFinishedAdapter(getActivity(), noDone_list);
             mRecyclerView.setAdapter(adapter);
             BaseItemDecoration decoration = new BaseItemDecoration(getContext());
             mRecyclerView.addItemDecoration(decoration);

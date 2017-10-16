@@ -9,6 +9,7 @@ import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupApplyVerifyContract;
+import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
@@ -34,7 +35,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
-        if (!forceUpdate) return;
+
 
     }
 
@@ -67,14 +68,14 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
                     @Override
                     public void resultInfoEmpty(String message) {
                         if (page == 1) {
-                            mView.showNoData();
+                            mView.showNoNet();
                         }
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
                         if (page == 1) {
-                            mView.showNoData();
+                            mView.showNoNet();
                         }
                     }
 
@@ -121,7 +122,6 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
                     public void run() {
                         mView.showApplyResult(stringResultInfo.data, position);
                         queryGroup(studentInfo);
-                        RongIMUtil.insertMessage("欢迎" + studentInfo.getNick_name() + "加入本群", studentInfo.getClass_id());
                         RxBus.get().post(BusAction.GROUP_LIST, "join Group");
 
                     }
@@ -157,7 +157,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
     }
 
     private void queryGroup(final StudentInfo studentInfo) {
-        Subscription subscription = EngineUtils.queryGroupById(mContext, "", studentInfo.getClass_sn()).subscribe(new Subscriber<ResultInfo<ClassInfoWarpper>>() {
+        Subscription subscription = EngineUtils.queryGroupById(mContext, studentInfo.getClass_id(), "").subscribe(new Subscriber<ResultInfo<ClassInfoWarpper>>() {
             @Override
             public void onCompleted() {
             }
@@ -172,9 +172,15 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
                     @Override
                     public void run() {
                         if (classInfoWarpperResultInfo != null && classInfoWarpperResultInfo.data != null) {
-                            if (classInfoWarpperResultInfo.data.getInfo().getIs_allow_talk() == 0) {
+                            ClassInfo classInfo = classInfoWarpperResultInfo.data.getInfo();
+                            if (classInfo.getIs_allow_talk() == 0) {
                                 addForbidMember(studentInfo);
                             }
+                            String className = "群";
+                            if ("1".equals(classInfo.getType())) {
+                                className = "公会";
+                            }
+                            RongIMUtil.insertMessage("欢迎" + studentInfo.getNick_name() + "加入本" + className, studentInfo.getClass_id());
                         }
                     }
                 });

@@ -7,14 +7,10 @@ import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.contract.GroupSyncGroupContract;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.utils.EngineUtils;
-import com.yc.english.group.view.activitys.teacher.GroupSyncGroupListActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
-
-import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;

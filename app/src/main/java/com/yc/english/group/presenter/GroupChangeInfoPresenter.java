@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.contract.GroupChangeInfoContract;
@@ -34,7 +33,7 @@ public class GroupChangeInfoPresenter extends BasePresenter<GroupChangeInfoEngin
     }
 
     @Override
-    public void changeGroupInfo(Context context, String class_id, String name, final String face, String vali_type) {
+    public void changeGroupInfo(Context context, String class_id, String name, final String face, final String vali_type) {
         mView.showLoadingDialog("正在修改，请稍候！");
         Subscription subscription = EngineUtils.changeGroupInfo(context, class_id, name, face, vali_type, "").subscribe(new Subscriber<ResultInfo<RemoveGroupInfo>>() {
             @Override
@@ -52,7 +51,7 @@ public class GroupChangeInfoPresenter extends BasePresenter<GroupChangeInfoEngin
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        mView.showChangeResult(stringResultInfo.data);
+                        mView.showChangeResult(stringResultInfo.data,vali_type);
                         if (!TextUtils.isEmpty(face)) {
                             RxBus.get().post(BusAction.GROUP_LIST, "change face");
                         }

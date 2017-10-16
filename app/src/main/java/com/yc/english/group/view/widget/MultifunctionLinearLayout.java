@@ -11,9 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.EmptyUtils;
 import com.yc.english.R;
-import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.view.adapter.GroupFileAdapter;
 import com.yc.english.group.view.adapter.GroupPictureAdapter;
@@ -42,7 +40,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
     private LinearLayout llPicture;
     private LinearLayout llFile;
     private LinearLayout llVoice;
-    private TextView textView;
+
 
     private Type type;
 
@@ -86,7 +84,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
             RecyclerView voiceRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.voice_recyclerView_base);
             RecyclerView fileRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.file_recyclerView_base);
 
-            textView = (TextView) synthesizeView.findViewById(R.id.m_et_issue_task);
+            TextView textView = (TextView) synthesizeView.findViewById(R.id.m_et_issue_task);
             llPicture = (LinearLayout) synthesizeView.findViewById(R.id.ll_picture);
             llVoice = (LinearLayout) synthesizeView.findViewById(R.id.ll_voice);
             llFile = (LinearLayout) synthesizeView.findViewById(R.id.ll_file);

@@ -1,5 +1,6 @@
 package com.yc.english.group.view.activitys.teacher;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -61,7 +62,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
         mToolbar.setTitle(getResources().getString(R.string.delete_member));
         mToolbar.setMenuTitle(getResources().getString(R.string.cancel));
 
-        mToolbar.setMenuTitleColor(getResources().getColor(R.color.gray_aaa));
+        mToolbar.setMenuTitleColor(ContextCompat.getColor(this, R.color.gray_aaa));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupDeleteAdapter(null);
@@ -84,13 +85,13 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
                 iv.setTag(!(Boolean) iv.getTag());
                 if (position != 0) {
                     if (((Boolean) iv.getTag())) {
-                        iv.setImageDrawable(getResources().getDrawable(R.mipmap.group24));
+                        iv.setImageDrawable(ContextCompat.getDrawable(GroupDeleteMemberActivity.this, R.mipmap.group24));
                         count++;
                         imageViews.add(iv);
                         studentInfos.add(studentInfo);
                         studentInfo.setIsSelected(true);
                     } else {
-                        iv.setImageDrawable(getResources().getDrawable(R.mipmap.group23));
+                        iv.setImageDrawable(ContextCompat.getDrawable(GroupDeleteMemberActivity.this, R.mipmap.group23));
                         count--;
                         imageViews.remove(iv);
                         studentInfos.remove(studentInfo);
@@ -102,7 +103,9 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
 
 
                 tvConfirmDeleteGroup.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
-                mToolbar.setMenuTitleColor(count > 0 ? getResources().getColor(R.color.primary) : getResources().getColor(R.color.gray_aaa));
+                mToolbar.setMenuTitleColor(count > 0 ?
+                        ContextCompat.getColor(GroupDeleteMemberActivity.this, R.color.primary) :
+                        ContextCompat.getColor(GroupDeleteMemberActivity.this, R.color.gray_aaa));
 
                 tvConfirmDeleteGroup.setText(String.format(getResources().getString(R.string.confirm_delete), count));
                 RxView.clicks(tvConfirmDeleteGroup).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -177,7 +180,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
     private void clearData() {
         if (imageViews.size() > 0) {
             for (Object o : imageViews.toArray()) {
-                ((ImageView) o).setImageDrawable(getResources().getDrawable(R.mipmap.group23));
+                ((ImageView) o).setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.group23));
             }
             imageViews.clear();
             adapter.notifyDataSetChanged();
@@ -189,7 +192,7 @@ public class GroupDeleteMemberActivity extends FullScreenActivity<GroupDeleteMem
             studentInfos.clear();
         }
         tvConfirmDeleteGroup.setVisibility(View.GONE);
-        mToolbar.setMenuTitleColor(getResources().getColor(R.color.gray_aaa));
+        mToolbar.setMenuTitleColor(ContextCompat.getColor(this, R.color.gray_aaa));
         count = 0;
     }
 

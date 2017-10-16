@@ -3,6 +3,7 @@ package com.yc.english.group.contract;
 import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.IDialog;
 import com.yc.english.base.view.IView;
+import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.rong.models.GagGroupUser;
 
@@ -20,6 +21,8 @@ public interface GroupForbidMemberContract {
         void showLisGagUserResult(List<GagGroupUser> users, List<StudentInfo> list);
 
         void showForbidResult(StudentInfo studentInfo, boolean allForbid);
+
+        void showChangeInfo(RemoveGroupInfo data, String is_allow_talk, String[] strs);
     }
 
     interface Presenter extends IPresenter {

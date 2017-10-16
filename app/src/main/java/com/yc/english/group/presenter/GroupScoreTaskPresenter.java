@@ -3,7 +3,6 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
@@ -14,6 +13,7 @@ import com.yc.english.group.utils.EngineUtils;
 
 import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by wanglin  on 2017/8/10 21:21.
@@ -53,7 +53,7 @@ public class GroupScoreTaskPresenter extends BasePresenter<GroupScoreTaskEngine,
                     }
 
                     @Override
-                    public void resultInfoNotOk(String message){
+                    public void resultInfoNotOk(String message) {
                     }
 
                     @Override
@@ -111,7 +111,7 @@ public class GroupScoreTaskPresenter extends BasePresenter<GroupScoreTaskEngine,
     @Override
     public void taskScore(final Context context, String id, String score) {
         mView.showLoadingDialog("正在打分，请稍候...");
-        Subscription subscription = mEngin.taskScore(id, score).subscribe(new Subscriber<ResultInfo<String>>() {
+        Subscription subscription = mEngin.taskScore(id, score).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -127,8 +127,7 @@ public class GroupScoreTaskPresenter extends BasePresenter<GroupScoreTaskEngine,
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        mView.showScoreResult();
-
+                        TipsHelper.tips(mContext, "作业打分成功");
                     }
                 });
             }

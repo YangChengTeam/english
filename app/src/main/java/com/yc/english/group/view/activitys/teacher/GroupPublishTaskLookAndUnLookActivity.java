@@ -61,16 +61,15 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
     @BindView(R.id.ll_look_container)
     LinearLayout llLookContainer;
     private List<Fragment> fragments = new ArrayList<>();
-    private GroupLookTaskFragment groupLookTaskFragment;
-    private String taskDetailInfo;
-    private GroupUnLookTaskFragment groupUnLookTaskFragment;
+
+
     private TaskInfo taskInfo;
 
     @Override
     public void init() {
         mPresenter = new GroupPublishTaskDetailPresenter(this, this);
         if (getIntent() != null) {
-            taskDetailInfo = getIntent().getStringExtra("extra");
+            String taskDetailInfo = getIntent().getStringExtra("extra");
             taskInfo = JSONObject.parseObject(taskDetailInfo, TaskInfo.class);
             getData();
         }
@@ -144,11 +143,11 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
             lookBundle.putParcelableArrayList("look_list", read_list);
             unLookBundle.putParcelableArrayList("unLook_list", noread_list);
 
-            groupLookTaskFragment = new GroupLookTaskFragment();
+            GroupLookTaskFragment groupLookTaskFragment = new GroupLookTaskFragment();
             groupLookTaskFragment.setArguments(lookBundle);
             fragments.add(groupLookTaskFragment);
 
-            groupUnLookTaskFragment = new GroupUnLookTaskFragment();
+            GroupUnLookTaskFragment groupUnLookTaskFragment = new GroupUnLookTaskFragment();
             groupUnLookTaskFragment.setArguments(unLookBundle);
             fragments.add(groupUnLookTaskFragment);
 
