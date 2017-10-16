@@ -56,8 +56,7 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<EnglishItemInfo, B
 //        animator.setRepeatCount(ObjectAnimator.INFINITE);
 //        animator.start();
 
-
         Glide.with(mContext).load(item.getUrl()).apply(new RequestOptions()
-                .transform(new GlideRoundTransform(mContext)).placeholder(R.mipmap.base_loading)).into(view);
+                .transform(new GlideRoundTransform(mContext))).into(view);
     }
 }

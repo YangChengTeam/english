@@ -302,8 +302,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mGuildImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), UnionMainActivity.class);
-//                Intent intent = new Intent(getActivity(), SpeakMainActivity.class);
+//                Intent intent = new Intent(getActivity(), UnionMainActivity.class);
+                Intent intent = new Intent(getActivity(), SpeakMainActivity.class);
                 startActivity(intent);
             }
         });

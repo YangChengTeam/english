@@ -1,5 +1,7 @@
 package com.yc.english.speak.view.activity;
 
+import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -26,11 +28,14 @@ public class SpeakMoreActivity extends FullScreenActivity {
     RecyclerView recyclerView;
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
     private EnglishInfo englishInfo;
     private SpeakEnglishItemAdapter speakEnglishItemAdapter;
 
     @Override
     public void init() {
+        swipeRefreshLayout.setEnabled(false);
         if (getIntent() != null) {
             englishInfo = getIntent().getParcelableExtra("englishInfo");
             mToolbar.setTitle(englishInfo.getTitle());
@@ -52,6 +57,7 @@ public class SpeakMoreActivity extends FullScreenActivity {
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(SpeakMoreActivity.this, view.getClass().getSimpleName() + "--" + position, Toast.LENGTH_SHORT).show();
                 // TODO: 2017/10/13 视频或音频点击跳转
+//                startActivity(new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class));
 
                 return false;
             }

@@ -21,11 +21,12 @@
             android:layout_height="@dimen/group_distance_40"
             android:background="@color/white" />
 
+        <include layout="@layout/group_common_divider" />
+
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/group_distance_15"
-            />
+            android:layout_marginTop="@dimen/group_distance_15" />
     </LinearLayout>
 </LinearLayout>
