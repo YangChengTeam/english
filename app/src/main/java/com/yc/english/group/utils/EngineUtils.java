@@ -21,7 +21,7 @@ import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.ListGagGroupUserResult;
 import com.yc.english.group.rong.util.RongIMUtil;
-import com.yc.english.speak.model.bean.EnglishInfoWrapper;
+import com.yc.english.speak.view.adapter.SpeakEnglishItemAdapter;
 
 import java.io.File;
 import java.util.HashMap;
@@ -346,11 +346,11 @@ public class EngineUtils {
      * @param id
      * @return
      */
-    public Observable<ResultInfo<EnglishInfoWrapper>> getReadAndSpeakDetail(Context context,String id) {
+    public Observable<ResultInfo<SpeakEnglishItemAdapter>> getReadAndSpeakDetail(Context context, String id) {
         Map<String, String> params = new HashMap<>();
         params.put("id", id);
 
-        return HttpCoreEngin.get(context).rxpost(NetConstant.read_getreadDetail, new TypeReference<ResultInfo<EnglishInfoWrapper>>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.read_getreadDetail, new TypeReference<ResultInfo<SpeakEnglishItemAdapter>>() {
         }.getType(), params, true, true, true);
 
 

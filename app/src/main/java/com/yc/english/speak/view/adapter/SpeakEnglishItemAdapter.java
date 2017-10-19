@@ -9,7 +9,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.group.utils.GlideRoundTransform;
-import com.yc.english.speak.model.bean.EnglishItemInfo;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;

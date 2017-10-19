@@ -2,13 +2,11 @@ package com.yc.english.speak.presenter;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.speak.contract.SpeakEnglishContract;
-import com.yc.english.speak.model.bean.EnglishInfoWrapper;
 import com.yc.english.speak.model.bean.SpeakAndReadInfoWrapper;
 import com.yc.english.speak.model.engine.SpeakEnglishListEngine;
 
@@ -29,34 +27,6 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
-    }
-
-
-    @Override
-    public void getEnglishInfoList(String type) {
-        mView.showLoading();
-        Subscription subscription = mEngin.getEnglishInfoList(type).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<EnglishInfoWrapper>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                mView.showNoNet();
-            }
-
-            @Override
-            public void onNext(EnglishInfoWrapper englishInfoWrapper) {
-                if (englishInfoWrapper.getCode() == HttpConfig.STATUS_OK && englishInfoWrapper.getData() != null) {
-                    mView.hideStateView();
-//                    mView.showEnglishInfoList(englishInfoWrapper.getData().getList());
-                } else {
-                    mView.showNoData();
-                }
-            }
-        });
-        mSubscriptions.add(subscription);
     }
 
 
