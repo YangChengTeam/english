@@ -1,6 +1,5 @@
 package com.yc.english.speak.view.adapter;
 
-import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
-import com.yc.english.speak.model.bean.EnglishInfo;
 import com.yc.english.speak.model.bean.SpeakAndReadInfo;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
 
@@ -43,10 +41,10 @@ public class SpeakEnglishAdapterNew extends BaseQuickAdapter<SpeakAndReadInfo, B
                             item.getType_name().equals(mContext.getString(R.string.tv)) ? R.mipmap.speak_tv_red :
                                     item.getType_name().equals(mContext.getString(R.string.poetry)) ? R.mipmap.speak_poetry : R.mipmap.default_avatar);
         }
-//
+
         RecyclerView recyclerView = helper.getView(R.id.recyclerView_speak);
         GridLayoutManager layout = new GridLayoutManager(mContext, 2);
-//
+
         recyclerView.setLayoutManager(layout);
 
 

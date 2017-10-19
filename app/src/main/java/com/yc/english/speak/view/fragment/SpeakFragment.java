@@ -48,12 +48,10 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         mPresenter = new SpeakEnglishListPresenter(getActivity(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
         adapter = new SpeakEnglishAdapterNew(null, getType());
 
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new MyItemDecoration());
-
         initListener();
         getData();
 
@@ -118,7 +116,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
     @Override
     public void showReadAndSpeakList(List<SpeakAndReadInfo> data) {
         adapter.setNewData(data);
-        LogUtils.e(data.toString());
+//        LogUtils.e(data.toString());
 
     }
 

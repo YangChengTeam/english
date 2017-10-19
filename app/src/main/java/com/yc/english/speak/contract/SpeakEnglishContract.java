@@ -25,7 +25,6 @@ public interface SpeakEnglishContract {
 
     interface Presenter extends IPresenter {
 
-        void getEnglishInfoList(String type);
 
     }
 }
