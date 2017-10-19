@@ -6,16 +6,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.StateView;
 import com.yc.english.speak.contract.SpeakEnglishContract;
-import com.yc.english.speak.model.bean.EnglishInfo;
+import com.yc.english.speak.model.bean.SpeakAndReadInfo;
+import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
 import com.yc.english.speak.presenter.SpeakEnglishListPresenter;
 import com.yc.english.speak.view.activity.SpeakMoreActivity;
-import com.yc.english.speak.view.adapter.SpeakEnglishAdapter;
+import com.yc.english.speak.view.adapter.SpeakEnglishAdapterNew;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
@@ -38,7 +40,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
     StateView stateView;
 
     private int type;
-    private SpeakEnglishAdapter adapter;
+    private SpeakEnglishAdapterNew adapter;
 
 
     @Override
@@ -47,13 +49,13 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-        adapter = new SpeakEnglishAdapter(null);
+        adapter = new SpeakEnglishAdapterNew(null, getType());
 
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new MyItemDecoration());
 
-
         initListener();
+        getData();
 
     }
 
@@ -62,9 +64,9 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 //                Toast.makeText(getActivity(), view.getClass().getSimpleName() + "---" + position, Toast.LENGTH_SHORT).show();
-                EnglishInfo item = (EnglishInfo) adapter.getItem(position);
+                SpeakAndReadInfo speakAndReadInfo = (SpeakAndReadInfo) adapter.getItem(position);
                 Intent intent = new Intent(getActivity(), SpeakMoreActivity.class);
-                intent.putExtra("englishInfo", item);
+                intent.putExtra("speakAndReadInfo", speakAndReadInfo);
                 startActivity(intent);
 
                 return false;
@@ -83,6 +85,10 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         this.type = type;
     }
 
+    public int getType() {
+        return type;
+    }
+
     @Override
     public void hideStateView() {
         stateView.hide();
@@ -93,7 +99,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         stateView.showNoNet(recyclerView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadData(true);
+                getData();
             }
         });
     }
@@ -108,9 +114,17 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         stateView.showLoading(recyclerView);
     }
 
+
     @Override
-    public void showEnglishInfoList(List<EnglishInfo> list) {
-        adapter.setNewData(list);
+    public void showReadAndSpeakList(List<SpeakAndReadInfo> data) {
+        adapter.setNewData(data);
+        LogUtils.e(data.toString());
+
+    }
+
+    @Override
+    public void shoReadAndSpeakMorList(List<SpeakAndReadItemInfo> list, int page, boolean isFitst) {
+
     }
 
 
@@ -121,4 +135,10 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
             outRect.set(0, 0, 0, UIUtil.dip2px(getActivity(), 15));
         }
     }
+
+    private void getData() {
+        mPresenter.getReadAndSpeakList(String.valueOf(getType()), false, 1, true);
+    }
+
+
 }

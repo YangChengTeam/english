@@ -1,6 +1,5 @@
 package com.yc.english.group.utils;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -12,7 +11,6 @@ import android.support.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
-import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 
 /**
@@ -22,11 +20,11 @@ import java.security.MessageDigest;
 public class GlideRoundTransform extends BitmapTransformation {
     private float radius = 0f;
 
-    public GlideRoundTransform(Context context) {
-        this(context, 4);
+    public GlideRoundTransform() {
+        this(4);
     }
 
-    public GlideRoundTransform(Context context, int dp) {
+    public GlideRoundTransform(int dp) {
 
         this.radius = Resources.getSystem().getDisplayMetrics().density * dp;
     }
@@ -46,6 +44,7 @@ public class GlideRoundTransform extends BitmapTransformation {
 
         Canvas canvas = new Canvas(result);
         Paint paint = new Paint();
+
         paint.setShader(new BitmapShader(source, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
         paint.setAntiAlias(true);
         RectF rectF = new RectF(0f, 0f, source.getWidth(), source.getHeight());

@@ -1,6 +1,5 @@
 package com.yc.english.topic.view.activity;
 
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 
@@ -9,7 +8,6 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/9/29 16:52.
