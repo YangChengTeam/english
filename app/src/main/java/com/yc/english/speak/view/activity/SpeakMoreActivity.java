@@ -1,6 +1,6 @@
 package com.yc.english.speak.view.activity;
 
-import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,11 +9,17 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
-import com.yc.english.speak.model.bean.EnglishInfo;
+import com.yc.english.speak.contract.SpeakEnglishContract;
+import com.yc.english.speak.model.bean.SpeakAndReadInfo;
+import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
+import com.yc.english.speak.presenter.SpeakEnglishListPresenter;
 import com.yc.english.speak.view.adapter.SpeakEnglishItemAdapter;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -21,7 +27,7 @@ import butterknife.BindView;
  * Created by wanglin  on 2017/10/13 10:24.
  */
 
-public class SpeakMoreActivity extends FullScreenActivity {
+public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresenter> implements SpeakEnglishContract.View {
     @BindView(R.id.stateView)
     StateView stateView;
     @BindView(R.id.recyclerView)
@@ -30,25 +36,28 @@ public class SpeakMoreActivity extends FullScreenActivity {
     LinearLayout llContainer;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    private EnglishInfo englishInfo;
+    private SpeakAndReadInfo speakAndReadInfo;
     private SpeakEnglishItemAdapter speakEnglishItemAdapter;
+    private int page = 1;
+    private int page_size = 20;
 
     @Override
     public void init() {
-        swipeRefreshLayout.setEnabled(false);
+        mPresenter = new SpeakEnglishListPresenter(this, this);
         if (getIntent() != null) {
-            englishInfo = getIntent().getParcelableExtra("englishInfo");
-            mToolbar.setTitle(englishInfo.getTitle());
+            speakAndReadInfo = getIntent().getParcelableExtra("speakAndReadInfo");
+            mToolbar.setTitle(speakAndReadInfo.getType_name());
         }
         mToolbar.showNavigationIcon();
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        speakEnglishItemAdapter = new SpeakEnglishItemAdapter(englishInfo.getItem_list(), true);
+        speakEnglishItemAdapter = new SpeakEnglishItemAdapter(null, true);
+
         recyclerView.setAdapter(speakEnglishItemAdapter);
 
         initListener();
 
-
+        getData(false, true);
     }
 
     private void initListener() {
@@ -57,12 +66,29 @@ public class SpeakMoreActivity extends FullScreenActivity {
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(SpeakMoreActivity.this, view.getClass().getSimpleName() + "--" + position, Toast.LENGTH_SHORT).show();
                 // TODO: 2017/10/13 视频或音频点击跳转
-//                startActivity(new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class));
+//                SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
+//                Intent intent = new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class);
+//                intent.putExtra("speakAndReadItemInfo", speakAndReadItemInfo);
+//                startActivity(intent);
 
                 return false;
             }
         });
+        speakEnglishItemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
 
+                getData(true, false);
+            }
+        }, recyclerView);
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.primary));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page = 1;
+                getData(false, false);
+            }
+        });
     }
 
     @Override
@@ -71,4 +97,65 @@ public class SpeakMoreActivity extends FullScreenActivity {
     }
 
 
+    @Override
+    public void hideStateView() {
+        stateView.hide();
+    }
+
+    @Override
+    public void showNoNet() {
+        stateView.showNoNet(swipeRefreshLayout, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData(false, true);
+            }
+        });
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void showNoData() {
+        stateView.showNoData(swipeRefreshLayout);
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void showLoading() {
+        stateView.showLoading(swipeRefreshLayout);
+    }
+
+    @Override
+    public void showReadAndSpeakList(List<SpeakAndReadInfo> data) {
+
+    }
+
+    @Override
+    public void shoReadAndSpeakMorList(List<SpeakAndReadItemInfo> list, int page, boolean isFitst) {
+        if (page == 1) {
+            speakEnglishItemAdapter.setNewData(list);
+
+        } else {
+            speakEnglishItemAdapter.addData(list);
+        }
+        if (list.size() == page_size) {
+            speakEnglishItemAdapter.loadMoreComplete();
+        } else {
+            speakEnglishItemAdapter.loadMoreEnd();
+        }
+
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    private void getData(boolean isLoadMore, boolean isFirst) {
+        if (isLoadMore) {
+            page++;
+        }
+        mPresenter.getReadAndSpeakList(speakAndReadInfo.getType_id(), true, page, isFirst);
+    }
 }

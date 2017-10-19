@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.group.utils.GlideRoundTransform;
 import com.yc.english.speak.model.bean.EnglishItemInfo;
+import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
@@ -19,21 +20,22 @@ import java.util.List;
  * Created by wanglin  on 2017/10/12 15:36.
  */
 
-public class SpeakEnglishItemAdapter extends BaseQuickAdapter<EnglishItemInfo, BaseViewHolder> {
+public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemInfo, BaseViewHolder> {
 
     private boolean mIsMore;
 
-    public SpeakEnglishItemAdapter(List<EnglishItemInfo> data, boolean isMore) {
+    public SpeakEnglishItemAdapter(List<SpeakAndReadItemInfo> data, boolean isMore) {
         super(R.layout.speak_fragment_item, data);
         this.mIsMore = isMore;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, EnglishItemInfo item) {
-        helper.setText(R.id.tv_play_count, item.getPlay_count() + "次")
-                .setText(R.id.tv_update_date, "更新" + item.getUpdate_date())
-                .setText(R.id.tv_sub_title, item.getSub_title()).addOnClickListener(R.id.fl_play_item);
-        int position = helper.getLayoutPosition();
+    protected void convert(BaseViewHolder helper, SpeakAndReadItemInfo item) {
+        helper.setText(R.id.tv_play_count, item.getView_num() + "次")
+                .setText(R.id.tv_update_date, "更新" + item.getAdd_date_format())
+                .setText(R.id.tv_sub_title, item.getTitle()).addOnClickListener(R.id.fl_play_item);
+        int position = helper.getLayoutPosition() - getHeaderLayoutCount();
+
 
         ImageView view = helper.getView(R.id.iv_thumb);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
@@ -56,7 +58,8 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<EnglishItemInfo, B
 //        animator.setRepeatCount(ObjectAnimator.INFINITE);
 //        animator.start();
 
-        Glide.with(mContext).load(item.getUrl()).apply(new RequestOptions()
-                .transform(new GlideRoundTransform(mContext))).into(view);
+
+        Glide.with(mContext).load(item.getImg()).apply(new RequestOptions()
+                .transform(new GlideRoundTransform()).error(R.mipmap.pic_example)).into(view);
     }
 }

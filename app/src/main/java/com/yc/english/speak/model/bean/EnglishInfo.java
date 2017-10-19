@@ -22,6 +22,9 @@ public class EnglishInfo implements Parcelable {
     private int type;
     private List<EnglishItemInfo> item_list;
 
+
+
+
     public String getTitle() {
         return title;
     }
