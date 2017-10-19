@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.speak.model.bean.EnglishInfo;
+import com.yc.english.speak.view.activity.ListenEnglishActivity;
 
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<EnglishInfo, BaseViewH
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(mContext, view.getClass().getSimpleName() + "--" + position, Toast.LENGTH_SHORT).show();
                 // TODO: 2017/10/13 视频或音频跳转
-//                mContext.startActivity(new Intent(mContext,ListenEnglishActivity.class));
+                mContext.startActivity(new Intent(mContext,ListenEnglishActivity.class));
                 return false;
 
             }

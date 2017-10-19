@@ -57,7 +57,7 @@ public class SpeakMoreActivity extends FullScreenActivity {
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(SpeakMoreActivity.this, view.getClass().getSimpleName() + "--" + position, Toast.LENGTH_SHORT).show();
                 // TODO: 2017/10/13 视频或音频点击跳转
-//                startActivity(new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class));
+                startActivity(new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class));
 
                 return false;
             }

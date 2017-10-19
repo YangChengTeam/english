@@ -122,4 +122,7 @@ dependencies {
     compile project(':guide')
     compile 'fm.jiecao:jiecaovideoplayer:5.8.1'
     compile project(':sticker')
+    compile 'com.mikhaellopez:circularprogressbar:1.1.1'
+    compile 'com.github.zhengken:LyricViewDemo:v1.2'
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
