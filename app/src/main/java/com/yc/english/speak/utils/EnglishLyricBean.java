@@ -1,45 +1,20 @@
 package com.yc.english.speak.utils;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
-import android.net.Uri;
-import android.support.annotation.NonNull;
 
-import com.yc.english.EnglishApp;
-import com.yc.english.R;
+import com.blankj.utilcode.util.LogUtils;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 
-/**
- * Created by zhengken.me on 2016/11/27.
- * ClassName    : Song
- * Description  :
- */
+public class EnglishLyricBean {
 
-public class Song {
-
-
-    public Song(@NonNull Uri songUri) {
-
-        try {
-            String songPath = URLDecoder.decode(songUri.getPath().toString(), "UTF8");
-            mSongPath = songPath;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Song(@NonNull String songPath) {
+    public EnglishLyricBean(String songPath) {
         mSongPath = songPath;
     }
-
 
     private String mTitle;
 
@@ -51,19 +26,13 @@ public class Song {
 
     private int mDuration;
 
-    private Bitmap mCover;
-
-    private Bitmap mCoverMirror;
-
-    private Bitmap mCoverGauss;
-
     public String getmSongPath() {
         return mSongPath;
     }
 
     private void setLrcPath() {
-
         String lrcPath = mSongPath.substring(0, mSongPath.length() - 3) + "lrc";
+        LogUtils.e("setLrcPath--->" + lrcPath);
         mLrcPath = lrcPath;
     }
 
@@ -79,7 +48,6 @@ public class Song {
     }
 
     public boolean isLrcExist() {
-
         File lrcFile = new File(mLrcPath);
         if (lrcFile.exists()) {
             return true;
@@ -136,29 +104,4 @@ public class Song {
         return format.format(minute) + ":" + format.format(second);
     }
 
-
-    public void setCover() {
-        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-        mmr.setDataSource(mSongPath);
-        byte[] bitmap = mmr.getEmbeddedPicture();
-        if (bitmap != null) {
-            mCover = BitmapFactory.decodeByteArray(bitmap, 0, bitmap.length);
-        } else {
-            mCover = BitmapFactory.decodeResource(EnglishApp.get().getResources(),
-                    R.drawable.default_cover);
-        }
-    }
-
-    public Bitmap getCover() {
-        if (mCover == null) {
-            setCover();
-        }
-        return mCover;
-    }
-
-    public void setCoverMirror() {
-    }
-
-    public void setCoverGauss() {
-    }
 }

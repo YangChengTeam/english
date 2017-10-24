@@ -60,7 +60,7 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/end_time"
             android:layout_toRightOf="@+id/start_time"
-            android:maxHeight="8dp"
+            android:maxHeight="6dp"
             android:progressDrawable="@drawable/seek_bar_bg"
             android:thumb="@drawable/seek_bar_thumb"/>
 

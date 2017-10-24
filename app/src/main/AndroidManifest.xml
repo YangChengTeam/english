@@ -238,7 +238,7 @@
 
         <activity android:name=".weixin.views.activitys.CourseActivity"></activity>
         <activity android:name=".weixin.views.activitys.CourseTypeActivity"></activity>
-        <service android:name=".speak.utils.MusicPlayService"/>
+        <service android:name=".speak.service.MusicPlayService"/>
     </application>
 
 </manifest>

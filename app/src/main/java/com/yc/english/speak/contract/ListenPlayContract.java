@@ -3,18 +3,13 @@ package com.yc.english.speak.contract;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
-import com.yc.english.speak.utils.Song;
+import com.yc.english.speak.utils.EnglishLyricBean;
 
 import java.io.File;
 
+public interface ListenPlayContract {
 
-/**
- * Created by zhengken.me on 2016/11/27.
- * Description  :
- */
-
-public interface MainPlayContract {
-    public interface View extends BaseView<Presenter> {
+    interface View extends SpeakBaseView<Presenter> {
 
         void updateTitle(String title);
 
@@ -47,7 +42,7 @@ public interface MainPlayContract {
 
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends SpeakBasePresenter {
 
         void processIntent(Intent intent);
 
@@ -55,7 +50,7 @@ public interface MainPlayContract {
 
         void play();
 
-        void playMusic(Song song);
+        void playMusic(EnglishLyricBean song);
 
         void onBtnPlayPausePressed();
 

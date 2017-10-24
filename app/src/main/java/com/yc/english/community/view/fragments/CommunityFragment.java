@@ -292,7 +292,6 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
 
     @Override
     public void showAgreeInfo(boolean flag) {
-        //ToastUtils.showLong("点赞成功");
         mCommunityItemAdapter.getData().get(currentItemPosition).setAgreed("1");
         //mCommunityItemAdapter.notifyItemChanged(currentChildPosition);(Integer.parseInt(this.getData().get(pos).getAgreeCount()) + 1) + "");
         if (!StringUtils.isEmpty(mCommunityItemAdapter.getData().get(currentItemPosition).getAgreeCount())) {

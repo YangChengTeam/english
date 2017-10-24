@@ -6,7 +6,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
-import com.yc.english.speak.model.bean.ListenEnglishBean;
+import com.yc.english.speak.model.bean.SpeakEnglishBean;
 import com.yc.english.speak.model.domain.URLConfig;
 
 import java.util.HashMap;
@@ -26,13 +26,13 @@ public class ListenEnglishEngin extends BaseEngin{
         super(context);
     }
 
-    public Observable<ResultInfo<ListenEnglishBean>> getListenEnglish(String id, int currentPage, int pageCount) {
+    public Observable<ResultInfo<SpeakEnglishBean>> getListenEnglish(String id, int currentPage, int pageCount) {
         Map<String, String> params = new HashMap<>();
         params.put("id", id);
         params.put("page", currentPage + "");
         params.put("limit", pageCount + "");
 
-        return HttpCoreEngin.get(context).rxpost(URLConfig.LISTEN_ENGLISH_URL, new TypeReference<ResultInfo<ListenEnglishBean>>() {
+        return HttpCoreEngin.get(context).rxpost(URLConfig.LISTEN_ENGLISH_URL, new TypeReference<ResultInfo<SpeakEnglishBean>>() {
                 }.getType(), params,
                 true, true,
                 true);

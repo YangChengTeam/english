@@ -1,4 +1,4 @@
-package com.yc.english.speak.utils;
+package com.yc.english.speak.view.wdigets;
 
 import android.content.Context;
 import android.preference.EditTextPreference;

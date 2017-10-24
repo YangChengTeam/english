@@ -7,7 +7,7 @@ import org.json.JSONTokener;
 /**
  * Json结果解析类
  */
-public class JsonParser {
+public class VoiceJsonParser {
 
 	public static String parseIatResult(String json) {
 		StringBuffer ret = new StringBuffer();

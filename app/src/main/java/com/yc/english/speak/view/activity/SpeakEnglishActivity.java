@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -26,19 +27,23 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
 import com.yc.english.speak.contract.ListenEnglishContract;
-import com.yc.english.speak.model.bean.ListenEnglishBean;
+import com.yc.english.speak.model.bean.SpeakEnglishBean;
 import com.yc.english.speak.presenter.ListenEnglishListPresenter;
 import com.yc.english.speak.utils.IatSettings;
-import com.yc.english.speak.utils.JsonParser;
-import com.yc.english.speak.view.adapter.ListenEnglishItemAdapter;
+import com.yc.english.speak.utils.VoiceJsonParser;
+import com.yc.english.speak.view.adapter.SpeakItemAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,15 +73,19 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
     @BindView(R.id.listen_english_list)
     RecyclerView mListenEnglishRecyclerView;
 
-    ListenEnglishItemAdapter mListenEnglishItemAdapter;
+    SpeakItemAdapter mSpeakItemAdapter;
 
     LinearLayoutManager mLinearLayoutManager;
 
     private int lastPosition = -1;
 
-    private boolean isTape;
+    private boolean isPlay;//播放点读
 
-    private boolean isPlayTape;
+    private boolean isTape;//录音
+
+    private boolean isPlayTape;//播放录音
+
+    private CircularProgressBar playReadProgressBar;
 
     private CircularProgressBar progressBar;
 
@@ -128,7 +137,10 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
     /**
      * 函数调用返回值
      */
-    int ret = 0;
+    private int ret = 0;
+
+    // 语音合成对象
+    private SpeechSynthesizer mTts;
 
     @Override
     public int getLayoutId() {
@@ -137,10 +149,14 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
 
     @Override
     public void init() {
+        mToolbar.setTitle("说英语");
+        mToolbar.showNavigationIcon();
+        mToolbar.setTitleColor(ContextCompat.getColor(this, R.color.white));
+        mTts = SpeechUtils.getTts(this);
 
-        List<ListenEnglishBean> list = new ArrayList<ListenEnglishBean>();
+        List<SpeakEnglishBean> list = new ArrayList<SpeakEnglishBean>();
         for (int i = 0; i < countNum; i++) {
-            ListenEnglishBean listenEnglishBean = new ListenEnglishBean();
+            SpeakEnglishBean listenEnglishBean = new SpeakEnglishBean();
             listenEnglishBean.setCnSentence("学习英语天天好心情");
             listenEnglishBean.setEnSentence("learn english happy every day");
             if (i == 0) {
@@ -153,11 +169,11 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
 
         mPresenter = new ListenEnglishListPresenter(this, this);
         mLinearLayoutManager = new LinearLayoutManager(this);
-        mListenEnglishRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(0.5f)));
-        mListenEnglishItemAdapter = new ListenEnglishItemAdapter(this, list);
+        mListenEnglishRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(0.3f)));
+        mSpeakItemAdapter = new SpeakItemAdapter(this, list);
 
         mListenEnglishRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mListenEnglishRecyclerView.setAdapter(mListenEnglishItemAdapter);
+        mListenEnglishRecyclerView.setAdapter(mSpeakItemAdapter);
 
         //mPresenter.getListenEnglish("1", 1, 10);
 
@@ -172,7 +188,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
         mSharedPreferences = getSharedPreferences(IatSettings.PREFER_NAME,
                 Activity.MODE_PRIVATE);
 
-        mListenEnglishItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mSpeakItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (position == lastPosition) {
@@ -189,10 +205,10 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
             }
         });
 
-        mListenEnglishItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        mSpeakItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.iv_speak_tape && !isTape && !isPlayTape) {
+                if (view.getId() == R.id.iv_speak_tape && !isTape && !isPlayTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
                     currentView.findViewById(R.id.speak_tape_layout).setVisibility(View.VISIBLE);
                     progressBar = (CircularProgressBar) currentView.findViewById(R.id.progress_bar);
@@ -203,7 +219,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
                     isTape = true;
                 }
 
-                if (view.getId() == R.id.speak_tape_layout && isTape && !isPlayTape) {
+                if (view.getId() == R.id.speak_tape_layout && isTape && !isPlayTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
                     currentView.findViewById(R.id.iv_speak_tape).setVisibility(View.VISIBLE);
                     view.setVisibility(View.GONE);
@@ -212,7 +228,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
                     isTape = false;
                 }
 
-                if (view.getId() == R.id.iv_play_self_speak && !isPlayTape && !isTape) {
+                if (view.getId() == R.id.iv_play_self_speak && !isPlayTape && !isTape && !isPlay) {
                     if (audioFile != null && audioFile.exists()) {
                         View currentView = mLinearLayoutManager.findViewByPosition(position);
                         playProgressBar = (CircularProgressBar) currentView.findViewById(R.id.play_progress_bar);
@@ -223,27 +239,50 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
                     }
                 }
 
-                if (view.getId() == R.id.play_speak_tape_layout && isPlayTape && !isTape) {
+                if (view.getId() == R.id.play_speak_tape_layout && isPlayTape && !isTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
                     currentView.findViewById(R.id.iv_play_self_speak).setVisibility(View.VISIBLE);
                     view.setVisibility(View.GONE);
                     stopPlayTape();
                 }
+
+                //播放点读
+                if (view.getId() == R.id.iv_play_read && !isPlay && !isPlayTape && !isTape) {
+                    View currentView = mLinearLayoutManager.findViewByPosition(position);
+                    playReadProgressBar = (CircularProgressBar) currentView.findViewById(R.id.play_read_progress_bar);
+                    currentView.findViewById(R.id.play_layout).setVisibility(View.VISIBLE);
+                    view.setVisibility(View.GONE);
+                    //TODO
+                    //播放点读
+                    startSynthesizer(position);
+                    isPlay = true;
+                }
+
+                //停止播放点读
+                if (view.getId() == R.id.play_layout && isPlay && !isPlayTape && !isTape) {
+                    View currentView = mLinearLayoutManager.findViewByPosition(position);
+                    currentView.findViewById(R.id.iv_play_read).setVisibility(View.VISIBLE);
+                    view.setVisibility(View.GONE);
+                    //TODO
+                    //停止播放点读
+                    stopPlay();
+                }
+
                 return false;
             }
         });
     }
 
     public void enableState(int position) {
-        mListenEnglishItemAdapter.getData().get(position).setShowSpeak(true);
+        mSpeakItemAdapter.getData().get(position).setShowSpeak(true);
         if (lastPosition > -1) {
             if (position != lastPosition) {
-                mListenEnglishItemAdapter.getData().get(lastPosition).setShowSpeak(false);
+                mSpeakItemAdapter.getData().get(lastPosition).setShowSpeak(false);
                 isTape = false;
             }
         }
         lastPosition = position;
-        mListenEnglishItemAdapter.notifyDataSetChanged();
+        mSpeakItemAdapter.notifyDataSetChanged();
     }
 
     Handler handler = new Handler() {
@@ -310,31 +349,6 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
      * 开始录音
      */
     public void tapeStart() {
-       /* try {
-            mediaRecorder = new MediaRecorder();
-            // 第1步：设置音频来源（MIC表示麦克风）
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            //第2步：设置音频输出格式（默认的输出格式）
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-            //第3步：设置音频编码方式（默认的编码方式）
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
-            //创建一个临时的音频输出文件
-            audioFile = new File(SDCardUtils.getSDCardPath() + "/000english/test.wav");
-            if (!audioFile.exists()) {
-                audioFile.createNewFile();
-            }
-            //第4步：指定音频输出文件
-            mediaRecorder.setOutputFile(audioFile.getAbsolutePath());
-            LogUtils.e("audio path --->" + audioFile.getAbsolutePath());
-
-            //第5步：调用prepare方法
-            mediaRecorder.prepare();
-            //第6步：调用start方法开始录音
-            mediaRecorder.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
         mIatResults.clear();
         // 设置参数
         setParam();
@@ -344,29 +358,22 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
             // 显示听写对话框
             /*mIatDialog.setListener(mRecognizerDialogListener);
             mIatDialog.show();*/
-            ToastUtils.showLong("开始");
+            //ToastUtils.showLong("开始");
         } else {
             // 不显示听写对话框
             ret = mIat.startListening(mRecognizerListener);
             if (ret != ErrorCode.SUCCESS) {
                 ToastUtils.showLong("听写失败,错误码：" + ret);
             } else {
-                ToastUtils.showLong("开始");
+                //ToastUtils.showLong("开始");
             }
         }
-
     }
 
     /**
      * 停止录音
      */
     public void tapeStop() {
-        /*if (mediaRecorder != null ) {
-            mediaRecorder.stop();
-            mediaRecorder.reset();
-            mediaRecorder.release();
-            mediaRecorder = null;
-        }*/
         isTape = false;
     }
 
@@ -472,7 +479,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
         @Override
         public void onBeginOfSpeech() {
             // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
-            ToastUtils.showLong("开始说话");
+            //ToastUtils.showLong("开始说话");
         }
 
         @Override
@@ -483,14 +490,15 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
             if (mTranslateEnable && error.getErrorCode() == 14002) {
                 ToastUtils.showLong(error.getPlainDescription(true) + "\n请确认是否已开通翻译功能");
             } else {
-                ToastUtils.showLong(error.getPlainDescription(true));
+                //ToastUtils.showLong(error.getPlainDescription(true));
+                ToastUtils.showLong("听写错误，请重试");
             }
         }
 
         @Override
         public void onEndOfSpeech() {
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
-            ToastUtils.showLong("结束说话");
+            //ToastUtils.showLong("结束说话");
         }
 
         @Override
@@ -525,7 +533,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
     };
 
     private void printResult(RecognizerResult results) {
-        String text = JsonParser.parseIatResult(results.getResultString());
+        String text = VoiceJsonParser.parseIatResult(results.getResultString());
         String sn = null;
         // 读取json结果中的sn字段
         try {
@@ -544,18 +552,23 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
         voiceText = resultBuffer.toString();
         if (!StringUtils.isEmpty(voiceText)) {
             LogUtils.e("语音录入结果--->" + voiceText);
-            ToastUtils.showLong(voiceText);
         }
 
         View currentView = mLinearLayoutManager.findViewByPosition(lastPosition);
         currentView.findViewById(R.id.iv_speak_tape).setVisibility(View.VISIBLE);
         currentView.findViewById(R.id.speak_tape_layout).setVisibility(View.GONE);
-        currentView.findViewById(R.id.layout_result).setVisibility(View.VISIBLE);
+        //currentView.findViewById(R.id.layout_result).setVisibility(View.VISIBLE);
+
+        mSpeakItemAdapter.getData().get(lastPosition).setShowResult(true);
+
         if (voiceText.equals("Book")) {
-            currentView.findViewById(R.id.iv_result).setBackgroundResource(R.mipmap.listen_result_yes);
+            //currentView.findViewById(R.id.iv_result).setBackgroundResource(R.mipmap.listen_result_yes);
+            mSpeakItemAdapter.getData().get(lastPosition).setSpeakResult(true);
         } else {
-            currentView.findViewById(R.id.iv_result).setBackgroundResource(R.mipmap.listen_result_no);
+            //currentView.findViewById(R.id.iv_result).setBackgroundResource(R.mipmap.listen_result_no);
+            mSpeakItemAdapter.getData().get(lastPosition).setSpeakResult(false);
         }
+        mSpeakItemAdapter.notifyDataSetChanged();
 
         stopTask();
         tapeStop();
@@ -628,8 +641,8 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
     }
 
     private void printTransResult(RecognizerResult results) {
-        String trans = JsonParser.parseTransResult(results.getResultString(), "dst");
-        String oris = JsonParser.parseTransResult(results.getResultString(), "src");
+        String trans = VoiceJsonParser.parseTransResult(results.getResultString(), "dst");
+        String oris = VoiceJsonParser.parseTransResult(results.getResultString(), "src");
 
         if (TextUtils.isEmpty(trans) || TextUtils.isEmpty(oris)) {
             ToastUtils.showLong("解析结果失败，请确认是否已开通翻译功能。");
@@ -659,7 +672,92 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
     }
 
     @Override
-    public void showListenEnglishList(List<ListenEnglishBean> list) {
+    public void showListenEnglishList(List<SpeakEnglishBean> list) {
 
     }
+
+    /**
+     * 合成回调监听。
+     */
+    private SynthesizerListener mTtsListener = new SynthesizerListener() {
+        @Override
+        public void onSpeakBegin() {
+        }
+
+        @Override
+        public void onSpeakPaused() {
+            //暂停播放
+        }
+
+        @Override
+        public void onSpeakResumed() {
+            //继续播放
+        }
+
+        @Override
+        public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
+            // 合成进度
+        }
+
+        @Override
+        public void onSpeakProgress(int percent, int beginPos, int endPos) {
+            // 播放进度
+            playReadProgressBar.setProgress(percent);
+        }
+
+        @Override
+        public void onCompleted(SpeechError error) {
+            if (error == null) {
+
+                View currentView = mLinearLayoutManager.findViewByPosition(lastPosition);
+                currentView.findViewById(R.id.iv_play_read).setVisibility(View.VISIBLE);
+                currentView.findViewById(R.id.play_layout).setVisibility(View.GONE);
+                isPlay = false;
+                playReadProgressBar.setProgress(0);
+            } else if (error != null) {
+                if (error.getErrorDescription().contains("权")) {
+                    com.yc.english.base.utils.SpeechUtils.resetAppid(SpeakEnglishActivity.this);
+                    return;
+                }
+            }
+        }
+
+        @Override
+        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+            // 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因
+        }
+    };
+
+    /**
+     * 播放点读
+     *
+     * @param postion
+     */
+    public void startSynthesizer(int postion) {
+        if (postion < 0 || postion >= mSpeakItemAdapter.getData().size()) {
+            return;
+        }
+        mTts = SpeechUtils.getTts(this);
+        String text = mSpeakItemAdapter.getData().get(postion).getEnSentence();
+        int code = mTts.startSpeaking(text, mTtsListener);
+        if (code != ErrorCode.SUCCESS) {
+            if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
+                TipsHelper.tips(SpeakEnglishActivity.this, "语音合成失败");
+            } else {
+                TipsHelper.tips(SpeakEnglishActivity.this, "语音合成失败");
+                mTts.stopSpeaking();
+            }
+        }
+    }
+
+    /**
+     * 停止点读
+     */
+    public void stopPlay() {
+        if (mTts != null && mTts.isSpeaking()) {
+            mTts.stopSpeaking();
+        }
+        isPlay = false;
+    }
+
 }

@@ -123,6 +123,7 @@ dependencies {
     compile 'fm.jiecao:jiecaovideoplayer:5.8.1'
     compile project(':sticker')
     compile 'com.mikhaellopez:circularprogressbar:1.1.1'
-    compile 'com.github.zhengken:LyricViewDemo:v1.2'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile files('libs/juniversalchardet-1.0.3.jar')
+    compile 'com.liulishuo.filedownloader:library:1.6.8'
 }

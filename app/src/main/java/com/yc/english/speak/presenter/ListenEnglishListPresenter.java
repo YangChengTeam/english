@@ -6,7 +6,7 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.speak.contract.ListenEnglishContract;
-import com.yc.english.speak.model.bean.ListenEnglishBean;
+import com.yc.english.speak.model.bean.SpeakEnglishBean;
 import com.yc.english.speak.model.engine.ListenEnglishEngin;
 
 import rx.Subscriber;
@@ -30,7 +30,7 @@ public class ListenEnglishListPresenter extends BasePresenter<ListenEnglishEngin
         if (currentPage == 1 && mFirstLoad) {
             mView.showLoading();
         }
-        Subscription subscribe = mEngin.getListenEnglish(id, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<ListenEnglishBean>>() {
+        Subscription subscribe = mEngin.getListenEnglish(id, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<SpeakEnglishBean>>() {
             @Override
             public void onCompleted() {
 
@@ -44,7 +44,7 @@ public class ListenEnglishListPresenter extends BasePresenter<ListenEnglishEngin
             }
 
             @Override
-            public void onNext(final ResultInfo<ListenEnglishBean> resultInfo) {
+            public void onNext(final ResultInfo<SpeakEnglishBean> resultInfo) {
 
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override

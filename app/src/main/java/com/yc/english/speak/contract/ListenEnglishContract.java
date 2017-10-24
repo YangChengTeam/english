@@ -5,7 +5,7 @@ import com.yc.english.base.view.ILoading;
 import com.yc.english.base.view.INoData;
 import com.yc.english.base.view.INoNet;
 import com.yc.english.base.view.IView;
-import com.yc.english.speak.model.bean.ListenEnglishBean;
+import com.yc.english.speak.model.bean.SpeakEnglishBean;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface ListenEnglishContract {
 
     interface View extends IView, ILoading, INoData, INoNet {
 
-        void showListenEnglishList(List<ListenEnglishBean> list);
+        void showListenEnglishList(List<SpeakEnglishBean> list);
     }
 
     interface Presenter extends IPresenter {

@@ -1,5 +1,6 @@
 package com.yc.english.speak.view.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.speak.model.bean.SpeakAndReadInfo;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
+import com.yc.english.speak.view.activity.SpeakEnglishActivity;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -82,11 +84,11 @@ public class SpeakEnglishAdapterNew extends BaseQuickAdapter<SpeakAndReadInfo, B
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(mContext, view.getClass().getSimpleName() + "--" + position, Toast.LENGTH_SHORT).show();
                 // TODO: 2017/10/13 视频或音频跳转
-//                Intent intent =new Intent(mContext,ListenEnglishActivity.class);
-//                SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
-//                intent.putExtra("speakAndReadItemInfo", speakAndReadItemInfo);
-//                mContext.startActivity(intent);
-//                mContext.startActivity(new Intent(mContext,ListenEnglishActivity.class));
+                Intent intent = new Intent(mContext, SpeakEnglishActivity.class);
+                /*SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
+                intent.putExtra("speakAndReadItemInfo", speakAndReadItemInfo);
+                mContext.startActivity(intent);*/
+                mContext.startActivity(new Intent(mContext, SpeakEnglishActivity.class));
                 return false;
 
             }

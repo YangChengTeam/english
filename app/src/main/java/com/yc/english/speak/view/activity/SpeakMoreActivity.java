@@ -68,7 +68,7 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
                 Toast.makeText(SpeakMoreActivity.this, view.getClass().getSimpleName() + "--" + position, Toast.LENGTH_SHORT).show();
                 // TODO: 2017/10/13 视频或音频点击跳转
 
-                startActivity(new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class));
+                startActivity(new Intent(SpeakMoreActivity.this, SpeakEnglishActivity.class));
 
 //                SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
 //                Intent intent = new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class);

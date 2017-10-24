@@ -41,7 +41,7 @@
 
         <LinearLayout
             android:id="@+id/layout_result"
-            android:layout_width="100dp"
+            android:layout_width="66dp"
             android:layout_height="42dp"
             android:layout_gravity="center_vertical"
             android:gravity="center"
@@ -50,18 +50,16 @@
 
             <ImageView
                 android:id="@+id/iv_result"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:background="@mipmap/listen_result_yes"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/tv_result_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="不错哦，继续努力"
-                android:visibility="gone"
-                android:textSize="10sp"/>
+                android:text="不错哦，满分"
+                android:textSize="8sp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -71,25 +69,54 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/iv_speak_play"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+        <FrameLayout
+            android:layout_width="46dp"
+            android:layout_height="46dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="12dp"
-            android:src="@mipmap/speak_play_icon"/>
+            android:layout_marginLeft="16dp">
+
+            <FrameLayout
+                android:id="@+id/play_layout"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@mipmap/speak_stop_self_icon"/>
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/play_read_progress_bar"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    app:cpb_background_progressbar_color="#6bcefc"
+                    app:cpb_background_progressbar_width="5dp"
+                    app:cpb_progress="0"
+                    app:cpb_progressbar_color="#b3e7ff"
+                    app:cpb_progressbar_width="3dp"/>
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/iv_play_read"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/speak_play_icon"/>
+        </FrameLayout>
 
         <FrameLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp">
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="16dp">
 
             <FrameLayout
                 android:id="@+id/speak_tape_layout"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:visibility="gone">
 
                 <ImageView
@@ -107,8 +134,8 @@
 
                 <com.mikhaellopez.circularprogressbar.CircularProgressBar
                     android:id="@+id/progress_bar"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     app:cpb_background_progressbar_color="#8cd621"
                     app:cpb_background_progressbar_width="6dp"
                     app:cpb_progress="30"
@@ -118,22 +145,22 @@
 
             <ImageView
                 android:id="@+id/iv_speak_tape"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/speak_tape_icon"/>
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="16dp">
 
             <FrameLayout
                 android:id="@+id/play_speak_tape_layout"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
                 android:visibility="gone">
 
                 <ImageView
@@ -143,19 +170,19 @@
 
                 <com.mikhaellopez.circularprogressbar.CircularProgressBar
                     android:id="@+id/play_progress_bar"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    app:cpb_background_progressbar_color="#feab35"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    app:cpb_background_progressbar_color="#6bcefc"
                     app:cpb_background_progressbar_width="5dp"
                     app:cpb_progress="0"
-                    app:cpb_progressbar_color="#fbd14c"
-                    app:cpb_progressbar_width="2dp"/>
+                    app:cpb_progressbar_color="#b3e7ff"
+                    app:cpb_progressbar_width="3dp"/>
             </FrameLayout>
 
             <ImageView
                 android:id="@+id/iv_play_self_speak"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/speak_play_self_icon"/>
         </FrameLayout>

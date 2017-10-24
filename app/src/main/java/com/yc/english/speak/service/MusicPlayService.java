@@ -1,4 +1,4 @@
-package com.yc.english.speak.utils;
+package com.yc.english.speak.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -7,16 +7,19 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
+import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
+import com.yc.english.speak.utils.AudioConstant;
 
 import java.io.IOException;
 
-
 /**
- * Created by zhengken.me on 2016/11/27. ClassName    : MusicPlayService Description  :
+ * 播放服务
  */
-
 public class MusicPlayService extends Service implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 
     private static final String TAG = MusicPlayService.class.getSimpleName();
@@ -31,7 +34,6 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
 
     private String mSongPath;
 
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,9 +42,8 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
         mMediaPlayer.setOnPreparedListener(this);
         mMediaPlayer.setOnErrorListener(this);
         mMediaPlayer.setOnBufferingUpdateListener(this);
-        EventBus.getDefault().register(this);
-        EventBus.getDefault().post(new MediaPlayerCreatedEvent(mMediaPlayer));
-        EventBus.getDefault().post(new PlayServiceCreatedEvent());
+        RxBus.get().register(this);
+        RxBus.get().post(AudioConstant.INIT_MEDIA_AND_PLAY, mMediaPlayer);
     }
 
     @Override
@@ -58,6 +59,7 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
 
     private void initMediaPlayer() {
         try {
+            LogUtils.e("initMediaPlayer--->");
             mMediaPlayer.reset();
             setCurrentState(State.STATE_IDLE);
             mMediaPlayer.setDataSource(mSongPath);
@@ -68,30 +70,45 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
         }
     }
 
-
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
         setCurrentState(State.STATE_PREPARED);
+        LogUtils.e("audio init finish --->");
         play();
     }
 
-    @Subscribe
-    public void onMusicControlEvent(MusicControlEvent event) {
-        Log.d(TAG, "onMusicControlEvent()");
-        switch (event.mCtrlId) {
-            case MUSIC_CONTROL_PLAY:
-                // resume music
-                if (mSongPath != null && mSongPath.equals(event.mSongPath)) {
-                    play();
-                    return;
-                }
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(AudioConstant.PLAY_STATE)
+            }
+    )
+    public void playState(String path) {
+        try {
+            //继续播放
+            if (!StringUtils.isEmpty(mSongPath) && !StringUtils.isEmpty(path) && mSongPath.equals(path)) {
+                play();
+                return;
+            }
 
-                mSongPath = event.mSongPath;
-                initMediaPlayer();
-                break;
-            case MUSIC_CONTROL_PAUSE:
-                pause();
-                break;
+            mSongPath = path;
+            initMediaPlayer();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(AudioConstant.PAUSE_STATE)
+            }
+    )
+    public void onMusicControlEvent(String path) {
+        try {
+            pause();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -115,14 +132,14 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
         mMediaPlayer.reset();
         mMediaPlayer.release();
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     private void play() {
+        LogUtils.e("play --->");
         if (mMediaPlayer != null && (mCurrentState == State.STATE_PAUSE || mCurrentState == State.STATE_PREPARED || mCurrentState == State.STATE_PLAYING || mCurrentState == State.STATE_COMPLETE)) {
             mMediaPlayer.start();
             setCurrentState(State.STATE_PLAYING);
-            EventBus.getDefault().post(new UpdateUiEvent());
+            RxBus.get().post(AudioConstant.UPDATE_UI, "update_ui");
         }
     }
 

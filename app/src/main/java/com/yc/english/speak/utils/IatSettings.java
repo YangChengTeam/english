@@ -8,6 +8,7 @@ import android.preference.PreferenceActivity;
 import android.view.Window;
 
 import com.yc.english.R;
+import com.yc.english.speak.view.wdigets.SettingTextWatcher;
 
 
 /**
