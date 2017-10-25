@@ -1,5 +1,6 @@
 package com.yc.english.speak.view.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -87,12 +88,23 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(mContext, view.getClass().getSimpleName() + "--" + position, Toast.LENGTH_SHORT).show();
                 // TODO: 2017/10/13 视频或音频跳转
-//                Intent intent = new Intent(mContext, ListenEnglishActivity.class);
-                int pos = data.indexOf(info);
 
+                int pos = data.indexOf(info);
                 SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
                 speakAndReadItemInfo.setOutPos(pos);
                 speakAndReadItemInfo.setInnerPos(position);
+                Intent intent ;
+                if (mType==1){//说英语
+//                    new Intent(mContext, ListenEnglishActivity.class);
+                }else if (mType==2){//听英语
+
+                }
+
+
+//                Intent intent = new Intent(mContext, ListenEnglishActivity.class);
+
+
+
 
                 LogUtils.e(pos + "---" + position);
 
