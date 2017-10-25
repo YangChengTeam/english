@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -12,7 +11,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.speak.model.bean.SpeakAndReadInfo;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
+import com.yc.english.speak.view.activity.ListenEnglishActivity;
+import com.yc.english.speak.view.activity.SpeakEnglishActivity;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -86,33 +88,22 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
         itemAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(mContext, view.getClass().getSimpleName() + "--" + position, Toast.LENGTH_SHORT).show();
                 // TODO: 2017/10/13 视频或音频跳转
-
                 int pos = data.indexOf(info);
                 SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
                 speakAndReadItemInfo.setOutPos(pos);
                 speakAndReadItemInfo.setInnerPos(position);
-                Intent intent ;
-                if (mType==1){//说英语
-//                    new Intent(mContext, ListenEnglishActivity.class);
-                }else if (mType==2){//听英语
-
+                Intent intent = null;
+                if (mType == 1) {//说英语
+                    intent = new Intent(mContext, SpeakEnglishActivity.class);
+                    intent.putExtra("itemInfo", speakAndReadItemInfo);
+                    intent.putParcelableArrayListExtra("infoList", (ArrayList) data);
+                } else if (mType == 2) {//听英语
+                    intent = new Intent(mContext, ListenEnglishActivity.class);
+                    intent.putExtra("itemInfo", speakAndReadItemInfo);
+                    intent.putParcelableArrayListExtra("infoList", (ArrayList) data);
                 }
-
-
-//                Intent intent = new Intent(mContext, ListenEnglishActivity.class);
-
-
-
-
-                LogUtils.e(pos + "---" + position);
-
-//                intent.putExtra("itemInfo", speakAndReadItemInfo);
-//                intent.putParcelableArrayListExtra("infoList", (ArrayList) data);
-//                mContext.startActivity(intent);
-//                mContext.startActivity(new Intent(mContext, ListenEnglishActivity.class));
-
+                mContext.startActivity(intent);
 
                 return false;
 

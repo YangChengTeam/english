@@ -21,7 +21,6 @@ import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.ListGagGroupUserResult;
 import com.yc.english.group.rong.util.RongIMUtil;
-import com.yc.english.speak.view.adapter.SpeakEnglishItemAdapter;
 
 import java.io.File;
 import java.util.HashMap;
@@ -338,22 +337,5 @@ public class EngineUtils {
         return HttpCoreEngin.get(context).rxpost(NetConstant.index_comm_class_list, new TypeReference<ResultInfo<ClassInfoList>>() {
         }.getType(), null, true, true, true);
     }
-
-
-    /**
-     * 获取读写详情
-     * @param context
-     * @param id
-     * @return
-     */
-    public static Observable<ResultInfo<SpeakEnglishItemAdapter>> getReadAndSpeakDetail(Context context, String id) {
-        Map<String, String> params = new HashMap<>();
-        params.put("id", id);
-
-        return HttpCoreEngin.get(context).rxpost(NetConstant.read_getreadDetail, new TypeReference<ResultInfo<SpeakEnglishItemAdapter>>() {
-        }.getType(), params, true, true, true);
-
-    }
-
 
 }

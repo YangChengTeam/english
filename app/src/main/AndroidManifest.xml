@@ -153,7 +153,14 @@
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".speak.view.activity.SpeakMainActivity" />
         <activity android:name=".speak.view.activity.SpeakMoreActivity" />
-
+        <activity
+            android:name=".speak.view.activity.SpeakEnglishActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".speak.view.activity.ListenEnglishActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".group.view.activitys.FilePreviewExActivity"
             android:screenOrientation="portrait">
@@ -162,7 +169,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
 
         <activity
             android:name="io.rong.imkit.plugin.image.PicturePreviewActivity"
@@ -232,7 +238,7 @@
 
         <activity android:name=".weixin.views.activitys.CourseActivity"></activity>
         <activity android:name=".weixin.views.activitys.CourseTypeActivity"></activity>
-
+        <service android:name=".speak.service.MusicPlayService"/>
     </application>
 
 </manifest>

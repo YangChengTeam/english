@@ -21,7 +21,5 @@ public interface SpeakEnglishContract {
     }
 
     interface Presenter extends IPresenter {
-
-
     }
 }

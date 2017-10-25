@@ -1,5 +1,6 @@
 package com.yc.english.speak.view.activity;
 
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -68,14 +69,25 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
                 Toast.makeText(SpeakMoreActivity.this, view.getClass().getSimpleName() + "--" + position, Toast.LENGTH_SHORT).show();
                 // TODO: 2017/10/13 视频或音频点击跳转
 
+
+                startActivity(new Intent(SpeakMoreActivity.this, SpeakEnglishActivity.class));
+
+//                SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
+
                 List<SpeakAndReadItemInfo> dataList = speakEnglishItemAdapter.getData();
                 SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
                 speakAndReadItemInfo.setInnerPos(position);
+
 //                Intent intent = new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class);
 //                intent.putExtra("itemInfo", speakAndReadItemInfo);
 //                intent.putParcelableArrayListExtra("infoList", (ArrayList) dataList);
 //                startActivity(intent);
+
+
+
+
 //                mPresenter.getDataDetail(63+"");
+
                 return false;
             }
         });

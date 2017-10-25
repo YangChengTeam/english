@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+    <com.yc.english.base.view.MainToolBar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+    </com.yc.english.base.view.MainToolBar>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_music_cover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relative_layout_seek_bar_wrapper"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/listen_bg_color"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.yc.english.speak.view.wdigets.LyricView
+            android:id="@+id/custom_lyric_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:highlightColor="@color/high_light_color"
+            app:hint="暂无信息"
+            app:hintColor="@color/gray_aaa"
+            app:textColor="@color/black"
+            app:textSize="16sp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_seek_bar_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/music_play_control"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:id="@+id/start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="00:00"
+            android:textColor="@color/gray_aaa"
+            android:textSize="10sp"/>
+
+        <SeekBar
+            android:id="@+id/music_seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/end_time"
+            android:layout_toRightOf="@+id/start_time"
+            android:maxHeight="8dp"
+            android:progressDrawable="@drawable/seek_bar_bg"
+            android:thumb="@drawable/seek_bar_thumb"/>
+
+        <TextView
+            android:id="@+id/end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="00:00"
+            android:textColor="@color/black_333"
+            android:textSize="10sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/music_play_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="12dp">
+
+        <ImageView
+            android:id="@+id/btn_prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="35dp"
+            android:layout_toLeftOf="@+id/btn_play_pause"
+            android:src="@drawable/btn_prev_selector"/>
+
+        <ImageView
+            android:id="@+id/btn_play_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_pause_selector"/>
+
+        <ImageView
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="35dp"
+            android:layout_toRightOf="@+id/btn_play_pause"
+            android:src="@drawable/btn_next_selector"/>
+
+        <TextView
+            android:id="@+id/tv_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="@string/read_course_language_blend_text"
+            android:textColor="@color/black_333"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+    </RelativeLayout>
+</RelativeLayout>

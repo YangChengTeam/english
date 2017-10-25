@@ -3,6 +3,7 @@ package com.blankj.utilcode.util;
 import com.blankj.utilcode.constant.TimeConstants;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -1619,5 +1620,15 @@ public final class TimeUtils {
             }
         }
         return sb.toString();
+    }
+
+    public static String duration2String(long time){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(time));
+        double minute = calendar.get(Calendar.MINUTE);
+        double second = calendar.get(Calendar.SECOND);
+
+        DecimalFormat format = new DecimalFormat("00");
+        return format.format(minute) + ":" + format.format(second);
     }
 }

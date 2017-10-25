@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -110,8 +109,6 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
     public void showLoading() {
         stateView.showLoading(recyclerView);
     }
-
-
 
 
     @Override

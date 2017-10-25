@@ -6,11 +6,9 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.speak.contract.SpeakEnglishContract;
 import com.yc.english.speak.model.bean.SpeakAndReadInfoWrapper;
 import com.yc.english.speak.model.engine.SpeakEnglishListEngine;
-import com.yc.english.speak.view.adapter.SpeakEnglishItemAdapter;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -82,25 +80,4 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
         mSubscriptions.add(subscription);
     }
 
-    public void getDataDetail(String id) {
-
-        Subscription subscription = EngineUtils.getReadAndSpeakDetail(mContext, id).subscribe(new Subscriber<ResultInfo<SpeakEnglishItemAdapter>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(ResultInfo<SpeakEnglishItemAdapter> speakEnglishItemAdapterResultInfo) {
-
-            }
-        });
-        mSubscriptions.add(subscription);
-
-    }
 }

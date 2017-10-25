@@ -5,11 +5,8 @@ import android.content.Context;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
-
 import com.yc.english.base.model.ShareInfo;
-
 import com.yc.english.group.constant.NetConstant;
-
 import com.yc.english.group.model.bean.TokenInfo;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfoWrapper;
@@ -66,5 +63,4 @@ public class EnginHelper {
         return HttpCoreEngin.get(context).rxpost(URLConfig.APPIDS_URL, new TypeReference<ResultInfo<AppidsInfo>>() {
         }.getType(), null, true, true, true);
     }
-
 }

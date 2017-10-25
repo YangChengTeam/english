@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="listen_item_bg_color">#f3f3f3</color>
+    <color name="listen_line_color">#dddddd</color>
+
+    <color name="listen_bg_color">#ebebeb</color>
+    <color name="high_light_color">#ff5555</color>
+</resources>

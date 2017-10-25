@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.yc.english.base.view.MainToolBar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+    </com.yc.english.base.view.MainToolBar>
+
+    <com.yc.english.base.view.StateView
+        android:id="@+id/sv_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+    </com.yc.english.base.view.StateView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listen_english_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/listen_line_color"
+        android:dividerHeight="1dp"/>
+
+</LinearLayout>
