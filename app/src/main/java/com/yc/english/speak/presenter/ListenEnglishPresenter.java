@@ -6,17 +6,20 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.speak.contract.ListenEnglishContract;
-import com.yc.english.speak.model.bean.SpeakEnglishBean;
+import com.yc.english.speak.model.bean.ListenEnglishWarpper;
 import com.yc.english.speak.model.engine.ListenEnglishEngin;
 
 import rx.Subscriber;
 import rx.Subscription;
 
 
-public class ListenEnglishListPresenter extends BasePresenter<ListenEnglishEngin, ListenEnglishContract.View> implements ListenEnglishContract.Presenter {
+public class ListenEnglishPresenter extends BasePresenter<ListenEnglishEngin, ListenEnglishContract.View> implements ListenEnglishContract.Presenter {
 
-    public ListenEnglishListPresenter(Context context, ListenEnglishContract.View view) {
+    private Context mContext;
+
+    public ListenEnglishPresenter(Context context, ListenEnglishContract.View view) {
         super(context, view);
+        mContext = context;
         mEngin = new ListenEnglishEngin(context);
     }
 
@@ -26,11 +29,9 @@ public class ListenEnglishListPresenter extends BasePresenter<ListenEnglishEngin
     }
 
     @Override
-    public void getListenEnglish(String id, final int currentPage, int pageCount) {
-        if (currentPage == 1 && mFirstLoad) {
-            mView.showLoading();
-        }
-        Subscription subscribe = mEngin.getListenEnglish(id, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<SpeakEnglishBean>>() {
+    public void getListenEnglishDetail(String id) {
+
+        Subscription subscribe = mEngin.getListenReadDetail(mContext, id).subscribe(new Subscriber<ResultInfo<ListenEnglishWarpper>>() {
             @Override
             public void onCompleted() {
 
@@ -38,37 +39,27 @@ public class ListenEnglishListPresenter extends BasePresenter<ListenEnglishEngin
 
             @Override
             public void onError(Throwable e) {
-                if (currentPage == 1 && mFirstLoad) {
-                    mView.showNoNet();
-                }
+                mView.showNoNet();
             }
 
             @Override
-            public void onNext(final ResultInfo<SpeakEnglishBean> resultInfo) {
+            public void onNext(final ResultInfo<ListenEnglishWarpper> resultInfo) {
 
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        if (currentPage == 1 && !mFirstLoad) {
-                            mView.showNoNet();
-                        }
+                        mView.showNoNet();
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        if (currentPage == 1 && !mFirstLoad) {
-                            mView.showNoData();
-                        }
+                        mView.showNoData();
                     }
 
                     @Override
                     public void reulstInfoOk() {
-                        if (currentPage == 1 && !mFirstLoad) {
-                            mView.hideStateView();
-                        }
-
                         if (resultInfo != null && resultInfo.data != null) {
-                            mView.showListenEnglishList(null);
+                            mView.showListenEnglishDetail(resultInfo.data.info);
                         }
                     }
                 });

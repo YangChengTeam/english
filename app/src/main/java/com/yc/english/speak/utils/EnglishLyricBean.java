@@ -30,7 +30,7 @@ public class EnglishLyricBean {
         return mSongPath;
     }
 
-    private void setLrcPath() {
+    public void setLrcPath() {
         String lrcPath = mSongPath.substring(0, mSongPath.length() - 3) + "lrc";
         LogUtils.e("setLrcPath--->" + lrcPath);
         mLrcPath = lrcPath;

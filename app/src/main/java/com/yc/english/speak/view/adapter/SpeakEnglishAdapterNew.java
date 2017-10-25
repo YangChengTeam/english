@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.speak.model.bean.SpeakAndReadInfo;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
+import com.yc.english.speak.view.activity.ListenEnglishActivity;
 import com.yc.english.speak.view.activity.SpeakEnglishActivity;
 
 import java.util.Collections;
@@ -88,7 +89,7 @@ public class SpeakEnglishAdapterNew extends BaseQuickAdapter<SpeakAndReadInfo, B
                 /*SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
                 intent.putExtra("speakAndReadItemInfo", speakAndReadItemInfo);
                 mContext.startActivity(intent);*/
-                mContext.startActivity(new Intent(mContext, SpeakEnglishActivity.class));
+                mContext.startActivity(new Intent(mContext, ListenEnglishActivity.class));
                 return false;
 
             }

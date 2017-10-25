@@ -19,7 +19,10 @@ import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.speak.contract.ListenEnglishContract;
 import com.yc.english.speak.contract.ListenPlayContract;
+import com.yc.english.speak.model.bean.ListenEnglishBean;
+import com.yc.english.speak.presenter.ListenEnglishPresenter;
 import com.yc.english.speak.presenter.LyricViewPresenter;
 import com.yc.english.speak.service.MusicPlayService;
 import com.yc.english.speak.view.wdigets.LyricView;
@@ -32,11 +35,11 @@ import butterknife.BindView;
  * Created by admin on 2017/10/19.
  */
 
-public class ListenEnglishActivity extends FullScreenActivity implements ListenPlayContract.View, View.OnClickListener, SeekBar.OnSeekBarChangeListener, LyricView.OnPlayerClickListener {
+public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPresenter> implements ListenEnglishContract.View, ListenPlayContract.View, View.OnClickListener, SeekBar.OnSeekBarChangeListener, LyricView.OnPlayerClickListener {
 
     private static final String TAG = "MainFragment";
 
-    private ListenPlayContract.Presenter mPresenter;
+    private ListenPlayContract.Presenter mPlayPresenter;
 
     @BindView(R.id.custom_lyric_view)
     LyricView mLyricView;
@@ -73,7 +76,11 @@ public class ListenEnglishActivity extends FullScreenActivity implements ListenP
 
     private boolean isDownSuccess;
 
-    private String fileName = "222";
+    private String fileName = "";//ID
+
+    private String currentAudioUrl;
+
+    private String currentAudioLrcUrl;
 
     @Override
     public int getLayoutId() {
@@ -82,19 +89,19 @@ public class ListenEnglishActivity extends FullScreenActivity implements ListenP
 
     @Override
     public void setPresenter(@NonNull ListenPlayContract.Presenter presenter) {
-        mPresenter = presenter;
+        mPlayPresenter = presenter;
     }
 
     @Override
     public void init() {
         mToolbar.setTitle("听英语");
         mToolbar.showNavigationIcon();
-
         mToolbar.setTitleColor(ContextCompat.getColor(this, R.color.white));
         setListener();
 
         FileDownloader.setup(this);
-        downAudioFile();
+        mPresenter = new ListenEnglishPresenter(this, this);
+        mPresenter.getListenEnglishDetail("63");
     }
 
     @Override
@@ -128,10 +135,24 @@ public class ListenEnglishActivity extends FullScreenActivity implements ListenP
         switch (v.getId()) {
             case R.id.btn_play_pause:
                 if (isDownSuccess) {
-                    mPresenter.onBtnPlayPausePressed();
+                    mPlayPresenter.onBtnPlayPausePressed();
                 } else {
                     ToastUtils.showLong("音频文件下载中");
                 }
+                break;
+            case R.id.btn_prev:
+                fileName = "444";
+                currentAudioUrl = "http://nz.qqtn.com/zbsq/Apk/234.mp3";
+                currentAudioLrcUrl = "http://nz.qqtn.com/zbsq/Apk/234.lrc";
+                downAudioFile();
+                break;
+            case R.id.btn_next:
+
+                fileName = "333";
+                currentAudioUrl = "http://nz.qqtn.com/zbsq/Apk/234.mp3";
+                currentAudioLrcUrl = "http://nz.qqtn.com/zbsq/Apk/234.lrc";
+
+                downAudioFile();
                 break;
             default:
                 break;
@@ -157,10 +178,10 @@ public class ListenEnglishActivity extends FullScreenActivity implements ListenP
             String audioPath = fileDir + "/" + fileName + ".mp3";
             audioFile = new File(audioPath);
             if (!audioFile.exists()) {
-                FileDownloader.getImpl().create("http://nz.qqtn.com/zbsq/Apk/123.mp3").setPath(audioPath, false).setListener(new FileDownloadListener() {
+                FileDownloader.getImpl().create(currentAudioUrl).setPath(audioPath, false).setListener(new FileDownloadListener() {
                     @Override
                     protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        ToastUtils.showLong("开始下载音频文件");
+                        ToastUtils.showLong("开始下载资源文件");
                         total = totalBytes / 1024 / 1024;
                     }
 
@@ -212,10 +233,10 @@ public class ListenEnglishActivity extends FullScreenActivity implements ListenP
             String lrcPath = fileDir + "/" + fileName + ".lrc";
             lrcFile = new File(lrcPath);
             if (!lrcFile.exists()) {
-                FileDownloader.getImpl().create("http://nz.qqtn.com/zbsq/Apk/123.lrc").setPath(lrcPath, false).setListener(new FileDownloadListener() {
+                FileDownloader.getImpl().create(currentAudioLrcUrl).setPath(lrcPath, false).setListener(new FileDownloadListener() {
                     @Override
                     protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        ToastUtils.showLong("开始下载词句文件");
+                        ToastUtils.showLong("开始下载资源文件");
                         total = totalBytes / 1024 / 1024;
                     }
 
@@ -233,9 +254,8 @@ public class ListenEnglishActivity extends FullScreenActivity implements ListenP
                         ToastUtils.showLong("下载完成");
                         isDownSuccess = true;
 
-                        mPlayService = new Intent(ListenEnglishActivity.this, MusicPlayService.class);
-                        startService(mPlayService);
                         mLyricViewPresenter = new LyricViewPresenter(ListenEnglishActivity.this, ListenEnglishActivity.this, audioFile.getAbsolutePath());
+                        startService(mPlayService);
                     }
 
                     @Override
@@ -256,7 +276,7 @@ public class ListenEnglishActivity extends FullScreenActivity implements ListenP
                 }).start();
             } else {
                 isDownSuccess = true;
-                mPlayService = new Intent(ListenEnglishActivity.this, MusicPlayService.class);
+
                 startService(mPlayService);
                 mLyricViewPresenter = new LyricViewPresenter(ListenEnglishActivity.this, ListenEnglishActivity.this, audioFile.getAbsolutePath());
             }
@@ -311,31 +331,62 @@ public class ListenEnglishActivity extends FullScreenActivity implements ListenP
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
-            mPresenter.onProgressChanged(progress);
+            mPlayPresenter.onProgressChanged(progress);
         }
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        mPresenter.pause();
+        mPlayPresenter.pause();
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        mPresenter.play();
+        mPlayPresenter.play();
     }
 
     @Override
     public void onPlayerClicked(long progress, String content) {
-        mPresenter.play();
-        mPresenter.onProgressChanged((int) progress);
+        mPlayPresenter.play();
+        mPlayPresenter.onProgressChanged((int) progress);
+    }
+
+
+    @Override
+    public void hideStateView() {
+
+    }
+
+    @Override
+    public void showNoNet() {
+
+    }
+
+    @Override
+    public void showNoData() {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showListenEnglishDetail(ListenEnglishBean listenEnglishBean) {
+        fileName = listenEnglishBean.getId();
+        currentAudioUrl = listenEnglishBean.getMp3();
+        currentAudioLrcUrl = listenEnglishBean.getWordFile();
+        mPlayService = new Intent(ListenEnglishActivity.this, MusicPlayService.class);
+        downAudioFile();
     }
 
     @Override
     protected void onDestroy() {
         Log.d(TAG, "onDestroy");
         super.onDestroy();
-        mPresenter.destroy();
+        mPlayPresenter.destroy();
         stopService(mPlayService);
     }
+
 }

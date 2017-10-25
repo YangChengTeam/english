@@ -46,9 +46,9 @@ public class LyricViewPresenter implements ListenPlayContract.Presenter {
         playEnglishAudio = PlayEnglishAudio.getInstance();
 
         EnglishLyricBean currentSong = new EnglishLyricBean(audioPath);
-        currentSong.getLrcPath();
+        currentSong.setLrcPath();
         LogUtils.e("getLrcPath--->" + currentSong.getLrcPath());
-        playEnglishAudio.addSong(currentSong);
+        playEnglishAudio.setSong(currentSong);
 
         RxBus.get().register(this);
     }
@@ -92,12 +92,22 @@ public class LyricViewPresenter implements ListenPlayContract.Presenter {
             super.handleMessage(msg);
             switch (msg.what) {
                 case MSG_SEEK_BAR_REFRESH:
-                    mMainView.updateSeekBar(mMediaPlayer.getCurrentPosition());
-                    sendEmptyMessageDelayed(MSG_SEEK_BAR_REFRESH, 120);
+                    try {
+                        if (mMediaPlayer != null) {
+                            mMainView.updateSeekBar(mMediaPlayer.getCurrentPosition());
+                            sendEmptyMessageDelayed(MSG_SEEK_BAR_REFRESH, 120);
+                        }
+                    } catch (Exception e) {
+                        LogUtils.e(e.getMessage());
+                    }
                     break;
                 case MSG_MUSIC_LRC_REFRESH:
-                    if (mMediaPlayer != null) {
-                        mMainView.updateLrcView(mMediaPlayer.getCurrentPosition());
+                    try {
+                        if (mMediaPlayer != null) {
+                            mMainView.updateLrcView(mMediaPlayer.getCurrentPosition());
+                        }
+                    } catch (Exception e) {
+                        LogUtils.e(e.getMessage());
                     }
                     sendEmptyMessageDelayed(MSG_MUSIC_LRC_REFRESH, 120);
                     break;
@@ -180,5 +190,15 @@ public class LyricViewPresenter implements ListenPlayContract.Presenter {
             mMainView.initLrcView(null);
             handler.removeMessages(MSG_MUSIC_LRC_REFRESH);
         }
+    }
+
+    @Override
+    public void prev() {
+
+    }
+
+    @Override
+    public void next() {
+
     }
 }

@@ -39,8 +39,9 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
 import com.yc.english.speak.contract.ListenEnglishContract;
+import com.yc.english.speak.model.bean.ListenEnglishBean;
 import com.yc.english.speak.model.bean.SpeakEnglishBean;
-import com.yc.english.speak.presenter.ListenEnglishListPresenter;
+import com.yc.english.speak.presenter.ListenEnglishPresenter;
 import com.yc.english.speak.utils.IatSettings;
 import com.yc.english.speak.utils.VoiceJsonParser;
 import com.yc.english.speak.view.adapter.SpeakItemAdapter;
@@ -65,7 +66,7 @@ import butterknife.BindView;
  * @author admin
  */
 
-public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPresenter> implements ListenEnglishContract.View {
+public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishPresenter> implements ListenEnglishContract.View {
 
     @BindView(R.id.sv_loading)
     StateView mStateView;
@@ -84,6 +85,8 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
     private boolean isTape;//录音
 
     private boolean isPlayTape;//播放录音
+
+    private boolean listenSuccess = false;//听写录音是否录入正确
 
     private CircularProgressBar playReadProgressBar;
 
@@ -167,7 +170,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
             list.add(listenEnglishBean);
         }
 
-        mPresenter = new ListenEnglishListPresenter(this, this);
+        mPresenter = new ListenEnglishPresenter(this, this);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mListenEnglishRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(0.3f)));
         mSpeakItemAdapter = new SpeakItemAdapter(this, list);
@@ -208,6 +211,9 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
         mSpeakItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+                LogUtils.e("listenSuccess333 --->" + listenSuccess);
+
                 if (view.getId() == R.id.iv_speak_tape && !isTape && !isPlayTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
                     currentView.findViewById(R.id.speak_tape_layout).setVisibility(View.VISIBLE);
@@ -228,7 +234,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
                     isTape = false;
                 }
 
-                if (view.getId() == R.id.iv_play_self_speak && !isPlayTape && !isTape && !isPlay) {
+                if (view.getId() == R.id.iv_play_self_speak && !isPlayTape && !isTape && !isPlay && listenSuccess) {
                     if (audioFile != null && audioFile.exists()) {
                         View currentView = mLinearLayoutManager.findViewByPosition(position);
                         playProgressBar = (CircularProgressBar) currentView.findViewById(R.id.play_progress_bar);
@@ -491,8 +497,22 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
                 ToastUtils.showLong(error.getPlainDescription(true) + "\n请确认是否已开通翻译功能");
             } else {
                 //ToastUtils.showLong(error.getPlainDescription(true));
-                ToastUtils.showLong("听写错误，请重试");
+
+                ToastUtils.showLong("听写识别错误，请重试");
+                View currentView = mLinearLayoutManager.findViewByPosition(lastPosition);
+                currentView.findViewById(R.id.iv_speak_tape).setVisibility(View.VISIBLE);
+                currentView.findViewById(R.id.speak_tape_layout).setVisibility(View.GONE);
+
+                stopTask();
+                tapeStop();
+
+                if (mIat != null) {
+                    mIat.stopListening();
+                }
             }
+
+            listenSuccess = false;//听写错误，设置不能播放自己的录音
+            LogUtils.e("listenSuccess111 ---> " + listenSuccess);
         }
 
         @Override
@@ -504,6 +524,9 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
         @Override
         public void onResult(RecognizerResult results, boolean isLast) {
             LogUtils.e(results.getResultString());
+
+            listenSuccess = true;
+            LogUtils.e("listenSuccess222 ---> " + listenSuccess);
             if (mTranslateEnable) {
                 printTransResult(results);
             } else {
@@ -672,7 +695,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
     }
 
     @Override
-    public void showListenEnglishList(List<SpeakEnglishBean> list) {
+    public void showListenEnglishDetail(ListenEnglishBean listenEnglishBean) {
 
     }
 
@@ -760,4 +783,21 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishListPr
         isPlay = false;
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mTts != null && mTts.isSpeaking()) {
+            mTts.stopSpeaking();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != mTts) {
+            mTts.stopSpeaking();
+            mTts.destroy();
+            mTts = null;
+        }
+    }
 }

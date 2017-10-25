@@ -12,7 +12,7 @@ public class URLConfig {
     private static String baseUrl = "http://en.wk2.com/api/";
     private static String debugBaseUrl = "http://en.qqtn.com/api/";
 
-    public static final String LISTEN_ENGLISH_URL = getBaseUrl() + "speak/listen_english_list";
+    public static final String LISTEN_AND_READ_ENGLISH_URL = getBaseUrl() + "read/getreadDetail";
 
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);

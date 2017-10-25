@@ -43,11 +43,11 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
         mMediaPlayer.setOnErrorListener(this);
         mMediaPlayer.setOnBufferingUpdateListener(this);
         RxBus.get().register(this);
-        RxBus.get().post(AudioConstant.INIT_MEDIA_AND_PLAY, mMediaPlayer);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        RxBus.get().post(AudioConstant.INIT_MEDIA_AND_PLAY, mMediaPlayer);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -129,8 +129,16 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
 
     @Override
     public void onDestroy() {
-        mMediaPlayer.reset();
-        mMediaPlayer.release();
+        try {
+            if (mMediaPlayer != null) {
+                //mMediaPlayer.reset();
+                mMediaPlayer.stop();
+                mMediaPlayer.release();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        RxBus.get().unregister(this);
         super.onDestroy();
     }
 

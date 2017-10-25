@@ -58,5 +58,8 @@ public interface ListenPlayContract {
 
         void destroy();
 
+        void prev();
+
+        void next();
     }
 }

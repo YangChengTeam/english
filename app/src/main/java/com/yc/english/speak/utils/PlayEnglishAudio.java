@@ -16,7 +16,7 @@ public class PlayEnglishAudio {
         return mInstance;
     }
 
-    public void addSong(EnglishLyricBean song) {
+    public void setSong(EnglishLyricBean song) {
         mCurrentSong = song;
     }
 
