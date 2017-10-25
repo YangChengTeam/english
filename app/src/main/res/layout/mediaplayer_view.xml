@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/group_distance_10">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/mImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/media_stop" />
+
+    <TextView
+        android:id="@+id/mTextViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true" />
+
+    <SeekBar
+        android:id="@+id/mSeekBar"
+        style="@style/seekbar_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/group_distance_10">
-
-        <ImageView
-            android:id="@+id/mImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/media_stop" />
-
-        <TextView
-            android:id="@+id/mTextViewTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
-
-        <SeekBar
-            android:id="@+id/mSeekBar"
-            style="@style/seekbar_style"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/mTextViewTime"
-            android:layout_toRightOf="@id/mImageView"
-            android:maxHeight="@dimen/group_distance_5"
-            android:minHeight="@dimen/group_distance_5" />
-    </RelativeLayout>
-</LinearLayout>
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/mTextViewTime"
+        android:layout_toRightOf="@id/mImageView"
+        android:maxHeight="@dimen/group_distance_5"
+        android:minHeight="@dimen/group_distance_5" />
+</RelativeLayout>

@@ -459,4 +459,12 @@ public class GroupTaskGradeActivity extends FullScreenActivity<GroupDoTaskDetail
     public void deletePicture(String path) {
         pictureList.remove(path);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        groupVoiceAdapter.destroyPlayer();
+        publishMultifunctionLinearLayout.destroyPlayer();
+        doMultifunctionLinearLayout.destroyPlayer();
+    }
 }

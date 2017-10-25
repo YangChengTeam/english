@@ -25,7 +25,7 @@ public interface GroupTaskPublishContract {
 
         void showMyGroupList(List<ClassInfo> list);
 
-        void showUploadReslut(TaskUploadInfo file_path);
+        void showUploadResult(TaskUploadInfo file_path);
 
         void showFile();
     }

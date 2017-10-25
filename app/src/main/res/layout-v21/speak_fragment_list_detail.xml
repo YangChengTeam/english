@@ -9,9 +9,9 @@
         android:id="@+id/rl_more"
         android:layout_width="match_parent"
         android:layout_height="@dimen/group_distance_60"
-        android:background="@drawable/base_tran_ripple_bg"
         android:paddingLeft="@dimen/group_distance_15"
-        android:paddingRight="@dimen/group_distance_15">
+        android:paddingRight="@dimen/group_distance_15"
+        android:background="?android:attr/selectableItemBackgroundBorderless"  >
 
         <ImageView
             android:id="@+id/iv_speak_icon"

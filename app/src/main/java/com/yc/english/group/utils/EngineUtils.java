@@ -346,13 +346,12 @@ public class EngineUtils {
      * @param id
      * @return
      */
-    public Observable<ResultInfo<SpeakEnglishItemAdapter>> getReadAndSpeakDetail(Context context, String id) {
+    public static Observable<ResultInfo<SpeakEnglishItemAdapter>> getReadAndSpeakDetail(Context context, String id) {
         Map<String, String> params = new HashMap<>();
         params.put("id", id);
 
         return HttpCoreEngin.get(context).rxpost(NetConstant.read_getreadDetail, new TypeReference<ResultInfo<SpeakEnglishItemAdapter>>() {
         }.getType(), params, true, true, true);
-
 
     }
 

@@ -198,4 +198,11 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
             mPresenter.getDoneTaskDetail(this, doneId, userId);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        publishMultifunctionLinearLayout.destroyPlayer();
+        doMultifunctionLinearLayout.destroyPlayer();
+    }
 }

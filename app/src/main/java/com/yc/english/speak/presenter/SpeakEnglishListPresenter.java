@@ -6,13 +6,14 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.speak.contract.SpeakEnglishContract;
 import com.yc.english.speak.model.bean.SpeakAndReadInfoWrapper;
 import com.yc.english.speak.model.engine.SpeakEnglishListEngine;
+import com.yc.english.speak.view.adapter.SpeakEnglishItemAdapter;
 
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by wanglin  on 2017/10/13 08:59.
@@ -30,11 +31,11 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
     }
 
 
-    public void getReadAndSpeakList(String type_id, final boolean isMore, final int page, final boolean isFitst) {
-        if (page == 1 && isFitst) {
+    public void getReadAndSpeakList(String type_id, String cnt, final int page, final boolean isFirst) {
+        if (page == 1 && isFirst) {
             mView.showLoading();
         }
-        Subscription subscription = mEngin.getReadAndSpeakList(type_id, page + "").subscribe(new Subscriber<ResultInfo<SpeakAndReadInfoWrapper>>() {
+        Subscription subscription = mEngin.getReadAndSpeakList(type_id, page + "", cnt).subscribe(new Subscriber<ResultInfo<SpeakAndReadInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -42,7 +43,7 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
 
             @Override
             public void onError(Throwable e) {
-                if (page == 1 && isFitst) {
+                if (page == 1 && isFirst) {
                     mView.showNoNet();
                 }
             }
@@ -54,14 +55,14 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
                 ResultInfoHelper.handleResultInfo(englishInfoWrapper, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        if (page == 1 && isFitst) {
+                        if (page == 1 && isFirst) {
                             mView.showNoData();
                         }
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        if (page == 1 && isFitst) {
+                        if (page == 1 && isFirst) {
                             mView.showNoNet();
                         }
                     }
@@ -70,11 +71,7 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
                     public void reulstInfoOk() {
                         if (englishInfoWrapper.code == HttpConfig.STATUS_OK && englishInfoWrapper.data != null) {
                             mView.hideStateView();
-                            if (isMore) {
-                                mView.shoReadAndSpeakMorList(englishInfoWrapper.data.getList(), page, isFitst);
-                            } else {
-                                mView.showReadAndSpeakList(englishInfoWrapper.data.getSortList());
-                            }
+                            mView.shoReadAndSpeakMorList(englishInfoWrapper.data.getList(), page, isFirst);
                         } else {
                             mView.showNoData();
                         }
@@ -83,5 +80,27 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
             }
         });
         mSubscriptions.add(subscription);
+    }
+
+    public void getDataDetail(String id) {
+
+        Subscription subscription = EngineUtils.getReadAndSpeakDetail(mContext, id).subscribe(new Subscriber<ResultInfo<SpeakEnglishItemAdapter>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ResultInfo<SpeakEnglishItemAdapter> speakEnglishItemAdapterResultInfo) {
+
+            }
+        });
+        mSubscriptions.add(subscription);
+
     }
 }

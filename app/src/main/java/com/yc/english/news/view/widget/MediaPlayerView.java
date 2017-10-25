@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,12 +56,11 @@ public class MediaPlayerView extends LinearLayout {
     }
 
     private void init(Context context) {
-        View view = View.inflate(context, R.layout.mediaplayer_view, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.mediaplayer_view, this, true);
         mImageView = (ImageView) view.findViewById(R.id.mImageView);
         mSeekBar = (SeekBar) view.findViewById(R.id.mSeekBar);
         mTextViewTime = (TextView) view.findViewById(R.id.mTextViewTime);
         mSeekBar.setOnSeekBarChangeListener(new MySeekBarListener());
-        addView(view);
 
 
     }
@@ -90,7 +90,7 @@ public class MediaPlayerView extends LinearLayout {
 
 
     public void stop() {
-        mImageView.setImageDrawable(ContextCompat.getDrawable(mContext,R.mipmap.media_stop));
+        mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_stop));
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
         }

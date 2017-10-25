@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+
     <FrameLayout
         android:id="@+id/fl_play_item"
         android:layout_width="match_parent"
@@ -56,6 +57,7 @@
 
         </RelativeLayout>
     </FrameLayout>
+
 
     <TextView
         android:id="@+id/tv_sub_title"

@@ -176,4 +176,9 @@ public class GroupTaskFinishAndUnfinshActivity extends FullScreenActivity<GroupP
         mPresenter.getIsFinishTaskList(classId, taskId);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLlTaskDetail.destroyPlayer();
+    }
 }

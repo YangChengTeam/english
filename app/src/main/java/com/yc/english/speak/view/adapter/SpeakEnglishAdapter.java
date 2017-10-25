@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
@@ -19,16 +20,18 @@ import java.util.List;
  * Created by wanglin  on 2017/10/12 15:24.
  */
 
-public class SpeakEnglishAdapterNew extends BaseQuickAdapter<SpeakAndReadInfo, BaseViewHolder> {
+public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, BaseViewHolder> {
     private int mType;
 
-    public SpeakEnglishAdapterNew(List<SpeakAndReadInfo> data, int type) {
+    public SpeakEnglishAdapter(List<SpeakAndReadInfo> data, int type) {
         super(R.layout.speak_fragment_list_detail, data);
         this.mType = type;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, SpeakAndReadInfo item) {
+
+        LogUtils.e(item.toString());
         helper.setText(R.id.english_tv_title, item.getType_name()).addOnClickListener(R.id.rl_more);
         if (mType == 1) {
             helper.setImageResource(R.id.iv_speak_icon,
@@ -48,14 +51,15 @@ public class SpeakEnglishAdapterNew extends BaseQuickAdapter<SpeakAndReadInfo, B
         recyclerView.setLayoutManager(layout);
 
 
-        List<SpeakAndReadItemInfo> itemInfoList = item.getItemInfoList();
+        List<SpeakAndReadItemInfo> itemInfoList = item.getData();
         Collections.sort(itemInfoList, new Comparator<SpeakAndReadItemInfo>() {
             @Override
             public int compare(SpeakAndReadItemInfo o1, SpeakAndReadItemInfo o2) {
                 return Integer.parseInt(o1.getSort()) - Integer.parseInt(o2.getSort());
             }
         });
-        SpeakEnglishItemAdapter itemAdapter = new SpeakEnglishItemAdapter(itemInfoList, false);
+
+        SpeakEnglishItemAdapter itemAdapter = new SpeakEnglishItemAdapter(itemInfoList.size() <= 7 ? itemInfoList : itemInfoList.subList(0, 7), false);
         recyclerView.setAdapter(itemAdapter);
         /**
          * 该方法设置gridLayoutManager布局中每个item占据的列数
@@ -72,25 +76,37 @@ public class SpeakEnglishAdapterNew extends BaseQuickAdapter<SpeakAndReadInfo, B
 
             }
         });
-        initListener(itemAdapter);
+        initListener(item, itemAdapter);
 
     }
 
-    private void initListener(SpeakEnglishItemAdapter itemAdapter) {
+    private void initListener(final SpeakAndReadInfo info, SpeakEnglishItemAdapter itemAdapter) {
+        final List<SpeakAndReadInfo> data = getData();
         itemAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(mContext, view.getClass().getSimpleName() + "--" + position, Toast.LENGTH_SHORT).show();
                 // TODO: 2017/10/13 视频或音频跳转
-//                Intent intent =new Intent(mContext,ListenEnglishActivity.class);
-//                SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
-//                intent.putExtra("speakAndReadItemInfo", speakAndReadItemInfo);
+//                Intent intent = new Intent(mContext, ListenEnglishActivity.class);
+                int pos = data.indexOf(info);
+
+                SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
+                speakAndReadItemInfo.setOutPos(pos);
+                speakAndReadItemInfo.setInnerPos(position);
+
+                LogUtils.e(pos + "---" + position);
+
+//                intent.putExtra("itemInfo", speakAndReadItemInfo);
+//                intent.putParcelableArrayListExtra("infoList", (ArrayList) data);
 //                mContext.startActivity(intent);
-//                mContext.startActivity(new Intent(mContext,ListenEnglishActivity.class));
+//                mContext.startActivity(new Intent(mContext, ListenEnglishActivity.class));
+
+
                 return false;
 
             }
         });
 
     }
+
 }

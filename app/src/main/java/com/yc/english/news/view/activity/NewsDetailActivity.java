@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -34,6 +36,10 @@ import com.yc.english.news.view.widget.MediaPlayerView;
 import com.yc.english.news.view.widget.NewsScrollView;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PipedOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -153,9 +159,11 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     private void initRecycleView() {
 
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         newsDetailAdapter = new NewsDetailAdapter(this, null);
         mRecyclerView.setAdapter(newsDetailAdapter);
+
         RecyclerView.ItemDecoration itemDecoration = new BaseItemDecoration(this);
         mRecyclerView.addItemDecoration(itemDecoration);
 
@@ -197,6 +205,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         String body = makeBody(data.getInfo().getBody());
         webView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null);
 
+
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -217,6 +226,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                         + "   }  " + "}" + "}())");
 
             }
+
+
         });
 
 
@@ -301,7 +312,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             if (imageList.indexOf(imgPath) == -1) {
                 imageList.add(imgPath);
             }
-            Log.e(TAG, "openImg: "+imgPath );
+            Log.e(TAG, "openImg: " + imgPath);
             Intent intent = new Intent(NewsDetailActivity.this, GroupPictureDetailActivity.class);
             intent.putExtra("mList", imageList);
             intent.putExtra("position", imageList.indexOf(imgPath));
