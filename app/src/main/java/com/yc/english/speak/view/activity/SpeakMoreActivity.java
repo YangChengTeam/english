@@ -62,19 +62,31 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
     }
 
     private void initListener() {
+
         speakEnglishItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(SpeakMoreActivity.this, view.getClass().getSimpleName() + "--" + position, Toast.LENGTH_SHORT).show();
                 // TODO: 2017/10/13 视频或音频点击跳转
 
+
                 startActivity(new Intent(SpeakMoreActivity.this, SpeakEnglishActivity.class));
 
 //                SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
+
+                List<SpeakAndReadItemInfo> dataList = speakEnglishItemAdapter.getData();
+                SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
+                speakAndReadItemInfo.setInnerPos(position);
+
 //                Intent intent = new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class);
-//                intent.putExtra("speakAndReadItemInfo", speakAndReadItemInfo);
+//                intent.putExtra("itemInfo", speakAndReadItemInfo);
+//                intent.putParcelableArrayListExtra("infoList", (ArrayList) dataList);
 //                startActivity(intent);
 
+
+
+
+//                mPresenter.getDataDetail(63+"");
 
                 return false;
             }
@@ -133,18 +145,14 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
         stateView.showLoading(swipeRefreshLayout);
     }
 
-    @Override
-    public void showReadAndSpeakList(List<SpeakAndReadInfo> data) {
-
-    }
 
     @Override
-    public void shoReadAndSpeakMorList(List<SpeakAndReadItemInfo> list, int page, boolean isFitst) {
+    public void shoReadAndSpeakMorList(List<SpeakAndReadInfo> list, int page, boolean isFitst) {
         if (page == 1) {
-            speakEnglishItemAdapter.setNewData(list);
+            speakEnglishItemAdapter.setNewData(list.get(0).getData());
 
         } else {
-            speakEnglishItemAdapter.addData(list);
+            speakEnglishItemAdapter.addData(list.get(0).getData());
         }
         if (list.size() == page_size) {
             speakEnglishItemAdapter.loadMoreComplete();
@@ -161,6 +169,6 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
         if (isLoadMore) {
             page++;
         }
-        mPresenter.getReadAndSpeakList(speakAndReadInfo.getType_id(), true, page, isFirst);
+        mPresenter.getReadAndSpeakList(speakAndReadInfo.getData().get(0).getType_id(), "", page, isFirst);
     }
 }

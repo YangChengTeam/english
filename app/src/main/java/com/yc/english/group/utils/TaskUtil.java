@@ -53,7 +53,7 @@ public class TaskUtil {
         }
         linearLayout.showSynthesizeView();
         linearLayout.showUrlView(info.getBody().getImgs());
-        linearLayout.showVioceView(getVoiceList(info));
+        linearLayout.showVoiceView(getVoiceList(info));
         linearLayout.showFileView(getFileInfos(info));
     }
 

@@ -253,11 +253,11 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
         mTvSyncCount.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
     }
 
-    private boolean isPictureExsited;
+    private boolean isPictureExisted;
     private String currentPicturePath;
-    private boolean isVoiceExsited;
+    private boolean isVoiceExisted;
     private String currentVoicePath;
-    private boolean isFileExsited;
+    private boolean isFileExisted;
     private String currentFilePath;
 
     private void publishTask(String desc) {
@@ -280,14 +280,14 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             for (String s : pictureList) {
                 for (TaskUploadInfo taskUploadInfo : picturePath) {
                     if (s.substring(s.lastIndexOf("/") + 1).equals(taskUploadInfo.getFile_name())) {
-                        isPictureExsited = true;
+                        isPictureExisted = true;
                         currentPicturePath = taskUploadInfo.getFile_path();
                         break;
                     }
                 }
-                if (isPictureExsited) {
+                if (isPictureExisted) {
                     picSb.append(currentPicturePath).append(",");
-                    isPictureExsited = false;
+                    isPictureExisted = false;
                 }
             }
             picSb.deleteCharAt(picSb.length() - 1);
@@ -297,14 +297,14 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             for (Voice voice : voiceList) {
                 for (TaskUploadInfo taskUploadInfo : voicePath) {
                     if (voice.getFile().getPath().substring(voice.getFile().getPath().lastIndexOf("/") + 1).equals(taskUploadInfo.getFile_name())) {
-                        isVoiceExsited = true;
+                        isVoiceExisted = true;
                         currentVoicePath = taskUploadInfo.getFile_path();
                         break;
                     }
                 }
-                if (isVoiceExsited) {
+                if (isVoiceExisted) {
                     voiceSb.append(currentVoicePath).append(",");
-                    isVoiceExsited = false;
+                    isVoiceExisted = false;
                 }
             }
             voiceSb.deleteCharAt(voiceSb.length() - 1);
@@ -314,14 +314,14 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
             for (FileInfo fileInfo : fileList) {
                 for (TaskUploadInfo taskUploadInfo : wordPath) {
                     if (fileInfo.getFileName().equals(taskUploadInfo.getFile_name())) {
-                        isFileExsited = true;
+                        isFileExisted = true;
                         currentFilePath = taskUploadInfo.getFile_path();
                         break;
                     }
                 }
-                if (isFileExsited) {
+                if (isFileExisted) {
                     wordSb.append(currentFilePath).append(",");
-                    isFileExsited = false;
+                    isFileExisted = false;
                 }
             }
             wordSb.deleteCharAt(wordSb.length() - 1);
@@ -370,7 +370,7 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
     private List<TaskUploadInfo> wordPath = new ArrayList<>();
 
     @Override
-    public void showUploadReslut(TaskUploadInfo taskUploadInfo) {
+    public void showUploadResult(TaskUploadInfo taskUploadInfo) {
         String file_path = taskUploadInfo.getFile_path();
         if (file_path.endsWith(".png") || file_path.endsWith(".jpg") || file_path.endsWith(".jpeg"))
             picturePath.add(taskUploadInfo);
@@ -494,5 +494,12 @@ public class GroupIssueTaskActivity extends FullScreenActivity<GroupTaskPublishP
     public void onBackPressed() {
         super.onBackPressed();
         saveTaskData();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        voiceAdapter.destroyPlayer();
     }
 }

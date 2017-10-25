@@ -78,7 +78,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
 
     public void showSynthesizeView() {
         if (null == synthesizeView) {
-            synthesizeView = inflater.inflate(R.layout.group_publish_task_detail_synthesis, null);
+            synthesizeView = inflater.inflate(R.layout.group_publish_task_detail_synthesis, this, true);
 
             RecyclerView pictureRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.recyclerView_picture_base);
             RecyclerView voiceRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.voice_recyclerView_base);
@@ -106,7 +106,6 @@ public class MultifunctionLinearLayout extends LinearLayout {
             textView.setText(getText());
             textView.setVisibility(TextUtils.isEmpty(getText()) ? View.GONE : View.VISIBLE);
 
-            addView(synthesizeView);
         }
 
     }
@@ -131,7 +130,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
 
     }
 
-    public void showVioceView(List<Voice> voices) {
+    public void showVoiceView(List<Voice> voices) {
         showView(llVoice, voices);
         groupVoiceAdapter.setData(voices);
     }
@@ -144,5 +143,9 @@ public class MultifunctionLinearLayout extends LinearLayout {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void destroyPlayer() {
+        groupVoiceAdapter.destroyPlayer();
     }
 }

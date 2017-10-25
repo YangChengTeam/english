@@ -21,7 +21,7 @@ public class GlideRoundTransform extends BitmapTransformation {
     private float radius = 0f;
 
     public GlideRoundTransform() {
-        this(4);
+        this(5);
     }
 
     public GlideRoundTransform(int dp) {

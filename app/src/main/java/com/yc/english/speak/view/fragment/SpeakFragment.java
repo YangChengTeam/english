@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
@@ -14,10 +13,9 @@ import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.StateView;
 import com.yc.english.speak.contract.SpeakEnglishContract;
 import com.yc.english.speak.model.bean.SpeakAndReadInfo;
-import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
 import com.yc.english.speak.presenter.SpeakEnglishListPresenter;
 import com.yc.english.speak.view.activity.SpeakMoreActivity;
-import com.yc.english.speak.view.adapter.SpeakEnglishAdapterNew;
+import com.yc.english.speak.view.adapter.SpeakEnglishAdapter;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
@@ -32,7 +30,7 @@ import butterknife.BindView;
 public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> implements SpeakEnglishContract.View
 
 {
-
+    private static final String TAG = "SpeakFragment";
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -40,7 +38,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
     StateView stateView;
 
     private int type;
-    private SpeakEnglishAdapterNew adapter;
+    private SpeakEnglishAdapter adapter;
 
 
     @Override
@@ -48,7 +46,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         mPresenter = new SpeakEnglishListPresenter(getActivity(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new SpeakEnglishAdapterNew(null, getType());
+        adapter = new SpeakEnglishAdapter(null, getType());
 
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new MyItemDecoration());
@@ -114,15 +112,8 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
 
 
     @Override
-    public void showReadAndSpeakList(List<SpeakAndReadInfo> data) {
-        adapter.setNewData(data);
-//        LogUtils.e(data.toString());
-
-    }
-
-    @Override
-    public void shoReadAndSpeakMorList(List<SpeakAndReadItemInfo> list, int page, boolean isFitst) {
-
+    public void shoReadAndSpeakMorList(List<SpeakAndReadInfo> list, int page, boolean isFitst) {
+        adapter.setNewData(list);
     }
 
 
@@ -135,7 +126,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
     }
 
     private void getData() {
-        mPresenter.getReadAndSpeakList(String.valueOf(getType()), false, 1, true);
+        mPresenter.getReadAndSpeakList(String.valueOf(getType()),"", 1, true);
     }
 
 

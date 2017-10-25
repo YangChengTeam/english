@@ -18,20 +18,11 @@ public class SpeakAndReadInfo implements Parcelable {
      * type_name 分类标题
      */
 
-    private String type_id;
 
     private String type_name;
 
+    private List<SpeakAndReadItemInfo> data;//整理后数据集合
 
-    private List<SpeakAndReadItemInfo> itemInfoList;//整理后数据集合
-
-    public String getType_id() {
-        return type_id;
-    }
-
-    public void setType_id(String type_id) {
-        this.type_id = type_id;
-    }
 
     public String getType_name() {
         return type_name;
@@ -41,14 +32,21 @@ public class SpeakAndReadInfo implements Parcelable {
         this.type_name = type_name;
     }
 
-    public List<SpeakAndReadItemInfo> getItemInfoList() {
-        return itemInfoList;
+    public List<SpeakAndReadItemInfo> getData() {
+        return data;
     }
 
-    public void setItemInfoList(List<SpeakAndReadItemInfo> itemInfoList) {
-        this.itemInfoList = itemInfoList;
+    public void setData(List<SpeakAndReadItemInfo> data) {
+        this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "SpeakAndReadInfo{" +
+                "type_name='" + type_name + '\'' +
+                ", data=" + data +
+                '}';
+    }
 
     @Override
     public int describeContents() {
@@ -57,24 +55,16 @@ public class SpeakAndReadInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.type_id);
         dest.writeString(this.type_name);
-        dest.writeList(this.itemInfoList);
+        dest.writeTypedList(this.data);
     }
 
     public SpeakAndReadInfo() {
     }
 
-    public SpeakAndReadInfo(String type_id, String type_name) {
-        this.type_id = type_id;
-        this.type_name = type_name;
-    }
-
     protected SpeakAndReadInfo(Parcel in) {
-        this.type_id = in.readString();
         this.type_name = in.readString();
-        this.itemInfoList = new ArrayList<SpeakAndReadItemInfo>();
-        in.readList(this.itemInfoList, SpeakAndReadItemInfo.class.getClassLoader());
+        this.data = in.createTypedArrayList(SpeakAndReadItemInfo.CREATOR);
     }
 
     public static final Parcelable.Creator<SpeakAndReadInfo> CREATOR = new Parcelable.Creator<SpeakAndReadInfo>() {
@@ -88,13 +78,4 @@ public class SpeakAndReadInfo implements Parcelable {
             return new SpeakAndReadInfo[size];
         }
     };
-
-    @Override
-    public String toString() {
-        return "SpeakAndReadInfo{" +
-                "type_id='" + type_id + '\'' +
-                ", type_name='" + type_name + '\'' +
-                ", itemInfoList=" + itemInfoList +
-                '}';
-    }
 }

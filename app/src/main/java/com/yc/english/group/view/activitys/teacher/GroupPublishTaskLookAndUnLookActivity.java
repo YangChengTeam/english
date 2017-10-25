@@ -196,5 +196,9 @@ public class GroupPublishTaskLookAndUnLookActivity extends FullScreenActivity<Gr
         mPresenter.getIsReadTaskList(GroupInfoHelper.getGroupInfo().getId(), taskInfo.getId());
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLlTaskDetail.destroyPlayer();
+    }
 }

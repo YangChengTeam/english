@@ -23,21 +23,27 @@ public class SpeakAndReadItemInfo implements Parcelable {
      * view_num : 0
      */
 
+
     private String add_date;
     private String add_time;
     private String flag;
     private String flag_name;
     private String id;
     private String img;
+    private String mp3;
     private String sort;
     private String title;
     private String type_ico;
     private String view_num;
     private String type_id;
     private String type_name;
+    private String word_file;
 
     private String add_date_format;
 
+    private int outPos;//外层的位置
+
+    private int innerPos;//内层的位置
 
     public SpeakAndReadItemInfo() {
     }
@@ -146,6 +152,38 @@ public class SpeakAndReadItemInfo implements Parcelable {
         this.add_date_format = add_date_format;
     }
 
+    public int getOutPos() {
+        return outPos;
+    }
+
+    public void setOutPos(int outPos) {
+        this.outPos = outPos;
+    }
+
+    public int getInnerPos() {
+        return innerPos;
+    }
+
+    public void setInnerPos(int innerPos) {
+        this.innerPos = innerPos;
+    }
+
+    public String getMp3() {
+        return mp3;
+    }
+
+    public void setMp3(String mp3) {
+        this.mp3 = mp3;
+    }
+
+    public String getWord_file() {
+        return word_file;
+    }
+
+    public void setWord_file(String word_file) {
+        this.word_file = word_file;
+    }
+
     @Override
     public String toString() {
         return "SpeakAndReadItemInfo{" +
@@ -164,6 +202,7 @@ public class SpeakAndReadItemInfo implements Parcelable {
                 '}';
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -177,13 +216,17 @@ public class SpeakAndReadItemInfo implements Parcelable {
         dest.writeString(this.flag_name);
         dest.writeString(this.id);
         dest.writeString(this.img);
+        dest.writeString(this.mp3);
         dest.writeString(this.sort);
         dest.writeString(this.title);
         dest.writeString(this.type_ico);
         dest.writeString(this.view_num);
         dest.writeString(this.type_id);
         dest.writeString(this.type_name);
+        dest.writeString(this.word_file);
         dest.writeString(this.add_date_format);
+        dest.writeInt(this.outPos);
+        dest.writeInt(this.innerPos);
     }
 
     protected SpeakAndReadItemInfo(Parcel in) {
@@ -193,13 +236,17 @@ public class SpeakAndReadItemInfo implements Parcelable {
         this.flag_name = in.readString();
         this.id = in.readString();
         this.img = in.readString();
+        this.mp3 = in.readString();
         this.sort = in.readString();
         this.title = in.readString();
         this.type_ico = in.readString();
         this.view_num = in.readString();
         this.type_id = in.readString();
         this.type_name = in.readString();
+        this.word_file = in.readString();
         this.add_date_format = in.readString();
+        this.outPos = in.readInt();
+        this.innerPos = in.readInt();
     }
 
     public static final Parcelable.Creator<SpeakAndReadItemInfo> CREATOR = new Parcelable.Creator<SpeakAndReadItemInfo>() {

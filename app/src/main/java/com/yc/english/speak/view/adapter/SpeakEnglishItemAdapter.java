@@ -3,11 +3,13 @@ package com.yc.english.speak.view.adapter;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
+import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.utils.GlideRoundTransform;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
 
@@ -30,11 +32,11 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
 
     @Override
     protected void convert(BaseViewHolder helper, SpeakAndReadItemInfo item) {
-        helper.setText(R.id.tv_play_count, item.getView_num() + "次")
-                .setText(R.id.tv_update_date, "更新" + item.getAdd_date_format())
+
+        helper.setText(R.id.tv_play_count, String.format(mContext.getString(R.string.count), item.getView_num()))
+                .setText(R.id.tv_update_date, String.format(mContext.getString(R.string.update_date), item.getAdd_date_format()))
                 .setText(R.id.tv_sub_title, item.getTitle()).addOnClickListener(R.id.fl_play_item);
         int position = helper.getLayoutPosition() - getHeaderLayoutCount();
-
 
         ImageView view = helper.getView(R.id.iv_thumb);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
@@ -56,6 +58,9 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
 //        animator.setDuration(800);
 //        animator.setRepeatCount(ObjectAnimator.INFINITE);
 //        animator.start();
+        if (mIsMore) {
+            view.setTag(R.id.img_id, item.getImg());
+        }
 
 
         Glide.with(mContext).load(item.getImg()).apply(new RequestOptions()

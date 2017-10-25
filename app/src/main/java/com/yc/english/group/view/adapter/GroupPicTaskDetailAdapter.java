@@ -57,8 +57,8 @@ public class GroupPicTaskDetailAdapter extends PagerAdapter {
         View view = View.inflate(container.getContext(), R.layout.group_task_picture_item, null);
 
         ZoomImageView imageView = (ZoomImageView) view.findViewById(R.id.iv_picture_detail);
-        RelativeLayout mContainer = (RelativeLayout) view.findViewById(R.id.container);
-        applyRotation(0, 90, mContainer);
+//        RelativeLayout mContainer = (RelativeLayout) view.findViewById(R.id.container);
+//        applyRotation(0, 90, mContainer);
         container.addView(view);
         String path = mList.get(position);
         Glide.with(mActivity).setDefaultRequestOptions(RequestOptions.errorOf(R.mipmap.default_avatar)
@@ -90,7 +90,7 @@ public class GroupPicTaskDetailAdapter extends PagerAdapter {
         // The animation listener is used to trigger the next animation
         final Rotate3dAnimation rotation =
                 new Rotate3dAnimation(start, end, centerX, centerY, 310.0f, true);
-        rotation.setDuration(500);
+        rotation.setDuration(3000);
         rotation.setFillAfter(true);
         rotation.setInterpolator(new AccelerateInterpolator());
         rotation.setAnimationListener(new DisplayNextView(view));
@@ -136,11 +136,8 @@ public class GroupPicTaskDetailAdapter extends PagerAdapter {
             final float centerY = mView.getHeight() / 2.0f;
             Rotate3dAnimation rotation;
 
-
             rotation = new Rotate3dAnimation(90, 0, centerX, centerY, 310.0f, false);
-
-
-            rotation.setDuration(500);
+            rotation.setDuration(3000);
             rotation.setFillAfter(true);
             rotation.setInterpolator(new DecelerateInterpolator());
 
