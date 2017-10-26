@@ -62,7 +62,7 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
                     @Override
                     public void resultInfoNotOk(String message) {
                         if (page == 1 && isFirst) {
-                            mView.showNoNet();
+                            mView.showNoData();
                         }
                     }
 

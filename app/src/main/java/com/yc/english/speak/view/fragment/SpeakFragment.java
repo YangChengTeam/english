@@ -60,7 +60,6 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-//                Toast.makeText(getActivity(), view.getClass().getSimpleName() + "---" + position, Toast.LENGTH_SHORT).show();
                 SpeakAndReadInfo speakAndReadInfo = (SpeakAndReadInfo) adapter.getItem(position);
                 Intent intent = new Intent(getActivity(), SpeakMoreActivity.class);
                 intent.putExtra("speakAndReadInfo", speakAndReadInfo);
