@@ -1,6 +1,7 @@
 package com.yc.english.speak.view.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -13,6 +14,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -40,6 +44,7 @@ import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
 import com.yc.english.speak.contract.SpeakEnglishContract;
 import com.yc.english.speak.model.bean.SpeakAndReadInfo;
+import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
 import com.yc.english.speak.model.bean.SpeakEnglishBean;
 import com.yc.english.speak.presenter.SpeakEnglishListPresenter;
 import com.yc.english.speak.utils.IatSettings;
@@ -70,8 +75,20 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
     @BindView(R.id.sv_loading)
     StateView mStateView;
 
+    @BindView(R.id.speak_list_layout)
+    LinearLayout mSpeakListLayout;
+
     @BindView(R.id.listen_english_list)
     RecyclerView mListenEnglishRecyclerView;
+
+    @BindView(R.id.speak_seek_bar)
+    SeekBar mSpeakSeekBar;
+
+    @BindView(R.id.tv_current_speak_pos)
+    TextView mCurrentTextView;
+
+    @BindView(R.id.tv_total_speak_pos)
+    TextView mTotalTextView;
 
     SpeakItemAdapter mSpeakItemAdapter;
 
@@ -144,6 +161,8 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
     // 语音合成对象
     private SpeechSynthesizer mTts;
 
+    private SpeakAndReadItemInfo currentItemInfo;
+
     @Override
     public int getLayoutId() {
         return R.layout.speak_english_activity;
@@ -156,15 +175,21 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
         mToolbar.setTitleColor(ContextCompat.getColor(this, R.color.white));
         mTts = SpeechUtils.getTts(this);
 
+        mSpeakSeekBar.setEnabled(false);
+        mSpeakSeekBar.setProgress(1);
+
+        Intent intent = getIntent();
+        currentItemInfo = (SpeakAndReadItemInfo) intent.getParcelableExtra("itemInfo");
+
         mPresenter = new SpeakEnglishListPresenter(this, this);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mListenEnglishRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(0.3f)));
-        mSpeakItemAdapter = new SpeakItemAdapter(this, null,true);
+        mSpeakItemAdapter = new SpeakItemAdapter(this, null, true);
 
         mListenEnglishRecyclerView.setLayoutManager(mLinearLayoutManager);
         mListenEnglishRecyclerView.setAdapter(mSpeakItemAdapter);
 
-        mPresenter.getListenEnglishDetail("69");
+        mPresenter.getListenEnglishDetail(currentItemInfo.getId());
 
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
@@ -191,6 +216,9 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
                 tapeStop();
                 stopPlayTape();
                 enableState(position);
+
+                mCurrentTextView.setText((position + 1) + "");
+                mSpeakSeekBar.setProgress(position + 1);
             }
         });
 
@@ -567,15 +595,12 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
         View currentView = mLinearLayoutManager.findViewByPosition(lastPosition);
         currentView.findViewById(R.id.iv_speak_tape).setVisibility(View.VISIBLE);
         currentView.findViewById(R.id.speak_tape_layout).setVisibility(View.GONE);
-        //currentView.findViewById(R.id.layout_result).setVisibility(View.VISIBLE);
 
         mSpeakItemAdapter.getData().get(lastPosition).setShowResult(true);
 
-        if (voiceText.equals("Book")) {
-            //currentView.findViewById(R.id.iv_result).setBackgroundResource(R.mipmap.listen_result_yes);
+        if (voiceText.equals(mSpeakItemAdapter.getData().get(lastPosition).getEnSentence())) {
             mSpeakItemAdapter.getData().get(lastPosition).setSpeakResult(true);
         } else {
-            //currentView.findViewById(R.id.iv_result).setBackgroundResource(R.mipmap.listen_result_no);
             mSpeakItemAdapter.getData().get(lastPosition).setSpeakResult(false);
         }
         mSpeakItemAdapter.setFirst(false);
@@ -670,26 +695,33 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
     @Override
     public void showSpeakEnglishDetail(List<SpeakEnglishBean> list) {
         mSpeakItemAdapter.setNewData(list);
+        mTotalTextView.setText(list.size() + "");
+        mSpeakSeekBar.setMax(list.size());
     }
 
     @Override
     public void hideStateView() {
-
+        mStateView.hide();
     }
 
     @Override
     public void showNoNet() {
-
+        mStateView.showNoNet(mSpeakListLayout, "网络不给力", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getListenEnglishDetail("69");
+            }
+        });
     }
 
     @Override
     public void showNoData() {
-
+        mStateView.showNoData(mSpeakListLayout);
     }
 
     @Override
     public void showLoading() {
-
+        mStateView.showLoading(mSpeakListLayout);
     }
 
     /**

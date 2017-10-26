@@ -126,7 +126,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         setListener();
         FileDownloader.setup(this);
         mPresenter = new ListenEnglishPresenter(this, this);
-        mPresenter.getListenEnglishDetail("70");
+        mPresenter.getListenEnglishDetail(currentItemInfo.getId());
     }
 
     public boolean getPrevInfo() {
@@ -476,7 +476,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
 
     @Override
     public void showListenEnglishDetail(ListenEnglishBean listenEnglishBean) {
-        fileName = listenEnglishBean.getId();
+        fileName = currentItemInfo.getId();
         currentAudioUrl = listenEnglishBean.getMp3();
         currentAudioLrcUrl = listenEnglishBean.getWordFile();
         LogUtils.e("file url--->" + currentAudioUrl + "---lrc url --->" + currentAudioLrcUrl);
