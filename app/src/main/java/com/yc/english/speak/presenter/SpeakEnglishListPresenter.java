@@ -111,7 +111,10 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
                     @Override
                     public void reulstInfoOk() {
                         if (resultInfo != null && resultInfo.data != null && resultInfo.data.info != null) {
+                            mView.hideStateView();
                             mView.showSpeakEnglishDetail(resultInfo.data.info);
+                        } else {
+                            mView.showNoData();
                         }
                     }
                 });

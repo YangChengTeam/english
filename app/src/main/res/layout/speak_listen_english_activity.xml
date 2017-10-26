@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:scaleType="centerInside"
-            android:src="@drawable/btn_pause_selector"/>
+            android:src="@drawable/btn_play_selector"/>
 
         <ImageView
             android:id="@+id/btn_next"
