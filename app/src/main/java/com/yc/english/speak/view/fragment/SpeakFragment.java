@@ -64,6 +64,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
                 SpeakAndReadInfo speakAndReadInfo = (SpeakAndReadInfo) adapter.getItem(position);
                 Intent intent = new Intent(getActivity(), SpeakMoreActivity.class);
                 intent.putExtra("speakAndReadInfo", speakAndReadInfo);
+                intent.putExtra("type", type);
                 startActivity(intent);
 
                 return false;
@@ -127,7 +128,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
     }
 
     private void getData() {
-        mPresenter.getReadAndSpeakList(String.valueOf(getType()),"", 1, true);
+        mPresenter.getReadAndSpeakList(String.valueOf(getType()), "", 1, true);
     }
 
     @Override

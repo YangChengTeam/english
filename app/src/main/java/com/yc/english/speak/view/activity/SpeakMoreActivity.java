@@ -21,6 +21,7 @@ import com.yc.english.speak.model.bean.SpeakEnglishBean;
 import com.yc.english.speak.presenter.SpeakEnglishListPresenter;
 import com.yc.english.speak.view.adapter.SpeakEnglishItemAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,12 +43,14 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
     private SpeakEnglishItemAdapter speakEnglishItemAdapter;
     private int page = 1;
     private int page_size = 20;
+    private int type;
 
     @Override
     public void init() {
         mPresenter = new SpeakEnglishListPresenter(this, this);
         if (getIntent() != null) {
             speakAndReadInfo = getIntent().getParcelableExtra("speakAndReadInfo");
+            type = getIntent().getIntExtra("type", 0);
             mToolbar.setTitle(speakAndReadInfo.getType_name());
         }
         mToolbar.showNavigationIcon();
@@ -67,28 +70,23 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
         speakEnglishItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(SpeakMoreActivity.this, view.getClass().getSimpleName() + "--" + position, Toast.LENGTH_SHORT).show();
                 // TODO: 2017/10/13 视频或音频点击跳转
-
-
-                startActivity(new Intent(SpeakMoreActivity.this, SpeakEnglishActivity.class));
-
-//                SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
-
                 List<SpeakAndReadItemInfo> dataList = speakEnglishItemAdapter.getData();
                 SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
                 speakAndReadItemInfo.setInnerPos(position);
+                Intent intent = null;
 
-//                Intent intent = new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class);
-//                intent.putExtra("itemInfo", speakAndReadItemInfo);
-//                intent.putParcelableArrayListExtra("infoList", (ArrayList) dataList);
-//                startActivity(intent);
+                if (type == 1) {
+                    intent = new Intent(SpeakMoreActivity.this, SpeakEnglishActivity.class);
+                    intent.putExtra("itemInfo", speakAndReadItemInfo);
+                    intent.putParcelableArrayListExtra("infoList", (ArrayList) dataList);
 
-
-
-
-//                mPresenter.getDataDetail(63+"");
-
+                } else if (type == 2) {
+                    intent = new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class);
+                    intent.putExtra("itemInfo", speakAndReadItemInfo);
+                    intent.putParcelableArrayListExtra("infoList", (ArrayList) dataList);
+                }
+                startActivity(intent);
                 return false;
             }
         });

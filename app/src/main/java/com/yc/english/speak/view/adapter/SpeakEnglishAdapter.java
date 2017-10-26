@@ -1,6 +1,7 @@
 package com.yc.english.speak.view.adapter;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.yc.english.speak.model.bean.SpeakAndReadInfo;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
 import com.yc.english.speak.view.activity.ListenEnglishActivity;
 import com.yc.english.speak.view.activity.SpeakEnglishActivity;
+
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +37,6 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
     @Override
     protected void convert(BaseViewHolder helper, SpeakAndReadInfo item) {
 
-        LogUtils.e(item.toString());
         helper.setText(R.id.english_tv_title, item.getType_name()).addOnClickListener(R.id.rl_more);
         if (mType == 1) {
             helper.setImageResource(R.id.iv_speak_icon,
@@ -64,6 +66,7 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
 
         SpeakEnglishItemAdapter itemAdapter = new SpeakEnglishItemAdapter(itemInfoList.size() <= 7 ? itemInfoList : itemInfoList.subList(0, 7), false);
         recyclerView.setAdapter(itemAdapter);
+
         /**
          * 该方法设置gridLayoutManager布局中每个item占据的列数
          * 这个方法必须放在setAdapter之后才生效，否则不起作用
