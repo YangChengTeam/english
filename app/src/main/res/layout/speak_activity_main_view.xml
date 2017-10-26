@@ -27,6 +27,6 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/group_distance_15" />
+            android:layout_marginTop="@dimen/group_distance_10" />
     </LinearLayout>
 </LinearLayout>

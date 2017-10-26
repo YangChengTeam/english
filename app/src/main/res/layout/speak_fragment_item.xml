@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/group_distance_5"
+    android:paddingRight="@dimen/group_distance_5">
 
 
     <FrameLayout
         android:id="@+id/fl_play_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/group_distance_5"
-        android:layout_marginRight="@dimen/group_distance_5"
         android:background="@drawable/speak_shadow_bg"
         android:elevation="@dimen/group_distance_1"
         android:translationZ="@dimen/group_distance_1">
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/group_distance_15"
         android:textColor="@color/black"
-        android:textSize="@dimen/group_text_16"
+        android:textSize="@dimen/group_text_14"
         android:textStyle="normal" />
 
 </LinearLayout>
