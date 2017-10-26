@@ -77,7 +77,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
 
     LinearLayoutManager mLinearLayoutManager;
 
-    private int lastPosition = -1;
+    private int lastPosition = 0;
 
     private boolean isPlay;//播放点读
 
@@ -159,7 +159,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
         mPresenter = new SpeakEnglishListPresenter(this, this);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mListenEnglishRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(0.3f)));
-        mSpeakItemAdapter = new SpeakItemAdapter(this, null);
+        mSpeakItemAdapter = new SpeakItemAdapter(this, null,true);
 
         mListenEnglishRecyclerView.setLayoutManager(mLinearLayoutManager);
         mListenEnglishRecyclerView.setAdapter(mSpeakItemAdapter);
@@ -274,6 +274,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
             }
         }
         lastPosition = position;
+        mSpeakItemAdapter.setFirst(false);
         mSpeakItemAdapter.notifyDataSetChanged();
     }
 
@@ -577,6 +578,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
             //currentView.findViewById(R.id.iv_result).setBackgroundResource(R.mipmap.listen_result_no);
             mSpeakItemAdapter.getData().get(lastPosition).setSpeakResult(false);
         }
+        mSpeakItemAdapter.setFirst(false);
         mSpeakItemAdapter.notifyDataSetChanged();
 
         stopTask();

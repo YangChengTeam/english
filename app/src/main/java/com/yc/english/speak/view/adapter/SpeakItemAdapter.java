@@ -16,15 +16,26 @@ public class SpeakItemAdapter extends BaseQuickAdapter<SpeakEnglishBean, BaseVie
 
     private Context mContext;
 
-    public SpeakItemAdapter(Context context, List<SpeakEnglishBean> datas) {
+    private boolean isFirst;
+
+    public SpeakItemAdapter(Context context, List<SpeakEnglishBean> datas,boolean isFirst) {
         super(R.layout.speak_listen_english_item, datas);
         this.mContext = context;
+        this.isFirst = isFirst;
+    }
+
+    public void setFirst(boolean first) {
+        isFirst = first;
     }
 
     @Override
     protected void convert(final BaseViewHolder helper, final SpeakEnglishBean item) {
         helper.setText(R.id.tv_english_sen, item.getEnSentence())
                 .setText(R.id.tv_chinese_sen, item.getCnSentence());
+
+        if (helper.getAdapterPosition() == 0 && isFirst) {
+            item.setShowSpeak(true);
+        }
 
         if (item.isShowSpeak()) {
             helper.setVisible(R.id.speak_layout, true);
@@ -42,11 +53,11 @@ public class SpeakItemAdapter extends BaseQuickAdapter<SpeakEnglishBean, BaseVie
         }
 
         if (item.isSpeakResult()) {
-            helper.setText(R.id.tv_result_hint,"Good，满分");
+            helper.setText(R.id.tv_result_hint, "Good，满分");
             helper.setBackgroundRes(R.id.iv_result, R.mipmap.listen_result_yes);
         } else {
             helper.setBackgroundRes(R.id.iv_result, R.mipmap.listen_result_no);
-            helper.setText(R.id.tv_result_hint,"继续加油");
+            helper.setText(R.id.tv_result_hint, "继续加油");
         }
 
         helper.addOnClickListener(R.id.iv_play_read)

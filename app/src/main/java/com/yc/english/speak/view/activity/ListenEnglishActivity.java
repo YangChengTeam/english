@@ -11,7 +11,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.FileUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SDCardUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -80,6 +82,8 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
 
     private boolean isDownSuccess;
 
+    private boolean isURLValidate;
+
     private String fileName = "";//ID
 
     private String currentAudioUrl;
@@ -122,7 +126,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         setListener();
         FileDownloader.setup(this);
         mPresenter = new ListenEnglishPresenter(this, this);
-        mPresenter.getListenEnglishDetail("63");
+        mPresenter.getListenEnglishDetail("70");
     }
 
     public boolean getPrevInfo() {
@@ -208,7 +212,11 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
                 if (isDownSuccess) {
                     mPlayPresenter.onBtnPlayPausePressed();
                 } else {
-                    ToastUtils.showLong("音频文件下载中");
+                    if (!isURLValidate) {
+                        ToastUtils.showLong("资源文件下载有误，请重试");
+                        return;
+                    }
+                    ToastUtils.showLong("资源文件下载中");
                 }
                 break;
             case R.id.btn_prev:
@@ -239,6 +247,19 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         mLyricView.setOnPlayerClickListener(ListenEnglishActivity.this);
     }
 
+    public boolean URLIsValidate(String url, String type) {
+
+        if (StringUtils.isEmpty(url)) {
+            return false;
+        }
+
+        if (url.substring(url.lastIndexOf("."), url.length()).toLowerCase().endsWith(type)) {
+            return true;
+        }
+
+        return false;
+    }
+
     public void downAudioFile() {
         progresses = 0;
         total = 0;
@@ -249,46 +270,51 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
             String audioPath = fileDir + "/" + fileName + ".mp3";
             audioFile = new File(audioPath);
             if (!audioFile.exists()) {
-                FileDownloader.getImpl().create(currentAudioUrl).setPath(audioPath, false).setListener(new FileDownloadListener() {
-                    @Override
-                    protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        ToastUtils.showLong("开始下载资源文件");
-                        total = totalBytes / 1024 / 1024;
-                    }
+                isURLValidate = URLIsValidate(currentAudioUrl, "mp3");
+                if (isURLValidate) {
+                    FileDownloader.getImpl().create(currentAudioUrl).setPath(audioPath, false).setListener(new FileDownloadListener() {
+                        @Override
+                        protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                            ToastUtils.showLong("开始下载资源文件");
+                            total = totalBytes / 1024 / 1024;
+                        }
 
-                    @Override
-                    protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        total = totalBytes / 1024 / 1024;
-                        progresses = soFarBytes / 1024 / 1024;
-                        Log.e("progress total", "progress total--->" + total + "progress--->" + progresses);
-                    }
+                        @Override
+                        protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                            total = totalBytes / 1024 / 1024;
+                            progresses = soFarBytes / 1024 / 1024;
+                            Log.e("progress total", "progress total--->" + total + "progress--->" + progresses);
+                        }
 
-                    @Override
-                    protected void completed(BaseDownloadTask task) {
-                        progresses = total;
-                        Log.e("completed progress", " completed progress--->" + progresses);
-                        ToastUtils.showLong("音频下载完成");
-                        downAudioLrcFile();//继续下载音频词句文件
-                    }
+                        @Override
+                        protected void completed(BaseDownloadTask task) {
+                            progresses = total;
+                            Log.e("completed progress", " completed progress--->" + progresses);
+                            ToastUtils.showLong("资源文件下载完成");
+                            downAudioLrcFile();//继续下载资源词句文件
+                        }
 
-                    @Override
-                    protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        @Override
+                        protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
 
-                    }
+                        }
 
-                    @Override
-                    protected void error(BaseDownloadTask task, Throwable e) {
+                        @Override
+                        protected void error(BaseDownloadTask task, Throwable e) {
 
-                    }
+                        }
 
-                    @Override
-                    protected void warn(BaseDownloadTask task) {
+                        @Override
+                        protected void warn(BaseDownloadTask task) {
 
-                    }
+                        }
 
-                }).start();
+                    }).start();
+                } else {
+                    ToastUtils.showLong("资源文件下载有误，请重试");
+                }
             } else {
-                downAudioLrcFile();//继续下载音频词句文件
+                downAudioLrcFile();//继续下载资源词句文件
             }
         }
     }
@@ -304,47 +330,52 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
             String lrcPath = fileDir + "/" + fileName + ".lrc";
             lrcFile = new File(lrcPath);
             if (!lrcFile.exists()) {
-                FileDownloader.getImpl().create(currentAudioLrcUrl).setPath(lrcPath, false).setListener(new FileDownloadListener() {
-                    @Override
-                    protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        ToastUtils.showLong("开始下载资源文件");
-                        total = totalBytes / 1024 / 1024;
-                    }
+                isURLValidate = URLIsValidate(currentAudioLrcUrl, "lrc");
+                if (isURLValidate) {
+                    FileDownloader.getImpl().create(currentAudioLrcUrl).setPath(lrcPath, false).setListener(new FileDownloadListener() {
+                        @Override
+                        protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                            ToastUtils.showLong("开始下载资源文件");
+                            total = totalBytes / 1024 / 1024;
+                        }
 
-                    @Override
-                    protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        total = totalBytes / 1024 / 1024;
-                        progresses = soFarBytes / 1024 / 1024;
-                        Log.e("progress total", "progress total--->" + total + "progress--->" + progresses);
-                    }
+                        @Override
+                        protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                            total = totalBytes / 1024 / 1024;
+                            progresses = soFarBytes / 1024 / 1024;
+                            Log.e("progress total", "progress total--->" + total + "progress--->" + progresses);
+                        }
 
-                    @Override
-                    protected void completed(BaseDownloadTask task) {
-                        progresses = total;
-                        Log.e("completed progress", " completed progress--->" + progresses);
-                        ToastUtils.showLong("下载完成");
-                        isDownSuccess = true;
+                        @Override
+                        protected void completed(BaseDownloadTask task) {
+                            progresses = total;
+                            Log.e("completed progress", " completed progress--->" + progresses);
+                            ToastUtils.showLong("下载完成");
+                            isDownSuccess = true;
 
-                        mLyricViewPresenter = new LyricViewPresenter(ListenEnglishActivity.this, ListenEnglishActivity.this, audioFile.getAbsolutePath());
-                        startService(mPlayService);
-                    }
+                            mLyricViewPresenter = new LyricViewPresenter(ListenEnglishActivity.this, ListenEnglishActivity.this, audioFile.getAbsolutePath());
+                            startService(mPlayService);
+                        }
 
-                    @Override
-                    protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        @Override
+                        protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
 
-                    }
+                        }
 
-                    @Override
-                    protected void error(BaseDownloadTask task, Throwable e) {
+                        @Override
+                        protected void error(BaseDownloadTask task, Throwable e) {
 
-                    }
+                        }
 
-                    @Override
-                    protected void warn(BaseDownloadTask task) {
+                        @Override
+                        protected void warn(BaseDownloadTask task) {
 
-                    }
+                        }
 
-                }).start();
+                    }).start();
+                } else {
+                    ToastUtils.showLong("资源文件下载有误，请重试");
+                }
             } else {
                 isDownSuccess = true;
 
@@ -448,6 +479,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         fileName = listenEnglishBean.getId();
         currentAudioUrl = listenEnglishBean.getMp3();
         currentAudioLrcUrl = listenEnglishBean.getWordFile();
+        LogUtils.e("file url--->" + currentAudioUrl + "---lrc url --->" + currentAudioLrcUrl);
         mPlayService = new Intent(ListenEnglishActivity.this, MusicPlayService.class);
         downAudioFile();
     }
