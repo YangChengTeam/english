@@ -2,6 +2,8 @@ package com.yc.english.speak.view.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -32,16 +34,19 @@ public class SpeakItemAdapter extends BaseQuickAdapter<SpeakEnglishBean, BaseVie
             helper.setBackgroundColor(R.id.listen_layout, ContextCompat.getColor(mContext, R.color.listen_item_bg_color));
         }
 
+        LinearLayout resultLayout = (LinearLayout) helper.getConvertView().findViewById(R.id.layout_result);
         if (item.isShowResult()) {
-            helper.setVisible(R.id.layout_result, true);
+            resultLayout.setVisibility(View.VISIBLE);
         } else {
-            helper.setVisible(R.id.layout_result, false);
+            resultLayout.setVisibility(View.INVISIBLE);
         }
 
         if (item.isSpeakResult()) {
+            helper.setText(R.id.tv_result_hint,"Good，满分");
             helper.setBackgroundRes(R.id.iv_result, R.mipmap.listen_result_yes);
         } else {
             helper.setBackgroundRes(R.id.iv_result, R.mipmap.listen_result_no);
+            helper.setText(R.id.tv_result_hint,"继续加油");
         }
 
         helper.addOnClickListener(R.id.iv_play_read)

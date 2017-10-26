@@ -8,6 +8,7 @@ import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.speak.contract.SpeakEnglishContract;
 import com.yc.english.speak.model.bean.SpeakAndReadInfoWrapper;
+import com.yc.english.speak.model.bean.SpeakEnglishWarpper;
 import com.yc.english.speak.model.engine.SpeakEnglishListEngine;
 
 import rx.Subscriber;
@@ -80,4 +81,43 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
         mSubscriptions.add(subscription);
     }
 
+    @Override
+    public void getListenEnglishDetail(String id) {
+        Subscription subscribe = mEngin.getListenReadDetail(mContext, id).subscribe(new Subscriber<ResultInfo<SpeakEnglishWarpper>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.showNoNet();
+            }
+
+            @Override
+            public void onNext(final ResultInfo<SpeakEnglishWarpper> resultInfo) {
+
+                ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        mView.showNoData();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (resultInfo != null && resultInfo.data != null && resultInfo.data.info != null) {
+                            mView.showSpeakEnglishDetail(resultInfo.data.info);
+                        }
+                    }
+                });
+
+            }
+        });
+        mSubscriptions.add(subscribe);
+    }
 }

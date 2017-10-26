@@ -9,6 +9,8 @@ import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstant;
 import com.yc.english.speak.model.bean.SpeakAndReadInfoWrapper;
+import com.yc.english.speak.model.bean.SpeakEnglishWarpper;
+import com.yc.english.speak.model.domain.URLConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +46,20 @@ public class SpeakEnglishListEngine extends BaseEngin {
 
         return HttpCoreEngin.get(mContext).rxpost(NetConstant.read_getReadList, new TypeReference<ResultInfo<SpeakAndReadInfoWrapper>>() {
         }.getType(), params, true, true, true);
-
     }
+
+    /**
+     * 获取说英语详情
+     *
+     * @param context
+     * @param id
+     * @return
+     */
+    public Observable<ResultInfo<SpeakEnglishWarpper>> getListenReadDetail(Context context, String id) {
+        Map<String, String> params = new HashMap<>();
+        params.put("id", id);
+        return HttpCoreEngin.get(context).rxpost(URLConfig.LISTEN_AND_READ_ENGLISH_URL, new TypeReference<ResultInfo<SpeakEnglishWarpper>>() {
+        }.getType(), params, true, true, true);
+    }
+
 }

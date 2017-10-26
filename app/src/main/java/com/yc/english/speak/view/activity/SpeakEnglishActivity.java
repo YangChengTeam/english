@@ -38,10 +38,10 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
-import com.yc.english.speak.contract.ListenEnglishContract;
-import com.yc.english.speak.model.bean.ListenEnglishBean;
+import com.yc.english.speak.contract.SpeakEnglishContract;
+import com.yc.english.speak.model.bean.SpeakAndReadInfo;
 import com.yc.english.speak.model.bean.SpeakEnglishBean;
-import com.yc.english.speak.presenter.ListenEnglishPresenter;
+import com.yc.english.speak.presenter.SpeakEnglishListPresenter;
 import com.yc.english.speak.utils.IatSettings;
 import com.yc.english.speak.utils.VoiceJsonParser;
 import com.yc.english.speak.view.adapter.SpeakItemAdapter;
@@ -50,7 +50,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -66,7 +65,7 @@ import butterknife.BindView;
  * @author admin
  */
 
-public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishPresenter> implements ListenEnglishContract.View {
+public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPresenter> implements SpeakEnglishContract.View {
 
     @BindView(R.id.sv_loading)
     StateView mStateView;
@@ -157,28 +156,15 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishPresen
         mToolbar.setTitleColor(ContextCompat.getColor(this, R.color.white));
         mTts = SpeechUtils.getTts(this);
 
-        List<SpeakEnglishBean> list = new ArrayList<SpeakEnglishBean>();
-        for (int i = 0; i < countNum; i++) {
-            SpeakEnglishBean listenEnglishBean = new SpeakEnglishBean();
-            listenEnglishBean.setCnSentence("学习英语天天好心情");
-            listenEnglishBean.setEnSentence("learn english happy every day");
-            if (i == 0) {
-                listenEnglishBean.setShowSpeak(false);
-            } else {
-                listenEnglishBean.setShowSpeak(false);
-            }
-            list.add(listenEnglishBean);
-        }
-
-        mPresenter = new ListenEnglishPresenter(this, this);
+        mPresenter = new SpeakEnglishListPresenter(this, this);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mListenEnglishRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(0.3f)));
-        mSpeakItemAdapter = new SpeakItemAdapter(this, list);
+        mSpeakItemAdapter = new SpeakItemAdapter(this, null);
 
         mListenEnglishRecyclerView.setLayoutManager(mLinearLayoutManager);
         mListenEnglishRecyclerView.setAdapter(mSpeakItemAdapter);
 
-        //mPresenter.getListenEnglish("1", 1, 10);
+        mPresenter.getListenEnglishDetail("69");
 
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
@@ -675,6 +661,16 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishPresen
     }
 
     @Override
+    public void shoReadAndSpeakMorList(List<SpeakAndReadInfo> list, int page, boolean isFitst) {
+
+    }
+
+    @Override
+    public void showSpeakEnglishDetail(List<SpeakEnglishBean> list) {
+        mSpeakItemAdapter.setNewData(list);
+    }
+
+    @Override
     public void hideStateView() {
 
     }
@@ -691,11 +687,6 @@ public class SpeakEnglishActivity extends FullScreenActivity<ListenEnglishPresen
 
     @Override
     public void showLoading() {
-
-    }
-
-    @Override
-    public void showListenEnglishDetail(ListenEnglishBean listenEnglishBean) {
 
     }
 
