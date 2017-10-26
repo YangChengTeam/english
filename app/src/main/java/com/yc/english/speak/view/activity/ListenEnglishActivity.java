@@ -22,12 +22,16 @@ import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.speak.contract.ListenEnglishContract;
 import com.yc.english.speak.contract.ListenPlayContract;
 import com.yc.english.speak.model.bean.ListenEnglishBean;
+import com.yc.english.speak.model.bean.SpeakAndReadInfo;
+import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
 import com.yc.english.speak.presenter.ListenEnglishPresenter;
 import com.yc.english.speak.presenter.LyricViewPresenter;
 import com.yc.english.speak.service.MusicPlayService;
 import com.yc.english.speak.view.wdigets.LyricView;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -82,6 +86,18 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
 
     private String currentAudioLrcUrl;
 
+    private List<SpeakAndReadInfo> listenList;
+
+    private SpeakAndReadItemInfo currentItemInfo;
+
+    private int outDataPosition;
+
+    private int innerDataPosition;
+
+    private boolean isPrevOver;
+
+    private boolean isNextOver;
+
     @Override
     public int getLayoutId() {
         return R.layout.speak_listen_english_activity;
@@ -97,11 +113,66 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         mToolbar.setTitle("听英语");
         mToolbar.showNavigationIcon();
         mToolbar.setTitleColor(ContextCompat.getColor(this, R.color.white));
-        setListener();
 
+        Intent intent = getIntent();
+        currentItemInfo = (SpeakAndReadItemInfo) intent.getParcelableExtra("itemInfo");
+        listenList = (ArrayList) intent.getParcelableArrayListExtra("infoList");
+        fileName = currentItemInfo.getId();
+
+        setListener();
         FileDownloader.setup(this);
         mPresenter = new ListenEnglishPresenter(this, this);
         mPresenter.getListenEnglishDetail("63");
+    }
+
+    public boolean getPrevInfo() {
+        innerDataPosition--;
+        if (innerDataPosition < 0) {
+            outDataPosition--;
+            if (outDataPosition < 0) {
+                isPrevOver = true;
+            } else {
+                if (listenList.get(outDataPosition).getData() != null) {
+                    innerDataPosition = listenList.get(outDataPosition).getData().size() - 1;
+
+                    SpeakAndReadItemInfo speakAndReadItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
+                    currentAudioUrl = speakAndReadItemInfo.getMp3();
+                    currentAudioLrcUrl = speakAndReadItemInfo.getWord_file();
+                } else {
+                    isPrevOver = true;
+                }
+            }
+        } else {
+            SpeakAndReadItemInfo speakAndReadItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
+            currentAudioUrl = speakAndReadItemInfo.getMp3();
+            currentAudioLrcUrl = speakAndReadItemInfo.getWord_file();
+        }
+        return isPrevOver;
+    }
+
+    public boolean getNextInfo() {
+        innerDataPosition++;
+        if (innerDataPosition >= listenList.get(outDataPosition).getData().size()) {
+            outDataPosition++;
+            if (outDataPosition >= listenList.size()) {
+                isNextOver = true;
+            } else {
+                if (listenList.get(outDataPosition).getData() != null) {
+                    innerDataPosition = 0;
+
+                    SpeakAndReadItemInfo speakAndReadItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
+                    currentAudioUrl = speakAndReadItemInfo.getMp3();
+                    currentAudioLrcUrl = speakAndReadItemInfo.getWord_file();
+                } else {
+                    isNextOver = true;
+                }
+            }
+        } else {
+            SpeakAndReadItemInfo speakAndReadItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
+            currentAudioUrl = speakAndReadItemInfo.getMp3();
+            currentAudioLrcUrl = speakAndReadItemInfo.getWord_file();
+        }
+        return isNextOver;
     }
 
     @Override
@@ -141,18 +212,18 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
                 }
                 break;
             case R.id.btn_prev:
-                fileName = "444";
-                currentAudioUrl = "http://nz.qqtn.com/zbsq/Apk/234.mp3";
-                currentAudioLrcUrl = "http://nz.qqtn.com/zbsq/Apk/234.lrc";
-                downAudioFile();
+                if (!getPrevInfo()) {
+                    downAudioFile();
+                } else {
+                    ToastUtils.showLong("暂无更多信息");
+                }
                 break;
             case R.id.btn_next:
-
-                fileName = "333";
-                currentAudioUrl = "http://nz.qqtn.com/zbsq/Apk/234.mp3";
-                currentAudioLrcUrl = "http://nz.qqtn.com/zbsq/Apk/234.lrc";
-
-                downAudioFile();
+                if (!getNextInfo()) {
+                    downAudioFile();
+                } else {
+                    ToastUtils.showLong("暂无更多信息");
+                }
                 break;
             default:
                 break;
@@ -385,8 +456,12 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
     protected void onDestroy() {
         Log.d(TAG, "onDestroy");
         super.onDestroy();
-        mPlayPresenter.destroy();
-        stopService(mPlayService);
+        if (mPlayPresenter != null) {
+            mPlayPresenter.destroy();
+        }
+        if (mPlayService != null) {
+            stopService(mPlayService);
+        }
     }
 
 }

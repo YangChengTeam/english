@@ -4,8 +4,24 @@
         "source": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_pic_bg.xml"
     },
     {
+        "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_chatfrom_bg.xml",
+        "source": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_chatfrom_bg.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_point_selected.xml",
+        "source": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_point_selected.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_point_normal.xml",
+        "source": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_point_normal.xml"
+    },
+    {
         "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_point_normal.xml",
         "source": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_point_normal.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_pic_bg.xml",
+        "source": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_pic_bg.xml"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_chatfrom_bg.xml",
@@ -16,16 +32,32 @@
         "source": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_chatto_bg.xml"
     },
     {
+        "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_selector_tab_bg.xml",
+        "source": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_selector_tab_bg.xml"
+    },
+    {
         "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_bg_chat_time_tag.xml",
         "source": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_bg_chat_time_tag.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_chatto_bg.xml",
+        "source": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_chatto_bg.xml"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_shortcut_emoji_bg.xml",
         "source": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_shortcut_emoji_bg.xml"
     },
     {
+        "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_shortcut_emoji_bg.xml",
+        "source": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_shortcut_emoji_bg.xml"
+    },
+    {
         "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_point_selected.xml",
         "source": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_point_selected.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_bg_chat_time_tag.xml",
+        "source": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable\\bqmm_bg_chat_time_tag.xml"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bqmm_selector_tab_bg.xml",

@@ -17,6 +17,7 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.speak.contract.SpeakEnglishContract;
 import com.yc.english.speak.model.bean.SpeakAndReadInfo;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
+import com.yc.english.speak.model.bean.SpeakEnglishBean;
 import com.yc.english.speak.presenter.SpeakEnglishListPresenter;
 import com.yc.english.speak.view.adapter.SpeakEnglishItemAdapter;
 
@@ -168,5 +169,10 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
             page++;
         }
         mPresenter.getReadAndSpeakList(speakAndReadInfo.getData().get(0).getType_id(), "", page, isFirst);
+    }
+
+    @Override
+    public void showSpeakEnglishDetail(List<SpeakEnglishBean> list) {
+
     }
 }

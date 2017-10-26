@@ -58,7 +58,7 @@ public class ListenEnglishPresenter extends BasePresenter<ListenEnglishEngin, Li
 
                     @Override
                     public void reulstInfoOk() {
-                        if (resultInfo != null && resultInfo.data != null) {
+                        if (resultInfo != null && resultInfo.data != null && resultInfo.data.info != null) {
                             mView.showListenEnglishDetail(resultInfo.data.info);
                         }
                     }

@@ -13,6 +13,7 @@ import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.StateView;
 import com.yc.english.speak.contract.SpeakEnglishContract;
 import com.yc.english.speak.model.bean.SpeakAndReadInfo;
+import com.yc.english.speak.model.bean.SpeakEnglishBean;
 import com.yc.english.speak.presenter.SpeakEnglishListPresenter;
 import com.yc.english.speak.view.activity.SpeakMoreActivity;
 import com.yc.english.speak.view.adapter.SpeakEnglishAdapter;
@@ -130,5 +131,8 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         mPresenter.getReadAndSpeakList(String.valueOf(getType()), "", 1, true);
     }
 
+    @Override
+    public void showSpeakEnglishDetail(List<SpeakEnglishBean> list) {
 
+    }
 }

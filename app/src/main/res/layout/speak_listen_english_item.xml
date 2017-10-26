@@ -23,7 +23,7 @@
                 android:id="@+id/tv_english_sen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="left|center"
                 android:text="I am a hero"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_16"/>
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:gravity="center"
+                android:gravity="left|center"
                 android:text="我是一个英雄"
                 android:textColor="@color/gray_aaa"
                 android:textSize="@dimen/sp_14"/>
@@ -42,11 +42,11 @@
         <LinearLayout
             android:id="@+id/layout_result"
             android:layout_width="66dp"
-            android:layout_height="42dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="invisible">
 
             <ImageView
                 android:id="@+id/iv_result"
@@ -58,8 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="不错哦，满分"
-                android:textSize="8sp"/>
+                android:textColor="@color/black_333"
+                android:textSize="10sp"/>
         </LinearLayout>
     </LinearLayout>
 
