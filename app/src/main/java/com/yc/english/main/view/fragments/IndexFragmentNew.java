@@ -52,9 +52,12 @@ import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.yc.english.speak.view.activity.SpeakMainActivity;
+import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
 import com.yc.english.union.view.activitys.UnionMainActivity;
+import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.yc.english.weixin.views.activitys.CourseTypeActivity;
+import com.yc.english.weixin.views.adapters.CourseAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -141,6 +144,7 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
     @BindView(R.id.tv_more)
     TextView mMoreTextView;
 
+    private IndexRecommendAdapter mRecommendAdapter;
 
 //    @BindView(R.id.refresh)
 //    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
@@ -300,11 +304,26 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
         mHotMircoClassAdapter = new AritleAdapter(null, 1);
         mHotMircoClassRecyclerView.setAdapter(mHotMircoClassAdapter);
 
+
         mHotMircoClassAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("info", mHotMircoClassAdapter.getData().get(position));
+                startActivity(intent);
+            }
+        });
+
+        mRvRecommend.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecommendAdapter = new IndexRecommendAdapter(null);
+        mRvRecommend.setAdapter(mRecommendAdapter);
+
+        mRecommendAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CourseInfo courseInfo = (CourseInfo) adapter.getItem(position);
+                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                intent.putExtra("info", courseInfo);
                 startActivity(intent);
             }
         });
@@ -394,6 +413,9 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
 
         if (indexInfo.getWeike() != null) {
             mHotMircoClassAdapter.addData(indexInfo.getWeike());
+        }
+        if (indexInfo.getTuijian() != null) {
+            mRecommendAdapter.addData(indexInfo.getTuijian());
         }
 //        mRefreshSwipeRefreshLayout.setRefreshing(false);
     }

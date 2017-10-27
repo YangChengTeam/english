@@ -44,7 +44,7 @@ public class GlideRoundTransform extends BitmapTransformation {
     private boolean mIsMore;
 
     public GlideRoundTransform(Context context, int position, boolean isMore) {
-        this(context, 3, position, isMore);
+        this(context, 5, position, isMore);
         this.mPosition = position;
         this.mIsMore = isMore;
     }
@@ -81,7 +81,6 @@ public class GlideRoundTransform extends BitmapTransformation {
         LogUtils.e("roundCrop " + mPosition + "--" + height + "==" + width);
 
         Bitmap result = pool.get(width, height, Bitmap.Config.ARGB_8888);
-//        Bitmap transForm = TransformationUtils.roundedCorners(pool, result, width, height, (int) radius);
 
         if (result == null) {
             result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -124,7 +123,7 @@ public class GlideRoundTransform extends BitmapTransformation {
 
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-//        mPaint.setColor(Color.RED);
+        mPaint.setColor(Color.RED);
         RectF rectF = new RectF(0f, 0f, width, height);
         canvas.drawRoundRect(rectF, radius, radius, mPaint);
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));

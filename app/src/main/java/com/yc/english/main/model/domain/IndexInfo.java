@@ -42,6 +42,8 @@ public class IndexInfo {
     private List<CourseInfo> zuowen;
     private List<CourseInfo> tingli;
 
+    private List<CourseInfo> tuijian;
+
     private List<CourseInfo> weike;
 
     private List<CommunityInfo> shequ;
@@ -108,5 +110,13 @@ public class IndexInfo {
 
     public void setShequ(List<CommunityInfo> shequ) {
         this.shequ = shequ;
+    }
+
+    public List<CourseInfo> getTuijian() {
+        return tuijian;
+    }
+
+    public void setTuijian(List<CourseInfo> tuijian) {
+        this.tuijian = tuijian;
     }
 }
