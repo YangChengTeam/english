@@ -140,6 +140,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
                     innerDataPosition = listenList.get(outDataPosition).getData().size() - 1;
 
                     SpeakAndReadItemInfo speakAndReadItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
+                    fileName = speakAndReadItemInfo.getId();
                     currentAudioUrl = speakAndReadItemInfo.getMp3();
                     currentAudioLrcUrl = speakAndReadItemInfo.getWord_file();
                 } else {
@@ -148,6 +149,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
             }
         } else {
             SpeakAndReadItemInfo speakAndReadItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
+            fileName = speakAndReadItemInfo.getId();
             currentAudioUrl = speakAndReadItemInfo.getMp3();
             currentAudioLrcUrl = speakAndReadItemInfo.getWord_file();
         }
@@ -165,6 +167,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
                     innerDataPosition = 0;
 
                     SpeakAndReadItemInfo speakAndReadItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
+                    fileName = speakAndReadItemInfo.getId();
                     currentAudioUrl = speakAndReadItemInfo.getMp3();
                     currentAudioLrcUrl = speakAndReadItemInfo.getWord_file();
                 } else {
@@ -173,6 +176,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
             }
         } else {
             SpeakAndReadItemInfo speakAndReadItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
+            fileName = speakAndReadItemInfo.getId();
             currentAudioUrl = speakAndReadItemInfo.getMp3();
             currentAudioLrcUrl = speakAndReadItemInfo.getWord_file();
         }
