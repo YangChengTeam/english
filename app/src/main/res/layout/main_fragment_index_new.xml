@@ -285,49 +285,13 @@
                 android:background="@color/gray_ddd"></View>
 
 
-            <RelativeLayout
-                android:id="@+id/rl_use_more"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginBottom="7dp"
-                android:background="@color/white">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="更多精彩内容点击查看"
-                        android:textColor="@color/gray_aaa"
-                        android:textSize="@dimen/font_small" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
-                        android:src="@mipmap/index_aritle_arrow" />
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/line"
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/gray_ddd"></View>
-            </RelativeLayout>
-
             <ImageView
                 android:id="@+id/iv_tutor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="7dp"
+                android:layout_marginTop="7dp"
                 android:src="@mipmap/index_tutor" />
 
 

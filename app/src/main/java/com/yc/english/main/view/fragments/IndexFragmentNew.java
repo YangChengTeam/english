@@ -115,7 +115,7 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
     RecyclerView mHotMircoClassRecyclerView;
 
     @BindView(R.id.ll_recommend_more)
-    LinearLayout mllRecommandMore;
+    LinearLayout mllRecommendMore;
     @BindView(R.id.rv_recommend)
     RecyclerView mRvRecommend;
 
@@ -128,9 +128,6 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
     @BindView(R.id.rv_community)
     RecyclerView mCommunityRecyclerView;
     private CommunityAdapter mHotCommunityAdapter;
-
-    @BindView(R.id.rl_use_more)
-    RelativeLayout mUserMoreRelativeLayout;
 
     @BindView(R.id.ll_community_more)
     LinearLayout mCommunityMoreLinearLayout;
@@ -241,7 +238,7 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
             }
         });
 
-        RxView.clicks(mIvUnion).throttleFirst(200,TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mIvUnion).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), UnionMainActivity.class);
@@ -266,7 +263,7 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
             }
         });
 
-        RxView.clicks(mUserMoreRelativeLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mllRecommendMore).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), CourseTypeActivity.class);

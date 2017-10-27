@@ -52,10 +52,15 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
 //        animator.start();
         if (mIsMore) {
             view.setTag(R.id.img_id, item.getImg());
+            if (view.getTag(R.id.img_id).equals(item.getImg())) {
+                Glide.with(mContext).load(item.getImg()).apply(new RequestOptions()
+                        .transform(new GlideRoundTransform(mContext, pos, true)).placeholder(R.mipmap.base_loading).error(R.mipmap.pic_example)).into(view);
+            }
+        } else {
+            Glide.with(mContext).load(item.getImg()).apply(new RequestOptions()
+                    .transform(new GlideRoundTransform(mContext, pos, false)).placeholder(R.mipmap.base_loading).error(R.mipmap.pic_example)).into(view);
         }
 
 
-        Glide.with(mContext).load(item.getImg()).apply(new RequestOptions()
-                .transform(new GlideRoundTransform(mContext, pos)).placeholder(R.mipmap.base_loading).error(R.mipmap.pic_example)).into(view);
     }
 }
