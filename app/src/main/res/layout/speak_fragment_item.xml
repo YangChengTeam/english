@@ -9,19 +9,19 @@
         android:id="@+id/fl_play_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/group_distance_5"
-        android:layout_marginRight="@dimen/group_distance_5"
-        android:background="@drawable/speak_shadow_bg"
-        android:elevation="@dimen/group_distance_1"
-        android:translationZ="@dimen/group_distance_1">
+        android:layout_marginLeft="@dimen/group_distance_2"
+        android:layout_marginRight="@dimen/group_distance_2">
 
         <ImageView
             android:id="@+id/iv_thumb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:background="@drawable/speak_shadow_bg"
+            android:elevation="@dimen/group_distance_05"
             android:scaleType="fitXY"
-            android:src="@mipmap/pic_example" />
+            android:src="@mipmap/pic_example"
+            android:translationZ="@dimen/group_distance_05" />
 
         <RelativeLayout
             android:layout_width="match_parent"

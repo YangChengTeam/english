@@ -52,9 +52,12 @@ import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.yc.english.speak.view.activity.SpeakMainActivity;
+import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
 import com.yc.english.union.view.activitys.UnionMainActivity;
+import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.yc.english.weixin.views.activitys.CourseTypeActivity;
+import com.yc.english.weixin.views.adapters.CourseAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -115,7 +118,7 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
     RecyclerView mHotMircoClassRecyclerView;
 
     @BindView(R.id.ll_recommend_more)
-    LinearLayout mllRecommandMore;
+    LinearLayout mllRecommendMore;
     @BindView(R.id.rv_recommend)
     RecyclerView mRvRecommend;
 
@@ -129,9 +132,6 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
     RecyclerView mCommunityRecyclerView;
     private CommunityAdapter mHotCommunityAdapter;
 
-    @BindView(R.id.rl_use_more)
-    RelativeLayout mUserMoreRelativeLayout;
-
     @BindView(R.id.ll_community_more)
     LinearLayout mCommunityMoreLinearLayout;
 
@@ -144,6 +144,7 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
     @BindView(R.id.tv_more)
     TextView mMoreTextView;
 
+    private IndexRecommendAdapter mRecommendAdapter;
 
 //    @BindView(R.id.refresh)
 //    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
@@ -241,7 +242,7 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
             }
         });
 
-        RxView.clicks(mIvUnion).throttleFirst(200,TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mIvUnion).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), UnionMainActivity.class);
@@ -266,7 +267,7 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
             }
         });
 
-        RxView.clicks(mUserMoreRelativeLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mllRecommendMore).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), CourseTypeActivity.class);
@@ -303,11 +304,26 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
         mHotMircoClassAdapter = new AritleAdapter(null, 1);
         mHotMircoClassRecyclerView.setAdapter(mHotMircoClassAdapter);
 
+
         mHotMircoClassAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("info", mHotMircoClassAdapter.getData().get(position));
+                startActivity(intent);
+            }
+        });
+
+        mRvRecommend.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecommendAdapter = new IndexRecommendAdapter(null);
+        mRvRecommend.setAdapter(mRecommendAdapter);
+
+        mRecommendAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CourseInfo courseInfo = (CourseInfo) adapter.getItem(position);
+                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                intent.putExtra("info", courseInfo);
                 startActivity(intent);
             }
         });
@@ -397,6 +413,9 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
 
         if (indexInfo.getWeike() != null) {
             mHotMircoClassAdapter.addData(indexInfo.getWeike());
+        }
+        if (indexInfo.getTuijian() != null) {
+            mRecommendAdapter.addData(indexInfo.getTuijian());
         }
 //        mRefreshSwipeRefreshLayout.setRefreshing(false);
     }

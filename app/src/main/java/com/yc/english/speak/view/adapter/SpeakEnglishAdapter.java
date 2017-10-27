@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -51,9 +52,9 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
         }
 
         RecyclerView recyclerView = helper.getView(R.id.recyclerView_speak);
-        GridLayoutManager layout = new GridLayoutManager(mContext, 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2);
 
-        recyclerView.setLayoutManager(layout);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
 
         List<SpeakAndReadItemInfo> itemInfoList = item.getData();
@@ -67,12 +68,13 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
         SpeakEnglishItemAdapter itemAdapter = new SpeakEnglishItemAdapter(itemInfoList.size() <= 7 ? itemInfoList : itemInfoList.subList(0, 7), false);
         recyclerView.setAdapter(itemAdapter);
 
+
         /**
          * 该方法设置gridLayoutManager布局中每个item占据的列数
          * 这个方法必须放在setAdapter之后才生效，否则不起作用
          *
          */
-        layout.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 if (position == 0) {
@@ -114,5 +116,7 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
         });
 
     }
+
+
 
 }
