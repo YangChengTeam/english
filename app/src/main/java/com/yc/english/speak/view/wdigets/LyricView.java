@@ -26,6 +26,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.yc.english.R;
 
 import org.mozilla.universalchardet.UniversalDetector;
@@ -42,6 +43,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by zhengken.me on 2016/11/27.
@@ -241,7 +244,7 @@ public class LyricView extends View {
                 }
 
                 if (mEnableLineFeed) {
-                    LogUtils.e("歌词--" + i +"--->" + mLyricInfo.songLines.get(i).content);
+                    LogUtils.e("歌词--" + i + "--->" + mLyricInfo.songLines.get(i).content);
                     StaticLayout staticLayout = new StaticLayout(mLyricInfo.songLines.get(i).content, mTextPaint,
                             mMaxLength,
                             Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
@@ -731,6 +734,11 @@ public class LyricView extends View {
      * 逐行解析歌词内容
      */
     private void analyzeLyric(LyricInfo lyricInfo, String line) {
+
+        if(!StringUtils.isEmpty(line)){
+            line = line.substring(line.indexOf("["),line.length());
+        }
+
         int index = line.lastIndexOf("]");
         if (line.startsWith("[offset:")) {
             // time offset
@@ -764,14 +772,29 @@ public class LyricView extends View {
         }
     }
 
+    public static String replaceBlank(String str) {
+        String dest = "";
+        if (!StringUtils.isEmpty(str)) {
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+            Matcher m = p.matcher(str);
+            dest = m.replaceAll("");
+        }
+        return dest;
+    }
+
     /**
      * 从字符串中获得时间值
      */
     private long measureStartTimeMillis(String str) {
-        long minute = Long.parseLong(str.substring(1, 3));
-        long second = Long.parseLong(str.substring(4, 6));
-        long millisecond = Long.parseLong(str.substring(7, 9));
-        return millisecond + second * 1000 + minute * 60 * 1000;
+        str = replaceBlank(str);
+        if (!StringUtils.isEmpty(str)) {
+            str = str.substring(str.indexOf("[") + 1, str.length());
+            long minute = Long.parseLong(str.substring(0, 2));
+            long second = Long.parseLong(str.substring(3, 5));
+            long millisecond = Long.parseLong(str.substring(6, str.length()));
+            return millisecond + second * 1000 + minute * 60 * 1000;
+        }
+        return 0;
     }
 
     private void resetLyricInfo() {
