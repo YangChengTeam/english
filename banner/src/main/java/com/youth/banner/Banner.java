@@ -60,6 +60,15 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private List<View> imageViews;
     private List<ImageView> indicatorImages;
     private Context context;
+
+    public List getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(List imageUrls) {
+        this.imageUrls = imageUrls;
+    }
+
     private BannerViewPager viewPager;
     private TextView bannerTitle, numIndicatorInside, numIndicator;
     private LinearLayout indicator, indicatorInside, titleView;
