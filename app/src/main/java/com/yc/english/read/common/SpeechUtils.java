@@ -8,7 +8,6 @@ import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.read.view.activitys.ReadWordActivity;
 
 /**
  * Created by admin on 2017/8/8.
@@ -37,7 +36,7 @@ public class SpeechUtils {
     public static boolean isSpeechSuccess = true;
 
     public static SpeechSynthesizer getTts(Context context) {
-        initSpeech(context, 28, 50, 50, 3);
+        initSpeech(context, 25, 50, 50, 3);
         return mTts;
     }
 
