@@ -1,13 +1,10 @@
 package com.yc.english.speak.view.adapter;
 
 import android.content.Intent;
-import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
@@ -15,8 +12,6 @@ import com.yc.english.speak.model.bean.SpeakAndReadInfo;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
 import com.yc.english.speak.view.activity.ListenEnglishActivity;
 import com.yc.english.speak.view.activity.SpeakEnglishActivity;
-
-import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,6 +79,8 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
 
             }
         });
+
+
         initListener(item, itemAdapter);
 
     }
@@ -93,7 +90,6 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
         itemAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                // TODO: 2017/10/13 视频或音频跳转
                 int pos = data.indexOf(info);
                 SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
                 speakAndReadItemInfo.setOutPos(pos);
@@ -116,7 +112,6 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
         });
 
     }
-
 
 
 }

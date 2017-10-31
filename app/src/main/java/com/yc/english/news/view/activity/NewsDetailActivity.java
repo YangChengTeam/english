@@ -350,7 +350,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         if (webView != null) {
             webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
             webView.clearHistory();
-
             llRootView.removeView(webView);
             webView.destroy();
         }

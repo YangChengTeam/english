@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -20,6 +21,8 @@ import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
 import java.util.List;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * Created by wanglin  on 2017/10/12 15:36.
@@ -59,11 +62,15 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
             view.setTag(R.id.img_id, item.getImg());
             if (view.getTag(R.id.img_id).equals(item.getImg())) {
                 Glide.with(mContext).load(item.getImg()).apply(new RequestOptions()
-                        .transform(new GlideRoundTransform(mContext, pos, true)).placeholder(R.mipmap.base_loading).error(drawable)).into(view);
+                        .transform(new GlideRoundTransform(mContext, pos, true))
+                        .diskCacheStrategy(DiskCacheStrategy.DATA).placeholder(R.mipmap.base_loading).error(drawable)).thumbnail(0.1f).into(view);
+            } else {
+                Glide.with(mContext).clear(view);
             }
         } else {
             Glide.with(mContext).load(item.getImg()).apply(new RequestOptions()
-                    .transform(new GlideRoundTransform(mContext, pos, false)).placeholder(R.mipmap.base_loading).error(drawable)).into(view);
+                    .transform(new GlideRoundTransform(mContext, pos, false))
+                    .diskCacheStrategy(DiskCacheStrategy.DATA).placeholder(R.mipmap.base_loading).error(drawable)).thumbnail(0.1f).into(view);
         }
 
 
