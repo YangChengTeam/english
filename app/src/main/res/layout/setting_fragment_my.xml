@@ -73,18 +73,39 @@
                     >
 
                     <com.yc.english.setting.view.widgets.MenuItemView
-                        android:id="@+id/miv_weixin"
+                        android:id="@+id/miv_buy_vip"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         eng:src="@mipmap/setting_weixin"
-                        eng:text="@string/setting_weixin"></com.yc.english.setting.view.widgets.MenuItemView>
+                        eng:text="@string/setting_buy_vip"></com.yc.english.setting.view.widgets.MenuItemView>
 
+                    <com.yc.english.setting.view.widgets.MenuItemView
+                        android:id="@+id/miv_to_market"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        eng:src="@mipmap/setting_qq_group"
+                        eng:text="@string/setting_to_market"></com.yc.english.setting.view.widgets.MenuItemView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@mipmap/setting_item_bg"
+                    android:orientation="vertical"
+                    >
                     <com.yc.english.setting.view.widgets.MenuItemView
                         android:id="@+id/miv_qq"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         eng:src="@mipmap/setting_qq_group"
                         eng:text="@string/setting_qq_group"></com.yc.english.setting.view.widgets.MenuItemView>
+                    <com.yc.english.setting.view.widgets.MenuItemView
+                        android:id="@+id/miv_weixin"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        eng:src="@mipmap/setting_weixin"
+                        eng:text="@string/setting_weixin"></com.yc.english.setting.view.widgets.MenuItemView>
                 </LinearLayout>
 
 

@@ -202,7 +202,7 @@
         <activity android:name=".main.view.activitys.ForgotActivity" />
         <activity android:name=".setting.view.activitys.ModifyPasswordActivity" />
         <activity android:name=".setting.view.activitys.NameSettingActivity" />
-
+        <activity android:name=".setting.view.activitys.BuyVipActivity" />
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="59719ccc04e20564f70004b6" />

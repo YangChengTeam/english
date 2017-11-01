@@ -1,9 +1,8 @@
 package com.yc.english.weixin.views.fragments;
 
-import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -14,14 +13,13 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.StateView;
-
 import com.yc.english.main.model.domain.Constant;
-import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.weixin.contract.CourseContract;
 import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.presenter.CoursePresenter;
 import com.yc.english.weixin.views.adapters.CourseAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -67,28 +65,36 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
     public void init() {
 
         mPresenter = new CoursePresenter(getActivity(), this);
+        List<CourseInfo> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            CourseInfo courseInfo = new CourseInfo();
+            courseInfo.setTitle("每日练习英语");
+            courseInfo.setPv_num("12");
+            courseInfo.setImg("");
+            list.add(courseInfo);
+        }
 
-        mCourseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mCourseAdapter = new CourseAdapter(null);
+        mCourseRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mCourseAdapter = new CourseAdapter(list);
         mCourseRecyclerView.setAdapter(mCourseAdapter);
 
         mCourseAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                /*Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("info", mCourseAdapter.getData().get(position));
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 
         mCourseAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mPresenter.getWeiXinList(type, page + "", pageSize + "");
+                //mPresenter.getWeiXinList(type, page + "", pageSize + "");
             }
         }, mCourseRecyclerView);
 
-        mPresenter.getWeiXinList(type, page + "", pageSize + "");
+        //mPresenter.getWeiXinList(type, page + "", pageSize + "");
         mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
         mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -132,7 +138,7 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
 
     @Override
     public void showWeixinList(List<CourseInfo> list) {
-        if (page == 1) {
+        /*if (page == 1) {
             mCourseAdapter.setNewData(list);
         } else {
             mCourseAdapter.addData(list);
@@ -142,7 +148,17 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
             mCourseAdapter.loadMoreComplete();
         } else {
             mCourseAdapter.loadMoreEnd();
+        }*/
+
+        for (int i = 0; i < 10; i++) {
+            CourseInfo courseInfo = new CourseInfo();
+            courseInfo.setTitle("每日练习英语");
+            courseInfo.setPv_num("12");
+            courseInfo.setImg("");
+            list.add(courseInfo);
         }
+        mCourseAdapter.setNewData(list);
+
         mRefreshSwipeRefreshLayout.setRefreshing(false);
     }
 
