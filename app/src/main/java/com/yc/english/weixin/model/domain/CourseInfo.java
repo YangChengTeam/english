@@ -15,7 +15,6 @@ public class CourseInfo implements Parcelable {
     public CourseInfo() {
     }
 
-
     private String id;
     private String title;
     private String url;
@@ -54,6 +53,8 @@ public class CourseInfo implements Parcelable {
     private String pv_num;
     private String sort;
 
+
+    private boolean isChecked;
 
     public String getHtml() {
         return html;
@@ -151,6 +152,14 @@ public class CourseInfo implements Parcelable {
         this.title = title;
     }
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -216,6 +225,14 @@ public class CourseInfo implements Parcelable {
         this.url_type = url_type;
     }
 
+    public boolean getIsChecked() {
+        return this.isChecked;
+    }
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
+
     public CourseInfo(Parcel in) {
         id = in.readString();
         title = in.readString();
@@ -235,9 +252,9 @@ public class CourseInfo implements Parcelable {
         url_type = in.readInt();
     }
 
-    @Generated(hash = 1503061438)
+    @Generated(hash = 1737956910)
     public CourseInfo(String id, String title, String url, String keywords, String type_id, String period, String flag, String author, String add_time, String add_date, String img, String html, int url_type, String body, String ip_num, String pv_num,
-            String sort) {
+            String sort, boolean isChecked) {
         this.id = id;
         this.title = title;
         this.url = url;
@@ -255,9 +272,8 @@ public class CourseInfo implements Parcelable {
         this.ip_num = ip_num;
         this.pv_num = pv_num;
         this.sort = sort;
+        this.isChecked = isChecked;
     }
-
-
 
     public static final Parcelable.Creator<CourseInfo> CREATOR = new Parcelable.Creator<CourseInfo>() {
         public CourseInfo createFromParcel(Parcel in) {

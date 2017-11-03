@@ -149,7 +149,16 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
+            android:name=".news.view.activity.ShoppingCartActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".news.view.activity.ConfirmOrderActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
             android:name=".news.view.activity.NewsDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".news.view.activity.NewsWeiKeDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".speak.view.activity.SpeakMainActivity" />
         <activity android:name=".speak.view.activity.SpeakMoreActivity" />
@@ -238,6 +247,7 @@
 
         <activity android:name=".weixin.views.activitys.CourseActivity"></activity>
         <activity android:name=".weixin.views.activitys.CourseTypeActivity"></activity>
+        <activity android:name=".weixin.views.activitys.WeikeUnitActivity"></activity>
         <service android:name=".speak.service.MusicPlayService"/>
     </application>
 

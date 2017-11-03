@@ -32,4 +32,7 @@
 
     <color name="buy_vip_bg_color">#e7f1fb</color>
     <color name="course_bg_color">#e6f1fb</color>
+    <color name="buy_bg_color">#e92b54</color>
+    <color name="price_text_color">#ff0000</color>
+    <color name="pay_line_color">#cccccc</color>
 </resources>

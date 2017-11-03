@@ -80,6 +80,14 @@
                         eng:text="@string/setting_buy_vip"></com.yc.english.setting.view.widgets.MenuItemView>
 
                     <com.yc.english.setting.view.widgets.MenuItemView
+                        android:id="@+id/miv_my_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        eng:src="@mipmap/setting_weixin"
+                        android:visibility="gone"
+                        eng:text="@string/setting_buy_vip"></com.yc.english.setting.view.widgets.MenuItemView>
+
+                    <com.yc.english.setting.view.widgets.MenuItemView
                         android:id="@+id/miv_to_market"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"

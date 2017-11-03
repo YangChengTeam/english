@@ -6,16 +6,13 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
-import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
-import com.yc.english.main.view.fragments.IndexFragment;
 import com.yc.english.main.view.fragments.IndexFragmentNew;
 import com.yc.english.main.view.wdigets.TabBar;
 import com.yc.english.setting.view.fragments.MyFragment;
@@ -125,30 +122,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (mClassMainFragment != null) {
-            BaseToolBar mToolbar = mClassMainFragment.getToolbar();
-            if (mToolbar.isHasMenu()) {
-                getMenuInflater().inflate(R.menu.base_toolbar_menu, menu);
-                mToolbar.setOnMenuItemClickListener();
-            }
-        }
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        boolean result = super.onPrepareOptionsMenu(menu);
-        if (mClassMainFragment != null) {
-            BaseToolBar mToolbar = mClassMainFragment.getToolbar();
-            if (mToolbar.isHasMenu()) {
-                MenuItem menuItem = menu.findItem(R.id.action);
-                menuItem.setTitle(mToolbar.getMenuTitle());
-                if (mToolbar.getmIconResid() != 0) {
-                    menuItem.setIcon(mToolbar.getmIconResid());
-                }
-            }
-        }
-        return result;
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
