@@ -16,6 +16,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.TimeUtils;
@@ -40,12 +41,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PipedOutputStream;
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+
+import static android.content.Context.SENSOR_SERVICE;
+import static com.blankj.utilcode.util.ClipboardUtils.getIntent;
 
 /**
  * Created by wanglin  on 2017/9/6 08:32.
@@ -120,7 +126,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         String time = null;
         if (!TextUtils.isEmpty(courseInfo.getAdd_time())) {
-            time = TimeUtils.millis2String(Long.parseLong(courseInfo.getAdd_time()) * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+            time = TimeUtils.millis2String(Long.parseLong(courseInfo.getAdd_time()) * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()));
         }
 
         mTextViewTime.setText(time);
@@ -184,7 +190,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     }
 
     private void initWebView(final CourseInfoWrapper data) {
-
+//        JSON.parseObject()
         final WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
