@@ -9,6 +9,7 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.setting.contract.GoodsListContract;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
+import com.yc.english.setting.model.bean.PayWayInfo;
 
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
     }
 
     public void getPayWayList() {
-        Subscription subscription = EngineUtils.getPayWayList(mContext).subscribe(new Subscriber<ResultInfo<String>>() {
+        Subscription subscription = EngineUtils.getPayWayList(mContext).subscribe(new Subscriber<ResultInfo<List<PayWayInfo>>>() {
             @Override
             public void onCompleted() {
 
@@ -82,7 +83,13 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
             }
 
             @Override
-            public void onNext(ResultInfo<String> stringResultInfo) {
+            public void onNext(final ResultInfo<List<PayWayInfo>> payWayInfoResultInfo) {
+                handleResultInfo(payWayInfoResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.showPayWayList(payWayInfoResultInfo.data);
+                    }
+                });
 
             }
         });

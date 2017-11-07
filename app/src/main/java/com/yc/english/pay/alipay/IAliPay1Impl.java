@@ -36,13 +36,13 @@ public class IAliPay1Impl extends IPayImpl {
     }
     @Override
     public void pay(OrderInfo orderInfo, IPayCallback iPayCallback) {
-//        if (orderInfo.getPayInfo() != null) {
-//            APPID = get(orderInfo.getPayInfo().getAppid(), APPID);
-//            partnerid = get(orderInfo.getPayInfo().getPartnerid(), partnerid);
-//            EMAIL = get(orderInfo.getPayInfo().getEmail(), EMAIL);
-//            PRIVATE_KEY = get(orderInfo.getPayInfo().getPrivatekey(), PRIVATE_KEY);
-//            NOTIFY_URL = get(orderInfo.getPayInfo().getNotify_url(), NOTIFY_URL);
-//        }
+        if (orderInfo.getPayInfo() != null) {
+            APPID = get(orderInfo.getPayInfo().getAppid(), APPID);
+            PARTNERID = get(orderInfo.getPayInfo().getPartnerid(), PARTNERID);
+            EMAIL = get(orderInfo.getPayInfo().getEmail(), EMAIL);
+            PRIVATE_KEY = get(orderInfo.getPayInfo().getPrivatekey(), PRIVATE_KEY);
+            NOTIFY_URL = get(orderInfo.getPayInfo().getNotify_url(), NOTIFY_URL);
+        }
         alipay(orderInfo, orderInfo.getMoney() + "", orderInfo.getOrder_sn(), orderInfo.getName(), orderInfo.getName(),
                 iPayCallback);
     }
