@@ -15,7 +15,7 @@ import com.yc.english.weixin.model.domain.CourseInfo;
 /** 
  * DAO for table "COURSE_INFO".
 */
-public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
+public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
 
     public static final String TABLENAME = "COURSE_INFO";
 
@@ -24,7 +24,7 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, String.class, "id", false, "ID");
+        public final static Property Id = new Property(0, String.class, "id", true, "ID");
         public final static Property Title = new Property(1, String.class, "title", false, "TITLE");
         public final static Property Url = new Property(2, String.class, "url", false, "URL");
         public final static Property Keywords = new Property(3, String.class, "keywords", false, "KEYWORDS");
@@ -42,6 +42,15 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         public final static Property Pv_num = new Property(15, String.class, "pv_num", false, "PV_NUM");
         public final static Property Sort = new Property(16, String.class, "sort", false, "SORT");
         public final static Property IsChecked = new Property(17, boolean.class, "isChecked", false, "IS_CHECKED");
+        public final static Property Price = new Property(18, float.class, "price", false, "PRICE");
+        public final static Property MPrice = new Property(19, float.class, "mPrice", false, "M_PRICE");
+        public final static Property VipPrice = new Property(20, float.class, "vipPrice", false, "VIP_PRICE");
+        public final static Property GoodId = new Property(21, String.class, "goodId", false, "GOOD_ID");
+        public final static Property IsPay = new Property(22, String.class, "isPay", false, "IS_PAY");
+        public final static Property Is_vip = new Property(23, String.class, "is_vip", false, "IS_VIP");
+        public final static Property UserHas = new Property(24, String.class, "userHas", false, "USER_HAS");
+        public final static Property UserNum = new Property(25, String.class, "userNum", false, "USER_NUM");
+        public final static Property UnitNum = new Property(26, String.class, "unitNum", false, "UNIT_NUM");
     }
 
 
@@ -57,7 +66,7 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"COURSE_INFO\" (" + //
-                "\"ID\" TEXT," + // 0: id
+                "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: id
                 "\"TITLE\" TEXT," + // 1: title
                 "\"URL\" TEXT," + // 2: url
                 "\"KEYWORDS\" TEXT," + // 3: keywords
@@ -74,7 +83,16 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
                 "\"IP_NUM\" TEXT," + // 14: ip_num
                 "\"PV_NUM\" TEXT," + // 15: pv_num
                 "\"SORT\" TEXT," + // 16: sort
-                "\"IS_CHECKED\" INTEGER NOT NULL );"); // 17: isChecked
+                "\"IS_CHECKED\" INTEGER NOT NULL ," + // 17: isChecked
+                "\"PRICE\" REAL NOT NULL ," + // 18: price
+                "\"M_PRICE\" REAL NOT NULL ," + // 19: mPrice
+                "\"VIP_PRICE\" REAL NOT NULL ," + // 20: vipPrice
+                "\"GOOD_ID\" TEXT," + // 21: goodId
+                "\"IS_PAY\" TEXT," + // 22: isPay
+                "\"IS_VIP\" TEXT," + // 23: is_vip
+                "\"USER_HAS\" TEXT," + // 24: userHas
+                "\"USER_NUM\" TEXT," + // 25: userNum
+                "\"UNIT_NUM\" TEXT);"); // 26: unitNum
     }
 
     /** Drops the underlying database table. */
@@ -168,6 +186,39 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
             stmt.bindString(17, sort);
         }
         stmt.bindLong(18, entity.getIsChecked() ? 1L: 0L);
+        stmt.bindDouble(19, entity.getPrice());
+        stmt.bindDouble(20, entity.getMPrice());
+        stmt.bindDouble(21, entity.getVipPrice());
+ 
+        String goodId = entity.getGoodId();
+        if (goodId != null) {
+            stmt.bindString(22, goodId);
+        }
+ 
+        String isPay = entity.getIsPay();
+        if (isPay != null) {
+            stmt.bindString(23, isPay);
+        }
+ 
+        String is_vip = entity.getIs_vip();
+        if (is_vip != null) {
+            stmt.bindString(24, is_vip);
+        }
+ 
+        String userHas = entity.getUserHas();
+        if (userHas != null) {
+            stmt.bindString(25, userHas);
+        }
+ 
+        String userNum = entity.getUserNum();
+        if (userNum != null) {
+            stmt.bindString(26, userNum);
+        }
+ 
+        String unitNum = entity.getUnitNum();
+        if (unitNum != null) {
+            stmt.bindString(27, unitNum);
+        }
     }
 
     @Override
@@ -255,11 +306,44 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
             stmt.bindString(17, sort);
         }
         stmt.bindLong(18, entity.getIsChecked() ? 1L: 0L);
+        stmt.bindDouble(19, entity.getPrice());
+        stmt.bindDouble(20, entity.getMPrice());
+        stmt.bindDouble(21, entity.getVipPrice());
+ 
+        String goodId = entity.getGoodId();
+        if (goodId != null) {
+            stmt.bindString(22, goodId);
+        }
+ 
+        String isPay = entity.getIsPay();
+        if (isPay != null) {
+            stmt.bindString(23, isPay);
+        }
+ 
+        String is_vip = entity.getIs_vip();
+        if (is_vip != null) {
+            stmt.bindString(24, is_vip);
+        }
+ 
+        String userHas = entity.getUserHas();
+        if (userHas != null) {
+            stmt.bindString(25, userHas);
+        }
+ 
+        String userNum = entity.getUserNum();
+        if (userNum != null) {
+            stmt.bindString(26, userNum);
+        }
+ 
+        String unitNum = entity.getUnitNum();
+        if (unitNum != null) {
+            stmt.bindString(27, unitNum);
+        }
     }
 
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public String readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0);
     }    
 
     @Override
@@ -282,7 +366,16 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // ip_num
             cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // pv_num
             cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // sort
-            cursor.getShort(offset + 17) != 0 // isChecked
+            cursor.getShort(offset + 17) != 0, // isChecked
+            cursor.getFloat(offset + 18), // price
+            cursor.getFloat(offset + 19), // mPrice
+            cursor.getFloat(offset + 20), // vipPrice
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // goodId
+            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // isPay
+            cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23), // is_vip
+            cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24), // userHas
+            cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25), // userNum
+            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26) // unitNum
         );
         return entity;
     }
@@ -307,23 +400,34 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         entity.setPv_num(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
         entity.setSort(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
         entity.setIsChecked(cursor.getShort(offset + 17) != 0);
+        entity.setPrice(cursor.getFloat(offset + 18));
+        entity.setMPrice(cursor.getFloat(offset + 19));
+        entity.setVipPrice(cursor.getFloat(offset + 20));
+        entity.setGoodId(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
+        entity.setIsPay(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
+        entity.setIs_vip(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
+        entity.setUserHas(cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24));
+        entity.setUserNum(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
+        entity.setUnitNum(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
      }
     
     @Override
-    protected final Void updateKeyAfterInsert(CourseInfo entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected final String updateKeyAfterInsert(CourseInfo entity, long rowId) {
+        return entity.getId();
     }
     
     @Override
-    public Void getKey(CourseInfo entity) {
-        return null;
+    public String getKey(CourseInfo entity) {
+        if(entity != null) {
+            return entity.getId();
+        } else {
+            return null;
+        }
     }
 
     @Override
     public boolean hasKey(CourseInfo entity) {
-        // TODO
-        return false;
+        return entity.getId() != null;
     }
 
     @Override

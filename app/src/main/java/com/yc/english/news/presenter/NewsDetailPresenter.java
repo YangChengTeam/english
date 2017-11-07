@@ -70,4 +70,49 @@ public class NewsDetailPresenter extends BasePresenter<BaseEngin, NewsDetailCont
         });
         mSubscriptions.add(subscription);
     }
+
+
+    @Override
+    public void getWeiKeDetail(String news_id,String userId) {
+        mView.showLoading();
+        Subscription subscription = EnginHelper.getWeiKeDetail(mContext, news_id,userId).subscribe(new Subscriber<ResultInfo<CourseInfoWrapper>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.showNoNet();
+            }
+
+            @Override
+            public void onNext(final ResultInfo<CourseInfoWrapper> newsInfoWrapper) {
+                ResultInfoHelper.handleResultInfo(newsInfoWrapper, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (newsInfoWrapper != null && newsInfoWrapper.data != null) {
+                            mView.hideStateView();
+                            mView.showCourseResult(newsInfoWrapper.data);
+                        } else {
+                            mView.showNoData();
+                        }
+                    }
+                });
+
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
 }

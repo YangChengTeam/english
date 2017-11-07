@@ -1,6 +1,7 @@
 package com.yc.english.news.view.activity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.util.Log;
@@ -19,12 +20,13 @@ import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
+import com.yc.english.base.helper.ShoppingHelper;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.view.activitys.GroupPictureDetailActivity;
-import com.yc.english.news.adapter.NewsDetailAdapter;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.bean.CourseInfoWrapper;
 import com.yc.english.news.contract.NewsDetailContract;
 import com.yc.english.news.presenter.NewsDetailPresenter;
@@ -58,7 +60,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @BindView(R.id.ll_rootView)
     RelativeLayout llRootView;
 
-    @BindView(R.id.mTextViewTitle)
+    @BindView(R.id.tv_title)
     TextView mTextViewTitle;
 
     @BindView(R.id.layout_add_to_cart)
@@ -67,7 +69,14 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @BindView(R.id.layout_buy_now)
     LinearLayout mBuyNowLayout;
 
-    private NewsDetailAdapter newsDetailAdapter;
+    @BindView(R.id.tv_learn_count)
+    TextView mLearnCountTextView;
+
+    @BindView(R.id.tv_now_price)
+    TextView mNowPriceTextView;
+
+    @BindView(R.id.tv_old_price)
+    TextView mOldPriceTextView;
 
     private String title;
 
@@ -77,6 +86,8 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     private long startTime;
 
+    private CourseInfo currentCourseInfo;
+
     @Override
     public int getLayoutId() {
         return R.layout.common_activity_weike_detail;
@@ -85,55 +96,63 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @Override
     public void init() {
         mPresenter = new NewsDetailPresenter(this, this);
-        mToolbar.setTitle("");
+        mToolbar.setTitle("视频微课学习");
         mToolbar.setMenuTitle(getString(R.string.share));
         mToolbar.showNavigationIcon();
-
         mToolbar.setMenuTitleColor(R.color.black_333333);
+        mOldPriceTextView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         startTime = System.currentTimeMillis();
 
         if (getIntent() != null) {
-            CourseInfo courseInfo = getIntent().getParcelableExtra("info");
-            id = courseInfo.getId();
-            //mPresenter.getWeixinInfo(id);
+            id = getIntent().getStringExtra("id");
+            mPresenter.getWeiKeDetail(id, UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
         }
 
         screenHeight = ScreenUtils.getScreenHeight();
-
         initListener();
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
-        //initData(null);
-        stateView.hide();
-        playVideo("http://v.cctv.com/flash/mp4video6/TMS/2011/01/05/cf752b1c12ce452b3040cab2f90bc265_h264818000nero_aac32-1.mp4", "http://pic9.qiyipic.com/image/20171025/6a/5f/v_113765412_m_601_220_124.jpg");
 
         RxView.clicks(mAddToCartLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                ToastUtils.showLong("加入购物车成功");
+                if (currentCourseInfo != null) {
+                    ShoppingHelper.saveCourseInfoToDB(currentCourseInfo);
+                    ToastUtils.showLong("加入购物车成功");
+                }
             }
         });
 
         RxView.clicks(mBuyNowLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(NewsWeiKeDetailActivity.this,ConfirmOrderActivity.class);
+                Intent intent = new Intent(NewsWeiKeDetailActivity.this, ConfirmOrderActivity.class);
                 startActivity(intent);
             }
         });
     }
 
     private void initData(CourseInfo courseInfo) {
-        title = courseInfo.getTitle();
-        mTextViewTitle.setText(title);
 
-        String url = courseInfo.getUrl();
-        if (courseInfo.getUrl_type() == 1) {
-            //playAudio(url);
-        } else if (courseInfo.getUrl_type() == 2) {
-            playVideo(url, courseInfo.getImg());
+        if (courseInfo != null) {
+            currentCourseInfo = courseInfo;
+
+            title = courseInfo.getTitle();
+            mTextViewTitle.setText(title);
+
+            String url = courseInfo.getUrl();
+            if (courseInfo.getUrl_type() == 1) {
+                //playAudio(url);
+            } else if (courseInfo.getUrl_type() == 2) {
+                playVideo(url, courseInfo.getImg());
+            }
+
+            mLearnCountTextView.setText(courseInfo.getUserNum());
+            mNowPriceTextView.setText("¥" + courseInfo.getMPrice());
+            mOldPriceTextView.setText("原价:¥" + courseInfo.getPrice());
         }
+
     }
 
     private void initListener() {
@@ -145,7 +164,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             }
         });
     }
-
 
     private String makeBody(String data) {
 
@@ -182,7 +200,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         String body = makeBody(data.getInfo().getBody());
         webView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null);
 
-
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -203,11 +220,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
                         + "   }  " + "}" + "}())");
 
             }
-
-
         });
-
-
     }
 
     /**
@@ -228,10 +241,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     public void showCourseResult(CourseInfoWrapper data) {
         initWebView(data);
         initData(data.getInfo());
-        if (data.getRecommend() != null && data.getRecommend().size() > 0) {
-            newsDetailAdapter.setData(data.getRecommend());
-        } else {
-        }
     }
 
     @Override
@@ -244,7 +253,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         stateView.showNoNet(llRootView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getWeixinInfo(id);
+                mPresenter.getWeiKeDetail(id, UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
             }
         });
     }

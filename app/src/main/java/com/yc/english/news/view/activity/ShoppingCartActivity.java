@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.ShoppingHelper;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
@@ -52,6 +53,11 @@ public class ShoppingCartActivity extends FullScreenActivity {
     @BindView(R.id.tv_total_price)
     TextView mTotalPriceTextView;
 
+    @BindView(R.id.ck_all)
+    CheckBox mAllCheckBox;
+
+    LinearLayoutManager linearLayoutManager;
+
     CartItemAdapter mCartItemAdapter;
 
     private float totalPrice = 0;
@@ -68,15 +74,10 @@ public class ShoppingCartActivity extends FullScreenActivity {
         mToolbar.showNavigationIcon();
         mToolbar.setBackgroundResource(R.mipmap.base_actionbar);
 
-        List<CourseInfo> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            CourseInfo courseInfo = new CourseInfo();
-            courseInfo.setTitle("小学三年级英语第一单元视频课程同步辅导");
-            courseInfo.setPv_num("12");
-            courseInfo.setImg("");
-            list.add(courseInfo);
-        }
-        mCartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //读取数据
+        List<CourseInfo> list = ShoppingHelper.getCourseInfoListFromDB();
+        linearLayoutManager = new LinearLayoutManager(this);
+        mCartRecyclerView.setLayoutManager(linearLayoutManager);
         mCartRecyclerView.addItemDecoration(new SpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.dp_10)));
         mCartItemAdapter = new CartItemAdapter(list);
         mCartRecyclerView.setAdapter(mCartItemAdapter);
@@ -87,11 +88,15 @@ public class ShoppingCartActivity extends FullScreenActivity {
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.ck_cart_item) {
                     CheckBox checkBox = (CheckBox) view;
-                    mCartItemAdapter.getData().get(position).setChecked(checkBox.isChecked());
+                    mCartItemAdapter.getData().get(position).setIsChecked(checkBox.isChecked());
                     if (checkBox.isChecked()) {
-                        totalPrice = totalPrice + 10;//此处暂无加个字段，待定
+                        totalPrice = totalPrice + mCartItemAdapter.getData().get(position).getMPrice();
                     } else {
-                        totalPrice = totalPrice - 10;
+                        totalPrice = totalPrice - mCartItemAdapter.getData().get(position).getMPrice();
+
+                        if (!checkItemSelected()) {
+                            mAllCheckBox.setChecked(false);
+                        }
                     }
                     mTotalPriceTextView.setText((totalPrice < 0 ? 0 : totalPrice) + "");
                 }
@@ -99,14 +104,28 @@ public class ShoppingCartActivity extends FullScreenActivity {
             }
         });
 
+        RxView.clicks(mAllCheckBox).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                if (mAllCheckBox.isChecked()) {
+                    setCartItemState(true);
+                } else {
+                    setCartItemState(false);
+                }
+                mCartItemAdapter.notifyDataSetChanged();
+            }
+        });
+
         RxView.clicks(mPayNowLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 int selectCount = 0;
+                ArrayList<CourseInfo> goodsList = new ArrayList<>();
                 for (int i = 0; i < mCartItemAdapter.getData().size(); i++) {
-                    if (mCartItemAdapter.getData().get(i).isChecked()) {
+                    if (mCartItemAdapter.getData().get(i).getIsChecked()) {
                         LogUtils.e("item good--->" + (i + 1));
                         selectCount++;
+                        goodsList.add(mCartItemAdapter.getData().get(i));
                     }
                 }
 
@@ -114,10 +133,42 @@ public class ShoppingCartActivity extends FullScreenActivity {
                     ToastUtils.showLong("请选择购买的商品");
                     return;
                 }
-                Intent intent = new Intent(ShoppingCartActivity.this,ConfirmOrderActivity.class);
+                Intent intent = new Intent(ShoppingCartActivity.this, ConfirmOrderActivity.class);
+                intent.putExtra("total_price", totalPrice);
+                intent.putParcelableArrayListExtra("goods_list", goodsList);
                 startActivity(intent);
             }
         });
+    }
+
+    /**
+     * 检测购物车中是否有选中的项
+     */
+    public boolean checkItemSelected() {
+        boolean flag = false;
+        for (int i = 0; i < mCartItemAdapter.getData().size(); i++) {
+            View view = linearLayoutManager.findViewByPosition(i);
+            CheckBox checkBox = view.findViewById(R.id.ck_cart_item);
+            if (checkBox.isChecked()) {
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    public void setCartItemState(boolean flag) {
+        float cartPrice = 0;
+        for (int i = 0; i < mCartItemAdapter.getData().size(); i++) {
+            mCartItemAdapter.getData().get(i).setIsChecked(flag);
+            if (flag) {
+                cartPrice += mCartItemAdapter.getData().get(i).getMPrice();
+            } else {
+                cartPrice = 0;
+            }
+        }
+
+        totalPrice = cartPrice;
+        mTotalPriceTextView.setText((totalPrice < 0 ? 0 : totalPrice) + "");
     }
 
     private void initListener() {

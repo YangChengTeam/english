@@ -55,7 +55,7 @@
                 android:textSize="@dimen/font_snormal"/>
 
             <TextView
-                android:id="@+id/tv_unit_count"
+                android:id="@+id/tv_learn_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -89,7 +89,7 @@
             android:padding="@dimen/group_distance_10">
 
             <TextView
-                android:id="@+id/mTextViewTitle"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="标题标题"

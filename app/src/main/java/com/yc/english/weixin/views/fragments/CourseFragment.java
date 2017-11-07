@@ -15,22 +15,23 @@ import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.StateView;
 import com.yc.english.main.model.domain.Constant;
-import com.yc.english.news.view.activity.NewsWeiKeDetailActivity;
-import com.yc.english.weixin.contract.CourseContract;
-import com.yc.english.weixin.model.domain.CourseInfo;
-import com.yc.english.weixin.presenter.CoursePresenter;
-import com.yc.english.weixin.views.adapters.WeiKeItemAdapter;
+import com.yc.english.weixin.contract.WeiKeContract;
+import com.yc.english.weixin.model.domain.WeiKeCategory;
+import com.yc.english.weixin.model.domain.WeiKeInfo;
+import com.yc.english.weixin.presenter.WeiKePresenter;
+import com.yc.english.weixin.views.activitys.WeikeUnitActivity;
+import com.yc.english.weixin.views.adapters.WeiKeCategoryItemAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
 /**
  * Created by zhangkai on 2017/8/30.
+ * 微课分类页
  */
 
-public class CourseFragment extends BaseFragment<CoursePresenter> implements CourseContract.View {
+public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiKeContract.View {
 
     @BindView(R.id.rv_course)
     RecyclerView mCourseRecyclerView;
@@ -39,14 +40,15 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
     StateView mLoadingStateView;
 
     private String type;
+
     private int page = 1;
+
     private int pageSize = 20;
 
-    private WeiKeItemAdapter mCourseItemAdapter;
+    private WeiKeCategoryItemAdapter mWeiKeCategoryItemAdapter;
 
     @BindView(R.id.refresh)
     SwipeRefreshLayout mRefreshSwipeRefreshLayout;
-
 
     public void setType(String type) {
         this.type = type;
@@ -60,45 +62,36 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
     )
     public void refresh(String tag) {
         page = 1;
-        mPresenter.getWeiXinList(type, page + "", pageSize + "");
+        mPresenter.getWeikeCategoryList(type, page + "");
     }
 
     @Override
     public void init() {
 
-        mPresenter = new CoursePresenter(getActivity(), this);
-        List<CourseInfo> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            CourseInfo courseInfo = new CourseInfo();
-            courseInfo.setTitle("每日练习英语");
-            courseInfo.setPv_num("12");
-            courseInfo.setImg("");
-            list.add(courseInfo);
-        }
-
+        mPresenter = new WeiKePresenter(getActivity(), this);
         mCourseRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        mCourseItemAdapter = new WeiKeItemAdapter(list,type);
-        mCourseRecyclerView.setAdapter(mCourseItemAdapter);
+        mWeiKeCategoryItemAdapter = new WeiKeCategoryItemAdapter(null, type);
+        mCourseRecyclerView.setAdapter(mWeiKeCategoryItemAdapter);
 
-        mCourseItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mWeiKeCategoryItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(getActivity(), NewsWeiKeDetailActivity.class);
-                intent.putExtra("info", mCourseItemAdapter.getData().get(position));
+                Intent intent = new Intent(getActivity(), WeikeUnitActivity.class);
+                intent.putExtra("type", type);
+                intent.putExtra("pid", mWeiKeCategoryItemAdapter.getData().get(position).getId());
+                //intent.putExtra("info", mWeiKeCategoryItemAdapter.getData().get(position));
                 startActivity(intent);
-                /*Intent intent = new Intent(getActivity(), WeikeUnitActivity.class);
-                startActivity(intent);*/
             }
         });
 
-        mCourseItemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+        mWeiKeCategoryItemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                //mPresenter.getWeiXinList(type, page + "", pageSize + "");
+                mPresenter.getWeikeCategoryList(type, page + "");
             }
         }, mCourseRecyclerView);
 
-        //mPresenter.getWeiXinList(type, page + "", pageSize + "");
+        mPresenter.getWeikeCategoryList(type, page + "");
         mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
         mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -123,7 +116,7 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
         mLoadingStateView.showNoNet(mCourseRecyclerView, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getWeiXinList(type, page + "", pageSize + "");
+                mPresenter.getWeikeCategoryList(type, page + "");
             }
         });
     }
@@ -135,47 +128,41 @@ public class CourseFragment extends BaseFragment<CoursePresenter> implements Cou
 
     @Override
     public void showLoading() {
-        if (!mRefreshSwipeRefreshLayout.isRefreshing() || (mCourseItemAdapter.getData() == null || mCourseItemAdapter.getData()
+        if (!mRefreshSwipeRefreshLayout.isRefreshing() || (mWeiKeCategoryItemAdapter.getData() == null || mWeiKeCategoryItemAdapter.getData()
                 .size() == 0))
             mLoadingStateView.showLoading(mCourseRecyclerView);
     }
 
     @Override
-    public void showWeixinList(List<CourseInfo> list) {
-        /*if (page == 1) {
-            mCourseItemAdapter.setNewData(list);
+    public void showWeikeCategoryList(List<WeiKeCategory> list) {
+
+        if (page == 1) {
+            mWeiKeCategoryItemAdapter.setNewData(list);
         } else {
-            mCourseItemAdapter.addData(list);
+            mWeiKeCategoryItemAdapter.addData(list);
         }
         if (list.size() == pageSize) {
             page++;
-            mCourseItemAdapter.loadMoreComplete();
+            mWeiKeCategoryItemAdapter.loadMoreComplete();
         } else {
-            mCourseItemAdapter.loadMoreEnd();
-        }*/
-
-        for (int i = 0; i < 10; i++) {
-            CourseInfo courseInfo = new CourseInfo();
-            courseInfo.setTitle("每日练习英语");
-            courseInfo.setPv_num("12");
-            courseInfo.setImg("");
-            list.add(courseInfo);
+            mWeiKeCategoryItemAdapter.loadMoreEnd();
         }
-        mCourseItemAdapter.setNewData(list);
-
         mRefreshSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
+    public void showWeiKeInfoList(List<WeiKeInfo> list) {
+
+    }
+
+    @Override
     public void fail() {
-        mCourseItemAdapter.loadMoreFail();
+        mWeiKeCategoryItemAdapter.loadMoreFail();
     }
 
 
     @Override
     public void end() {
-        mCourseItemAdapter.loadMoreEnd();
+        mWeiKeCategoryItemAdapter.loadMoreEnd();
     }
-
-
 }

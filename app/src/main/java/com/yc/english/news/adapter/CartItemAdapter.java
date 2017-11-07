@@ -19,9 +19,9 @@ public class CartItemAdapter extends BaseQuickAdapter<CourseInfo, BaseViewHolder
 
     @Override
     protected void convert(BaseViewHolder helper, CourseInfo item) {
-        helper.setText(R.id.tv_course_title, item.getTitle()).setText(R.id.tv_course_price, "原价¥:18.00").setText(R.id.tv_course_price_now, "¥12.00");
+        helper.setText(R.id.tv_course_title, item.getTitle()).setText(R.id.tv_course_price, "原价¥:" + item.getPrice()).setText(R.id.tv_course_price_now, "¥"+item.getMPrice());
         helper.addOnClickListener(R.id.ck_cart_item);
-        if (item.isChecked()) {
+        if (item.getIsChecked()) {
             helper.setChecked(R.id.ck_cart_item, true);
         } else {
             helper.setChecked(R.id.ck_cart_item, false);

@@ -3,8 +3,11 @@ package com.yc.english.weixin.model.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 /**
  * Created by zhangkai on 2017/8/30.
@@ -15,6 +18,7 @@ public class CourseInfo implements Parcelable {
     public CourseInfo() {
     }
 
+    @Id
     private String id;
     private String title;
     private String url;
@@ -53,8 +57,27 @@ public class CourseInfo implements Parcelable {
     private String pv_num;
     private String sort;
 
-
     private boolean isChecked;
+
+    private float price;
+    @JSONField(name = "m_price")
+    private float mPrice;
+    @JSONField(name = "vip_price")
+    private float vipPrice;
+    @JSONField(name = "good_id")
+    private String goodId;
+    @JSONField(name = "is_pay")
+    private String isPay;
+    @JSONField(name = "is_vip")
+    private String is_vip;
+    @JSONField(name = "user_has")
+    private String userHas;
+
+    @JSONField(name = "user_num")
+    private String userNum;
+
+    @JSONField(name = "unit_num")
+    private String unitNum;
 
     public String getHtml() {
         return html;
@@ -152,39 +175,6 @@ public class CourseInfo implements Parcelable {
         this.title = title;
     }
 
-    public boolean isChecked() {
-        return isChecked;
-    }
-
-    public void setChecked(boolean checked) {
-        isChecked = checked;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(title);
-        dest.writeString(url);
-        dest.writeString(keywords);
-        dest.writeString(type_id);
-        dest.writeString(period);
-        dest.writeString(author);
-        dest.writeString(add_time);
-        dest.writeString(add_date);
-        dest.writeString(img);
-        dest.writeString(html);
-        dest.writeString(body);
-        dest.writeString(ip_num);
-        dest.writeString(pv_num);
-        dest.writeString(sort);
-        dest.writeInt(url_type);
-    }
-
     public String getBody() {
         return this.body;
     }
@@ -233,28 +223,148 @@ public class CourseInfo implements Parcelable {
         this.isChecked = isChecked;
     }
 
-    public CourseInfo(Parcel in) {
-        id = in.readString();
-        title = in.readString();
-        url = in.readString();
-        keywords = in.readString();
-        type_id = in.readString();
-        period = in.readString();
-        author = in.readString();
-        add_time = in.readString();
-        add_date = in.readString();
-        img = in.readString();
-        html = in.readString();
-        body = in.readString();
-        ip_num = in.readString();
-        pv_num = in.readString();
-        sort = in.readString();
-        url_type = in.readInt();
+
+    public String getGoodId() {
+        return this.goodId;
     }
 
-    @Generated(hash = 1737956910)
+    public void setGoodId(String goodId) {
+        this.goodId = goodId;
+    }
+
+    public String getIsPay() {
+        return this.isPay;
+    }
+
+    public void setIsPay(String isPay) {
+        this.isPay = isPay;
+    }
+
+    public String getIs_vip() {
+        return this.is_vip;
+    }
+
+    public void setIs_vip(String is_vip) {
+        this.is_vip = is_vip;
+    }
+
+    public String getUserHas() {
+        return this.userHas;
+    }
+
+    public void setUserHas(String userHas) {
+        this.userHas = userHas;
+    }
+
+    public String getUserNum() {
+        return this.userNum;
+    }
+
+    public void setUserNum(String userNum) {
+        this.userNum = userNum;
+    }
+
+    public String getUnitNum() {
+        return this.unitNum;
+    }
+
+    public void setUnitNum(String unitNum) {
+        this.unitNum = unitNum;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.url);
+        dest.writeString(this.keywords);
+        dest.writeString(this.type_id);
+        dest.writeString(this.period);
+        dest.writeString(this.flag);
+        dest.writeString(this.author);
+        dest.writeString(this.add_time);
+        dest.writeString(this.add_date);
+        dest.writeString(this.img);
+        dest.writeString(this.html);
+        dest.writeInt(this.url_type);
+        dest.writeString(this.body);
+        dest.writeString(this.ip_num);
+        dest.writeString(this.pv_num);
+        dest.writeString(this.sort);
+        dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
+        dest.writeFloat(this.price);
+        dest.writeFloat(this.mPrice);
+        dest.writeFloat(this.vipPrice);
+        dest.writeString(this.goodId);
+        dest.writeString(this.isPay);
+        dest.writeString(this.is_vip);
+        dest.writeString(this.userHas);
+        dest.writeString(this.userNum);
+        dest.writeString(this.unitNum);
+    }
+
+    public float getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public float getMPrice() {
+        return this.mPrice;
+    }
+
+    public void setMPrice(float mPrice) {
+        this.mPrice = mPrice;
+    }
+
+    public float getVipPrice() {
+        return this.vipPrice;
+    }
+
+    public void setVipPrice(float vipPrice) {
+        this.vipPrice = vipPrice;
+    }
+
+    protected CourseInfo(Parcel in) {
+        this.id = in.readString();
+        this.title = in.readString();
+        this.url = in.readString();
+        this.keywords = in.readString();
+        this.type_id = in.readString();
+        this.period = in.readString();
+        this.flag = in.readString();
+        this.author = in.readString();
+        this.add_time = in.readString();
+        this.add_date = in.readString();
+        this.img = in.readString();
+        this.html = in.readString();
+        this.url_type = in.readInt();
+        this.body = in.readString();
+        this.ip_num = in.readString();
+        this.pv_num = in.readString();
+        this.sort = in.readString();
+        this.isChecked = in.readByte() != 0;
+        this.price = in.readFloat();
+        this.mPrice = in.readFloat();
+        this.vipPrice = in.readFloat();
+        this.goodId = in.readString();
+        this.isPay = in.readString();
+        this.is_vip = in.readString();
+        this.userHas = in.readString();
+        this.userNum = in.readString();
+        this.unitNum = in.readString();
+    }
+
+    @Generated(hash = 479336429)
     public CourseInfo(String id, String title, String url, String keywords, String type_id, String period, String flag, String author, String add_time, String add_date, String img, String html, int url_type, String body, String ip_num, String pv_num,
-            String sort, boolean isChecked) {
+            String sort, boolean isChecked, float price, float mPrice, float vipPrice, String goodId, String isPay, String is_vip, String userHas, String userNum, String unitNum) {
         this.id = id;
         this.title = title;
         this.url = url;
@@ -273,13 +383,24 @@ public class CourseInfo implements Parcelable {
         this.pv_num = pv_num;
         this.sort = sort;
         this.isChecked = isChecked;
+        this.price = price;
+        this.mPrice = mPrice;
+        this.vipPrice = vipPrice;
+        this.goodId = goodId;
+        this.isPay = isPay;
+        this.is_vip = is_vip;
+        this.userHas = userHas;
+        this.userNum = userNum;
+        this.unitNum = unitNum;
     }
 
-    public static final Parcelable.Creator<CourseInfo> CREATOR = new Parcelable.Creator<CourseInfo>() {
-        public CourseInfo createFromParcel(Parcel in) {
-            return new CourseInfo(in);
+    public static final Creator<CourseInfo> CREATOR = new Creator<CourseInfo>() {
+        @Override
+        public CourseInfo createFromParcel(Parcel source) {
+            return new CourseInfo(source);
         }
 
+        @Override
         public CourseInfo[] newArray(int size) {
             return new CourseInfo[size];
         }
