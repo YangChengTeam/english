@@ -41,6 +41,7 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         public final static Property Ip_num = new Property(14, String.class, "ip_num", false, "IP_NUM");
         public final static Property Pv_num = new Property(15, String.class, "pv_num", false, "PV_NUM");
         public final static Property Sort = new Property(16, String.class, "sort", false, "SORT");
+        public final static Property IsChecked = new Property(17, boolean.class, "isChecked", false, "IS_CHECKED");
     }
 
 
@@ -72,7 +73,8 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
                 "\"BODY\" TEXT," + // 13: body
                 "\"IP_NUM\" TEXT," + // 14: ip_num
                 "\"PV_NUM\" TEXT," + // 15: pv_num
-                "\"SORT\" TEXT);"); // 16: sort
+                "\"SORT\" TEXT," + // 16: sort
+                "\"IS_CHECKED\" INTEGER NOT NULL );"); // 17: isChecked
     }
 
     /** Drops the underlying database table. */
@@ -165,6 +167,7 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         if (sort != null) {
             stmt.bindString(17, sort);
         }
+        stmt.bindLong(18, entity.getIsChecked() ? 1L: 0L);
     }
 
     @Override
@@ -251,6 +254,7 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         if (sort != null) {
             stmt.bindString(17, sort);
         }
+        stmt.bindLong(18, entity.getIsChecked() ? 1L: 0L);
     }
 
     @Override
@@ -277,7 +281,8 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // body
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // ip_num
             cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // pv_num
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16) // sort
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // sort
+            cursor.getShort(offset + 17) != 0 // isChecked
         );
         return entity;
     }
@@ -301,6 +306,7 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         entity.setIp_num(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
         entity.setPv_num(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
         entity.setSort(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setIsChecked(cursor.getShort(offset + 17) != 0);
      }
     
     @Override

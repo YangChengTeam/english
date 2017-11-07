@@ -86,11 +86,10 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
     }
 
     private void initListener(final SpeakAndReadInfo info, SpeakEnglishItemAdapter itemAdapter) {
-        final List<SpeakAndReadInfo> data = getData();
         itemAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                int pos = data.indexOf(info);
+                int pos = mData.indexOf(info);
                 SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
                 speakAndReadItemInfo.setOutPos(pos);
                 speakAndReadItemInfo.setInnerPos(position);
@@ -98,11 +97,11 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
                 if (mType == 1) {//说英语
                     intent = new Intent(mContext, SpeakEnglishActivity.class);
                     intent.putExtra("itemInfo", speakAndReadItemInfo);
-                    intent.putParcelableArrayListExtra("infoList", (ArrayList) data);
+                    intent.putParcelableArrayListExtra("infoList", (ArrayList) mData);
                 } else if (mType == 2) {//听英语
                     intent = new Intent(mContext, ListenEnglishActivity.class);
                     intent.putExtra("itemInfo", speakAndReadItemInfo);
-                    intent.putParcelableArrayListExtra("infoList", (ArrayList) data);
+                    intent.putParcelableArrayListExtra("infoList", (ArrayList) mData);
                 }
                 mContext.startActivity(intent);
 

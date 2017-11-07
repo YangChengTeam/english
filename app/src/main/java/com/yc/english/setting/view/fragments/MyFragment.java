@@ -1,9 +1,7 @@
 package com.yc.english.setting.view.fragments;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,8 +9,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.SnackbarUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -26,13 +24,13 @@ import com.yc.english.base.view.ToolbarFragment;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.news.view.activity.NewsDetailActivity;
-import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
 import com.yc.english.setting.contract.MyContract;
 import com.yc.english.setting.presenter.MyPresenter;
+import com.yc.english.setting.view.activitys.BuyVipActivity;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
 import com.yc.english.setting.view.activitys.SettingActivity;
+import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
 import com.yc.english.setting.view.widgets.MenuItemView;
 
 import java.util.concurrent.TimeUnit;
@@ -54,6 +52,12 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
 
     @BindView(R.id.tv_school)
     TextView mSchoolTextView;
+
+    @BindView(R.id.miv_buy_vip)
+    MenuItemView mBuyVipMenuItemView;
+
+    @BindView(R.id.miv_to_market)
+    MenuItemView mMarketMenuItemView;
 
     @BindView(R.id.miv_weixin)
     MenuItemView mWeixinMenuItemView;
@@ -97,6 +101,22 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
                     Intent intent = new Intent(getActivity(), PersonCenterActivity.class);
                     startActivity(intent);
                 }
+            }
+        });
+
+        //TODO
+        RxView.clicks(mBuyVipMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), BuyVipActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mMarketMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                ToastUtils.showLong("应用市场点评");
             }
         });
 

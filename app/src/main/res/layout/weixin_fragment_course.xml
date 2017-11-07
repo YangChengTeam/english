@@ -22,7 +22,9 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_course"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"
+            android:background="@color/course_bg_color">
+        </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

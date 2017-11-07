@@ -161,4 +161,18 @@ public interface NetConstant {
      */
 
     String read_getreadDetail = (isDebug ? debug_base_url : baser_url) + "read/getreadDetail";
+
+    /**
+     * 获取商品列表
+     */
+    String goods_getGoodsList = (isDebug ? debug_base_url : baser_url) + "goods/getGoodsList";
+
+    /**
+     * 获取支付列表
+     */
+    String order_payWayList = (isDebug ? debug_base_url : baser_url) + "order/payWay";
+    /**
+     * 创建订单
+     */
+    String order_init = (isDebug ? debug_base_url : baser_url) + "order/init";
 }

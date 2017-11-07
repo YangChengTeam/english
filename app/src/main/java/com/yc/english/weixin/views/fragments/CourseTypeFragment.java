@@ -1,29 +1,31 @@
 package com.yc.english.weixin.views.fragments;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
-import com.yc.english.base.view.ToolbarFragment;
+import com.yc.english.base.view.BaseFragment;
+import com.yc.english.news.view.activity.ShoppingCartActivity;
 import com.yc.english.weixin.views.utils.TabsUtils;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
+import rx.functions.Action1;
 
 /**
  * Created by zhangkai on 2017/8/30.
  */
 
-public class CourseTypeFragment extends ToolbarFragment {
+public class CourseTypeFragment extends BaseFragment {
 
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
@@ -31,12 +33,15 @@ public class CourseTypeFragment extends ToolbarFragment {
     @BindView(R.id.fiv_indicator)
     FixedIndicatorView mFixedIndicatorView;
 
+    @BindView(R.id.iv_shopping_cart)
+    ImageView mShoppingImageView;
 
     private final String[] titles = new String[]{"音频微课", "视频微课"};
 
     @Override
     public void init() {
-        mToolbar.setTitle("每日微课");
+
+
         mFixedIndicatorView.setAdapter(new TabsUtils.MyAdapter(getActivity(), titles));
         mFixedIndicatorView.setScrollBar(new ColorBar(getActivity(), ContextCompat.getColor(getActivity(), R.color
                 .primary), 6));
@@ -75,11 +80,14 @@ public class CourseTypeFragment extends ToolbarFragment {
 
             }
         });
-    }
 
-    @Override
-    public boolean isInstallToolbar() {
-        return true;
+        RxView.clicks(mShoppingImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), ShoppingCartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -24,12 +24,12 @@
         "source": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_emoji_eo_fail_default.png"
     },
     {
-        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_back.png",
-        "source": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_back.png"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_keyboard_store_bg.png",
         "source": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_keyboard_store_bg.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_back.png",
+        "source": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_back.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_chatto_bg_focused.9.png",

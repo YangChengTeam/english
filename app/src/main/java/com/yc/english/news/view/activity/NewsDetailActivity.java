@@ -190,7 +190,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     }
 
     private void initWebView(final CourseInfoWrapper data) {
-//        JSON.parseObject()
+
         final WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
