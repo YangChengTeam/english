@@ -41,6 +41,7 @@ public class CourseTypeFragment extends BaseFragment {
     @Override
     public void init() {
 
+
         mFixedIndicatorView.setAdapter(new TabsUtils.MyAdapter(getActivity(), titles));
         mFixedIndicatorView.setScrollBar(new ColorBar(getActivity(), ContextCompat.getColor(getActivity(), R.color
                 .primary), 6));

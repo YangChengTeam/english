@@ -4,9 +4,11 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.TypeReference;
+import com.blankj.utilcode.util.SnackbarUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
@@ -21,9 +23,13 @@ import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.rong.models.ListGagGroupUserResult;
 import com.yc.english.group.rong.util.RongIMUtil;
+import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.setting.model.bean.GoodInfoWrapper;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
@@ -336,6 +342,63 @@ public class EngineUtils {
 
         return HttpCoreEngin.get(context).rxpost(NetConstant.index_comm_class_list, new TypeReference<ResultInfo<ClassInfoList>>() {
         }.getType(), null, true, true, true);
+    }
+
+    /**
+     * 获取商品列表
+     *
+     * @param context
+     * @param goods_type_id
+     * @param page
+     * @return
+     */
+    public static Observable<ResultInfo<GoodInfoWrapper>> getGoodsList(Context context, int goods_type_id, int page) {
+        Map<String, String> params = new HashMap<>();
+        params.put("goods_type_id", String.valueOf(goods_type_id));
+        params.put("page", String.valueOf(page));
+        return HttpCoreEngin.get(context).rxpost(NetConstant.goods_getGoodsList, new TypeReference<ResultInfo<GoodInfoWrapper>>() {
+        }.getType(), params, true, true, true);
+    }
+
+    /**
+     * 获取支付列表
+     *
+     * @param context
+     * @return
+     */
+    public static Observable<ResultInfo<String>> getPayWayList(Context context) {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.order_payWayList, new TypeReference<ResultInfo<String>>() {
+                }.getType(), null,
+                true, true, true);
+
+    }
+
+    /**
+     * 创建订单
+     * @param context
+     * @param title
+     * @param price_total
+     * @param money
+     * @param pay_way_name
+     * @param goods_list
+     * @return
+     */
+    public static Observable<ResultInfo<String>> createOrder(Context context, String title, String price_total, String money, String pay_way_name, List goods_list) {
+
+        Map<String, Object> params = new HashMap<>();
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+
+        params.put("user_id", UserInfoHelper.getUserInfo().getUid());
+        params.put("user_name", userInfo.getName());
+        params.put("app_id", 1);
+        params.put("title", title);
+        params.put("price_total", price_total);
+        params.put("money", money);
+        params.put("pay_way_name", pay_way_name);
+        params.put("goods_list", goods_list);
+        return HttpCoreEngin.get(context).rxpost(NetConstant.order_init, new TypeReference<ResultInfo<String>>() {
+        }.getType(), params, true, true, true);
+
     }
 
 }

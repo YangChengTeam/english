@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
+    <!--android:background="@drawable/speak_shadow_bg"
+       android:elevation="@dimen/group_distance_05"-->
     <FrameLayout
         android:id="@+id/fl_play_item"
         android:layout_width="match_parent"
@@ -17,11 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:background="@drawable/speak_shadow_bg"
-            android:elevation="@dimen/group_distance_05"
             android:scaleType="fitXY"
             android:src="@mipmap/pic_example"
-            android:translationZ="@dimen/group_distance_05" />
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -43,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/group_distance_15"
+                android:layout_marginLeft="@dimen/group_distance_10"
                 android:layout_toRightOf="@id/iv_play_thumb"
                 android:textColor="@color/white" />
 

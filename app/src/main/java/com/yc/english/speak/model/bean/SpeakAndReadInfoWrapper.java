@@ -1,8 +1,5 @@
 package com.yc.english.speak.model.bean;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -10,8 +7,6 @@ import java.util.List;
  */
 
 public class SpeakAndReadInfoWrapper {
-
-
 
 
     /**

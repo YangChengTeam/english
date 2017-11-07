@@ -11,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.7.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8' // 添加的部分
         classpath 'com.google.gms:google-services:2.0.0-alpha3'

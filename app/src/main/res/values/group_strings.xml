@@ -93,6 +93,7 @@
     <string name="poetry">美文诗歌</string>
     <string name="count">%1$s次</string>
     <string name="update_date">更新%1$s</string>
+    <string name="price">¥%1$s</string>
 
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>

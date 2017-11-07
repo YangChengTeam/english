@@ -46,6 +46,7 @@ import com.yc.english.group.view.activitys.GroupMainActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.model.domain.Constant;
+import com.yc.english.main.model.domain.CountInfo;
 import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.model.domain.UserInfo;
@@ -59,6 +60,7 @@ import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.yc.english.speak.view.activity.SpeakMainActivity;
 import com.yc.english.union.view.activitys.UnionMainActivity;
+import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.yc.english.weixin.views.activitys.CourseTypeActivity;
 import com.youth.banner.Banner;
@@ -378,6 +380,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                     try {
                         Class clazz = Class.forName(slideInfo.getTypeValue());
                         Intent intent = new Intent(getActivity(), clazz);
+
                         startActivity(intent);
                     } catch (Exception e) {
 

@@ -40,7 +40,6 @@ public class GlideRoundTransform extends BitmapTransformation {
     private int mPosition;
 
     private Drawable drawable;
-    private Paint mPaint;
     private boolean mIsMore;
 
     public GlideRoundTransform(Context context, int position, boolean isMore) {
@@ -55,9 +54,6 @@ public class GlideRoundTransform extends BitmapTransformation {
         this.mPosition = position;
         this.mIsMore = isMore;
         drawable = ContextCompat.getDrawable(context, R.mipmap.pic_example);
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-
     }
 
     @Override
@@ -78,7 +74,7 @@ public class GlideRoundTransform extends BitmapTransformation {
             height = height * 4 / 5;
         }
 
-        LogUtils.e("roundCrop " + mPosition + "--" + height + "==" + width);
+//        LogUtils.e("roundCrop " + mPosition + "--" + height + "==" + width);
 
         Bitmap result = pool.get(width, height, Bitmap.Config.ARGB_8888);
 
@@ -99,37 +95,9 @@ public class GlideRoundTransform extends BitmapTransformation {
 
     @Override
     public void updateDiskCacheKey(MessageDigest messageDigest) {
-//        messageDigest.update(ByteBuffer.allocate(Integer.SIZE).putInt(signature).array());
+        messageDigest.update("com.yc.english.group.utils.GlideRoundTransform".getBytes());
 
     }
 
-
-    private Bitmap roundBitmap1(BitmapPool pool, Bitmap source) {
-        if (source == null) return null;
-        float intrinsicWidth = drawable.getIntrinsicWidth();
-        float intrinsicHeight = drawable.getIntrinsicHeight();
-
-        int width = source.getWidth();
-        int height = source.getHeight();
-
-        height = (int) (width * (intrinsicHeight / intrinsicWidth));
-
-
-        Bitmap result = pool.get(width, height, Bitmap.Config.ARGB_8888);
-        if (result == null) {
-            result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        }
-
-
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        mPaint.setColor(Color.RED);
-        RectF rectF = new RectF(0f, 0f, width, height);
-        canvas.drawRoundRect(rectF, radius, radius, mPaint);
-        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(result, 0, 0, mPaint);
-        return bitmap;
-
-    }
 
 }
