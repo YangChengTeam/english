@@ -19,6 +19,6 @@ public class OrderItemAdapter extends BaseQuickAdapter<CourseInfo, BaseViewHolde
 
     @Override
     protected void convert(BaseViewHolder helper, CourseInfo item) {
-        helper.setText(R.id.tv_course_title, item.getTitle()).setText(R.id.tv_course_price, "原价¥:18.00").setText(R.id.tv_course_price_now, "¥12.00");
+        helper.setText(R.id.tv_course_title, item.getTitle()).setText(R.id.tv_course_price, "原价¥:" + item.getPrice()).setText(R.id.tv_course_price_now, "¥" + item.getMPrice());
     }
 }

@@ -18,5 +18,6 @@ public interface NewsDetailContract {
 
     interface Presenter extends IPresenter {
         void getWeixinInfo(String news_id);
+        void getWeiKeDetail(String news_id,String userId);
     }
 }

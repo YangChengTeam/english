@@ -8,8 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -36,12 +34,9 @@ import com.yc.english.news.view.widget.MediaPlayerView;
 import com.yc.english.news.view.widget.NewsScrollView;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PipedOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -120,7 +115,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         String time = null;
         if (!TextUtils.isEmpty(courseInfo.getAdd_time())) {
-            time = TimeUtils.millis2String(Long.parseLong(courseInfo.getAdd_time()) * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+            time = TimeUtils.millis2String(Long.parseLong(courseInfo.getAdd_time()) * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()));
         }
 
         mTextViewTime.setText(time);
@@ -184,7 +179,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     }
 
     private void initWebView(final CourseInfoWrapper data) {
-
+//        JSON.parseObject()
         final WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
@@ -350,7 +345,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         if (webView != null) {
             webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
             webView.clearHistory();
-
             llRootView.removeView(webView);
             webView.destroy();
         }
