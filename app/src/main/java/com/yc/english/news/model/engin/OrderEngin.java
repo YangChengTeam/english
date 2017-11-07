@@ -11,6 +11,7 @@ import com.yc.english.base.model.BaseEngin;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.news.model.domain.URLConfig;
+import com.yc.english.pay.alipay.OrderInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class OrderEngin extends BaseEngin {
         mContext = context;
     }
 
-    public Observable<ResultInfo> createOrder(OrderParams orderParams) {
+    public Observable<ResultInfo<OrderInfo>> createOrder(OrderParams orderParams) {
 
         Map<String, String> params = new HashMap<>();
         params.put("user_id", UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
@@ -44,7 +45,7 @@ public class OrderEngin extends BaseEngin {
 
         LogUtils.e("请求地址--->" + URLConfig.ORDER_URL);
 
-        return HttpCoreEngin.get(mContext).rxpost(URLConfig.ORDER_URL, new TypeReference<ResultInfo>() {
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.ORDER_URL, new TypeReference<ResultInfo<OrderInfo>>() {
                 }.getType(),
                 params,
                 true,

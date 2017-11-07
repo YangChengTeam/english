@@ -12,8 +12,6 @@ import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.pay.PayConfig;
-import com.yc.english.pay.alipay.IAliPay1Impl;
-import com.yc.english.pay.alipay.IPayCallback;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.contract.GoodsListContract;
 import com.yc.english.setting.model.bean.GoodInfo;
@@ -97,8 +95,8 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
 
                 List<OrderInfo> list = new ArrayList<>();
                 OrderInfo orderInfo = new OrderInfo();
-                orderInfo.setGood_id(Integer.parseInt(goodInfo.getId()));
-                orderInfo.setGood_num(1);
+                //orderInfo.setGood_id(Integer.parseInt(goodInfo.getId()));
+                //orderInfo.setGood_num(1);
                 list.add(orderInfo);
                 mPresenter.createOrder(goodInfo.getName(), goodInfo.getM_price(), goodInfo.getM_price(), pay_way_name, list);
 
