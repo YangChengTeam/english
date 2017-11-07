@@ -36,7 +36,7 @@ public class GalleryViewPager extends ViewPager {
     public TouchImageView mCurrentView;
 
     /**
-     * @Fabio add OnItemClickListener interface
+     * @Fabio add onItemClickListener interface
      */
     protected OnItemClickListener mOnItemClickListener;
 

@@ -25,7 +25,9 @@ import com.yc.english.group.rong.models.ListGagGroupUserResult;
 import com.yc.english.group.rong.util.RongIMUtil;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
+import com.yc.english.setting.model.bean.PayWayInfo;
 
 import java.io.File;
 import java.util.HashMap;
@@ -366,8 +368,8 @@ public class EngineUtils {
      * @param context
      * @return
      */
-    public static Observable<ResultInfo<String>> getPayWayList(Context context) {
-        return HttpCoreEngin.get(context).rxpost(NetConstant.order_payWayList, new TypeReference<ResultInfo<String>>() {
+    public static Observable<ResultInfo<List<PayWayInfo>>> getPayWayList(Context context) {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.order_payWayList, new TypeReference<ResultInfo<List<PayWayInfo>>>() {
                 }.getType(), null,
                 true, true, true);
 
@@ -383,7 +385,7 @@ public class EngineUtils {
      * @param goods_list
      * @return
      */
-    public static Observable<ResultInfo<String>> createOrder(Context context, String title, String price_total, String money, String pay_way_name, List goods_list) {
+    public static Observable<ResultInfo<String>> createOrder(Context context, String title, String price_total, String money, String pay_way_name, List<OrderInfo> goods_list) {
 
         Map<String, Object> params = new HashMap<>();
         UserInfo userInfo = UserInfoHelper.getUserInfo();
@@ -395,6 +397,10 @@ public class EngineUtils {
         params.put("price_total", price_total);
         params.put("money", money);
         params.put("pay_way_name", pay_way_name);
+        StringBuilder sb= new StringBuilder();
+        for (OrderInfo orderInfo : goods_list) {
+
+        }
         params.put("goods_list", goods_list);
         return HttpCoreEngin.get(context).rxpost(NetConstant.order_init, new TypeReference<ResultInfo<String>>() {
         }.getType(), params, true, true, true);

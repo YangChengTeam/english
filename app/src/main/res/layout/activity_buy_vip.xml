@@ -77,94 +77,12 @@
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/recycler_pay_way"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:id="@+id/layout_alipay"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <ImageView
-                            android:id="@+id/iv_alipay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:src="@mipmap/alipay_icon" />
-
-                        <TextView
-                            android:id="@+id/tv_alipay_way"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="12dp"
-                            android:layout_toRightOf="@+id/iv_alipay"
-                            android:text="支付宝充值"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-
-                        <CheckBox
-                            android:id="@+id/ck_alipay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/pay_way_selector"
-                            android:button="@null"
-                            android:checked="true"
-                            android:clickable="false" />
-                    </RelativeLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@color/comment_line_color"></View>
-
-                    <RelativeLayout
-                        android:id="@+id/layout_weixin"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-
-                        <ImageView
-                            android:id="@+id/iv_weixin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:src="@mipmap/weixin_icon" />
-
-                        <TextView
-                            android:id="@+id/tv_weixin_way"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="12dp"
-                            android:layout_toRightOf="@id/iv_weixin"
-                            android:text="微信充值"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-
-                        <CheckBox
-                            android:id="@+id/ck_weixin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/pay_way_selector"
-                            android:button="@null"
-                            android:clickable="false" />
-                    </RelativeLayout>
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

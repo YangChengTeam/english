@@ -293,7 +293,6 @@ public class IndexFragmentNew extends BaseFragment<IndexPresenter> implements In
                 } else if (slideInfo.getType().equals("1")) {
                     try {
                         String typeValue = slideInfo.getTypeValue();
-
                         if (TextUtils.isEmpty(typeValue)) return;
                         String[] split = typeValue.split("\\|");
                         Class clazz = Class.forName(split[0]);

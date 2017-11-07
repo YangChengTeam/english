@@ -31,6 +31,7 @@ public class OrderInfo implements Serializable {
 
     private int good_num;//商品数量
 
+    private PayInfo params;
 
 
     public OrderInfo(){}
@@ -127,5 +128,13 @@ public class OrderInfo implements Serializable {
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    public PayInfo getParams() {
+        return params;
+    }
+
+    public void setParams(PayInfo params) {
+        this.params = params;
     }
 }

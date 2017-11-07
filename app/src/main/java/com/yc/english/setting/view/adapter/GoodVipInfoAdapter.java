@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.base.view.IFinish;
 import com.yc.english.setting.model.bean.GoodInfo;
+import com.yc.english.setting.view.Listener.onItemClickListener;
 
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class GoodVipInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolde
                 }
                 sparseArray.get(currentPos).setChecked(true);
                 if (listener != null) {
-                    listener.onVipClick(item);
+                    listener.onItemClick(item);
                 }
                 lastPos = currentPos;
             }
@@ -64,13 +65,10 @@ public class GoodVipInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolde
 
     }
 
-    private onVipClickListener listener;
+    private onItemClickListener<GoodInfo> listener;
 
-    public void setOnVipClickListener(onVipClickListener listener) {
+    public void setOnItemClickListener(onItemClickListener<GoodInfo> listener) {
         this.listener = listener;
     }
 
-    public interface onVipClickListener {
-        void onVipClick(GoodInfo info);
-    }
 }
