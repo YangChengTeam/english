@@ -3,6 +3,7 @@ package com.yc.english.group.utils;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.blankj.utilcode.util.SnackbarUtils;
 import com.kk.securityhttp.domain.ResultInfo;
@@ -377,6 +378,7 @@ public class EngineUtils {
 
     /**
      * 创建订单
+     *
      * @param context
      * @param title
      * @param price_total
@@ -387,21 +389,16 @@ public class EngineUtils {
      */
     public static Observable<ResultInfo<String>> createOrder(Context context, String title, String price_total, String money, String pay_way_name, List<OrderInfo> goods_list) {
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>();
         UserInfo userInfo = UserInfoHelper.getUserInfo();
-
         params.put("user_id", UserInfoHelper.getUserInfo().getUid());
         params.put("user_name", userInfo.getName());
-        params.put("app_id", 1);
+        params.put("app_id", String.valueOf(1));
         params.put("title", title);
         params.put("price_total", price_total);
         params.put("money", money);
         params.put("pay_way_name", pay_way_name);
-        StringBuilder sb= new StringBuilder();
-        for (OrderInfo orderInfo : goods_list) {
-
-        }
-        params.put("goods_list", goods_list);
+        params.put("goods_list", JSON.toJSONString(goods_list));
         return HttpCoreEngin.get(context).rxpost(NetConstant.order_init, new TypeReference<ResultInfo<String>>() {
         }.getType(), params, true, true, true);
 

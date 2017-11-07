@@ -98,7 +98,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
                 List<OrderInfo> list = new ArrayList<>();
                 OrderInfo orderInfo = new OrderInfo();
                 orderInfo.setGood_id(Integer.parseInt(goodInfo.getId()));
-                orderInfo.setGood_num(1);
+                orderInfo.setNum(1);
                 list.add(orderInfo);
                 mPresenter.createOrder(goodInfo.getName(), goodInfo.getM_price(), goodInfo.getM_price(), pay_way_name, list);
 

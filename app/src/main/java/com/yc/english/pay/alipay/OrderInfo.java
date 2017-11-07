@@ -29,12 +29,13 @@ public class OrderInfo implements Serializable {
 
     private String type;//支付类型
 
-    private int good_num;//商品数量
-@JSONField(name = "params")
+    private int num;//商品数量
+    @JSONField(name = "params")
     private PayInfo payInfo;
 
 
-    public OrderInfo(){}
+    public OrderInfo() {
+    }
 
     public OrderInfo(int good_id, float money, String name, String order_sn, String payway, String addtime, String type, int good_num) {
         this.good_id = good_id;
@@ -44,10 +45,9 @@ public class OrderInfo implements Serializable {
         this.payway = payway;
         this.addtime = addtime;
         this.type = type;
-        this.good_num = good_num;
+        this.num = good_num;
 
     }
-
 
 
     public int getGood_id() {
@@ -114,12 +114,12 @@ public class OrderInfo implements Serializable {
         this.type = type;
     }
 
-    public int getGood_num() {
-        return good_num;
+    public int getNum() {
+        return num;
     }
 
-    public void setGood_num(int good_num) {
-        this.good_num = good_num;
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public Context getContext() {
