@@ -35,14 +35,12 @@ import com.yc.english.news.view.widget.MediaPlayerView;
 import com.yc.english.news.view.widget.NewsScrollView;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
-<<<<<<< HEAD
-=======
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PipedOutputStream;
 import java.text.DateFormatSymbols;
->>>>>>> f6047334b0d878f036b666112b8fbecdd252db9b
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;

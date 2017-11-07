@@ -30,8 +30,8 @@ public class OrderInfo implements Serializable {
     private String type;//支付类型
 
     private int good_num;//商品数量
-
-    private PayInfo params;
+@JSONField(name = "params")
+    private PayInfo payInfo;
 
 
     public OrderInfo(){}
@@ -130,11 +130,11 @@ public class OrderInfo implements Serializable {
         this.context = context;
     }
 
-    public PayInfo getParams() {
-        return params;
+    public PayInfo getPayInfo() {
+        return payInfo;
     }
 
-    public void setParams(PayInfo params) {
-        this.params = params;
+    public void setPayInfo(PayInfo payInfo) {
+        this.payInfo = payInfo;
     }
 }
