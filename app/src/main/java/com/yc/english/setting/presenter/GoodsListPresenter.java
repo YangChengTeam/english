@@ -82,7 +82,7 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
 
             @Override
             public void onError(Throwable e) {
-
+                mView.dismissLoadingDialog();
             }
 
             @Override

@@ -1,8 +1,6 @@
 package com.yc.english.pay;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.yc.english.main.model.domain.Constant;
@@ -15,7 +13,7 @@ import java.util.List;
 
 public class PayWayInfoHelper {
 
-    public static List<PayWayInfo> mPayWayInfoList;
+    private static List<PayWayInfo> mPayWayInfoList;
 
     public static List<PayWayInfo> getPayWayInfoList() {
         if (mPayWayInfoList != null) {

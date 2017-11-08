@@ -115,7 +115,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         });
     }
 
-    public void getPayWayList() {
+    private void getPayWayList() {
         Subscription subscription = EngineUtils.getPayWayList(mContext).subscribe(new Subscriber<ResultInfo<List<PayWayInfo>>>() {
             @Override
             public void onCompleted() {
