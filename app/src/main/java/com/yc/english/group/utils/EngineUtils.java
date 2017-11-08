@@ -5,11 +5,9 @@ import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.blankj.utilcode.util.SnackbarUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
@@ -29,7 +27,7 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.news.model.domain.OrderGood;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
-import com.yc.english.setting.model.bean.PayWayInfo;
+import com.yc.english.pay.PayWayInfo;
 
 import java.io.File;
 import java.util.HashMap;

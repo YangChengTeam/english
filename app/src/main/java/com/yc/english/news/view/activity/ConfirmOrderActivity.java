@@ -11,7 +11,12 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
@@ -20,6 +25,7 @@ import com.yc.english.news.contract.OrderContract;
 import com.yc.english.news.model.domain.OrderGood;
 import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.news.presenter.OrderPresenter;
+import com.yc.english.news.utils.OrderConstant;
 import com.yc.english.news.view.widget.SpaceItemDecoration;
 import com.yc.english.pay.alipay.IAliPay1Impl;
 import com.yc.english.pay.alipay.IPayCallback;
@@ -139,9 +145,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
         new IAliPay1Impl(ConfirmOrderActivity.this).pay(orderInfo, new IPayCallback() {
             @Override
             public void onSuccess(OrderInfo orderInfo) {
-                Looper.prepare();
-                ToastUtils.showLong("支付成功");
-                Looper.loop();
+                RxBus.get().post(OrderConstant.PAY_SUCCESS, orderInfo != null ? orderInfo.getPay_order_sn() : "");
             }
 
             @Override
@@ -153,5 +157,18 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
         });
     }
 
+    @Override
+    public void showOrderPayResult(ResultInfo resultInfo) {
 
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(OrderConstant.PAY_SUCCESS)
+            }
+    )
+    public void paySuccess(String payOrderSn) {
+        finish();
+    }
 }

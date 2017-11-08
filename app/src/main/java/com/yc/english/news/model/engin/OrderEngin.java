@@ -52,4 +52,21 @@ public class OrderEngin extends BaseEngin {
                 true, true);
     }
 
+    public Observable<ResultInfo> orderPay(String orderSn) {
+
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
+        params.put("app_id", "1");
+        params.put("order_sn", orderSn);
+
+        LogUtils.e("订单支付请求地址--->" + URLConfig.ORDER_PAY_URL);
+
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.ORDER_PAY_URL, new TypeReference<ResultInfo>() {
+                }.getType(),
+                params,
+                true,
+                true, true);
+    }
+
+
 }

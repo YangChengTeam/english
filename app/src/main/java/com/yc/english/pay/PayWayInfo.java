@@ -1,6 +1,4 @@
-package com.yc.english.setting.model.bean;
-
-import java.util.List;
+package com.yc.english.pay;
 
 /**
  * Created by wanglin  on 2017/11/7 11:23.

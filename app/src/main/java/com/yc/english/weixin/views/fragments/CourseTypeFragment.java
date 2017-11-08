@@ -8,7 +8,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.domain.ResultInfo;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -16,7 +21,12 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
 import com.yc.english.base.helper.ShoppingHelper;
 import com.yc.english.base.view.BaseFragment;
+import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.news.contract.OrderContract;
+import com.yc.english.news.presenter.OrderPresenter;
+import com.yc.english.news.utils.OrderConstant;
 import com.yc.english.news.view.activity.ShoppingCartActivity;
+import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.utils.TabsUtils;
 
@@ -30,7 +40,7 @@ import rx.functions.Action1;
  * Created by zhangkai on 2017/8/30.
  */
 
-public class CourseTypeFragment extends BaseFragment {
+public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements OrderContract.View {
 
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
@@ -51,6 +61,7 @@ public class CourseTypeFragment extends BaseFragment {
 
     @Override
     public void init() {
+        mPresenter = new OrderPresenter(getActivity(), this);
 
         mFixedIndicatorView.setAdapter(new TabsUtils.MyAdapter(getActivity(), titles));
         mFixedIndicatorView.setScrollBar(new ColorBar(getActivity(), ContextCompat.getColor(getActivity(), R.color
@@ -94,8 +105,13 @@ public class CourseTypeFragment extends BaseFragment {
         RxView.clicks(mShoppingImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), ShoppingCartActivity.class);
-                startActivity(intent);
+                if (UserInfoHelper.getUserInfo() != null) {
+                    Intent intent = new Intent(getActivity(), ShoppingCartActivity.class);
+                    startActivity(intent);
+                } else {
+                    UserInfoHelper.isGotoLogin(getActivity());
+                }
+
             }
         });
     }
@@ -108,14 +124,70 @@ public class CourseTypeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        List<CourseInfo> list = ShoppingHelper.getCourseInfoListFromDB();
-        if (list != null) {
-            if (list.size() > 10) {
-                mNumLayout.setBackgroundResource(R.mipmap.more_num_icon);
-            } else {
-                mNumLayout.setBackgroundResource(R.mipmap.single_num_icon);
+        if (UserInfoHelper.getUserInfo() != null) {
+            List<CourseInfo> list = ShoppingHelper.getCourseInfoListFromDB(UserInfoHelper.getUserInfo().getUid());
+            if (list != null) {
+                if (list.size() > 10) {
+                    mNumLayout.setBackgroundResource(R.mipmap.more_num_icon);
+                } else {
+                    mNumLayout.setBackgroundResource(R.mipmap.single_num_icon);
+                }
+                mCartNumTextView.setText(list.size() + "");
             }
-            mCartNumTextView.setText(list.size() + "");
+        } else {
+            mCartNumTextView.setText("0");
+            mNumLayout.setBackgroundResource(R.mipmap.single_num_icon);
         }
+    }
+
+
+    @Override
+    public void hideStateView() {
+
+    }
+
+    @Override
+    public void showLoadingDialog(String msg) {
+
+    }
+
+    @Override
+    public void dismissLoadingDialog() {
+
+    }
+
+    @Override
+    public void showNoNet() {
+
+    }
+
+    @Override
+    public void showNoData() {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showOrderInfo(OrderInfo orderInfo) {
+
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(OrderConstant.PAY_SUCCESS)
+            }
+    )
+    public void paySuccess(String payOrderSn) {
+        mPresenter.orderPay(payOrderSn);
+    }
+
+    @Override
+    public void showOrderPayResult(ResultInfo resultInfo) {
+        LogUtils.e("订单支付成功--->");
     }
 }

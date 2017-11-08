@@ -15,6 +15,8 @@ public class URLConfig {
 
     public static final String ORDER_URL = getBaseUrl() + "order/init";
 
+    public static final String ORDER_PAY_URL = getBaseUrl() + "order/pay";
+
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }

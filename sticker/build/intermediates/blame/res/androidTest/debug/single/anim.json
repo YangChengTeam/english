@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\bqmm_slide_out_to_right.xml",
         "source": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\anim\\bqmm_slide_out_to_right.xml"
     },
@@ -14,5 +15,21 @@
     {
         "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\bqmm_slide_out_to_left.xml",
         "source": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\anim\\bqmm_slide_out_to_left.xml"
+=======
+        "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\bqmm_slide_in_from_left.xml",
+        "source": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\anim\\bqmm_slide_in_from_left.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\bqmm_slide_out_to_left.xml",
+        "source": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\anim\\bqmm_slide_out_to_left.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\bqmm_slide_in_from_right.xml",
+        "source": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\anim\\bqmm_slide_in_from_right.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\bqmm_slide_out_to_right.xml",
+        "source": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\anim\\bqmm_slide_out_to_right.xml"
+>>>>>>> 0b0151f56efa15a77e3a2bac94851c5f7d6fd7e8
     }
 ]

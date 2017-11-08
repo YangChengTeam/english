@@ -15,12 +15,13 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.news.model.domain.OrderGood;
 import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.pay.PayConfig;
+import com.yc.english.pay.PayWayInfoHelper;
 import com.yc.english.pay.alipay.IAliPay1Impl;
 import com.yc.english.pay.alipay.IPayCallback;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.contract.GoodsListContract;
 import com.yc.english.setting.model.bean.GoodInfo;
-import com.yc.english.setting.model.bean.PayWayInfo;
+import com.yc.english.pay.PayWayInfo;
 import com.yc.english.setting.presenter.GoodsListPresenter;
 import com.yc.english.setting.view.Listener.onItemClickListener;
 import com.yc.english.setting.view.adapter.GoodPayWayInfoAdapter;
@@ -81,7 +82,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
         mRecyclerVip.setAdapter(goodVipInfoAdapter);
 
         mRecyclerPayWay.setLayoutManager(new LinearLayoutManager(this));
-        goodPayWayInfoAdapter = new GoodPayWayInfoAdapter(null);
+        goodPayWayInfoAdapter = new GoodPayWayInfoAdapter(PayWayInfoHelper.getPayWayInfoList());
         mRecyclerPayWay.setAdapter(goodPayWayInfoAdapter);
 
         goodVipInfoAdapter.setOnItemClickListener(new onItemClickListener<GoodInfo>() {
@@ -135,10 +136,6 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
         goodVipInfoAdapter.setNewData(list);
     }
 
-    @Override
-    public void showPayWayList(List<PayWayInfo> data) {
-        goodPayWayInfoAdapter.setNewData(data);
-    }
 
     @Override
     public void showOrderInfo(OrderInfo orderInfo, String money, String name) {
@@ -188,8 +185,8 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
         mStateView.showLoading(mRlContainer);
     }
 
-    private void setPayPrice(String money){
-        String str= getString(R.string.confirm_pay);
+    private void setPayPrice(String money) {
+        String str = getString(R.string.confirm_pay);
         String result = String.format(str, Float.parseFloat(money));
         mTvPayMoney.setText(result);
     }

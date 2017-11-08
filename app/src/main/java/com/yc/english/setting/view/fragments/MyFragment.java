@@ -2,6 +2,8 @@ package com.yc.english.setting.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +11,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -178,6 +181,8 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
                 startActivity(intent);
             }
         });
+
+
     }
 
 
@@ -191,6 +196,11 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
         return R.layout.setting_fragment_my;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        int height= ScreenUtils.getScreenHeight()-mToolbar.getHeight();
+    }
 
     @Subscribe(
             thread = EventThread.MAIN_THREAD,

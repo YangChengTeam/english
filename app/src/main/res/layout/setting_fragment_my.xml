@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:eng="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/primaryDark"
-                android:orientation="vertical"
-    >
+    xmlns:eng="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryDark"
+    android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/sv_content"
@@ -31,7 +30,7 @@
                     android:layout_height="60dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="55dp"
-                    android:src="@mipmap/default_big_avatar"/>
+                    android:src="@mipmap/default_big_avatar" />
 
 
                 <TextView
@@ -42,7 +41,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/font_normal"/>
+                    android:textSize="@dimen/font_normal" />
 
                 <TextView
                     android:id="@+id/tv_school"
@@ -52,7 +51,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/font_normal"/>
+                    android:textSize="@dimen/font_normal" />
             </LinearLayout>
 
 
@@ -69,8 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:background="@mipmap/setting_item_bg"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <com.yc.english.setting.view.widgets.MenuItemView
                         android:id="@+id/miv_buy_vip"
@@ -83,8 +81,8 @@
                         android:id="@+id/miv_my_order"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        eng:src="@mipmap/setting_weixin"
                         android:visibility="gone"
+                        eng:src="@mipmap/setting_weixin"
                         eng:text="@string/setting_buy_vip"></com.yc.english.setting.view.widgets.MenuItemView>
 
                     <com.yc.english.setting.view.widgets.MenuItemView
@@ -100,14 +98,15 @@
                     android:layout_height="90dp"
                     android:layout_marginTop="10dp"
                     android:background="@mipmap/setting_item_bg"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
+
                     <com.yc.english.setting.view.widgets.MenuItemView
                         android:id="@+id/miv_qq"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         eng:src="@mipmap/setting_qq_group"
                         eng:text="@string/setting_qq_group"></com.yc.english.setting.view.widgets.MenuItemView>
+
                     <com.yc.english.setting.view.widgets.MenuItemView
                         android:id="@+id/miv_weixin"
                         android:layout_width="match_parent"
@@ -122,8 +121,7 @@
                     android:layout_height="90dp"
                     android:layout_marginTop="10dp"
                     android:background="@mipmap/setting_item_bg"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <com.yc.english.setting.view.widgets.MenuItemView
                         android:id="@+id/miv_feedback"
@@ -145,8 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/setting_item_bg"
-                    >
+                    android:background="@drawable/setting_item_bg">
 
                     <com.yc.english.setting.view.widgets.MenuItemView
                         android:id="@+id/miv_setting"
@@ -161,11 +158,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="30dp"
+                android:gravity="center"
                 android:text="语音技术由科大讯飞提供"
                 android:textColor="@color/gray_ddd"
-                android:textSize="@dimen/font_snormal"/>
+                android:textSize="@dimen/font_snormal" />
 
         </LinearLayout>
     </ScrollView>

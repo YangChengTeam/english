@@ -5,6 +5,8 @@ import android.widget.TextView;
 
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
 
 import butterknife.BindView;
 
@@ -33,6 +35,9 @@ public class VipEquitiesActivity extends FullScreenActivity {
     public void init() {
         mToolbar.setTitle(getString(R.string.vip_equities));
         mToolbar.showNavigationIcon();
+       UserInfo userInfo=  UserInfoHelper.getUserInfo();
+       long openTime= userInfo.getVip_end_time()- userInfo.getVip_start_time();
+
 
     }
 
