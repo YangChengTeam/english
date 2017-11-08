@@ -3,10 +3,12 @@ package com.yc.english.setting.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.utils.EngineUtils;
+import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.contract.GoodsListContract;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.english.setting.model.bean.PayWayInfo;
@@ -96,8 +98,9 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
         mSubscriptions.add(subscription);
     }
 
-    public void createOrder(String title, String price_total, String money, String pay_way_name, List goods_list) {
-        Subscription subscription = EngineUtils.createOrder(mContext, title, price_total, money, pay_way_name, goods_list).subscribe(new Subscriber<ResultInfo<String>>() {
+    public void createOrder(final String title, String price_total, final String money, String pay_way_name, List<OrderInfo> goods_list) {
+        mView.showLoadingDialog("创建订单中，请稍候...");
+        Subscription subscription = EngineUtils.createOrder(mContext, title, price_total, money, pay_way_name, goods_list).subscribe(new Subscriber<ResultInfo<OrderInfo>>() {
             @Override
             public void onCompleted() {
 
@@ -109,7 +112,14 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
             }
 
             @Override
-            public void onNext(ResultInfo<String> stringResultInfo) {
+            public void onNext(final ResultInfo<OrderInfo> orderInfoResultInfo) {
+                handleResultInfo(orderInfoResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.dismissLoadingDialog();
+                        mView.showOrderInfo(orderInfoResultInfo.data,money,title);
+                    }
+                });
 
             }
         });

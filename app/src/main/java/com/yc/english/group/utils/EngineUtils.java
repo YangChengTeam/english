@@ -387,7 +387,7 @@ public class EngineUtils {
      * @param goods_list
      * @return
      */
-    public static Observable<ResultInfo<String>> createOrder(Context context, String title, String price_total, String money, String pay_way_name, List<OrderInfo> goods_list) {
+    public static Observable<ResultInfo<OrderInfo>> createOrder(Context context, String title, String price_total, String money, String pay_way_name, List<OrderInfo> goods_list) {
 
         Map<String, String> params = new HashMap<>();
         UserInfo userInfo = UserInfoHelper.getUserInfo();
@@ -399,7 +399,7 @@ public class EngineUtils {
         params.put("money", money);
         params.put("pay_way_name", pay_way_name);
         params.put("goods_list", JSON.toJSONString(goods_list));
-        return HttpCoreEngin.get(context).rxpost(NetConstant.order_init, new TypeReference<ResultInfo<String>>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.order_init, new TypeReference<ResultInfo<OrderInfo>>() {
         }.getType(), params, true, true, true);
 
     }

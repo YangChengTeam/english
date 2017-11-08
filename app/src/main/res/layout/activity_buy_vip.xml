@@ -77,11 +77,11 @@
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/recycler_pay_way"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_pay_way"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
 
                 <LinearLayout
@@ -178,6 +178,7 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/tv_pay_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="确认支付99.0元"

@@ -39,4 +39,5 @@ public class PayWayInfo {
         this.pay_way_title = pay_way_title;
     }
 
+
 }

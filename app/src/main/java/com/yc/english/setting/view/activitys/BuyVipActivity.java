@@ -1,10 +1,12 @@
 package com.yc.english.setting.view.activitys;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
@@ -24,10 +26,13 @@ import com.yc.english.setting.view.adapter.GoodPayWayInfoAdapter;
 import com.yc.english.setting.view.adapter.GoodVipInfoAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.functions.Action1;
 
 /**
@@ -50,13 +55,15 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
 
     @BindView(R.id.recycler_pay_way)
     RecyclerView mRecyclerPayWay;
+    @BindView(R.id.tv_pay_money)
+    TextView tvPayMoney;
 
     private GoodVipInfoAdapter goodVipInfoAdapter;
     private String pay_way_name = PayConfig.ali_pay;
     private GoodPayWayInfoAdapter goodPayWayInfoAdapter;
 
     private GoodInfo goodInfo;
-
+    private IAliPay1Impl iAliPay;
 
     @Override
     public int getLayoutId() {
@@ -68,7 +75,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
         mPresenter = new GoodsListPresenter(this, this);
         mToolbar.setTitle("VIP会员");
         mToolbar.showNavigationIcon();
-
+        iAliPay = new IAliPay1Impl(this);
         mRecyclerVip.setLayoutManager(new LinearLayoutManager(this));
         goodVipInfoAdapter = new GoodVipInfoAdapter(null);
         mRecyclerVip.setAdapter(goodVipInfoAdapter);
@@ -102,22 +109,6 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
                 list.add(orderInfo);
                 mPresenter.createOrder(goodInfo.getName(), goodInfo.getM_price(), goodInfo.getM_price(), pay_way_name, list);
 
-//                OrderInfo orderInfo = new OrderInfo();
-//                orderInfo.setMoney(1.0f);
-//                orderInfo.setOrder_sn(System.currentTimeMillis() + "");
-//                orderInfo.setName("vip课程购买");
-//
-//                new IAliPay1Impl(BuyVipActivity.this).pay(orderInfo, new IPayCallback() {
-//                    @Override
-//                    public void onSuccess(OrderInfo orderInfo) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(OrderInfo orderInfo) {
-//
-//                    }
-//                });
             }
         });
 
@@ -125,7 +116,12 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
 
     @Override
     public void showGoodVipList(List<GoodInfo> list) {
-
+        Collections.sort(list, new Comparator<GoodInfo>() {
+            @Override
+            public int compare(GoodInfo o1, GoodInfo o2) {
+                return Integer.parseInt(o1.getUse_time_limit()) - Integer.parseInt(o2.getUse_time_limit());
+            }
+        });
         goodInfo = list.get(0);
         goodVipInfoAdapter.setNewData(list);
     }
@@ -133,6 +129,28 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
     @Override
     public void showPayWayList(List<PayWayInfo> data) {
         goodPayWayInfoAdapter.setNewData(data);
+    }
+
+    @Override
+    public void showOrderInfo(OrderInfo orderInfo, String money, String name) {
+
+        if (pay_way_name.equals(PayConfig.ali_pay)) {
+            orderInfo.setMoney(Float.parseFloat(money));
+            orderInfo.setName(name);
+            iAliPay.pay(orderInfo, new IPayCallback() {
+                @Override
+                public void onSuccess(OrderInfo orderInfo) {
+
+                }
+
+                @Override
+                public void onFailure(OrderInfo orderInfo) {
+
+                }
+            });
+        } else {
+            //todo
+        }
     }
 
 
@@ -159,5 +177,12 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
     @Override
     public void showLoading() {
         mStateView.showLoading(mRlContainer);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

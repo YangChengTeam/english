@@ -77,7 +77,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 OrderGood orderGood = new OrderGood();
-                orderGood.setGoodId(list.get(i).getGoodId());
+                orderGood.setGood_id(list.get(i).getGoodId());
                 orderGood.setNum(1);
                 orderGoodsList.add(orderGood);
             }

@@ -5,15 +5,15 @@ package com.yc.english.news.model.domain;
  */
 
 public class OrderGood {
-    private String goodId;
+    private String good_id;
     private int num;
 
-    public String getGoodId() {
-        return goodId;
+    public String getGood_id() {
+        return good_id;
     }
 
-    public void setGoodId(String goodId) {
-        this.goodId = goodId;
+    public void setGood_id(String good_id) {
+        this.good_id = good_id;
     }
 
     public int getNum() {

@@ -16,7 +16,7 @@ public class OrderInfo implements Serializable {
     private float money; //价格 单位元
 
     private String name; //会员类型名 也即商品名
-
+    @JSONField(name = "pay_order_sn")
     private String order_sn; //订单号
 
     private String message;  //订单回调消息
@@ -28,6 +28,7 @@ public class OrderInfo implements Serializable {
     private Context context; //支付上下文 用于异步回调
 
     private String type;//支付类型
+
 
     private int num;//商品数量
     @JSONField(name = "params")

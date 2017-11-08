@@ -108,8 +108,10 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
         RxView.clicks(mBuyVipMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), BuyVipActivity.class);
-                startActivity(intent);
+                if (!UserInfoHelper.isGotoLogin(getActivity())) {
+                    Intent intent = new Intent(getActivity(), BuyVipActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -212,7 +214,7 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
     )
     @Override
     public void showNoLogin(Boolean flag) {
-        if(ActivityUtils.isValidContext(getActivity())) {
+        if (ActivityUtils.isValidContext(getActivity())) {
             mAvatarImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.default_big_avatar));
             mNickNameTextView.setText("还没有登录，点击立即登录");
             mSchoolTextView.setText("");
