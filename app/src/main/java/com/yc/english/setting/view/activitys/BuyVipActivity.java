@@ -1,6 +1,5 @@
 package com.yc.english.setting.view.activitys;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,6 +12,8 @@ import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.news.model.domain.OrderGood;
+import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.pay.PayConfig;
 import com.yc.english.pay.alipay.IAliPay1Impl;
 import com.yc.english.pay.alipay.IPayCallback;
@@ -32,7 +33,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.functions.Action1;
 
 /**
@@ -56,7 +56,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
     @BindView(R.id.recycler_pay_way)
     RecyclerView mRecyclerPayWay;
     @BindView(R.id.tv_pay_money)
-    TextView tvPayMoney;
+    TextView mTvPayMoney;
 
     private GoodVipInfoAdapter goodVipInfoAdapter;
     private String pay_way_name = PayConfig.ali_pay;
@@ -88,6 +88,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
             @Override
             public void onItemClick(GoodInfo info) {
                 goodInfo = info;
+                setPayPrice(goodInfo.getM_price());
             }
         });
         goodPayWayInfoAdapter.setOnItemClickListener(new onItemClickListener<PayWayInfo>() {
@@ -102,12 +103,19 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
             @Override
             public void call(Void aVoid) {
 
-                List<OrderInfo> list = new ArrayList<>();
-                OrderInfo orderInfo = new OrderInfo();
-                orderInfo.setGood_id(Integer.parseInt(goodInfo.getId()));
-                orderInfo.setNum(1);
-                list.add(orderInfo);
-                mPresenter.createOrder(goodInfo.getName(), goodInfo.getM_price(), goodInfo.getM_price(), pay_way_name, list);
+                OrderParams orderParams = new OrderParams();
+                orderParams.setTitle(goodInfo.getName());
+                orderParams.setMoney(goodInfo.getM_price());
+                orderParams.setPayWayName(pay_way_name);
+                List<OrderGood> list = new ArrayList<>();
+                OrderGood orderGood = new OrderGood();
+                orderGood.setGood_id(goodInfo.getId());
+                orderGood.setNum(1);
+
+                list.add(orderGood);
+                orderParams.setGoodsList(list);
+
+                mPresenter.createOrder(orderParams);
 
             }
         });
@@ -123,6 +131,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
             }
         });
         goodInfo = list.get(0);
+        setPayPrice(goodInfo.getM_price());
         goodVipInfoAdapter.setNewData(list);
     }
 
@@ -149,7 +158,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
                 }
             });
         } else {
-            //todo
+            //todo 微信支付
         }
     }
 
@@ -179,10 +188,10 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
         mStateView.showLoading(mRlContainer);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    private void setPayPrice(String money){
+        String str= getString(R.string.confirm_pay);
+        String result = String.format(str, Float.parseFloat(money));
+        mTvPayMoney.setText(result);
     }
+
 }

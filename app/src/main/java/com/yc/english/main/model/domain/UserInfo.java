@@ -21,6 +21,8 @@ public class UserInfo {
 
     @JSONField(name = "face")
     private String avatar;
+    @JSONField(name = "is_vip")
+    private int isVip;
 
     public String getMobile() {
         return mobile;
@@ -93,4 +95,13 @@ public class UserInfo {
     public void setLogin(boolean login) {
         isLogin = login;
     }
+
+    public int getIsVip() {
+        return isVip;
+    }
+
+    public void setIsVip(int isVip) {
+        this.isVip = isVip;
+    }
+
 }

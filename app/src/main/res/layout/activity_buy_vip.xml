@@ -181,7 +181,6 @@
                 android:id="@+id/tv_pay_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="确认支付99.0元"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>

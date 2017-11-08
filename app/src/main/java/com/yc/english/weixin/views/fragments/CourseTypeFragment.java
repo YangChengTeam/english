@@ -5,6 +5,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.shizhefei.view.indicator.FixedIndicatorView;
@@ -12,10 +14,13 @@ import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
+import com.yc.english.base.helper.ShoppingHelper;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.news.view.activity.ShoppingCartActivity;
+import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.utils.TabsUtils;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -36,11 +41,16 @@ public class CourseTypeFragment extends BaseFragment {
     @BindView(R.id.iv_shopping_cart)
     ImageView mShoppingImageView;
 
+    @BindView(R.id.layout_num)
+    LinearLayout mNumLayout;
+
+    @BindView(R.id.tv_cart_num)
+    TextView mCartNumTextView;
+
     private final String[] titles = new String[]{"音频微课", "视频微课"};
 
     @Override
     public void init() {
-
 
         mFixedIndicatorView.setAdapter(new TabsUtils.MyAdapter(getActivity(), titles));
         mFixedIndicatorView.setScrollBar(new ColorBar(getActivity(), ContextCompat.getColor(getActivity(), R.color
@@ -95,4 +105,17 @@ public class CourseTypeFragment extends BaseFragment {
         return R.layout.weixin_fragment_course_type;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        List<CourseInfo> list = ShoppingHelper.getCourseInfoListFromDB();
+        if (list != null) {
+            if (list.size() > 10) {
+                mNumLayout.setBackgroundResource(R.mipmap.more_num_icon);
+            } else {
+                mNumLayout.setBackgroundResource(R.mipmap.single_num_icon);
+            }
+            mCartNumTextView.setText(list.size() + "");
+        }
+    }
 }

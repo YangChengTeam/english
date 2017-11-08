@@ -8,6 +8,7 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.news.contract.OrderContract;
 import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.news.model.engin.OrderEngin;
+import com.yc.english.pay.alipay.OrderInfo;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -26,7 +27,7 @@ public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View
     @Override
     public void createOrder(OrderParams orderParams) {
         mView.showLoading();
-        Subscription subscription = mEngin.createOrder(orderParams).subscribe(new Subscriber<ResultInfo>() {
+        Subscription subscription = mEngin.createOrder(orderParams).subscribe(new Subscriber<ResultInfo<OrderInfo>>() {
             @Override
             public void onCompleted() {
 
@@ -38,7 +39,7 @@ public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View
             }
 
             @Override
-            public void onNext(final ResultInfo resultInfo) {
+            public void onNext(final ResultInfo<OrderInfo> resultInfo) {
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
@@ -52,7 +53,9 @@ public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View
 
                     @Override
                     public void reulstInfoOk() {
-                        mView.showOrderInfo(resultInfo);
+                        if (resultInfo.data != null) {
+                            mView.showOrderInfo(resultInfo.data);
+                        }
                     }
                 });
 

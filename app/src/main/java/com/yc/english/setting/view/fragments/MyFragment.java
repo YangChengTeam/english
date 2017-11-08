@@ -30,6 +30,7 @@ import com.yc.english.setting.view.activitys.BuyVipActivity;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
 import com.yc.english.setting.view.activitys.SettingActivity;
+import com.yc.english.setting.view.activitys.VipEquitiesActivity;
 import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
 import com.yc.english.setting.view.widgets.MenuItemView;
 
@@ -109,7 +110,12 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
             @Override
             public void call(Void aVoid) {
                 if (!UserInfoHelper.isGotoLogin(getActivity())) {
-                    Intent intent = new Intent(getActivity(), BuyVipActivity.class);
+                    Intent intent;
+                    if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
+                        intent = new Intent(getActivity(), BuyVipActivity.class);
+                    } else {
+                        intent = new Intent(getActivity(), VipEquitiesActivity.class);
+                    }
                     startActivity(intent);
                 }
             }

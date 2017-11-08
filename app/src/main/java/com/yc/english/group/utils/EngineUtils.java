@@ -26,6 +26,7 @@ import com.yc.english.group.rong.models.ListGagGroupUserResult;
 import com.yc.english.group.rong.util.RongIMUtil;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.news.model.domain.OrderGood;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.english.setting.model.bean.PayWayInfo;
@@ -387,7 +388,7 @@ public class EngineUtils {
      * @param goods_list
      * @return
      */
-    public static Observable<ResultInfo<OrderInfo>> createOrder(Context context, String title, String price_total, String money, String pay_way_name, List<OrderInfo> goods_list) {
+    public static Observable<ResultInfo<OrderInfo>> createOrder(Context context, String title, String price_total, String money, String pay_way_name, List<OrderGood> goods_list) {
 
         Map<String, String> params = new HashMap<>();
         UserInfo userInfo = UserInfoHelper.getUserInfo();

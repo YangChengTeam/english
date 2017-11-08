@@ -212,6 +212,7 @@
         <activity android:name=".setting.view.activitys.ModifyPasswordActivity" />
         <activity android:name=".setting.view.activitys.NameSettingActivity" />
         <activity android:name=".setting.view.activitys.BuyVipActivity" />
+
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="59719ccc04e20564f70004b6" />
@@ -248,21 +249,22 @@
         <activity android:name=".weixin.views.activitys.CourseActivity"></activity>
         <activity android:name=".weixin.views.activitys.CourseTypeActivity"></activity>
         <activity android:name=".weixin.views.activitys.WeikeUnitActivity"></activity>
-        <service android:name=".speak.service.MusicPlayService"/>
+        <activity android:name=".setting.view.activitys.VipEquitiesActivity" />
+
+        <service android:name=".speak.service.MusicPlayService" />
+
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
     </application>
 

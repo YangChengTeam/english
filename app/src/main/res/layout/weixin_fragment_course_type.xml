@@ -18,14 +18,37 @@
             android:textColor="@color/white"
             android:textSize="@dimen/font_large"/>
 
-        <ImageView
-            android:id="@+id/iv_shopping_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+
+        <FrameLayout
+            android:layout_width="33dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
-            android:src="@mipmap/shopping_cart_icon"/>
+            android:layout_marginRight="10dp">
+
+            <ImageView
+                android:id="@+id/iv_shopping_cart"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:src="@mipmap/shopping_cart_icon"/>
+
+            <LinearLayout
+                android:id="@+id/layout_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|right"
+                android:background="@mipmap/single_num_icon"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_cart_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="6sp"/>
+            </LinearLayout>
+        </FrameLayout>
     </RelativeLayout>
 
     <com.shizhefei.view.indicator.FixedIndicatorView

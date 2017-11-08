@@ -1,6 +1,7 @@
 package com.yc.english.news.view.activity;
 
 import android.content.Intent;
+import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,8 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
@@ -20,6 +21,9 @@ import com.yc.english.news.model.domain.OrderGood;
 import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.news.presenter.OrderPresenter;
 import com.yc.english.news.view.widget.SpaceItemDecoration;
+import com.yc.english.pay.alipay.IAliPay1Impl;
+import com.yc.english.pay.alipay.IPayCallback;
+import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;
@@ -51,6 +55,8 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
 
     OrderParams orderParams;
 
+    private float totalPrice;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_order;
@@ -65,8 +71,8 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
         ArrayList<CourseInfo> list = intent.getParcelableArrayListExtra("goods_list");
 
         mPresenter = new OrderPresenter(this, this);
-
-        mTotalPrice.setText(intent.getFloatExtra("total_price", 0) + "");
+        totalPrice = intent.getFloatExtra("total_price", 0);
+        mTotalPrice.setText(totalPrice + "");
         mOrderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mOrderRecyclerView.addItemDecoration(new SpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.dp_10)));
         mOrderItemAdapter = new OrderItemAdapter(list);
@@ -122,7 +128,30 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
     }
 
     @Override
-    public void showOrderInfo(ResultInfo data) {
+    public void showOrderInfo(OrderInfo orderInfo) {
         LogUtils.e("创建订单成功--->");
+
+        if (orderInfo != null) {
+            orderInfo.setMoney(0.01f);
+            orderInfo.setName("说说英语微课购买");
+        }
+
+        new IAliPay1Impl(ConfirmOrderActivity.this).pay(orderInfo, new IPayCallback() {
+            @Override
+            public void onSuccess(OrderInfo orderInfo) {
+                Looper.prepare();
+                ToastUtils.showLong("支付成功");
+                Looper.loop();
+            }
+
+            @Override
+            public void onFailure(OrderInfo orderInfo) {
+                Looper.prepare();
+                ToastUtils.showLong("支付失败");
+                Looper.loop();
+            }
+        });
     }
+
+
 }
