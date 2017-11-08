@@ -1,29 +1,25 @@
 package com.yc.english.weixin.views.activitys;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseActivity;
+import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.weixin.views.utils.TabsUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by zhangkai on 2017/9/6.
  */
 
-public class CourseTypeActivity extends BaseActivity {
+public class CourseTypeActivity extends FullScreenActivity {
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
 
@@ -31,10 +27,7 @@ public class CourseTypeActivity extends BaseActivity {
     FixedIndicatorView mFixedIndicatorView;
 
     private final String[] titles = new String[]{"词汇", "语法", "句型", "作文", "听力"};
-    @BindView(R.id.tv_tb_title)
-    TextView tvTbTitle;
-    @BindView(R.id.iv_shopping_cart)
-    ImageView ivShoppingCart;
+
     private int index = 0;
 
     @Override
@@ -44,11 +37,10 @@ public class CourseTypeActivity extends BaseActivity {
         if (intent != null) {
             index = intent.getIntExtra("index", 0);
         }
-//        mToolbar.showNavigationIcon();
 
+        mToolbar.setTitle("爱学习");
+        mToolbar.showNavigationIcon();
 
-        tvTbTitle.setText("爱学习");
-        ivShoppingCart.setVisibility(View.GONE);
         mFixedIndicatorView.setAdapter(new TabsUtils.MyAdapter(this, titles));
         mFixedIndicatorView.setScrollBar(new ColorBar(this, ContextCompat.getColor(this, R.color
                 .primary), 6));
@@ -66,7 +58,7 @@ public class CourseTypeActivity extends BaseActivity {
         });
         mFixedIndicatorView.setCurrentItem(index, true);
 
-        TabsUtils.MyFragmentAdapter mFragmentAdapter = new TabsUtils.MyFragmentAdapter(getSupportFragmentManager(),
+        TabsUtils.MoreFragmentAdapter mFragmentAdapter = new TabsUtils.MoreFragmentAdapter(getSupportFragmentManager(),
                 new String[]{"9", "10", "11", "12", "13"});
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setOffscreenPageLimit(3);
@@ -92,7 +84,7 @@ public class CourseTypeActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.weixin_fragment_course_type;
+        return R.layout.weixin_fragment_course_more;
     }
 
 

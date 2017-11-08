@@ -46,4 +46,20 @@ public class ShoppingHelper {
         courseInfoDao.deleteAll();
     }
 
+    public static void deleteCourseInfoByUser(String userId, String id) {
+        QueryBuilder queryBuilder = courseInfoDao.queryBuilder();
+        queryBuilder.where(CourseInfoDao.Properties.UserId.eq(userId)).where(CourseInfoDao.Properties.Id.eq(id));
+        queryBuilder.buildDelete().executeDeleteWithoutDetachingEntities();
+    }
+
+    public static void deleteCourseListByUser(String userId, List<CourseInfo> list) {
+        if (list != null) {
+            QueryBuilder queryBuilder = courseInfoDao.queryBuilder();
+            for (CourseInfo info : list) {
+                queryBuilder.where(CourseInfoDao.Properties.UserId.eq(userId)).where(CourseInfoDao.Properties.Id.eq(info.getId()));
+                queryBuilder.buildDelete().executeDeleteWithoutDetachingEntities();
+            }
+        }
+    }
+
 }
