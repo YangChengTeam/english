@@ -1,6 +1,7 @@
 package com.yc.english.news.view.activity;
 
 import android.content.Intent;
+import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -138,12 +139,16 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
         new IAliPay1Impl(ConfirmOrderActivity.this).pay(orderInfo, new IPayCallback() {
             @Override
             public void onSuccess(OrderInfo orderInfo) {
+                Looper.prepare();
                 ToastUtils.showLong("支付成功");
+                Looper.loop();
             }
 
             @Override
             public void onFailure(OrderInfo orderInfo) {
+                Looper.prepare();
                 ToastUtils.showLong("支付失败");
+                Looper.loop();
             }
         });
     }
