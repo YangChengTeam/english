@@ -4,6 +4,8 @@ import com.yc.english.base.dao.CourseInfoDao;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +18,10 @@ public class ShoppingHelper {
 
     private static CourseInfoDao courseInfoDao = ReadApp.getDaoSession().getCourseInfoDao();
 
-    public static List<CourseInfo> getCourseInfoListFromDB() {
-        return (ArrayList<CourseInfo>) courseInfoDao.queryBuilder().list();
+    public static List<CourseInfo> getCourseInfoListFromDB(String userId) {
+        QueryBuilder queryBuilder = courseInfoDao.queryBuilder();
+        queryBuilder.where(CourseInfoDao.Properties.UserId.eq(userId));
+        return (ArrayList<CourseInfo>) queryBuilder.list();
     }
 
     public static void saveCourseInfoToDB(CourseInfo cardInfo) {

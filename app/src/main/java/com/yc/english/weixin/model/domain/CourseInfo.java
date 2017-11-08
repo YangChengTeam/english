@@ -32,7 +32,7 @@ public class CourseInfo implements Parcelable {
     private String img;
     private String html;
     private int url_type;
-
+    private String userId;
     /**
      * add_date : 20170906
      * add_time : 1504669373
@@ -272,42 +272,6 @@ public class CourseInfo implements Parcelable {
         this.unitNum = unitNum;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeString(this.title);
-        dest.writeString(this.url);
-        dest.writeString(this.keywords);
-        dest.writeString(this.type_id);
-        dest.writeString(this.period);
-        dest.writeString(this.flag);
-        dest.writeString(this.author);
-        dest.writeString(this.add_time);
-        dest.writeString(this.add_date);
-        dest.writeString(this.img);
-        dest.writeString(this.html);
-        dest.writeInt(this.url_type);
-        dest.writeString(this.body);
-        dest.writeString(this.ip_num);
-        dest.writeString(this.pv_num);
-        dest.writeString(this.sort);
-        dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
-        dest.writeFloat(this.price);
-        dest.writeFloat(this.mPrice);
-        dest.writeFloat(this.vipPrice);
-        dest.writeString(this.goodId);
-        dest.writeString(this.isPay);
-        dest.writeString(this.is_vip);
-        dest.writeString(this.userHas);
-        dest.writeString(this.userNum);
-        dest.writeString(this.unitNum);
-    }
-
     public float getPrice() {
         return this.price;
     }
@@ -332,39 +296,9 @@ public class CourseInfo implements Parcelable {
         this.vipPrice = vipPrice;
     }
 
-    protected CourseInfo(Parcel in) {
-        this.id = in.readString();
-        this.title = in.readString();
-        this.url = in.readString();
-        this.keywords = in.readString();
-        this.type_id = in.readString();
-        this.period = in.readString();
-        this.flag = in.readString();
-        this.author = in.readString();
-        this.add_time = in.readString();
-        this.add_date = in.readString();
-        this.img = in.readString();
-        this.html = in.readString();
-        this.url_type = in.readInt();
-        this.body = in.readString();
-        this.ip_num = in.readString();
-        this.pv_num = in.readString();
-        this.sort = in.readString();
-        this.isChecked = in.readByte() != 0;
-        this.price = in.readFloat();
-        this.mPrice = in.readFloat();
-        this.vipPrice = in.readFloat();
-        this.goodId = in.readString();
-        this.isPay = in.readString();
-        this.is_vip = in.readString();
-        this.userHas = in.readString();
-        this.userNum = in.readString();
-        this.unitNum = in.readString();
-    }
-
-    @Generated(hash = 479336429)
-    public CourseInfo(String id, String title, String url, String keywords, String type_id, String period, String flag, String author, String add_time, String add_date, String img, String html, int url_type, String body, String ip_num, String pv_num,
-            String sort, boolean isChecked, float price, float mPrice, float vipPrice, String goodId, String isPay, String is_vip, String userHas, String userNum, String unitNum) {
+    @Generated(hash = 466108496)
+    public CourseInfo(String id, String title, String url, String keywords, String type_id, String period, String flag, String author, String add_time, String add_date, String img, String html, int url_type, String userId, String body, String ip_num,
+            String pv_num, String sort, boolean isChecked, float price, float mPrice, float vipPrice, String goodId, String isPay, String is_vip, String userHas, String userNum, String unitNum) {
         this.id = id;
         this.title = title;
         this.url = url;
@@ -378,6 +312,7 @@ public class CourseInfo implements Parcelable {
         this.img = img;
         this.html = html;
         this.url_type = url_type;
+        this.userId = userId;
         this.body = body;
         this.ip_num = ip_num;
         this.pv_num = pv_num;
@@ -392,6 +327,82 @@ public class CourseInfo implements Parcelable {
         this.userHas = userHas;
         this.userNum = userNum;
         this.unitNum = unitNum;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.url);
+        dest.writeString(this.keywords);
+        dest.writeString(this.type_id);
+        dest.writeString(this.period);
+        dest.writeString(this.flag);
+        dest.writeString(this.author);
+        dest.writeString(this.add_time);
+        dest.writeString(this.add_date);
+        dest.writeString(this.img);
+        dest.writeString(this.html);
+        dest.writeInt(this.url_type);
+        dest.writeString(this.userId);
+        dest.writeString(this.body);
+        dest.writeString(this.ip_num);
+        dest.writeString(this.pv_num);
+        dest.writeString(this.sort);
+        dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
+        dest.writeFloat(this.price);
+        dest.writeFloat(this.mPrice);
+        dest.writeFloat(this.vipPrice);
+        dest.writeString(this.goodId);
+        dest.writeString(this.isPay);
+        dest.writeString(this.is_vip);
+        dest.writeString(this.userHas);
+        dest.writeString(this.userNum);
+        dest.writeString(this.unitNum);
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    protected CourseInfo(Parcel in) {
+        this.id = in.readString();
+        this.title = in.readString();
+        this.url = in.readString();
+        this.keywords = in.readString();
+        this.type_id = in.readString();
+        this.period = in.readString();
+        this.flag = in.readString();
+        this.author = in.readString();
+        this.add_time = in.readString();
+        this.add_date = in.readString();
+        this.img = in.readString();
+        this.html = in.readString();
+        this.url_type = in.readInt();
+        this.userId = in.readString();
+        this.body = in.readString();
+        this.ip_num = in.readString();
+        this.pv_num = in.readString();
+        this.sort = in.readString();
+        this.isChecked = in.readByte() != 0;
+        this.price = in.readFloat();
+        this.mPrice = in.readFloat();
+        this.vipPrice = in.readFloat();
+        this.goodId = in.readString();
+        this.isPay = in.readString();
+        this.is_vip = in.readString();
+        this.userHas = in.readString();
+        this.userNum = in.readString();
+        this.unitNum = in.readString();
     }
 
     public static final Creator<CourseInfo> CREATOR = new Creator<CourseInfo>() {

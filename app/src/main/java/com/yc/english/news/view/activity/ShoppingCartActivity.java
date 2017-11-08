@@ -12,13 +12,18 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.ShoppingHelper;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.adapter.CartItemAdapter;
+import com.yc.english.news.utils.OrderConstant;
 import com.yc.english.news.view.widget.SpaceItemDecoration;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
@@ -75,11 +80,14 @@ public class ShoppingCartActivity extends FullScreenActivity {
         mToolbar.setBackgroundResource(R.mipmap.base_actionbar);
 
         //读取数据
-        List<CourseInfo> list = ShoppingHelper.getCourseInfoListFromDB();
+        List<CourseInfo> list = ShoppingHelper.getCourseInfoListFromDB(UserInfoHelper.getUserInfo().getUid());
         linearLayoutManager = new LinearLayoutManager(this);
         mCartRecyclerView.setLayoutManager(linearLayoutManager);
         mCartRecyclerView.addItemDecoration(new SpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.dp_10)));
         mCartItemAdapter = new CartItemAdapter(list);
+        setCartItemState(false);
+        mAllCheckBox.setChecked(false);
+
         mCartRecyclerView.setAdapter(mCartItemAdapter);
         initListener();
 
@@ -186,5 +194,15 @@ public class ShoppingCartActivity extends FullScreenActivity {
                 }
             }
         });
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(OrderConstant.PAY_SUCCESS)
+            }
+    )
+    public void paySuccess(String payOrderSn) {
+        finish();
     }
 }

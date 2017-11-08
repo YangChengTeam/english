@@ -118,8 +118,13 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             @Override
             public void call(Void aVoid) {
                 if (currentCourseInfo != null) {
-                    ShoppingHelper.saveCourseInfoToDB(currentCourseInfo);
-                    ToastUtils.showLong("加入购物车成功");
+                    if (UserInfoHelper.getUserInfo() != null) {
+                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
+                        ShoppingHelper.saveCourseInfoToDB(currentCourseInfo);
+                        ToastUtils.showLong("加入购物车成功");
+                    } else {
+                        UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
+                    }
                 }
             }
         });
