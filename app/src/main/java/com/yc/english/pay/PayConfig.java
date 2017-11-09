@@ -7,5 +7,5 @@ package com.yc.english.pay;
 public class PayConfig {
 
     public static final String ali_pay = "alipay";
-    public static final String wx_pay = "ipaynow";
+    public static final String wx_pay = "wxpay";
 }
