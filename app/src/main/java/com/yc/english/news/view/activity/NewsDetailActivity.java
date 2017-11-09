@@ -138,7 +138,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                 sharePopupWindow.show(llRootView);
             }
         });
-        nestedScrollView.setListener(new NewsScrollView.onScrollChangeListener() {
+        nestedScrollView.setOnScrollChangeListener(new NewsScrollView.onScrollChangeListener() {
             @Override
             public void onScrollChange(int l, int t, int oldl, int oldt) {
                 if (t > screenHeight / 2) {

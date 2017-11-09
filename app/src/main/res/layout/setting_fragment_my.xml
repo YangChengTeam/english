@@ -6,7 +6,7 @@
     android:background="@color/primaryDark"
     android:orientation="vertical">
 
-    <ScrollView
+    <com.yc.english.news.view.widget.NewsScrollView
         android:id="@+id/sv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -165,7 +165,7 @@
                 android:textSize="@dimen/font_snormal" />
 
         </LinearLayout>
-    </ScrollView>
+    </com.yc.english.news.view.widget.NewsScrollView>
 
     <com.yc.english.base.view.TransparentToolBar
         android:id="@+id/toolbar"
