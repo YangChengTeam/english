@@ -1,6 +1,4 @@
-package com.yc.english.setting.model.bean;
-
-import java.util.List;
+package com.yc.english.pay;
 
 /**
  * Created by wanglin  on 2017/11/7 11:23.
@@ -38,5 +36,6 @@ public class PayWayInfo {
     public void setPay_way_title(String pay_way_title) {
         this.pay_way_title = pay_way_title;
     }
+
 
 }

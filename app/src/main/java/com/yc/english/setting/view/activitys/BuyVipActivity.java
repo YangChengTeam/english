@@ -5,23 +5,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.news.model.domain.OrderGood;
+import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.pay.PayConfig;
+import com.yc.english.pay.PayWayInfoHelper;
+import com.yc.english.pay.alipay.IAliPay1Impl;
+import com.yc.english.pay.alipay.IPayCallback;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.contract.GoodsListContract;
 import com.yc.english.setting.model.bean.GoodInfo;
-import com.yc.english.setting.model.bean.PayWayInfo;
+import com.yc.english.pay.PayWayInfo;
 import com.yc.english.setting.presenter.GoodsListPresenter;
 import com.yc.english.setting.view.Listener.onItemClickListener;
 import com.yc.english.setting.view.adapter.GoodPayWayInfoAdapter;
 import com.yc.english.setting.view.adapter.GoodVipInfoAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -48,13 +56,15 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
 
     @BindView(R.id.recycler_pay_way)
     RecyclerView mRecyclerPayWay;
+    @BindView(R.id.tv_pay_money)
+    TextView mTvPayMoney;
 
     private GoodVipInfoAdapter goodVipInfoAdapter;
     private String pay_way_name = PayConfig.ali_pay;
     private GoodPayWayInfoAdapter goodPayWayInfoAdapter;
 
     private GoodInfo goodInfo;
-
+    private IAliPay1Impl iAliPay;
 
     @Override
     public int getLayoutId() {
@@ -66,19 +76,20 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
         mPresenter = new GoodsListPresenter(this, this);
         mToolbar.setTitle("VIP会员");
         mToolbar.showNavigationIcon();
-
+        iAliPay = new IAliPay1Impl(this);
         mRecyclerVip.setLayoutManager(new LinearLayoutManager(this));
         goodVipInfoAdapter = new GoodVipInfoAdapter(null);
         mRecyclerVip.setAdapter(goodVipInfoAdapter);
 
         mRecyclerPayWay.setLayoutManager(new LinearLayoutManager(this));
-        goodPayWayInfoAdapter = new GoodPayWayInfoAdapter(null);
+        goodPayWayInfoAdapter = new GoodPayWayInfoAdapter(PayWayInfoHelper.getPayWayInfoList());
         mRecyclerPayWay.setAdapter(goodPayWayInfoAdapter);
 
         goodVipInfoAdapter.setOnItemClickListener(new onItemClickListener<GoodInfo>() {
             @Override
             public void onItemClick(GoodInfo info) {
                 goodInfo = info;
+                setPayPrice(goodInfo.getM_price());
             }
         });
         goodPayWayInfoAdapter.setOnItemClickListener(new onItemClickListener<PayWayInfo>() {
@@ -93,29 +104,20 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
             @Override
             public void call(Void aVoid) {
 
-                List<OrderInfo> list = new ArrayList<>();
-                OrderInfo orderInfo = new OrderInfo();
-                //orderInfo.setGood_id(Integer.parseInt(goodInfo.getId()));
-                //orderInfo.setGood_num(1);
-                list.add(orderInfo);
-                mPresenter.createOrder(goodInfo.getName(), goodInfo.getM_price(), goodInfo.getM_price(), pay_way_name, list);
+                OrderParams orderParams = new OrderParams();
+                orderParams.setTitle(goodInfo.getName());
+                orderParams.setMoney(goodInfo.getM_price());
+                orderParams.setPayWayName(pay_way_name);
+                List<OrderGood> list = new ArrayList<>();
+                OrderGood orderGood = new OrderGood();
+                orderGood.setGood_id(goodInfo.getId());
+                orderGood.setNum(1);
 
-//                OrderInfo orderInfo = new OrderInfo();
-//                orderInfo.setMoney(1.0f);
-//                orderInfo.setOrder_sn(System.currentTimeMillis() + "");
-//                orderInfo.setName("vip课程购买");
-//
-//                new IAliPay1Impl(BuyVipActivity.this).pay(orderInfo, new IPayCallback() {
-//                    @Override
-//                    public void onSuccess(OrderInfo orderInfo) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(OrderInfo orderInfo) {
-//
-//                    }
-//                });
+                list.add(orderGood);
+                orderParams.setGoodsList(list);
+
+                mPresenter.createOrder(orderParams);
+
             }
         });
 
@@ -123,14 +125,38 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
 
     @Override
     public void showGoodVipList(List<GoodInfo> list) {
-
+        Collections.sort(list, new Comparator<GoodInfo>() {
+            @Override
+            public int compare(GoodInfo o1, GoodInfo o2) {
+                return Integer.parseInt(o1.getUse_time_limit()) - Integer.parseInt(o2.getUse_time_limit());
+            }
+        });
         goodInfo = list.get(0);
+        setPayPrice(goodInfo.getM_price());
         goodVipInfoAdapter.setNewData(list);
     }
 
+
     @Override
-    public void showPayWayList(List<PayWayInfo> data) {
-        goodPayWayInfoAdapter.setNewData(data);
+    public void showOrderInfo(OrderInfo orderInfo, String money, String name) {
+
+        if (pay_way_name.equals(PayConfig.ali_pay)) {
+            orderInfo.setMoney(Float.parseFloat(money));
+            orderInfo.setName(name);
+            iAliPay.pay(orderInfo, new IPayCallback() {
+                @Override
+                public void onSuccess(OrderInfo orderInfo) {
+
+                }
+
+                @Override
+                public void onFailure(OrderInfo orderInfo) {
+
+                }
+            });
+        } else {
+            //todo 微信支付
+        }
     }
 
 
@@ -158,4 +184,11 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
     public void showLoading() {
         mStateView.showLoading(mRlContainer);
     }
+
+    private void setPayPrice(String money) {
+        String str = getString(R.string.confirm_pay);
+        String result = String.format(str, Float.parseFloat(money));
+        mTvPayMoney.setText(result);
+    }
+
 }

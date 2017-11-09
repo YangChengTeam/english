@@ -1,7 +1,6 @@
 package com.yc.english.news.view.activity;
 
 import android.content.Intent;
-import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -29,8 +28,8 @@ import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.news.presenter.OrderPresenter;
 import com.yc.english.news.utils.OrderConstant;
 import com.yc.english.news.view.widget.SpaceItemDecoration;
-import com.yc.english.pay.alipay.IAliPay1Impl;
 import com.yc.english.pay.alipay.IPayCallback;
+import com.yc.english.pay.alipay.IWXPay1Impl;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
@@ -101,7 +100,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
 
         orderParams = new OrderParams();
         orderParams.setPriceTotal(intent.getFloatExtra("total_price", 0) + "");
-        orderParams.setPayWayName("alipay");
+        orderParams.setPayWayName("wxpay");
         orderParams.setGoodsList(goods);
 
         RxView.clicks(mPayOrderLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -138,7 +137,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
     }
 
     @Override
-    public void showOrderInfo(OrderInfo orderInfo) {
+    public void showOrderInfo(final OrderInfo orderInfo) {
         LogUtils.e("创建订单成功--->");
 
         if (orderInfo != null) {
@@ -146,7 +145,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
             orderInfo.setName("说说英语微课购买");
         }
 
-        new IAliPay1Impl(ConfirmOrderActivity.this).pay(orderInfo, new IPayCallback() {
+        /*new IAliPay1Impl(ConfirmOrderActivity.this).pay(orderInfo, new IPayCallback() {
             @Override
             public void onSuccess(OrderInfo orderInfo) {
                 RxBus.get().post(OrderConstant.PAY_SUCCESS, orderInfo != null ? orderInfo.getPay_order_sn() : "");
@@ -158,7 +157,9 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
                 ToastUtils.showLong("支付失败");
                 Looper.loop();
             }
-        });
+        });*/
+
+        RxBus.get().post(OrderConstant.WXPAY_SUCCESS, orderInfo);
     }
 
     @Override
@@ -173,6 +174,28 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
         if (orderList != null && orderList.size() > 0) {
             ShoppingHelper.deleteCourseListByUser(UserInfoHelper.getUserInfo().getUid(), orderList);
         }
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(OrderConstant.WXPAY_SUCCESS)
+            }
+    )
+    public void wxpay(OrderInfo orderInfo) {
+        new IWXPay1Impl(ConfirmOrderActivity.this).pay(orderInfo, new IPayCallback() {
+            @Override
+            public void onSuccess(OrderInfo orderInfo) {
+                RxBus.get().post(OrderConstant.PAY_SUCCESS, orderInfo != null ? orderInfo.getPay_order_sn() : "");
+            }
+
+            @Override
+            public void onFailure(OrderInfo orderInfo) {
+                //Looper.prepare();
+                ToastUtils.showLong("支付失败111");
+                //Looper.loop();
+            }
+        });
     }
 
     @Subscribe(

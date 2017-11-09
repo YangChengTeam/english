@@ -44,14 +44,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="6dp"
-            android:layout_marginLeft="6dp"
+            android:layout_marginLeft="8dp"
             android:text="话题口语"
             android:textColor="@color/black"
             android:textSize="@dimen/font_normal"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_marginBottom="6dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -61,22 +61,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="6dp"
-                android:src="@mipmap/unit_count_icon"/>
+                android:layout_marginTop="0.5dp"
+                android:src="@mipmap/buy_person_icon"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="5dp"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="总共"
-                    android:textColor="@color/gray_aaa"
-                    android:textSize="@dimen/font_snormal"/>
 
                 <TextView
                     android:id="@+id/tv_unit_count"
@@ -88,10 +81,12 @@
                     android:textSize="@dimen/font_snormal"/>
 
                 <TextView
+                    android:id="@+id/tv_learn_or_buy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="单元"
+                    android:text="已购买"
+                    android:layout_marginLeft="2dp"
                     android:textColor="@color/gray_aaa"
                     android:textSize="@dimen/font_snormal"/>
             </LinearLayout>

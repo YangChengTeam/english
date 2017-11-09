@@ -7,4 +7,6 @@ package com.yc.english.news.utils;
 public class OrderConstant {
 
     public static final String PAY_SUCCESS = "pay_success";
+
+    public static final String WXPAY_SUCCESS = "wxpay";
 }

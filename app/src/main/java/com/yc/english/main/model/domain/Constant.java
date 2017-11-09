@@ -22,4 +22,6 @@ public class Constant {
     public static final String COMMUNITY_ADD_REFRESH = "community_add_refresh";
 
     public static final String COMMUNITY_ACTIVITY_REFRESH = "community_activity_refresh";
+
+    public static final String PAY_WAY_LIST_INFO="pay_way_list_info";
 }

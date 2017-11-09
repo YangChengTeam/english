@@ -5,12 +5,15 @@ import android.content.Context;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.model.engin.IndexEngin;
+import com.yc.english.pay.PayWayInfo;
+import com.yc.english.pay.PayWayInfoHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         if (!forceUpdate) return;
 
         getIndexInfo();
+        getPayWayList();
     }
 
 
@@ -109,6 +113,32 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
 
             }
         });
+    }
+
+    private void getPayWayList() {
+        Subscription subscription = EngineUtils.getPayWayList(mContext).subscribe(new Subscriber<ResultInfo<List<PayWayInfo>>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<List<PayWayInfo>> payWayInfoResultInfo) {
+                handleResultInfo(payWayInfoResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        PayWayInfoHelper.setPayWayInfoList(payWayInfoResultInfo.data);
+                    }
+                });
+
+            }
+        });
+        mSubscriptions.add(subscription);
     }
 
 

@@ -7,9 +7,11 @@ import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.utils.EngineUtils;
+import com.yc.english.news.model.domain.OrderParams;
+import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.contract.GoodsListContract;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
-import com.yc.english.setting.model.bean.PayWayInfo;
+import com.yc.english.pay.PayWayInfo;
 
 import java.util.List;
 
@@ -29,7 +31,6 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
         getGoodsList(1, 1);
-        getPayWayList();
     }
 
     public void getGoodsList(int goods_type_id, int page) {
@@ -70,8 +71,10 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
         mSubscriptions.add(subscription);
     }
 
-    public void getPayWayList() {
-        Subscription subscription = EngineUtils.getPayWayList(mContext).subscribe(new Subscriber<ResultInfo<List<PayWayInfo>>>() {
+
+    public void createOrder(final OrderParams orderParams) {
+        mView.showLoadingDialog("创建订单中，请稍候...");
+        Subscription subscription = EngineUtils.createOrder(mContext, orderParams.getTitle(), orderParams.getMoney(), orderParams.getMoney(), orderParams.getPayWayName(), orderParams.getGoodsList()).subscribe(new Subscriber<ResultInfo<OrderInfo>>() {
             @Override
             public void onCompleted() {
 
@@ -79,37 +82,18 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
 
             @Override
             public void onError(Throwable e) {
-
+                mView.dismissLoadingDialog();
             }
 
             @Override
-            public void onNext(final ResultInfo<List<PayWayInfo>> payWayInfoResultInfo) {
-                handleResultInfo(payWayInfoResultInfo, new Runnable() {
+            public void onNext(final ResultInfo<OrderInfo> orderInfoResultInfo) {
+                handleResultInfo(orderInfoResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        mView.showPayWayList(payWayInfoResultInfo.data);
+                        mView.dismissLoadingDialog();
+                        mView.showOrderInfo(orderInfoResultInfo.data, orderParams.getMoney(), orderParams.getTitle());
                     }
                 });
-
-            }
-        });
-        mSubscriptions.add(subscription);
-    }
-
-    public void createOrder(String title, String price_total, String money, String pay_way_name, List goods_list) {
-        Subscription subscription = EngineUtils.createOrder(mContext, title, price_total, money, pay_way_name, goods_list).subscribe(new Subscriber<ResultInfo<String>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(ResultInfo<String> stringResultInfo) {
 
             }
         });

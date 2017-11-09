@@ -3,12 +3,11 @@ package com.yc.english.group.utils;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.blankj.utilcode.util.SnackbarUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.ClassInfoList;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
@@ -25,9 +24,10 @@ import com.yc.english.group.rong.models.ListGagGroupUserResult;
 import com.yc.english.group.rong.util.RongIMUtil;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.news.model.domain.OrderGood;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
-import com.yc.english.setting.model.bean.PayWayInfo;
+import com.yc.english.pay.PayWayInfo;
 
 import java.io.File;
 import java.util.HashMap;
@@ -377,6 +377,7 @@ public class EngineUtils {
 
     /**
      * 创建订单
+     *
      * @param context
      * @param title
      * @param price_total
@@ -385,24 +386,19 @@ public class EngineUtils {
      * @param goods_list
      * @return
      */
-    public static Observable<ResultInfo<String>> createOrder(Context context, String title, String price_total, String money, String pay_way_name, List<OrderInfo> goods_list) {
+    public static Observable<ResultInfo<OrderInfo>> createOrder(Context context, String title, String price_total, String money, String pay_way_name, List<OrderGood> goods_list) {
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>();
         UserInfo userInfo = UserInfoHelper.getUserInfo();
-
         params.put("user_id", UserInfoHelper.getUserInfo().getUid());
         params.put("user_name", userInfo.getName());
-        params.put("app_id", 1);
+        params.put("app_id", String.valueOf(1));
         params.put("title", title);
         params.put("price_total", price_total);
         params.put("money", money);
         params.put("pay_way_name", pay_way_name);
-        StringBuilder sb= new StringBuilder();
-        for (OrderInfo orderInfo : goods_list) {
-
-        }
-        params.put("goods_list", goods_list);
-        return HttpCoreEngin.get(context).rxpost(NetConstant.order_init, new TypeReference<ResultInfo<String>>() {
+        params.put("goods_list", JSON.toJSONString(goods_list));
+        return HttpCoreEngin.get(context).rxpost(NetConstant.order_init, new TypeReference<ResultInfo<OrderInfo>>() {
         }.getType(), params, true, true, true);
 
     }

@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.pay.PayConfig;
-import com.yc.english.setting.model.bean.PayWayInfo;
+import com.yc.english.pay.PayWayInfo;
 import com.yc.english.setting.view.Listener.onItemClickListener;
 
 import java.util.List;

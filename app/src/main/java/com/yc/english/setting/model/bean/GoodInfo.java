@@ -1,9 +1,5 @@
 package com.yc.english.setting.model.bean;
 
-import android.support.annotation.NonNull;
-
-import java.util.Comparator;
-
 /**
  * Created by wanglin  on 2017/11/6 16:23.
  */
