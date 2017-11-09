@@ -28,9 +28,11 @@ import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.news.presenter.OrderPresenter;
 import com.yc.english.news.utils.OrderConstant;
 import com.yc.english.news.view.widget.SpaceItemDecoration;
+import com.yc.english.pay.PayConfig;
 import com.yc.english.pay.alipay.IPayCallback;
 import com.yc.english.pay.alipay.IWXPay1Impl;
 import com.yc.english.pay.alipay.OrderInfo;
+import com.yc.english.setting.view.adapter.GoodPayWayInfoAdapter;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.functions.Action1;
 
 /**
@@ -58,6 +61,8 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
     @BindView(R.id.layout_pay_order)
     LinearLayout mPayOrderLayout;
 
+    RecyclerView mRecyclerPayWay;
+
     OrderItemAdapter mOrderItemAdapter;
 
     OrderParams orderParams;
@@ -65,6 +70,12 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
     private float totalPrice;
 
     private ArrayList<CourseInfo> orderList;
+
+    private GoodPayWayInfoAdapter goodPayWayInfoAdapter;
+
+    private String payWayName = PayConfig.ali_pay;
+
+    private List<OrderGood> goods;
 
     @Override
     public int getLayoutId() {
@@ -88,7 +99,12 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
         mOrderItemAdapter.setFooterView(getFootView());
         mOrderRecyclerView.setAdapter(mOrderItemAdapter);
 
-        List<OrderGood> goods = new ArrayList<>();
+        //支付方式
+        //mRecyclerPayWay.setLayoutManager(new LinearLayoutManager(this));
+        //goodPayWayInfoAdapter = new GoodPayWayInfoAdapter(PayWayInfoHelper.getPayWayInfoList());
+        //mRecyclerPayWay.setAdapter(goodPayWayInfoAdapter);
+
+        goods = new ArrayList<>();
         if (orderList != null && orderList.size() > 0) {
             for (int i = 0; i < orderList.size(); i++) {
                 OrderGood orderGood = new OrderGood();
@@ -98,21 +114,32 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
             }
         }
 
-        orderParams = new OrderParams();
-        orderParams.setPriceTotal(intent.getFloatExtra("total_price", 0) + "");
-        orderParams.setPayWayName("wxpay");
-        orderParams.setGoodsList(goods);
+        /*goodPayWayInfoAdapter.setOnItemClickListener(new onItemClickListener<PayWayInfo>() {
+            @Override
+            public void onItemClick(PayWayInfo payWayInfo) {
+                payWayName = payWayInfo.getPay_way_name();
+            }
+        });*/
 
         RxView.clicks(mPayOrderLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                mPresenter.createOrder(orderParams);
+                if (goods.size() > 0) {
+                    orderParams = new OrderParams();
+                    orderParams.setPriceTotal(totalPrice + "");
+                    orderParams.setPayWayName("wxpay");
+                    orderParams.setGoodsList(goods);
+                    mPresenter.createOrder(orderParams);
+                } else {
+                    ToastUtils.showLong("订单错误");
+                }
             }
         });
     }
 
     public View getFootView() {
         View footView = getLayoutInflater().inflate(R.layout.activity_order_foot, (ViewGroup) mOrderRecyclerView.getParent(), false);
+        mRecyclerPayWay = ButterKnife.findById(footView, R.id.recycler_pay_way);
         return footView;
     }
 
