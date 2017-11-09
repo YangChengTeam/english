@@ -46,6 +46,9 @@ public class ShoppingCartActivity extends FullScreenActivity {
     @BindView(R.id.sv_loading)
     StateView mLoadingStateView;
 
+    @BindView(R.id.layout_root)
+    RelativeLayout mRootLayout;
+
     @BindView(R.id.layout_pay)
     RelativeLayout mPayLayout;
 
@@ -55,17 +58,25 @@ public class ShoppingCartActivity extends FullScreenActivity {
     @BindView(R.id.layout_pay_now)
     LinearLayout mPayNowLayout;
 
+    @BindView(R.id.layout_delete_all)
+    LinearLayout mDeleteAllLayout;
+
     @BindView(R.id.tv_total_price)
     TextView mTotalPriceTextView;
 
     @BindView(R.id.ck_all)
     CheckBox mAllCheckBox;
 
+    @BindView(R.id.ck_delete_all)
+    CheckBox mDeleteAllCheckBox;
+
     LinearLayoutManager linearLayoutManager;
 
     CartItemAdapter mCartItemAdapter;
 
     private float totalPrice = 0;
+
+    private List<CourseInfo> list;
 
     @Override
     public int getLayoutId() {
@@ -80,7 +91,12 @@ public class ShoppingCartActivity extends FullScreenActivity {
         mToolbar.setBackgroundResource(R.mipmap.base_actionbar);
 
         //读取数据
-        List<CourseInfo> list = ShoppingHelper.getCourseInfoListFromDB(UserInfoHelper.getUserInfo().getUid());
+        list = ShoppingHelper.getCourseInfoListFromDB(UserInfoHelper.getUserInfo().getUid());
+        if (list == null || list.size() == 0) {
+            mLoadingStateView.showNoData(mRootLayout);
+            mToolbar.setMenuTitle("");
+        }
+
         linearLayoutManager = new LinearLayoutManager(this);
         mCartRecyclerView.setLayoutManager(linearLayoutManager);
         mCartRecyclerView.addItemDecoration(new SpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.dp_10)));
@@ -124,6 +140,18 @@ public class ShoppingCartActivity extends FullScreenActivity {
             }
         });
 
+        RxView.clicks(mDeleteAllCheckBox).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                if (mDeleteAllCheckBox.isChecked()) {
+                    setCartItemState(true);
+                } else {
+                    setCartItemState(false);
+                }
+                mCartItemAdapter.notifyDataSetChanged();
+            }
+        });
+
         RxView.clicks(mPayNowLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -145,6 +173,26 @@ public class ShoppingCartActivity extends FullScreenActivity {
                 intent.putExtra("total_price", totalPrice);
                 intent.putParcelableArrayListExtra("goods_list", goodsList);
                 startActivity(intent);
+            }
+        });
+
+
+        RxView.clicks(mDeleteAllLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                for (int i = 0; i < mCartItemAdapter.getData().size(); i++) {
+                    if (mCartItemAdapter.getData().get(i).getIsChecked()) {
+                        ShoppingHelper.deleteCourseInfoByUser(UserInfoHelper.getUserInfo().getUid(), mCartItemAdapter.getData().get(i).getId());
+                    }
+                }
+                ToastUtils.showLong("删除成功");
+                list = ShoppingHelper.getCourseInfoListFromDB(UserInfoHelper.getUserInfo().getUid());
+                if (list == null || list.size() == 0) {
+                    mLoadingStateView.showNoData(mRootLayout);
+                    mToolbar.setMenuTitle("");
+                } else {
+                    mCartItemAdapter.setNewData(list);
+                }
             }
         });
     }
@@ -187,6 +235,9 @@ public class ShoppingCartActivity extends FullScreenActivity {
                     mPayLayout.setVisibility(View.GONE);
                     mDeleteLayout.setVisibility(View.VISIBLE);
                     mToolbar.setMenuTitle(getString(R.string.done_text));
+
+                    setCartItemState(false);
+                    mCartItemAdapter.notifyDataSetChanged();
                 } else {
                     mPayLayout.setVisibility(View.VISIBLE);
                     mDeleteLayout.setVisibility(View.GONE);

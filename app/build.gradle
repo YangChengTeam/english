@@ -127,4 +127,5 @@ dependencies {
     compile files('libs/juniversalchardet-1.0.3.jar')
     compile 'com.liulishuo.filedownloader:library:1.6.8'
     compile files('libs/alipaySdk-20170922.jar')
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 }

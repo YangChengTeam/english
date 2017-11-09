@@ -131,12 +131,18 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
                     mNumLayout.setBackgroundResource(R.mipmap.more_num_icon);
                 } else {
                     mNumLayout.setBackgroundResource(R.mipmap.single_num_icon);
+                    if (list.size() == 0) {
+                        mNumLayout.setVisibility(View.GONE);
+                    } else {
+                        mNumLayout.setVisibility(View.VISIBLE);
+                    }
                 }
                 mCartNumTextView.setText(list.size() + "");
             }
         } else {
             mCartNumTextView.setText("0");
             mNumLayout.setBackgroundResource(R.mipmap.single_num_icon);
+            mNumLayout.setVisibility(View.GONE);
         }
     }
 

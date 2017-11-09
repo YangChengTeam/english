@@ -116,13 +116,11 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
             public void call(Void aVoid) {
                 if (!UserInfoHelper.isGotoLogin(getActivity())) {
                     Intent intent;
-//                    if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
-//                        intent = new Intent(getActivity(), BuyVipActivity.class);
-//                    } else {
-//                        intent = new Intent(getActivity(), VipEquitiesActivity.class);
-//                    }
-
-                    intent = new Intent(getActivity(), VipEquitiesActivity.class);
+                    if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
+                        intent = new Intent(getActivity(), BuyVipActivity.class);
+                    } else {
+                        intent = new Intent(getActivity(), VipEquitiesActivity.class);
+                    }
                     startActivity(intent);
                 }
             }
