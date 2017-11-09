@@ -29,9 +29,12 @@ import com.yc.english.news.presenter.OrderPresenter;
 import com.yc.english.news.utils.OrderConstant;
 import com.yc.english.news.view.widget.SpaceItemDecoration;
 import com.yc.english.pay.PayConfig;
+import com.yc.english.pay.PayWayInfo;
+import com.yc.english.pay.PayWayInfoHelper;
 import com.yc.english.pay.alipay.IPayCallback;
 import com.yc.english.pay.alipay.IWXPay1Impl;
 import com.yc.english.pay.alipay.OrderInfo;
+import com.yc.english.setting.view.Listener.onItemClickListener;
 import com.yc.english.setting.view.adapter.GoodPayWayInfoAdapter;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
@@ -100,9 +103,9 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
         mOrderRecyclerView.setAdapter(mOrderItemAdapter);
 
         //支付方式
-        //mRecyclerPayWay.setLayoutManager(new LinearLayoutManager(this));
-        //goodPayWayInfoAdapter = new GoodPayWayInfoAdapter(PayWayInfoHelper.getPayWayInfoList());
-        //mRecyclerPayWay.setAdapter(goodPayWayInfoAdapter);
+        mRecyclerPayWay.setLayoutManager(new LinearLayoutManager(this));
+        goodPayWayInfoAdapter = new GoodPayWayInfoAdapter(PayWayInfoHelper.getPayWayInfoList());
+        mRecyclerPayWay.setAdapter(goodPayWayInfoAdapter);
 
         goods = new ArrayList<>();
         if (orderList != null && orderList.size() > 0) {
@@ -114,12 +117,13 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
             }
         }
 
-        /*goodPayWayInfoAdapter.setOnItemClickListener(new onItemClickListener<PayWayInfo>() {
+        goodPayWayInfoAdapter.setOnItemClickListener(new onItemClickListener<PayWayInfo>() {
             @Override
             public void onItemClick(PayWayInfo payWayInfo) {
                 payWayName = payWayInfo.getPay_way_name();
             }
-        });*/
+        });
+
 
         RxView.clicks(mPayOrderLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -127,7 +131,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
                 if (goods.size() > 0) {
                     orderParams = new OrderParams();
                     orderParams.setPriceTotal(totalPrice + "");
-                    orderParams.setPayWayName("wxpay");
+                    orderParams.setPayWayName(payWayName);
                     orderParams.setGoodsList(goods);
                     mPresenter.createOrder(orderParams);
                 } else {

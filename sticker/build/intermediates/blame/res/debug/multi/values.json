@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "outputFile": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 104
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 168
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 1,
@@ -49,7 +49,7 @@
                     "endOffset": 240
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 56,
                         "startColumn": 1,
@@ -68,7 +68,7 @@
                     "endOffset": 308
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 54,
                         "startColumn": 1,
@@ -87,7 +87,7 @@
                     "endOffset": 374
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 52,
                         "startColumn": 1,
@@ -106,7 +106,7 @@
                     "endOffset": 457
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 1,
@@ -125,7 +125,7 @@
                     "endOffset": 542
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 1,
@@ -144,7 +144,7 @@
                     "endOffset": 621
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 1,
@@ -163,7 +163,7 @@
                     "endOffset": 702
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 1,
@@ -182,7 +182,7 @@
                     "endOffset": 785
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 1,
@@ -201,7 +201,7 @@
                     "endOffset": 857
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 1,
@@ -220,7 +220,7 @@
                     "endOffset": 934
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 1,
@@ -239,7 +239,7 @@
                     "endOffset": 1013
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 1,
@@ -258,7 +258,7 @@
                     "endOffset": 1093
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 1,
@@ -277,7 +277,7 @@
                     "endOffset": 1189
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 44,
                         "startColumn": 1,
@@ -296,7 +296,7 @@
                     "endOffset": 1274
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 42,
                         "startColumn": 1,
@@ -315,7 +315,7 @@
                     "endOffset": 1378
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 39,
                         "startColumn": 1,
@@ -334,7 +334,7 @@
                     "endOffset": 1471
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 37,
                         "startColumn": 1,
@@ -353,7 +353,7 @@
                     "endOffset": 1542
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 74,
                         "startColumn": 1,
@@ -372,7 +372,7 @@
                     "endOffset": 1609
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 81,
                         "startColumn": 1,
@@ -391,7 +391,7 @@
                     "endOffset": 1684
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 61,
                         "startColumn": 1,
@@ -410,7 +410,7 @@
                     "endOffset": 1763
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 86,
                         "startColumn": 1,
@@ -429,7 +429,7 @@
                     "endOffset": 1831
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 84,
                         "startColumn": 1,
@@ -448,7 +448,7 @@
                     "endOffset": 1879
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 2,
@@ -467,7 +467,7 @@
                     "endOffset": 1952
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 104,
                         "startColumn": 1,
@@ -486,7 +486,7 @@
                     "endOffset": 2021
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 98,
                         "startColumn": 1,
@@ -505,7 +505,7 @@
                     "endOffset": 2103
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 102,
                         "startColumn": 1,
@@ -524,7 +524,7 @@
                     "endOffset": 2174
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 100,
                         "startColumn": 1,
@@ -543,7 +543,7 @@
                     "endOffset": 2250
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 94,
                         "startColumn": 1,
@@ -562,7 +562,7 @@
                     "endOffset": 2329
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 96,
                         "startColumn": 1,
@@ -581,7 +581,7 @@
                     "endOffset": 2410
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 89,
                         "startColumn": 1,
@@ -600,7 +600,7 @@
                     "endOffset": 2483
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 91,
                         "startColumn": 1,
@@ -619,7 +619,7 @@
                     "endOffset": 2576
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 49,
                         "startColumn": 1,
@@ -638,7 +638,7 @@
                     "endOffset": 2658
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 47,
                         "startColumn": 1,
@@ -657,7 +657,7 @@
                     "endOffset": 2731
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 71,
                         "startColumn": 1,
@@ -676,7 +676,7 @@
                     "endOffset": 2798
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 69,
                         "startColumn": 1,
@@ -695,7 +695,7 @@
                     "endOffset": 2870
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 67,
                         "startColumn": 1,
@@ -714,7 +714,7 @@
                     "endOffset": 2938
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 63,
                         "startColumn": 1,
@@ -733,7 +733,7 @@
                     "endOffset": 3004
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 65,
                         "startColumn": 1,
@@ -752,7 +752,7 @@
                     "endOffset": 3075
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 59,
                         "startColumn": 1,
@@ -771,7 +771,7 @@
                     "endOffset": 3134
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -790,7 +790,7 @@
                     "endOffset": 3200
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -809,7 +809,7 @@
                     "endOffset": 3262
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 79,
                         "startColumn": 1,
@@ -828,7 +828,7 @@
                     "endOffset": 3322
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 77,
                         "startColumn": 1,
@@ -847,7 +847,7 @@
                     "endOffset": 3375
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -866,7 +866,7 @@
                     "endOffset": 3429
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -885,7 +885,7 @@
                     "endOffset": 3482
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 2,
@@ -904,7 +904,7 @@
                     "endOffset": 3535
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 1,
@@ -923,7 +923,7 @@
                     "endOffset": 4504
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -942,7 +942,7 @@
                     "endOffset": 4560
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -961,7 +961,7 @@
                     "endOffset": 4629
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -980,7 +980,7 @@
                     "endOffset": 4696
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -999,7 +999,7 @@
                     "endOffset": 4757
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -1018,7 +1018,7 @@
                     "endOffset": 4817
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -1037,7 +1037,7 @@
                     "endOffset": 4882
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -1056,7 +1056,7 @@
                     "endOffset": 4940
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 1,
@@ -1075,7 +1075,7 @@
                     "endOffset": 4992
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -1094,7 +1094,7 @@
                     "endOffset": 5045
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -1113,7 +1113,7 @@
                     "endOffset": 5106
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -1132,7 +1132,7 @@
                     "endOffset": 5159
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -1151,7 +1151,7 @@
                     "endOffset": 5214
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 1,
                         "startColumn": 4,
@@ -1170,7 +1170,7 @@
                     "endOffset": 5274
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -1189,7 +1189,7 @@
                     "endOffset": 5342
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
@@ -1208,7 +1208,7 @@
                     "endOffset": 5393
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -1227,7 +1227,7 @@
                     "endOffset": 5447
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -1246,7 +1246,7 @@
                     "endOffset": 5514
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -1265,7 +1265,7 @@
                     "endOffset": 5601
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
@@ -1284,7 +1284,7 @@
                     "endOffset": 5681
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -1303,7 +1303,7 @@
                     "endOffset": 5808
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -1322,7 +1322,7 @@
                     "endOffset": 5876
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 4,
@@ -1341,7 +1341,7 @@
                     "endOffset": 5944
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 35,
                         "startColumn": 4,
@@ -1360,7 +1360,7 @@
                     "endOffset": 6002
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -1379,7 +1379,7 @@
                     "endOffset": 6068
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -1398,7 +1398,7 @@
                     "endOffset": 6125
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -1417,7 +1417,7 @@
                     "endOffset": 6187
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -1436,7 +1436,7 @@
                     "endOffset": 6260
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -1455,7 +1455,7 @@
                     "endOffset": 6380
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -1474,7 +1474,7 @@
                     "endOffset": 6433
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -1494,7 +1494,7 @@
                     "endOffset": 6890
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 5,
@@ -1515,7 +1515,7 @@
                     "endOffset": 7181
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -1536,7 +1536,7 @@
                     "endOffset": 7341
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -1556,7 +1556,7 @@
                     "endOffset": 7413
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -1576,7 +1576,7 @@
                     "endOffset": 7575
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,

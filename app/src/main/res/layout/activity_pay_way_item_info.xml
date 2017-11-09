@@ -6,32 +6,32 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/layout_alipay"
+        android:id="@+id/layout_pay"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
         <ImageView
-            android:id="@+id/iv_alipay"
+            android:id="@+id/iv_pay_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:src="@mipmap/alipay_icon" />
 
         <TextView
-            android:id="@+id/tv_alipay_way"
+            android:id="@+id/tv_pay_way"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:layout_toRightOf="@+id/iv_alipay"
+            android:layout_toRightOf="@id/iv_pay_icon"
             android:text="支付宝充值"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
         <CheckBox
-            android:id="@+id/ck_alipay"
+            android:id="@+id/ck_pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

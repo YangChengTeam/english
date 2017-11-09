@@ -376,7 +376,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
                 getString(R.string.pref_key_iat_show), false);
         if (isShowDialog) {
             // 显示听写对话框
-            /*mIatDialog.setListener(mRecognizerDialogListener);
+            /*mIatDialog.setOnScrollChangeListener(mRecognizerDialogListener);
             mIatDialog.show();*/
             //ToastUtils.showLong("开始");
         } else {

@@ -29,15 +29,13 @@ public class GoodPayWayInfoAdapter extends BaseQuickAdapter<PayWayInfo, BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, PayWayInfo item) {
-        helper.setText(R.id.tv_alipay_way, item.getPay_way_title())
-                .setImageResource(R.id.iv_alipay, item.getPay_way_name().equals(PayConfig.ali_pay) ? R.mipmap.alipay_icon :
-
-                        item.getPay_way_name().equals(PayConfig.wx_pay) ? R.mipmap.weixin_icon : -1);
+        helper.setText(R.id.tv_pay_way, item.getPay_way_title())
+                .setImageResource(R.id.iv_pay_icon, item.getPay_way_name().equals(PayConfig.ali_pay) ? R.mipmap.alipay_icon : R.mipmap.weixin_icon);
         int position = helper.getAdapterPosition();
         if (position == mData.size() - 1) {
             helper.setVisible(R.id.view_divider, false);
         }
-        CheckBox cb = helper.getView(R.id.ck_alipay);
+        CheckBox cb = helper.getView(R.id.ck_pay);
         checkBoxSparseArray.put(position, cb);
         checkBoxSparseArray.get(currentPos).setChecked(true);
         initListener();
