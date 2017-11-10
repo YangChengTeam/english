@@ -258,6 +258,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mJCVideoPlayer.battery_level.setVisibility(View.GONE);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
 
+
     }
 
 

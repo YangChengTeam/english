@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.yc.english.base.view.StateView
         android:id="@+id/sv_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primaryDark"
-        android:visibility="gone"
-        >
-    </com.yc.english.base.view.StateView>
+        />
+
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_course"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/course_bg_color">
-        </android.support.v7.widget.RecyclerView>
+            android:background="@color/course_bg_color"></android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

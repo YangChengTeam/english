@@ -7,11 +7,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.model.domain.OrderGood;
 import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.pay.PayConfig;
@@ -20,6 +23,7 @@ import com.yc.english.pay.alipay.IAliPay1Impl;
 import com.yc.english.pay.alipay.IPayCallback;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.contract.GoodsListContract;
+import com.yc.english.setting.model.bean.Config;
 import com.yc.english.setting.model.bean.GoodInfo;
 import com.yc.english.pay.PayWayInfo;
 import com.yc.english.setting.presenter.GoodsListPresenter;
@@ -30,6 +34,7 @@ import com.yc.english.setting.view.adapter.GoodVipInfoAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -146,12 +151,11 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
             iAliPay.pay(orderInfo, new IPayCallback() {
                 @Override
                 public void onSuccess(OrderInfo orderInfo) {
-
+                    updateSuccessData();
                 }
 
                 @Override
                 public void onFailure(OrderInfo orderInfo) {
-
                 }
             });
         } else {
@@ -189,6 +193,16 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
         String str = getString(R.string.confirm_pay);
         String result = String.format(str, Float.parseFloat(money));
         mTvPayMoney.setText(result);
+    }
+
+    private void updateSuccessData() {
+        UserInfoHelper.getUserInfo().setIsVip(1);
+        Date date = new Date();
+        UserInfoHelper.getUserInfo().setVip_start_time(date.getTime());
+        int use_time_Limit = Integer.parseInt(goodInfo.getUse_time_limit());
+        long vip_end_time = date.getTime() + use_time_Limit * 30 * (Config.MS_IN_A_DAY);
+        UserInfoHelper.getUserInfo().setVip_end_time(vip_end_time);
+        finish();
     }
 
 }

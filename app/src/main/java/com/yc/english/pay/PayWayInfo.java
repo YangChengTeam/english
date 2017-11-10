@@ -14,12 +14,6 @@ public class PayWayInfo {
 
     private String pay_way_name;
     private String pay_way_title;
-    /**
-     * code : 1
-     * data : [{"pay_way_name":"alipay","pay_way_title":"支付宝"},{"pay_way_name":"ipaynow","pay_way_title":"微信支付"}]
-     * msg :
-     */
-
 
     public String getPay_way_name() {
         return pay_way_name;

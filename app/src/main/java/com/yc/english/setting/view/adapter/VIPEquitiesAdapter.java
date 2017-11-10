@@ -20,5 +20,4 @@ public class VIPEquitiesAdapter extends BaseQuickAdapter<Integer, BaseViewHolder
         helper.setText(R.id.tv_open_first_day, item + "");
     }
 
-
 }

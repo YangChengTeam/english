@@ -7,6 +7,7 @@ import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.setting.model.bean.Config;
 import com.yc.english.setting.view.adapter.VIPEquitiesAdapter;
 
 import java.util.ArrayList;
@@ -22,7 +23,6 @@ import butterknife.BindView;
 public class VipEquitiesActivity extends FullScreenActivity {
 
 
-    long MS_IN_A_DAY = 1000 * 60 * 60 * 24;
     @BindView(R.id.recyclerView_open_vip)
     RecyclerView recyclerViewOpenVip;
     @BindView(R.id.recyclerView_surplus_days)
@@ -34,11 +34,11 @@ public class VipEquitiesActivity extends FullScreenActivity {
         mToolbar.setTitle(getString(R.string.vip_equities));
         mToolbar.showNavigationIcon();
         UserInfo userInfo = UserInfoHelper.getUserInfo();
-        long openTime = userInfo.getVip_end_time() - userInfo.getVip_start_time();
+        long startTime = userInfo.getVip_end_time() - userInfo.getVip_start_time();
         Date date = new Date();
-        long surplusTime = userInfo.getVip_end_time() - (date.getTime());
-        int openDays = (int) (openTime / MS_IN_A_DAY);
-        int surplusDays = (int) (surplusTime / MS_IN_A_DAY);
+        long endTime = userInfo.getVip_end_time() - (date.getTime());
+        int openDays = (int) (startTime / Config.MS_IN_A_DAY);
+        int surplusDays = (int) (endTime / Config.MS_IN_A_DAY);
         if (Math.abs(surplusDays) > Math.abs(openDays)) {
             surplusDays = openDays;
         }

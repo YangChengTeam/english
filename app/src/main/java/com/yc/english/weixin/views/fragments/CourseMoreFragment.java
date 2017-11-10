@@ -110,7 +110,7 @@ public class CourseMoreFragment extends BaseFragment<CoursePresenter> implements
 
     @Override
     public void showNoNet() {
-        mLoadingStateView.showNoNet(mCourseRecyclerView, "网络不给力", new View.OnClickListener() {
+        mLoadingStateView.showNoNet(mRefreshSwipeRefreshLayout, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPresenter.getWeiXinList(type, page + "", pageSize + "");
@@ -120,7 +120,7 @@ public class CourseMoreFragment extends BaseFragment<CoursePresenter> implements
 
     @Override
     public void showNoData() {
-        mLoadingStateView.showNoData(mCourseRecyclerView);
+        mLoadingStateView.showNoData(mRefreshSwipeRefreshLayout);
     }
 
     @Override

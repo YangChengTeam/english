@@ -61,7 +61,7 @@ public class CourseTypeActivity extends FullScreenActivity {
         TabsUtils.MoreFragmentAdapter mFragmentAdapter = new TabsUtils.MoreFragmentAdapter(getSupportFragmentManager(),
                 new String[]{"9", "10", "11", "12", "13"});
         mViewPager.setAdapter(mFragmentAdapter);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(4);
         mViewPager.setCurrentItem(index);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
