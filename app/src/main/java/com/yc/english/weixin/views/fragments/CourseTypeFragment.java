@@ -196,4 +196,9 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
     public void showOrderPayResult(ResultInfo resultInfo) {
         LogUtils.e("订单支付成功--->");
     }
+
+    @Override
+    public void isBuy() {
+
+    }
 }

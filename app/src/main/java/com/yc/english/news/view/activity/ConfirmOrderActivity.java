@@ -31,6 +31,7 @@ import com.yc.english.news.view.widget.SpaceItemDecoration;
 import com.yc.english.pay.PayConfig;
 import com.yc.english.pay.PayWayInfo;
 import com.yc.english.pay.PayWayInfoHelper;
+import com.yc.english.pay.alipay.IAliPay1Impl;
 import com.yc.english.pay.alipay.IPayCallback;
 import com.yc.english.pay.alipay.IWXPay1Impl;
 import com.yc.english.pay.alipay.OrderInfo;
@@ -176,21 +177,11 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
             orderInfo.setName("说说英语微课购买");
         }
 
-        /*new IAliPay1Impl(ConfirmOrderActivity.this).pay(orderInfo, new IPayCallback() {
-            @Override
-            public void onSuccess(OrderInfo orderInfo) {
-                RxBus.get().post(OrderConstant.PAY_SUCCESS, orderInfo != null ? orderInfo.getPay_order_sn() : "");
-            }
-
-            @Override
-            public void onFailure(OrderInfo orderInfo) {
-                Looper.prepare();
-                ToastUtils.showLong("支付失败");
-                Looper.loop();
-            }
-        });*/
-
-        RxBus.get().post(OrderConstant.WXPAY_SUCCESS, orderInfo);
+        if (payWayName.equals(PayConfig.ali_pay)) {
+            RxBus.get().post(OrderConstant.ALIPAY_SUCCESS, orderInfo);
+        } else {
+            RxBus.get().post(OrderConstant.WXPAY_SUCCESS, orderInfo);
+        }
     }
 
     @Override
@@ -210,6 +201,26 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
+                    @Tag(OrderConstant.ALIPAY_SUCCESS)
+            }
+    )
+    public void alipay(OrderInfo orderInfo) {
+        new IAliPay1Impl(ConfirmOrderActivity.this).pay(orderInfo, new IPayCallback() {
+            @Override
+            public void onSuccess(OrderInfo orderInfo) {
+                RxBus.get().post(OrderConstant.PAY_SUCCESS, orderInfo != null ? orderInfo.getPay_order_sn() : "");
+            }
+
+            @Override
+            public void onFailure(OrderInfo orderInfo) {
+                ToastUtils.showLong("支付失败");
+            }
+        });
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
                     @Tag(OrderConstant.WXPAY_SUCCESS)
             }
     )
@@ -222,9 +233,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
 
             @Override
             public void onFailure(OrderInfo orderInfo) {
-                //Looper.prepare();
-                ToastUtils.showLong("支付失败111");
-                //Looper.loop();
+                ToastUtils.showLong("支付失败");
             }
         });
     }
@@ -236,7 +245,13 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
             }
     )
     public void paySuccess(String payOrderSn) {
+        //ToastUtils.showLong("购买成功");
         removeBuyItemInCart();
         finish();
+    }
+
+    @Override
+    public void isBuy() {
+        RxBus.get().post(OrderConstant.PAY_SUCCESS, "");
     }
 }

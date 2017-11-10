@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.base.helper.OrderResultInfoHelper;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.news.contract.OrderContract;
@@ -42,7 +43,7 @@ public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View
 
             @Override
             public void onNext(final ResultInfo<OrderInfo> resultInfo) {
-                ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
+                OrderResultInfoHelper.handleResultInfo(resultInfo, new OrderResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
                         mView.showNoNet();
@@ -51,6 +52,11 @@ public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View
                     @Override
                     public void resultInfoNotOk(String message) {
                         mView.showNoNet();
+                    }
+
+                    @Override
+                    public void reulstInfoIsBuy() {
+                        mView.isBuy();
                     }
 
                     @Override

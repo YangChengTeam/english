@@ -121,7 +121,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         mSensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
 
         if (UserInfoHelper.getUserInfo() != null) {
-            if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
+            if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
                 mIsBuyOrVipLayout.setVisibility(View.VISIBLE);
             } else {
                 mIsBuyOrVipLayout.setVisibility(View.GONE);
