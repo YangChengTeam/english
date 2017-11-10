@@ -615,55 +615,61 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
 
     /**
      * 将录入的语音与源语音进行对比
+     *
      * @param sourceSen
      * @param speakSen
      * @return
      */
     public boolean compareResult(String sourceSen, String speakSen) {
 
-        if (StringUtils.isEmpty(sourceSen) || StringUtils.isEmpty(speakSen)) {
-            return false;
-        }
-
-        String regEx = " |、|，|。|；|？|！|,|\\.|;|\\?|!|]";
-        Pattern p = Pattern.compile(regEx);
-
-        //按照句子结束符分割句子
-        String[] words = p.split(sourceSen);
-        List<String> sourceList = new ArrayList<>();
-        for (int i = 0; i < words.length; i++) {
-            if (!StringUtils.isTrimEmpty(words[i])) {
-                sourceList.add(words[i]);
+        try {
+            if (StringUtils.isEmpty(sourceSen) || StringUtils.isEmpty(speakSen)) {
+                return false;
             }
-        }
 
-        List<String> speakList = new ArrayList<>();
-        String[] speakWords = p.split(speakSen);
-        for (int m = 0; m < speakWords.length; m++) {
-            if (!StringUtils.isTrimEmpty(speakWords[m])) {
-                speakList.add(speakWords[m]);
+            String regEx = " |、|，|。|；|？|！|,|\\.|;|\\?|!|]|:|：|\"|-";
+            Pattern p = Pattern.compile(regEx);
+
+            //按照句子结束符分割句子
+            String[] words = p.split(sourceSen);
+            List<String> sourceList = new ArrayList<>();
+            for (int i = 0; i < words.length; i++) {
+                if (!StringUtils.isTrimEmpty(words[i])) {
+                    sourceList.add(words[i]);
+                }
             }
-        }
 
-        int matchCount = 0;
-        float percent = 0;
-        for (String str : sourceList) {
-            if (speakList.contains(str)) {
-                matchCount++;
+            List<String> speakList = new ArrayList<>();
+            String[] speakWords = p.split(speakSen);
+            for (int m = 0; m < speakWords.length; m++) {
+                if (!StringUtils.isTrimEmpty(speakWords[m])) {
+                    speakList.add(speakWords[m]);
+                }
             }
-        }
 
-        if (matchCount > 0 && sourceList.size() > 0) {
-            percent = (float) matchCount / (float) sourceList.size() * 100;
-        } else {
-            return false;
-        }
+            int matchCount = 0;
+            float percent = 0;
+            for (String str : sourceList) {
+                if (speakList.contains(str)) {
+                    matchCount++;
+                }
+            }
 
-        if (percent >= 60) {
-            return true;
-        } else {
-            return false;
+            if (matchCount > 0 && sourceList.size() > 0) {
+                percent = (float) matchCount / (float) sourceList.size() * 100;
+            } else {
+                return false;
+            }
+
+            if (percent >= 60) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
 

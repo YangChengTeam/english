@@ -7,9 +7,10 @@
               android:gravity="center"
               android:orientation="vertical">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/iv_icon"
@@ -17,20 +18,10 @@
             android:layout_height="110dp"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
-            android:background="@mipmap/default_course_icon"
             android:scaleType="centerInside"
+            android:src="@mipmap/course_item_default_icon"
             />
-
-        <ImageView
-            android:id="@+id/iv_is_vip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|right"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="5dp"
-            android:src="@mipmap/is_vip_course_icon"
-            android:visibility="gone"/>
-    </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

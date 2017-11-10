@@ -2,15 +2,17 @@ package com.yc.english.setting.presenter;
 
 import android.content.Context;
 
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
+import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.contract.MyContract;
+import com.yc.english.setting.model.bean.MyOrderInfoWrapper;
 import com.yc.english.setting.model.engin.MyEngin;
+
+import rx.Subscriber;
+import rx.Subscription;
 
 /**
  * Created by zhangkai on 2017/8/3.
@@ -24,7 +26,7 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
-        if(!forceUpdate) return;
+        if (!forceUpdate) return;
         getUserInfo();
     }
 
@@ -42,5 +44,66 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
                 mView.showNoLogin(true);
             }
         });
+    }
+
+    @Override
+    public void getMyOrderInfoList(final int currentPage, int limit) {
+        if (currentPage == 1 && mFirstLoad) {
+            mView.showLoading();
+        }
+        Subscription subscription = mEngin.getMyOrderInfo(currentPage, limit).subscribe(new Subscriber<ResultInfo<MyOrderInfoWrapper>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if (currentPage == 1 && mFirstLoad) {
+                    mView.showNoNet();
+                }
+            }
+
+            @Override
+            public void onNext(final ResultInfo<MyOrderInfoWrapper> resultInfo) {
+                ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+                        if (currentPage == 1 && !mFirstLoad) {
+                            mView.showNoNet();
+                        }
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        if (currentPage == 1 && !mFirstLoad) {
+                            mView.showNoData();
+                        }
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (resultInfo != null && resultInfo.data != null) {
+                            if (currentPage == 1 && !mFirstLoad) {
+                                mView.hideStateView();
+                            }
+
+                            if (resultInfo.data.getList() != null && resultInfo.data.getList().size() > 0) {
+                                mView.showMyOrderInfoList(resultInfo.data.getList());
+                            } else {
+                                if (currentPage == 1 && !mFirstLoad) {
+                                    mView.showNoData();
+                                }
+                            }
+                        } else {
+                            if (currentPage == 1 && !mFirstLoad) {
+                                mView.showNoData();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+        mSubscriptions.add(subscription);
     }
 }

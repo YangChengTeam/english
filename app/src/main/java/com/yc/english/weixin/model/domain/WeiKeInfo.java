@@ -45,9 +45,9 @@ public class WeiKeInfo implements Parcelable{
     @JSONField(name = "good_id")
     private String goodId;
     @JSONField(name = "is_pay")
-    private String isPay;
+    private int isPay;
     @JSONField(name = "is_vip")
-    private String isVip;
+    private int isVip;
     private String cnt;
 
     public String getId() {
@@ -226,28 +226,31 @@ public class WeiKeInfo implements Parcelable{
         this.goodId = goodId;
     }
 
-    public String getIsPay() {
-        return isPay;
-    }
-
-    public void setIsPay(String isPay) {
-        this.isPay = isPay;
-    }
-
-    public String getIsVip() {
-        return isVip;
-    }
-
-    public void setIsVip(String isVip) {
-        this.isVip = isVip;
-    }
-
     public String getCnt() {
         return cnt;
     }
 
     public void setCnt(String cnt) {
         this.cnt = cnt;
+    }
+
+    public int getIsPay() {
+        return isPay;
+    }
+
+    public void setIsPay(int isPay) {
+        this.isPay = isPay;
+    }
+
+    public int getIsVip() {
+        return isVip;
+    }
+
+    public void setIsVip(int isVip) {
+        this.isVip = isVip;
+    }
+
+    public WeiKeInfo() {
     }
 
     @Override
@@ -279,12 +282,9 @@ public class WeiKeInfo implements Parcelable{
         dest.writeString(this.mPrice);
         dest.writeString(this.vip_price);
         dest.writeString(this.goodId);
-        dest.writeString(this.isPay);
-        dest.writeString(this.isVip);
+        dest.writeInt(this.isPay);
+        dest.writeInt(this.isVip);
         dest.writeString(this.cnt);
-    }
-
-    public WeiKeInfo() {
     }
 
     protected WeiKeInfo(Parcel in) {
@@ -310,12 +310,12 @@ public class WeiKeInfo implements Parcelable{
         this.mPrice = in.readString();
         this.vip_price = in.readString();
         this.goodId = in.readString();
-        this.isPay = in.readString();
-        this.isVip = in.readString();
+        this.isPay = in.readInt();
+        this.isVip = in.readInt();
         this.cnt = in.readString();
     }
 
-    public static final Parcelable.Creator<WeiKeInfo> CREATOR = new Creator<WeiKeInfo>() {
+    public static final Creator<WeiKeInfo> CREATOR = new Creator<WeiKeInfo>() {
         @Override
         public WeiKeInfo createFromParcel(Parcel source) {
             return new WeiKeInfo(source);

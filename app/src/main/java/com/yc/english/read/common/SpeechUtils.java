@@ -36,10 +36,9 @@ public class SpeechUtils {
     public static boolean isSpeechSuccess = true;
 
     public static SpeechSynthesizer getTts(Context context) {
-        initSpeech(context, 25, 50, 50, 3);
+        initSpeech(context, 20, 50, 50, 3);
         return mTts;
     }
-
 
     public static void initSpeech(Context context, int speed, int pitch, int volume, int streamType) {
         mContext = context;
