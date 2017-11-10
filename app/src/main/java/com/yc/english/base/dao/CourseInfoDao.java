@@ -47,9 +47,9 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
         public final static Property MPrice = new Property(20, float.class, "mPrice", false, "M_PRICE");
         public final static Property VipPrice = new Property(21, float.class, "vipPrice", false, "VIP_PRICE");
         public final static Property GoodId = new Property(22, String.class, "goodId", false, "GOOD_ID");
-        public final static Property IsPay = new Property(23, String.class, "isPay", false, "IS_PAY");
-        public final static Property Is_vip = new Property(24, String.class, "is_vip", false, "IS_VIP");
-        public final static Property UserHas = new Property(25, String.class, "userHas", false, "USER_HAS");
+        public final static Property IsPay = new Property(23, int.class, "isPay", false, "IS_PAY");
+        public final static Property Is_vip = new Property(24, int.class, "is_vip", false, "IS_VIP");
+        public final static Property UserHas = new Property(25, int.class, "userHas", false, "USER_HAS");
         public final static Property UserNum = new Property(26, String.class, "userNum", false, "USER_NUM");
         public final static Property UnitNum = new Property(27, String.class, "unitNum", false, "UNIT_NUM");
     }
@@ -90,9 +90,9 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
                 "\"M_PRICE\" REAL NOT NULL ," + // 20: mPrice
                 "\"VIP_PRICE\" REAL NOT NULL ," + // 21: vipPrice
                 "\"GOOD_ID\" TEXT," + // 22: goodId
-                "\"IS_PAY\" TEXT," + // 23: isPay
-                "\"IS_VIP\" TEXT," + // 24: is_vip
-                "\"USER_HAS\" TEXT," + // 25: userHas
+                "\"IS_PAY\" INTEGER NOT NULL ," + // 23: isPay
+                "\"IS_VIP\" INTEGER NOT NULL ," + // 24: is_vip
+                "\"USER_HAS\" INTEGER NOT NULL ," + // 25: userHas
                 "\"USER_NUM\" TEXT," + // 26: userNum
                 "\"UNIT_NUM\" TEXT);"); // 27: unitNum
     }
@@ -201,21 +201,9 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
         if (goodId != null) {
             stmt.bindString(23, goodId);
         }
- 
-        String isPay = entity.getIsPay();
-        if (isPay != null) {
-            stmt.bindString(24, isPay);
-        }
- 
-        String is_vip = entity.getIs_vip();
-        if (is_vip != null) {
-            stmt.bindString(25, is_vip);
-        }
- 
-        String userHas = entity.getUserHas();
-        if (userHas != null) {
-            stmt.bindString(26, userHas);
-        }
+        stmt.bindLong(24, entity.getIsPay());
+        stmt.bindLong(25, entity.getIs_vip());
+        stmt.bindLong(26, entity.getUserHas());
  
         String userNum = entity.getUserNum();
         if (userNum != null) {
@@ -326,21 +314,9 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
         if (goodId != null) {
             stmt.bindString(23, goodId);
         }
- 
-        String isPay = entity.getIsPay();
-        if (isPay != null) {
-            stmt.bindString(24, isPay);
-        }
- 
-        String is_vip = entity.getIs_vip();
-        if (is_vip != null) {
-            stmt.bindString(25, is_vip);
-        }
- 
-        String userHas = entity.getUserHas();
-        if (userHas != null) {
-            stmt.bindString(26, userHas);
-        }
+        stmt.bindLong(24, entity.getIsPay());
+        stmt.bindLong(25, entity.getIs_vip());
+        stmt.bindLong(26, entity.getUserHas());
  
         String userNum = entity.getUserNum();
         if (userNum != null) {
@@ -384,9 +360,9 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
             cursor.getFloat(offset + 20), // mPrice
             cursor.getFloat(offset + 21), // vipPrice
             cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // goodId
-            cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23), // isPay
-            cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24), // is_vip
-            cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25), // userHas
+            cursor.getInt(offset + 23), // isPay
+            cursor.getInt(offset + 24), // is_vip
+            cursor.getInt(offset + 25), // userHas
             cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // userNum
             cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27) // unitNum
         );
@@ -418,9 +394,9 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
         entity.setMPrice(cursor.getFloat(offset + 20));
         entity.setVipPrice(cursor.getFloat(offset + 21));
         entity.setGoodId(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
-        entity.setIsPay(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
-        entity.setIs_vip(cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24));
-        entity.setUserHas(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
+        entity.setIsPay(cursor.getInt(offset + 23));
+        entity.setIs_vip(cursor.getInt(offset + 24));
+        entity.setUserHas(cursor.getInt(offset + 25));
         entity.setUserNum(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
         entity.setUnitNum(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
      }

@@ -20,7 +20,7 @@
             <LinearLayout
                 android:id="@+id/ll_head"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:background="@mipmap/setting_head_bg"
                 android:orientation="vertical">
 
@@ -74,23 +74,18 @@
                         android:id="@+id/miv_buy_vip"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        eng:src="@mipmap/setting_weixin"
+                        eng:src="@mipmap/setting_vip"
                         eng:text="@string/setting_buy_vip"></com.yc.english.setting.view.widgets.MenuItemView>
 
                     <com.yc.english.setting.view.widgets.MenuItemView
                         android:id="@+id/miv_my_order"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:visibility="gone"
-                        eng:src="@mipmap/setting_weixin"
-                        eng:text="@string/setting_buy_vip"></com.yc.english.setting.view.widgets.MenuItemView>
 
-                    <com.yc.english.setting.view.widgets.MenuItemView
-                        android:id="@+id/miv_to_market"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        eng:src="@mipmap/setting_qq_group"
-                        eng:text="@string/setting_to_market"></com.yc.english.setting.view.widgets.MenuItemView>
+                        eng:src="@mipmap/setting_order"
+                        eng:text="@string/my_order"></com.yc.english.setting.view.widgets.MenuItemView>
+
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -104,14 +99,14 @@
                         android:id="@+id/miv_qq"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        eng:src="@mipmap/setting_qq_group"
+                        eng:src="@mipmap/setting_qq"
                         eng:text="@string/setting_qq_group"></com.yc.english.setting.view.widgets.MenuItemView>
 
                     <com.yc.english.setting.view.widgets.MenuItemView
                         android:id="@+id/miv_weixin"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        eng:src="@mipmap/setting_weixin"
+                        eng:src="@mipmap/setting_wx"
                         eng:text="@string/setting_weixin"></com.yc.english.setting.view.widgets.MenuItemView>
                 </LinearLayout>
 
@@ -127,7 +122,7 @@
                         android:id="@+id/miv_feedback"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        eng:src="@mipmap/setting_feedback"
+                        eng:src="@mipmap/setting_customer"
                         eng:text="@string/setting_feedback"></com.yc.english.setting.view.widgets.MenuItemView>
 
                     <com.yc.english.setting.view.widgets.MenuItemView
@@ -141,9 +136,17 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="90dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/setting_item_bg">
+                    android:background="@mipmap/setting_item_bg"
+                    android:orientation="vertical">
+
+                    <com.yc.english.setting.view.widgets.MenuItemView
+                        android:id="@+id/miv_to_market"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        eng:src="@mipmap/setting_market"
+                        eng:text="@string/setting_to_market"></com.yc.english.setting.view.widgets.MenuItemView>
 
                     <com.yc.english.setting.view.widgets.MenuItemView
                         android:id="@+id/miv_setting"

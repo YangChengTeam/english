@@ -160,6 +160,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
             });
         } else {
             //todo 微信支付
+
         }
     }
 

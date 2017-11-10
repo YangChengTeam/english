@@ -21,6 +21,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.helper.ShoppingHelper;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
@@ -78,6 +79,9 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @BindView(R.id.tv_old_price)
     TextView mOldPriceTextView;
 
+    @BindView(R.id.layout_is_buy_or_vip)
+    LinearLayout mIsBuyOrVipLayout;
+
     private String title;
 
     private int screenHeight;
@@ -87,6 +91,8 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     private long startTime;
 
     private CourseInfo currentCourseInfo;
+
+    private boolean isPlay = true;
 
     @Override
     public int getLayoutId() {
@@ -114,6 +120,14 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
 
+        if (UserInfoHelper.getUserInfo() != null) {
+            if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
+                mIsBuyOrVipLayout.setVisibility(View.VISIBLE);
+            } else {
+                mIsBuyOrVipLayout.setVisibility(View.GONE);
+            }
+        }
+
         RxView.clicks(mAddToCartLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -132,8 +146,21 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         RxView.clicks(mBuyNowLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(NewsWeiKeDetailActivity.this, ConfirmOrderActivity.class);
-                startActivity(intent);
+                if (currentCourseInfo != null) {
+                    if (UserInfoHelper.getUserInfo() != null) {
+                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
+
+                        Intent intent = new Intent(NewsWeiKeDetailActivity.this, ConfirmOrderActivity.class);
+                        ArrayList<CourseInfo> goodsList = new ArrayList<>();
+                        goodsList.add(currentCourseInfo);
+                        intent.putExtra("total_price", currentCourseInfo.getMPrice());
+                        intent.putParcelableArrayListExtra("goods_list", goodsList);
+                        startActivity(intent);
+                    } else {
+                        UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
+                    }
+                }
+
             }
         });
     }
@@ -239,6 +266,50 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
         mJCVideoPlayer.battery_level.setVisibility(View.GONE);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
+
+        if (currentCourseInfo != null) {
+
+            //收费
+            if (currentCourseInfo.getIsPay() == 0) {
+                //未购买
+                if (currentCourseInfo.getUserHas() == 0) {
+                    if (UserInfoHelper.getUserInfo() != null) {
+                        if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
+                            isPlay = false;
+                        } else {
+                            if (currentCourseInfo.getIs_vip() == 1) {
+                                isPlay = false;
+                            }
+                        }
+                    } else {
+                        isPlay = false;
+                    }
+                }
+            }
+        }
+
+        mJCVideoPlayer.startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (UserInfoHelper.getUserInfo() != null) {
+                    if (isPlay) {
+                        mJCVideoPlayer.startVideo();
+                    } else {
+                        final AlertDialog alertDialog = new AlertDialog(NewsWeiKeDetailActivity.this);
+                        alertDialog.setDesc("未购买此课程，是否马上购买？");
+                        alertDialog.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                } else {
+                    UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
+                }
+            }
+        });
 
     }
 

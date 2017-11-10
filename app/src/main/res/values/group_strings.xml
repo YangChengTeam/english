@@ -115,5 +115,16 @@
         <item>30天</item>
     </string-array>
 
+    <string-array name="setting">
+        <item>@string/setting_buy_vip</item>
+        <item>@string/setting_to_market</item>
+        <item>@string/setting_qq_group</item>
+        <item>@string/setting_weixin</item>
+        <item>@string/setting_feedback</item>
+        <item>@string/setting_share</item>
+        <item>@string/setting_setting</item>
+
+    </string-array>
+
 
 </resources>

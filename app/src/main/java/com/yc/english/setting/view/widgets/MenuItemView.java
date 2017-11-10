@@ -45,4 +45,6 @@ public class MenuItemView extends BaseView {
     public int getLayoutId() {
         return R.layout.setting_menu_item_view;
     }
+
+
 }
