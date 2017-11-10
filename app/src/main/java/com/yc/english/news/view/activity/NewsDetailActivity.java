@@ -257,7 +257,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
         mJCVideoPlayer.battery_level.setVisibility(View.GONE);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
-
     }
 
 

@@ -6,8 +6,8 @@ import android.os.Parcelable;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by zhangkai on 2017/8/30.
@@ -67,11 +67,11 @@ public class CourseInfo implements Parcelable {
     @JSONField(name = "good_id")
     private String goodId;
     @JSONField(name = "is_pay")
-    private String isPay;
+    private int isPay;//0收费,1免费
     @JSONField(name = "is_vip")
-    private String is_vip;
+    private int is_vip;//0对vip收费,1:对vip免费
     @JSONField(name = "user_has")
-    private String userHas;
+    private int userHas;//0未购买，1:已购买
 
     @JSONField(name = "user_num")
     private String userNum;
@@ -232,29 +232,22 @@ public class CourseInfo implements Parcelable {
         this.goodId = goodId;
     }
 
-    public String getIsPay() {
-        return this.isPay;
+    public int getIsPay() {
+        return isPay;
     }
 
-    public void setIsPay(String isPay) {
+    public void setIsPay(int isPay) {
         this.isPay = isPay;
     }
 
-    public String getIs_vip() {
-        return this.is_vip;
+    public int getIs_vip() {
+        return is_vip;
     }
 
-    public void setIs_vip(String is_vip) {
+    public void setIs_vip(int is_vip) {
         this.is_vip = is_vip;
     }
 
-    public String getUserHas() {
-        return this.userHas;
-    }
-
-    public void setUserHas(String userHas) {
-        this.userHas = userHas;
-    }
 
     public String getUserNum() {
         return this.userNum;
@@ -296,9 +289,26 @@ public class CourseInfo implements Parcelable {
         this.vipPrice = vipPrice;
     }
 
-    @Generated(hash = 466108496)
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public int getUserHas() {
+        return this.userHas;
+    }
+
+    public void setUserHas(int userHas) {
+        this.userHas = userHas;
+    }
+
+    @Generated(hash = 80242023)
     public CourseInfo(String id, String title, String url, String keywords, String type_id, String period, String flag, String author, String add_time, String add_date, String img, String html, int url_type, String userId, String body, String ip_num,
-            String pv_num, String sort, boolean isChecked, float price, float mPrice, float vipPrice, String goodId, String isPay, String is_vip, String userHas, String userNum, String unitNum) {
+                      String pv_num, String sort, boolean isChecked, float price, float mPrice, float vipPrice, String goodId, int isPay, int is_vip, int userHas, String userNum, String unitNum) {
         this.id = id;
         this.title = title;
         this.url = url;
@@ -328,6 +338,7 @@ public class CourseInfo implements Parcelable {
         this.userNum = userNum;
         this.unitNum = unitNum;
     }
+
 
     @Override
     public int describeContents() {
@@ -359,19 +370,11 @@ public class CourseInfo implements Parcelable {
         dest.writeFloat(this.mPrice);
         dest.writeFloat(this.vipPrice);
         dest.writeString(this.goodId);
-        dest.writeString(this.isPay);
-        dest.writeString(this.is_vip);
-        dest.writeString(this.userHas);
+        dest.writeInt(this.isPay);
+        dest.writeInt(this.is_vip);
+        dest.writeInt(this.userHas);
         dest.writeString(this.userNum);
         dest.writeString(this.unitNum);
-    }
-
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     protected CourseInfo(Parcel in) {
@@ -398,9 +401,9 @@ public class CourseInfo implements Parcelable {
         this.mPrice = in.readFloat();
         this.vipPrice = in.readFloat();
         this.goodId = in.readString();
-        this.isPay = in.readString();
-        this.is_vip = in.readString();
-        this.userHas = in.readString();
+        this.isPay = in.readInt();
+        this.is_vip = in.readInt();
+        this.userHas = in.readInt();
         this.userNum = in.readString();
         this.unitNum = in.readString();
     }
