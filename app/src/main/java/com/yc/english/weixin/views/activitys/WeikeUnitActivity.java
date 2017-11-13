@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.news.view.activity.NewsWeiKeDetailActivity;
 import com.yc.english.weixin.contract.WeiKeContract;
 import com.yc.english.weixin.model.domain.WeiKeCategory;
@@ -61,10 +62,16 @@ public class WeikeUnitActivity extends FullScreenActivity<WeiKePresenter> implem
         mWeiKeInfoItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(WeikeUnitActivity.this, NewsWeiKeDetailActivity.class);
-                intent.putExtra("id",mWeiKeInfoItemAdapter.getData().get(position).getId());
-                //intent.putExtra("info", mWeiKeInfoItemAdapter.getData().get(position));
-                startActivity(intent);
+                if (type.equals("8")) {
+                    Intent intent = new Intent(WeikeUnitActivity.this, NewsWeiKeDetailActivity.class);
+                    intent.putExtra("id",mWeiKeInfoItemAdapter.getData().get(position).getId());
+                    //intent.putExtra("info", mWeiKeInfoItemAdapter.getData().get(position));
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(WeikeUnitActivity.this, NewsDetailActivity.class);
+                    intent.putExtra("id",mWeiKeInfoItemAdapter.getData().get(position).getId());
+                    startActivity(intent);
+                }
             }
         });
 

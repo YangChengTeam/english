@@ -92,7 +92,11 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         if (getIntent() != null) {
             CourseInfo courseInfo = getIntent().getParcelableExtra("info");
-            id = courseInfo.getId();
+            if (courseInfo != null) {
+                id = courseInfo.getId();
+            } else {
+                id = getIntent().getStringExtra("id");
+            }
             mPresenter.getWeixinInfo(id);
         }
 
