@@ -114,9 +114,9 @@ public class ShoppingCartActivity extends FullScreenActivity {
                     CheckBox checkBox = (CheckBox) view;
                     mCartItemAdapter.getData().get(position).setIsChecked(checkBox.isChecked());
                     if (checkBox.isChecked()) {
-                        totalPrice = totalPrice + mCartItemAdapter.getData().get(position).getMPrice();
+                        totalPrice = totalPrice + mCartItemAdapter.getData().get(position).getPayPrice();
                     } else {
-                        totalPrice = totalPrice - mCartItemAdapter.getData().get(position).getMPrice();
+                        totalPrice = totalPrice - mCartItemAdapter.getData().get(position).getPayPrice();
 
                         if (!checkItemSelected()) {
                             mAllCheckBox.setChecked(false);
@@ -217,7 +217,7 @@ public class ShoppingCartActivity extends FullScreenActivity {
         for (int i = 0; i < mCartItemAdapter.getData().size(); i++) {
             mCartItemAdapter.getData().get(i).setIsChecked(flag);
             if (flag) {
-                cartPrice += mCartItemAdapter.getData().get(i).getMPrice();
+                cartPrice += mCartItemAdapter.getData().get(i).getPayPrice();
             } else {
                 cartPrice = 0;
             }

@@ -1,8 +1,12 @@
 package com.yc.english.setting.view.adapter;
 
+import android.widget.ImageView;
+
+import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
+import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.setting.model.bean.MyOrderInfo;
 
 import java.util.List;
@@ -22,8 +26,12 @@ public class MyOrderItemAdapter extends BaseQuickAdapter<MyOrderInfo, BaseViewHo
         helper.setText(R.id.tv_order_sn, item.getOrderSn()).
                 setText(R.id.tv_good_id, item.getId())
                 .setText(R.id.tv_good_name, item.getTitle())
-                .setText(R.id.tv_order_date, item.getOrderAddTime());
+                .setText(R.id.tv_order_date, TimeUtils.millis2String(item.getOrderAddTime() * 1000));
+
+        GlideHelper.imageView(mContext, (ImageView) helper.getView(R.id.iv_icon), item.getImg(), 0);
+
         String orderState = "";
+
         switch (item.getOrderStatus()) {
             case 0:
                 orderState = "待支付";
@@ -48,6 +56,8 @@ public class MyOrderItemAdapter extends BaseQuickAdapter<MyOrderInfo, BaseViewHo
                 break;
             case 7:
                 orderState = "退货成功";
+                break;
+            default:
                 break;
         }
         helper.setText(R.id.tv_order_state, orderState);

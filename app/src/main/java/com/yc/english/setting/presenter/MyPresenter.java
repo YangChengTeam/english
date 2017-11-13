@@ -8,8 +8,10 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.contract.MyContract;
-import com.yc.english.setting.model.bean.MyOrderInfoWrapper;
+import com.yc.english.setting.model.bean.MyOrderInfo;
 import com.yc.english.setting.model.engin.MyEngin;
+
+import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -22,6 +24,7 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
 
     public MyPresenter(Context context, MyContract.View iView) {
         super(context, iView);
+        mEngin = new MyEngin(context);
     }
 
     @Override
@@ -51,7 +54,7 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
         if (currentPage == 1 && mFirstLoad) {
             mView.showLoading();
         }
-        Subscription subscription = mEngin.getMyOrderInfo(currentPage, limit).subscribe(new Subscriber<ResultInfo<MyOrderInfoWrapper>>() {
+        Subscription subscription = mEngin.getMyOrderInfo(currentPage, limit).subscribe(new Subscriber<ResultInfo<List<MyOrderInfo>>>() {
             @Override
             public void onCompleted() {
 
@@ -65,7 +68,7 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
             }
 
             @Override
-            public void onNext(final ResultInfo<MyOrderInfoWrapper> resultInfo) {
+            public void onNext(final ResultInfo<List<MyOrderInfo>> resultInfo) {
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
@@ -88,11 +91,13 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
                                 mView.hideStateView();
                             }
 
-                            if (resultInfo.data.getList() != null && resultInfo.data.getList().size() > 0) {
-                                mView.showMyOrderInfoList(resultInfo.data.getList());
+                            if (resultInfo.data != null && resultInfo.data.size() > 0) {
+                                mView.showMyOrderInfoList(resultInfo.data);
                             } else {
                                 if (currentPage == 1 && !mFirstLoad) {
                                     mView.showNoData();
+                                } else {
+                                    mView.showMyOrderInfoList(null);
                                 }
                             }
                         } else {

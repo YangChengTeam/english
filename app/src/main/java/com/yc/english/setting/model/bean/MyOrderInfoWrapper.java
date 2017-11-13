@@ -8,13 +8,13 @@ import java.util.List;
 
 public class MyOrderInfoWrapper {
 
-    private List<MyOrderInfo> list;
+    private List<MyOrderInfo> data;
 
-    public List<MyOrderInfo> getList() {
-        return list;
+    public List<MyOrderInfo> getData() {
+        return data;
     }
 
-    public void setList(List<MyOrderInfo> list) {
-        this.list = list;
+    public void setData(List<MyOrderInfo> data) {
+        this.data = data;
     }
 }

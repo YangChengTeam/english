@@ -166,27 +166,12 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             mTextViewTitle.setText(title);
 
             String url = courseInfo.getUrl();
-            if (courseInfo.getUrl_type() == 1) {
-                //playAudio(url);
-            } else if (courseInfo.getUrl_type() == 2) {
-                playVideo(url, courseInfo.getImg());
-            }
+            playVideo(url, courseInfo.getImg());
 
             mLearnCountTextView.setText(courseInfo.getUserNum());
             mNowPriceTextView.setText("¥" + courseInfo.getMPrice());
             mOldPriceTextView.setText("原价:¥" + courseInfo.getPrice());
 
-            if(currentCourseInfo.getIsPay() == 1){
-                mIsBuyOrVipLayout.setVisibility(View.GONE);
-            }else {
-                if (UserInfoHelper.getUserInfo() != null) {
-                    if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
-                        mIsBuyOrVipLayout.setVisibility(View.VISIBLE);
-                    } else {
-                        mIsBuyOrVipLayout.setVisibility(View.GONE);
-                    }
-                }
-            }
         }
     }
 
@@ -289,6 +274,13 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
                     }
                 }
             }
+
+            if(isPlay){
+                mIsBuyOrVipLayout.setVisibility(View.GONE);
+            }else{
+                mIsBuyOrVipLayout.setVisibility(View.VISIBLE);
+            }
+
         }
 
         mJCVideoPlayer.startButton.setOnClickListener(new View.OnClickListener() {

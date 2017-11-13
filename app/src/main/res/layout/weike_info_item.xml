@@ -17,7 +17,7 @@
             android:layout_height="110dp"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
-            android:background="@mipmap/course_item_default_icon"
+            android:src="@mipmap/course_item_default_icon"
             android:scaleType="centerInside"
             />
 

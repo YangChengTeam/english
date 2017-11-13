@@ -20,8 +20,6 @@ public class OrderInfo implements Serializable {
     @JSONField(name = "charge_order_sn")
     private String order_sn; //订单号
 
-    private String pay_order_sn; //用户订单号，充值完成后，用于发起【订单支付】请求
-
     private String message;
 
 
@@ -34,11 +32,10 @@ public class OrderInfo implements Serializable {
     }
 
 
-    public OrderInfo(float money, String name, String order_sn, String pay_order_sn) {
+    public OrderInfo(float money, String name, String order_sn) {
         this.money = money;
         this.name = name;
         this.order_sn = order_sn;
-        this.pay_order_sn = pay_order_sn;
     }
 
 
@@ -93,11 +90,4 @@ public class OrderInfo implements Serializable {
         this.message = message;
     }
 
-    public String getPay_order_sn() {
-        return pay_order_sn;
-    }
-
-    public void setPay_order_sn(String pay_order_sn) {
-        this.pay_order_sn = pay_order_sn;
-    }
 }

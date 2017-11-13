@@ -10,9 +10,10 @@ import com.yc.english.base.model.BaseEngin;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.setting.model.bean.MyOrderInfoWrapper;
+import com.yc.english.setting.model.bean.MyOrderInfo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
@@ -62,7 +63,7 @@ public class MyEngin extends BaseEngin {
         }.getType(), params, true, true, true);
     }
 
-    public Observable<ResultInfo<MyOrderInfoWrapper>> getMyOrderInfo(int page, int limit) {
+    public Observable<ResultInfo<List<MyOrderInfo>>> getMyOrderInfo(int page, int limit) {
         Map<String, String> params = new HashMap<>();
         params.put("user_id", UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
         params.put("page", page + "");
@@ -70,7 +71,7 @@ public class MyEngin extends BaseEngin {
         params.put("type", "1");
         params.put("app_id", "1");
 
-        return HttpCoreEngin.get(mContext).rxpost(URLConfig.MY_ORDER_URL, new TypeReference<ResultInfo<MyOrderInfoWrapper>>() {
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.MY_ORDER_URL, new TypeReference<ResultInfo<List<MyOrderInfo>>>() {
         }.getType(), params, true, true, true);
     }
 

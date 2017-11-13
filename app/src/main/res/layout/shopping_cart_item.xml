@@ -24,9 +24,13 @@
         android:gravity="center">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="53dp"
-            android:background="@mipmap/default_course_icon"/>
+            android:id="@+id/iv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="110dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:src="@mipmap/course_item_default_icon"
+            android:scaleType="centerInside"/>
     </LinearLayout>
 
     <LinearLayout
