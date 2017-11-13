@@ -3,24 +3,19 @@ package com.yc.english.setting.view.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -30,6 +25,7 @@ import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.utils.QQUtils;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseFragment;
+import com.yc.english.base.view.IFinish;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
@@ -49,8 +45,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
 
 /**
@@ -101,6 +95,7 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
     @BindView(R.id.miv_my_order)
     MenuItemView mOrderMenuItemView;
 
+
     @Override
     public void init() {
 //        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -109,17 +104,16 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
         mCollapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);//设置收缩后标题的位置
 
 
+        mAppBarLayout.setExpanded(false);
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                LogUtils.e(verticalOffset + "---" + appBarLayout.getHeight() + "---" + toolbar.getHeight() + "--" + appBarLayout.getTotalScrollRange());
+//                LogUtils.e(verticalOffset + "---" + appBarLayout.getHeight() + "---" + toolbar.getHeight());
 
-
-                if (verticalOffset == 0) {
-                    mCollapsingToolbarLayout.setTitle("");
-                } else {
-
+                if (verticalOffset <= -appBarLayout.getHeight() / 2) {
                     mCollapsingToolbarLayout.setTitle("用户中心");
+                } else {
+                    mCollapsingToolbarLayout.setTitle("");
                 }
 
             }

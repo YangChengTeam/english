@@ -94,7 +94,7 @@
     <string name="count">%1$s次</string>
     <string name="update_date">更新%1$s</string>
     <string name="price">¥%1$s</string>
-    <string name="confirm_pay">确认支付%1$.1f元</string>
+    <string name="confirm_pay">确认支付%1$.2f元</string>
     <string name="vip_equities">VIP会员</string>
 
     <string-array name="task_finish_result">

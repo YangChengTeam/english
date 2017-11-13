@@ -65,14 +65,14 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
             if (view.getTag(R.id.img_id).equals(item.getImg())) {
                 Glide.with(mContext).load(item.getImg()).apply(new RequestOptions()
                         .transform(new GlideRoundTransform(mContext, pos, true))
-                        .diskCacheStrategy(DiskCacheStrategy.DATA).placeholder(R.mipmap.base_loading).error(drawable)).thumbnail(0.1f).into(view);
+                        .diskCacheStrategy(DiskCacheStrategy.DATA).placeholder(R.mipmap.base_loading).error(drawable)).into(view);
             } else {
                 Glide.with(mContext).clear(view);
             }
         } else {
             Glide.with(mContext).load(item.getImg()).apply(new RequestOptions()
                     .transform(new GlideRoundTransform(mContext, pos, false))
-                    .diskCacheStrategy(DiskCacheStrategy.DATA).placeholder(R.mipmap.base_loading).error(drawable)).thumbnail(0.1f).into(view);
+                    .diskCacheStrategy(DiskCacheStrategy.DATA).placeholder(R.mipmap.base_loading).error(drawable)).into(view);
         }
 
 

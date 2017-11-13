@@ -39,6 +39,8 @@ public class GoodInfo {
     private String status;
     private String status_name;
 
+    private String pay_price;//支付价格
+
     public String getId() {
         return id;
     }
@@ -159,5 +161,11 @@ public class GoodInfo {
         this.status_name = status_name;
     }
 
+    public String getPay_price() {
+        return pay_price;
+    }
 
+    public void setPay_price(String pay_price) {
+        this.pay_price = pay_price;
+    }
 }

@@ -30,7 +30,8 @@
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin" />
 
-            <include layout="@layout/activity_top_setting" />
+            <include
+                layout="@layout/activity_top_setting" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

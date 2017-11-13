@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@mipmap/pic_example"
             />
 
         <RelativeLayout

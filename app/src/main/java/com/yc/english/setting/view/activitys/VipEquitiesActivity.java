@@ -36,8 +36,8 @@ public class VipEquitiesActivity extends FullScreenActivity {
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         long startTime = userInfo.getVip_end_time() - userInfo.getVip_start_time();
         Date date = new Date();
-        long endTime = userInfo.getVip_end_time() - (date.getTime());
-        int openDays = (int) (startTime / Config.MS_IN_A_DAY);
+        long endTime = userInfo.getVip_end_time() * 1000 - (date.getTime());
+        int openDays = (int) (startTime * 1000 / Config.MS_IN_A_DAY);
         int surplusDays = (int) (endTime / Config.MS_IN_A_DAY);
         if (Math.abs(surplusDays) > Math.abs(openDays)) {
             surplusDays = openDays;

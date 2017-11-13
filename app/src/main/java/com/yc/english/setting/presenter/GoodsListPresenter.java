@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.utils.EngineUtils;
@@ -87,9 +88,21 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
 
             @Override
             public void onNext(final ResultInfo<OrderInfo> orderInfoResultInfo) {
-                handleResultInfo(orderInfoResultInfo, new Runnable() {
+                ResultInfoHelper.handleResultInfo(orderInfoResultInfo, new ResultInfoHelper.Callback() {
                     @Override
-                    public void run() {
+                    public void resultInfoEmpty(String message) {
+                        mView.dismissLoadingDialog();
+                        TipsHelper.tips(mContext,message);
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        mView.dismissLoadingDialog();
+                        TipsHelper.tips(mContext,message);
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
                         mView.dismissLoadingDialog();
                         mView.showOrderInfo(orderInfoResultInfo.data, orderParams.getMoney(), orderParams.getTitle());
                     }

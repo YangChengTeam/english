@@ -117,7 +117,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
 
                 OrderParams orderParams = new OrderParams();
                 orderParams.setTitle(goodInfo.getName());
-                orderParams.setMoney(goodInfo.getM_price());
+                orderParams.setMoney(goodInfo.getPay_price());
                 orderParams.setPayWayName(pay_way_name);
                 List<OrderGood> list = new ArrayList<>();
                 OrderGood orderGood = new OrderGood();
@@ -128,6 +128,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
                 orderParams.setGoodsList(list);
 
                 mPresenter.createOrder(orderParams);
+//                updateSuccessData();
 
             }
         });
@@ -155,7 +156,6 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
         if (pay_way_name.equals(PayConfig.ali_pay)) {
             aliPay(orderInfo);
         } else {
-
             wxPay(orderInfo);
         }
     }
@@ -224,10 +224,10 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
     private void updateSuccessData() {
         UserInfoHelper.getUserInfo().setIsVip(1);
         Date date = new Date();
-        UserInfoHelper.getUserInfo().setVip_start_time(date.getTime());
+        UserInfoHelper.getUserInfo().setVip_start_time(date.getTime() / 1000);
         int use_time_Limit = Integer.parseInt(goodInfo.getUse_time_limit());
         long vip_end_time = date.getTime() + use_time_Limit * 30 * (Config.MS_IN_A_DAY);
-        UserInfoHelper.getUserInfo().setVip_end_time(vip_end_time);
+        UserInfoHelper.getUserInfo().setVip_end_time(vip_end_time / 1000);
         finish();
     }
 
