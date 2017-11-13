@@ -14,11 +14,11 @@
 
         <ImageView
             android:id="@+id/iv_icon"
-            android:layout_width="165dp"
-            android:layout_height="110dp"
+            android:layout_width="100dp"
+            android:layout_height="66dp"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
-            android:background="@mipmap/course_item_default_icon"
+            android:src="@mipmap/course_order_item_default_icon"
             android:scaleType="centerInside"/>
     </LinearLayout>
 
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
+            android:layout_margin="4dp"
             android:orientation="horizontal">
 
             <TextView
@@ -42,7 +42,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="订单编号："
                 android:textColor="@color/black_333"
-                android:textSize="12sp"/>
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/tv_order_sn"
@@ -51,8 +51,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="2dp"
                 android:text="00001"
-                android:textColor="@color/gray_aaa"
-                android:textSize="12sp"/>
+                android:textColor="@color/pay_info_color"
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -60,6 +60,7 @@
             android:layout_height="22dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <TextView
@@ -68,7 +69,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="微课编号："
                 android:textColor="@color/black_333"
-                android:textSize="12sp"/>
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/tv_good_id"
@@ -77,15 +78,15 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="2dp"
                 android:text="000002"
-                android:textColor="@color/gray_aaa"
-                android:textSize="12sp"/>
+                android:textColor="@color/pay_info_color"
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
+            android:layout_margin="4dp"
             android:orientation="horizontal">
 
             <TextView
@@ -93,10 +94,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="微课名称："
-                android:singleLine="true"
-                android:ellipsize="end"
                 android:textColor="@color/black_333"
-                android:textSize="12sp"/>
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/tv_good_name"
@@ -105,15 +104,18 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="2dp"
                 android:text="小学英语第一单元"
-                android:textColor="@color/gray_aaa"
-                android:textSize="12sp"/>
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:textColor="@color/pay_info_color"
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
+            android:layout_margin="4dp"
             android:orientation="horizontal">
 
             <TextView
@@ -122,7 +124,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="订单状态："
                 android:textColor="@color/black_333"
-                android:textSize="12sp"/>
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/tv_order_state"
@@ -131,15 +133,15 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="2dp"
                 android:text="已购买"
-                android:textColor="@color/gray_aaa"
-                android:textSize="12sp"/>
+                android:textColor="@color/pay_info_color"
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
+            android:layout_margin="4dp"
             android:orientation="horizontal">
 
             <TextView
@@ -148,7 +150,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="订单时间："
                 android:textColor="@color/black_333"
-                android:textSize="12sp"/>
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/tv_order_date"
@@ -157,8 +159,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="2dp"
                 android:text="2017-11-10 12:18"
-                android:textColor="@color/gray_aaa"
-                android:textSize="12sp"/>
+                android:textColor="@color/pay_info_color"
+                android:textSize="14sp"/>
         </LinearLayout>
     </LinearLayout>
 

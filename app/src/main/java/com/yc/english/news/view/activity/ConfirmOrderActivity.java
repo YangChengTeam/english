@@ -173,11 +173,12 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
         LogUtils.e("创建订单成功--->");
 
         if (orderInfo != null) {
-            orderInfo.setMoney(0.01f);
+            //orderInfo.setMoney(0.01f);
             orderInfo.setName("说说英语微课购买");
         }
 
         if (payWayName.equals(PayConfig.ali_pay)) {
+            orderInfo.setMoney(totalPrice);
             RxBus.get().post(OrderConstant.ALIPAY_SUCCESS, orderInfo);
         } else {
             RxBus.get().post(OrderConstant.WXPAY_SUCCESS, orderInfo);
@@ -208,7 +209,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
         new IAliPay1Impl(ConfirmOrderActivity.this).pay(orderInfo, new IPayCallback() {
             @Override
             public void onSuccess(OrderInfo orderInfo) {
-                RxBus.get().post(OrderConstant.PAY_SUCCESS, orderInfo != null ? orderInfo.getPay_order_sn() : "");
+                RxBus.get().post(OrderConstant.PAY_SUCCESS, "success");
             }
 
             @Override
@@ -228,7 +229,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
         new IWXPay1Impl(ConfirmOrderActivity.this).pay(orderInfo, new IPayCallback() {
             @Override
             public void onSuccess(OrderInfo orderInfo) {
-                RxBus.get().post(OrderConstant.PAY_SUCCESS, orderInfo != null ? orderInfo.getPay_order_sn() : "");
+                RxBus.get().post(OrderConstant.PAY_SUCCESS, "success");
             }
 
             @Override
@@ -252,6 +253,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
 
     @Override
     public void isBuy() {
+        ToastUtils.showLong("购买成功");
         RxBus.get().post(OrderConstant.PAY_SUCCESS, "");
     }
 }

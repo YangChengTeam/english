@@ -1,5 +1,6 @@
 package com.yc.english.setting.view.activitys;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.news.view.activity.NewsWeiKeDetailActivity;
 import com.yc.english.setting.contract.MyContract;
 import com.yc.english.setting.model.bean.MyOrderInfo;
 import com.yc.english.setting.presenter.MyPresenter;
@@ -71,6 +73,15 @@ public class MyOrderActivity extends FullScreenActivity<MyPresenter> implements 
         }, mOrderListRecyclerView);
 
         mPresenter.getMyOrderInfoList(currentPage, pageSize);
+        myOrderItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(MyOrderActivity.this, NewsWeiKeDetailActivity.class);
+                intent.putExtra("id",myOrderItemAdapter.getData().get(position).getId());
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -111,13 +122,13 @@ public class MyOrderActivity extends FullScreenActivity<MyPresenter> implements 
     @Override
     public void showMyOrderInfoList(List<MyOrderInfo> list) {
         swipeLayout.setRefreshing(false);
-        if (currentPage == 1) {
-            myOrderItemAdapter.setNewData(list);
-        } else {
-            myOrderItemAdapter.addData(list);
-        }
+        if (list != null && list.size() > 0) {
+            if (currentPage == 1) {
+                myOrderItemAdapter.setNewData(list);
+            } else {
+                myOrderItemAdapter.addData(list);
+            }
 
-        if (list.size() == pageSize) {
             currentPage++;
             myOrderItemAdapter.loadMoreComplete();
         } else {

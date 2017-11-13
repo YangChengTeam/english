@@ -3,13 +3,18 @@ package com.yc.english.setting.view.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,9 +28,8 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.utils.QQUtils;
-import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseFragment;
-import com.yc.english.base.view.IFinish;
+import com.yc.english.base.view.QQqunDialog;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
@@ -35,6 +39,7 @@ import com.yc.english.setting.model.bean.MyOrderInfo;
 import com.yc.english.setting.presenter.MyPresenter;
 import com.yc.english.setting.view.activitys.BuyVipActivity;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
+import com.yc.english.setting.view.activitys.MyOrderActivity;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
 import com.yc.english.setting.view.activitys.SettingActivity;
 import com.yc.english.setting.view.activitys.VipEquitiesActivity;
@@ -45,13 +50,15 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.functions.Action1;
 
 /**
  * Created by zhangkai on 2017/7/24.
  */
 
-public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContract.View {
+public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContract.View, QQqunDialog.QQqunClick {
 
     @BindView(R.id.iv_avatar)
     ImageView mAvatarImageView;
@@ -96,15 +103,27 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
     MenuItemView mOrderMenuItemView;
 
 
+    QQqunDialog qqunDialog;
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout coordinatorLayout;
+
+
     @Override
     public void init() {
 //        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         mPresenter = new MyPresenter(getActivity(), this);
 
+        qqunDialog = new QQqunDialog(getActivity());
+        qqunDialog.setQqunClick(this);
+
         mCollapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);//设置收缩后标题的位置
 
+//        coordinatorLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+//        });
+        LogUtils.e(coordinatorLayout.getMeasuredHeight());
+        AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) mAppBarLayout.getChildAt(0).getLayoutParams();
+        layoutParams.setScrollFlags(0);
 
-        mAppBarLayout.setExpanded(false);
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -178,7 +197,7 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
         RxView.clicks(mQQMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                AlertDialog alertDialog = new AlertDialog(getActivity());
+                /*AlertDialog alertDialog = new AlertDialog(getActivity());
                 alertDialog.setDesc("打开QQ群与客服进行沟通？");
                 alertDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -186,7 +205,9 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
                         QQUtils.joinQQGroup(getActivity(), "C9GzeOgLm4zrKerAk3Hr8gUiWsOhMzR7");
                     }
                 });
-                alertDialog.show();
+                alertDialog.show();*/
+
+                qqunDialog.show();
             }
         });
 
@@ -220,8 +241,8 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
         RxView.clicks(mOrderMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                //todo 订单
-
+                Intent intent = new Intent(getActivity(), MyOrderActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -308,6 +329,16 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
     @Override
     public void showLoading() {
 
+    }
+
+    @Override
+    public void xiaoxueClick() {
+        QQUtils.joinQQGroup(getActivity(), "C9GzeOgLm4zrKerAk3Hr8gUiWsOhMzR7");
+    }
+
+    @Override
+    public void zhongxueClick() {
+        QQUtils.joinQQZhongXueGroup(getActivity(), "wuzu_LXD28r_DJy7INWx-F4WkuhtzDhE");
     }
 
 }

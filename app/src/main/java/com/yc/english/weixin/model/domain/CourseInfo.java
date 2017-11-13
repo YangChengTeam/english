@@ -79,6 +79,12 @@ public class CourseInfo implements Parcelable {
     @JSONField(name = "unit_num")
     private String unitNum;
 
+    @JSONField(name = "pay_price")
+    private float payPrice;
+
+    @JSONField(name = "good_use_time_limit")
+    private int goodUseTimeLimit;
+
     public String getHtml() {
         return html;
     }
@@ -306,9 +312,10 @@ public class CourseInfo implements Parcelable {
         this.userHas = userHas;
     }
 
-    @Generated(hash = 80242023)
+
+    @Generated(hash = 336476775)
     public CourseInfo(String id, String title, String url, String keywords, String type_id, String period, String flag, String author, String add_time, String add_date, String img, String html, int url_type, String userId, String body, String ip_num,
-                      String pv_num, String sort, boolean isChecked, float price, float mPrice, float vipPrice, String goodId, int isPay, int is_vip, int userHas, String userNum, String unitNum) {
+                      String pv_num, String sort, boolean isChecked, float price, float mPrice, float vipPrice, String goodId, int isPay, int is_vip, int userHas, String userNum, String unitNum, float payPrice, int goodUseTimeLimit) {
         this.id = id;
         this.title = title;
         this.url = url;
@@ -337,8 +344,25 @@ public class CourseInfo implements Parcelable {
         this.userHas = userHas;
         this.userNum = userNum;
         this.unitNum = unitNum;
+        this.payPrice = payPrice;
+        this.goodUseTimeLimit = goodUseTimeLimit;
     }
 
+    public float getPayPrice() {
+        return payPrice;
+    }
+
+    public void setPayPrice(float payPrice) {
+        this.payPrice = payPrice;
+    }
+
+    public int getGoodUseTimeLimit() {
+        return goodUseTimeLimit;
+    }
+
+    public void setGoodUseTimeLimit(int goodUseTimeLimit) {
+        this.goodUseTimeLimit = goodUseTimeLimit;
+    }
 
     @Override
     public int describeContents() {
@@ -375,6 +399,8 @@ public class CourseInfo implements Parcelable {
         dest.writeInt(this.userHas);
         dest.writeString(this.userNum);
         dest.writeString(this.unitNum);
+        dest.writeFloat(this.payPrice);
+        dest.writeInt(this.goodUseTimeLimit);
     }
 
     protected CourseInfo(Parcel in) {
@@ -406,6 +432,8 @@ public class CourseInfo implements Parcelable {
         this.userHas = in.readInt();
         this.userNum = in.readString();
         this.unitNum = in.readString();
+        this.payPrice = in.readFloat();
+        this.goodUseTimeLimit = in.readInt();
     }
 
     public static final Creator<CourseInfo> CREATOR = new Creator<CourseInfo>() {

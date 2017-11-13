@@ -52,6 +52,8 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
         public final static Property UserHas = new Property(25, int.class, "userHas", false, "USER_HAS");
         public final static Property UserNum = new Property(26, String.class, "userNum", false, "USER_NUM");
         public final static Property UnitNum = new Property(27, String.class, "unitNum", false, "UNIT_NUM");
+        public final static Property PayPrice = new Property(28, float.class, "payPrice", false, "PAY_PRICE");
+        public final static Property GoodUseTimeLimit = new Property(29, int.class, "goodUseTimeLimit", false, "GOOD_USE_TIME_LIMIT");
     }
 
 
@@ -94,7 +96,9 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
                 "\"IS_VIP\" INTEGER NOT NULL ," + // 24: is_vip
                 "\"USER_HAS\" INTEGER NOT NULL ," + // 25: userHas
                 "\"USER_NUM\" TEXT," + // 26: userNum
-                "\"UNIT_NUM\" TEXT);"); // 27: unitNum
+                "\"UNIT_NUM\" TEXT," + // 27: unitNum
+                "\"PAY_PRICE\" REAL NOT NULL ," + // 28: payPrice
+                "\"GOOD_USE_TIME_LIMIT\" INTEGER NOT NULL );"); // 29: goodUseTimeLimit
     }
 
     /** Drops the underlying database table. */
@@ -214,6 +218,8 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
         if (unitNum != null) {
             stmt.bindString(28, unitNum);
         }
+        stmt.bindDouble(29, entity.getPayPrice());
+        stmt.bindLong(30, entity.getGoodUseTimeLimit());
     }
 
     @Override
@@ -327,6 +333,8 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
         if (unitNum != null) {
             stmt.bindString(28, unitNum);
         }
+        stmt.bindDouble(29, entity.getPayPrice());
+        stmt.bindLong(30, entity.getGoodUseTimeLimit());
     }
 
     @Override
@@ -364,7 +372,9 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
             cursor.getInt(offset + 24), // is_vip
             cursor.getInt(offset + 25), // userHas
             cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // userNum
-            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27) // unitNum
+            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // unitNum
+            cursor.getFloat(offset + 28), // payPrice
+            cursor.getInt(offset + 29) // goodUseTimeLimit
         );
         return entity;
     }
@@ -399,6 +409,8 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
         entity.setUserHas(cursor.getInt(offset + 25));
         entity.setUserNum(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
         entity.setUnitNum(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
+        entity.setPayPrice(cursor.getFloat(offset + 28));
+        entity.setGoodUseTimeLimit(cursor.getInt(offset + 29));
      }
     
     @Override

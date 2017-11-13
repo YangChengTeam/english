@@ -9,9 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.shizhefei.view.indicator.FixedIndicatorView;
@@ -24,7 +21,6 @@ import com.yc.english.base.view.BaseFragment;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.contract.OrderContract;
 import com.yc.english.news.presenter.OrderPresenter;
-import com.yc.english.news.utils.OrderConstant;
 import com.yc.english.news.view.activity.ShoppingCartActivity;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.weixin.model.domain.CourseInfo;
@@ -180,16 +176,6 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
     @Override
     public void showOrderInfo(OrderInfo orderInfo) {
 
-    }
-
-    @Subscribe(
-            thread = EventThread.MAIN_THREAD,
-            tags = {
-                    @Tag(OrderConstant.PAY_SUCCESS)
-            }
-    )
-    public void paySuccess(String payOrderSn) {
-        mPresenter.orderPay(payOrderSn);
     }
 
     @Override
