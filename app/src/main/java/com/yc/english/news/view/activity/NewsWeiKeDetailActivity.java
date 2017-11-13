@@ -120,14 +120,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
 
-        if (UserInfoHelper.getUserInfo() != null) {
-            if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
-                mIsBuyOrVipLayout.setVisibility(View.VISIBLE);
-            } else {
-                mIsBuyOrVipLayout.setVisibility(View.GONE);
-            }
-        }
-
         RxView.clicks(mAddToCartLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -183,8 +175,19 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             mLearnCountTextView.setText(courseInfo.getUserNum());
             mNowPriceTextView.setText("¥" + courseInfo.getMPrice());
             mOldPriceTextView.setText("原价:¥" + courseInfo.getPrice());
-        }
 
+            if(currentCourseInfo.getIsPay() == 1){
+                mIsBuyOrVipLayout.setVisibility(View.GONE);
+            }else {
+                if (UserInfoHelper.getUserInfo() != null) {
+                    if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
+                        mIsBuyOrVipLayout.setVisibility(View.VISIBLE);
+                    } else {
+                        mIsBuyOrVipLayout.setVisibility(View.GONE);
+                    }
+                }
+            }
+        }
     }
 
     private void initListener() {
@@ -301,6 +304,15 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
                             @Override
                             public void onClick(View v) {
                                 alertDialog.dismiss();
+
+                                currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
+                                Intent intent = new Intent(NewsWeiKeDetailActivity.this, ConfirmOrderActivity.class);
+                                ArrayList<CourseInfo> goodsList = new ArrayList<>();
+                                goodsList.add(currentCourseInfo);
+                                intent.putExtra("total_price", currentCourseInfo.getMPrice());
+                                intent.putParcelableArrayListExtra("goods_list", goodsList);
+                                startActivity(intent);
+
                             }
                         });
                         alertDialog.show();

@@ -27,10 +27,5 @@ public class WeiKeCategoryItemAdapter extends BaseQuickAdapter<WeiKeCategory, Ba
         helper.setText(R.id.tv_title, item.getTitle());
         helper.setText(R.id.tv_unit_count, item.getUnitNum() + "");
         GlideHelper.imageView(mContext, (ImageView) helper.getView(R.id.iv_icon), item.getImg(), 0);
-        if (mType.equals("8")) {
-            helper.setVisible(R.id.iv_is_vip, true);
-        } else {
-            helper.setVisible(R.id.iv_is_vip, false);
-        }
     }
 }

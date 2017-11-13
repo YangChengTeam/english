@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
@@ -17,10 +18,13 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.model.domain.OrderGood;
 import com.yc.english.news.model.domain.OrderParams;
+import com.yc.english.news.utils.OrderConstant;
+import com.yc.english.news.view.activity.ConfirmOrderActivity;
 import com.yc.english.pay.PayConfig;
 import com.yc.english.pay.PayWayInfoHelper;
 import com.yc.english.pay.alipay.IAliPay1Impl;
 import com.yc.english.pay.alipay.IPayCallback;
+import com.yc.english.pay.alipay.IWXPay1Impl;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.contract.GoodsListContract;
 import com.yc.english.setting.model.bean.Config;
@@ -70,6 +74,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
 
     private GoodInfo goodInfo;
     private IAliPay1Impl iAliPay;
+    private IWXPay1Impl iwxPay;
 
     @Override
     public int getLayoutId() {
@@ -82,6 +87,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
         mToolbar.setTitle("VIP会员");
         mToolbar.showNavigationIcon();
         iAliPay = new IAliPay1Impl(this);
+        iwxPay = new IWXPay1Impl(BuyVipActivity.this);
         mRecyclerVip.setLayoutManager(new LinearLayoutManager(this));
         goodVipInfoAdapter = new GoodVipInfoAdapter(null);
         mRecyclerVip.setAdapter(goodVipInfoAdapter);
@@ -144,24 +150,43 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
 
     @Override
     public void showOrderInfo(OrderInfo orderInfo, String money, String name) {
-
+        orderInfo.setMoney(Float.parseFloat(money));
+        orderInfo.setName(name);
         if (pay_way_name.equals(PayConfig.ali_pay)) {
-            orderInfo.setMoney(Float.parseFloat(money));
-            orderInfo.setName(name);
-            iAliPay.pay(orderInfo, new IPayCallback() {
-                @Override
-                public void onSuccess(OrderInfo orderInfo) {
-                    updateSuccessData();
-                }
-
-                @Override
-                public void onFailure(OrderInfo orderInfo) {
-                }
-            });
+            aliPay(orderInfo);
         } else {
-            //todo 微信支付
 
+            wxPay(orderInfo);
         }
+    }
+
+    // 微信支付
+    private void wxPay(OrderInfo orderInfo) {
+        iwxPay.pay(orderInfo, new IPayCallback() {
+            @Override
+            public void onSuccess(OrderInfo orderInfo) {
+                updateSuccessData();
+            }
+
+            @Override
+            public void onFailure(OrderInfo orderInfo) {
+                ToastUtils.showLong("支付失败");
+            }
+        });
+    }
+
+    //支付宝支付
+    private void aliPay(OrderInfo orderInfo) {
+        iAliPay.pay(orderInfo, new IPayCallback() {
+            @Override
+            public void onSuccess(OrderInfo orderInfo) {
+                updateSuccessData();
+            }
+
+            @Override
+            public void onFailure(OrderInfo orderInfo) {
+            }
+        });
     }
 
 

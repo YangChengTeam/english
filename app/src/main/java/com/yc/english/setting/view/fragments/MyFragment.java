@@ -2,17 +2,12 @@ package com.yc.english.setting.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -30,6 +25,7 @@ import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.news.view.widget.NewsScrollView;
 import com.yc.english.setting.contract.MyContract;
+import com.yc.english.setting.model.bean.MyOrderInfo;
 import com.yc.english.setting.presenter.MyPresenter;
 import com.yc.english.setting.view.activitys.BuyVipActivity;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
@@ -39,6 +35,7 @@ import com.yc.english.setting.view.activitys.VipEquitiesActivity;
 import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
 import com.yc.english.setting.view.widgets.MenuItemView;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -239,5 +236,45 @@ public class MyFragment extends ToolbarFragment<MyPresenter> implements MyContra
             mNickNameTextView.setText("还没有登录，点击立即登录");
             mSchoolTextView.setText("");
         }
+    }
+
+    @Override
+    public void showMyOrderInfoList(List<MyOrderInfo> list) {
+
+    }
+
+    @Override
+    public void hideStateView() {
+
+    }
+
+    @Override
+    public void showNoNet() {
+
+    }
+
+    @Override
+    public void showNoData() {
+
+    }
+
+    @Override
+    public void showLoadingDialog(String msg) {
+
+    }
+
+    @Override
+    public void finish() {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void dismissLoadingDialog() {
+
     }
 }
