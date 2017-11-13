@@ -103,7 +103,7 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
 
     @Override
     public void init() {
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         mPresenter = new MyPresenter(getActivity(), this);
 
         mCollapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);//设置收缩后标题的位置
