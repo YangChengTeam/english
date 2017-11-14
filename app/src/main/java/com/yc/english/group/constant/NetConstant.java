@@ -175,4 +175,8 @@ public interface NetConstant {
      * 创建订单
      */
     String order_init = (isDebug ? debug_base_url : baser_url) + "order/init";
+    /**
+     * 统计学习人数
+     */
+    String news_weikeStudying=(isDebug ? debug_base_url : baser_url)+"news/weikeStudying";
 }

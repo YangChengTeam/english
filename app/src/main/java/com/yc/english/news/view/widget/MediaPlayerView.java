@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.TimeUtils;
 import com.yc.english.R;
 
+import org.w3c.dom.ProcessingInstruction;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Timer;
@@ -39,6 +41,9 @@ public class MediaPlayerView extends LinearLayout {
     private ImageView mImageView;
     private Handler handler = new Handler(Looper.getMainLooper());
     private MyRunnable myRunnable;
+
+
+    private int count;
 
     public MediaPlayerView(Context context) {
         this(context, null);
@@ -75,7 +80,10 @@ public class MediaPlayerView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 isPlay = !isPlay;
-
+                count++;
+                if (count == 1 && clickListener != null) {
+                    clickListener.onMediaClick();
+                }
                 if (isPlay) {
                     setPlay();
                 } else {
@@ -218,8 +226,17 @@ public class MediaPlayerView extends LinearLayout {
             mTimer.cancel();
             mTimer = null;
         }
-
+        count = 0;
     }
 
+    private onMediaClickListener clickListener;
+
+    public void setOnMediaClickListener(onMediaClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public interface onMediaClickListener {
+        void onMediaClick();
+    }
 
 }

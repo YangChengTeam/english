@@ -20,6 +20,7 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.umeng.analytics.pro.d;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
@@ -36,6 +37,7 @@ import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -119,6 +121,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         String time = null;
         if (!TextUtils.isEmpty(courseInfo.getAdd_time())) {
+
             time = TimeUtils.millis2String(Long.parseLong(courseInfo.getAdd_time()) * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()));
         }
 
@@ -247,6 +250,12 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mJCVideoPlayer.setVisibility(View.GONE);
         mMediaPlayerView.setPath(path);
         mMediaPlayerView.startPlay();
+        mMediaPlayerView.setOnMediaClickListener(new MediaPlayerView.onMediaClickListener() {
+            @Override
+            public void onMediaClick() {
+                mPresenter.statisticsStudyTotal(id);
+            }
+        });
     }
 
     /**

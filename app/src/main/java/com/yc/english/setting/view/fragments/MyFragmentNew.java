@@ -10,11 +10,13 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -107,6 +109,9 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
 
+    @BindView(R.id.tv_support)
+    TextView mTvSupport;
+
 
     @Override
     public void init() {
@@ -118,11 +123,18 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
 
         mCollapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);//设置收缩后标题的位置
 
-//        coordinatorLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-//        });
-        LogUtils.e(coordinatorLayout.getMeasuredHeight());
-        AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) mAppBarLayout.getChildAt(0).getLayoutParams();
-        layoutParams.setScrollFlags(0);
+        coordinatorLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+
+            public void onGlobalLayout() {
+                DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+                LogUtils.e(coordinatorLayout.getMeasuredHeight() + "--" + displayMetrics.heightPixels + "---" + mTvSupport.getBottom());
+            }
+        });
+
+
+//        AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) mAppBarLayout.getChildAt(0).getLayoutParams();
+//        layoutParams.setScrollFlags(0);
 
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override

@@ -403,4 +403,23 @@ public class EngineUtils {
 
     }
 
+    /**
+     * 统计音频学习人数
+     * @param context
+     * @param user_id
+     * @param news_id
+     * @return
+     */
+    public static Observable<ResultInfo<String>> statisticsStudyTotal(Context context, String user_id, String news_id) {
+
+        Map<String, String> params = new HashMap<>();
+
+            params.put("user_id", user_id);
+
+        params.put("news_id", news_id);
+
+        return HttpCoreEngin.get(context).rxpost(NetConstant.news_weikeStudying, new TypeReference<ResultInfo<String>>() {
+        }.getType(), params, true, true, true);
+    }
+
 }

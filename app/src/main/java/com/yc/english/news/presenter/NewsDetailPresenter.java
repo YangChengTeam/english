@@ -6,6 +6,8 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.utils.EngineUtils;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.bean.CourseInfoWrapper;
 import com.yc.english.news.contract.NewsDetailContract;
 import com.yc.english.weixin.model.engin.EnginHelper;
@@ -73,9 +75,9 @@ public class NewsDetailPresenter extends BasePresenter<BaseEngin, NewsDetailCont
 
 
     @Override
-    public void getWeiKeDetail(String news_id,String userId) {
+    public void getWeiKeDetail(String news_id, String userId) {
         mView.showLoading();
-        Subscription subscription = EnginHelper.getWeiKeDetail(mContext, news_id,userId).subscribe(new Subscriber<ResultInfo<CourseInfoWrapper>>() {
+        Subscription subscription = EnginHelper.getWeiKeDetail(mContext, news_id, userId).subscribe(new Subscriber<ResultInfo<CourseInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -114,5 +116,29 @@ public class NewsDetailPresenter extends BasePresenter<BaseEngin, NewsDetailCont
             }
         });
         mSubscriptions.add(subscription);
+    }
+
+    public void statisticsStudyTotal(String news_id) {
+        if (UserInfoHelper.getUserInfo() == null) {
+            return;
+        }
+        Subscription subscription = EngineUtils.statisticsStudyTotal(mContext, UserInfoHelper.getUserInfo().getUid(), news_id).subscribe(new Subscriber<ResultInfo<String>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ResultInfo<String> stringResultInfo) {
+
+            }
+        });
+        mSubscriptions.add(subscription);
+
     }
 }
