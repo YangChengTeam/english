@@ -166,7 +166,7 @@
                         android:src="@mipmap/index_book_read" />
 
                     <ImageView
-                        android:id="@+id/iv_guild"
+                        android:id="@+id/iv_speak"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -206,11 +206,11 @@
                         android:src="@mipmap/index_task" />
 
                     <ImageView
-                        android:id="@+id/iv_community"
+                        android:id="@+id/iv_union"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@mipmap/index_community" />
+                        android:src="@mipmap/index_union" />
                 </LinearLayout>
 
                 <View
@@ -219,96 +219,48 @@
                     android:background="@color/gray_ddd"></View>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <com.yc.english.main.view.wdigets.IndexMenuView
-                    android:id="@+id/im_lex"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    eng:src="@mipmap/index_lex"
-                    eng:text="词汇"></com.yc.english.main.view.wdigets.IndexMenuView>
-
-                <com.yc.english.main.view.wdigets.IndexMenuView
-                    android:id="@+id/im_grammar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    eng:src="@mipmap/index_grammar"
-                    eng:text="语法"></com.yc.english.main.view.wdigets.IndexMenuView>
-
-                <com.yc.english.main.view.wdigets.IndexMenuView
-                    android:id="@+id/im_sentence"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    eng:src="@mipmap/index_sentence"
-                    eng:text="句型"></com.yc.english.main.view.wdigets.IndexMenuView>
-
-                <com.yc.english.main.view.wdigets.IndexMenuView
-                    android:id="@+id/im_composition"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    eng:src="@mipmap/index_composition"
-                    eng:text="作文"></com.yc.english.main.view.wdigets.IndexMenuView>
-
-                <com.yc.english.main.view.wdigets.IndexMenuView
-                    android:id="@+id/im_hearing"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    eng:src="@mipmap/index_hearing"
-                    eng:text="听力"></com.yc.english.main.view.wdigets.IndexMenuView>
-
-            </LinearLayout>
-
-
-            <com.shizhefei.view.indicator.FixedIndicatorView
-                android:id="@+id/fiv_indicator"
-                android:layout_width="match_parent"
-                android:layout_height="6px"
-                android:background="@color/white"></com.shizhefei.view.indicator.FixedIndicatorView>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/gray_ddd"></View>
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="206dp"
-                android:background="@color/white"></android.support.v4.view.ViewPager>
-
             <RelativeLayout
-                android:id="@+id/rl_use_more"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginBottom="7dp"
+                android:layout_height="44dp"
                 android:background="@color/white">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="精品推荐"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_snormal" />
+
+                <View
+                    android:layout_width="58dp"
+                    android:layout_height="3dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/primary"></View>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/gray_ddd"></View>
+
                 <LinearLayout
+                    android:id="@+id/ll_recommend_more"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
                     android:orientation="horizontal">
 
                     <TextView
+
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="更多精彩内容点击查看"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="查看更多"
                         android:textColor="@color/gray_aaa"
                         android:textSize="@dimen/font_small" />
 
@@ -316,17 +268,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="3dp"
                         android:src="@mipmap/index_aritle_arrow" />
                 </LinearLayout>
-
-                <View
-                    android:id="@+id/line"
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/gray_ddd"></View>
             </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="206dp"
+                android:background="@color/white"></android.support.v7.widget.RecyclerView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_ddd"></View>
+
 
             <ImageView
                 android:id="@+id/iv_tutor"
@@ -334,6 +291,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="7dp"
+                android:layout_marginTop="7dp"
                 android:src="@mipmap/index_tutor" />
 
 
@@ -402,49 +360,20 @@
                 android:layout_height="1px"
                 android:background="@color/gray_ddd"></View>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/iv_exam"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="7dp"
                 android:layout_marginTop="7dp"
-                android:background="@color/white">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="86dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/iv_english_work"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:src="@mipmap/index_english" />
-
-                    <ImageView
-                        android:id="@+id/iv_one_to_nine"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:src="@mipmap/index_one_to_nice" />
-
-                    <ImageView
-                        android:id="@+id/iv_one_to_to"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:src="@mipmap/index_nice_toto" />
-                </LinearLayout>
-            </LinearLayout>
+                android:src="@mipmap/index_exam" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:visibility="gone">
 
                 <View
                     android:layout_width="match_parent"
@@ -505,12 +434,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="265dp"
                 android:layout_marginBottom="7dp"
-                android:background="@color/white"></android.support.v7.widget.RecyclerView>
+                android:background="@color/white"
+                android:visibility="gone"></android.support.v7.widget.RecyclerView>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_ddd"></View>
+                android:background="@color/gray_ddd"
+                android:visibility="gone"></View>
         </LinearLayout>
     </com.yc.english.base.view.MyScrollview>
     <!--</android.support.v4.widget.SwipeRefreshLayout>-->

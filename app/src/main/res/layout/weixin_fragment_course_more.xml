@@ -9,20 +9,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></com.yc.english.base.view.MainToolBar>
 
-    <com.shizhefei.view.indicator.FixedIndicatorView
-        android:id="@+id/fiv_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white"></com.shizhefei.view.indicator.FixedIndicatorView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/gray_ddd"></View>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <com.yc.english.base.view.StateView
+        android:id="@+id/stateView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryDark"></android.support.v4.view.ViewPager>
+        android:background="@color/group_gray_e6f2fb" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/weixin_fragment_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/group_gray_e6f2fb" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
 </LinearLayout>
