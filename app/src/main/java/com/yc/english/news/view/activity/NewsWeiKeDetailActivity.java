@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -82,6 +83,9 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @BindView(R.id.layout_is_buy_or_vip)
     LinearLayout mIsBuyOrVipLayout;
 
+    @BindView(R.id.nestedScrollView)
+    ScrollView scrollView;
+
     private String title;
 
     private int screenHeight;
@@ -112,7 +116,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
         if (getIntent() != null) {
             id = getIntent().getStringExtra("id");
-            mPresenter.getWeiKeDetail(id, UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
         }
 
         screenHeight = ScreenUtils.getScreenHeight();
@@ -155,7 +158,9 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
             }
         });
+
     }
+
 
     private void initData(CourseInfo courseInfo) {
 
@@ -265,19 +270,21 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
                         if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
                             isPlay = false;
                         } else {
-                            if (currentCourseInfo.getIs_vip() == 1) {
+                            if (currentCourseInfo.getIs_vip() == 0) {
                                 isPlay = false;
                             }
                         }
                     } else {
                         isPlay = false;
                     }
+                } else {
+                    isPlay = true;
                 }
             }
 
-            if(isPlay){
+            if (isPlay) {
                 mIsBuyOrVipLayout.setVisibility(View.GONE);
-            }else{
+            } else {
                 mIsBuyOrVipLayout.setVisibility(View.VISIBLE);
             }
 
@@ -375,6 +382,9 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @Override
     protected void onResume() {
         super.onResume();
+        isPlay = true;
+        mPresenter.getWeiKeDetail(id, UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
+
         Sensor accelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(mSensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }

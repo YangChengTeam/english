@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.UnitInfo;
 
@@ -26,5 +27,14 @@ public class ReadBookUnitItemClickAdapter extends BaseMultiItemQuickAdapter<Unit
     protected void convert(final BaseViewHolder helper, final UnitInfo item) {
         helper.setText(R.id.tv_book_unit_name, item.getName())
                 .setText(R.id.tv_book_unit_total, StringUtils.isEmpty(item.getSentenceCount()) ? "0" : item.getSentenceCount() + mContext.getString(R.string.read_word_sentence_text));
+        if (item.getFree() == 1) {
+            helper.setVisible(R.id.iv_course_vip, false);
+        } else {
+            if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
+                helper.setVisible(R.id.iv_course_vip, false);
+            } else {
+                helper.setVisible(R.id.iv_course_vip, true);
+            }
+        }
     }
 }

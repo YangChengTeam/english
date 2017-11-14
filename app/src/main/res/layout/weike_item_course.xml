@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="top|center">
 
         <ImageView
             android:id="@+id/iv_icon"
@@ -37,8 +37,10 @@
             android:layout_marginBottom="6dp"
             android:layout_marginLeft="8dp"
             android:text="话题口语"
-            android:textColor="@color/black"
-            android:textSize="@dimen/font_normal"/>
+            android:lines="2"
+            android:ellipsize="end"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/font_snormal"/>
 
         <LinearLayout
             android:layout_width="match_parent"

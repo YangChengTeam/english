@@ -28,7 +28,7 @@ public class WeiKeInfoItemAdapter extends BaseQuickAdapter<WeiKeInfo, BaseViewHo
         helper.setText(R.id.tv_unit_count, item.getUnitNum() + "");
         GlideHelper.imageView(mContext, (ImageView) helper.getView(R.id.iv_icon), item.getImg(), 0);
         if (mType.equals("8")) {
-            helper.setText(R.id.tv_learn_or_buy, "已购买");
+            helper.setText(R.id.tv_learn_or_buy, "人已购买");
 
             if (item.getIsPay() == 0) {
                 helper.setVisible(R.id.iv_is_vip, true);

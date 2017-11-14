@@ -39,7 +39,6 @@
                     android:focusable="true"
                     android:gravity="top"
                     android:hint="说点什么吧"
-                    android:maxLength="30"
                     android:padding="5dp"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@drawable/add_color_cursor"

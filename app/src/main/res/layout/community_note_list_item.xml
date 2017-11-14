@@ -86,6 +86,8 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
+            android:lines="2"
+            android:ellipsize="end"
             android:text="发帖的标题，测试发帖的标题"
             android:textColor="@color/black_333"
             android:textSize="16sp"/>

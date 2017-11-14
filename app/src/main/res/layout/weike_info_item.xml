@@ -9,7 +9,8 @@
 
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center">
 
         <ImageView
             android:id="@+id/iv_icon"
@@ -17,8 +18,8 @@
             android:layout_height="110dp"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
-            android:src="@mipmap/course_item_default_icon"
             android:scaleType="centerInside"
+            android:src="@mipmap/course_item_default_icon"
             />
 
         <ImageView
@@ -46,8 +47,10 @@
             android:layout_marginBottom="6dp"
             android:layout_marginLeft="8dp"
             android:text="话题口语"
-            android:textColor="@color/black"
-            android:textSize="@dimen/font_normal"/>
+            android:lines="2"
+            android:ellipsize="end"
+            android:textColor="@color/black_333333"
+            android:textSize="@dimen/font_snormal"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,8 +88,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="已购买"
                     android:layout_marginLeft="2dp"
+                    android:text="人已购买"
                     android:textColor="@color/gray_aaa"
                     android:textSize="@dimen/font_snormal"/>
             </LinearLayout>
