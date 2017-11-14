@@ -132,7 +132,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             playVideo(url, courseInfo.getImg());
         }
 
-
     }
 
     private void initListener() {
@@ -247,7 +246,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mMediaPlayerView.setVisibility(View.VISIBLE);
         mJCVideoPlayer.setVisibility(View.GONE);
         mMediaPlayerView.setPath(path);
-        mMediaPlayerView.startPlay();
         mMediaPlayerView.setOnMediaClickListener(new MediaPlayerView.onMediaClickListener() {
             @Override
             public void onMediaClick() {
@@ -268,7 +266,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
         mJCVideoPlayer.battery_level.setVisibility(View.GONE);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
-
 
     }
 

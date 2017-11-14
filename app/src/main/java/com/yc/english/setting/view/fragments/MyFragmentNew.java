@@ -29,10 +29,12 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.QQUtils;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.QQqunDialog;
 import com.yc.english.base.view.SharePopupWindow;
+import com.yc.english.group.view.widget.MultifunctionLinearLayout;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
@@ -123,14 +125,13 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
 
         mCollapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);//设置收缩后标题的位置
 
-        coordinatorLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-
-            public void onGlobalLayout() {
-                DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-                LogUtils.e(coordinatorLayout.getMeasuredHeight() + "--" + displayMetrics.heightPixels + "---" + mTvSupport.getBottom());
-            }
-        });
+//        coordinatorLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//
+//            public void onGlobalLayout() {
+//                DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+//            }
+//        });
 
 
 //        AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) mAppBarLayout.getChildAt(0).getLayoutParams();
@@ -191,10 +192,15 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
             @Override
             public void call(Void aVoid) {
 
-                Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                try {
+                    Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    TipsHelper.tips(getActivity(), "你手机安装的应用市场没有上线该应用，请前往其他应用市场进行点评");
+                }
             }
         });
 
@@ -209,15 +215,6 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
         RxView.clicks(mQQMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                /*AlertDialog alertDialog = new AlertDialog(getActivity());
-                alertDialog.setDesc("打开QQ群与客服进行沟通？");
-                alertDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        QQUtils.joinQQGroup(getActivity(), "C9GzeOgLm4zrKerAk3Hr8gUiWsOhMzR7");
-                    }
-                });
-                alertDialog.show();*/
 
                 qqunDialog.show();
             }

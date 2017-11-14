@@ -13,9 +13,8 @@ import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
-import com.yc.english.main.view.fragments.IndexFragmentNew;
+import com.yc.english.main.view.fragments.IndexFragment;
 import com.yc.english.main.view.wdigets.TabBar;
-import com.yc.english.setting.view.fragments.MyFragment;
 import com.yc.english.setting.view.fragments.MyFragmentNew;
 import com.yc.english.weixin.views.fragments.CourseTypeFragment;
 
@@ -84,7 +83,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
 
-    private IndexFragmentNew mIndexFragment;
+    private IndexFragment mIndexFragment;
     private CourseTypeFragment mClassMainFragment;
     private MyFragmentNew mMyFragment;
 
@@ -97,7 +96,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         public Fragment getItem(int position) {
             if (position == 0) {
                 if (mIndexFragment == null) {
-                    mIndexFragment = new IndexFragmentNew();
+                    mIndexFragment = new IndexFragment();
                 }
                 return mIndexFragment;
             } else if (position == 1) {
