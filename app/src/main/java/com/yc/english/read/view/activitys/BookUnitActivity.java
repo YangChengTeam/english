@@ -26,6 +26,7 @@ import com.yc.english.read.model.domain.UnitInfoList;
 import com.yc.english.read.presenter.BookUnitPresenter;
 import com.yc.english.read.view.adapter.ReadBookUnitItemClickAdapter;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
+import com.yc.english.setting.view.activitys.BuyVipActivity;
 
 import java.util.List;
 
@@ -123,13 +124,20 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                         @Override
                         public void onClick(View v) {
                             alertDialog.dismiss();
-
+                            Intent intent = new Intent(BookUnitActivity.this, BuyVipActivity.class);
+                            startActivity(intent);
                         }
                     });
                     alertDialog.show();
                 }
             }
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         mPresenter.getBookInfoById(bookId);
     }
