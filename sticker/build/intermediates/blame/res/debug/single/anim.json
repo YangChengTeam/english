@@ -4,6 +4,10 @@
         "source": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\anim\\bqmm_slide_out_to_left.xml"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\debug\\anim\\bqmm_slide_out_to_left.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\anim\\bqmm_slide_out_to_left.xml"
+    },
+    {
         "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\debug\\anim\\bqmm_slide_out_to_right.xml",
         "source": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\anim\\bqmm_slide_out_to_right.xml"
     },
@@ -14,5 +18,17 @@
     {
         "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\debug\\anim\\bqmm_slide_in_from_right.xml",
         "source": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\anim\\bqmm_slide_in_from_right.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\debug\\anim\\bqmm_slide_in_from_right.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\anim\\bqmm_slide_in_from_right.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\debug\\anim\\bqmm_slide_in_from_left.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\anim\\bqmm_slide_in_from_left.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\debug\\anim\\bqmm_slide_out_to_right.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\anim\\bqmm_slide_out_to_right.xml"
     }
 ]
