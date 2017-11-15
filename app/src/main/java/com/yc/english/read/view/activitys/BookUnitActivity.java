@@ -99,10 +99,15 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                 if (unitInfo.getFree() == 1) {
                     isRead = true;
                 } else {
-                    if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
-                        isRead = true;
-                    } else {
-                        isRead = false;
+                    if(UserInfoHelper.getUserInfo() != null) {
+                        if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
+                            isRead = true;
+                        } else {
+                            isRead = false;
+                        }
+                    }else{
+                        UserInfoHelper.isGotoLogin(BookUnitActivity.this);
+                        return;
                     }
                 }
 
