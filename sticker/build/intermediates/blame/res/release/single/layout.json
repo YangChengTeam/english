@@ -4,8 +4,20 @@
         "source": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\layout\\bqmm_item_face.xml"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\release\\layout\\bqmm_keyboard_tab.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\layout\\bqmm_keyboard_tab.xml"
+    },
+    {
         "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\release\\layout\\bqmm_keyboard_tab.xml",
         "source": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\layout\\bqmm_keyboard_tab.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\release\\layout\\bqmm_message_view_left.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\layout\\bqmm_message_view_left.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\release\\layout\\bqmm_item_emoji_message.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\layout\\bqmm_item_emoji_message.xml"
     },
     {
         "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\release\\layout\\bqmm_item_emoji.xml",
@@ -16,11 +28,23 @@
         "source": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\layout\\bqmm_message_view_left.xml"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\release\\layout\\bqmm_message_view_right.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\layout\\bqmm_message_view_right.xml"
+    },
+    {
         "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\release\\layout\\bqmm_item_emoji_message.xml",
         "source": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\layout\\bqmm_item_emoji_message.xml"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\release\\layout\\bqmm_item_emoji.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\layout\\bqmm_item_emoji.xml"
+    },
+    {
         "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\release\\layout\\bqmm_message_view_right.xml",
         "source": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\layout\\bqmm_message_view_right.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\release\\layout\\bqmm_item_face.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\layout\\bqmm_item_face.xml"
     }
 ]
