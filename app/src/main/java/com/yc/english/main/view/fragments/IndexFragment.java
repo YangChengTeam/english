@@ -22,6 +22,7 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SelectGradePopupWindow;
 import com.yc.english.base.view.SharePopupWindow;
@@ -221,6 +222,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //                Intent intent = new Intent(getActivity(), UnionMainActivity.class);
 //                startActivity(intent);
                 //todo
+                TipsHelper.tips(getActivity(), "正在开发中...");
             }
         });
 

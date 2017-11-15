@@ -199,6 +199,7 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
                 mediaPlayer.reset();
                 mediaPlayer.setDataSource(mContext, Uri.parse(file.getAbsolutePath()));
                 mediaPlayer.prepareAsync();// 准备
+                currentState =STATE_PREPARED;
             } else {
                 LogUtils.e("from path");
                 mediaPlayer.reset();
@@ -212,6 +213,7 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
         } catch (IOException e) {
             e.printStackTrace();
             LogUtils.e(e.getMessage());
+
         }
 
     }
