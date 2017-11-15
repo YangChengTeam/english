@@ -82,7 +82,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     private String id;
     private long startTime;
     private CourseInfo currentCourseInfo;
-    private boolean isPlay;
+    private boolean isPlay = true;
 
     @Override
     public void init() {
@@ -328,7 +328,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     @Override
     public void showCourseResult(CourseInfoWrapper data) {
         initWebView(data);
-        initData(data.getInfo());
+        currentCourseInfo = data.getInfo();
+        initData(currentCourseInfo);
         if (data.getRecommend() != null && data.getRecommend().size() > 0) {
             newsDetailAdapter.setData(data.getRecommend());
             mLlRecommend.setVisibility(View.VISIBLE);

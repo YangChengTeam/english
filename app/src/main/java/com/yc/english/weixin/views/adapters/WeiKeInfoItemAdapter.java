@@ -25,7 +25,7 @@ public class WeiKeInfoItemAdapter extends BaseQuickAdapter<WeiKeInfo, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, WeiKeInfo item) {
         helper.setText(R.id.tv_title, item.getTitle());
-        helper.setText(R.id.tv_unit_count, item.getUnitNum() + "");
+        helper.setText(R.id.tv_unit_count, item.getUserNum() + "");
         GlideHelper.imageView(mContext, (ImageView) helper.getView(R.id.iv_icon), item.getImg(), 0);
         if (mType.equals("8")) {
             helper.setText(R.id.tv_learn_or_buy, "人已购买");
