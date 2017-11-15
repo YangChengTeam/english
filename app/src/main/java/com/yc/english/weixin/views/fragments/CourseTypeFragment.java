@@ -80,7 +80,7 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
                 new String[]{"7", "8"});
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setCurrentItem(0);
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(1);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {

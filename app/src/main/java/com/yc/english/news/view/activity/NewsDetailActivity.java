@@ -82,7 +82,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     private String id;
     private long startTime;
     private CourseInfo currentCourseInfo;
-    private boolean isPlay;
+    private boolean isPlay = true;
 
     @Override
     public void init() {
@@ -95,9 +95,9 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         startTime = System.currentTimeMillis();
 
         if (getIntent() != null) {
-            currentCourseInfo = getIntent().getParcelableExtra("info");
-            if (currentCourseInfo != null) {
-                id = currentCourseInfo.getId();
+            CourseInfo courseInfo = getIntent().getParcelableExtra("info");
+            if (courseInfo != null) {
+                id = courseInfo.getId();
             } else {
                 id = getIntent().getStringExtra("id");
             }
@@ -328,6 +328,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     @Override
     public void showCourseResult(CourseInfoWrapper data) {
         initWebView(data);
+        currentCourseInfo = data.getInfo();
         initData(data.getInfo());
         if (data.getRecommend() != null && data.getRecommend().size() > 0) {
             newsDetailAdapter.setData(data.getRecommend());
