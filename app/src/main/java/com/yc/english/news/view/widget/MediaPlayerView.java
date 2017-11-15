@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.kk.utils.PathUtils;
 import com.umeng.socialize.sina.helper.MD5;
 import com.yc.english.R;
@@ -110,13 +111,18 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
             TipsHelper.tips(mContext, "正在缓冲中，请稍候...");
             return;
         }
-        if (currentState == STATE_PREPARED || currentState == STATE_PAUSE || currentState == STATE_STOP) {
-            mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_play));
-            mediaPlayer.start();// 开始
-            myRunnable = new MyRunnable();
-            mHandler.postDelayed(myRunnable, 0);
-            currentState = STATE_START;
+        try {
+            if (currentState == STATE_PREPARED || currentState == STATE_PAUSE || currentState == STATE_STOP) {
+                mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_play));
+                mediaPlayer.start();// 开始
+                myRunnable = new MyRunnable();
+                mHandler.postDelayed(myRunnable, 0);
+                currentState = STATE_START;
+            }
+        } catch (Exception e) {
+            ToastUtils.showShort("播放失败");
         }
+
     }
 
     public void stop() {
@@ -237,6 +243,7 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
 
         } catch (Exception e) {
             LogUtils.e(e.getMessage());
+            ToastUtils.showShort("播放失败");
         }
     }
 
