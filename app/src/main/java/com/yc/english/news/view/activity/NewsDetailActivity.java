@@ -329,7 +329,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     public void showCourseResult(CourseInfoWrapper data) {
         initWebView(data);
         currentCourseInfo = data.getInfo();
-        initData(data.getInfo());
+        initData(currentCourseInfo);
         if (data.getRecommend() != null && data.getRecommend().size() > 0) {
             newsDetailAdapter.setData(data.getRecommend());
             mLlRecommend.setVisibility(View.VISIBLE);
