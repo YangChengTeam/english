@@ -46,5 +46,9 @@ public class MenuItemView extends BaseView {
         return R.layout.setting_menu_item_view;
     }
 
+    public void setTitle(String title) {
+        mTitleTextView.setText(title);
+    }
+
 
 }

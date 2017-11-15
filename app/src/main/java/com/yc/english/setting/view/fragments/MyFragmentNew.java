@@ -258,6 +258,16 @@ public class MyFragmentNew extends BaseFragment<MyPresenter> implements MyContra
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (UserInfoHelper.getUserInfo()!=null&&UserInfoHelper.getUserInfo().getIsVip()==1){
+            mBuyVipMenuItemView.setTitle("VIP会员信息");
+        }else {
+            mBuyVipMenuItemView.setTitle("开通VIP会员");
+        }
+
+    }
 
     @Override
     public int getLayoutId() {

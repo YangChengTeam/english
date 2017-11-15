@@ -95,9 +95,9 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         startTime = System.currentTimeMillis();
 
         if (getIntent() != null) {
-            currentCourseInfo = getIntent().getParcelableExtra("info");
-            if (currentCourseInfo != null) {
-                id = currentCourseInfo.getId();
+            CourseInfo courseInfo = getIntent().getParcelableExtra("info");
+            if (courseInfo != null) {
+                id = courseInfo.getId();
             } else {
                 id = getIntent().getStringExtra("id");
             }

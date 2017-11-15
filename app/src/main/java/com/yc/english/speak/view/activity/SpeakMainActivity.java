@@ -67,7 +67,7 @@ public class SpeakMainActivity extends FullScreenActivity {
         MyFragmentAdapter mFragmentAdapter = new MyFragmentAdapter(getSupportFragmentManager());
         viewpager.setAdapter(mFragmentAdapter);
         viewpager.setCurrentItem(0);
-        viewpager.setOffscreenPageLimit(2);
+        viewpager.setOffscreenPageLimit(1);
 
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
