@@ -20,6 +20,7 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.tencent.tinker.loader.hotplug.handler.MHMessageHandler;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
@@ -48,7 +49,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  * Created by wanglin  on 2017/9/6 08:32.
  */
 
-public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> implements NewsDetailContract.View {
+public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> implements NewsDetailContract.View, View.OnClickListener {
     private static final String TAG = "NewsDetailActivity";
     @BindView(R.id.mJCVideoPlayer)
     JCVideoPlayerStandard mJCVideoPlayer;
@@ -291,37 +292,10 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                 }
             }
         }
-        mJCVideoPlayer.startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (UserInfoHelper.getUserInfo() != null) {
-                    if (isPlay) {
-                        mJCVideoPlayer.startVideo();
-                    } else {
-                        final AlertDialog alertDialog = new AlertDialog(NewsDetailActivity.this);
-                        alertDialog.setDesc("未购买此课程，是否马上购买？");
-                        alertDialog.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                alertDialog.dismiss();
 
-                                currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
-                                Intent intent = new Intent(NewsDetailActivity.this, ConfirmOrderActivity.class);
-                                ArrayList<CourseInfo> goodsList = new ArrayList<>();
-                                goodsList.add(currentCourseInfo);
-                                intent.putExtra("total_price", currentCourseInfo.getMPrice());
-                                intent.putParcelableArrayListExtra("goods_list", goodsList);
-                                startActivity(intent);
+        mJCVideoPlayer.thumbImageView.setOnClickListener(this);
+        mJCVideoPlayer.startButton.setOnClickListener(this);
 
-                            }
-                        });
-                        alertDialog.show();
-                    }
-                } else {
-                    UserInfoHelper.isGotoLogin(NewsDetailActivity.this);
-                }
-            }
-        });
     }
 
 
@@ -364,6 +338,36 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     }
 
     private ArrayList<String> imageList = new ArrayList<>();
+
+    @Override
+    public void onClick(View v) {
+        if (UserInfoHelper.getUserInfo() != null) {
+            if (isPlay) {
+                mJCVideoPlayer.startVideo();
+            } else {
+                final AlertDialog alertDialog = new AlertDialog(NewsDetailActivity.this);
+                alertDialog.setDesc("未购买此课程，是否马上购买？");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+
+                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
+                        Intent intent = new Intent(NewsDetailActivity.this, ConfirmOrderActivity.class);
+                        ArrayList<CourseInfo> goodsList = new ArrayList<>();
+                        goodsList.add(currentCourseInfo);
+                        intent.putExtra("total_price", currentCourseInfo.getMPrice());
+                        intent.putParcelableArrayListExtra("goods_list", goodsList);
+                        startActivity(intent);
+
+                    }
+                });
+                alertDialog.show();
+            }
+        } else {
+            UserInfoHelper.isGotoLogin(NewsDetailActivity.this);
+        }
+    }
 
     private class JavascriptInterface {
 

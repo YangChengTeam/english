@@ -10,8 +10,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 21
 
-        versionCode 15
-        versionName "1.1.1"
+        versionCode 17
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -65,7 +65,7 @@ android {
 
 
 greendao {
-    schemaVersion 1
+    schemaVersion 2
     daoPackage 'com.yc.english.base.dao'
     targetGenDir 'src/main/java'
 }
