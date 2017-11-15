@@ -1,5 +1,6 @@
 package com.yc.english.setting.view.adapter;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;

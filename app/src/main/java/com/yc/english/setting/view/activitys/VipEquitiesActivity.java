@@ -45,7 +45,6 @@ public class VipEquitiesActivity extends FullScreenActivity {
 
         recyclerViewOpenVip.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-
         VIPEquitiesAdapter vipEquitiesAdapter = new VIPEquitiesAdapter(translateData(String.valueOf(Math.abs(openDays))));
         recyclerViewOpenVip.setAdapter(vipEquitiesAdapter);
 

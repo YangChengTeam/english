@@ -114,7 +114,6 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
             mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_play));
             mediaPlayer.start();// 开始
             myRunnable = new MyRunnable();
-
             mHandler.postDelayed(myRunnable, 0);
             currentState = STATE_START;
         }
@@ -198,8 +197,8 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
                 LogUtils.e("from path");
                 mediaPlayer.reset();
                 mediaPlayer.setDataSource(path);
-                mediaPlayer.prepareAsync();// 准备
                 currentState = STATE_INITIALIZE;
+                mediaPlayer.prepareAsync();// 准备
                 executorService.submit(new DownloadTask(path));
             }
 
