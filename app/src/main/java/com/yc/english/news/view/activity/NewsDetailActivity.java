@@ -21,11 +21,13 @@ import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.view.activitys.GroupPictureDetailActivity;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.adapter.NewsDetailAdapter;
 import com.yc.english.news.bean.CourseInfoWrapper;
 import com.yc.english.news.contract.NewsDetailContract;
@@ -79,6 +81,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     private int screenHeight;
     private String id;
     private long startTime;
+    private CourseInfo currentCourseInfo;
+    private boolean isPlay;
 
     @Override
     public void init() {
@@ -91,9 +95,9 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         startTime = System.currentTimeMillis();
 
         if (getIntent() != null) {
-            CourseInfo courseInfo = getIntent().getParcelableExtra("info");
-            if (courseInfo != null) {
-                id = courseInfo.getId();
+            currentCourseInfo = getIntent().getParcelableExtra("info");
+            if (currentCourseInfo != null) {
+                id = currentCourseInfo.getId();
             } else {
                 id = getIntent().getStringExtra("id");
             }
@@ -267,6 +271,57 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mJCVideoPlayer.battery_level.setVisibility(View.GONE);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
 
+        if (currentCourseInfo != null) {
+            if (currentCourseInfo.getIsPay() == 0) {
+                //未购买
+                if (currentCourseInfo.getUserHas() == 0) {
+                    if (UserInfoHelper.getUserInfo() != null) {
+                        if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
+                            isPlay = false;
+                        } else {
+                            if (currentCourseInfo.getIs_vip() == 0) {
+                                isPlay = false;
+                            }
+                        }
+                    } else {
+                        isPlay = false;
+                    }
+                } else {
+                    isPlay = true;
+                }
+            }
+        }
+        mJCVideoPlayer.startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (UserInfoHelper.getUserInfo() != null) {
+                    if (isPlay) {
+                        mJCVideoPlayer.startVideo();
+                    } else {
+                        final AlertDialog alertDialog = new AlertDialog(NewsDetailActivity.this);
+                        alertDialog.setDesc("未购买此课程，是否马上购买？");
+                        alertDialog.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+
+                                currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
+                                Intent intent = new Intent(NewsDetailActivity.this, ConfirmOrderActivity.class);
+                                ArrayList<CourseInfo> goodsList = new ArrayList<>();
+                                goodsList.add(currentCourseInfo);
+                                intent.putExtra("total_price", currentCourseInfo.getMPrice());
+                                intent.putParcelableArrayListExtra("goods_list", goodsList);
+                                startActivity(intent);
+
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                } else {
+                    UserInfoHelper.isGotoLogin(NewsDetailActivity.this);
+                }
+            }
+        });
     }
 
 
