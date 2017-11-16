@@ -93,6 +93,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitleColor(R.color.black_333333);
 
+//        mToolbar.setTitleSize(20);
         startTime = System.currentTimeMillis();
 
         if (getIntent() != null) {
@@ -153,6 +154,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                 if (t > screenHeight / 2) {
                     mToolbar.setTitle(title);
 
+
                 } else {
                     mToolbar.setTitle("");
                 }
@@ -188,7 +190,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     }
 
     private void initWebView(final CourseInfoWrapper data) {
-//        JSON.parseObject()
+
         final WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
