@@ -46,7 +46,7 @@ import rx.functions.Action1;
  * Created by wanglin  on 2017/9/6 08:32.
  */
 
-public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresenter> implements NewsDetailContract.View {
+public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresenter> implements NewsDetailContract.View, View.OnClickListener {
 
     private static final String TAG = "NewsDetailActivity";
 
@@ -289,38 +289,8 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             }
 
         }
-
-        mJCVideoPlayer.startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (UserInfoHelper.getUserInfo() != null) {
-                    if (isPlay) {
-                        mJCVideoPlayer.startVideo();
-                    } else {
-                        final AlertDialog alertDialog = new AlertDialog(NewsWeiKeDetailActivity.this);
-                        alertDialog.setDesc("未购买此课程，是否马上购买？");
-                        alertDialog.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                alertDialog.dismiss();
-
-                                currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
-                                Intent intent = new Intent(NewsWeiKeDetailActivity.this, ConfirmOrderActivity.class);
-                                ArrayList<CourseInfo> goodsList = new ArrayList<>();
-                                goodsList.add(currentCourseInfo);
-                                intent.putExtra("total_price", currentCourseInfo.getMPrice());
-                                intent.putParcelableArrayListExtra("goods_list", goodsList);
-                                startActivity(intent);
-
-                            }
-                        });
-                        alertDialog.show();
-                    }
-                } else {
-                    UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
-                }
-            }
-        });
+        mJCVideoPlayer.thumbImageView.setOnClickListener(this);
+        mJCVideoPlayer.startButton.setOnClickListener(this);
 
     }
 
@@ -356,6 +326,36 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     }
 
     private ArrayList<String> imageList = new ArrayList<>();
+
+    @Override
+    public void onClick(View v) {
+        if (UserInfoHelper.getUserInfo() != null) {
+            if (isPlay) {
+                mJCVideoPlayer.startVideo();
+            } else {
+                final AlertDialog alertDialog = new AlertDialog(NewsWeiKeDetailActivity.this);
+                alertDialog.setDesc("未购买此课程，是否马上购买？");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+
+                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
+                        Intent intent = new Intent(NewsWeiKeDetailActivity.this, ConfirmOrderActivity.class);
+                        ArrayList<CourseInfo> goodsList = new ArrayList<>();
+                        goodsList.add(currentCourseInfo);
+                        intent.putExtra("total_price", currentCourseInfo.getMPrice());
+                        intent.putParcelableArrayListExtra("goods_list", goodsList);
+                        startActivity(intent);
+
+                    }
+                });
+                alertDialog.show();
+            }
+        } else {
+            UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
+        }
+    }
 
     private class JavascriptInterface {
 
