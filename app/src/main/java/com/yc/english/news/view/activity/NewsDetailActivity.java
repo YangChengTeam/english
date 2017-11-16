@@ -20,7 +20,6 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.kk.securityhttp.net.contains.HttpConfig;
-import com.tencent.tinker.loader.hotplug.handler.MHMessageHandler;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
