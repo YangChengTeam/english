@@ -2,5 +2,9 @@
     {
         "merged": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\release\\raw\\bqmm_sticker_loading.gif",
         "source": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\raw\\bqmm_sticker_loading.gif"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\release\\raw\\bqmm_sticker_loading.gif",
+        "source": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\raw\\bqmm_sticker_loading.gif"
     }
 ]

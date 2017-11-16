@@ -166,6 +166,8 @@
                     android:layout_below="@+id/layout_content"
                     android:background="@color/white"
                     android:focusable="true"
+                    android:layout_marginLeft="@dimen/group_distance_10"
+                    android:layout_marginRight="@dimen/group_distance_10"
                     android:focusableInTouchMode="true"/>
 
             </LinearLayout>
