@@ -11,9 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.EmptyUtils;
 import com.yc.english.R;
-import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.view.adapter.GroupFileAdapter;
 import com.yc.english.group.view.adapter.GroupPictureAdapter;
@@ -42,7 +40,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
     private LinearLayout llPicture;
     private LinearLayout llFile;
     private LinearLayout llVoice;
-    private TextView textView;
+
 
     private Type type;
 
@@ -80,13 +78,13 @@ public class MultifunctionLinearLayout extends LinearLayout {
 
     public void showSynthesizeView() {
         if (null == synthesizeView) {
-            synthesizeView = inflater.inflate(R.layout.group_publish_task_detail_synthesis, null);
+            synthesizeView = inflater.inflate(R.layout.group_publish_task_detail_synthesis, this, true);
 
             RecyclerView pictureRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.recyclerView_picture_base);
             RecyclerView voiceRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.voice_recyclerView_base);
             RecyclerView fileRecycleView = (RecyclerView) synthesizeView.findViewById(R.id.file_recyclerView_base);
 
-            textView = (TextView) synthesizeView.findViewById(R.id.m_et_issue_task);
+            TextView textView = (TextView) synthesizeView.findViewById(R.id.m_et_issue_task);
             llPicture = (LinearLayout) synthesizeView.findViewById(R.id.ll_picture);
             llVoice = (LinearLayout) synthesizeView.findViewById(R.id.ll_voice);
             llFile = (LinearLayout) synthesizeView.findViewById(R.id.ll_file);
@@ -108,7 +106,6 @@ public class MultifunctionLinearLayout extends LinearLayout {
             textView.setText(getText());
             textView.setVisibility(TextUtils.isEmpty(getText()) ? View.GONE : View.VISIBLE);
 
-            addView(synthesizeView);
         }
 
     }
@@ -133,7 +130,7 @@ public class MultifunctionLinearLayout extends LinearLayout {
 
     }
 
-    public void showVioceView(List<Voice> voices) {
+    public void showVoiceView(List<Voice> voices) {
         showView(llVoice, voices);
         groupVoiceAdapter.setData(voices);
     }
@@ -146,5 +143,9 @@ public class MultifunctionLinearLayout extends LinearLayout {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void destroyPlayer() {
+        groupVoiceAdapter.destroyPlayer();
     }
 }

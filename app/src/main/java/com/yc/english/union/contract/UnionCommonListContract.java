@@ -22,13 +22,11 @@ public interface UnionCommonListContract {
 
         void showMemberList(List<StudentInfo> list);
 
-        void showUnionList1(List<ClassInfo> list);
+        void showMyGroupList(List<ClassInfo> list);
 
         void showCommonClassList(List<ClassInfo> list);
 
         void showIsMember(int is_member, ClassInfo classInfo);
-
-        void showVerifyResult(List<StudentInfo> list);
 
     }
 
@@ -39,6 +37,5 @@ public interface UnionCommonListContract {
 
         void isGroupMember(ClassInfo classInfo);
 
-        void getMemberList(String class_id, String status, String master_id, String flag);
     }
 }

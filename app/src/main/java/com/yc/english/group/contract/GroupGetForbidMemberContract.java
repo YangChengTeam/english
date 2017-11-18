@@ -22,7 +22,7 @@ public interface GroupGetForbidMemberContract {
     }
 
     interface Presenter extends IPresenter {
-        void getMemberList(String sn, String status, String master_id, String flag);
+        void getMemberList(String sn, int page, int page_size, String status, String master_id, String flag);
 
         void lisGagUser(String groupId, List<StudentInfo> list);
 

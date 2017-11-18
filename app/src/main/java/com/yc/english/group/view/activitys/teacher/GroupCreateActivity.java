@@ -3,12 +3,10 @@ package com.yc.english.group.view.activitys.teacher;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.contract.GroupCreateContract;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.presenter.GroupCreatePresenter;
 import com.yc.english.main.hepler.UserInfoHelper;
 
@@ -44,8 +42,7 @@ public class GroupCreateActivity extends FullScreenActivity<GroupCreatePresenter
         RxView.clicks(btnCreate).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-
-                mPresenter.createGroup(UserInfoHelper.getUserInfo().getUid(), etClassGroup.getText().toString().trim(), "","0");
+                mPresenter.createGroup(UserInfoHelper.getUserInfo().getUid(), etClassGroup.getText().toString().trim(), "", "0");
             }
         });
 

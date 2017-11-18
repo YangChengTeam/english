@@ -1,9 +1,7 @@
 package com.yc.english.group.view.provider;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 import android.text.TextUtils;
-import android.text.style.TabStopSpan;
 
 import com.blankj.utilcode.util.LogUtils;
 
@@ -11,8 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -133,7 +129,7 @@ public class CustomMessage extends MessageContent {
         try {
             jsonStr = new String(data, "UTF-8");
         } catch (UnsupportedEncodingException e1) {
-
+            e1.printStackTrace();
         }
         try {
             JSONObject jsonObj = new JSONObject(jsonStr);

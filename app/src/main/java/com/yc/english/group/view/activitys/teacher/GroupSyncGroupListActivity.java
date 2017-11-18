@@ -1,7 +1,7 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -18,17 +18,14 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupSyncGroupContract;
 import com.yc.english.group.listener.OnCheckedChangeListener;
 import com.yc.english.group.model.bean.ClassInfo;
-import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.presenter.GroupSyncGroupPresenter;
 import com.yc.english.group.view.adapter.GroupSyncListAdapter;
-import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.functions.Action1;
 
 /**
@@ -61,7 +58,7 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
 
         adapter = new GroupSyncListAdapter(this, null);
         mRecyclerView.setAdapter(adapter);
-        getData();
+
         initListener();
 
     }
@@ -110,11 +107,12 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
     public void onClick(View view, boolean isClicked, ClassInfo classInfo) {
         if (view instanceof ImageView) {
             if (isClicked) {
-                ((ImageView) view).setImageDrawable(getResources().getDrawable(R.mipmap.group24));
+                ((ImageView) view).setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.group24));
                 count++;
                 classInfos.add(classInfo);
+                SPUtils.getInstance().put(classInfo.getClass_id() + "class", true);
             } else {
-                ((ImageView) view).setImageDrawable(getResources().getDrawable(R.mipmap.group23));
+                ((ImageView) view).setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.group23));
                 count--;
                 classInfos.remove(classInfo);
                 SPUtils.getInstance().remove(classInfo.getClass_id() + "class");
@@ -165,7 +163,7 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
         stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getData();
+                mPresenter.loadData(true);
             }
         });
     }
@@ -180,9 +178,5 @@ public class GroupSyncGroupListActivity extends FullScreenActivity<GroupSyncGrou
         stateView.showLoading(llContainer);
     }
 
-    private void getData() {
-        String uid = UserInfoHelper.getUserInfo().getUid();
-        mPresenter.getGroupList(GroupSyncGroupListActivity.this, uid, "2", GroupInfoHelper.getClassInfo().getType());
-    }
 
 }

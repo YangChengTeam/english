@@ -340,4 +340,33 @@ public class ClassInfo implements Parcelable {
     public void setRole(int role) {
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        return "ClassInfo{" +
+                "cId=" + cId +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", className='" + className + '\'' +
+                ", count='" + count + '\'' +
+                ", groupId=" + groupId +
+                ", founder_id='" + founder_id + '\'' +
+                ", master_id='" + master_id + '\'' +
+                ", vali_type='" + vali_type + '\'' +
+                ", is_del='" + is_del + '\'' +
+                ", add_time='" + add_time + '\'' +
+                ", add_date='" + add_date + '\'' +
+                ", del_time='" + del_time + '\'' +
+                ", sort='" + sort + '\'' +
+                ", master_name='" + master_name + '\'' +
+                ", master_nick_name='" + master_nick_name + '\'' +
+                ", class_id='" + class_id + '\'' +
+                ", flag='" + flag + '\'' +
+                ", fee_type=" + fee_type +
+                ", type='" + type + '\'' +
+                ", is_allow_talk=" + is_allow_talk +
+                ", desp_url='" + desp_url + '\'' +
+                ", title='" + title + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

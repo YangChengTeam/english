@@ -2,19 +2,13 @@ package com.yc.english.group.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.kk.utils.UIUitls;
 import com.yc.english.base.utils.RongIMUtil;
-import com.yc.english.main.hepler.UserInfoHelper;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by wanglin  on 2017/8/1 20:22.

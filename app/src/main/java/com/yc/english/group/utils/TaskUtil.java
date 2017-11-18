@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import com.yc.english.R;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.model.bean.TaskInfo;
-import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.model.bean.Voice;
 import com.yc.english.group.view.widget.MultifunctionLinearLayout;
 
@@ -54,7 +53,7 @@ public class TaskUtil {
         }
         linearLayout.showSynthesizeView();
         linearLayout.showUrlView(info.getBody().getImgs());
-        linearLayout.showVioceView(getVoiceList(info));
+        linearLayout.showVoiceView(getVoiceList(info));
         linearLayout.showFileView(getFileInfos(info));
     }
 

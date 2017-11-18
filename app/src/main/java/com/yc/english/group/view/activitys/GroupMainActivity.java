@@ -5,7 +5,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -26,13 +28,14 @@ import com.yc.english.group.contract.GroupMyGroupListContract;
 import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupMyGroupListPresenter;
+import com.yc.english.group.utils.ItemTouchHelperCallback;
 import com.yc.english.group.view.activitys.student.GroupJoinActivity;
 import com.yc.english.group.view.activitys.teacher.GroupCreateActivity;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.main.model.domain.UserInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -77,17 +80,17 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         mPresenter = new GroupMyGroupListPresenter(this, this);
         mToolbar.setTitle(getString(R.string.group));
         mToolbar.showNavigationIcon();
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                Intent intent = new Intent(GroupMainActivity.this, GroupVerifyActivity.class);
-                intent.putExtra("type", "0");
-                startActivity(intent);
-            }
-        });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, true, null);
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelperCallback helperCallback = new ItemTouchHelperCallback(this,adapter);
+
+        helperCallback.setSwipeEnable(false);
+        helperCallback.setDragEnable(true);
+        ItemTouchHelper helper = new ItemTouchHelper(helperCallback);
+        helper.attachToRecyclerView(recyclerView);
 
         initListener();
     }
@@ -194,6 +197,7 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
             llDataContainer.setVisibility(View.VISIBLE);
             llEmptyContainer.setVisibility(View.GONE);
             adapter.setData(classInfos);
+
         } else {
             llDataContainer.setVisibility(View.GONE);
             llEmptyContainer.setVisibility(View.VISIBLE);
@@ -211,14 +215,24 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
 
 
     @Override
-    public void showMemberList(List<StudentInfo> count) {
+    public void showMemberList(final List<StudentInfo> list) {
 
-        if (count != null && count.size() > 0) {
+        if (list != null && list.size() > 0) {
             mToolbar.setMenuIcon(R.mipmap.group65);
         } else {
             mToolbar.setMenuIcon(R.mipmap.group66);
         }
         invalidateOptionsMenu();
+
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
+            @Override
+            public void onClick() {
+                Intent intent = new Intent(GroupMainActivity.this, GroupVerifyActivity.class);
+                intent.putExtra("type", "0");
+                intent.putParcelableArrayListExtra("studentList", (ArrayList<StudentInfo>) list);
+                startActivity(intent);
+            }
+        });
     }
 
 

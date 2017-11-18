@@ -10,20 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyJoinContract;
 import com.yc.english.group.model.bean.ClassInfo;
+import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupApplyJoinPresenter;
-import com.yc.english.main.hepler.UserInfoHelper;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -144,7 +141,7 @@ public class GroupJoinActivity extends FullScreenActivity<GroupApplyJoinPresente
 
 
     @Override
-    public void showMemberList(List<UserInfo> list) {
+    public void showMemberList(List<UserInfo> list, List<StudentInfo> dataList) {
 
     }
 }

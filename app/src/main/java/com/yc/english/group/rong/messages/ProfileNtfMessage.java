@@ -1,5 +1,7 @@
 package com.yc.english.group.rong.messages;
 
+import com.yc.english.group.rong.util.GsonUtil;
+
 /**
  *
  * 资料通知消息。此类型消息没有 Push 通知。
@@ -75,8 +77,8 @@ public class ProfileNtfMessage  {
 		this.extra = extra;
 	}  
 	
-//	@Override
-//	public String toString() {
-//		return GsonUtil.toJson(this, ProfileNtfMessage.class);
-//	}
+	@Override
+	public String toString() {
+		return GsonUtil.toJson(this, ProfileNtfMessage.class);
+	}
 }

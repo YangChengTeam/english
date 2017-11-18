@@ -2,6 +2,7 @@ package com.yc.english.group.view.activitys.student;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.kk.securityhttp.net.contains.HttpConfig;
@@ -9,6 +10,7 @@ import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupDoTaskListContract;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.TaskAllInfoWrapper;
 import com.yc.english.group.presenter.GroupDoTaskListPresenter;
 import com.yc.english.group.view.adapter.GroupMyTaskListAdapter;
@@ -30,6 +32,7 @@ public class GroupMyTaskListActivity extends FullScreenActivity<GroupDoTaskListP
     private GroupMyTaskListAdapter adapter;
     private String targetId;
 
+
     @Override
     public void init() {
         mPresenter = new GroupDoTaskListPresenter(this, this);
@@ -37,8 +40,8 @@ public class GroupMyTaskListActivity extends FullScreenActivity<GroupDoTaskListP
         if (getIntent() != null) {
             targetId = getIntent().getStringExtra("targetId");
             mPresenter.getPublishTaskList("", targetId);
-
         }
+
         mToolbar.setTitle(getString(R.string.task));
         mToolbar.showNavigationIcon();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

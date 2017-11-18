@@ -30,6 +30,7 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.union.contract.UnionCommonListContract;
 import com.yc.english.union.presenter.UnionCommonListPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -59,14 +60,6 @@ public class GroupCommonClassActivity extends FullScreenActivity<UnionCommonList
         mToolbar.setTitle(getString(R.string.teacher_education));
         mToolbar.showNavigationIcon();
 
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                Intent intent = new Intent(GroupCommonClassActivity.this, GroupVerifyActivity.class);
-                intent.putExtra("type", "2");
-                startActivity(intent);
-            }
-        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, false, null);
@@ -87,7 +80,6 @@ public class GroupCommonClassActivity extends FullScreenActivity<UnionCommonList
         adapter.setOnJoinListener(new GroupGroupAdapter.OnJoinListener() {
             @Override
             public void onJoin(ClassInfo classInfo) {
-
 
                 if (!UserInfoHelper.isGotoLogin(GroupCommonClassActivity.this)) {
                     int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid());
@@ -113,12 +105,27 @@ public class GroupCommonClassActivity extends FullScreenActivity<UnionCommonList
     }
 
     @Override
-    public void showMemberList(List<StudentInfo> list) {
+    public void showMemberList(final List<StudentInfo> list) {
+        if (list != null && list.size() > 0) {
+            mToolbar.setMenuIcon(R.mipmap.group65);
+        } else {
+            mToolbar.setMenuIcon(R.mipmap.group66);
+        }
+        invalidateOptionsMenu();
 
+        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
+            @Override
+            public void onClick() {
+                Intent intent = new Intent(GroupCommonClassActivity.this, GroupVerifyActivity.class);
+                intent.putExtra("type", "2");
+                intent.putParcelableArrayListExtra("studentList", (ArrayList<StudentInfo>) list);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
-    public void showUnionList1(List<ClassInfo> list) {
+    public void showMyGroupList(List<ClassInfo> list) {
 
     }
 
@@ -146,16 +153,6 @@ public class GroupCommonClassActivity extends FullScreenActivity<UnionCommonList
             });
             dialog.show();
         }
-    }
-
-    @Override
-    public void showVerifyResult(List<StudentInfo> list) {
-        if (list != null && list.size() > 0) {
-            mToolbar.setMenuIcon(R.mipmap.group65);
-        } else {
-            mToolbar.setMenuIcon(R.mipmap.group66);
-        }
-        invalidateOptionsMenu();
     }
 
     @Override
@@ -207,7 +204,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<UnionCommonList
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (userInfo != null) {
             String uid = userInfo.getUid();
-            mPresenter.getMemberList("", "0", uid, "2");
+            mPresenter.getMemberList("", "0", 1, 10, uid, "2");
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
@@ -45,7 +46,7 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupGetForbid
         adapter = new GroupForbidMemberAdapter(this);
         mIndexableLayout.setAdapter(adapter);
         mIndexableLayout.setOverlayStyle_Center();
-
+        initListener();
     }
 
     private int curCount;
@@ -55,18 +56,21 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupGetForbid
     private void initListener() {
         curCount = count;
         studentInfos.clear();
+
         adapter.setOnCheckedChangeListener(new OnCheckedChangeListener<StudentInfo>() {
             @Override
             public void onClick(View view, boolean isClicked, StudentInfo studentInfo) {
                 if (view instanceof ImageView) {
                     if (isClicked) {
-                        ((ImageView) view).setImageDrawable(getResources().getDrawable(R.mipmap.group24));
+                        ((ImageView) view).setImageDrawable(ContextCompat.getDrawable(GroupForbidMemberActivity.this, R.mipmap.group24));
                         count++;
                         studentInfos.add(studentInfo);
+                        studentInfo.setIsTempForbid(true);
                     } else {
-                        ((ImageView) view).setImageDrawable(getResources().getDrawable(R.mipmap.group23));
+                        ((ImageView) view).setImageDrawable(ContextCompat.getDrawable(GroupForbidMemberActivity.this, R.mipmap.group23));
                         count--;
                         studentInfos.remove(studentInfo);
+                        studentInfo.setIsTempForbid(false);
                     }
                 }
 
@@ -140,17 +144,16 @@ public class GroupForbidMemberActivity extends FullScreenActivity<GroupGetForbid
         }
 
         adapter.setDatas(totalList);
-        initListener();
     }
 
     private void getData() {
-        mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getType());
+        mPresenter.getMemberList(GroupInfoHelper.getGroupInfo().getId(), 1, 500, "1", "", GroupInfoHelper.getClassInfo().getType());
     }
 
     private void setMenuTitle(int totalSize, int selectSize, int colorId) {
         String str = getString(R.string.forbid_confirm);
         mToolbar.setMenuTitle(String.format(str, selectSize, totalSize));
-        mToolbar.setMenuTitleColor(getResources().getColor(colorId));
+        mToolbar.setMenuTitleColor(ContextCompat.getColor(GroupForbidMemberActivity.this, colorId));
         invalidateOptionsMenu();
     }
 

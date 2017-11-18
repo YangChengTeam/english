@@ -22,7 +22,7 @@ public interface GroupApplyJoinContract {
     interface View extends IView, IDialog, IFinish {
         void showGroup(ClassInfo classInfo);
 
-        void showMemberList(List<UserInfo> list);
+        void showMemberList(List<UserInfo> list, List<StudentInfo> dataList);
     }
 
     interface Presenter extends IPresenter {
@@ -30,7 +30,7 @@ public interface GroupApplyJoinContract {
 
         void queryGroupById(Context context, String id, String sn);
 
-        void getMemberList(String sn, String status, String master_id, String flag);
+        void getMemberList(String sn, String status,int page,int page_size, String master_id, String flag);
 
         void addForbidMember(StudentInfo studentInfo);
     }

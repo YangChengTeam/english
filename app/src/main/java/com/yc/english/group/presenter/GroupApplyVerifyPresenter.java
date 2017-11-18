@@ -3,15 +3,14 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.constant.BusAction;
-import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyVerifyContract;
+import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.ClassInfoWarpper;
-import com.yc.english.group.model.bean.GroupApplyInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.engin.GroupApplyVerifyEngine;
@@ -36,7 +35,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
 
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
-        if (!forceUpdate) return;
+
 
     }
 
@@ -46,10 +45,11 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
      * @param class_id
      * @param status
      */
-    @Override
-    public void getMemberList(Context context, String class_id, String status, String master_id, String type) {
-        mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+    public void getMemberList(String class_id, final int page, int page_size, String status, String master_id, String type, final boolean isFirst) {
+        if (page == 1 && isFirst) {
+            mView.showLoading();
+        }
+        Subscription subscription = EngineUtils.getMemberList(mContext, class_id, page, page_size, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -57,19 +57,37 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
+                if (page == 1 && isFirst) {
+                    mView.showNoNet();
+                }
             }
 
             @Override
             public void onNext(final ResultInfo<StudentInfoWrapper> stringResultInfo) {
-                handleResultInfo(stringResultInfo, new Runnable() {
+                ResultInfoHelper.handleResultInfo(stringResultInfo, new ResultInfoHelper.Callback() {
                     @Override
-                    public void run() {
-                        if (stringResultInfo.data.getList() != null && stringResultInfo.data.getList().size() > 0) {
+                    public void resultInfoEmpty(String message) {
+                        if (page == 1) {
+                            mView.showNoNet();
+                        }
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        if (page == 1) {
+                            mView.showNoNet();
+                        }
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (stringResultInfo.data != null && stringResultInfo.data.getList() != null && stringResultInfo.data.getList().size() > 0) {
                             mView.showVerifyList(stringResultInfo.data.getList());
                             mView.hideStateView();
                         } else {
-                            mView.showNoData();
+                            if (page == 1) {
+                                mView.showNoData();
+                            }
                         }
                     }
                 });
@@ -85,7 +103,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
      * @param studentInfo
      */
     @Override
-    public void acceptApply(final StudentInfo studentInfo) {
+    public void acceptApply(final StudentInfo studentInfo, final int position) {
         Subscription subscription = mEngin.acceptApply(studentInfo.getClass_id(), UserInfoHelper.getUserInfo().getUid(), studentInfo.getUser_id()).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
@@ -102,9 +120,8 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
                 handleResultInfo(stringResultInfo, new Runnable() {
                     @Override
                     public void run() {
-                        mView.showApplyResult(stringResultInfo.data);
+                        mView.showApplyResult(stringResultInfo.data, position);
                         queryGroup(studentInfo);
-                        RongIMUtil.insertMessage("欢迎" + studentInfo.getNick_name() + "加入本群", studentInfo.getClass_id());
                         RxBus.get().post(BusAction.GROUP_LIST, "join Group");
 
                     }
@@ -140,7 +157,7 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
     }
 
     private void queryGroup(final StudentInfo studentInfo) {
-        Subscription subscription = EngineUtils.queryGroupById(mContext, "", studentInfo.getSn()).subscribe(new Subscriber<ResultInfo<ClassInfoWarpper>>() {
+        Subscription subscription = EngineUtils.queryGroupById(mContext, studentInfo.getClass_id(), "").subscribe(new Subscriber<ResultInfo<ClassInfoWarpper>>() {
             @Override
             public void onCompleted() {
             }
@@ -155,9 +172,15 @@ public class GroupApplyVerifyPresenter extends BasePresenter<GroupApplyVerifyEng
                     @Override
                     public void run() {
                         if (classInfoWarpperResultInfo != null && classInfoWarpperResultInfo.data != null) {
-                            if (classInfoWarpperResultInfo.data.getInfo().getIs_allow_talk() == 0) {
+                            ClassInfo classInfo = classInfoWarpperResultInfo.data.getInfo();
+                            if (classInfo.getIs_allow_talk() == 0) {
                                 addForbidMember(studentInfo);
                             }
+                            String className = "群";
+                            if ("1".equals(classInfo.getType())) {
+                                className = "公会";
+                            }
+                            RongIMUtil.insertMessage("欢迎" + studentInfo.getNick_name() + "加入本" + className, studentInfo.getClass_id());
                         }
                     }
                 });

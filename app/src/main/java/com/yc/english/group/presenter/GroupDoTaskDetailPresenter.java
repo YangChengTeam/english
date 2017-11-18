@@ -19,14 +19,12 @@ import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.group.view.provider.CustomMessage;
 
 import java.io.File;
-import java.util.List;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
-import io.rong.message.RichContentMessage;
 import rx.Subscriber;
 import rx.Subscription;
 

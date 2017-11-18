@@ -1,6 +1,7 @@
 package com.yc.english.group.view.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.listener.OnCheckedChangeListener;
@@ -60,15 +62,23 @@ public class GroupForbidMemberAdapter extends IndexableAdapter<StudentInfo> {
         memberContentVH.tvMemberOwner.setVisibility(View.GONE);
         memberContentVH.viewDivider.setVisibility(View.VISIBLE);
 
-        memberContentVH.ivDeleteSelect.setImageDrawable(entity.getIsForbid() ? mContext.getResources().getDrawable(R.mipmap.group73) : mContext.getResources().getDrawable(R.mipmap.group23));
+        memberContentVH.ivDeleteSelect.setImageDrawable(entity.getIsForbid() ?
+                ContextCompat.getDrawable(mContext,R.mipmap.group73) :  ContextCompat.getDrawable(mContext,R.mipmap.group23));
 
-        memberContentVH.ivDeleteSelect.setTag(entity.getIsForbid());
+        memberContentVH.ivDeleteSelect.setTag(entity.getIsTempForbid());
 
+        if (!entity.getIsForbid()) {
+            memberContentVH.ivDeleteSelect.setImageDrawable(entity.getIsTempForbid() ?
+                    ContextCompat.getDrawable(mContext,R.mipmap.group24) :  ContextCompat.getDrawable(mContext,R.mipmap.group23));
+        }
+
+        int position = holder.getLayoutPosition();
+
+        LogUtils.e(position + "---" + memberContentVH.ivDeleteSelect.getTag() + "--" + entity.getNick_name());
         if (!entity.getIsForbid()) {
             memberContentVH.llContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     if (onCheckedChangeListener != null) {
                         boolean flag = !(boolean) memberContentVH.ivDeleteSelect.getTag();
                         onCheckedChangeListener.onClick(memberContentVH.ivDeleteSelect, flag, entity);

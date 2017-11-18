@@ -3,16 +3,16 @@ package com.yc.english.group.plugin;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.TaskInfo;
 import com.yc.english.group.view.activitys.teacher.GroupIssueTaskActivity;
 
@@ -54,6 +54,11 @@ public class AssignTaskPlugin implements IPluginModule {
         //示例获取 会话类型、targetId、Context,此处可根据产品需求自定义逻辑，如:开启新的 Activity 等。
         conversationType = rongExtension.getConversationType();
         targetId = rongExtension.getTargetId();
+
+        if (GroupInfoHelper.getClassInfo().getIs_allow_talk()==0){
+            TipsHelper.tips(fragment.getActivity(), GroupConstant.FORBID_CONTENT);
+            return;
+        }
 
         activity = fragment.getActivity();
         String[] permissions = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};

@@ -9,7 +9,6 @@ import com.yc.english.base.view.ILoading;
 import com.yc.english.base.view.INoData;
 import com.yc.english.base.view.INoNet;
 import com.yc.english.base.view.IView;
-import com.yc.english.group.model.bean.ClassInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public interface GroupMyMemberListContract {
     }
 
     interface Presenter extends IPresenter {
-        void getMemberList(Context context, String class_id, String status, String master_id,String flag);
+        void getMemberList(Context context, String class_id,int page,int page_size, String status, String master_id,String flag);
 
         void exitGroup(String class_id, String master_id, String members);
 

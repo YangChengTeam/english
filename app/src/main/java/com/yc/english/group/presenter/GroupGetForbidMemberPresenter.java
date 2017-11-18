@@ -2,7 +2,6 @@ package com.yc.english.group.presenter;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.model.BaseEngin;
@@ -33,14 +32,14 @@ public class GroupGetForbidMemberPresenter extends BasePresenter<BaseEngin, Grou
     @Override
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
-        getMemberList(GroupInfoHelper.getGroupInfo().getId(), "1", "", GroupInfoHelper.getClassInfo().getType());
+        getMemberList(GroupInfoHelper.getGroupInfo().getId(),1,1000, "1", "", GroupInfoHelper.getClassInfo().getType());
 
     }
 
     @Override
-    public void getMemberList(final String sn, String status, String master_id, String type) {
+    public void getMemberList(final String sn, int page,int page_size, String status, String master_id, String type) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(mContext, sn,  status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(mContext, sn,page,page_size,  status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

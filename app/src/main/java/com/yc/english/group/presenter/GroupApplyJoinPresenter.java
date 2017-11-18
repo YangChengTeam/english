@@ -11,6 +11,7 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.common.GroupApp;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupApplyJoinContract;
@@ -27,6 +28,7 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserInfo;
 import rx.Subscriber;
 import rx.Subscription;
@@ -53,12 +55,9 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
      */
     @Override
     public void applyJoinGroup(final ClassInfo classInfo) {
-        String groupName = "";
-        String masterName = "";
-        if ("0".equals(classInfo.getType())) {
-            groupName = "班群";
-            masterName = "群主";
-        } else if ("1".equals(classInfo.getType())) {
+        String groupName = "班群";
+        String masterName = "群主";
+        if ("1".equals(classInfo.getType())) {
             groupName = "公会";
             masterName = "会主";
         }
@@ -93,9 +92,9 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
                             if (type == GroupConstant.CONDITION_ALL_ALLOW) {
 
                                 ToastUtils.showShort(String.format(mContext.getString(R.string.congratulation_join), finalGroupName));
-                                RongIMUtil.insertMessage("欢迎" + UserInfoHelper.getUserInfo().getNickname() + "加入本群", classInfo.getClass_id());
+                                RongIMUtil.insertMessage("欢迎" + UserInfoHelper.getUserInfo().getNickname() + "加入本" + finalGroupName, classInfo.getClass_id());
                                 RxBus.get().post(BusAction.GROUP_LIST, "from groupjoin");
-
+                                setMode(classInfo);
                                 StudentInfo studentInfo = new StudentInfo();
                                 studentInfo.setUser_id(applyInfo.getUser_id());
                                 studentInfo.setClass_id(applyInfo.getClass_id());
@@ -150,8 +149,8 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
     }
 
     @Override
-    public void getMemberList(String sn, String status, String master_id, String type) {
-        Subscription subscription = EngineUtils.getMemberList(mContext, sn, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+    public void getMemberList(String sn, String status, int page, int page_size, String master_id, String type) {
+        Subscription subscription = EngineUtils.getMemberList(mContext, sn, page, page_size, status, master_id, type).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -173,7 +172,7 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
                             for (StudentInfo studentInfo : data.getList()) {
                                 list.add(new UserInfo(studentInfo.getUser_id(), studentInfo.getNick_name(), Uri.parse(studentInfo.getFace())));
                             }
-                            mView.showMemberList(list);
+                            mView.showMemberList(list, data.getList());
                         }
                     }
                 });
@@ -208,5 +207,12 @@ public class GroupApplyJoinPresenter extends BasePresenter<BaseEngin, GroupApply
         mSubscriptions.add(subscription);
     }
 
-
+    private void setMode(ClassInfo classInfo) {
+        if (classInfo.getType().equals("1")) {//公会
+            GroupApp.setMyExtensionModule(false, false);
+        } else {
+            GroupApp.setMyExtensionModule(false, true);
+        }
+        RongIM.getInstance().startGroupChat(mContext, classInfo.getClass_id(), classInfo.getClassName());
+    }
 }

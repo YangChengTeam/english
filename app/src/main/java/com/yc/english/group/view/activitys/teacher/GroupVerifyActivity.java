@@ -1,18 +1,17 @@
 package com.yc.english.group.view.activitys.teacher;
 
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 
-import com.example.comm_recyclviewadapter.BaseViewHolder;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.contract.GroupApplyVerifyContract;
-import com.yc.english.group.listener.OnItemClickListener;
-import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupApplyVerifyPresenter;
 import com.yc.english.group.view.adapter.GroupVerifyAdapter;
@@ -32,12 +31,17 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
     RecyclerView recyclerView;
     @BindView(R.id.stateView)
     StateView stateView;
-    @BindView(R.id.ll_container)
-    LinearLayout llContainer;
 
-    private GroupVerifyAdapter adapter;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    private GroupVerifyAdapter groupVerifyAdapter;
 
     private String type;
+
+    private int page = 1;
+    private int page_size = 10;
+
 
     @Override
     public void init() {
@@ -46,11 +50,18 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
         mToolbar.showNavigationIcon();
         if (getIntent() != null) {
             type = getIntent().getStringExtra("type");
+            List<StudentInfo> studentList = getIntent().getParcelableArrayListExtra("studentList");
+
         }
+        initRecycleView();
+        initListener();
+        getData(false,true);
+    }
+
+    private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new GroupVerifyAdapter(this, null);
-        recyclerView.setAdapter(adapter);
-        getData();
+        groupVerifyAdapter = new GroupVerifyAdapter(null);
+        recyclerView.setAdapter(groupVerifyAdapter);
 
     }
 
@@ -63,26 +74,59 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
 
     @Override
     public void showVerifyList(List<StudentInfo> list) {
-        adapter.setData(list);
-        initListener();
+
+        if (page == 1) {
+            groupVerifyAdapter.setNewData(list);
+        } else {
+            groupVerifyAdapter.addData(list);
+        }
+        if (list.size() == page_size) {
+            groupVerifyAdapter.loadMoreComplete();
+        } else {
+            groupVerifyAdapter.loadMoreEnd();
+        }
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
     }
 
     @Override
-    public void showApplyResult(String data) {
-        mHolder.setVisible(R.id.m_tv_accept, false);
-        mHolder.setVisible(R.id.m_tv_already_add, true);
+    public void showApplyResult(String data, int position) {
+        groupVerifyAdapter.getViewByPosition(recyclerView, position, R.id.m_tv_accept).setVisibility(View.GONE);
+        groupVerifyAdapter.getViewByPosition(recyclerView, position, R.id.m_tv_already_add).setVisibility(View.VISIBLE);
 
     }
 
-    private BaseViewHolder mHolder;
-
 
     private void initListener() {
-        adapter.setOnItemClickListener(new OnItemClickListener<StudentInfo>() {
+//        groupVerifyAdapter.setEnableLoadMore(false);
+//        groupVerifyAdapter.disableLoadMoreIfNotFullPage(recyclerView);
+
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.primary));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onItemClick(BaseViewHolder holder, int position, StudentInfo studentInfo) {
-                mPresenter.acceptApply(studentInfo);
-                mHolder = holder;
+            public void onRefresh() {
+                page = 1;
+                getData(false, false);
+            }
+        });
+
+
+        groupVerifyAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                getData(true, false);
+            }
+        }, recyclerView);
+
+
+        groupVerifyAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                StudentInfo studentInfo = (StudentInfo) adapter.getItem(position);
+                mPresenter.acceptApply(studentInfo, position);
+                return false;
             }
         });
 
@@ -96,26 +140,36 @@ public class GroupVerifyActivity extends FullScreenActivity<GroupApplyVerifyPres
 
     @Override
     public void showNoNet() {
-        stateView.showNoNet(llContainer, HttpConfig.NET_ERROR, new View.OnClickListener() {
+        stateView.showNoNet(recyclerView, HttpConfig.NET_ERROR, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getData();
+                getData(false, true);
             }
         });
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void showNoData() {
-        stateView.showNoData(llContainer);
+        stateView.showNoData(recyclerView);
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void showLoading() {
-        stateView.showLoading(llContainer);
+        stateView.showLoading(recyclerView);
     }
 
-    private void getData() {
+    private void getData(boolean isLoadMore, boolean isFirst) {
         String uid = UserInfoHelper.getUserInfo().getUid();
-        mPresenter.getMemberList(this, "", "0", uid, type);
+        if (isLoadMore) {
+            page++;
+        }
+        mPresenter.getMemberList("", page, page_size, "0", uid, type, isFirst);
     }
+
 }

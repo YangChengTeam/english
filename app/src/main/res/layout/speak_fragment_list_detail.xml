@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_more"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/group_distance_50"
+        android:background="@drawable/base_tran_ripple_bg"
+        android:paddingLeft="@dimen/group_distance_15"
+        android:paddingRight="@dimen/group_distance_15">
+
+        <ImageView
+            android:id="@+id/iv_speak_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/speak_tv_orange" />
+
+        <TextView
+            android:id="@+id/english_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/group_distance_20"
+            android:layout_toRightOf="@id/iv_speak_icon"
+            android:text="经典影视"
+            android:textColor="@color/black"
+            android:textSize="@dimen/group_text_16" />
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/more"
+                android:textSize="@dimen/group_text_14" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/speak_arrow_right" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_speak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

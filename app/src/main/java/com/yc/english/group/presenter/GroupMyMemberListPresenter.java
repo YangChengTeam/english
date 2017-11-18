@@ -1,36 +1,22 @@
 package com.yc.english.group.presenter;
 
 import android.content.Context;
-import android.text.TextUtils;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.hwangjr.rxbus.Bus;
 import com.hwangjr.rxbus.RxBus;
-import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.utils.UIUitls;
-import com.yc.english.R;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.constant.BusAction;
-import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupMyMemberListContract;
-import com.yc.english.group.model.bean.ClassInfoWarpper;
-import com.yc.english.group.model.bean.GroupApplyInfo;
-import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.model.bean.StudentInfoWrapper;
 import com.yc.english.group.model.bean.StudentRemoveInfo;
-import com.yc.english.group.rong.models.CodeSuccessResult;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.UserInfoHelper;
 
-import java.util.List;
-
-import io.rong.imlib.IRongCallback;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -50,9 +36,9 @@ public class GroupMyMemberListPresenter extends BasePresenter<BaseEngin, GroupMy
     }
 
     @Override
-    public void getMemberList(Context context, String class_id, String status, String master_id, String type) {
+    public void getMemberList(Context context, String class_id, int page, int page_size, String status, String master_id, String type) {
         mView.showLoading();
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, type).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id, page, page_size, status, master_id, type).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

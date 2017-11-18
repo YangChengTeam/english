@@ -9,8 +9,6 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
-import java.util.Map;
-
 import me.yokeyword.indexablerv.IndexableEntity;
 
 /**
@@ -30,7 +28,7 @@ public class StudentInfo implements IndexableEntity, Parcelable {
     private String user_id;
     private String user_name;
     private String class_name;
-    private String sn;//群号
+    private String class_sn;//群号
     private String master_id;//
     private boolean isAudit;//是否审核，true表示已审核 false 表示未审核
     @JSONField(name = "user_face")
@@ -39,6 +37,10 @@ public class StudentInfo implements IndexableEntity, Parcelable {
     private boolean isForbid;//是否被禁言
 
     private String forbidTime;//禁言的时间
+
+    private boolean isSelected;
+
+    private boolean isTempForbid;
 
     @Generated(hash = 2016856731)
     public StudentInfo() {
@@ -53,17 +55,18 @@ public class StudentInfo implements IndexableEntity, Parcelable {
         user_id = source.readString();
         user_name = source.readString();
         class_name = source.readString();
-        sn = source.readString();
+        class_sn = source.readString();
         master_id = source.readString();
         face = source.readString();
         isForbid = source.readByte() != 0;
         forbidTime = source.readString();
     }
 
-    @Generated(hash = 735190035)
+    @Generated(hash = 21243913)
     public StudentInfo(long sId, String add_date, String add_time, String class_id, String id,
-                       String nick_name, String user_id, String user_name, String class_name, String sn,
-                       String master_id, boolean isAudit, String face, boolean isForbid, String forbidTime) {
+            String nick_name, String user_id, String user_name, String class_name,
+            String class_sn, String master_id, boolean isAudit, String face, boolean isForbid,
+            String forbidTime, boolean isSelected, boolean isTempForbid) {
         this.sId = sId;
         this.add_date = add_date;
         this.add_time = add_time;
@@ -73,12 +76,14 @@ public class StudentInfo implements IndexableEntity, Parcelable {
         this.user_id = user_id;
         this.user_name = user_name;
         this.class_name = class_name;
-        this.sn = sn;
+        this.class_sn = class_sn;
         this.master_id = master_id;
         this.isAudit = isAudit;
         this.face = face;
         this.isForbid = isForbid;
         this.forbidTime = forbidTime;
+        this.isSelected = isSelected;
+        this.isTempForbid = isTempForbid;
     }
 
     public long getSId() {
@@ -153,12 +158,12 @@ public class StudentInfo implements IndexableEntity, Parcelable {
         this.class_name = class_name;
     }
 
-    public String getSn() {
-        return this.sn;
+    public String getClass_sn() {
+        return this.class_sn;
     }
 
-    public void setSn(String sn) {
-        this.sn = sn;
+    public void setClass_sn(String class_sn) {
+        this.class_sn = class_sn;
     }
 
     public String getMaster_id() {
@@ -228,7 +233,7 @@ public class StudentInfo implements IndexableEntity, Parcelable {
         dest.writeString(user_id);
         dest.writeString(user_name);
         dest.writeString(class_name);
-        dest.writeString(sn);
+        dest.writeString(class_sn);
         dest.writeString(master_id);
         dest.writeString(face);
         dest.writeByte((byte) (isForbid ? 1 : 0));
@@ -249,6 +254,22 @@ public class StudentInfo implements IndexableEntity, Parcelable {
 
     public void setForbidTime(String forbidTime) {
         this.forbidTime = forbidTime;
+    }
+
+    public boolean getIsSelected() {
+        return this.isSelected;
+    }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
+
+    public boolean getIsTempForbid() {
+        return this.isTempForbid;
+    }
+
+    public void setIsTempForbid(boolean isTempForbid) {
+        this.isTempForbid = isTempForbid;
     }
 
 }

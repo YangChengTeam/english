@@ -1,6 +1,8 @@
 package com.yc.english.group.rong.messages;
 
 
+import com.yc.english.group.rong.util.GsonUtil;
+
 /**
  *
  * 通用命令通知消息。此类型消息没有 Push 通知。此类型消息没有 Push 通知，与通用命令通知消息的区别是不存储、不计数。
@@ -56,11 +58,11 @@ public class CmdMsgMessage {
 		this.data = data;
 	}  
 	
-//	@Override
-//	public String toString() {
-//
-//		new Gson().toJson(this)
-//
-//		return GsonUtil.toJson(this, CmdMsgMessage.class);
-//	}
+	@Override
+	public String toString() {
+
+
+
+		return GsonUtil.toJson(this, CmdMsgMessage.class);
+	}
 }

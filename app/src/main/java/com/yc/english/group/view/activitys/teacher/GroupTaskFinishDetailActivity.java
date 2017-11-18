@@ -142,13 +142,6 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
         TaskUtil.showContextView(mIvTaskIcon, info, publishMultifunctionLinearLayout);
     }
 
-    @Override
-    public void showScoreResult() {
-
-        TipsHelper.tips(this, "作业打分成功");
-
-    }
-
     private void setScore(TaskInfo taskInfo) {
         switch (taskInfo.getScore()) {
             case "A+":
@@ -204,5 +197,12 @@ public class GroupTaskFinishDetailActivity extends FullScreenActivity<GroupScore
             mPresenter.getPublishTaskDetail(this, taskId, classId, UserInfoHelper.getUserInfo().getUid());
             mPresenter.getDoneTaskDetail(this, doneId, userId);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        publishMultifunctionLinearLayout.destroyPlayer();
+        doMultifunctionLinearLayout.destroyPlayer();
     }
 }

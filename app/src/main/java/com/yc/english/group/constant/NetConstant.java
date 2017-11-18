@@ -149,4 +149,16 @@ public interface NetConstant {
      */
 
     String union_class_list = (isDebug ? debug_base_url : baser_url) + "class/class_list";
+
+    /**
+     * 听读列表
+     */
+
+    String read_getReadList = (isDebug ? debug_base_url : baser_url) + "read/getReadList";
+
+    /**
+     * 听读列表详情
+     */
+
+    String read_getreadDetail = (isDebug ? debug_base_url : baser_url) + "read/getreadDetail";
 }

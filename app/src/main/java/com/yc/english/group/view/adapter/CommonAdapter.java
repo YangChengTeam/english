@@ -1,6 +1,7 @@
 package com.yc.english.group.view.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -9,7 +10,6 @@ import com.yc.english.R;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 /**
@@ -46,13 +46,13 @@ public class CommonAdapter extends CommonNavigatorAdapter {
     @Override
     public IPagerTitleView getTitleView(Context context, final int i) {
         ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-        if (mType==1){
+        if (mType == 1) {
             if (i == 0)
                 colorTransitionPagerTitleView.setText(String.format(result_title[0], mFinished));
             else {
                 colorTransitionPagerTitleView.setText(String.format(result_title[1], mUnFinished));
             }
-        }else if (mType==2){
+        } else if (mType == 2) {
             if (i == 0)
                 colorTransitionPagerTitleView.setText(String.format(resultLook[0], mFinished));
             else {
@@ -60,8 +60,8 @@ public class CommonAdapter extends CommonNavigatorAdapter {
             }
         }
 
-        colorTransitionPagerTitleView.setNormalColor(context.getResources().getColor(R.color.black_333333));
-        colorTransitionPagerTitleView.setSelectedColor(context.getResources().getColor(R.color.primary));
+        colorTransitionPagerTitleView.setNormalColor(ContextCompat.getColor(context, R.color.black_333333));
+        colorTransitionPagerTitleView.setSelectedColor(ContextCompat.getColor(context, R.color.primary));
 
 
         colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {

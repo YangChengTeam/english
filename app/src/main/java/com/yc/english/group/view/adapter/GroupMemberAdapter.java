@@ -53,7 +53,7 @@ public class GroupMemberAdapter extends IndexableAdapter<StudentInfo> {
     }
 
     @Override
-    public void onBindContentViewHolder(RecyclerView.ViewHolder holder, StudentInfo entity) {
+    public void onBindContentViewHolder(RecyclerView.ViewHolder holder, final StudentInfo entity) {
         MemberContentVH memberContentVH = (MemberContentVH) holder;
         GlideHelper.circleImageView(mContext, memberContentVH.ivMemberImg, entity.getFace(), R.mipmap.default_avatar);
         memberContentVH.tvMemberName.setText(entity.getNick_name());
@@ -63,7 +63,9 @@ public class GroupMemberAdapter extends IndexableAdapter<StudentInfo> {
             memberContentVH.tvMemberOwner.setText(entity.getUser_id().equals(entity.getMaster_id()) ? "老师" : "");
         }
         memberContentVH.tvMemberPhone.setText(entity.getUser_name());
-        memberContentVH.tvMemberPhone.setVisibility(entity.getUser_name().equals(entity.getNick_name()) ? View.GONE : View.VISIBLE);
+//        memberContentVH.tvMemberPhone.setVisibility(entity.getUser_name().equals(entity.getNick_name()) ? View.GONE : View.VISIBLE);
+        memberContentVH.tvMemberPhone.setVisibility(View.GONE);
+
     }
 
     private class MemberTitleVH extends RecyclerView.ViewHolder {

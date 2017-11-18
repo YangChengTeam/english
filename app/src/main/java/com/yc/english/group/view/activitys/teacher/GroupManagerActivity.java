@@ -1,7 +1,6 @@
 package com.yc.english.group.view.activitys.teacher;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -9,7 +8,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -20,13 +18,12 @@ import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
-import com.yc.english.group.contract.GroupResolvingContract;
+import com.yc.english.group.contract.GroupChangeInfoContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
 import com.yc.english.group.model.bean.RemoveGroupInfo;
-import com.yc.english.group.presenter.GroupResolvingPresenter;
+import com.yc.english.group.presenter.GroupChangeInfoPresenter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -34,7 +31,7 @@ import butterknife.OnClick;
  * Created by wanglin  on 2017/7/26 17:32.
  */
 
-public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPresenter> implements GroupResolvingContract.View {
+public class GroupManagerActivity extends FullScreenActivity<GroupChangeInfoPresenter> implements GroupChangeInfoContract.View {
 
     @BindView(R.id.iv_group_image)
     ImageView ivGroupImage;
@@ -61,7 +58,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
 
     @Override
     public void init() {
-        mPresenter = new GroupResolvingPresenter(this, this);
+        mPresenter = new GroupChangeInfoPresenter(this, this);
         initData();
         mToolbar.showNavigationIcon();
 
@@ -142,6 +139,7 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         }
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -175,18 +173,6 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         }
     }
 
-    @Override
-    public void showChangeGroupInfo(RemoveGroupInfo data) {
-        GlideHelper.circleImageView(this, ivGroupImage, data.getFace(), R.mipmap.default_avatar);
-    }
-
-    @Override
-    public void showResolvingResult() {
-        finish();
-        RxBus.get().post(BusAction.GROUP_LIST, "remove group");
-        RxBus.get().post(BusAction.FINISH, BusAction.REMOVE_GROUP);
-
-    }
 
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
@@ -211,4 +197,8 @@ public class GroupManagerActivity extends FullScreenActivity<GroupResolvingPrese
         }
     }
 
+    @Override
+    public void showChangeResult(RemoveGroupInfo data, String vali_type) {
+        GlideHelper.circleImageView(this, ivGroupImage, data.getFace(), R.mipmap.default_avatar);
+    }
 }

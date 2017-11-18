@@ -1,5 +1,7 @@
 package com.yc.english.group.rong.messages;
 
+import com.yc.english.group.rong.util.GsonUtil;
+
 /**
  *
  * 位置消息。
@@ -117,8 +119,8 @@ public class LBSMessage  {
 		this.poi = poi;
 	}  
 	
-//	@Override
-//	public String toString() {
-//		return GsonUtil.toJson(this, LBSMessage.class);
-//	}
+	@Override
+	public String toString() {
+		return GsonUtil.toJson(this, LBSMessage.class);
+	}
 }

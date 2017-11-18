@@ -1,6 +1,7 @@
 package com.yc.english.group.rong.messages;
 
 
+import com.yc.english.group.rong.util.GsonUtil;
 
 /**
  *
@@ -57,8 +58,8 @@ public class CmdNtfMessage  {
 		this.data = data;
 	}  
 	
-//	@Override
-//	public String toString() {
-//		return GsonUtil.toJson(this, CmdNtfMessage.class);
-//	}
+	@Override
+	public String toString() {
+		return GsonUtil.toJson(this, CmdNtfMessage.class);
+	}
 }

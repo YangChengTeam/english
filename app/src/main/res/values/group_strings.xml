@@ -23,8 +23,8 @@
     <string name="transfer_group">转让班级</string>
 
     <string name="confirm_transfer">确认转让</string>
-    <string name="recevicer_group_phone">请填写接受老师的手机号</string>
-    <string name="recevicer_union_phone">请填写接受会主的手机号</string>
+    <string name="receive_group_phone">请填写接受老师的手机号</string>
+    <string name="receive_union_phone">请填写接受会主的手机号</string>
     <string name="async_other_class">同步到我其他班级</string>
     <string name="issue_task">发布作业</string>
     <string name="group_list">群列表</string>
@@ -82,6 +82,17 @@
     <string name="relief_introduce">英语公会免责声明：我们有正向引导用户、打造健康网络环境的责任。在尊重用户隐私的前提下，
         我们通过多个维度净化网络环境。公会群内严禁发布色情、反动、涉毒等非法信息，如有违规者责任自负，造成恶劣影响直至触犯法律者，将依法追究法律责任。</string>
     <string name="i_konw">我知道啦</string>
+    <string name="topic_result">点击查看测试分析</string>
+    <string name="correct_answer">正确答案</string>
+    <string name="more">更多</string>
+    <string name="spoken_language">口语听力</string>
+    <string name="tv">经典影视</string>
+    <string name="cartoon">卡通动漫</string>
+    <string name="live">生活情趣</string>
+    <string name="song">经典歌曲</string>
+    <string name="poetry">美文诗歌</string>
+    <string name="count">%1$s次</string>
+    <string name="update_date">更新%1$s</string>
 
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>

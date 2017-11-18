@@ -3,7 +3,6 @@ package com.yc.english.group.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
@@ -87,7 +86,7 @@ public class GroupMyGroupListPresenter extends BasePresenter<BaseEngin, GroupMyG
 
     @Override
     public void getMemberList(Context context, String class_id, String status, String master_id, String type) {
-        Subscription subscription = EngineUtils.getMemberList(context, class_id, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getMemberList(context, class_id, 1, 10, status, master_id, type).subscribe(new Subscriber<ResultInfo<StudentInfoWrapper>>() {
             @Override
             public void onCompleted() {
 

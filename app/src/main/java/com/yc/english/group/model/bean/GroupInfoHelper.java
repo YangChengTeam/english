@@ -25,7 +25,7 @@ public class GroupInfoHelper {
 
                 classInfo = parseObject(str, ClassInfo.class);
             } catch (Exception e) {
-                LogUtils.e("-->" + e);
+                LogUtils.e("-->" + e.getMessage());
             }
 
         }
@@ -37,7 +37,7 @@ public class GroupInfoHelper {
             GroupInfoHelper.classInfo = classInfo;
             SPUtils.getInstance().put(GroupConstant.CLASS_INFO, JSONObject.toJSONString(classInfo));
         } catch (Exception e) {
-            LogUtils.e("-->" + e);
+            LogUtils.e("-->" + e.getMessage());
         }
 
     }

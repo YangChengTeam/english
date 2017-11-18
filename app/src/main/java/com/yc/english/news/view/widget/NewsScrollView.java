@@ -1,10 +1,17 @@
 package com.yc.english.news.view.widget;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.ScrollView;
+
+import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.Utils;
+import com.kk.utils.UIUitls;
 
 /**
  * Created by wanglin  on 2017/9/7 15:38.
@@ -15,6 +22,7 @@ public class NewsScrollView extends ScrollView {
     private int scaledTouchSlop;
     private int y;
     private int x;
+
 
     public NewsScrollView(Context context) {
         this(context, null);
@@ -29,6 +37,7 @@ public class NewsScrollView extends ScrollView {
         super(context, attrs, defStyleAttr);
         scaledTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
+
     }
 
     @Override
@@ -38,10 +47,11 @@ public class NewsScrollView extends ScrollView {
                 y = (int) ev.getY();
                 x = (int) ev.getX();
                 break;
+
             case MotionEvent.ACTION_UP:
                 int curY = (int) ev.getY();
                 int curX = (int) ev.getX();
-                if (Math.abs(curY - y) > scaledTouchSlop) {
+                if (Math.abs(curY - this.y) > scaledTouchSlop) {
                     return true;
                 }
 
@@ -72,4 +82,6 @@ public class NewsScrollView extends ScrollView {
     public void setListener(onScrollChangeListener listener) {
         this.listener = listener;
     }
+
+
 }

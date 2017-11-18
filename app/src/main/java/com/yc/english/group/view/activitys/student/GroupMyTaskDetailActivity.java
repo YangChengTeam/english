@@ -90,10 +90,9 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     ImageView mIvGrade;
 
 
-    private List<Uri> uriList;
     private GroupVoiceAdapter voiceAdapter;
     private GroupFileAdapter fileAdapter;
-    private GroupPictureAdapter adapter;
+    private GroupPictureAdapter groupPictureAdapter;
     private TaskInfo taskInfo;
 
 
@@ -117,8 +116,8 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
 
 
         recyclerViewPicture.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        adapter = new GroupPictureAdapter(this, true, null);
-        recyclerViewPicture.setAdapter(adapter);
+        groupPictureAdapter = new GroupPictureAdapter(this, true, null);
+        recyclerViewPicture.setAdapter(groupPictureAdapter);
 
         voiceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         voiceAdapter = new GroupVoiceAdapter(this, true, null);
@@ -279,13 +278,13 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
 
         if (requestCode == 300 && resultCode == -1 && data != null) {
 
-            uriList = data.getParcelableArrayListExtra("android.intent.extra.RETURN_RESULT");
+            List<Uri> uriList = data.getParcelableArrayListExtra("android.intent.extra.RETURN_RESULT");
 
             if (uriList != null && uriList.size() > 0) {
                 for (Uri uri : uriList) {
                     pictureList.add(uri.getPath());
                 }
-                setFileInfo(adapter, pictureList);
+                setFileInfo(groupPictureAdapter, pictureList);
 
                 for (Uri uri : uriList) {//上传图片
                     String path = uri.getPath();// "file:///mnt/sdcard/FileName.mp3"
@@ -443,4 +442,11 @@ public class GroupMyTaskDetailActivity extends FullScreenActivity<GroupDoTaskDet
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        voiceAdapter.destroyPlayer();
+        doMultifunctionLinearLayout.destroyPlayer();
+        mLlTaskDetail.destroyPlayer();
+    }
 }

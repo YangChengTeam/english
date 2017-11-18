@@ -2,6 +2,7 @@ package com.yc.english.group.contract;
 
 import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.IDialog;
+import com.yc.english.base.view.IFinish;
 import com.yc.english.base.view.IView;
 
 /**
@@ -9,8 +10,7 @@ import com.yc.english.base.view.IView;
  */
 
 public interface GroupTransferGroupContract {
-    interface View extends IView, IDialog {
-        void showTransferResult();
+    interface View extends IView, IDialog,IFinish {
     }
 
     interface Presenter extends IPresenter {

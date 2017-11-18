@@ -3,39 +3,36 @@ package com.yc.english.group.view.activitys.teacher;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.SPUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.group.constant.BusAction;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.contract.GroupForbidMemberContract;
 import com.yc.english.group.model.bean.GroupInfoHelper;
+import com.yc.english.group.model.bean.RemoveGroupInfo;
 import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.group.presenter.GroupForbidMemberPresenter;
 import com.yc.english.group.rong.models.GagGroupUser;
-import com.yc.english.group.view.adapter.GroupForbidedMemberAdapter;
+import com.yc.english.group.view.adapter.GroupForbidTalkAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
@@ -57,7 +54,9 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
     SwitchCompat mSwitchCompat;
     @BindView(R.id.m_tv_forbid_hint)
     TextView mTvForbidHint;
-    private GroupForbidedMemberAdapter adapter;
+
+    private GroupForbidTalkAdapter adapter;
+
 
     @Override
     public void init() {
@@ -68,11 +67,11 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         mSwitchCompat.setChecked(GroupInfoHelper.getClassInfo().getIs_allow_talk() == 0);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new GroupForbidedMemberAdapter(this, null);
+        adapter = new GroupForbidTalkAdapter(null);
         mRecyclerView.setAdapter(adapter);
         BaseItemDecoration itemDecoration = new BaseItemDecoration(this);
         mRecyclerView.addItemDecoration(itemDecoration);
-        if (GroupInfoHelper.getClassInfo().getType().equals("1")){
+        if (GroupInfoHelper.getClassInfo().getType().equals("1")) {
             mTvForbidHint.setText("开启后，只允许会主发言");
         }
         initListener();
@@ -87,6 +86,16 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
                 startActivityForResult(new Intent(GroupForbidTalkActivity.this, GroupForbidMemberActivity.class), 200);
             }
         });
+
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                mStudentInfo = (StudentInfo) adapter.getItem(position);
+                mPresenter.rollBackMember(new String[]{mStudentInfo.getUser_id()}, mStudentInfo.getNick_name(), mStudentInfo.getClass_id(), position, false);
+                return false;
+
+            }
+        });
     }
 
     @Override
@@ -95,27 +104,37 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
     }
 
 
+    /**
+     * 有几种情况
+     * 1.群主自己开启禁言和关闭禁言
+     * ①.开启禁言 is
+     *
+     * @param buttonView
+     * @param isChecked
+     */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
         if (isChecked) {
-            if (allList != null && allList.size() > 0) {
-                mPresenter.changeGroupInfo(GroupInfoHelper.getGroupInfo().getId(), "0");
-                for (StudentInfo studentInfo : allList) {
-                    mPresenter.addForbidMember(studentInfo, "0", true);
+            if (!isSystemOpen) {
+                allList.remove(0);
+                if (allList.size() > 0) {
+                    mPresenter.changeGroupInfo(GroupInfoHelper.getGroupInfo().getId(), "0", null);
+                } else {
+                    mSwitchCompat.setChecked(false);
                 }
-            } else {
-                mSwitchCompat.setChecked(false);
             }
         } else {
             String[] strs = new String[allList.size()];
             for (int i = 0; i < allList.size(); i++) {
                 strs[i] = allList.get(i).getUser_id();
             }
-            mPresenter.changeGroupInfo(GroupInfoHelper.getGroupInfo().getId(), "1");
-            mPresenter.rollBackMember(strs, null, GroupInfoHelper.getGroupInfo().getId(), true);
+            mPresenter.changeGroupInfo(GroupInfoHelper.getGroupInfo().getId(), "1", strs);
+//            mPresenter.rollBackMember(strs, null, GroupInfoHelper.getGroupInfo().getId(), -1, true);
         }
 
     }
+
 
     private List<StudentInfo> studentInfoList = new ArrayList<>();
 
@@ -124,12 +143,7 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 200 && resultCode == RESULT_OK && data != null) {
             List<StudentInfo> studentList = data.getParcelableArrayListExtra("studentList");
-
-            for (StudentInfo studentInfo : studentList) {
-                studentInfoList.add(studentInfo);
-            }
-
-            showDialog(studentInfoList);
+            showDialog(studentList);
         }
     }
 
@@ -149,11 +163,10 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
                     public void onClick(DialogInterface dialog, int which) {
 
                         for (StudentInfo studentInfo : studentList) {
-                            if (!studentInfo.getIsForbid()) {
-                                studentInfo.setForbidTime(items[which]);
-                                studentInfo.setIsForbid(true);
-                                mPresenter.addForbidMember(studentInfo, getTime(which), false);
-                            }
+                            studentInfo.setForbidTime(items[which]);
+                            studentInfo.setIsForbid(true);
+                            mPresenter.addForbidMember(studentInfo, getTime(which), false);
+                            studentInfoList.add(studentInfo);
 
                         }
 
@@ -167,7 +180,8 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
     @Override
     public void showForbidResult(StudentInfo studentInfo, boolean allForbid) {
         if (!allForbid) {
-            adapter.setData(studentInfoList);
+
+            adapter.setNewData(studentInfoList);
             insertMessage(studentInfo.getNick_name(), studentInfo.getClass_id(), studentInfo.getForbidTime(), true);
             saveForbidStu(studentInfoList);
         } else {
@@ -179,6 +193,29 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
         }
 
 
+    }
+
+
+    boolean isSystemOpen;//是否后台开启禁言
+
+    @Override
+    public void showChangeInfo(RemoveGroupInfo data, String is_allow_talk, String[] strs) {
+
+        if (data.getIs_allow_talk() == 1) {
+            mPresenter.rollBackMember(strs, null, GroupInfoHelper.getGroupInfo().getId(), -1, true);
+        } else if (data.getIs_allow_talk() == 0) {
+            if (data.getIs_allow_talk() == Integer.parseInt(is_allow_talk)) {
+                isSystemOpen = false;
+                for (StudentInfo studentInfo : allList) {
+                    mPresenter.addForbidMember(studentInfo, "0", true);
+                }
+            } else {
+//                if (!mSwitchCompat.isChecked())
+                isSystemOpen = true;
+                mSwitchCompat.setChecked(true);
+            }
+
+        }
     }
 
     private void saveForbidStu(List<StudentInfo> studentInfoList) {
@@ -212,19 +249,9 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
 
     private StudentInfo mStudentInfo;
 
-    @Subscribe(
-            thread = EventThread.MAIN_THREAD,
-            tags = {
-                    @Tag(BusAction.FORBID_MEMBER)
-            }
-    )
-    public void forbidMember(StudentInfo studentInfo) {
-        mPresenter.rollBackMember(new String[]{studentInfo.getUser_id()}, studentInfo.getNick_name(), studentInfo.getClass_id(), false);
-        mStudentInfo = studentInfo;
-    }
 
     @Override
-    public void showRollBackResult(String[] userId, String nickName, String groupId, boolean allForbid) {
+    public void showRollBackResult(String[] userId, String nickName, String groupId, int position, boolean allForbid) {
         if (allForbid) {
             insertMessage(null, GroupInfoHelper.getGroupInfo().getId(), null, false);
             studentInfoList.clear();
@@ -232,19 +259,19 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
             SPUtils.getInstance().put(GroupConstant.FORBID_MEMBER + GroupInfoHelper.getGroupInfo().getId(), "");
         } else {
             studentInfoList.remove(mStudentInfo);
-            adapter.notifyDataSetChanged();
             insertMessage(nickName, groupId, null, false);
             clearForbidStu(userId[0]);
+            adapter.notifyItemRemoved(position);
         }
+
     }
 
     private List<StudentInfo> allList;
 
     @Override
     public void showLisGagUserResult(List<GagGroupUser> users, List<StudentInfo> list) {
-        list.remove(0);
+//        list.remove(0);
         allList = list;
-
         getForbidStu(users);
     }
 
@@ -263,7 +290,7 @@ public class GroupForbidTalkActivity extends FullScreenActivity<GroupForbidMembe
                     }
                 }
             }
-            adapter.setData(studentInfoList);
+            adapter.setNewData(studentInfoList);
             saveForbidStu(studentInfoList);
         } else {
             SPUtils.getInstance().put(GroupConstant.FORBID_MEMBER + GroupInfoHelper.getGroupInfo().getId(), "");

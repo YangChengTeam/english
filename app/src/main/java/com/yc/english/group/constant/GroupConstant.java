@@ -40,4 +40,12 @@ public interface GroupConstant {
     String FORBID_MEMBER = "forbid_member";
 
 
+    String REGEX_NAME = "^[a-zA-Z0-9\\u4e00-\\u9fa5]+$";
+
+    String KEYWORD = "该消息违反国家规定，不能发送";
+
+    String REGEX_SPECIAL_WORD = "[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……& amp;*（）——+|{}【】‘；：”“’。，、？]";
+
+    String FORBID_CONTENT = "该群开启了全员禁言，请稍候在发言...";
+
 }

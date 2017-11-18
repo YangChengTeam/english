@@ -16,14 +16,12 @@ import com.yc.english.group.model.bean.TaskInfo;
  */
 
 public interface GroupScoreTaskContract {
-    interface View extends IView,IFinish,ILoading,INoData,INoNet,IDialog {
+    interface View extends IView, IFinish, ILoading, INoData, INoNet, IDialog {
         void showDoneTaskInfo(TaskInfo info);
 
 
         void showPublishTaskInfo(TaskInfo info);
 
-
-        void showScoreResult();
     }
 
     interface Presenter extends IPresenter {
@@ -32,6 +30,6 @@ public interface GroupScoreTaskContract {
 
         void getPublishTaskDetail(Context context, String task_id, String class_id, String user_id);
 
-        void taskScore(Context context,String id, String score);
+        void taskScore(Context context, String id, String score);
     }
 }

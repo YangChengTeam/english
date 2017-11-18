@@ -1,5 +1,7 @@
 package com.yc.english.group.rong.messages;
 
+import com.yc.english.group.rong.util.GsonUtil;
+
 /**
  *
  * 图文消息。
@@ -28,7 +30,7 @@ public class ImgTextMessage {
 	/**
 	 * 获取消息文本内容。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getContent() {
 		return content;
@@ -64,7 +66,7 @@ public class ImgTextMessage {
 	/**
 	 * 获取消息标题。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getTitle() {
 		return title;
@@ -115,8 +117,8 @@ public class ImgTextMessage {
 		this.url = url;
 	}  
 	
-//	@Override
-//	public String toString() {
-//		return GsonUtil.toJson(this, ImgTextMessage.class);
-//	}
+	@Override
+	public String toString() {
+		return GsonUtil.toJson(this, ImgTextMessage.class);
+	}
 }

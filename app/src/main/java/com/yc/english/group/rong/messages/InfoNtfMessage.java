@@ -1,5 +1,7 @@
 package com.yc.english.group.rong.messages;
 
+import com.yc.english.group.rong.util.GsonUtil;
+
 /**
  *
  * 提示条（小灰条）通知消息。此类型消息没有 Push 通知。
@@ -22,7 +24,7 @@ public class InfoNtfMessage  {
 	/**
 	 * 获取提示条消息内容。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getMessage() {
 		return message;
@@ -40,7 +42,7 @@ public class InfoNtfMessage  {
 	/**
 	 * 获取附加信息(如果开发者自己需要，可以自己在 App 端进行解析)。
 	 *
-	 * @returnString
+	 * @return String
 	 */
 	public String getExtra() {
 		return extra;
@@ -55,8 +57,8 @@ public class InfoNtfMessage  {
 		this.extra = extra;
 	}  
 	
-//	@Override
-//	public String toString() {
-//		return GsonUtil.toJson(this, InfoNtfMessage.class);
-//	}
+	@Override
+	public String toString() {
+		return GsonUtil.toJson(this, InfoNtfMessage.class);
+	}
 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.example.comm_recyclviewadapter.BaseAdapter;
 import com.example.comm_recyclviewadapter.BaseViewHolder;
 import com.yc.english.R;
@@ -27,6 +28,7 @@ public class NewsDetailAdapter extends BaseAdapter<CourseInfo> {
     protected void convert(BaseViewHolder holder, int position) {
         final CourseInfo courseInfo = mList.get(position);
         holder.setText(R.id.mTextViewTitle, courseInfo.getTitle());
+//        LogUtils.e(holder.itemView.getClass().getSimpleName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
