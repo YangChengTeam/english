@@ -17,6 +17,7 @@ public class SlideInfo {
     private String isDel;
     private String sort;
 
+
     public String getId() {
         return id;
     }

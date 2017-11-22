@@ -8,7 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ScreenUtils;
+import com.kk.utils.UIUitls;
 import com.yc.english.R;
+import com.zhihu.matisse.internal.utils.UIUtils;
+
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
 import butterknife.BindView;
 
@@ -25,9 +30,12 @@ public abstract class BaseToolBar extends BaseView {
 
     @BindView(R.id.tv_tb_title)
     protected TextView mTitleTextView;
+    private Context mContext;
 
     public BaseToolBar(Context context, AttributeSet attrs) {
+
         super(context, attrs);
+        this.mContext = context;
     }
 
     public void init(AppCompatActivity activity) {
@@ -73,6 +81,11 @@ public abstract class BaseToolBar extends BaseView {
 
     public void setTitle(String title) {
         mTitleTextView.setText(title);
+    }
+
+    public void setTitleSize(float titleSize) {
+
+        mTitleTextView.setTextSize(UIUtil.dip2px(mContext, titleSize));
     }
 
     public void showNavigationIcon() {

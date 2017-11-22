@@ -3,7 +3,6 @@ package com.yc.english.weixin.model.engin;
 import android.content.Context;
 
 import com.alibaba.fastjson.TypeReference;
-import com.blankj.utilcode.util.SPUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.main.model.domain.URLConfig;
@@ -38,6 +37,18 @@ public class EnginHelper {
     public static Observable<ResultInfo<CourseInfoWrapper>> getWeixinInfo(Context context, String news_id) {
         Map<String, String> params = new HashMap<>();
         params.put("news_id", news_id);
+        return HttpCoreEngin.get(context).rxpost(URLConfig.NEWS_INFO_URL, new TypeReference<ResultInfo<CourseInfoWrapper>>() {
+                }
+                        .getType(),
+                params,
+                true,
+                true, true);
+    }
+
+    public static Observable<ResultInfo<CourseInfoWrapper>> getWeiKeDetail(Context context, String news_id,String userId) {
+        Map<String, String> params = new HashMap<>();
+        params.put("news_id", news_id);
+        params.put("user_id", userId);
         return HttpCoreEngin.get(context).rxpost(URLConfig.NEWS_INFO_URL, new TypeReference<ResultInfo<CourseInfoWrapper>>() {
                 }
                         .getType(),

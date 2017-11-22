@@ -1,87 +1,15 @@
 [
     {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_chatfrom_bg_focused.9.png",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_chatfrom_bg_focused.9.png"
-    },
-    {
         "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_emoji_loading.png",
         "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_emoji_loading.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_emoji_delete_img.png",
-        "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_emoji_delete_img.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_back.png",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_back.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_emoji_loading.png",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_emoji_loading.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_back.png",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_back.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_emoji_loadfail.png",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_emoji_loadfail.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_chatfrom_bg_normal.9.png",
-        "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_chatfrom_bg_normal.9.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_setting2x.png",
-        "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_setting2x.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_emoji_eo_fail_default.png",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_emoji_eo_fail_default.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_chatto_bg_normal.9.png",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_chatto_bg_normal.9.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_chatto_bg_normal.9.png",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_chatto_bg_normal.9.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_chatto_bg_focused.9.png",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_chatto_bg_focused.9.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_keyboard_store_bg.png",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_keyboard_store_bg.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_chatfrom_bg_normal.9.png",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_chatfrom_bg_normal.9.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_chatto_bg_focused.9.png",
-        "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_chatto_bg_focused.9.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_setting2x.png",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_setting2x.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_chatfrom_bg_focused.9.png",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_chatfrom_bg_focused.9.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_chatfrom_bg_normal.9.png",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_chatfrom_bg_normal.9.png"
     },
     {
         "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_emoji_loadfail.png",
         "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_emoji_loadfail.png"
     },
     {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_chatto_bg_focused.9.png",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_chatto_bg_focused.9.png"
+        "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_emoji_delete_img.png",
+        "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_emoji_delete_img.png"
     },
     {
         "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_keyboard_store_bg.png",
@@ -92,36 +20,16 @@
         "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_chatto_bg_normal.9.png"
     },
     {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_emoji_loading.png",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_emoji_loading.png"
+        "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_chatfrom_bg_normal.9.png",
+        "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_chatfrom_bg_normal.9.png"
     },
     {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_keyboard_store_bg.png",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_keyboard_store_bg.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_setting2x.png",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_setting2x.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_emoji_delete_img.png",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_emoji_delete_img.png"
+        "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_setting2x.png",
+        "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_setting2x.png"
     },
     {
         "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_back.png",
         "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_back.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_emoji_delete_img.png",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_emoji_delete_img.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_emoji_loadfail.png",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_emoji_loadfail.png"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\bqmm_emoji_eo_fail_default.png",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\bqmm_emoji_eo_fail_default.png"
     },
     {
         "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_chatfrom_bg_focused.9.png",
@@ -130,5 +38,9 @@
     {
         "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_emoji_eo_fail_default.png",
         "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_emoji_eo_fail_default.png"
+    },
+    {
+        "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/bqmm_chatto_bg_focused.9.png",
+        "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/bqmm_chatto_bg_focused.9.png"
     }
 ]

@@ -1,11 +1,14 @@
 package com.yc.english.news.view.widget;
 
 import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.util.ArrayMap;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,31 +17,58 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.kk.utils.PathUtils;
+import com.umeng.socialize.sina.helper.MD5;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by wanglin  on 2017/9/6 15:15.
  */
 
-public class MediaPlayerView extends LinearLayout {
-    private static final String TAG = "MediaPlayerView";
+public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPreparedListener,
+        MediaPlayer.OnCompletionListener, View.OnClickListener {
     private Context mContext;
     private boolean isPlay;
     private MediaPlayer mediaPlayer;
     private SeekBar mSeekBar;
-    private boolean isChanging = true;
-    private Timer mTimer;
-    private TimerTask mTimerTask;
+
     private TextView mTextViewTime;
     private ImageView mImageView;
-    private Handler handler = new Handler(Looper.getMainLooper());
+
+    private Handler mHandler = new Handler(Looper.getMainLooper());
+    public static final int STATE_INITIALIZE = 0x10;
+    public static final int STATE_PREPARED = 0x01;
+    public static final int STATE_START = 0x02;
+    public static final int STATE_PAUSE = 0x03;
+    public static final int STATE_STOP = 0x04;
+    public static final int STATE_DESTROY = 0x05;
+
+    private int currentState;
     private MyRunnable myRunnable;
+
+    private ExecutorService executorService;
+
 
     public MediaPlayerView(Context context) {
         this(context, null);
@@ -57,42 +87,63 @@ public class MediaPlayerView extends LinearLayout {
 
     private void init(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.mediaplayer_view, this, true);
-        mImageView = (ImageView) view.findViewById(R.id.mImageView);
-        mSeekBar = (SeekBar) view.findViewById(R.id.mSeekBar);
-        mTextViewTime = (TextView) view.findViewById(R.id.mTextViewTime);
+        mImageView = view.findViewById(R.id.mImageView);
+        mSeekBar = view.findViewById(R.id.mSeekBar);
+        mTextViewTime = view.findViewById(R.id.mTextViewTime);
         mSeekBar.setOnSeekBarChangeListener(new MySeekBarListener());
-
+        executorService = Executors.newSingleThreadExecutor();
+        mImageView.setOnClickListener(this);
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setOnPreparedListener(this);
+        mediaPlayer.setOnCompletionListener(this);
 
     }
-
 
     /**
      * 开始播放
      */
-    public void startPlay() {
-
-        mImageView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isPlay = !isPlay;
-
-                if (isPlay) {
-                    setPlay();
-                } else {
-                    stop();
-                }
-
+    private void start() {
+        if (currentState == STATE_DESTROY) {
+            return;
+        }
+        if (currentState == STATE_INITIALIZE) {
+            TipsHelper.tips(mContext, "正在缓冲中，请稍候...");
+            return;
+        }
+        try {
+            if (currentState == STATE_PREPARED || currentState == STATE_PAUSE || currentState == STATE_STOP) {
+                mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_play));
+                mediaPlayer.start();// 开始
+                myRunnable = new MyRunnable();
+                mHandler.postDelayed(myRunnable, 0);
+                currentState = STATE_START;
             }
-        });
-
+        } catch (Exception e) {
+            ToastUtils.showShort("播放失败");
+        }
 
     }
 
-
     public void stop() {
-        mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_stop));
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+        if (mediaPlayer != null && currentState == STATE_START) {
+            mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_stop));
             mediaPlayer.pause();
+            currentState = STATE_PAUSE;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        isPlay = !isPlay;
+        if (currentState == STATE_PREPARED && clickListener != null) {
+            clickListener.onMediaClick();
+        }
+        if (isPlay) {
+            start();
+        } else {
+            stop();
         }
     }
 
@@ -103,123 +154,174 @@ public class MediaPlayerView extends LinearLayout {
         }
 
         public void onStartTrackingTouch(SeekBar seekBar) {
-            isChanging = true;
+
         }
 
         public void onStopTrackingTouch(SeekBar seekBar) {
             mediaPlayer.seekTo(seekBar.getProgress());
-            mTextViewTime.setText(TimeUtils.millis2String(mediaPlayer.getCurrentPosition(), new SimpleDateFormat("mm:ss")));
-            setPlay();
+            mTextViewTime.setText(TimeUtils.millis2String(mediaPlayer.getCurrentPosition(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
+            start();
             isPlay = true;
         }
 
     }
 
-    private void setPlay() {
-        mImageView.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.media_play));
-        isChanging = false;
-
-        mediaPlayer.start();// 开始
-    }
-
-    /**
-     * 先调用setPath()方法，在调用startPlay()方法
-     *
-     * @param path
-     */
-    public void setPath(String path) {
-
-        mediaPlayer = new MediaPlayer();
-
-        try {
-            mediaPlayer.reset();
-            mediaPlayer.setDataSource(path);
-
-            mediaPlayer.prepareAsync();// 准备
-
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(final MediaPlayer mp) {
-
-                    mSeekBar.setMax(mp.getDuration());//设置进度条
-
-
-                    mTextViewTime.setText(TimeUtils.millis2String(mp.getDuration(), new SimpleDateFormat("mm:ss")));
-                    //----------定时器记录播放进度---------//
-                    mTimer = new Timer();
-
-                    mTimerTask = new TimerTask() {
-                        @Override
-                        public void run() {
-                            if (isChanging) {
-                                return;
-                            }
-                            mSeekBar.setProgress(mp.getCurrentPosition());
-                            myRunnable = new MyRunnable(mp);
-                            handler.post(myRunnable);
-
-
-                        }
-                    };
-                    mTimer.schedule(mTimerTask, 0, 10);
-
-
-                }
-            });
-
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    mImageView.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.media_stop));
-                    isPlay = false;
-
-                }
-            });
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
     private class MyRunnable implements Runnable {
-        private MediaPlayer mMediaPlayer;
-
-        private MyRunnable(MediaPlayer mp) {
-            this.mMediaPlayer = mp;
-
-        }
-
         @Override
         public void run() {
-
-            if (mediaPlayer != null && mMediaPlayer.isPlaying()) {
-                mTextViewTime.setText(TimeUtils.millis2String(mMediaPlayer.getCurrentPosition(), new SimpleDateFormat("mm:ss")));
+            try {
+                if (mediaPlayer != null) {
+                    mSeekBar.setProgress(mediaPlayer.getCurrentPosition());
+                    mTextViewTime.setText(TimeUtils.millis2String(mediaPlayer.getCurrentPosition(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
+                    mHandler.postDelayed(this, 10);
+                }
+            } catch (Exception e) {
+                LogUtils.e(e.getMessage());
             }
         }
     }
 
 
-    public void destroy() {
-        isChanging = true;
+    /**
+     * 调用setPath()方法
+     *
+     * @param path
+     */
 
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
-        handler.removeCallbacks(myRunnable);
-        if (mTimerTask != null) {
-            mTimerTask.cancel();
-            mTimerTask = null;
-        }
-        if (mTimer != null) {
-            mTimer.cancel();
-            mTimer = null;
+    public void setPath(String path) {
+
+        try {
+            String name = getFileName(path);
+            File file = new File(PathUtils.makeDir(mContext, "news"), name);
+
+            if (file.exists()) {//设置播放file文件
+                LogUtils.e("from file");
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(mContext, Uri.parse(file.getAbsolutePath()));
+                mediaPlayer.prepareAsync();// 准备
+                currentState =STATE_PREPARED;
+            } else {
+                LogUtils.e("from path");
+                mediaPlayer.reset();
+                mediaPlayer.setDataSource(path);
+                currentState = STATE_INITIALIZE;
+                mediaPlayer.prepareAsync();// 准备
+                executorService.submit(new DownloadTask(path));
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            LogUtils.e(e.getMessage());
+
         }
 
     }
 
 
+    private class DownloadTask implements Runnable {
+        private String mPath;
+
+        private DownloadTask(String path) {
+            this.mPath = path;
+        }
+
+        @Override
+        public void run() {
+            download(mPath);
+
+        }
+    }
+
+    @Override
+    public void onPrepared(final MediaPlayer mp) {
+        try {
+
+            mSeekBar.setMax(mp.getDuration());//设置进度条
+
+            mTextViewTime.setText(TimeUtils.millis2String(mp.getDuration(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
+
+            currentState = STATE_PREPARED;
+
+        } catch (Exception e) {
+            LogUtils.e(e.getMessage());
+            ToastUtils.showShort("播放失败");
+        }
+    }
+
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        mImageView.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.media_stop));
+        isPlay = false;
+        currentState = STATE_STOP;
+    }
+
+    public void destroy() {
+        currentState = STATE_DESTROY;
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        mHandler.removeCallbacks(myRunnable);
+        executorService.shutdown();
+        executorService = null;
+
+    }
+
+    private onMediaClickListener clickListener;
+
+    public void setOnMediaClickListener(onMediaClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public interface onMediaClickListener {
+        void onMediaClick();
+    }
+
+
+    private void download(String path) {
+        FileOutputStream fileOutputStream = null;
+        try {
+            URL url = new URL(path);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            String name = getFileName(path);
+            File file = new File(PathUtils.makeDir(mContext, "news"), name);
+            fileOutputStream = new FileOutputStream(file);
+            if (file.exists() && file.length() == urlConnection.getContentLength()) {
+                return;
+            }
+            InputStream inputStream = urlConnection.getInputStream();
+            byte[] buffer = new byte[1024];
+            int bufferLength = 0;
+
+            while ((bufferLength = inputStream.read(buffer)) > 0) {
+                if (currentState == STATE_DESTROY && file.length() < urlConnection.getContentLength()) {
+                    file.delete();
+                    break;
+                }
+                fileOutputStream.write(buffer, 0, bufferLength);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private String getFileName(String path) {
+        String name = MD5.hexdigest(path);
+        if (path.lastIndexOf("/") != -1) {
+            name = path.substring(path.lastIndexOf("/") + 1);
+        }
+        return name;
+    }
 }

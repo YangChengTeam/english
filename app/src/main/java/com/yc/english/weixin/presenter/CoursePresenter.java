@@ -33,8 +33,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
 
     @Override
     public void getWeiXinList(String type_id,final String page,
-                              String
-                                      page_size) {
+                              String page_size) {
         if(page.equals("1") ) {
             mView.showLoading();
         }

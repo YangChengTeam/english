@@ -38,6 +38,8 @@ public class UnitInfo implements MultiItemEntity {
 
     private String sort;
 
+    private int free;//1是免费，2是收费
+
     public UnitInfo() {
         super();
     }
@@ -129,5 +131,13 @@ public class UnitInfo implements MultiItemEntity {
 
     public void setSort(String sort) {
         this.sort = sort;
+    }
+
+    public int getFree() {
+        return free;
+    }
+
+    public void setFree(int free) {
+        this.free = free;
     }
 }

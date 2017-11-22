@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="113dp"
+              android:background="@color/white"
+              android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/ck_cart_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/pay_way_selector"
+        android:button="@null"
+        android:clickable="false"/>
+
+    <LinearLayout
+        android:layout_width="110dp"
+        android:layout_height="93dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/shopping_border_line"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="110dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:src="@mipmap/course_item_default_icon"
+            android:scaleType="centerInside"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_course_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="小学英语第一单元音标课"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_course_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="原价：¥8.0"
+            android:textColor="@color/gray_999"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_course_price_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="¥6.0"
+            android:textColor="@color/price_text_color"
+            android:textSize="16sp"/>
+    </LinearLayout>
+</LinearLayout>

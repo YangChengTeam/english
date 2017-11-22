@@ -35,6 +35,12 @@ public class URLConfig {
 
     public static final String NEWS_INFO_URL = getBaseUrl() + "news/info";
 
+    public static final String WEIKE_CATEGORY_URL = getBaseUrl() + "news/getParentList";
+
+    public static final String WEIKE_UNIT_URL = getBaseUrl() + "news/getChildList";
+
+    public static final String MY_ORDER_URL = getBaseUrl() + "order/lists";
+
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }

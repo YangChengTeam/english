@@ -3,6 +3,8 @@ package com.yc.english.speak.model.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 /**
  * Created by wanglin  on 2017/10/19 10:49.
  */
@@ -260,4 +262,5 @@ public class SpeakAndReadItemInfo implements Parcelable {
             return new SpeakAndReadItemInfo[size];
         }
     };
+
 }

@@ -1,39 +1,11 @@
 [
     {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\bqmm_item_face.xml",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\layout\\bqmm_item_face.xml"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\bqmm_message_view_right.xml",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\layout\\bqmm_message_view_right.xml"
-    },
-    {
         "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/layout/bqmm_message_view_right.xml",
         "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/layout/bqmm_message_view_right.xml"
     },
     {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\bqmm_message_view_right.xml",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\layout\\bqmm_message_view_right.xml"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\bqmm_keyboard_tab.xml",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\layout\\bqmm_keyboard_tab.xml"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\bqmm_keyboard_tab.xml",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\layout\\bqmm_keyboard_tab.xml"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\bqmm_message_view_left.xml",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\layout\\bqmm_message_view_left.xml"
-    },
-    {
         "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/layout/bqmm_message_view_left.xml",
         "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/layout/bqmm_message_view_left.xml"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\bqmm_item_emoji.xml",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\layout\\bqmm_item_emoji.xml"
     },
     {
         "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/layout/bqmm_item_emoji.xml",
@@ -48,27 +20,7 @@
         "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/layout/bqmm_keyboard_tab.xml"
     },
     {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\bqmm_item_face.xml",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\layout\\bqmm_item_face.xml"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\bqmm_item_emoji_message.xml",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\layout\\bqmm_item_emoji_message.xml"
-    },
-    {
         "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/androidTest/debug/layout/bqmm_item_emoji_message.xml",
         "source": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/bundles/debug/res/layout/bqmm_item_emoji_message.xml"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\bqmm_item_emoji_message.xml",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\layout\\bqmm_item_emoji_message.xml"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\bqmm_message_view_left.xml",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\layout\\bqmm_message_view_left.xml"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\bqmm_item_emoji.xml",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\bundles\\debug\\res\\layout\\bqmm_item_emoji.xml"
     }
 ]

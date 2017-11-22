@@ -15,8 +15,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.read.contract.BookUnitContract;
 import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.UnitInfo;
@@ -24,6 +26,7 @@ import com.yc.english.read.model.domain.UnitInfoList;
 import com.yc.english.read.presenter.BookUnitPresenter;
 import com.yc.english.read.view.adapter.ReadBookUnitItemClickAdapter;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
+import com.yc.english.setting.view.activitys.BuyVipActivity;
 
 import java.util.List;
 
@@ -89,18 +92,57 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtils.e("position --->" + position);
 
-                if (mItemAdapter.getData() != null && mItemAdapter.getData().get(position) != null) {
-                    Intent intent = new Intent(BookUnitActivity.this, CoursePlayActivity.class);
-                    intent.putExtra("unit_id", ((UnitInfo) mItemAdapter.getData().get(position)).getId());
-                    intent.putExtra("unit_title", ((UnitInfo) mItemAdapter.getData().get(position)).getName());
-                    intent.putExtra("last_unit_ids", getLastUnitIds(position));
-                    intent.putExtra("last_unit_titles", getLastUnitTitles(position));
-                    startActivity(intent);
+                boolean isRead = true;
+
+                UnitInfo unitInfo = mItemAdapter.getData().get(position);
+                //1是免费，2是收费
+                if (unitInfo.getFree() == 1) {
+                    isRead = true;
                 } else {
-                    TipsHelper.tips(BookUnitActivity.this, "教材数据异常，请稍后重试");
+                    if(UserInfoHelper.getUserInfo() != null) {
+                        if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
+                            isRead = true;
+                        } else {
+                            isRead = false;
+                        }
+                    }else{
+                        UserInfoHelper.isGotoLogin(BookUnitActivity.this);
+                        return;
+                    }
+                }
+
+                if (isRead) {
+                    if (mItemAdapter.getData() != null && mItemAdapter.getData().get(position) != null) {
+                        Intent intent = new Intent(BookUnitActivity.this, CoursePlayActivity.class);
+                        intent.putExtra("unit_id", ((UnitInfo) mItemAdapter.getData().get(position)).getId());
+                        intent.putExtra("unit_title", ((UnitInfo) mItemAdapter.getData().get(position)).getName());
+                        intent.putExtra("last_unit_ids", getLastUnitIds(position));
+                        intent.putExtra("last_unit_titles", getLastUnitTitles(position));
+                        startActivity(intent);
+                    } else {
+                        TipsHelper.tips(BookUnitActivity.this, "教材数据异常，请稍后重试");
+                    }
+                } else {
+                    final AlertDialog alertDialog = new AlertDialog(BookUnitActivity.this);
+                    alertDialog.setDesc("请购买会员使用点读功能？");
+                    alertDialog.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                            Intent intent = new Intent(BookUnitActivity.this, BuyVipActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    alertDialog.show();
                 }
             }
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         mPresenter.getBookInfoById(bookId);
     }

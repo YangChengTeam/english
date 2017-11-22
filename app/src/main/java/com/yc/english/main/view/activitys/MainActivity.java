@@ -6,19 +6,16 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
-import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
 import com.yc.english.main.view.fragments.IndexFragment;
-import com.yc.english.main.view.fragments.IndexFragmentNew;
 import com.yc.english.main.view.wdigets.TabBar;
-import com.yc.english.setting.view.fragments.MyFragment;
+import com.yc.english.setting.view.fragments.MyFragmentNew;
 import com.yc.english.weixin.views.fragments.CourseTypeFragment;
 
 import butterknife.BindView;
@@ -86,9 +83,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
 
-    private IndexFragmentNew mIndexFragment;
+    private IndexFragment mIndexFragment;
     private CourseTypeFragment mClassMainFragment;
-    private MyFragment mMyFragment;
+    private MyFragmentNew mMyFragment;
 
     class FragmentAdapter extends FragmentStatePagerAdapter {
         public FragmentAdapter(FragmentManager fm) {
@@ -99,7 +96,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         public Fragment getItem(int position) {
             if (position == 0) {
                 if (mIndexFragment == null) {
-                    mIndexFragment = new IndexFragmentNew();
+                    mIndexFragment = new IndexFragment();
                 }
                 return mIndexFragment;
             } else if (position == 1) {
@@ -109,7 +106,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mClassMainFragment;
             } else if (position == 2) {
                 if (mMyFragment == null) {
-                    mMyFragment = new MyFragment();
+                    mMyFragment = new MyFragmentNew();
                 }
                 return mMyFragment;
             }
@@ -125,30 +122,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (mClassMainFragment != null) {
-            BaseToolBar mToolbar = mClassMainFragment.getToolbar();
-            if (mToolbar.isHasMenu()) {
-                getMenuInflater().inflate(R.menu.base_toolbar_menu, menu);
-                mToolbar.setOnMenuItemClickListener();
-            }
-        }
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        boolean result = super.onPrepareOptionsMenu(menu);
-        if (mClassMainFragment != null) {
-            BaseToolBar mToolbar = mClassMainFragment.getToolbar();
-            if (mToolbar.isHasMenu()) {
-                MenuItem menuItem = menu.findItem(R.id.action);
-                menuItem.setTitle(mToolbar.getMenuTitle());
-                if (mToolbar.getmIconResid() != 0) {
-                    menuItem.setIcon(mToolbar.getmIconResid());
-                }
-            }
-        }
-        return result;
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override

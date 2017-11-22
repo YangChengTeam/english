@@ -55,12 +55,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 
@@ -226,8 +228,6 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
-                LogUtils.e("listenSuccess333 --->" + listenSuccess);
-
                 if (view.getId() == R.id.iv_speak_tape && !isTape && !isPlayTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
                     currentView.findViewById(R.id.speak_tape_layout).setVisibility(View.VISIBLE);
@@ -365,7 +365,6 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
         }
     }
 
-
     /**
      * 开始录音
      */
@@ -377,7 +376,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
                 getString(R.string.pref_key_iat_show), false);
         if (isShowDialog) {
             // 显示听写对话框
-            /*mIatDialog.setListener(mRecognizerDialogListener);
+            /*mIatDialog.setOnScrollChangeListener(mRecognizerDialogListener);
             mIatDialog.show();*/
             //ToastUtils.showLong("开始");
         } else {
@@ -598,7 +597,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
 
         mSpeakItemAdapter.getData().get(lastPosition).setShowResult(true);
 
-        if (voiceText.equals(mSpeakItemAdapter.getData().get(lastPosition).getEnSentence())) {
+        if (compareResult(mSpeakItemAdapter.getData().get(lastPosition).getEnSentence(), voiceText)) {
             mSpeakItemAdapter.getData().get(lastPosition).setSpeakResult(true);
         } else {
             mSpeakItemAdapter.getData().get(lastPosition).setSpeakResult(false);
@@ -613,6 +612,66 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
             mIat.stopListening();
         }
     }
+
+    /**
+     * 将录入的语音与源语音进行对比
+     *
+     * @param sourceSen
+     * @param speakSen
+     * @return
+     */
+    public boolean compareResult(String sourceSen, String speakSen) {
+
+        try {
+            if (StringUtils.isEmpty(sourceSen) || StringUtils.isEmpty(speakSen)) {
+                return false;
+            }
+
+            String regEx = " |、|，|。|；|？|！|,|\\.|;|\\?|!|]|:|：|\"|-";
+            Pattern p = Pattern.compile(regEx);
+
+            //按照句子结束符分割句子
+            String[] words = p.split(sourceSen);
+            List<String> sourceList = new ArrayList<>();
+            for (int i = 0; i < words.length; i++) {
+                if (!StringUtils.isTrimEmpty(words[i])) {
+                    sourceList.add(words[i]);
+                }
+            }
+
+            List<String> speakList = new ArrayList<>();
+            String[] speakWords = p.split(speakSen);
+            for (int m = 0; m < speakWords.length; m++) {
+                if (!StringUtils.isTrimEmpty(speakWords[m])) {
+                    speakList.add(speakWords[m]);
+                }
+            }
+
+            int matchCount = 0;
+            float percent = 0;
+            for (String str : sourceList) {
+                if (speakList.contains(str)) {
+                    matchCount++;
+                }
+            }
+
+            if (matchCount > 0 && sourceList.size() > 0) {
+                percent = (float) matchCount / (float) sourceList.size() * 100;
+            } else {
+                return false;
+            }
+
+            if (percent >= 60) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
     /**
      * 参数设置
@@ -779,14 +838,14 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
     /**
      * 播放点读
      *
-     * @param postion
+     * @param position
      */
-    public void startSynthesizer(int postion) {
-        if (postion < 0 || postion >= mSpeakItemAdapter.getData().size()) {
+    public void startSynthesizer(int position) {
+        if (position < 0 || position >= mSpeakItemAdapter.getData().size()) {
             return;
         }
         mTts = SpeechUtils.getTts(this);
-        String text = mSpeakItemAdapter.getData().get(postion).getEnSentence();
+        String text = mSpeakItemAdapter.getData().get(position).getEnSentence();
         int code = mTts.startSpeaking(text, mTtsListener);
         if (code != ErrorCode.SUCCESS) {
             if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {

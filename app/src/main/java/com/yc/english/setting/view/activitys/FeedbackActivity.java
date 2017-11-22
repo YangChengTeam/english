@@ -4,10 +4,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.AppUtils;
@@ -28,6 +29,7 @@ import com.yc.english.setting.presenter.FeedbackPersenter;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.functions.Action1;
 
 /**
@@ -42,15 +44,8 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
     @BindView(R.id.btn_complete)
     Button mCompleteButton;
 
-    @BindView(R.id.si_qq)
-    ShareItemView mQQShareItemView;
-
-    @BindView(R.id.si_tel)
-    ShareItemView mTelShareItemView;
-
-    @BindView(R.id.tv_weixin)
-    TextView mWeixinTextView;
-
+    @BindView(R.id.ll_tel)
+    LinearLayout llTel;
 
 
     @Override
@@ -69,22 +64,8 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
             }
         });
 
-        RxView.clicks(mQQShareItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
-                alertDialog.setDesc("打开QQ群与客服进行沟通？");
-                alertDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        QQUtils.joinQQGroup(FeedbackActivity.this, "gOX10fvlI3URb5ZjzA9WSESdHs2gXhwr");
-                    }
-                });
-                alertDialog.show();
-            }
-        });
 
-        RxView.clicks(mTelShareItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(llTel).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
@@ -99,30 +80,30 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
             }
         });
 
-        RxView.clicks(mWeixinTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
-                alertDialog.setDesc("打开微信、添加好友与客服进行沟通？");
-                alertDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ClipboardUtils.copyText("15926287915");
-                        TipsHelper.tips(FeedbackActivity.this, "复制成功, 正在前往微信");
-                        UIUitls.postDelayed(1000, new Runnable() {
-                            @Override
-                            public void run() {
-                                String weixin = "com.tencent.mm";
-                                if (AppUtils.isInstallApp(weixin)) {
-                                    AppUtils.launchApp(weixin);
-                                }
-                            }
-                        });
-                    }
-                });
-                alertDialog.show();
-            }
-        });
+//        RxView.clicks(mWeixinTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+//            @Override
+//            public void call(Void aVoid) {
+//                AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
+//                alertDialog.setDesc("打开微信、添加好友与客服进行沟通？");
+//                alertDialog.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        ClipboardUtils.copyText("15926287915");
+//                        TipsHelper.tips(FeedbackActivity.this, "复制成功, 正在前往微信");
+//                        UIUitls.postDelayed(1000, new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                String weixin = "com.tencent.mm";
+//                                if (AppUtils.isInstallApp(weixin)) {
+//                                    AppUtils.launchApp(weixin);
+//                                }
+//                            }
+//                        });
+//                    }
+//                });
+//                alertDialog.show();
+//            }
+//        });
 
 //        RxView.clicks(mQQRelativeLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
 //            @Override
@@ -154,11 +135,13 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
 
     @Override
     public int getLayoutId() {
-        return R.layout.setting_activity_feedback;
+        return R.layout.setting_activity_feedback_new;
     }
 
     @Override
     public void emptyView() {
         mContextEditView.setText("");
     }
+
+
 }

@@ -10,11 +10,9 @@ import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.group.constant.BusAction;
 import com.yc.english.main.contract.LoginContract;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
-import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.main.model.engin.LoginEngin;
 

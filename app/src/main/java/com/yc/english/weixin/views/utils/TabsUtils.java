@@ -1,7 +1,6 @@
 package com.yc.english.weixin.views.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import com.shizhefei.view.indicator.Indicator;
 import com.yc.english.R;
 import com.yc.english.weixin.views.fragments.CourseFragment;
+import com.yc.english.weixin.views.fragments.CourseMoreFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,4 +71,30 @@ public class TabsUtils {
             return count;
         }
     }
+
+    public static class MoreFragmentAdapter extends FragmentStatePagerAdapter {
+        private List<CourseMoreFragment> courseFragments;
+        private int count;
+        public MoreFragmentAdapter(FragmentManager fm, String[] types) {
+            super(fm);
+            courseFragments = new ArrayList<>();
+            for(int i=0; i < types.length; i++){
+                CourseMoreFragment courseMoreFragment = new CourseMoreFragment();
+                courseMoreFragment.setType(types[i]);
+                courseFragments.add(courseMoreFragment);
+            }
+            count = types.length;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return courseFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return count;
+        }
+    }
+
 }

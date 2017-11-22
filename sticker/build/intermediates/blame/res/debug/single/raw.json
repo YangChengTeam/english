@@ -1,14 +1,6 @@
 [
     {
-        "merged": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\res\\merged\\debug\\raw\\bqmm_sticker_loading.gif",
-        "source": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\raw\\bqmm_sticker_loading.gif"
-    },
-    {
         "merged": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/res/merged/debug/raw/bqmm_sticker_loading.gif",
         "source": "/Users/zhangkai/Desktop/english/sticker/src/main/res/raw/bqmm_sticker_loading.gif"
-    },
-    {
-        "merged": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\res\\merged\\debug\\raw\\bqmm_sticker_loading.gif",
-        "source": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\raw\\bqmm_sticker_loading.gif"
     }
 ]

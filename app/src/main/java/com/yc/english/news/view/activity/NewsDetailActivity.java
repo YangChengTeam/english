@@ -8,8 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -23,11 +21,13 @@ import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
+import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.view.activitys.GroupPictureDetailActivity;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.adapter.NewsDetailAdapter;
 import com.yc.english.news.bean.CourseInfoWrapper;
 import com.yc.english.news.contract.NewsDetailContract;
@@ -36,12 +36,9 @@ import com.yc.english.news.view.widget.MediaPlayerView;
 import com.yc.english.news.view.widget.NewsScrollView;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PipedOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -51,7 +48,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  * Created by wanglin  on 2017/9/6 08:32.
  */
 
-public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> implements NewsDetailContract.View {
+public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> implements NewsDetailContract.View, View.OnClickListener {
     private static final String TAG = "NewsDetailActivity";
     @BindView(R.id.mJCVideoPlayer)
     JCVideoPlayerStandard mJCVideoPlayer;
@@ -84,6 +81,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     private int screenHeight;
     private String id;
     private long startTime;
+    private CourseInfo currentCourseInfo;
+    private boolean isPlay = true;
 
     @Override
     public void init() {
@@ -93,11 +92,16 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitleColor(R.color.black_333333);
 
+//        mToolbar.setTitleSize(20);
         startTime = System.currentTimeMillis();
 
         if (getIntent() != null) {
             CourseInfo courseInfo = getIntent().getParcelableExtra("info");
-            id = courseInfo.getId();
+            if (courseInfo != null) {
+                id = courseInfo.getId();
+            } else {
+                id = getIntent().getStringExtra("id");
+            }
             mPresenter.getWeixinInfo(id);
         }
 
@@ -120,7 +124,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         String time = null;
         if (!TextUtils.isEmpty(courseInfo.getAdd_time())) {
-            time = TimeUtils.millis2String(Long.parseLong(courseInfo.getAdd_time()) * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+
+            time = TimeUtils.millis2String(Long.parseLong(courseInfo.getAdd_time()) * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()));
         }
 
         mTextViewTime.setText(time);
@@ -132,7 +137,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             playVideo(url, courseInfo.getImg());
         }
 
-
     }
 
     private void initListener() {
@@ -143,11 +147,12 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                 sharePopupWindow.show(llRootView);
             }
         });
-        nestedScrollView.setListener(new NewsScrollView.onScrollChangeListener() {
+        nestedScrollView.setOnScrollChangeListener(new NewsScrollView.onScrollChangeListener() {
             @Override
             public void onScrollChange(int l, int t, int oldl, int oldt) {
                 if (t > screenHeight / 2) {
                     mToolbar.setTitle(title);
+
 
                 } else {
                     mToolbar.setTitle("");
@@ -247,7 +252,12 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mMediaPlayerView.setVisibility(View.VISIBLE);
         mJCVideoPlayer.setVisibility(View.GONE);
         mMediaPlayerView.setPath(path);
-        mMediaPlayerView.startPlay();
+        mMediaPlayerView.setOnMediaClickListener(new MediaPlayerView.onMediaClickListener() {
+            @Override
+            public void onMediaClick() {
+                mPresenter.statisticsStudyTotal(id);
+            }
+        });
     }
 
     /**
@@ -263,13 +273,38 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mJCVideoPlayer.battery_level.setVisibility(View.GONE);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
 
+        if (currentCourseInfo != null) {
+            if (currentCourseInfo.getIsPay() == 0) {
+                //未购买
+                if (currentCourseInfo.getUserHas() == 0) {
+                    if (UserInfoHelper.getUserInfo() != null) {
+                        if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
+                            isPlay = false;
+                        } else {
+                            if (currentCourseInfo.getIs_vip() == 0) {
+                                isPlay = false;
+                            }
+                        }
+                    } else {
+                        isPlay = false;
+                    }
+                } else {
+                    isPlay = true;
+                }
+            }
+        }
+
+        mJCVideoPlayer.thumbImageView.setOnClickListener(this);
+        mJCVideoPlayer.startButton.setOnClickListener(this);
+
     }
 
 
     @Override
     public void showCourseResult(CourseInfoWrapper data) {
         initWebView(data);
-        initData(data.getInfo());
+        currentCourseInfo = data.getInfo();
+        initData(currentCourseInfo);
         if (data.getRecommend() != null && data.getRecommend().size() > 0) {
             newsDetailAdapter.setData(data.getRecommend());
             mLlRecommend.setVisibility(View.VISIBLE);
@@ -304,6 +339,36 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     }
 
     private ArrayList<String> imageList = new ArrayList<>();
+
+    @Override
+    public void onClick(View v) {
+        if (UserInfoHelper.getUserInfo() != null) {
+            if (isPlay) {
+                mJCVideoPlayer.startVideo();
+            } else {
+                final AlertDialog alertDialog = new AlertDialog(NewsDetailActivity.this);
+                alertDialog.setDesc("未购买此课程，是否马上购买？");
+                alertDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+
+                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
+                        Intent intent = new Intent(NewsDetailActivity.this, ConfirmOrderActivity.class);
+                        ArrayList<CourseInfo> goodsList = new ArrayList<>();
+                        goodsList.add(currentCourseInfo);
+                        intent.putExtra("total_price", currentCourseInfo.getMPrice());
+                        intent.putParcelableArrayListExtra("goods_list", goodsList);
+                        startActivity(intent);
+
+                    }
+                });
+                alertDialog.show();
+            }
+        } else {
+            UserInfoHelper.isGotoLogin(NewsDetailActivity.this);
+        }
+    }
 
     private class JavascriptInterface {
 
@@ -350,7 +415,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         if (webView != null) {
             webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
             webView.clearHistory();
-
             llRootView.removeView(webView);
             webView.destroy();
         }
