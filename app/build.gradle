@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
-
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -74,6 +76,7 @@ repositories {
     flatDir {
         dirs 'libs'
     }
+    mavenCentral()
 }
 
 apply plugin: 'com.jakewharton.butterknife'
@@ -126,4 +129,5 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile files('libs/juniversalchardet-1.0.3.jar')
     compile 'com.liulishuo.filedownloader:library:1.6.8'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

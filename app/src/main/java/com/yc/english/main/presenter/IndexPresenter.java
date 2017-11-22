@@ -36,6 +36,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
     }
 
 
+
     @Override
     public void getIndexInfo() {
         getAvatar();
