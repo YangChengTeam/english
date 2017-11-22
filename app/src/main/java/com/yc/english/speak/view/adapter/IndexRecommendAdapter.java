@@ -3,7 +3,6 @@ package com.yc.english.speak.view.adapter;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.TimeUtils;
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
