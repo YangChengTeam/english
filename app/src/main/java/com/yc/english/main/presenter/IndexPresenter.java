@@ -70,25 +70,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                 });
             }
         });
-        new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 5).execute(new Runnable() {
-            @Override
-            public void run() {
-                String json = SPUtils.getInstance().getString(INDEX_INFO, "");
-                if (!TextUtils.isEmpty(json)) {
-                    final IndexInfo indexInfo = JSON.parseObject(json, IndexInfo.class);
-                    cached = true;
-                    UIUitls.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mView.hideStateView();
-                            showIndexInfo(indexInfo, false);
-                        }
-                    });
-                }
-            }
-        });
-
-
+        
         Subscription subscription = mEngin.getIndexInfo().subscribe(new Subscriber<ResultInfo<IndexInfo>>() {
             @Override
             public void onCompleted() {
