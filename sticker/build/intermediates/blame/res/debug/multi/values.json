@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "outputFile": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,1597 @@
                     "endOffset": 104
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 898,
+                        "endColumn": 53,
+                        "endOffset": 947
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 109,
+                    "endColumn": 63,
+                    "endOffset": 168
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 1,
+                        "startOffset": 52,
+                        "endColumn": 60,
+                        "endOffset": 111
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 173,
+                    "endColumn": 71,
+                    "endOffset": 240
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 56,
+                        "startColumn": 1,
+                        "startOffset": 2452,
+                        "endColumn": 68,
+                        "endOffset": 2519
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 245,
+                    "endColumn": 67,
+                    "endOffset": 308
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 54,
+                        "startColumn": 1,
+                        "startOffset": 2366,
+                        "endColumn": 64,
+                        "endOffset": 2429
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 313,
+                    "endColumn": 65,
+                    "endOffset": 374
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 52,
+                        "startColumn": 1,
+                        "startOffset": 2282,
+                        "endColumn": 62,
+                        "endOffset": 2343
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 379,
+                    "endColumn": 82,
+                    "endOffset": 457
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 1,
+                        "startOffset": 1176,
+                        "endColumn": 79,
+                        "endOffset": 1254
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 462,
+                    "endColumn": 84,
+                    "endOffset": 542
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 1,
+                        "startOffset": 1286,
+                        "endColumn": 81,
+                        "endOffset": 1366
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 547,
+                    "endColumn": 78,
+                    "endOffset": 621
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 1,
+                        "startOffset": 961,
+                        "endColumn": 75,
+                        "endOffset": 1035
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 626,
+                    "endColumn": 80,
+                    "endOffset": 702
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 1,
+                        "startOffset": 1068,
+                        "endColumn": 77,
+                        "endOffset": 1144
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 707,
+                    "endColumn": 82,
+                    "endOffset": 785
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 34,
+                        "startColumn": 1,
+                        "startOffset": 1483,
+                        "endColumn": 79,
+                        "endOffset": 1561
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 790,
+                    "endColumn": 71,
+                    "endOffset": 857
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 32,
+                        "startColumn": 1,
+                        "startOffset": 1390,
+                        "endColumn": 68,
+                        "endOffset": 1457
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 862,
+                    "endColumn": 76,
+                    "endOffset": 934
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 1,
+                        "startOffset": 642,
+                        "endColumn": 73,
+                        "endOffset": 714
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 939,
+                    "endColumn": 78,
+                    "endOffset": 1013
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 1,
+                        "startOffset": 746,
+                        "endColumn": 75,
+                        "endOffset": 820
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1018,
+                    "endColumn": 79,
+                    "endOffset": 1093
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 1,
+                        "startOffset": 853,
+                        "endColumn": 76,
+                        "endOffset": 928
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1098,
+                    "endColumn": 95,
+                    "endOffset": 1189
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 44,
+                        "startColumn": 1,
+                        "startOffset": 1948,
+                        "endColumn": 92,
+                        "endOffset": 2039
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1194,
+                    "endColumn": 84,
+                    "endOffset": 1274
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 42,
+                        "startColumn": 1,
+                        "startOffset": 1838,
+                        "endColumn": 81,
+                        "endOffset": 1918
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1279,
+                    "endColumn": 103,
+                    "endOffset": 1378
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 39,
+                        "startColumn": 1,
+                        "startOffset": 1710,
+                        "endColumn": 100,
+                        "endOffset": 1809
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1383,
+                    "endColumn": 92,
+                    "endOffset": 1471
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 37,
+                        "startColumn": 1,
+                        "startOffset": 1591,
+                        "endColumn": 89,
+                        "endOffset": 1679
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1476,
+                    "endColumn": 70,
+                    "endOffset": 1542
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 74,
+                        "startColumn": 1,
+                        "startOffset": 3182,
+                        "endColumn": 67,
+                        "endOffset": 3248
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 1547,
+                    "endColumn": 66,
+                    "endOffset": 1609
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 81,
+                        "startColumn": 1,
+                        "startOffset": 3430,
+                        "endColumn": 63,
+                        "endOffset": 3492
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 1614,
+                    "endColumn": 74,
+                    "endOffset": 1684
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 61,
+                        "startColumn": 1,
+                        "startOffset": 2642,
+                        "endColumn": 71,
+                        "endOffset": 2712
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 1689,
+                    "endColumn": 78,
+                    "endOffset": 1763
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 86,
+                        "startColumn": 1,
+                        "startOffset": 3607,
+                        "endColumn": 75,
+                        "endOffset": 3681
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 1768,
+                    "endColumn": 67,
+                    "endOffset": 1831
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 84,
+                        "startColumn": 1,
+                        "startOffset": 3519,
+                        "endColumn": 64,
+                        "endOffset": 3582
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 1836,
+                    "endColumn": 47,
+                    "endOffset": 1879
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 2,
+                        "startOffset": 114,
+                        "endColumn": 45,
+                        "endOffset": 157
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 1884,
+                    "endColumn": 72,
+                    "endOffset": 1952
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 104,
+                        "startColumn": 1,
+                        "startOffset": 4406,
+                        "endColumn": 69,
+                        "endOffset": 4474
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 1957,
+                    "endColumn": 68,
+                    "endOffset": 2021
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 98,
+                        "startColumn": 1,
+                        "startOffset": 4121,
+                        "endColumn": 65,
+                        "endOffset": 4185
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 2026,
+                    "endColumn": 81,
+                    "endOffset": 2103
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 102,
+                        "startColumn": 1,
+                        "startOffset": 4303,
+                        "endColumn": 78,
+                        "endOffset": 4380
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 2108,
+                    "endColumn": 70,
+                    "endOffset": 2174
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 100,
+                        "startColumn": 1,
+                        "startOffset": 4210,
+                        "endColumn": 67,
+                        "endOffset": 4276
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 2179,
+                    "endColumn": 75,
+                    "endOffset": 2250
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 94,
+                        "startColumn": 1,
+                        "startOffset": 3917,
+                        "endColumn": 72,
+                        "endOffset": 3988
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 31,
+                    "startColumn": 4,
+                    "startOffset": 2255,
+                    "endColumn": 78,
+                    "endOffset": 2329
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 96,
+                        "startColumn": 1,
+                        "startOffset": 4021,
+                        "endColumn": 75,
+                        "endOffset": 4095
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 32,
+                    "startColumn": 4,
+                    "startOffset": 2334,
+                    "endColumn": 80,
+                    "endOffset": 2410
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 89,
+                        "startColumn": 1,
+                        "startOffset": 3713,
+                        "endColumn": 77,
+                        "endOffset": 3789
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 33,
+                    "startColumn": 4,
+                    "startOffset": 2415,
+                    "endColumn": 72,
+                    "endOffset": 2483
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 91,
+                        "startColumn": 1,
+                        "startOffset": 3814,
+                        "endColumn": 69,
+                        "endOffset": 3882
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 34,
+                    "startColumn": 4,
+                    "startOffset": 2488,
+                    "endColumn": 92,
+                    "endOffset": 2576
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 49,
+                        "startColumn": 1,
+                        "startOffset": 2169,
+                        "endColumn": 89,
+                        "endOffset": 2257
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 35,
+                    "startColumn": 4,
+                    "startOffset": 2581,
+                    "endColumn": 81,
+                    "endOffset": 2658
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 47,
+                        "startColumn": 1,
+                        "startOffset": 2065,
+                        "endColumn": 78,
+                        "endOffset": 2142
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 36,
+                    "startColumn": 4,
+                    "startOffset": 2663,
+                    "endColumn": 72,
+                    "endOffset": 2731
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 71,
+                        "startColumn": 1,
+                        "startOffset": 3080,
+                        "endColumn": 69,
+                        "endOffset": 3148
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 37,
+                    "startColumn": 4,
+                    "startOffset": 2736,
+                    "endColumn": 66,
+                    "endOffset": 2798
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 69,
+                        "startColumn": 1,
+                        "startOffset": 2995,
+                        "endColumn": 63,
+                        "endOffset": 3057
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 38,
+                    "startColumn": 4,
+                    "startOffset": 2803,
+                    "endColumn": 71,
+                    "endOffset": 2870
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 67,
+                        "startColumn": 1,
+                        "startOffset": 2905,
+                        "endColumn": 68,
+                        "endOffset": 2972
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 39,
+                    "startColumn": 4,
+                    "startOffset": 2875,
+                    "endColumn": 67,
+                    "endOffset": 2938
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 63,
+                        "startColumn": 1,
+                        "startOffset": 2735,
+                        "endColumn": 64,
+                        "endOffset": 2798
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 40,
+                    "startColumn": 4,
+                    "startOffset": 2943,
+                    "endColumn": 65,
+                    "endOffset": 3004
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 65,
+                        "startColumn": 1,
+                        "startOffset": 2821,
+                        "endColumn": 62,
+                        "endOffset": 2882
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 41,
+                    "startColumn": 4,
+                    "startOffset": 3009,
+                    "endColumn": 70,
+                    "endOffset": 3075
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 59,
+                        "startColumn": 1,
+                        "startOffset": 2548,
+                        "endColumn": 67,
+                        "endOffset": 2614
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 42,
+                    "startColumn": 4,
+                    "startOffset": 3080,
+                    "endColumn": 58,
+                    "endOffset": 3134
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 454,
+                        "endColumn": 58,
+                        "endOffset": 508
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 43,
+                    "startColumn": 4,
+                    "startOffset": 3139,
+                    "endColumn": 65,
+                    "endOffset": 3200
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 541,
+                        "endColumn": 65,
+                        "endOffset": 602
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 44,
+                    "startColumn": 4,
+                    "startOffset": 3205,
+                    "endColumn": 61,
+                    "endOffset": 3262
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 79,
+                        "startColumn": 1,
+                        "startOffset": 3352,
+                        "endColumn": 58,
+                        "endOffset": 3409
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 45,
+                    "startColumn": 4,
+                    "startOffset": 3267,
+                    "endColumn": 59,
+                    "endOffset": 3322
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 77,
+                        "startColumn": 1,
+                        "startOffset": 3274,
+                        "endColumn": 56,
+                        "endOffset": 3329
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 46,
+                    "startColumn": 4,
+                    "startOffset": 3327,
+                    "endColumn": 52,
+                    "endOffset": 3375
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 291,
+                        "endColumn": 52,
+                        "endOffset": 339
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 47,
+                    "startColumn": 4,
+                    "startOffset": 3380,
+                    "endColumn": 53,
+                    "endOffset": 3429
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 367,
+                        "endColumn": 53,
+                        "endOffset": 416
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 48,
+                    "startColumn": 4,
+                    "startOffset": 3434,
+                    "endColumn": 52,
+                    "endOffset": 3482
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 2,
+                        "startOffset": 160,
+                        "endColumn": 50,
+                        "endOffset": 208
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 49,
+                    "startColumn": 4,
+                    "startOffset": 3487,
+                    "endColumn": 52,
+                    "endOffset": 3535
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 1,
+                        "startOffset": 210,
+                        "endColumn": 49,
+                        "endOffset": 258
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 54,
+                    "startColumn": 4,
+                    "startOffset": 4451,
+                    "endColumn": 57,
+                    "endOffset": 4504
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 89,
+                        "endColumn": 57,
+                        "endOffset": 142
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 55,
+                    "startColumn": 4,
+                    "startOffset": 4509,
+                    "endColumn": 55,
+                    "endOffset": 4560
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 147,
+                        "endColumn": 55,
+                        "endOffset": 198
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 56,
+                    "startColumn": 4,
+                    "startOffset": 4565,
+                    "endColumn": 68,
+                    "endOffset": 4629
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 537,
+                        "endColumn": 68,
+                        "endOffset": 601
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 57,
+                    "startColumn": 4,
+                    "startOffset": 4634,
+                    "endColumn": 66,
+                    "endOffset": 4696
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 808,
+                        "endColumn": 66,
+                        "endOffset": 870
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 58,
+                    "startColumn": 4,
+                    "startOffset": 4701,
+                    "endColumn": 60,
+                    "endOffset": 4757
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 718,
+                        "endColumn": 60,
+                        "endOffset": 774
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 59,
+                    "startColumn": 4,
+                    "startOffset": 4762,
+                    "endColumn": 59,
+                    "endOffset": 4817
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 632,
+                        "endColumn": 59,
+                        "endOffset": 687
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 60,
+                    "startColumn": 4,
+                    "startOffset": 4822,
+                    "endColumn": 64,
+                    "endOffset": 4882
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 443,
+                        "endColumn": 64,
+                        "endOffset": 503
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 61,
+                    "startColumn": 4,
+                    "startOffset": 4887,
+                    "endColumn": 57,
+                    "endOffset": 4940
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 1,
+                        "startOffset": 357,
+                        "endColumn": 54,
+                        "endOffset": 410
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 62,
+                    "startColumn": 4,
+                    "startOffset": 4945,
+                    "endColumn": 51,
+                    "endOffset": 4992
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 277,
+                        "endColumn": 51,
+                        "endOffset": 324
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 63,
+                    "startColumn": 4,
+                    "startOffset": 4997,
+                    "endColumn": 52,
+                    "endOffset": 5045
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 203,
+                        "endColumn": 52,
+                        "endOffset": 251
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 64,
+                    "startColumn": 4,
+                    "startOffset": 5050,
+                    "endColumn": 60,
+                    "endOffset": 5106
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 4,
+                        "startOffset": 979,
+                        "endColumn": 60,
+                        "endOffset": 1035
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 65,
+                    "startColumn": 4,
+                    "startOffset": 5111,
+                    "endColumn": 52,
+                    "endOffset": 5159
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 124,
+                        "endColumn": 52,
+                        "endOffset": 172
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 66,
+                    "startColumn": 4,
+                    "startOffset": 5164,
+                    "endColumn": 54,
+                    "endOffset": 5214
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 1,
+                        "startColumn": 4,
+                        "startOffset": 16,
+                        "endColumn": 54,
+                        "endOffset": 66
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 67,
+                    "startColumn": 4,
+                    "startOffset": 5219,
+                    "endColumn": 59,
+                    "endOffset": 5274
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 779,
+                        "endColumn": 59,
+                        "endOffset": 834
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 68,
+                    "startColumn": 4,
+                    "startOffset": 5279,
+                    "endColumn": 67,
+                    "endOffset": 5342
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 32,
+                        "startColumn": 4,
+                        "startOffset": 1456,
+                        "endColumn": 67,
+                        "endOffset": 1519
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 69,
+                    "startColumn": 4,
+                    "startOffset": 5347,
+                    "endColumn": 50,
+                    "endOffset": 5393
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 177,
+                        "endColumn": 55,
+                        "endOffset": 228
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 70,
+                    "startColumn": 4,
+                    "startOffset": 5398,
+                    "endColumn": 53,
+                    "endOffset": 5447
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 233,
+                        "endColumn": 58,
+                        "endOffset": 287
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 71,
+                    "startColumn": 4,
+                    "startOffset": 5452,
+                    "endColumn": 66,
+                    "endOffset": 5514
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 690,
+                        "endColumn": 66,
+                        "endOffset": 752
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 72,
+                    "startColumn": 4,
+                    "startOffset": 5519,
+                    "endColumn": 86,
+                    "endOffset": 5601
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 1347,
+                        "endColumn": 86,
+                        "endOffset": 1429
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 73,
+                    "startColumn": 4,
+                    "startOffset": 5606,
+                    "endColumn": 79,
+                    "endOffset": 5681
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 418,
+                        "endColumn": 79,
+                        "endOffset": 493
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 74,
+                    "startColumn": 4,
+                    "startOffset": 5686,
+                    "endColumn": 126,
+                    "endOffset": 5808
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1015,
+                        "endColumn": 126,
+                        "endOffset": 1137
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 75,
+                    "startColumn": 4,
+                    "startOffset": 5813,
+                    "endColumn": 67,
+                    "endOffset": 5876
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 34,
+                        "startColumn": 4,
+                        "startOffset": 1525,
+                        "endColumn": 67,
+                        "endOffset": 1588
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 76,
+                    "startColumn": 4,
+                    "startOffset": 5881,
+                    "endColumn": 67,
+                    "endOffset": 5944
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 35,
+                        "startColumn": 4,
+                        "startOffset": 1593,
+                        "endColumn": 67,
+                        "endOffset": 1656
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 77,
+                    "startColumn": 4,
+                    "startOffset": 5949,
+                    "endColumn": 57,
+                    "endOffset": 6002
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 601,
+                        "endColumn": 57,
+                        "endOffset": 654
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 78,
+                    "startColumn": 4,
+                    "startOffset": 6007,
+                    "endColumn": 65,
+                    "endOffset": 6068
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 1250,
+                        "endColumn": 65,
+                        "endOffset": 1311
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 79,
+                    "startColumn": 4,
+                    "startOffset": 6073,
+                    "endColumn": 56,
+                    "endOffset": 6125
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 521,
+                        "endColumn": 56,
+                        "endOffset": 573
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 80,
+                    "startColumn": 4,
+                    "startOffset": 6130,
+                    "endColumn": 61,
+                    "endOffset": 6187
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1165,
+                        "endColumn": 61,
+                        "endOffset": 1222
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 81,
+                    "startColumn": 4,
+                    "startOffset": 6192,
+                    "endColumn": 72,
+                    "endOffset": 6260
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 318,
+                        "endColumn": 72,
+                        "endOffset": 386
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 82,
+                    "startColumn": 4,
+                    "startOffset": 6265,
+                    "endColumn": 119,
+                    "endOffset": 6380
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 868,
+                        "endColumn": 119,
+                        "endOffset": 983
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 83,
+                    "startColumn": 4,
+                    "startOffset": 6385,
+                    "endColumn": 52,
+                    "endOffset": 6433
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 71,
+                        "endColumn": 52,
+                        "endOffset": 119
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 84,
+                    "startColumn": 4,
+                    "startOffset": 6438,
+                    "endLine": 89,
+                    "endColumn": 12,
+                    "endOffset": 6890
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_styles.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 5,
+                        "startOffset": 956,
+                        "endLine": 30,
+                        "endColumn": 12,
+                        "endOffset": 1408
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 90,
+                    "startColumn": 4,
+                    "startOffset": 6895,
+                    "endLine": 96,
+                    "endColumn": 12,
+                    "endOffset": 7181
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_styles.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 186,
+                        "endLine": 12,
+                        "endColumn": 12,
+                        "endOffset": 472
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 97,
+                    "startColumn": 4,
+                    "startOffset": 7186,
+                    "endLine": 99,
+                    "endColumn": 12,
+                    "endOffset": 7341
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_styles.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 589,
+                        "endLine": 18,
+                        "endColumn": 12,
+                        "endOffset": 744
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 100,
+                    "startColumn": 4,
+                    "startOffset": 7346,
+                    "endColumn": 71,
+                    "endOffset": 7413
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_styles.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 477,
+                        "endColumn": 78,
+                        "endOffset": 551
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 101,
+                    "startColumn": 4,
+                    "startOffset": 7418,
+                    "endLine": 103,
+                    "endColumn": 12,
+                    "endOffset": 7575
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_styles.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 788,
+                        "endLine": 23,
+                        "endColumn": 12,
+                        "endOffset": 945
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 53,
+                    "endOffset": 104
+                },
+                "from": {
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -30,7 +1620,7 @@
                     "endOffset": 168
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 1,
@@ -49,7 +1639,7 @@
                     "endOffset": 240
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 56,
                         "startColumn": 1,
@@ -68,7 +1658,7 @@
                     "endOffset": 308
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 54,
                         "startColumn": 1,
@@ -87,7 +1677,7 @@
                     "endOffset": 374
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 52,
                         "startColumn": 1,
@@ -106,7 +1696,7 @@
                     "endOffset": 457
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 1,
@@ -125,7 +1715,7 @@
                     "endOffset": 542
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 1,
@@ -144,7 +1734,7 @@
                     "endOffset": 621
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 1,
@@ -163,7 +1753,7 @@
                     "endOffset": 702
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 1,
@@ -182,7 +1772,7 @@
                     "endOffset": 785
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 1,
@@ -201,7 +1791,7 @@
                     "endOffset": 857
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 1,
@@ -220,7 +1810,7 @@
                     "endOffset": 934
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 1,
@@ -239,7 +1829,7 @@
                     "endOffset": 1013
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 1,
@@ -258,7 +1848,7 @@
                     "endOffset": 1093
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 1,
@@ -277,7 +1867,7 @@
                     "endOffset": 1189
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 44,
                         "startColumn": 1,
@@ -296,7 +1886,7 @@
                     "endOffset": 1274
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 42,
                         "startColumn": 1,
@@ -315,7 +1905,7 @@
                     "endOffset": 1378
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 39,
                         "startColumn": 1,
@@ -334,7 +1924,7 @@
                     "endOffset": 1471
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 37,
                         "startColumn": 1,
@@ -353,7 +1943,7 @@
                     "endOffset": 1542
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 74,
                         "startColumn": 1,
@@ -372,7 +1962,7 @@
                     "endOffset": 1609
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 81,
                         "startColumn": 1,
@@ -391,7 +1981,7 @@
                     "endOffset": 1684
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 61,
                         "startColumn": 1,
@@ -410,7 +2000,7 @@
                     "endOffset": 1763
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 86,
                         "startColumn": 1,
@@ -429,7 +2019,7 @@
                     "endOffset": 1831
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 84,
                         "startColumn": 1,
@@ -448,7 +2038,7 @@
                     "endOffset": 1879
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 2,
@@ -467,7 +2057,7 @@
                     "endOffset": 1952
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 104,
                         "startColumn": 1,
@@ -486,7 +2076,7 @@
                     "endOffset": 2021
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 98,
                         "startColumn": 1,
@@ -505,7 +2095,7 @@
                     "endOffset": 2103
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 102,
                         "startColumn": 1,
@@ -524,7 +2114,7 @@
                     "endOffset": 2174
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 100,
                         "startColumn": 1,
@@ -543,7 +2133,7 @@
                     "endOffset": 2250
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 94,
                         "startColumn": 1,
@@ -562,7 +2152,7 @@
                     "endOffset": 2329
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 96,
                         "startColumn": 1,
@@ -581,7 +2171,7 @@
                     "endOffset": 2410
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 89,
                         "startColumn": 1,
@@ -600,7 +2190,7 @@
                     "endOffset": 2483
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 91,
                         "startColumn": 1,
@@ -619,7 +2209,7 @@
                     "endOffset": 2576
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 49,
                         "startColumn": 1,
@@ -638,7 +2228,7 @@
                     "endOffset": 2658
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 47,
                         "startColumn": 1,
@@ -657,7 +2247,7 @@
                     "endOffset": 2731
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 71,
                         "startColumn": 1,
@@ -676,7 +2266,7 @@
                     "endOffset": 2798
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 69,
                         "startColumn": 1,
@@ -695,7 +2285,7 @@
                     "endOffset": 2870
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 67,
                         "startColumn": 1,
@@ -714,7 +2304,7 @@
                     "endOffset": 2938
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 63,
                         "startColumn": 1,
@@ -733,7 +2323,7 @@
                     "endOffset": 3004
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 65,
                         "startColumn": 1,
@@ -752,7 +2342,7 @@
                     "endOffset": 3075
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 59,
                         "startColumn": 1,
@@ -771,7 +2361,7 @@
                     "endOffset": 3134
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -790,7 +2380,7 @@
                     "endOffset": 3200
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -809,7 +2399,7 @@
                     "endOffset": 3262
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 79,
                         "startColumn": 1,
@@ -828,7 +2418,7 @@
                     "endOffset": 3322
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 77,
                         "startColumn": 1,
@@ -847,7 +2437,7 @@
                     "endOffset": 3375
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -866,7 +2456,7 @@
                     "endOffset": 3429
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -885,7 +2475,7 @@
                     "endOffset": 3482
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 2,
@@ -904,7 +2494,7 @@
                     "endOffset": 3535
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 1,
@@ -923,7 +2513,7 @@
                     "endOffset": 4504
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -942,7 +2532,7 @@
                     "endOffset": 4560
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -961,7 +2551,7 @@
                     "endOffset": 4629
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -980,7 +2570,7 @@
                     "endOffset": 4696
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -999,7 +2589,7 @@
                     "endOffset": 4757
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -1018,7 +2608,7 @@
                     "endOffset": 4817
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -1037,7 +2627,7 @@
                     "endOffset": 4882
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -1056,7 +2646,7 @@
                     "endOffset": 4940
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 1,
@@ -1075,7 +2665,7 @@
                     "endOffset": 4992
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -1094,7 +2684,7 @@
                     "endOffset": 5045
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -1113,7 +2703,7 @@
                     "endOffset": 5106
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -1132,7 +2722,7 @@
                     "endOffset": 5159
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -1151,7 +2741,7 @@
                     "endOffset": 5214
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 1,
                         "startColumn": 4,
@@ -1170,7 +2760,7 @@
                     "endOffset": 5274
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -1189,7 +2779,7 @@
                     "endOffset": 5342
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
@@ -1208,7 +2798,7 @@
                     "endOffset": 5393
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -1227,7 +2817,7 @@
                     "endOffset": 5447
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -1246,7 +2836,7 @@
                     "endOffset": 5514
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -1265,7 +2855,7 @@
                     "endOffset": 5601
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
@@ -1284,7 +2874,7 @@
                     "endOffset": 5681
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -1303,7 +2893,7 @@
                     "endOffset": 5808
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -1322,7 +2912,7 @@
                     "endOffset": 5876
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 4,
@@ -1341,7 +2931,7 @@
                     "endOffset": 5944
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 35,
                         "startColumn": 4,
@@ -1360,7 +2950,7 @@
                     "endOffset": 6002
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -1379,7 +2969,7 @@
                     "endOffset": 6068
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -1398,7 +2988,7 @@
                     "endOffset": 6125
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -1417,7 +3007,7 @@
                     "endOffset": 6187
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -1436,7 +3026,7 @@
                     "endOffset": 6260
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -1455,7 +3045,7 @@
                     "endOffset": 6380
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -1474,7 +3064,7 @@
                     "endOffset": 6433
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -1494,7 +3084,7 @@
                     "endOffset": 6890
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 5,
@@ -1515,7 +3105,7 @@
                     "endOffset": 7181
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -1536,7 +3126,7 @@
                     "endOffset": 7341
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -1556,7 +3146,7 @@
                     "endOffset": 7413
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -1576,7 +3166,7 @@
                     "endOffset": 7575
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -1590,7 +3180,7 @@
         ]
     },
     {
-        "outputFile": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "outputFile": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -1601,7 +3191,7 @@
                     "endOffset": 104
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -1620,7 +3210,7 @@
                     "endOffset": 168
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 1,
@@ -1639,7 +3229,7 @@
                     "endOffset": 240
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 56,
                         "startColumn": 1,
@@ -1658,7 +3248,7 @@
                     "endOffset": 308
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 54,
                         "startColumn": 1,
@@ -1677,7 +3267,7 @@
                     "endOffset": 374
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 52,
                         "startColumn": 1,
@@ -1696,7 +3286,7 @@
                     "endOffset": 457
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 1,
@@ -1715,7 +3305,7 @@
                     "endOffset": 542
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 1,
@@ -1734,7 +3324,7 @@
                     "endOffset": 621
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 1,
@@ -1753,7 +3343,7 @@
                     "endOffset": 702
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 1,
@@ -1772,7 +3362,7 @@
                     "endOffset": 785
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 1,
@@ -1791,7 +3381,7 @@
                     "endOffset": 857
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 1,
@@ -1810,7 +3400,7 @@
                     "endOffset": 934
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 1,
@@ -1829,7 +3419,7 @@
                     "endOffset": 1013
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 1,
@@ -1848,7 +3438,7 @@
                     "endOffset": 1093
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 1,
@@ -1867,7 +3457,7 @@
                     "endOffset": 1189
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 44,
                         "startColumn": 1,
@@ -1886,7 +3476,7 @@
                     "endOffset": 1274
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 42,
                         "startColumn": 1,
@@ -1905,7 +3495,7 @@
                     "endOffset": 1378
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 39,
                         "startColumn": 1,
@@ -1924,7 +3514,7 @@
                     "endOffset": 1471
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 37,
                         "startColumn": 1,
@@ -1943,7 +3533,7 @@
                     "endOffset": 1542
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 74,
                         "startColumn": 1,
@@ -1962,7 +3552,7 @@
                     "endOffset": 1609
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 81,
                         "startColumn": 1,
@@ -1981,7 +3571,7 @@
                     "endOffset": 1684
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 61,
                         "startColumn": 1,
@@ -2000,7 +3590,7 @@
                     "endOffset": 1763
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 86,
                         "startColumn": 1,
@@ -2019,7 +3609,7 @@
                     "endOffset": 1831
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 84,
                         "startColumn": 1,
@@ -2038,7 +3628,7 @@
                     "endOffset": 1879
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 2,
@@ -2057,7 +3647,7 @@
                     "endOffset": 1952
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 104,
                         "startColumn": 1,
@@ -2076,7 +3666,7 @@
                     "endOffset": 2021
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 98,
                         "startColumn": 1,
@@ -2095,7 +3685,7 @@
                     "endOffset": 2103
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 102,
                         "startColumn": 1,
@@ -2114,7 +3704,7 @@
                     "endOffset": 2174
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 100,
                         "startColumn": 1,
@@ -2133,7 +3723,7 @@
                     "endOffset": 2250
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 94,
                         "startColumn": 1,
@@ -2152,7 +3742,7 @@
                     "endOffset": 2329
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 96,
                         "startColumn": 1,
@@ -2171,7 +3761,7 @@
                     "endOffset": 2410
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 89,
                         "startColumn": 1,
@@ -2190,7 +3780,7 @@
                     "endOffset": 2483
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 91,
                         "startColumn": 1,
@@ -2209,7 +3799,7 @@
                     "endOffset": 2576
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 49,
                         "startColumn": 1,
@@ -2228,7 +3818,7 @@
                     "endOffset": 2658
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 47,
                         "startColumn": 1,
@@ -2247,7 +3837,7 @@
                     "endOffset": 2731
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 71,
                         "startColumn": 1,
@@ -2266,7 +3856,7 @@
                     "endOffset": 2798
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 69,
                         "startColumn": 1,
@@ -2285,7 +3875,7 @@
                     "endOffset": 2870
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 67,
                         "startColumn": 1,
@@ -2304,7 +3894,7 @@
                     "endOffset": 2938
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 63,
                         "startColumn": 1,
@@ -2323,7 +3913,7 @@
                     "endOffset": 3004
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 65,
                         "startColumn": 1,
@@ -2342,7 +3932,7 @@
                     "endOffset": 3075
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 59,
                         "startColumn": 1,
@@ -2361,7 +3951,7 @@
                     "endOffset": 3134
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -2380,7 +3970,7 @@
                     "endOffset": 3200
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -2399,7 +3989,7 @@
                     "endOffset": 3262
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 79,
                         "startColumn": 1,
@@ -2418,7 +4008,7 @@
                     "endOffset": 3322
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 77,
                         "startColumn": 1,
@@ -2437,7 +4027,7 @@
                     "endOffset": 3375
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -2456,7 +4046,7 @@
                     "endOffset": 3429
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -2475,7 +4065,7 @@
                     "endOffset": 3482
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 2,
@@ -2494,7 +4084,7 @@
                     "endOffset": 3535
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 1,
@@ -2513,7 +4103,7 @@
                     "endOffset": 4504
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -2532,7 +4122,7 @@
                     "endOffset": 4560
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -2551,7 +4141,7 @@
                     "endOffset": 4629
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -2570,7 +4160,7 @@
                     "endOffset": 4696
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -2589,7 +4179,7 @@
                     "endOffset": 4757
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -2608,7 +4198,7 @@
                     "endOffset": 4817
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -2627,7 +4217,7 @@
                     "endOffset": 4882
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -2646,7 +4236,7 @@
                     "endOffset": 4940
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 1,
@@ -2665,7 +4255,7 @@
                     "endOffset": 4992
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -2684,7 +4274,7 @@
                     "endOffset": 5045
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -2703,7 +4293,7 @@
                     "endOffset": 5106
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -2722,7 +4312,7 @@
                     "endOffset": 5159
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -2741,7 +4331,7 @@
                     "endOffset": 5214
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 1,
                         "startColumn": 4,
@@ -2760,7 +4350,7 @@
                     "endOffset": 5274
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -2779,7 +4369,7 @@
                     "endOffset": 5342
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
@@ -2798,7 +4388,7 @@
                     "endOffset": 5393
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -2817,7 +4407,7 @@
                     "endOffset": 5447
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -2836,7 +4426,7 @@
                     "endOffset": 5514
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -2855,7 +4445,7 @@
                     "endOffset": 5601
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
@@ -2874,7 +4464,7 @@
                     "endOffset": 5681
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -2893,7 +4483,7 @@
                     "endOffset": 5808
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -2912,7 +4502,7 @@
                     "endOffset": 5876
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 4,
@@ -2931,7 +4521,7 @@
                     "endOffset": 5944
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 35,
                         "startColumn": 4,
@@ -2950,7 +4540,7 @@
                     "endOffset": 6002
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -2969,7 +4559,7 @@
                     "endOffset": 6068
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -2988,7 +4578,7 @@
                     "endOffset": 6125
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -3007,7 +4597,7 @@
                     "endOffset": 6187
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -3026,7 +4616,7 @@
                     "endOffset": 6260
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -3045,7 +4635,7 @@
                     "endOffset": 6380
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -3064,7 +4654,7 @@
                     "endOffset": 6433
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -3084,7 +4674,7 @@
                     "endOffset": 6890
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 5,
@@ -3105,7 +4695,7 @@
                     "endOffset": 7181
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -3126,7 +4716,7 @@
                     "endOffset": 7341
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -3146,7 +4736,7 @@
                     "endOffset": 7413
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -3166,7 +4756,7 @@
                     "endOffset": 7575
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
