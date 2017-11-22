@@ -41,12 +41,10 @@ public class SimpleCacheUtils {
                 String path = PathUtils.makeDir(context, "cache");
                 String json = FileIOUtils.readFile2String(path + "/" + key);
                 if (!TextUtils.isEmpty(json)) {
-                    if (!TextUtils.isEmpty(json)) {
                         if (runnable != null) {
                             runnable.setJson(json);
                             runnable.run();
                         }
-                    }
                 }
             }
         });
