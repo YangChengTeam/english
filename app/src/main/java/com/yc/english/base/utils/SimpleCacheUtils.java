@@ -1,12 +1,10 @@
 package com.yc.english.base.utils;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
 import com.blankj.subutil.util.ThreadPoolUtils;
 import com.blankj.utilcode.util.FileIOUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.kk.utils.PathUtils;
 
 /**
