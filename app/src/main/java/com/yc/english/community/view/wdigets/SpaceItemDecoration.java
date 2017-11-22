@@ -25,7 +25,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
      * @param outRect Rect to receive the output.
      * @param view    The child view to decorate
      * @param parent  RecyclerView this ItemDecoration is decorating
-     * @param state   The current state of RecyclerView.
+     * @param state   The current State of RecyclerView.
      */
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {

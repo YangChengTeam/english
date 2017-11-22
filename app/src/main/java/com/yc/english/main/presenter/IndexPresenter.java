@@ -1,16 +1,28 @@
 package com.yc.english.main.presenter;
 
 import android.content.Context;
+import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
+import com.blankj.subutil.util.ThreadPoolUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.base.helper.RxUtils;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.base.utils.SimpleCacheUtils;
+import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.model.engin.IndexEngin;
+import com.yc.english.pay.PayWayInfo;
+import com.yc.english.pay.PayWayInfoHelper;
+
+import org.greenrobot.greendao.annotation.Index;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +35,8 @@ import rx.Subscription;
  */
 
 public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View> implements IndexContract.Presenter {
+    public static final String INDEX_INFO = "getIndexInfo";
+
     public IndexPresenter(Context context, IndexContract.View view) {
         super(context, view);
         mEngin = new IndexEngin(context);
@@ -33,8 +47,8 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         if (!forceUpdate) return;
 
         getIndexInfo();
+        getPayWayList();
     }
-
 
 
     @Override
@@ -42,6 +56,39 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         getAvatar();
 
         mView.showLoading();
+        SimpleCacheUtils.readCache(mContext, INDEX_INFO, new SimpleCacheUtils.CacheRunnable() {
+            @Override
+            public void run() {
+                final IndexInfo indexInfo = JSON.parseObject(this.getJson(), IndexInfo.class);
+                cached = true;
+                UIUitls.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mView.hideStateView();
+                        showIndexInfo(indexInfo, false);
+                    }
+                });
+            }
+        });
+        new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 5).execute(new Runnable() {
+            @Override
+            public void run() {
+                String json = SPUtils.getInstance().getString(INDEX_INFO, "");
+                if (!TextUtils.isEmpty(json)) {
+                    final IndexInfo indexInfo = JSON.parseObject(json, IndexInfo.class);
+                    cached = true;
+                    UIUitls.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mView.hideStateView();
+                            showIndexInfo(indexInfo, false);
+                        }
+                    });
+                }
+            }
+        });
+
+
         Subscription subscription = mEngin.getIndexInfo().subscribe(new Subscriber<ResultInfo<IndexInfo>>() {
             @Override
             public void onCompleted() {
@@ -50,7 +97,9 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
 
             @Override
             public void onError(Throwable e) {
-                mView.showNoNet();
+                if (!cached) {
+                    mView.showNoNet();
+                }
             }
 
             @Override
@@ -58,31 +107,42 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                 ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.showNoData();
+                        if (!cached) {
+                            mView.showNoData();
+                        }
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.showNoData();
+                        if (!cached) {
+                            mView.showNoData();
+                        }
                     }
 
                     @Override
                     public void reulstInfoOk() {
                         mView.hideStateView();
-                        if (resultInfo.data.getSlideInfo() != null) {
-                            List<String> images = new ArrayList<String>();
-                            slideInfos = resultInfo.data.getSlideInfo();
-                            for (SlideInfo slideInfo : resultInfo.data.getSlideInfo()) {
-                                images.add(slideInfo.getImg());
-                            }
-                            mView.showBanner(images);
-                            mView.showInfo(resultInfo.data);
-                        }
+                        showIndexInfo(resultInfo.data, true);
                     }
                 });
             }
         });
         mSubscriptions.add(subscription);
+    }
+
+    private void showIndexInfo(IndexInfo indexInfo, boolean isCached) {
+        if (indexInfo.getSlideInfo() != null) {
+            if (isCached) {
+                SimpleCacheUtils.writeCache(mContext, INDEX_INFO, JSON.toJSONString(indexInfo));
+            }
+            List<String> images = new ArrayList<String>();
+            slideInfos = indexInfo.getSlideInfo();
+            for (SlideInfo slideInfo : indexInfo.getSlideInfo()) {
+                images.add(slideInfo.getImg());
+            }
+            mView.showBanner(images);
+            mView.showInfo(indexInfo);
+        }
     }
 
 
@@ -110,6 +170,32 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
 
             }
         });
+    }
+
+    private void getPayWayList() {
+        Subscription subscription = EngineUtils.getPayWayList(mContext).subscribe(new Subscriber<ResultInfo<List<PayWayInfo>>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<List<PayWayInfo>> payWayInfoResultInfo) {
+                handleResultInfo(payWayInfoResultInfo, new Runnable() {
+                    @Override
+                    public void run() {
+                        PayWayInfoHelper.setPayWayInfoList(payWayInfoResultInfo.data);
+                    }
+                });
+
+            }
+        });
+        mSubscriptions.add(subscription);
     }
 
 

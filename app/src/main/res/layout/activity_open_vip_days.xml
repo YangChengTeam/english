@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/group_distance_10"
+    android:elevation="@dimen/group_distance_10">
+
+    <TextView
+        android:id="@+id/tv_open_first_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/group_distance_10"
+        android:text="1" />
+</RelativeLayout>

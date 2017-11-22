@@ -39,7 +39,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
     StateView stateView;
 
     private int type;
-    private SpeakEnglishAdapter adapter;
+    private SpeakEnglishAdapter speakEnglishAdapter;
 
 
     @Override
@@ -47,9 +47,9 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         mPresenter = new SpeakEnglishListPresenter(getActivity(), this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new SpeakEnglishAdapter(null, getType());
+        speakEnglishAdapter = new SpeakEnglishAdapter(null, getType());
 
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(speakEnglishAdapter);
         recyclerView.addItemDecoration(new MyItemDecoration());
         initListener();
         getData();
@@ -57,7 +57,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
     }
 
     private void initListener() {
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        speakEnglishAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 SpeakAndReadInfo speakAndReadInfo = (SpeakAndReadInfo) adapter.getItem(position);
@@ -71,7 +71,10 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
             }
         });
 
+
     }
+
+
 
     @Override
     public int getLayoutId() {
@@ -114,7 +117,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
 
     @Override
     public void shoReadAndSpeakMorList(List<SpeakAndReadInfo> list, int page, boolean isFitst) {
-        adapter.setNewData(list);
+        speakEnglishAdapter.setNewData(list);
     }
 
 

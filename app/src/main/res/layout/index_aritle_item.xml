@@ -16,7 +16,6 @@
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:background="@color/primaryDark"
             android:scaleType="fitXY" />
 
         <LinearLayout

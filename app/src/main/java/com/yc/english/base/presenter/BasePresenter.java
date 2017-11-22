@@ -22,6 +22,7 @@ public abstract class BasePresenter<M, V extends IView> implements IPresenter {
     protected M mEngin;
     protected V mView;
     protected Context mContext;
+    protected boolean cached;
 
     public BasePresenter(V v) {
        this(null, v);

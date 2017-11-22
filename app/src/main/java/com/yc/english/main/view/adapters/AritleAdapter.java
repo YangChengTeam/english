@@ -40,6 +40,8 @@ public class AritleAdapter extends BaseQuickAdapter<CourseInfo, BaseViewHolder> 
             helper.setVisible(R.id.iv_microclass_type, true);
             if (getData().size() - 1 == position) {
                 helper.setVisible(R.id.line, false);
+            } else {
+                helper.setVisible(R.id.line, true);
             }
             if (item.getType_id().equals("7")) {
                 helper.setImageResource(R.id.iv_microclass_type, R.mipmap.index_microclass_audio);

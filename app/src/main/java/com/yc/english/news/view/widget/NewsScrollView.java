@@ -79,7 +79,7 @@ public class NewsScrollView extends ScrollView {
         return listener;
     }
 
-    public void setListener(onScrollChangeListener listener) {
+    public void setOnScrollChangeListener(onScrollChangeListener listener) {
         this.listener = listener;
     }
 

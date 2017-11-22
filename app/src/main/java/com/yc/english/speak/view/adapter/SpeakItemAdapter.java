@@ -53,7 +53,7 @@ public class SpeakItemAdapter extends BaseQuickAdapter<SpeakEnglishBean, BaseVie
         }
 
         if (item.isSpeakResult()) {
-            helper.setText(R.id.tv_result_hint, "Good，满分");
+            helper.setText(R.id.tv_result_hint, "Good，不错");
             helper.setBackgroundRes(R.id.iv_result, R.mipmap.listen_result_yes);
         } else {
             helper.setBackgroundRes(R.id.iv_result, R.mipmap.listen_result_no);

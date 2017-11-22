@@ -38,13 +38,16 @@
     <string name="main_teacher">位老师正在使用，</string>
     <string name="main_student">位学生正在使用。</string>
 
+    <string name="setting_buy_vip">开通VIP会员</string>
+    <string name="setting_to_market">应用市场点评有礼</string>
     <string name="setting_weixin">关注微信公众号</string>
-    <string name="setting_qq_group">说说英语QQ群</string>
+    <string name="setting_qq_group">小学/中学英语QQ交流群</string>
     <string name="setting_feedback">在线客服</string>
     <string name="setting_share">好友分享</string>
-    <string name="setting_setting">设置</string>
+    <string name="setting_setting">系统设置</string>
     <string name="setting_qq">客服QQ群</string>
     <string name="setting_tel">客服电话</string>
+    <string name="my_order">我的订单</string>
 
     <string name="setting_complete">完成</string>
 

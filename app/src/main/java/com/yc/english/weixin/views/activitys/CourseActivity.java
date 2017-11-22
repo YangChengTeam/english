@@ -106,7 +106,12 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
             mCourseAdapter.loadMoreEnd();
             return;
         }
-        mCourseAdapter.addData(list);
+
+        if (page == 1) {
+            mCourseAdapter.setNewData(list);
+        } else {
+            mCourseAdapter.addData(list);
+        }
 
         if (list.size() == pageSize) {
             page++;

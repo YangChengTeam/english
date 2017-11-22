@@ -58,7 +58,7 @@
             android:layout_gravity="center"
             eng:src="@mipmap/setting_qq"
             eng:text="@string/setting_qq"
-            ></com.yc.english.base.view.ShareItemView>
+            android:visibility="gone"></com.yc.english.base.view.ShareItemView>
 
         <TextView
             android:id="@+id/tv_qq"
@@ -69,7 +69,8 @@
             android:gravity="center"
             android:text="524651117"
             android:textColor="@color/black_333"
-            android:textSize="@dimen/font_small"/>
+            android:textSize="@dimen/font_small"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_weixin"

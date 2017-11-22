@@ -32,8 +32,10 @@ public class IndexRecommendAdapter extends BaseQuickAdapter<CourseInfo, BaseView
                 .setText(R.id.tv_time, TimeUtils.millis2String(addTime, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())))
                 .setVisible(R.id.iv_microclass_type, false);
         GlideHelper.imageView(mContext, (ImageView) helper.getView(R.id.iv_icon), item.getImg(), 0);
-        if (getData().size() == position + 1) {
+        if (getData().size() - 1 == position) {
             helper.setVisible(R.id.line, false);
+        } else {
+            helper.setVisible(R.id.line, true);
         }
 
     }

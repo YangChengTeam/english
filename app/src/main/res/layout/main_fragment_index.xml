@@ -22,13 +22,13 @@
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:src="@mipmap/default_avatar" />
+                android:src="@mipmap/default_avatar"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@mipmap/main_logo" />
+                android:src="@mipmap/main_logo"/>
 
             <LinearLayout
                 android:id="@+id/ll_share"
@@ -38,11 +38,12 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:src="@mipmap/main_share" />
+                    android:src="@mipmap/main_share"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -50,7 +51,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/main_share"
                     android:textColor="@color/black_333"
-                    android:textSize="@dimen/font_snormal" />
+                    android:textSize="@dimen/font_snormal"/>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
@@ -86,7 +87,7 @@
                 android:layout_height="135dp"
                 eng:indicator_height="6dp"
                 eng:indicator_margin="5dp"
-                eng:indicator_width="6dp" />
+                eng:indicator_width="6dp"/>
 
 
             <RelativeLayout
@@ -104,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12dp"
-                    android:src="@mipmap/index_hot" />
+                    android:src="@mipmap/index_hot"/>
 
                 <TextView
                     android:id="@+id/tv_hot_title"
@@ -118,7 +119,7 @@
                     android:maxWidth="180dp"
                     android:text="每天只需6元钱，名师辅导到您家"
                     android:textColor="@color/black_333"
-                    android:textSize="@dimen/font_normal" />
+                    android:textSize="@dimen/font_normal"/>
 
                 <TextView
                     android:id="@+id/tv_more"
@@ -129,7 +130,7 @@
                     android:layout_marginRight="13dp"
                     android:text="更多"
                     android:textColor="@color/black_333"
-                    android:textSize="@dimen/font_normal" />
+                    android:textSize="@dimen/font_normal"/>
 
                 <View
                     android:layout_width="1px"
@@ -148,16 +149,15 @@
                 android:layout_marginTop="7dp"
                 android:background="@drawable/index_head_bg"
                 android:orientation="vertical"
-               >
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
-
 
 
                     <ImageView
@@ -166,7 +166,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/index_book_read" />
+                        android:src="@mipmap/index_book_read"/>
 
                     <View
                         android:layout_width="7dp"
@@ -178,7 +178,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/speak_main" />
+                        android:src="@mipmap/speak_main"/>
 
 
                 </LinearLayout>
@@ -188,9 +188,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="7dp">
 
                     <ImageView
                         android:id="@+id/iv_microclass"
@@ -198,7 +198,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/index_microclass" />
+                        android:src="@mipmap/index_microclass"/>
 
                     <View
                         android:layout_width="7dp"
@@ -210,7 +210,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/index_word" />
+                        android:src="@mipmap/index_word"/>
 
                     <View
                         android:layout_width="7dp"
@@ -222,7 +222,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/index_task" />
+                        android:src="@mipmap/index_task"/>
 
                     <View
                         android:layout_width="7dp"
@@ -234,7 +234,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/index_community" />
+                        android:src="@mipmap/index_community"/>
                 </LinearLayout>
 
                 <View
@@ -255,7 +255,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="精品推荐"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font_snormal" />
+                    android:textSize="@dimen/font_snormal"/>
 
                 <View
                     android:layout_width="58dp"
@@ -286,21 +286,21 @@
                         android:gravity="center_vertical"
                         android:text="查看更多"
                         android:textColor="@color/gray_aaa"
-                        android:textSize="@dimen/font_small" />
+                        android:textSize="@dimen/font_small"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="3dp"
-                        android:src="@mipmap/index_aritle_arrow" />
+                        android:src="@mipmap/index_aritle_arrow"/>
                 </LinearLayout>
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_recommend"
                 android:layout_width="match_parent"
-                android:layout_height="206dp"
+                android:layout_height="204dp"
                 android:background="@color/white"></android.support.v7.widget.RecyclerView>
 
             <View
@@ -313,10 +313,9 @@
                 android:id="@+id/iv_tutor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="7dp"
                 android:scaleType="fitXY"
-                android:layout_margin = "10dp"
-                android:src="@mipmap/index_tutor" />
-
+                android:src="@mipmap/index_tutor"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -372,11 +371,14 @@
                 </LinearLayout>
             </RelativeLayout>
 
+
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_hot"
                 android:layout_width="match_parent"
-                android:layout_height="206dp"
+                android:layout_height="204dp"
                 android:background="@color/white"></android.support.v7.widget.RecyclerView>
+
 
             <View
                 android:layout_width="match_parent"
@@ -384,12 +386,12 @@
                 android:background="@color/gray_ddd"></View>
 
             <ImageView
-                android:id="@+id/iv_union"
+                android:id="@+id/iv_exam"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="7dp"
                 android:scaleType="fitXY"
-                android:layout_margin = "10dp"
-                android:src="@mipmap/group_main" />
+                android:src="@mipmap/index_exam"/>
         </LinearLayout>
     </com.yc.english.base.view.MyScrollview>
     <!--</android.support.v4.widget.SwipeRefreshLayout>-->

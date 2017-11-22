@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/base_tran_ripple_bg"
-        >
+        android:background="@drawable/base_tran_ripple_bg">
 
         <ImageView
             android:id="@+id/iv_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:src="@mipmap/setting_weixin"/>
+            android:layout_marginLeft="15dp" />
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="15dp"
-            android:text="关注微信公众号"
-            android:layout_toRightOf="@+id/iv_icon"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="40dp"
+            android:layout_toRightOf="@+id/iv_icon"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_normal"/>
+            android:textSize="@dimen/font_normal" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -37,6 +34,6 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/setting_right_arrow"/>
+            android:src="@mipmap/setting_right_arrow" />
     </RelativeLayout>
 </FrameLayout>

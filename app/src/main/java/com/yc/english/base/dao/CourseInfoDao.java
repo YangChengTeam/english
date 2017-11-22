@@ -15,7 +15,7 @@ import com.yc.english.weixin.model.domain.CourseInfo;
 /** 
  * DAO for table "COURSE_INFO".
 */
-public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
+public class CourseInfoDao extends AbstractDao<CourseInfo, String> {
 
     public static final String TABLENAME = "COURSE_INFO";
 
@@ -24,7 +24,7 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, String.class, "id", false, "ID");
+        public final static Property Id = new Property(0, String.class, "id", true, "ID");
         public final static Property Title = new Property(1, String.class, "title", false, "TITLE");
         public final static Property Url = new Property(2, String.class, "url", false, "URL");
         public final static Property Keywords = new Property(3, String.class, "keywords", false, "KEYWORDS");
@@ -37,10 +37,23 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         public final static Property Img = new Property(10, String.class, "img", false, "IMG");
         public final static Property Html = new Property(11, String.class, "html", false, "HTML");
         public final static Property Url_type = new Property(12, int.class, "url_type", false, "URL_TYPE");
-        public final static Property Body = new Property(13, String.class, "body", false, "BODY");
-        public final static Property Ip_num = new Property(14, String.class, "ip_num", false, "IP_NUM");
-        public final static Property Pv_num = new Property(15, String.class, "pv_num", false, "PV_NUM");
-        public final static Property Sort = new Property(16, String.class, "sort", false, "SORT");
+        public final static Property UserId = new Property(13, String.class, "userId", false, "USER_ID");
+        public final static Property Body = new Property(14, String.class, "body", false, "BODY");
+        public final static Property Ip_num = new Property(15, String.class, "ip_num", false, "IP_NUM");
+        public final static Property Pv_num = new Property(16, String.class, "pv_num", false, "PV_NUM");
+        public final static Property Sort = new Property(17, String.class, "sort", false, "SORT");
+        public final static Property IsChecked = new Property(18, boolean.class, "isChecked", false, "IS_CHECKED");
+        public final static Property Price = new Property(19, float.class, "price", false, "PRICE");
+        public final static Property MPrice = new Property(20, float.class, "mPrice", false, "M_PRICE");
+        public final static Property VipPrice = new Property(21, float.class, "vipPrice", false, "VIP_PRICE");
+        public final static Property GoodId = new Property(22, String.class, "goodId", false, "GOOD_ID");
+        public final static Property IsPay = new Property(23, int.class, "isPay", false, "IS_PAY");
+        public final static Property Is_vip = new Property(24, int.class, "is_vip", false, "IS_VIP");
+        public final static Property UserHas = new Property(25, int.class, "userHas", false, "USER_HAS");
+        public final static Property UserNum = new Property(26, String.class, "userNum", false, "USER_NUM");
+        public final static Property UnitNum = new Property(27, String.class, "unitNum", false, "UNIT_NUM");
+        public final static Property PayPrice = new Property(28, float.class, "payPrice", false, "PAY_PRICE");
+        public final static Property GoodUseTimeLimit = new Property(29, int.class, "goodUseTimeLimit", false, "GOOD_USE_TIME_LIMIT");
     }
 
 
@@ -56,7 +69,7 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"COURSE_INFO\" (" + //
-                "\"ID\" TEXT," + // 0: id
+                "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: id
                 "\"TITLE\" TEXT," + // 1: title
                 "\"URL\" TEXT," + // 2: url
                 "\"KEYWORDS\" TEXT," + // 3: keywords
@@ -69,10 +82,23 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
                 "\"IMG\" TEXT," + // 10: img
                 "\"HTML\" TEXT," + // 11: html
                 "\"URL_TYPE\" INTEGER NOT NULL ," + // 12: url_type
-                "\"BODY\" TEXT," + // 13: body
-                "\"IP_NUM\" TEXT," + // 14: ip_num
-                "\"PV_NUM\" TEXT," + // 15: pv_num
-                "\"SORT\" TEXT);"); // 16: sort
+                "\"USER_ID\" TEXT," + // 13: userId
+                "\"BODY\" TEXT," + // 14: body
+                "\"IP_NUM\" TEXT," + // 15: ip_num
+                "\"PV_NUM\" TEXT," + // 16: pv_num
+                "\"SORT\" TEXT," + // 17: sort
+                "\"IS_CHECKED\" INTEGER NOT NULL ," + // 18: isChecked
+                "\"PRICE\" REAL NOT NULL ," + // 19: price
+                "\"M_PRICE\" REAL NOT NULL ," + // 20: mPrice
+                "\"VIP_PRICE\" REAL NOT NULL ," + // 21: vipPrice
+                "\"GOOD_ID\" TEXT," + // 22: goodId
+                "\"IS_PAY\" INTEGER NOT NULL ," + // 23: isPay
+                "\"IS_VIP\" INTEGER NOT NULL ," + // 24: is_vip
+                "\"USER_HAS\" INTEGER NOT NULL ," + // 25: userHas
+                "\"USER_NUM\" TEXT," + // 26: userNum
+                "\"UNIT_NUM\" TEXT," + // 27: unitNum
+                "\"PAY_PRICE\" REAL NOT NULL ," + // 28: payPrice
+                "\"GOOD_USE_TIME_LIMIT\" INTEGER NOT NULL );"); // 29: goodUseTimeLimit
     }
 
     /** Drops the underlying database table. */
@@ -146,25 +172,54 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         }
         stmt.bindLong(13, entity.getUrl_type());
  
+        String userId = entity.getUserId();
+        if (userId != null) {
+            stmt.bindString(14, userId);
+        }
+ 
         String body = entity.getBody();
         if (body != null) {
-            stmt.bindString(14, body);
+            stmt.bindString(15, body);
         }
  
         String ip_num = entity.getIp_num();
         if (ip_num != null) {
-            stmt.bindString(15, ip_num);
+            stmt.bindString(16, ip_num);
         }
  
         String pv_num = entity.getPv_num();
         if (pv_num != null) {
-            stmt.bindString(16, pv_num);
+            stmt.bindString(17, pv_num);
         }
  
         String sort = entity.getSort();
         if (sort != null) {
-            stmt.bindString(17, sort);
+            stmt.bindString(18, sort);
         }
+        stmt.bindLong(19, entity.getIsChecked() ? 1L: 0L);
+        stmt.bindDouble(20, entity.getPrice());
+        stmt.bindDouble(21, entity.getMPrice());
+        stmt.bindDouble(22, entity.getVipPrice());
+ 
+        String goodId = entity.getGoodId();
+        if (goodId != null) {
+            stmt.bindString(23, goodId);
+        }
+        stmt.bindLong(24, entity.getIsPay());
+        stmt.bindLong(25, entity.getIs_vip());
+        stmt.bindLong(26, entity.getUserHas());
+ 
+        String userNum = entity.getUserNum();
+        if (userNum != null) {
+            stmt.bindString(27, userNum);
+        }
+ 
+        String unitNum = entity.getUnitNum();
+        if (unitNum != null) {
+            stmt.bindString(28, unitNum);
+        }
+        stmt.bindDouble(29, entity.getPayPrice());
+        stmt.bindLong(30, entity.getGoodUseTimeLimit());
     }
 
     @Override
@@ -232,30 +287,59 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         }
         stmt.bindLong(13, entity.getUrl_type());
  
+        String userId = entity.getUserId();
+        if (userId != null) {
+            stmt.bindString(14, userId);
+        }
+ 
         String body = entity.getBody();
         if (body != null) {
-            stmt.bindString(14, body);
+            stmt.bindString(15, body);
         }
  
         String ip_num = entity.getIp_num();
         if (ip_num != null) {
-            stmt.bindString(15, ip_num);
+            stmt.bindString(16, ip_num);
         }
  
         String pv_num = entity.getPv_num();
         if (pv_num != null) {
-            stmt.bindString(16, pv_num);
+            stmt.bindString(17, pv_num);
         }
  
         String sort = entity.getSort();
         if (sort != null) {
-            stmt.bindString(17, sort);
+            stmt.bindString(18, sort);
         }
+        stmt.bindLong(19, entity.getIsChecked() ? 1L: 0L);
+        stmt.bindDouble(20, entity.getPrice());
+        stmt.bindDouble(21, entity.getMPrice());
+        stmt.bindDouble(22, entity.getVipPrice());
+ 
+        String goodId = entity.getGoodId();
+        if (goodId != null) {
+            stmt.bindString(23, goodId);
+        }
+        stmt.bindLong(24, entity.getIsPay());
+        stmt.bindLong(25, entity.getIs_vip());
+        stmt.bindLong(26, entity.getUserHas());
+ 
+        String userNum = entity.getUserNum();
+        if (userNum != null) {
+            stmt.bindString(27, userNum);
+        }
+ 
+        String unitNum = entity.getUnitNum();
+        if (unitNum != null) {
+            stmt.bindString(28, unitNum);
+        }
+        stmt.bindDouble(29, entity.getPayPrice());
+        stmt.bindLong(30, entity.getGoodUseTimeLimit());
     }
 
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public String readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0);
     }    
 
     @Override
@@ -274,10 +358,23 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // img
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // html
             cursor.getInt(offset + 12), // url_type
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // body
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // ip_num
-            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // pv_num
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16) // sort
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // userId
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // body
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // ip_num
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // pv_num
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // sort
+            cursor.getShort(offset + 18) != 0, // isChecked
+            cursor.getFloat(offset + 19), // price
+            cursor.getFloat(offset + 20), // mPrice
+            cursor.getFloat(offset + 21), // vipPrice
+            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // goodId
+            cursor.getInt(offset + 23), // isPay
+            cursor.getInt(offset + 24), // is_vip
+            cursor.getInt(offset + 25), // userHas
+            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // userNum
+            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // unitNum
+            cursor.getFloat(offset + 28), // payPrice
+            cursor.getInt(offset + 29) // goodUseTimeLimit
         );
         return entity;
     }
@@ -297,27 +394,42 @@ public class CourseInfoDao extends AbstractDao<CourseInfo, Void> {
         entity.setImg(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setHtml(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setUrl_type(cursor.getInt(offset + 12));
-        entity.setBody(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
-        entity.setIp_num(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
-        entity.setPv_num(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
-        entity.setSort(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setUserId(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setBody(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setIp_num(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setPv_num(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setSort(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setIsChecked(cursor.getShort(offset + 18) != 0);
+        entity.setPrice(cursor.getFloat(offset + 19));
+        entity.setMPrice(cursor.getFloat(offset + 20));
+        entity.setVipPrice(cursor.getFloat(offset + 21));
+        entity.setGoodId(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
+        entity.setIsPay(cursor.getInt(offset + 23));
+        entity.setIs_vip(cursor.getInt(offset + 24));
+        entity.setUserHas(cursor.getInt(offset + 25));
+        entity.setUserNum(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
+        entity.setUnitNum(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
+        entity.setPayPrice(cursor.getFloat(offset + 28));
+        entity.setGoodUseTimeLimit(cursor.getInt(offset + 29));
      }
     
     @Override
-    protected final Void updateKeyAfterInsert(CourseInfo entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected final String updateKeyAfterInsert(CourseInfo entity, long rowId) {
+        return entity.getId();
     }
     
     @Override
-    public Void getKey(CourseInfo entity) {
-        return null;
+    public String getKey(CourseInfo entity) {
+        if(entity != null) {
+            return entity.getId();
+        } else {
+            return null;
+        }
     }
 
     @Override
     public boolean hasKey(CourseInfo entity) {
-        // TODO
-        return false;
+        return entity.getId() != null;
     }
 
     @Override

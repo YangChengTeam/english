@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "E:\\zdh_git_workspace\\english\\sticker\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "outputFile": "/Users/zhangkai/Desktop/english/sticker/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
         "map": [
             {
                 "to": {
@@ -11,13 +11,13 @@
                     "endOffset": 104
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
-                        "startOffset": 921,
+                        "startOffset": 898,
                         "endColumn": 53,
-                        "endOffset": 970
+                        "endOffset": 947
                     }
                 }
             },
@@ -30,13 +30,13 @@
                     "endOffset": 168
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 1,
-                        "startOffset": 54,
+                        "startOffset": 52,
                         "endColumn": 60,
-                        "endOffset": 113
+                        "endOffset": 111
                     }
                 }
             },
@@ -49,13 +49,13 @@
                     "endOffset": 240
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 56,
                         "startColumn": 1,
-                        "startOffset": 2508,
+                        "startOffset": 2452,
                         "endColumn": 68,
-                        "endOffset": 2575
+                        "endOffset": 2519
                     }
                 }
             },
@@ -68,13 +68,13 @@
                     "endOffset": 308
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 54,
                         "startColumn": 1,
-                        "startOffset": 2420,
+                        "startOffset": 2366,
                         "endColumn": 64,
-                        "endOffset": 2483
+                        "endOffset": 2429
                     }
                 }
             },
@@ -87,13 +87,13 @@
                     "endOffset": 374
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 52,
                         "startColumn": 1,
-                        "startOffset": 2334,
+                        "startOffset": 2282,
                         "endColumn": 62,
-                        "endOffset": 2395
+                        "endOffset": 2343
                     }
                 }
             },
@@ -106,13 +106,13 @@
                     "endOffset": 457
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 1,
-                        "startOffset": 1204,
+                        "startOffset": 1176,
                         "endColumn": 79,
-                        "endOffset": 1282
+                        "endOffset": 1254
                     }
                 }
             },
@@ -125,13 +125,13 @@
                     "endOffset": 542
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 1,
-                        "startOffset": 1316,
+                        "startOffset": 1286,
                         "endColumn": 81,
-                        "endOffset": 1396
+                        "endOffset": 1366
                     }
                 }
             },
@@ -144,13 +144,13 @@
                     "endOffset": 621
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 1,
-                        "startOffset": 985,
+                        "startOffset": 961,
                         "endColumn": 75,
-                        "endOffset": 1059
+                        "endOffset": 1035
                     }
                 }
             },
@@ -163,13 +163,13 @@
                     "endOffset": 702
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 1,
-                        "startOffset": 1094,
+                        "startOffset": 1068,
                         "endColumn": 77,
-                        "endOffset": 1170
+                        "endOffset": 1144
                     }
                 }
             },
@@ -182,13 +182,13 @@
                     "endOffset": 785
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 1,
-                        "startOffset": 1517,
+                        "startOffset": 1483,
                         "endColumn": 79,
-                        "endOffset": 1595
+                        "endOffset": 1561
                     }
                 }
             },
@@ -201,13 +201,13 @@
                     "endOffset": 857
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 1,
-                        "startOffset": 1422,
+                        "startOffset": 1390,
                         "endColumn": 68,
-                        "endOffset": 1489
+                        "endOffset": 1457
                     }
                 }
             },
@@ -220,13 +220,13 @@
                     "endOffset": 934
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 1,
-                        "startOffset": 660,
+                        "startOffset": 642,
                         "endColumn": 73,
-                        "endOffset": 732
+                        "endOffset": 714
                     }
                 }
             },
@@ -239,13 +239,13 @@
                     "endOffset": 1013
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 1,
-                        "startOffset": 766,
+                        "startOffset": 746,
                         "endColumn": 75,
-                        "endOffset": 840
+                        "endOffset": 820
                     }
                 }
             },
@@ -258,13 +258,13 @@
                     "endOffset": 1093
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 1,
-                        "startOffset": 875,
+                        "startOffset": 853,
                         "endColumn": 76,
-                        "endOffset": 950
+                        "endOffset": 928
                     }
                 }
             },
@@ -277,13 +277,13 @@
                     "endOffset": 1189
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 44,
                         "startColumn": 1,
-                        "startOffset": 1992,
+                        "startOffset": 1948,
                         "endColumn": 92,
-                        "endOffset": 2083
+                        "endOffset": 2039
                     }
                 }
             },
@@ -296,13 +296,13 @@
                     "endOffset": 1274
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 42,
                         "startColumn": 1,
-                        "startOffset": 1880,
+                        "startOffset": 1838,
                         "endColumn": 81,
-                        "endOffset": 1960
+                        "endOffset": 1918
                     }
                 }
             },
@@ -315,13 +315,13 @@
                     "endOffset": 1378
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 39,
                         "startColumn": 1,
-                        "startOffset": 1749,
+                        "startOffset": 1710,
                         "endColumn": 100,
-                        "endOffset": 1848
+                        "endOffset": 1809
                     }
                 }
             },
@@ -334,13 +334,13 @@
                     "endOffset": 1471
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 37,
                         "startColumn": 1,
-                        "startOffset": 1628,
+                        "startOffset": 1591,
                         "endColumn": 89,
-                        "endOffset": 1716
+                        "endOffset": 1679
                     }
                 }
             },
@@ -353,13 +353,13 @@
                     "endOffset": 1542
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 74,
                         "startColumn": 1,
-                        "startOffset": 3256,
+                        "startOffset": 3182,
                         "endColumn": 67,
-                        "endOffset": 3322
+                        "endOffset": 3248
                     }
                 }
             },
@@ -372,13 +372,13 @@
                     "endOffset": 1609
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 81,
                         "startColumn": 1,
-                        "startOffset": 3511,
+                        "startOffset": 3430,
                         "endColumn": 63,
-                        "endOffset": 3573
+                        "endOffset": 3492
                     }
                 }
             },
@@ -391,13 +391,13 @@
                     "endOffset": 1684
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 61,
                         "startColumn": 1,
-                        "startOffset": 2703,
+                        "startOffset": 2642,
                         "endColumn": 71,
-                        "endOffset": 2773
+                        "endOffset": 2712
                     }
                 }
             },
@@ -410,13 +410,13 @@
                     "endOffset": 1763
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 86,
                         "startColumn": 1,
-                        "startOffset": 3693,
+                        "startOffset": 3607,
                         "endColumn": 75,
-                        "endOffset": 3767
+                        "endOffset": 3681
                     }
                 }
             },
@@ -429,13 +429,13 @@
                     "endOffset": 1831
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 84,
                         "startColumn": 1,
-                        "startOffset": 3603,
+                        "startOffset": 3519,
                         "endColumn": 64,
-                        "endOffset": 3666
+                        "endOffset": 3582
                     }
                 }
             },
@@ -448,13 +448,13 @@
                     "endOffset": 1879
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 2,
-                        "startOffset": 117,
+                        "startOffset": 114,
                         "endColumn": 45,
-                        "endOffset": 160
+                        "endOffset": 157
                     }
                 }
             },
@@ -467,13 +467,13 @@
                     "endOffset": 1952
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 104,
                         "startColumn": 1,
-                        "startOffset": 4510,
+                        "startOffset": 4406,
                         "endColumn": 69,
-                        "endOffset": 4578
+                        "endOffset": 4474
                     }
                 }
             },
@@ -486,13 +486,13 @@
                     "endOffset": 2021
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 98,
                         "startColumn": 1,
-                        "startOffset": 4219,
+                        "startOffset": 4121,
                         "endColumn": 65,
-                        "endOffset": 4283
+                        "endOffset": 4185
                     }
                 }
             },
@@ -505,13 +505,13 @@
                     "endOffset": 2103
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 102,
                         "startColumn": 1,
-                        "startOffset": 4405,
+                        "startOffset": 4303,
                         "endColumn": 78,
-                        "endOffset": 4482
+                        "endOffset": 4380
                     }
                 }
             },
@@ -524,13 +524,13 @@
                     "endOffset": 2174
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 100,
                         "startColumn": 1,
-                        "startOffset": 4310,
+                        "startOffset": 4210,
                         "endColumn": 67,
-                        "endOffset": 4376
+                        "endOffset": 4276
                     }
                 }
             },
@@ -543,13 +543,13 @@
                     "endOffset": 2250
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 94,
                         "startColumn": 1,
-                        "startOffset": 4011,
+                        "startOffset": 3917,
                         "endColumn": 72,
-                        "endOffset": 4082
+                        "endOffset": 3988
                     }
                 }
             },
@@ -562,13 +562,13 @@
                     "endOffset": 2329
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 96,
                         "startColumn": 1,
-                        "startOffset": 4117,
+                        "startOffset": 4021,
                         "endColumn": 75,
-                        "endOffset": 4191
+                        "endOffset": 4095
                     }
                 }
             },
@@ -581,13 +581,13 @@
                     "endOffset": 2410
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 89,
                         "startColumn": 1,
-                        "startOffset": 3802,
+                        "startOffset": 3713,
                         "endColumn": 77,
-                        "endOffset": 3878
+                        "endOffset": 3789
                     }
                 }
             },
@@ -600,13 +600,13 @@
                     "endOffset": 2483
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 91,
                         "startColumn": 1,
-                        "startOffset": 3905,
+                        "startOffset": 3814,
                         "endColumn": 69,
-                        "endOffset": 3973
+                        "endOffset": 3882
                     }
                 }
             },
@@ -619,13 +619,13 @@
                     "endOffset": 2576
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 49,
                         "startColumn": 1,
-                        "startOffset": 2218,
+                        "startOffset": 2169,
                         "endColumn": 89,
-                        "endOffset": 2306
+                        "endOffset": 2257
                     }
                 }
             },
@@ -638,13 +638,13 @@
                     "endOffset": 2658
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 47,
                         "startColumn": 1,
-                        "startOffset": 2112,
+                        "startOffset": 2065,
                         "endColumn": 78,
-                        "endOffset": 2189
+                        "endOffset": 2142
                     }
                 }
             },
@@ -657,13 +657,13 @@
                     "endOffset": 2731
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 71,
                         "startColumn": 1,
-                        "startOffset": 3151,
+                        "startOffset": 3080,
                         "endColumn": 69,
-                        "endOffset": 3219
+                        "endOffset": 3148
                     }
                 }
             },
@@ -676,13 +676,13 @@
                     "endOffset": 2798
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 69,
                         "startColumn": 1,
-                        "startOffset": 3064,
+                        "startOffset": 2995,
                         "endColumn": 63,
-                        "endOffset": 3126
+                        "endOffset": 3057
                     }
                 }
             },
@@ -695,13 +695,13 @@
                     "endOffset": 2870
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 67,
                         "startColumn": 1,
-                        "startOffset": 2972,
+                        "startOffset": 2905,
                         "endColumn": 68,
-                        "endOffset": 3039
+                        "endOffset": 2972
                     }
                 }
             },
@@ -714,13 +714,13 @@
                     "endOffset": 2938
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 63,
                         "startColumn": 1,
-                        "startOffset": 2798,
+                        "startOffset": 2735,
                         "endColumn": 64,
-                        "endOffset": 2861
+                        "endOffset": 2798
                     }
                 }
             },
@@ -733,13 +733,13 @@
                     "endOffset": 3004
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 65,
                         "startColumn": 1,
-                        "startOffset": 2886,
+                        "startOffset": 2821,
                         "endColumn": 62,
-                        "endOffset": 2947
+                        "endOffset": 2882
                     }
                 }
             },
@@ -752,13 +752,13 @@
                     "endOffset": 3075
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 59,
                         "startColumn": 1,
-                        "startOffset": 2607,
+                        "startOffset": 2548,
                         "endColumn": 67,
-                        "endOffset": 2673
+                        "endOffset": 2614
                     }
                 }
             },
@@ -771,13 +771,13 @@
                     "endOffset": 3134
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
-                        "startOffset": 467,
+                        "startOffset": 454,
                         "endColumn": 58,
-                        "endOffset": 521
+                        "endOffset": 508
                     }
                 }
             },
@@ -790,13 +790,13 @@
                     "endOffset": 3200
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
-                        "startOffset": 556,
+                        "startOffset": 541,
                         "endColumn": 65,
-                        "endOffset": 617
+                        "endOffset": 602
                     }
                 }
             },
@@ -809,13 +809,13 @@
                     "endOffset": 3262
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 79,
                         "startColumn": 1,
-                        "startOffset": 3431,
+                        "startOffset": 3352,
                         "endColumn": 58,
-                        "endOffset": 3488
+                        "endOffset": 3409
                     }
                 }
             },
@@ -828,13 +828,13 @@
                     "endOffset": 3322
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 77,
                         "startColumn": 1,
-                        "startOffset": 3351,
+                        "startOffset": 3274,
                         "endColumn": 56,
-                        "endOffset": 3406
+                        "endOffset": 3329
                     }
                 }
             },
@@ -847,13 +847,13 @@
                     "endOffset": 3375
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
-                        "startOffset": 299,
+                        "startOffset": 291,
                         "endColumn": 52,
-                        "endOffset": 347
+                        "endOffset": 339
                     }
                 }
             },
@@ -866,13 +866,13 @@
                     "endOffset": 3429
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
-                        "startOffset": 377,
+                        "startOffset": 367,
                         "endColumn": 53,
-                        "endOffset": 426
+                        "endOffset": 416
                     }
                 }
             },
@@ -885,13 +885,13 @@
                     "endOffset": 3482
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 2,
-                        "startOffset": 164,
+                        "startOffset": 160,
                         "endColumn": 50,
-                        "endOffset": 212
+                        "endOffset": 208
                     }
                 }
             },
@@ -904,13 +904,13 @@
                     "endOffset": 3535
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_color.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 1,
-                        "startOffset": 215,
+                        "startOffset": 210,
                         "endColumn": 49,
-                        "endOffset": 263
+                        "endOffset": 258
                     }
                 }
             },
@@ -923,13 +923,13 @@
                     "endOffset": 4504
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
-                        "startOffset": 92,
+                        "startOffset": 89,
                         "endColumn": 57,
-                        "endOffset": 145
+                        "endOffset": 142
                     }
                 }
             },
@@ -942,13 +942,13 @@
                     "endOffset": 4560
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
-                        "startOffset": 151,
+                        "startOffset": 147,
                         "endColumn": 55,
-                        "endOffset": 202
+                        "endOffset": 198
                     }
                 }
             },
@@ -961,13 +961,13 @@
                     "endOffset": 4629
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
-                        "startOffset": 551,
+                        "startOffset": 537,
                         "endColumn": 68,
-                        "endOffset": 615
+                        "endOffset": 601
                     }
                 }
             },
@@ -980,13 +980,13 @@
                     "endOffset": 4696
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
-                        "startOffset": 829,
+                        "startOffset": 808,
                         "endColumn": 66,
-                        "endOffset": 891
+                        "endOffset": 870
                     }
                 }
             },
@@ -999,13 +999,13 @@
                     "endOffset": 4757
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
-                        "startOffset": 736,
+                        "startOffset": 718,
                         "endColumn": 60,
-                        "endOffset": 792
+                        "endOffset": 774
                     }
                 }
             },
@@ -1018,13 +1018,13 @@
                     "endOffset": 4817
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
-                        "startOffset": 648,
+                        "startOffset": 632,
                         "endColumn": 59,
-                        "endOffset": 703
+                        "endOffset": 687
                     }
                 }
             },
@@ -1037,13 +1037,13 @@
                     "endOffset": 4882
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
-                        "startOffset": 455,
+                        "startOffset": 443,
                         "endColumn": 64,
-                        "endOffset": 515
+                        "endOffset": 503
                     }
                 }
             },
@@ -1056,13 +1056,13 @@
                     "endOffset": 4940
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 1,
-                        "startOffset": 367,
+                        "startOffset": 357,
                         "endColumn": 54,
-                        "endOffset": 420
+                        "endOffset": 410
                     }
                 }
             },
@@ -1075,13 +1075,13 @@
                     "endOffset": 4992
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
-                        "startOffset": 285,
+                        "startOffset": 277,
                         "endColumn": 51,
-                        "endOffset": 332
+                        "endOffset": 324
                     }
                 }
             },
@@ -1094,13 +1094,13 @@
                     "endOffset": 5045
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
-                        "startOffset": 208,
+                        "startOffset": 203,
                         "endColumn": 52,
-                        "endOffset": 256
+                        "endOffset": 251
                     }
                 }
             },
@@ -1113,13 +1113,13 @@
                     "endOffset": 5106
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_dimens.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
-                        "startOffset": 1004,
+                        "startOffset": 979,
                         "endColumn": 60,
-                        "endOffset": 1060
+                        "endOffset": 1035
                     }
                 }
             },
@@ -1132,13 +1132,13 @@
                     "endOffset": 5159
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
-                        "startOffset": 127,
+                        "startOffset": 124,
                         "endColumn": 52,
-                        "endOffset": 175
+                        "endOffset": 172
                     }
                 }
             },
@@ -1151,13 +1151,13 @@
                     "endOffset": 5214
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 1,
                         "startColumn": 4,
-                        "startOffset": 17,
+                        "startOffset": 16,
                         "endColumn": 54,
-                        "endOffset": 67
+                        "endOffset": 66
                     }
                 }
             },
@@ -1170,13 +1170,13 @@
                     "endOffset": 5274
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
-                        "startOffset": 796,
+                        "startOffset": 779,
                         "endColumn": 59,
-                        "endOffset": 851
+                        "endOffset": 834
                     }
                 }
             },
@@ -1189,13 +1189,13 @@
                     "endOffset": 5342
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
-                        "startOffset": 1488,
+                        "startOffset": 1456,
                         "endColumn": 67,
-                        "endOffset": 1551
+                        "endOffset": 1519
                     }
                 }
             },
@@ -1208,13 +1208,13 @@
                     "endOffset": 5393
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
-                        "startOffset": 181,
+                        "startOffset": 177,
                         "endColumn": 55,
-                        "endOffset": 232
+                        "endOffset": 228
                     }
                 }
             },
@@ -1227,13 +1227,13 @@
                     "endOffset": 5447
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
-                        "startOffset": 238,
+                        "startOffset": 233,
                         "endColumn": 58,
-                        "endOffset": 292
+                        "endOffset": 287
                     }
                 }
             },
@@ -1246,13 +1246,13 @@
                     "endOffset": 5514
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
-                        "startOffset": 705,
+                        "startOffset": 690,
                         "endColumn": 66,
-                        "endOffset": 767
+                        "endOffset": 752
                     }
                 }
             },
@@ -1265,13 +1265,13 @@
                     "endOffset": 5601
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
-                        "startOffset": 1377,
+                        "startOffset": 1347,
                         "endColumn": 86,
-                        "endOffset": 1459
+                        "endOffset": 1429
                     }
                 }
             },
@@ -1284,13 +1284,13 @@
                     "endOffset": 5681
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
-                        "startOffset": 427,
+                        "startOffset": 418,
                         "endColumn": 79,
-                        "endOffset": 502
+                        "endOffset": 493
                     }
                 }
             },
@@ -1303,13 +1303,13 @@
                     "endOffset": 5808
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
-                        "startOffset": 1039,
+                        "startOffset": 1015,
                         "endColumn": 126,
-                        "endOffset": 1161
+                        "endOffset": 1137
                     }
                 }
             },
@@ -1322,13 +1322,13 @@
                     "endOffset": 5876
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 4,
-                        "startOffset": 1559,
+                        "startOffset": 1525,
                         "endColumn": 67,
-                        "endOffset": 1622
+                        "endOffset": 1588
                     }
                 }
             },
@@ -1341,13 +1341,13 @@
                     "endOffset": 5944
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 35,
                         "startColumn": 4,
-                        "startOffset": 1628,
+                        "startOffset": 1593,
                         "endColumn": 67,
-                        "endOffset": 1691
+                        "endOffset": 1656
                     }
                 }
             },
@@ -1360,13 +1360,13 @@
                     "endOffset": 6002
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
-                        "startOffset": 614,
+                        "startOffset": 601,
                         "endColumn": 57,
-                        "endOffset": 667
+                        "endOffset": 654
                     }
                 }
             },
@@ -1379,13 +1379,13 @@
                     "endOffset": 6068
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
-                        "startOffset": 1278,
+                        "startOffset": 1250,
                         "endColumn": 65,
-                        "endOffset": 1339
+                        "endOffset": 1311
                     }
                 }
             },
@@ -1398,13 +1398,13 @@
                     "endOffset": 6125
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
-                        "startOffset": 532,
+                        "startOffset": 521,
                         "endColumn": 56,
-                        "endOffset": 584
+                        "endOffset": 573
                     }
                 }
             },
@@ -1417,13 +1417,13 @@
                     "endOffset": 6187
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
-                        "startOffset": 1191,
+                        "startOffset": 1165,
                         "endColumn": 61,
-                        "endOffset": 1248
+                        "endOffset": 1222
                     }
                 }
             },
@@ -1436,13 +1436,13 @@
                     "endOffset": 6260
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
-                        "startOffset": 325,
+                        "startOffset": 318,
                         "endColumn": 72,
-                        "endOffset": 393
+                        "endOffset": 386
                     }
                 }
             },
@@ -1455,13 +1455,13 @@
                     "endOffset": 6380
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
-                        "startOffset": 890,
+                        "startOffset": 868,
                         "endColumn": 119,
-                        "endOffset": 1005
+                        "endOffset": 983
                     }
                 }
             },
@@ -1474,13 +1474,13 @@
                     "endOffset": 6433
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_strings.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
-                        "startOffset": 73,
+                        "startOffset": 71,
                         "endColumn": 52,
-                        "endOffset": 121
+                        "endOffset": 119
                     }
                 }
             },
@@ -1494,14 +1494,14 @@
                     "endOffset": 6890
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_styles.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 5,
-                        "startOffset": 981,
+                        "startOffset": 956,
                         "endLine": 30,
                         "endColumn": 12,
-                        "endOffset": 1438
+                        "endOffset": 1408
                     }
                 }
             },
@@ -1515,14 +1515,14 @@
                     "endOffset": 7181
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_styles.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
-                        "startOffset": 192,
+                        "startOffset": 186,
                         "endLine": 12,
                         "endColumn": 12,
-                        "endOffset": 484
+                        "endOffset": 472
                     }
                 }
             },
@@ -1536,14 +1536,14 @@
                     "endOffset": 7341
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_styles.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
-                        "startOffset": 605,
+                        "startOffset": 589,
                         "endLine": 18,
                         "endColumn": 12,
-                        "endOffset": 762
+                        "endOffset": 744
                     }
                 }
             },
@@ -1556,13 +1556,13 @@
                     "endOffset": 7413
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_styles.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
-                        "startOffset": 490,
+                        "startOffset": 477,
                         "endColumn": 78,
-                        "endOffset": 564
+                        "endOffset": 551
                     }
                 }
             },
@@ -1576,1604 +1576,14 @@
                     "endOffset": 7575
                 },
                 "from": {
-                    "file": "E:\\zdh_git_workspace\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
+                    "file": "/Users/zhangkai/Desktop/english/sticker/src/main/res/values/bqmm_styles.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
-                        "startOffset": 809,
+                        "startOffset": 788,
                         "endLine": 23,
                         "endColumn": 12,
-                        "endOffset": 968
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "D:\\AndroidStudioProjects\\english\\sticker\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 53,
-                    "endOffset": 104
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
-                    "position": {
-                        "startLine": 23,
-                        "startColumn": 4,
-                        "startOffset": 921,
-                        "endColumn": 53,
-                        "endOffset": 970
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 109,
-                    "endColumn": 63,
-                    "endOffset": 168
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 1,
-                        "startOffset": 54,
-                        "endColumn": 60,
-                        "endOffset": 113
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 4,
-                    "startColumn": 4,
-                    "startOffset": 173,
-                    "endColumn": 71,
-                    "endOffset": 240
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 56,
-                        "startColumn": 1,
-                        "startOffset": 2508,
-                        "endColumn": 68,
-                        "endOffset": 2575
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 5,
-                    "startColumn": 4,
-                    "startOffset": 245,
-                    "endColumn": 67,
-                    "endOffset": 308
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 54,
-                        "startColumn": 1,
-                        "startOffset": 2420,
-                        "endColumn": 64,
-                        "endOffset": 2483
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 6,
-                    "startColumn": 4,
-                    "startOffset": 313,
-                    "endColumn": 65,
-                    "endOffset": 374
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 52,
-                        "startColumn": 1,
-                        "startOffset": 2334,
-                        "endColumn": 62,
-                        "endOffset": 2395
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 7,
-                    "startColumn": 4,
-                    "startOffset": 379,
-                    "endColumn": 82,
-                    "endOffset": 457
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 28,
-                        "startColumn": 1,
-                        "startOffset": 1204,
-                        "endColumn": 79,
-                        "endOffset": 1282
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 8,
-                    "startColumn": 4,
-                    "startOffset": 462,
-                    "endColumn": 84,
-                    "endOffset": 542
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 30,
-                        "startColumn": 1,
-                        "startOffset": 1316,
-                        "endColumn": 81,
-                        "endOffset": 1396
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 9,
-                    "startColumn": 4,
-                    "startOffset": 547,
-                    "endColumn": 78,
-                    "endOffset": 621
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 24,
-                        "startColumn": 1,
-                        "startOffset": 985,
-                        "endColumn": 75,
-                        "endOffset": 1059
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 10,
-                    "startColumn": 4,
-                    "startOffset": 626,
-                    "endColumn": 80,
-                    "endOffset": 702
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 26,
-                        "startColumn": 1,
-                        "startOffset": 1094,
-                        "endColumn": 77,
-                        "endOffset": 1170
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 11,
-                    "startColumn": 4,
-                    "startOffset": 707,
-                    "endColumn": 82,
-                    "endOffset": 785
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 34,
-                        "startColumn": 1,
-                        "startOffset": 1517,
-                        "endColumn": 79,
-                        "endOffset": 1595
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 12,
-                    "startColumn": 4,
-                    "startOffset": 790,
-                    "endColumn": 71,
-                    "endOffset": 857
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 32,
-                        "startColumn": 1,
-                        "startOffset": 1422,
-                        "endColumn": 68,
-                        "endOffset": 1489
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 13,
-                    "startColumn": 4,
-                    "startOffset": 862,
-                    "endColumn": 76,
-                    "endOffset": 934
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 18,
-                        "startColumn": 1,
-                        "startOffset": 660,
-                        "endColumn": 73,
-                        "endOffset": 732
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 14,
-                    "startColumn": 4,
-                    "startOffset": 939,
-                    "endColumn": 78,
-                    "endOffset": 1013
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 20,
-                        "startColumn": 1,
-                        "startOffset": 766,
-                        "endColumn": 75,
-                        "endOffset": 840
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 15,
-                    "startColumn": 4,
-                    "startOffset": 1018,
-                    "endColumn": 79,
-                    "endOffset": 1093
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 22,
-                        "startColumn": 1,
-                        "startOffset": 875,
-                        "endColumn": 76,
-                        "endOffset": 950
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 16,
-                    "startColumn": 4,
-                    "startOffset": 1098,
-                    "endColumn": 95,
-                    "endOffset": 1189
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 44,
-                        "startColumn": 1,
-                        "startOffset": 1992,
-                        "endColumn": 92,
-                        "endOffset": 2083
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 17,
-                    "startColumn": 4,
-                    "startOffset": 1194,
-                    "endColumn": 84,
-                    "endOffset": 1274
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 42,
-                        "startColumn": 1,
-                        "startOffset": 1880,
-                        "endColumn": 81,
-                        "endOffset": 1960
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 18,
-                    "startColumn": 4,
-                    "startOffset": 1279,
-                    "endColumn": 103,
-                    "endOffset": 1378
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 39,
-                        "startColumn": 1,
-                        "startOffset": 1749,
-                        "endColumn": 100,
-                        "endOffset": 1848
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 19,
-                    "startColumn": 4,
-                    "startOffset": 1383,
-                    "endColumn": 92,
-                    "endOffset": 1471
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 37,
-                        "startColumn": 1,
-                        "startOffset": 1628,
-                        "endColumn": 89,
-                        "endOffset": 1716
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 20,
-                    "startColumn": 4,
-                    "startOffset": 1476,
-                    "endColumn": 70,
-                    "endOffset": 1542
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 74,
-                        "startColumn": 1,
-                        "startOffset": 3256,
-                        "endColumn": 67,
-                        "endOffset": 3322
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 21,
-                    "startColumn": 4,
-                    "startOffset": 1547,
-                    "endColumn": 66,
-                    "endOffset": 1609
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 81,
-                        "startColumn": 1,
-                        "startOffset": 3511,
-                        "endColumn": 63,
-                        "endOffset": 3573
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 22,
-                    "startColumn": 4,
-                    "startOffset": 1614,
-                    "endColumn": 74,
-                    "endOffset": 1684
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 61,
-                        "startColumn": 1,
-                        "startOffset": 2703,
-                        "endColumn": 71,
-                        "endOffset": 2773
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 23,
-                    "startColumn": 4,
-                    "startOffset": 1689,
-                    "endColumn": 78,
-                    "endOffset": 1763
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 86,
-                        "startColumn": 1,
-                        "startOffset": 3693,
-                        "endColumn": 75,
-                        "endOffset": 3767
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 24,
-                    "startColumn": 4,
-                    "startOffset": 1768,
-                    "endColumn": 67,
-                    "endOffset": 1831
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 84,
-                        "startColumn": 1,
-                        "startOffset": 3603,
-                        "endColumn": 64,
-                        "endOffset": 3666
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 25,
-                    "startColumn": 4,
-                    "startOffset": 1836,
-                    "endColumn": 47,
-                    "endOffset": 1879
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 2,
-                        "startOffset": 117,
-                        "endColumn": 45,
-                        "endOffset": 160
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 26,
-                    "startColumn": 4,
-                    "startOffset": 1884,
-                    "endColumn": 72,
-                    "endOffset": 1952
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 104,
-                        "startColumn": 1,
-                        "startOffset": 4510,
-                        "endColumn": 69,
-                        "endOffset": 4578
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 27,
-                    "startColumn": 4,
-                    "startOffset": 1957,
-                    "endColumn": 68,
-                    "endOffset": 2021
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 98,
-                        "startColumn": 1,
-                        "startOffset": 4219,
-                        "endColumn": 65,
-                        "endOffset": 4283
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 28,
-                    "startColumn": 4,
-                    "startOffset": 2026,
-                    "endColumn": 81,
-                    "endOffset": 2103
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 102,
-                        "startColumn": 1,
-                        "startOffset": 4405,
-                        "endColumn": 78,
-                        "endOffset": 4482
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 29,
-                    "startColumn": 4,
-                    "startOffset": 2108,
-                    "endColumn": 70,
-                    "endOffset": 2174
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 100,
-                        "startColumn": 1,
-                        "startOffset": 4310,
-                        "endColumn": 67,
-                        "endOffset": 4376
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 30,
-                    "startColumn": 4,
-                    "startOffset": 2179,
-                    "endColumn": 75,
-                    "endOffset": 2250
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 94,
-                        "startColumn": 1,
-                        "startOffset": 4011,
-                        "endColumn": 72,
-                        "endOffset": 4082
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 31,
-                    "startColumn": 4,
-                    "startOffset": 2255,
-                    "endColumn": 78,
-                    "endOffset": 2329
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 96,
-                        "startColumn": 1,
-                        "startOffset": 4117,
-                        "endColumn": 75,
-                        "endOffset": 4191
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 32,
-                    "startColumn": 4,
-                    "startOffset": 2334,
-                    "endColumn": 80,
-                    "endOffset": 2410
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 89,
-                        "startColumn": 1,
-                        "startOffset": 3802,
-                        "endColumn": 77,
-                        "endOffset": 3878
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 33,
-                    "startColumn": 4,
-                    "startOffset": 2415,
-                    "endColumn": 72,
-                    "endOffset": 2483
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 91,
-                        "startColumn": 1,
-                        "startOffset": 3905,
-                        "endColumn": 69,
-                        "endOffset": 3973
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 34,
-                    "startColumn": 4,
-                    "startOffset": 2488,
-                    "endColumn": 92,
-                    "endOffset": 2576
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 49,
-                        "startColumn": 1,
-                        "startOffset": 2218,
-                        "endColumn": 89,
-                        "endOffset": 2306
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 35,
-                    "startColumn": 4,
-                    "startOffset": 2581,
-                    "endColumn": 81,
-                    "endOffset": 2658
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 47,
-                        "startColumn": 1,
-                        "startOffset": 2112,
-                        "endColumn": 78,
-                        "endOffset": 2189
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 36,
-                    "startColumn": 4,
-                    "startOffset": 2663,
-                    "endColumn": 72,
-                    "endOffset": 2731
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 71,
-                        "startColumn": 1,
-                        "startOffset": 3151,
-                        "endColumn": 69,
-                        "endOffset": 3219
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 37,
-                    "startColumn": 4,
-                    "startOffset": 2736,
-                    "endColumn": 66,
-                    "endOffset": 2798
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 69,
-                        "startColumn": 1,
-                        "startOffset": 3064,
-                        "endColumn": 63,
-                        "endOffset": 3126
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 38,
-                    "startColumn": 4,
-                    "startOffset": 2803,
-                    "endColumn": 71,
-                    "endOffset": 2870
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 67,
-                        "startColumn": 1,
-                        "startOffset": 2972,
-                        "endColumn": 68,
-                        "endOffset": 3039
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 39,
-                    "startColumn": 4,
-                    "startOffset": 2875,
-                    "endColumn": 67,
-                    "endOffset": 2938
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 63,
-                        "startColumn": 1,
-                        "startOffset": 2798,
-                        "endColumn": 64,
-                        "endOffset": 2861
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 40,
-                    "startColumn": 4,
-                    "startOffset": 2943,
-                    "endColumn": 65,
-                    "endOffset": 3004
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 65,
-                        "startColumn": 1,
-                        "startOffset": 2886,
-                        "endColumn": 62,
-                        "endOffset": 2947
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 41,
-                    "startColumn": 4,
-                    "startOffset": 3009,
-                    "endColumn": 70,
-                    "endOffset": 3075
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 59,
-                        "startColumn": 1,
-                        "startOffset": 2607,
-                        "endColumn": 67,
-                        "endOffset": 2673
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 42,
-                    "startColumn": 4,
-                    "startOffset": 3080,
-                    "endColumn": 58,
-                    "endOffset": 3134
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 13,
-                        "startColumn": 4,
-                        "startOffset": 467,
-                        "endColumn": 58,
-                        "endOffset": 521
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 43,
-                    "startColumn": 4,
-                    "startOffset": 3139,
-                    "endColumn": 65,
-                    "endOffset": 3200
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 15,
-                        "startColumn": 4,
-                        "startOffset": 556,
-                        "endColumn": 65,
-                        "endOffset": 617
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 44,
-                    "startColumn": 4,
-                    "startOffset": 3205,
-                    "endColumn": 61,
-                    "endOffset": 3262
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 79,
-                        "startColumn": 1,
-                        "startOffset": 3431,
-                        "endColumn": 58,
-                        "endOffset": 3488
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 45,
-                    "startColumn": 4,
-                    "startOffset": 3267,
-                    "endColumn": 59,
-                    "endOffset": 3322
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 77,
-                        "startColumn": 1,
-                        "startOffset": 3351,
-                        "endColumn": 56,
-                        "endOffset": 3406
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 46,
-                    "startColumn": 4,
-                    "startOffset": 3327,
-                    "endColumn": 52,
-                    "endOffset": 3375
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 8,
-                        "startColumn": 4,
-                        "startOffset": 299,
-                        "endColumn": 52,
-                        "endOffset": 347
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 47,
-                    "startColumn": 4,
-                    "startOffset": 3380,
-                    "endColumn": 53,
-                    "endOffset": 3429
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 10,
-                        "startColumn": 4,
-                        "startOffset": 377,
-                        "endColumn": 53,
-                        "endOffset": 426
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 48,
-                    "startColumn": 4,
-                    "startOffset": 3434,
-                    "endColumn": 52,
-                    "endOffset": 3482
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 2,
-                        "startOffset": 164,
-                        "endColumn": 50,
-                        "endOffset": 212
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 49,
-                    "startColumn": 4,
-                    "startOffset": 3487,
-                    "endColumn": 52,
-                    "endOffset": 3535
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_color.xml",
-                    "position": {
-                        "startLine": 5,
-                        "startColumn": 1,
-                        "startOffset": 215,
-                        "endColumn": 49,
-                        "endOffset": 263
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 54,
-                    "startColumn": 4,
-                    "startOffset": 4451,
-                    "endColumn": 57,
-                    "endOffset": 4504
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 92,
-                        "endColumn": 57,
-                        "endOffset": 145
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 55,
-                    "startColumn": 4,
-                    "startOffset": 4509,
-                    "endColumn": 55,
-                    "endOffset": 4560
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 151,
-                        "endColumn": 55,
-                        "endOffset": 202
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 56,
-                    "startColumn": 4,
-                    "startOffset": 4565,
-                    "endColumn": 68,
-                    "endOffset": 4629
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
-                    "position": {
-                        "startLine": 14,
-                        "startColumn": 4,
-                        "startOffset": 551,
-                        "endColumn": 68,
-                        "endOffset": 615
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 57,
-                    "startColumn": 4,
-                    "startOffset": 4634,
-                    "endColumn": 66,
-                    "endOffset": 4696
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
-                    "position": {
-                        "startLine": 21,
-                        "startColumn": 4,
-                        "startOffset": 829,
-                        "endColumn": 66,
-                        "endOffset": 891
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 58,
-                    "startColumn": 4,
-                    "startOffset": 4701,
-                    "endColumn": 60,
-                    "endOffset": 4757
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
-                    "position": {
-                        "startLine": 18,
-                        "startColumn": 4,
-                        "startOffset": 736,
-                        "endColumn": 60,
-                        "endOffset": 792
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 59,
-                    "startColumn": 4,
-                    "startOffset": 4762,
-                    "endColumn": 59,
-                    "endOffset": 4817
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
-                    "position": {
-                        "startLine": 16,
-                        "startColumn": 4,
-                        "startOffset": 648,
-                        "endColumn": 59,
-                        "endOffset": 703
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 60,
-                    "startColumn": 4,
-                    "startOffset": 4822,
-                    "endColumn": 64,
-                    "endOffset": 4882
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
-                    "position": {
-                        "startLine": 12,
-                        "startColumn": 4,
-                        "startOffset": 455,
-                        "endColumn": 64,
-                        "endOffset": 515
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 61,
-                    "startColumn": 4,
-                    "startOffset": 4887,
-                    "endColumn": 57,
-                    "endOffset": 4940
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
-                    "position": {
-                        "startLine": 10,
-                        "startColumn": 1,
-                        "startOffset": 367,
-                        "endColumn": 54,
-                        "endOffset": 420
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 62,
-                    "startColumn": 4,
-                    "startOffset": 4945,
-                    "endColumn": 51,
-                    "endOffset": 4992
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
-                    "position": {
-                        "startLine": 8,
-                        "startColumn": 4,
-                        "startOffset": 285,
-                        "endColumn": 51,
-                        "endOffset": 332
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 63,
-                    "startColumn": 4,
-                    "startOffset": 4997,
-                    "endColumn": 52,
-                    "endOffset": 5045
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
-                    "position": {
-                        "startLine": 5,
-                        "startColumn": 4,
-                        "startOffset": 208,
-                        "endColumn": 52,
-                        "endOffset": 256
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 64,
-                    "startColumn": 4,
-                    "startOffset": 5050,
-                    "endColumn": 60,
-                    "endOffset": 5106
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_dimens.xml",
-                    "position": {
-                        "startLine": 25,
-                        "startColumn": 4,
-                        "startOffset": 1004,
-                        "endColumn": 60,
-                        "endOffset": 1060
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 65,
-                    "startColumn": 4,
-                    "startOffset": 5111,
-                    "endColumn": 52,
-                    "endOffset": 5159
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 127,
-                        "endColumn": 52,
-                        "endOffset": 175
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 66,
-                    "startColumn": 4,
-                    "startOffset": 5164,
-                    "endColumn": 54,
-                    "endOffset": 5214
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 1,
-                        "startColumn": 4,
-                        "startOffset": 17,
-                        "endColumn": 54,
-                        "endOffset": 67
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 67,
-                    "startColumn": 4,
-                    "startOffset": 5219,
-                    "endColumn": 59,
-                    "endOffset": 5274
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 17,
-                        "startColumn": 4,
-                        "startOffset": 796,
-                        "endColumn": 59,
-                        "endOffset": 851
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 68,
-                    "startColumn": 4,
-                    "startOffset": 5279,
-                    "endColumn": 67,
-                    "endOffset": 5342
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 32,
-                        "startColumn": 4,
-                        "startOffset": 1488,
-                        "endColumn": 67,
-                        "endOffset": 1551
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 69,
-                    "startColumn": 4,
-                    "startOffset": 5347,
-                    "endColumn": 50,
-                    "endOffset": 5393
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 181,
-                        "endColumn": 55,
-                        "endOffset": 232
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 70,
-                    "startColumn": 4,
-                    "startOffset": 5398,
-                    "endColumn": 53,
-                    "endOffset": 5447
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 5,
-                        "startColumn": 4,
-                        "startOffset": 238,
-                        "endColumn": 58,
-                        "endOffset": 292
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 71,
-                    "startColumn": 4,
-                    "startOffset": 5452,
-                    "endColumn": 66,
-                    "endOffset": 5514
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 15,
-                        "startColumn": 4,
-                        "startOffset": 705,
-                        "endColumn": 66,
-                        "endOffset": 767
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 72,
-                    "startColumn": 4,
-                    "startOffset": 5519,
-                    "endColumn": 86,
-                    "endOffset": 5601
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 30,
-                        "startColumn": 4,
-                        "startOffset": 1377,
-                        "endColumn": 86,
-                        "endOffset": 1459
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 73,
-                    "startColumn": 4,
-                    "startOffset": 5606,
-                    "endColumn": 79,
-                    "endOffset": 5681
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 9,
-                        "startColumn": 4,
-                        "startOffset": 427,
-                        "endColumn": 79,
-                        "endOffset": 502
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 74,
-                    "startColumn": 4,
-                    "startOffset": 5686,
-                    "endColumn": 126,
-                    "endOffset": 5808
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 24,
-                        "startColumn": 4,
-                        "startOffset": 1039,
-                        "endColumn": 126,
-                        "endOffset": 1161
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 75,
-                    "startColumn": 4,
-                    "startOffset": 5813,
-                    "endColumn": 67,
-                    "endOffset": 5876
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 34,
-                        "startColumn": 4,
-                        "startOffset": 1559,
-                        "endColumn": 67,
-                        "endOffset": 1622
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 76,
-                    "startColumn": 4,
-                    "startOffset": 5881,
-                    "endColumn": 67,
-                    "endOffset": 5944
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 35,
-                        "startColumn": 4,
-                        "startOffset": 1628,
-                        "endColumn": 67,
-                        "endOffset": 1691
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 77,
-                    "startColumn": 4,
-                    "startOffset": 5949,
-                    "endColumn": 57,
-                    "endOffset": 6002
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 13,
-                        "startColumn": 4,
-                        "startOffset": 614,
-                        "endColumn": 57,
-                        "endOffset": 667
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 78,
-                    "startColumn": 4,
-                    "startOffset": 6007,
-                    "endColumn": 65,
-                    "endOffset": 6068
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 28,
-                        "startColumn": 4,
-                        "startOffset": 1278,
-                        "endColumn": 65,
-                        "endOffset": 1339
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 79,
-                    "startColumn": 4,
-                    "startOffset": 6073,
-                    "endColumn": 56,
-                    "endOffset": 6125
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 11,
-                        "startColumn": 4,
-                        "startOffset": 532,
-                        "endColumn": 56,
-                        "endOffset": 584
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 80,
-                    "startColumn": 4,
-                    "startOffset": 6130,
-                    "endColumn": 61,
-                    "endOffset": 6187
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 26,
-                        "startColumn": 4,
-                        "startOffset": 1191,
-                        "endColumn": 61,
-                        "endOffset": 1248
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 81,
-                    "startColumn": 4,
-                    "startOffset": 6192,
-                    "endColumn": 72,
-                    "endOffset": 6260
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 7,
-                        "startColumn": 4,
-                        "startOffset": 325,
-                        "endColumn": 72,
-                        "endOffset": 393
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 82,
-                    "startColumn": 4,
-                    "startOffset": 6265,
-                    "endColumn": 119,
-                    "endOffset": 6380
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 22,
-                        "startColumn": 4,
-                        "startOffset": 890,
-                        "endColumn": 119,
-                        "endOffset": 1005
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 83,
-                    "startColumn": 4,
-                    "startOffset": 6385,
-                    "endColumn": 52,
-                    "endOffset": 6433
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_strings.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 73,
-                        "endColumn": 52,
-                        "endOffset": 121
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 84,
-                    "startColumn": 4,
-                    "startOffset": 6438,
-                    "endLine": 89,
-                    "endColumn": 12,
-                    "endOffset": 6890
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
-                    "position": {
-                        "startLine": 25,
-                        "startColumn": 5,
-                        "startOffset": 981,
-                        "endLine": 30,
-                        "endColumn": 12,
-                        "endOffset": 1438
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 90,
-                    "startColumn": 4,
-                    "startOffset": 6895,
-                    "endLine": 96,
-                    "endColumn": 12,
-                    "endOffset": 7181
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
-                    "position": {
-                        "startLine": 6,
-                        "startColumn": 4,
-                        "startOffset": 192,
-                        "endLine": 12,
-                        "endColumn": 12,
-                        "endOffset": 484
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 97,
-                    "startColumn": 4,
-                    "startOffset": 7186,
-                    "endLine": 99,
-                    "endColumn": 12,
-                    "endOffset": 7341
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
-                    "position": {
-                        "startLine": 16,
-                        "startColumn": 4,
-                        "startOffset": 605,
-                        "endLine": 18,
-                        "endColumn": 12,
-                        "endOffset": 762
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 100,
-                    "startColumn": 4,
-                    "startOffset": 7346,
-                    "endColumn": 71,
-                    "endOffset": 7413
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
-                    "position": {
-                        "startLine": 13,
-                        "startColumn": 4,
-                        "startOffset": 490,
-                        "endColumn": 78,
-                        "endOffset": 564
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 101,
-                    "startColumn": 4,
-                    "startOffset": 7418,
-                    "endLine": 103,
-                    "endColumn": 12,
-                    "endOffset": 7575
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\sticker\\src\\main\\res\\values\\bqmm_styles.xml",
-                    "position": {
-                        "startLine": 21,
-                        "startColumn": 4,
-                        "startOffset": 809,
-                        "endLine": 23,
-                        "endColumn": 12,
-                        "endOffset": 968
+                        "endOffset": 945
                     }
                 }
             }

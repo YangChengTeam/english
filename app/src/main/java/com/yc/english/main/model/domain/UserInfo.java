@@ -21,6 +21,11 @@ public class UserInfo {
 
     @JSONField(name = "face")
     private String avatar;
+    @JSONField(name = "is_vip")
+    private int isVip;
+    private String vip;
+    private long vip_end_time;
+    private long vip_start_time;
 
     public String getMobile() {
         return mobile;
@@ -92,5 +97,37 @@ public class UserInfo {
 
     public void setLogin(boolean login) {
         isLogin = login;
+    }
+
+    public int getIsVip() {
+        return isVip;
+    }
+
+    public void setIsVip(int isVip) {
+        this.isVip = isVip;
+    }
+
+    public String getVip() {
+        return vip;
+    }
+
+    public void setVip(String vip) {
+        this.vip = vip;
+    }
+
+    public long getVip_end_time() {
+        return vip_end_time;
+    }
+
+    public void setVip_end_time(long vip_end_time) {
+        this.vip_end_time = vip_end_time;
+    }
+
+    public long getVip_start_time() {
+        return vip_start_time;
+    }
+
+    public void setVip_start_time(long vip_start_time) {
+        this.vip_start_time = vip_start_time;
     }
 }
