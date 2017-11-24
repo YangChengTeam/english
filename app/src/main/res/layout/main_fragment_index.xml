@@ -159,7 +159,6 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
-
                     <ImageView
                         android:id="@+id/iv_book_read"
                         android:layout_width="0dp"
@@ -179,8 +178,6 @@
                         android:layout_weight="1"
                         android:scaleType="fitXY"
                         android:src="@mipmap/speak_main"/>
-
-
                 </LinearLayout>
 
 
@@ -191,18 +188,6 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="7dp">
-
-                    <ImageView
-                        android:id="@+id/iv_microclass"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/index_microclass"/>
-
-                    <View
-                        android:layout_width="7dp"
-                        android:layout_height="match_parent"></View>
 
                     <ImageView
                         android:id="@+id/iv_word"
@@ -229,12 +214,24 @@
                         android:layout_height="match_parent"></View>
 
                     <ImageView
-                        android:id="@+id/iv_community"
+                        android:id="@+id/iv_teacher_task"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/index_community"/>
+                        android:src="@mipmap/index_teacher_task"/>
+
+                    <View
+                        android:layout_width="7dp"
+                        android:layout_height="match_parent"></View>
+
+                    <ImageView
+                        android:id="@+id/iv_union"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/index_union"/>
                 </LinearLayout>
 
                 <View
@@ -310,12 +307,12 @@
 
 
             <ImageView
-                android:id="@+id/iv_tutor"
+                android:id="@+id/iv_ad"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="7dp"
                 android:scaleType="fitXY"
-                android:src="@mipmap/index_tutor"/>
+                android:src="@mipmap/index_ad"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -329,7 +326,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="热点微课"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font_snormal" />
+                    android:textSize="@dimen/font_snormal"/>
 
                 <View
                     android:layout_width="58dp"
@@ -360,17 +357,16 @@
                         android:gravity="center_vertical"
                         android:text="查看更多"
                         android:textColor="@color/gray_aaa"
-                        android:textSize="@dimen/font_small" />
+                        android:textSize="@dimen/font_small"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="3dp"
-                        android:src="@mipmap/index_aritle_arrow" />
+                        android:src="@mipmap/index_aritle_arrow"/>
                 </LinearLayout>
             </RelativeLayout>
-
 
 
             <android.support.v7.widget.RecyclerView

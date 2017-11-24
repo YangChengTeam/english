@@ -28,4 +28,21 @@
             <enum name="right" value="2" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="honour_ability_view">
+        <attr name="honour_ability_line_color" format="color"/>
+        <attr name="honour_ability_line_width" format="dimension"/>
+        <attr name="honour_ability_dot_color" format="color"/>
+        <attr name="honour_ability_dot_radius" format="dimension"/>
+        <attr name="honour_ability_dot_width" format="dimension"/>
+        <attr name="honour_ability_cover_color" format="color"/>
+        <attr name="honour_ability_cover_width" format="dimension"/>
+        <attr name="honour_ability_text_color" format="color"/>
+        <attr name="honour_ability_text_size" format="dimension"/>
+        <attr name="honour_ability_center_text_size" format="dimension"/>
+        <attr name="honour_ability_center_text_color" format="dimension"/>
+        <attr name="honour_ability_text_offset" format="dimension"/>
+    </declare-styleable>
+
+
 </resources>

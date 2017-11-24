@@ -1,10 +1,14 @@
 package com.yc.english.base.view;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
@@ -12,6 +16,7 @@ import com.hwangjr.rxbus.RxBus;
 import com.kk.utils.UIUitls;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
+import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
 
 import butterknife.ButterKnife;
@@ -34,7 +39,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             finish();
             return;
         }
-
+        BarUtils.setStatusBarColor(this, ContextCompat.getColor(this, R.color.primaryDark));
         ScreenUtils.setPortrait(this);
         RxBus.get().register(this);
         setContentView(getLayoutId());

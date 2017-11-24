@@ -70,7 +70,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                 });
             }
         });
-        
+
         Subscription subscription = mEngin.getIndexInfo().subscribe(new Subscriber<ResultInfo<IndexInfo>>() {
             @Override
             public void onCompleted() {
@@ -174,7 +174,6 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                         PayWayInfoHelper.setPayWayInfoList(payWayInfoResultInfo.data);
                     }
                 });
-
             }
         });
         mSubscriptions.add(subscription);

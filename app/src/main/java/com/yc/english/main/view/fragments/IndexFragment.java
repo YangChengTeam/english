@@ -2,6 +2,8 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.media.Image;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -24,6 +27,7 @@ import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseFragment;
+import com.yc.english.base.view.HonourAbilityView;
 import com.yc.english.base.view.SelectGradePopupWindow;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
@@ -44,6 +48,7 @@ import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.yc.english.speak.view.activity.SpeakMainActivity;
 import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
+import com.yc.english.union.view.activitys.UnionMainActivity;
 import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.yc.english.weixin.views.activitys.CourseTypeActivity;
@@ -80,40 +85,36 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @BindView(R.id.iv_speak)
     ImageView mSpeakImageView;
 
-    @BindView(R.id.iv_microclass)
-    ImageView mMicroclassImageView;
-
     @BindView(R.id.iv_word)
     ImageView mWordImageView;
 
     @BindView(R.id.iv_task)
     ImageView mTaskImageView;
 
+    @BindView(R.id.iv_union)
+    ImageView mUnion;
+
     @BindView(R.id.iv_exam)
     ImageView mExamImageView;
 
-    @BindView(R.id.iv_tutor)
-    ImageView mTutorImageView;
+    @BindView(R.id.iv_ad)
+    ImageView mAd;
 
+    @BindView(R.id.iv_teacher_task)
+    ImageView mTeacherTask;
 
     @BindView(R.id.banner)
     Banner mBanner;
 
-
     @BindView(R.id.rv_hot)
     RecyclerView mHotMircoClassRecyclerView;
-
 
     @BindView(R.id.ll_recommend_more)
     LinearLayout mllRecommendMore;
     @BindView(R.id.rv_recommend)
     RecyclerView mRvRecommend;
 
-
-
-
     private AritleAdapter mHotMircoClassAdapter;
-
 
     @BindView(R.id.ll_morcoclass_more)
     LinearLayout mMorcoclassMoreLinearLayout;
@@ -164,14 +165,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-        RxView.clicks(mTutorImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), GroupCommonClassActivity.class);
-                startActivity(intent);
-            }
-        });
-
         RxView.clicks(mTaskImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -197,11 +190,19 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-        RxView.clicks(mMicroclassImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mTeacherTask).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                MainActivity mainActivity = (MainActivity) getActivity();
-                mainActivity.goToTask();
+                Intent intent = new Intent(getActivity(), GroupCommonClassActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mUnion).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), UnionMainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -223,7 +224,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 startActivity(intent);
             }
         });
-
 
 
         RxView.clicks(mMorcoclassMoreLinearLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -303,7 +303,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 startActivity(intent);
             }
         });
-
 
 
         if (SPUtils.getInstance().getString("period", "").isEmpty()) {

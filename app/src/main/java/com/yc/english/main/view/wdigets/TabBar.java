@@ -22,6 +22,9 @@ public class TabBar extends BaseView {
     @BindView(R.id.item_task)
     TabItem mTaskItem;
 
+    @BindView(R.id.item_intelligent)
+    TabItem mIntelligent;
+
     @BindView(R.id.item_my)
     TabItem mMyItem;
 
@@ -30,7 +33,8 @@ public class TabBar extends BaseView {
 
         mIndexItem.setTag(0);
         mTaskItem.setTag(1);
-        mMyItem.setTag(2);
+        mIntelligent.setTag(2);
+        mMyItem.setTag(3);
 
     }
 
@@ -39,7 +43,7 @@ public class TabBar extends BaseView {
         return R.layout.main_view_tab_bar;
     }
 
-    @OnClick({R.id.item_index, R.id.item_task, R.id.item_my})
+    @OnClick({R.id.item_index, R.id.item_task, R.id.item_intelligent ,R.id.item_my})
     public void OnClick(TabItem item){
         if(onTabSelectedListener == null) throw  new NullPointerException("listener == null");
 
@@ -62,6 +66,8 @@ public class TabBar extends BaseView {
             case 1:
                 return mTaskItem;
             case 2:
+                return mIntelligent;
+            case 3:
                 return mMyItem;
         }
         return mIndexItem;
@@ -70,7 +76,8 @@ public class TabBar extends BaseView {
     private void clearSelectedItem(){
         mIndexItem.normal(getIconDrawable(0));
         mTaskItem.normal(getIconDrawable(1));
-        mMyItem.normal(getIconDrawable(2));
+        mIntelligent.normal(getIconDrawable(2));
+        mMyItem.normal(getIconDrawable(3));
     }
 
     private Drawable getIconDrawable(int idx){
@@ -80,6 +87,8 @@ public class TabBar extends BaseView {
             case 1:
                 return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_task);
             case 2:
+                return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_intelligent);
+            case 3:
                 return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_my);
 
         }
@@ -93,6 +102,8 @@ public class TabBar extends BaseView {
             case 1:
                 return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_task_selected);
             case 2:
+                return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_index_selected);
+            case 3:
                 return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_my_selected);
         }
         return ContextCompat.getDrawable(getContext(), R.mipmap.main_tab_index);

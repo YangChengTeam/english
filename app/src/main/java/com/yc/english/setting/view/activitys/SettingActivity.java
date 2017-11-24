@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import rx.functions.Action1;
 
+
 /**
  * Created by zhangkai on 2017/7/24.
  */

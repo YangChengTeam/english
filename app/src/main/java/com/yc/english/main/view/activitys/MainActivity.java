@@ -11,11 +11,12 @@ import android.view.View;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
+import com.yc.english.intelligent.view.fragments.IntelligentFragment;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
 import com.yc.english.main.view.fragments.IndexFragment;
 import com.yc.english.main.view.wdigets.TabBar;
-import com.yc.english.setting.view.fragments.MyFragmentNew;
+import com.yc.english.setting.view.fragments.MyFragment;
 import com.yc.english.weixin.views.fragments.CourseTypeFragment;
 
 import butterknife.BindView;
@@ -52,7 +53,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mFragmentAdapter);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(4);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -85,7 +86,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private IndexFragment mIndexFragment;
     private CourseTypeFragment mClassMainFragment;
-    private MyFragmentNew mMyFragment;
+    private IntelligentFragment mIntelligentFragment;
+    private MyFragment mMyFragment;
 
     class FragmentAdapter extends FragmentStatePagerAdapter {
         public FragmentAdapter(FragmentManager fm) {
@@ -105,8 +107,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 }
                 return mClassMainFragment;
             } else if (position == 2) {
+                if (mIntelligentFragment == null) {
+                    mIntelligentFragment = new IntelligentFragment();
+                }
+                return mIntelligentFragment;
+            } else if (position == 3) {
                 if (mMyFragment == null) {
-                    mMyFragment = new MyFragmentNew();
+                    mMyFragment = new MyFragment();
                 }
                 return mMyFragment;
             }
@@ -115,7 +122,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
     }
 
