@@ -3,6 +3,7 @@ package com.yc.english.setting.view.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -126,27 +128,24 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         qqunDialog = new QQqunDialog(getActivity());
         qqunDialog.setQqunClick(this);
 
-        mCollapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);//设置收缩后标题的位置
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
-
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset <= -appBarLayout.getHeight() + SizeUtils.dp2px(60)) {
-                    mCollapsingToolbarLayout.setTitle("用户中心");
+                if (verticalOffset <= -appBarLayout.getHeight() + SizeUtils.dp2px(80)) {
+                    mCollapsingToolbarLayout.setTitle(getString(R.string.main_tab_my)+"  ");
                 } else {
                     mCollapsingToolbarLayout.setTitle("");
                 }
-
             }
         });
 
         abilityView.setDatas(new float[]{0.62f, 0.92f, 0.29f, 0.45f, 0.82f,
                 0.74f})
                 .setTitles(new String[]{"阅读", "听力", "口语", "写作", "语法", "词汇"}).setTitleColors(new int[]{Color
-                .parseColor("#0cacfe"),Color
-                .parseColor("#ff8b01"),Color.parseColor("#fdbb12"),Color.parseColor("#ff5252"),Color.parseColor
-                ("#97d107"),Color.parseColor("#b0eb02")});
+                .parseColor("#0cacfe"), Color
+                .parseColor("#ff8b01"), Color.parseColor("#fdbb12"), Color.parseColor("#ff5252"), Color.parseColor
+                ("#97d107"), Color.parseColor("#b0eb02")});
 
 
         RxView.clicks(mAvatarImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -252,15 +251,24 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             }
         });
 
-
+        toolbarCompat();
     }
+
+
+    private void toolbarCompat() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            setToolbarTopMargin(toolbar);
+            toolbar.getLayoutParams().height = SizeUtils.dp2px(72f) - getStatusbarHeight();
+        }
+    }
+
 
     @Override
     public void onResume() {
         super.onResume();
-        if (UserInfoHelper.getUserInfo()!=null&&UserInfoHelper.getUserInfo().getIsVip()==1){
+        if (UserInfoHelper.getUserInfo() != null && UserInfoHelper.getUserInfo().getIsVip() == 1) {
             mBuyVipMenuItemView.setTitle("VIP会员信息");
-        }else {
+        } else {
             mBuyVipMenuItemView.setTitle("开通VIP会员");
         }
 

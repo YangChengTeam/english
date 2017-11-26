@@ -1,14 +1,18 @@
 package com.yc.english.weixin.views.fragments;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.shizhefei.view.indicator.FixedIndicatorView;
@@ -52,6 +56,12 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
 
     @BindView(R.id.tv_cart_num)
     TextView mCartNumTextView;
+
+    @BindView(R.id.toolbar)
+    RelativeLayout mToolbar;
+
+    @BindView(R.id.toolbarWarpper)
+    FrameLayout mToolbarWarpper;
 
     private final String[] titles = new String[]{"音频微课", "视频微课"};
 
@@ -98,6 +108,7 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
             }
         });
 
+
         RxView.clicks(mShoppingImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -107,9 +118,19 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
                 } else {
                     UserInfoHelper.isGotoLogin(getActivity());
                 }
-
             }
         });
+        toolbarCompat();
+    }
+
+    private void toolbarCompat() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            mToolbarWarpper.getLayoutParams().height = SizeUtils.dp2px(48f);
+            mToolbarWarpper.setBackground(ContextCompat.getDrawable(getActivity(), R.mipmap.base_actionbar));
+        } else {
+            setToolbarTopMargin(mToolbar);
+            mToolbar.getLayoutParams().height = SizeUtils.dp2px(72f) - getStatusbarHeight();
+        }
     }
 
     @Override

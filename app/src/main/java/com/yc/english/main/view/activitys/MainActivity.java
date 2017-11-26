@@ -1,5 +1,7 @@
 package com.yc.english.main.view.activitys;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -7,11 +9,14 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 
+import com.blankj.utilcode.util.BarUtils;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
-import com.yc.english.intelligent.view.fragments.IntelligentFragment;
+import com.yc.english.intelligent.view.fragments.IntelligentTypeFragment;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
 import com.yc.english.main.view.fragments.IndexFragment;
@@ -41,8 +46,24 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void init() {
-        mPresenter = new MainPresenter(this, this);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().setFlags(WindowManager
+                            .LayoutParams
+                            .FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintResource(Color.TRANSPARENT);
+        }
+
+        mPresenter = new MainPresenter(this, this);
         mTabBar.setOnTabSelectedListener(new TabBar.OnTabSelectedListener() {
             @Override
             public void onSelected(int idx) {
@@ -86,7 +107,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private IndexFragment mIndexFragment;
     private CourseTypeFragment mClassMainFragment;
-    private IntelligentFragment mIntelligentFragment;
+    private IntelligentTypeFragment mIntelligentFragment;
     private MyFragment mMyFragment;
 
     class FragmentAdapter extends FragmentStatePagerAdapter {
@@ -108,7 +129,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mClassMainFragment;
             } else if (position == 2) {
                 if (mIntelligentFragment == null) {
-                    mIntelligentFragment = new IntelligentFragment();
+                    mIntelligentFragment = new IntelligentTypeFragment();
                 }
                 return mIntelligentFragment;
             } else if (position == 3) {

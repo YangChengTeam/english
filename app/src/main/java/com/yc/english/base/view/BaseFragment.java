@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -23,21 +24,40 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements IView {
     protected View mRootView;
     protected P mPresenter;
+    protected boolean isUseInKotlin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RxBus.get().register(this);
         if (mRootView == null) {
             mRootView = View.inflate(getActivity(), getLayoutId(), null);
-            try {
-                ButterKnife.bind(this, mRootView);
-            } catch (Exception e) {
-                e.printStackTrace();
-                LogUtils.i(this.getClass().getSimpleName() + " init->初始化失败 原因:" + e);
+            if(!isUseInKotlin) {
+                try {
+                    ButterKnife.bind(this, mRootView);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    LogUtils.i(this.getClass().getSimpleName() + " init->初始化失败 原因:" + e);
+                }
+                init();
             }
-            init();
         }
         return mRootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if(isUseInKotlin){
+            init();
+        }
+    }
+
+    public void setToolbarTopMargin(View view){
+        ((BaseActivity)getActivity()).setToolbarTopMargin(view);
+    }
+
+    public int getStatusbarHeight(){
+        return ((BaseActivity)getActivity()).statusBarHeight;
     }
 
     @Override

@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.Image;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -124,6 +126,15 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @BindView(R.id.tv_more)
     TextView mMoreTextView;
+
+    @BindView(R.id.statu_bar)
+    View mStatusBar;
+
+    @BindView(R.id.toolbar)
+    LinearLayout mToolBar;
+
+    @BindView(R.id.toolbarWarpper)
+    FrameLayout mToolbarWarpper;
 
     private IndexRecommendAdapter mRecommendAdapter;
 
@@ -310,13 +321,18 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             selectGradePopupWindow.show(mContextScrollView, Gravity.CENTER);
         }
 
-//        mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
-//        mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                mPresenter.getIndexInfo();
-//            }
-//        });
+        toolbarCompat();
+    }
+
+    private void toolbarCompat() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT){
+            mToolbarWarpper.getLayoutParams().height = SizeUtils.dp2px(48f);
+            mStatusBar.getLayoutParams().height = 0;
+        } else {
+            mStatusBar.getLayoutParams().height = getStatusbarHeight();
+            mToolBar.getLayoutParams().height = SizeUtils.dp2px(72f) - getStatusbarHeight();
+            setToolbarTopMargin(mToolBar);
+        }
     }
 
     @Override

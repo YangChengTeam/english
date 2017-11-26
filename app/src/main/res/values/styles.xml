@@ -37,6 +37,10 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="ToolBar" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="group_switch_style" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">@color/group_blue_21b5f8</item>
     </style>

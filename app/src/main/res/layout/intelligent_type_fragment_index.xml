@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/mToolbarWarpper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/intelligent_index_bg">
+
+        <RelativeLayout
+            android:id="@+id/mToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:id="@+id/mTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="人教版八年级上"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_big"
+                />
+
+            <ImageView
+                android:id="@+id/mIntelligentType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/intelligent_type"/>
+        </RelativeLayout>
+    </FrameLayout>
+
+    <com.shizhefei.view.indicator.ScrollIndicatorView
+        android:id="@+id/mScrollIndicatorView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"></com.shizhefei.view.indicator.ScrollIndicatorView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_ddd"></View>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryDark"
+        ></android.support.v4.view.ViewPager>
+</LinearLayout>

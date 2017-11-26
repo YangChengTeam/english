@@ -3,10 +3,13 @@ package com.yc.english.base.view;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.EmptyUtils;
@@ -28,6 +31,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IView, IDialog {
     protected P mPresenter;
     protected LoadingDialog mLoadingDialog;
+    protected int statusBarHeight;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +43,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             finish();
             return;
         }
-        BarUtils.setStatusBarColor(this, ContextCompat.getColor(this, R.color.primaryDark));
+        statusBarHeight = BarUtils.getStatusBarHeight(this);
         ScreenUtils.setPortrait(this);
         RxBus.get().register(this);
         setContentView(getLayoutId());
@@ -50,7 +54,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             e.printStackTrace();
             LogUtils.i(this.getClass().getSimpleName() + " ButterKnife->初始化失败 原因:" + e);
         }
+        BarUtils.setStatusBarColor(this, Color.BLACK);
         init();
+    }
+
+    public void setToolbarTopMargin(View view){
+        FrameLayout.LayoutParams l = (FrameLayout.LayoutParams) view.getLayoutParams();
+        l.setMargins(0, statusBarHeight, 0, 0);
     }
 
     @Override

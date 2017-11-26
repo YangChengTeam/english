@@ -24,9 +24,15 @@ public class TabsUtils {
     public static class MyAdapter extends Indicator.IndicatorAdapter {
         private Activity mContext;
         private String[] mTitles;
+        private int mWidth ;
 
         public MyAdapter(Activity context, String[] titles) {
+           this(context, titles, 0);
+        }
+
+        public MyAdapter(Activity context, String[] titles, int width) {
             super();
+            this.mWidth = width;
             this.mContext = context;
             this.mTitles = titles;
         }
@@ -43,6 +49,9 @@ public class TabsUtils {
             }
             TextView textView = (TextView) convertView;
             textView.setText(mTitles[position]);
+            if(mWidth != 0){
+                textView.setWidth(mWidth);
+            }
             return convertView;
         }
     }

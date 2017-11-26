@@ -22,7 +22,7 @@ import butterknife.BindView;
  */
 
 public abstract class BaseToolBar extends BaseView {
-    private AppCompatActivity mActivity;
+    private BaseActivity mActivity;
     protected boolean isShowNavigationIcon;
 
     @BindView(R.id.toolbar_sub)
@@ -38,7 +38,7 @@ public abstract class BaseToolBar extends BaseView {
         this.mContext = context;
     }
 
-    public void init(AppCompatActivity activity) {
+    public void init(BaseActivity activity) {
         mToolbar.setTitle("");
         mActivity = activity;
         activity.setSupportActionBar(mToolbar);
