@@ -28,13 +28,11 @@ public abstract class FullScreenActivity<P extends BasePresenter> extends BaseAc
         }
 
         mToolbar.init(this);
-        if(mToolbar instanceof MainToolBar){
+        if (mToolbar instanceof MainToolBar) {
             StatusBarCompat.compat(this, mToolbar, mToolbar.getToolbar(), R.mipmap.base_actionbar);
-        }
-
-        else if(mToolbar instanceof TaskToolBar){
+        } else if (mToolbar instanceof TaskToolBar) {
             StatusBarCompat.light(this);
-            StatusBarCompat.compat(this, mToolbar, mToolbar.getToolbar(), ((TaskToolBar)mToolbar).getStatusBar());
+            StatusBarCompat.compat(this, mToolbar, mToolbar.getToolbarWarpper(), ((TaskToolBar) mToolbar).getStatusBar());
         }
     }
 

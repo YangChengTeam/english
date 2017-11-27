@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ScreenUtils;
@@ -15,6 +16,7 @@ import com.zhihu.matisse.internal.utils.UIUtils;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
+import butterknife.BindInt;
 import butterknife.BindView;
 
 /**
@@ -27,6 +29,13 @@ public abstract class BaseToolBar extends BaseView {
 
     @BindView(R.id.toolbar_sub)
     Toolbar mToolbar;
+
+    @BindView(R.id.toolbarWarpper)
+    FrameLayout mtoolbarWarpper;
+
+    public FrameLayout getToolbarWarpper() {
+        return mtoolbarWarpper;
+    }
 
     public Toolbar getToolbar() {
         return mToolbar;
