@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:gb="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/mInfoBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/intellgent_main_bg"
+        android:scaleType="fitXY">
+    </ImageView>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:shadowColor="@color/transparent2"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Unit 1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_huge"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:shadowColor="@color/black"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="您去哪儿度假了？"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_larger"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:shadowColor="@color/black"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Where did you go on vacation?"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_normal"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></View>
+
+                <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+                    android:id="@+id/mIntelligentType1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:elevation="5dp"
+                    gb:src="@mipmap/intelligent_type1"
+                    gb:text="@string/intelligents_type1"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></View>
+
+                <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+                    android:id="@+id/mIntelligentType2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:elevation="5dp"
+                    gb:src="@mipmap/intelligent_type2"
+                    gb:text="@string/intelligents_type2"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></View>
+
+                <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+                    android:id="@+id/mIntelligentType3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:elevation="5dp"
+                    gb:src="@mipmap/intelligent_type3"
+                    gb:text="@string/intelligents_type3"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></View>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></View>
+
+                <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+                    android:id="@+id/mIntelligentType4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:elevation="5dp"
+                    gb:src="@mipmap/intelligent_type4"
+                    gb:text="@string/intelligents_type4"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></View>
+
+                <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+                    android:id="@+id/mIntelligentType5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:elevation="5dp"
+                    gb:src="@mipmap/intelligent_type5"
+                    gb:text="@string/intelligents_type5"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></View>
+
+                <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+                    android:id="@+id/mIntelligentType6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:elevation="5dp"
+                    gb:src="@mipmap/intelligent_type6"
+                    gb:text="@string/intelligents_type6"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"></View>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/intelligents_type_bg"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:text="@string/intelligents_view"
+                android:textColor="@color/primary" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>

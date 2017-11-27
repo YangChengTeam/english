@@ -86,7 +86,7 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
         });
         mFixedIndicatorView.setCurrentItem(0, true);
 
-        TabsUtils.MyFragmentAdapter mFragmentAdapter = new TabsUtils.MyFragmentAdapter(getChildFragmentManager(),
+        TabsUtils.MainFragmentAdapter mFragmentAdapter = new TabsUtils.MainFragmentAdapter(getChildFragmentManager(),
                 new String[]{"7", "8"});
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setCurrentItem(0);

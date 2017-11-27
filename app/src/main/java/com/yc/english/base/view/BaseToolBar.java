@@ -16,6 +16,8 @@ import com.zhihu.matisse.internal.utils.UIUtils;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
+import javax.annotation.Nullable;
+
 import butterknife.BindInt;
 import butterknife.BindView;
 
@@ -27,9 +29,11 @@ public abstract class BaseToolBar extends BaseView {
     private BaseActivity mActivity;
     protected boolean isShowNavigationIcon;
 
+
     @BindView(R.id.toolbar_sub)
     Toolbar mToolbar;
 
+    @Nullable
     @BindView(R.id.toolbarWarpper)
     FrameLayout mtoolbarWarpper;
 
@@ -46,7 +50,6 @@ public abstract class BaseToolBar extends BaseView {
     private Context mContext;
 
     public BaseToolBar(Context context, AttributeSet attrs) {
-
         super(context, attrs);
         this.mContext = context;
     }

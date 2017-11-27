@@ -1,16 +1,23 @@
 package com.yc.english.intelligent.view.fragments
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
+import android.text.TextUtils
+import com.blankj.subutil.util.ThreadPoolUtils
+import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.jakewharton.rxbinding.view.RxView
+import com.kk.utils.PathUtils
 import com.shizhefei.view.indicator.slidebar.ColorBar
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener
 import com.yc.english.R
 import com.yc.english.base.view.BaseActivity
 import com.yc.english.base.view.BaseFragment
 import com.yc.english.base.utils.StatusBarCompat
-import com.yc.english.intelligent.presenter.IntelligentPresenter
+import com.yc.english.group.utils.TaskUtil
+import com.yc.english.intelligent.presenter.IntelligentTypePresenter
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_type_fragment_index.*
 import java.util.concurrent.TimeUnit
@@ -19,7 +26,7 @@ import java.util.concurrent.TimeUnit
  * Created by zhangkai on 2017/11/24.
  */
 
-open class IntelligentTypeFragment : BaseFragment<IntelligentPresenter>() {
+open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>() {
     private val titles = arrayOf("Unit 1", "Unit 2", "Unit 3", "Unit 4", "Unit 5", "Unit 6", "Unit 7", "Unit 8")
     private val types = arrayOf("Unit 1", "Unit 2", "Unit 3", "Unit 4", "Unit 5", "Unit 6", "Unit 7", "Unit 8")
 
@@ -27,8 +34,9 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentPresenter>() {
         isUseInKotlin = true
     }
 
+
     override fun init() {
-        mPresenter = IntelligentPresenter(getActivity(), this)
+        mPresenter = IntelligentTypePresenter(getActivity(), this)
 
         mScrollIndicatorView.setAdapter(TabsUtils.MyAdapter(activity, titles, SizeUtils.dp2px(72f)))
         mScrollIndicatorView.setScrollBar(ColorBar(activity, ContextCompat.getColor(activity, R.color
@@ -45,7 +53,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentPresenter>() {
         })
         mScrollIndicatorView.setCurrentItem(0, true)
 
-        val mFragmentAdapter = TabsUtils.MyFragmentAdapter(childFragmentManager, types)
+        val mFragmentAdapter = TabsUtils.IntelligentFragmentAdapter(childFragmentManager, types)
         mViewPager.setAdapter(mFragmentAdapter)
         mViewPager.setCurrentItem(0)
         mViewPager.setOffscreenPageLimit(1)
@@ -67,7 +75,9 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentPresenter>() {
 
         }
 
-        StatusBarCompat.compat(activity as BaseActivity<*>, mToolbarWarpper, mToolbar, R.mipmap.base_actionbar);
+        StatusBarCompat.compat(activity as BaseActivity<*>, mToolbarWarpper, mToolbar, R.mipmap.base_actionbar)
+
+
     }
 
     override fun getLayoutId() = R.layout.intelligent_type_fragment_index
