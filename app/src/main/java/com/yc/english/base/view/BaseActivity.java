@@ -10,6 +10,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.EmptyUtils;
@@ -21,6 +23,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
 import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.base.utils.StatusBarCompat;
 
 import butterknife.ButterKnife;
 
@@ -32,6 +35,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected P mPresenter;
     protected LoadingDialog mLoadingDialog;
     protected int statusBarHeight;
+
+    public int getStatusBarHeight() {
+        return statusBarHeight;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,12 +62,21 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             LogUtils.i(this.getClass().getSimpleName() + " ButterKnife->初始化失败 原因:" + e);
         }
         BarUtils.setStatusBarColor(this, Color.BLACK);
+        StatusBarCompat.transparentStatusBar(this);
         init();
     }
 
     public void setToolbarTopMargin(View view){
-        FrameLayout.LayoutParams l = (FrameLayout.LayoutParams) view.getLayoutParams();
-        l.setMargins(0, statusBarHeight, 0, 0);
+        if(view.getLayoutParams() instanceof  FrameLayout.LayoutParams) {
+            FrameLayout.LayoutParams l = (FrameLayout.LayoutParams) view.getLayoutParams();
+            l.setMargins(0, statusBarHeight, 0, 0);
+        } else if(view.getLayoutParams() instanceof  RelativeLayout.LayoutParams){
+            RelativeLayout.LayoutParams l = (RelativeLayout.LayoutParams) view.getLayoutParams();
+            l.setMargins(0, statusBarHeight, 0, 0);
+        } else if(view.getLayoutParams() instanceof  LinearLayout.LayoutParams){
+            LinearLayout.LayoutParams l = (LinearLayout.LayoutParams) view.getLayoutParams();
+            l.setMargins(0, statusBarHeight, 0, 0);
+        }
     }
 
     @Override

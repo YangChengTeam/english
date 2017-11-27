@@ -22,13 +22,19 @@ public class TaskToolBar extends BaseToolBar {
     @BindView(R.id.tv_menu)
     TextView mMenuTextView;
 
+    @BindView(R.id.status_bar)
+    View mStatusBar;
+
+    public View getStatusBar() {
+        return mStatusBar;
+    }
+
     public TaskToolBar(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     @Override
     public int getLayoutId() {
-
         return R.layout.base_task_toolbar;
     }
 

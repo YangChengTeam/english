@@ -162,6 +162,7 @@ public class HonourAbilityView extends View {
     }
 
     private void drawPolygon(Canvas canvas, FPoint[] points, Paint paint) {
+        paint.setStrokeWidth(mLineStrokeWidth);
         Path path = new Path();
         path.moveTo(points[0].x, points[0].y);
         path.lineTo(points[1].x, points[1].y);
@@ -173,7 +174,6 @@ public class HonourAbilityView extends View {
         path.close();
         canvas.drawPath(path, paint);
     }
-
 
     private FPoint[] getPoints(float percent) {
         float tempRadius = radius * percent;
@@ -190,12 +190,13 @@ public class HonourAbilityView extends View {
     private void drawLines(Canvas canvas) {
         FPoint[] maxPoints = getPoints(1);
         FPoint[] minPoints = getPoints((1f - 1f / layer * (layer - 1)));
-
+        mLinePaint.setStrokeWidth(mLineStrokeWidth / 2);
         Path path = new Path();
         for (int i = 0; i < maxPoints.length; i++) {
             path.moveTo(maxPoints[i].x, maxPoints[i].y);
             path.lineTo(minPoints[i].x, minPoints[i].y);
             path.close();
+
             canvas.drawPath(path, mLinePaint);
         }
     }

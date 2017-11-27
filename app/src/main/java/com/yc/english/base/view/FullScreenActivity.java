@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.base.utils.StatusBarCompat;
 
 import butterknife.BindView;
 
@@ -27,6 +28,14 @@ public abstract class FullScreenActivity<P extends BasePresenter> extends BaseAc
         }
 
         mToolbar.init(this);
+        if(mToolbar instanceof MainToolBar){
+            StatusBarCompat.compat(this, mToolbar, mToolbar.getToolbar(), R.mipmap.base_actionbar);
+        }
+
+        else if(mToolbar instanceof TaskToolBar){
+            StatusBarCompat.light(this);
+            StatusBarCompat.compat(this, mToolbar, mToolbar.getToolbar(), ((TaskToolBar)mToolbar).getStatusBar());
+        }
     }
 
     @Override

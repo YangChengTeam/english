@@ -1,7 +1,6 @@
 package com.yc.english.weixin.views.fragments;
 
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.shizhefei.view.indicator.FixedIndicatorView;
@@ -21,7 +19,9 @@ import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
 import com.yc.english.base.helper.ShoppingHelper;
+import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.contract.OrderContract;
 import com.yc.english.news.presenter.OrderPresenter;
@@ -120,17 +120,7 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
                 }
             }
         });
-        toolbarCompat();
-    }
-
-    private void toolbarCompat() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            mToolbarWarpper.getLayoutParams().height = SizeUtils.dp2px(48f);
-            mToolbarWarpper.setBackground(ContextCompat.getDrawable(getActivity(), R.mipmap.base_actionbar));
-        } else {
-            setToolbarTopMargin(mToolbar);
-            mToolbar.getLayoutParams().height = SizeUtils.dp2px(72f) - getStatusbarHeight();
-        }
+        StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolbar, R.mipmap.base_actionbar);
     }
 
     @Override

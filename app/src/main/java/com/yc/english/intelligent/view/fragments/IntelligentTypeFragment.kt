@@ -1,6 +1,5 @@
 package com.yc.english.intelligent.view.fragments
 
-import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import com.blankj.utilcode.util.SizeUtils
@@ -8,7 +7,9 @@ import com.jakewharton.rxbinding.view.RxView
 import com.shizhefei.view.indicator.slidebar.ColorBar
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener
 import com.yc.english.R
+import com.yc.english.base.view.BaseActivity
 import com.yc.english.base.view.BaseFragment
+import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.intelligent.presenter.IntelligentPresenter
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_type_fragment_index.*
@@ -32,6 +33,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentPresenter>() {
         mScrollIndicatorView.setAdapter(TabsUtils.MyAdapter(activity, titles, SizeUtils.dp2px(72f)))
         mScrollIndicatorView.setScrollBar(ColorBar(activity, ContextCompat.getColor(activity, R.color
                 .primary), 6))
+
         val unSelectSize = 15f
         val selectSize = 15f
         val selectColor = ContextCompat.getColor(activity, R.color.primary)
@@ -65,18 +67,9 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentPresenter>() {
 
         }
 
-        toolbarCompat()
-    }
-
-    private fun toolbarCompat() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            mToolbarWarpper.getLayoutParams().height = SizeUtils.dp2px(48f)
-            mToolbarWarpper.setBackground(ContextCompat.getDrawable(activity, R.mipmap.base_actionbar))
-        } else {
-            setToolbarTopMargin(mToolbar)
-            mToolbar.layoutParams.height = SizeUtils.dp2px(72f) - statusbarHeight
-        }
+        StatusBarCompat.compat(activity as BaseActivity<*>, mToolbarWarpper, mToolbar, R.mipmap.base_actionbar);
     }
 
     override fun getLayoutId() = R.layout.intelligent_type_fragment_index
+
 }

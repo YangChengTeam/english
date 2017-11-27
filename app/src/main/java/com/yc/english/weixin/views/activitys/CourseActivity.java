@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 
@@ -67,6 +68,9 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
         }, mCourseRecyclerView);
 
         mPresenter.getWeiXinList(type, page + "", pageSize + "");
+
+
+
     }
 
     @Override
@@ -87,7 +91,6 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
                 mPresenter.getWeiXinList(type, page + "", pageSize + "");
             }
         });
-
     }
 
     @Override

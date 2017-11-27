@@ -9,14 +9,14 @@
     <FrameLayout
         android:id="@+id/toolbarWarpper"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
         android:background="@color/white">
 
         <View
-            android:id="@+id/statu_bar"
+            android:id="@+id/status_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/black"></View>
+            android:layout_height="wrap_content"
+            android:background="@color/transparent2"></View>
 
         <LinearLayout
             android:id="@+id/toolbar"

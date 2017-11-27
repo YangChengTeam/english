@@ -21,10 +21,10 @@
             app:collapsedTitleGravity="center"
             app:contentScrim="@mipmap/base_actionbar"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
             <include
                 layout="@layout/activity_top_setting"
                 />
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"

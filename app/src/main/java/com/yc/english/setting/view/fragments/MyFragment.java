@@ -3,27 +3,17 @@ package com.yc.english.setting.view.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -34,11 +24,12 @@ import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.QQUtils;
+import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.HonourAbilityView;
 import com.yc.english.base.view.QQqunDialog;
 import com.yc.english.base.view.SharePopupWindow;
-import com.yc.english.group.view.widget.MultifunctionLinearLayout;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
@@ -58,8 +49,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
 
 /**
@@ -120,6 +109,9 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @BindView(R.id.credit_view)
     HonourAbilityView abilityView;
+
+    @BindView(R.id.toolbarWarpper)
+    FrameLayout mToolbarWarpper;
 
     @Override
     public void init() {
@@ -251,15 +243,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             }
         });
 
-        toolbarCompat();
-    }
-
-
-    private void toolbarCompat() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            setToolbarTopMargin(toolbar);
-            toolbar.getLayoutParams().height = SizeUtils.dp2px(72f) - getStatusbarHeight();
-        }
+        StatusBarCompat.compat((BaseActivity)getActivity(), mToolbarWarpper,  toolbar, R.mipmap.setting_head_bg2);
     }
 
 

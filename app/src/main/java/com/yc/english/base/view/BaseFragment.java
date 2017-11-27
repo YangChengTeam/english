@@ -6,12 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.RxBus;
-import com.shizhefei.fragment.LazyFragment;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.base.presenter.BasePresenter;
 
