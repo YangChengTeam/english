@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_layout_revise.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_layout_revise.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_dialog_progress.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_dialog_progress.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_dialog_brightness.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_dialog_brightness.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_dialog_volume.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_dialog_volume.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_layout_clarity_item.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_layout_clarity_item.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_layout_standard.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_layout_standard.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_layout_clarity.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_layout_clarity.xml"
+    }
+]
