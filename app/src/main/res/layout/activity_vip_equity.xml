@@ -37,18 +37,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/group_distance_15"
-                android:background="#f5f5f5"/>
+                android:background="#f5f5f5" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/group_distance_15"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/group_distance_15"
@@ -162,14 +160,16 @@
                         app:vip_content="智能测评"
                         app:vip_icon="@mipmap/vip_equity_ceping" />
                 </LinearLayout>
-
-
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_15"
+                android:background="#f5f5f5" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/group_distance_15"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/group_distance_15"

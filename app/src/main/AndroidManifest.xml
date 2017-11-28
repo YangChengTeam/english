@@ -24,9 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".main.view.activitys.MainActivity"
-             />
+        <activity android:name=".main.view.activitys.MainActivity" />
 
         <activity
             android:name=".main.view.activitys.SplashActivity"
@@ -38,8 +36,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".main.view.activitys.LoginActivity"
-            >
+        <activity android:name=".main.view.activitys.LoginActivity">
 
         </activity>
         <activity android:name=".base.view.WebActivity" />
@@ -273,7 +270,7 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
         <activity android:name=".speak.view.activity.SpeakMainActivity" />
-        <activity android:name=".setting.view.activitys.VipEquitiesActivityNew"/>
+        <activity android:name=".setting.view.activitys.VipEquitiesActivityNew" />
     </application>
 
 </manifest>
