@@ -49,4 +49,13 @@
         <item name="android:progressDrawable">@drawable/seekbar_progress_bg</item>
         <item name="android:thumb">@drawable/seekbar_themb_bg</item>
     </style>
+
+    <style name="tabLayout_style">
+        <item name="android:textSize">@dimen/group_text_18</item>
+    </style>
+
+    <style name="vip_style">
+        <item name="android:windowEnterAnimation">@anim/vip_in_ainm</item>
+        <item name="android:windowExitAnimation">@anim/vip_out_ainm</item>
+    </style>
 </resources>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:eng="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <include layout="@layout/activity_vip_equity_bg" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:layout_collapseMode="pin" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_15"
+                android:background="#f5f5f5"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/group_distance_15"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/group_distance_15"
+                android:paddingTop="@dimen/group_distance_15">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableLeft="@mipmap/vip_equity_left"
+                        android:drawableRight="@mipmap/vip_equity_right"
+                        android:text="普通会员专属特权"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/group_text_18" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_distance_10">
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <com.yc.english.base.view.BasePayItemView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            eng:vip_content="微课免费看"
+                            eng:vip_icon="@mipmap/vip_equity_weike" />
+
+                        <com.yc.english.base.view.BasePayItemView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            eng:vip_content="同步微课"
+                            eng:vip_icon="@mipmap/vip_equity_weike" />
+
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <com.yc.english.base.view.BasePayItemView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            app:vip_content="名师辅导课"
+                            app:vip_icon="@mipmap/vip_equity_teach" />
+
+                        <com.yc.english.base.view.BasePayItemView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            app:vip_content="VIP专属教学"
+                            app:vip_icon="@mipmap/vip_exclusive_teach" />
+                    </FrameLayout>
+
+
+                    <com.yc.english.base.view.BasePayItemView
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:vip_content="视频加速"
+                        app:vip_icon="@mipmap/vip_equity_tv" />
+
+                    <com.yc.english.base.view.BasePayItemView
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:vip_content="教材点读"
+                        app:vip_icon="@mipmap/vip_equity_diandu" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_distance_10"
+                    android:weightSum="4">
+
+                    <com.yc.english.base.view.BasePayItemView
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:vip_content="无限建工会"
+                        app:vip_icon="@mipmap/vip_equity_union" />
+
+                    <com.yc.english.base.view.BasePayItemView
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:vip_content="智能测评"
+                        app:vip_icon="@mipmap/vip_equity_ceping" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/group_distance_15"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/group_distance_15"
+                android:paddingTop="@dimen/group_distance_15">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableLeft="@mipmap/vip_equity_left"
+                        android:drawableRight="@mipmap/vip_equity_right"
+                        android:text="会员使用说明"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/group_text_18" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/group_distance_20"
+                    android:layout_marginRight="@dimen/group_distance_20"
+                    android:layout_marginTop="@dimen/group_distance_10"
+                    android:lineSpacingExtra="@dimen/group_distance_5"
+                    android:text="1、会员即开即用，有些机型购买会员后，需退出软件重新启动方能使用会员功能。\n
+2、会员使用起始日以购买日为准。\n
+3、会员一经购买不能退费。"
+                    android:textSize="@dimen/group_text_14" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

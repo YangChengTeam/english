@@ -59,6 +59,7 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
         speakEnglishItemAdapter = new SpeakEnglishItemAdapter(null, true);
 
         recyclerView.setAdapter(speakEnglishItemAdapter);
+        recyclerView.setHasFixedSize(true);
 
         initListener();
 
@@ -93,10 +94,11 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
         speakEnglishItemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-
                 getData(true, false);
             }
         }, recyclerView);
+
+//        swipeRefreshLayout.setEnabled(false);
         swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.primary));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -147,15 +149,15 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
 
     @Override
     public void shoReadAndSpeakMorList(List<SpeakAndReadInfo> list, int page, boolean isFitst) {
-        if (page == 1) {
-            speakEnglishItemAdapter.setNewData(list.get(0).getData());
+        if (list != null && list.size() > 0) {
+            if (page == 1) {
+                speakEnglishItemAdapter.setNewData(list.get(0).getData());
 
-        } else {
-            speakEnglishItemAdapter.addData(list.get(0).getData());
-        }
-        if (list.size() == page_size) {
+            } else {
+                speakEnglishItemAdapter.addData(list.get(0).getData());
+            }
             speakEnglishItemAdapter.loadMoreComplete();
-        } else {
+        }else {
             speakEnglishItemAdapter.loadMoreEnd();
         }
 
@@ -168,7 +170,8 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
         if (isLoadMore) {
             page++;
         }
-        mPresenter.getReadAndSpeakList(speakAndReadInfo.getData().get(0).getType_id(), "", page, isFirst);
+        String type_id = speakAndReadInfo.getData().get(0).getType_id();
+        mPresenter.getReadAndSpeakList(type_id, "", page, isFirst);
     }
 
     @Override

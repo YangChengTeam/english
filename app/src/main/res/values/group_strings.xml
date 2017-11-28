@@ -96,6 +96,8 @@
     <string name="price">¥%1$s</string>
     <string name="confirm_pay">确认支付%1$.2f元</string>
     <string name="vip_equities">VIP会员</string>
+    <string name="promptly_open">立即开通</string>
+    <string name="vip_right_introduce">VIP会员及普通会员服务协议规则</string>
 
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>
@@ -124,6 +126,10 @@
         <item>@string/setting_share</item>
         <item>@string/setting_setting</item>
 
+    </string-array>
+    <string-array name="vip">
+        <item>提分辅导</item>
+        <item>会员</item>
     </string-array>
 
 

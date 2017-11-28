@@ -56,13 +56,13 @@ public class GroupPicTaskDetailAdapter extends PagerAdapter {
 
         View view = View.inflate(container.getContext(), R.layout.group_task_picture_item, null);
 
-        ZoomImageView imageView = (ZoomImageView) view.findViewById(R.id.iv_picture_detail);
+        ZoomImageView imageView = view.findViewById(R.id.iv_picture_detail);
 //        RelativeLayout mContainer = (RelativeLayout) view.findViewById(R.id.container);
 //        applyRotation(0, 90, mContainer);
         container.addView(view);
         String path = mList.get(position);
         Glide.with(mActivity).setDefaultRequestOptions(RequestOptions.errorOf(R.mipmap.default_avatar)
-                .placeholder(R.mipmap.pic_loading)).asBitmap().load(path).into(imageView);
+                .placeholder(R.mipmap.pic_loading)).load(path).into(imageView);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

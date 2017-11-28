@@ -161,7 +161,6 @@
         <activity
             android:name=".news.view.activity.NewsWeiKeDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity android:name=".speak.view.activity.SpeakMainActivity" />
         <activity android:name=".speak.view.activity.SpeakMoreActivity" />
         <activity
             android:name=".speak.view.activity.SpeakEnglishActivity"
@@ -273,7 +272,8 @@
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
-
+        <activity android:name=".speak.view.activity.SpeakMainActivity" />
+        <activity android:name=".setting.view.activitys.VipEquitiesActivityNew"/>
     </application>
 
 </manifest>

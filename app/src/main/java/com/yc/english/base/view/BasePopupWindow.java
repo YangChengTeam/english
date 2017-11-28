@@ -3,6 +3,7 @@ package com.yc.english.base.view;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import butterknife.ButterKnife;
 public abstract class BasePopupWindow extends PopupWindow implements IView {
     protected Activity mContext;
     private ColorDrawable mBackgroundDrawable;
+
 
     public BasePopupWindow(Activity context){
         mContext = context;

@@ -38,8 +38,9 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+import cn.jzvd.JZVideoPlayer;
+import cn.jzvd.JZVideoPlayerStandard;
+
 import rx.functions.Action1;
 
 /**
@@ -54,7 +55,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     StateView stateView;
 
     @BindView(R.id.mJCVideoPlayer)
-    JCVideoPlayerStandard mJCVideoPlayer;
+    JZVideoPlayerStandard mJCVideoPlayer;
 
     @BindView(R.id.webView)
     WebView webView;
@@ -86,9 +87,9 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @BindView(R.id.nestedScrollView)
     ScrollView scrollView;
 
+
     private String title;
 
-    private int screenHeight;
 
     private String id;
 
@@ -118,10 +119,10 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             id = getIntent().getStringExtra("id");
         }
 
-        screenHeight = ScreenUtils.getScreenHeight();
+
         initListener();
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mSensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
+        mSensorEventListener = new JZVideoPlayer.JZAutoFullscreenListener();
 
         RxView.clicks(mAddToCartLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -255,10 +256,13 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
      */
     private void playVideo(String url, String imgUrl) {
         mJCVideoPlayer.setVisibility(View.VISIBLE);
-        mJCVideoPlayer.setUp(url, JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL);
+        mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
-        mJCVideoPlayer.battery_level.setVisibility(View.GONE);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
+        mJCVideoPlayer.tinyBackImageView.setVisibility(View.GONE);
+        mJCVideoPlayer.batteryLevel.setVisibility(View.GONE);
+        mJCVideoPlayer.backButton.setVisibility(View.GONE);
+
 
         if (currentCourseInfo != null) {
 
@@ -329,6 +333,8 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     @Override
     public void onClick(View v) {
+
+
         if (UserInfoHelper.getUserInfo() != null) {
             if (isPlay) {
                 mJCVideoPlayer.startVideo();
@@ -357,6 +363,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         }
     }
 
+
     private class JavascriptInterface {
 
         @android.webkit.JavascriptInterface
@@ -374,7 +381,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     }
 
-    private JCVideoPlayer.JCAutoFullscreenListener mSensorEventListener;
+    private JZVideoPlayer.JZAutoFullscreenListener mSensorEventListener;
 
     private SensorManager mSensorManager;
 
@@ -393,9 +400,9 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @Override
     protected void onPause() {
         super.onPause();
-        JCVideoPlayer.releaseAllVideos();
+        JZVideoPlayer.releaseAllVideos();
         mSensorManager.unregisterListener(mSensorEventListener);
-        JCVideoPlayer.clearSavedProgress(this, null);
+        JZVideoPlayer.clearSavedProgress(this, null);
     }
 
     @Override
@@ -412,9 +419,11 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     @Override
     public void onBackPressed() {
-        if (JCVideoPlayer.backPress()) {
+        if (JZVideoPlayer.backPress()) {
             return;
         }
         super.onBackPressed();
     }
+
+
 }

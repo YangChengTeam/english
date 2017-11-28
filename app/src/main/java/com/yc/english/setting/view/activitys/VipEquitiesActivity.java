@@ -52,6 +52,7 @@ public class VipEquitiesActivity extends FullScreenActivity {
         VIPEquitiesAdapter vipEquitiesAdapter2 = new VIPEquitiesAdapter(translateData(String.valueOf(Math.abs(surplusDays))));
         recyclerViewSurplusDays.setAdapter(vipEquitiesAdapter2);
 
+
     }
 
     @Override

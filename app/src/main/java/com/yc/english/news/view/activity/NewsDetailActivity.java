@@ -41,8 +41,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import butterknife.BindView;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+import cn.jzvd.JZVideoPlayer;
+import cn.jzvd.JZVideoPlayerStandard;
 
 /**
  * Created by wanglin  on 2017/9/6 08:32.
@@ -51,7 +51,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> implements NewsDetailContract.View, View.OnClickListener {
     private static final String TAG = "NewsDetailActivity";
     @BindView(R.id.mJCVideoPlayer)
-    JCVideoPlayerStandard mJCVideoPlayer;
+    JZVideoPlayerStandard mJCVideoPlayer;
     @BindView(R.id.webView)
     WebView webView;
     @BindView(R.id.mLinearLayoutMore)
@@ -76,6 +76,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     @BindView(R.id.mTextViewFrom)
     TextView mTextViewFrom;
 
+
     private NewsDetailAdapter newsDetailAdapter;
     private String title;
     private int screenHeight;
@@ -92,7 +93,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitleColor(R.color.black_333333);
 
-//        mToolbar.setTitleSize(20);
         startTime = System.currentTimeMillis();
 
         if (getIntent() != null) {
@@ -110,7 +110,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         initRecycleView();
         initListener();
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mSensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
+        mSensorEventListener = new JZVideoPlayer.JZAutoFullscreenListener();
+
     }
 
 
@@ -268,9 +269,11 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     private void playVideo(String url, String imgUrl) {
         mJCVideoPlayer.setVisibility(View.VISIBLE);
         mMediaPlayerView.setVisibility(View.GONE);
-        mJCVideoPlayer.setUp(url, JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL);
+        mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
-        mJCVideoPlayer.battery_level.setVisibility(View.GONE);
+        mJCVideoPlayer.backButton.setVisibility(View.GONE);
+        mJCVideoPlayer.tinyBackImageView.setVisibility(View.GONE);
+        mJCVideoPlayer.batteryLevel.setVisibility(View.GONE);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
 
         if (currentCourseInfo != null) {
@@ -345,6 +348,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         if (UserInfoHelper.getUserInfo() != null) {
             if (isPlay) {
                 mJCVideoPlayer.startVideo();
+//                mJCVideoPlayer.startPlayLogic();
             } else {
                 final AlertDialog alertDialog = new AlertDialog(NewsDetailActivity.this);
                 alertDialog.setDesc("未购买此课程，是否马上购买？");
@@ -387,7 +391,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     }
 
-    private JCVideoPlayer.JCAutoFullscreenListener mSensorEventListener;
+    private JZVideoPlayer.JZAutoFullscreenListener mSensorEventListener;
 
     private SensorManager mSensorManager;
 
@@ -403,9 +407,9 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     @Override
     protected void onPause() {
         super.onPause();
-        JCVideoPlayer.releaseAllVideos();
+        JZVideoPlayer.releaseAllVideos();
         mSensorManager.unregisterListener(mSensorEventListener);
-        JCVideoPlayer.clearSavedProgress(this, null);
+        JZVideoPlayer.clearSavedProgress(this, null);
     }
 
     @Override
@@ -418,11 +422,12 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             llRootView.removeView(webView);
             webView.destroy();
         }
+//
     }
 
     @Override
     public void onBackPressed() {
-        if (JCVideoPlayer.backPress()) {
+        if (JZVideoPlayer.backPress()) {
             return;
         }
         super.onBackPressed();

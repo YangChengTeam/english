@@ -86,7 +86,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private IndexFragment mIndexFragment;
     private CourseTypeFragment mClassMainFragment;
+
     private IntelligentFragment mIntelligentFragment;
+
     private MyFragment mMyFragment;
 
     class FragmentAdapter extends FragmentStatePagerAdapter {
