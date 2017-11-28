@@ -1,34 +1,23 @@
 package com.yc.english.main.view.activitys;
 
 import android.graphics.Color;
-import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.UIUitls;
 import com.yc.english.R;
-import com.yc.english.base.helper.RxUtils;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.main.contract.ForgotContract;
 import com.yc.english.main.presenter.ForgotPresenter;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import io.rong.imkit.manager.AudioPlayManager;
-import io.rong.imkit.manager.IAudioPlayListener;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 /**
@@ -51,6 +40,9 @@ public class ForgotActivity extends FullScreenActivity<ForgotPresenter> implemen
 
     @BindView(R.id.tv_checkcode)
     TextView mCheckCodeTextView;
+
+    @BindView(R.id.imageView)
+    ImageView bgImageView;
 
     private int mSecondes;
 
@@ -79,6 +71,9 @@ public class ForgotActivity extends FullScreenActivity<ForgotPresenter> implemen
                 mPresenter.sendCode(phone.toString());
             }
         });
+
+        StatusBarCompat.transparentStatusBar(this);
+        StatusBarCompat.compat(this, bgImageView, mToolbar, R.mipmap.main_login_top_bg);
     }
 
     @Override

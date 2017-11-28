@@ -1,5 +1,6 @@
 package com.yc.english.main.view.activitys;
 
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -11,7 +12,9 @@ import android.view.View;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.intelligent.view.fragments.IntelligentFragment;
+import com.yc.english.intelligent.view.fragments.IntelligentTypeFragment;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
 import com.yc.english.main.view.fragments.IndexFragment;
@@ -41,8 +44,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void init() {
-        mPresenter = new MainPresenter(this, this);
+        StatusBarCompat.light(this);
 
+        mPresenter = new MainPresenter(this, this);
         mTabBar.setOnTabSelectedListener(new TabBar.OnTabSelectedListener() {
             @Override
             public void onSelected(int idx) {
@@ -59,6 +63,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (mCurrentIndex == position) {
                     return;
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (position == 0) {
+                        StatusBarCompat.light(MainActivity.this);
+                    } else {
+                        StatusBarCompat.black(MainActivity.this);
+                    }
                 }
                 mCurrentIndex = position;
             }
@@ -87,7 +98,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private IndexFragment mIndexFragment;
     private CourseTypeFragment mClassMainFragment;
 
-    private IntelligentFragment mIntelligentFragment;
+
+    private IntelligentTypeFragment mIntelligentFragment;
 
     private MyFragment mMyFragment;
 
@@ -110,7 +122,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mClassMainFragment;
             } else if (position == 2) {
                 if (mIntelligentFragment == null) {
-                    mIntelligentFragment = new IntelligentFragment();
+                    mIntelligentFragment = new IntelligentTypeFragment();
                 }
                 return mIntelligentFragment;
             } else if (position == 3) {

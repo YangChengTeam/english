@@ -102,7 +102,7 @@ public class TabBar extends BaseView {
             case 1:
                 return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_task_selected);
             case 2:
-                return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_index_selected);
+                return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_intelligent_selected);
             case 3:
                 return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_my_selected);
         }

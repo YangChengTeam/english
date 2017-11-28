@@ -10,21 +10,33 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:collapsedTitleGravity="center">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:expandedTitleGravity="center"
+            app:collapsedTitleGravity="center"
             app:contentScrim="@mipmap/base_actionbar"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+
             <include layout="@layout/activity_top_setting" />
+
+
+            <include
+                layout="@layout/activity_top_setting"
+                />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                app:titleTextAppearance="@style/ToolBar"
+                app:contentInsetStart="0dp"
+                app:contentInsetLeft="0dp"
                 app:layout_collapseMode="pin"></android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>

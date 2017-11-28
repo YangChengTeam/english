@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ScreenUtils;
@@ -15,6 +16,9 @@ import com.zhihu.matisse.internal.utils.UIUtils;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
+import javax.annotation.Nullable;
+
+import butterknife.BindInt;
 import butterknife.BindView;
 
 /**
@@ -22,23 +26,35 @@ import butterknife.BindView;
  */
 
 public abstract class BaseToolBar extends BaseView {
-    private AppCompatActivity mActivity;
+    private BaseActivity mActivity;
     protected boolean isShowNavigationIcon;
+
 
     @BindView(R.id.toolbar_sub)
     Toolbar mToolbar;
+
+    @Nullable
+    @BindView(R.id.toolbarWarpper)
+    FrameLayout mtoolbarWarpper;
+
+    public FrameLayout getToolbarWarpper() {
+        return mtoolbarWarpper;
+    }
+
+    public Toolbar getToolbar() {
+        return mToolbar;
+    }
 
     @BindView(R.id.tv_tb_title)
     protected TextView mTitleTextView;
     private Context mContext;
 
     public BaseToolBar(Context context, AttributeSet attrs) {
-
         super(context, attrs);
         this.mContext = context;
     }
 
-    public void init(AppCompatActivity activity) {
+    public void init(BaseActivity activity) {
         mToolbar.setTitle("");
         mActivity = activity;
         activity.setSupportActionBar(mToolbar);

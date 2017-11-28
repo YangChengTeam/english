@@ -14,6 +14,7 @@
     <color name="black">#000000</color>
     <color name="black_333">#333333</color>
     <color name="transparent">#00000000</color>
+    <color name="transparent2">#4e000000</color>
     <drawable name="translucent">#14000000</drawable>
 
     <color name="black_333333">#333333</color>

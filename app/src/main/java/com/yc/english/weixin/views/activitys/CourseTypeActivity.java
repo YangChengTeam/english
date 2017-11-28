@@ -13,6 +13,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.main.model.domain.Constant;
@@ -75,6 +76,7 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
                 refresh("mRefreshSwipeRefreshLayout");
             }
         });
+
     }
 
 

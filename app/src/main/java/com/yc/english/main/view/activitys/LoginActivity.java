@@ -3,6 +3,7 @@ package com.yc.english.main.view.activitys;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -11,6 +12,7 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.main.contract.LoginContract;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.presenter.LoginPresenter;
@@ -41,6 +43,9 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
     @BindView(R.id.tv_register)
     TextView mRegisterTextView;
 
+    @BindView(R.id.imageView)
+    ImageView bgImageView;
+
     @Override
     public void init() {
         mToolbar.setTitle("登录");
@@ -70,6 +75,9 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
+
+        StatusBarCompat.transparentStatusBar(this);
+        StatusBarCompat.compat(this, bgImageView, mToolbar, R.mipmap.main_login_top_bg);
     }
 
     

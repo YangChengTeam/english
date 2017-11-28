@@ -86,4 +86,16 @@
     <string name="setting_follow_desc2">打开微信，搜索公众号在关注</string>
 
     <string name="base_refresh_net">重试</string>
+
+    <string name="intelligents_type1">词汇</string>
+    <string name="intelligents_type2">口语</string>
+    <string name="intelligents_type3">语法</string>
+    <string name="intelligents_type4">听力</string>
+    <string name="intelligents_type5">阅读</string>
+    <string name="intelligents_type6">写作</string>
+
+    <string name="intelligents_start">开始</string>
+    <string name="intelligents_end">完成</string>
+
+    <string name="intelligents_view">查看测评报告</string>
 </resources>

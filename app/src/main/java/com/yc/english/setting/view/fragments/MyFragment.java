@@ -9,7 +9,11 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+
 import android.view.Gravity;
+
+import android.widget.FrameLayout;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,14 +24,20 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.QQUtils;
+import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.BasePayDialogFragment;
 import com.yc.english.base.view.HonourAbilityView;
 import com.yc.english.base.view.QQqunDialog;
+
+import com.yc.english.base.view.SharePopupWindow;
+import com.yc.english.base.utils.StatusBarCompat;
+
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
@@ -108,6 +118,9 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @BindView(R.id.credit_view)
     HonourAbilityView abilityView;
 
+    @BindView(R.id.toolbarWarpper)
+    FrameLayout mToolbarWarpper;
+
     @Override
     public void init() {
         mPresenter = new MyPresenter(getActivity(), this);
@@ -115,18 +128,15 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         qqunDialog = new QQqunDialog(getActivity());
         qqunDialog.setQqunClick(this);
 
-        mCollapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);//设置收缩后标题的位置
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
-
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset <= -appBarLayout.getHeight() + SizeUtils.dp2px(60)) {
-                    mCollapsingToolbarLayout.setTitle("用户中心");
+                if (verticalOffset <= -appBarLayout.getHeight() + SizeUtils.dp2px(80)) {
+                    mCollapsingToolbarLayout.setTitle(getString(R.string.main_tab_my)+"  ");
                 } else {
                     mCollapsingToolbarLayout.setTitle("");
                 }
-
             }
         });
 
@@ -242,8 +252,9 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             }
         });
 
-
+        StatusBarCompat.compat((BaseActivity)getActivity(), mToolbarWarpper,  toolbar, R.mipmap.setting_head_bg2);
     }
+
 
     @Override
     public void onResume() {

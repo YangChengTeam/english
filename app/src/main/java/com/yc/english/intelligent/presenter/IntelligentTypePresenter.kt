@@ -8,7 +8,7 @@ import com.yc.english.base.view.IView
 /**
  * Created by zhangkai on 2017/11/24.
  */
-open class IntelligentPresenter(context: Context, v: IView?) : BasePresenter<BaseEngin, IView>(context, v) {
+open class IntelligentTypePresenter(context: Context, v: IView?) : BasePresenter<BaseEngin, IView>(context, v) {
     override fun loadData(forceUpdate: Boolean, showLoadingUI: Boolean) {
 
     }

@@ -28,7 +28,7 @@ public abstract class ToolbarFragment<P extends BasePresenter> extends BaseFragm
         }
 
         if (isInstallToolbar()) {
-            mToolbar.init((AppCompatActivity) getActivity());
+            mToolbar.init((BaseActivity) getActivity());
             getActivity().invalidateOptionsMenu();
         }
     }

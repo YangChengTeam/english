@@ -4,17 +4,16 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.base.view.LoadingDialog;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.main.contract.RegisterContract;
 import com.yc.english.main.presenter.RegisterPresenter;
-
-import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,6 +40,9 @@ public class RegisterActivity extends FullScreenActivity<RegisterPresenter> impl
 
     @BindView(R.id.tv_checkcode)
     TextView mCheckCodeTextView;
+
+    @BindView(R.id.imageView)
+    ImageView bgImageView;
 
 
     private int mSecondes;
@@ -69,6 +71,8 @@ public class RegisterActivity extends FullScreenActivity<RegisterPresenter> impl
                 mPresenter.sendCode(phone.toString());
             }
         });
+
+        StatusBarCompat.compat(this, bgImageView, mToolbar, R.mipmap.main_login_top_bg);
     }
 
     @Override

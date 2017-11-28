@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -17,7 +19,9 @@ import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
 import com.yc.english.base.helper.ShoppingHelper;
+import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.contract.OrderContract;
 import com.yc.english.news.presenter.OrderPresenter;
@@ -53,6 +57,12 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
     @BindView(R.id.tv_cart_num)
     TextView mCartNumTextView;
 
+    @BindView(R.id.toolbar)
+    RelativeLayout mToolbar;
+
+    @BindView(R.id.toolbarWarpper)
+    FrameLayout mToolbarWarpper;
+
     private final String[] titles = new String[]{"音频微课", "视频微课"};
 
     @Override
@@ -76,7 +86,7 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
         });
         mFixedIndicatorView.setCurrentItem(0, true);
 
-        TabsUtils.MyFragmentAdapter mFragmentAdapter = new TabsUtils.MyFragmentAdapter(getChildFragmentManager(),
+        TabsUtils.MainFragmentAdapter mFragmentAdapter = new TabsUtils.MainFragmentAdapter(getChildFragmentManager(),
                 new String[]{"7", "8"});
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setCurrentItem(0);
@@ -98,6 +108,7 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
             }
         });
 
+
         RxView.clicks(mShoppingImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -107,9 +118,9 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
                 } else {
                     UserInfoHelper.isGotoLogin(getActivity());
                 }
-
             }
         });
+        StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolbar, R.mipmap.base_actionbar);
     }
 
     @Override

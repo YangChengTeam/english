@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
-            android:src="@mipmap/main_login_top_bg"
+            android:src="@mipmap/main_login_bg2"
             />
 
         <LinearLayout
@@ -131,6 +131,7 @@
                 android:textSize="@dimen/font_normal"/>
         </LinearLayout>
     </LinearLayout>
+
 
     <com.yc.english.base.view.TransparentToolBar
         android:id="@id/toolbar"

@@ -2,14 +2,13 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.media.Image;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -26,11 +24,12 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
-import com.yc.english.base.view.HonourAbilityView;
 import com.yc.english.base.view.SelectGradePopupWindow;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.view.activitys.GroupCommonClassActivity;
 import com.yc.english.group.view.activitys.GroupMainActivity;
@@ -124,6 +123,15 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @BindView(R.id.tv_more)
     TextView mMoreTextView;
+
+    @BindView(R.id.status_bar)
+    View mStatusBar;
+
+    @BindView(R.id.toolbar)
+    LinearLayout mToolBar;
+
+    @BindView(R.id.toolbarWarpper)
+    FrameLayout mToolbarWarpper;
 
     private IndexRecommendAdapter mRecommendAdapter;
 
@@ -310,13 +318,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             selectGradePopupWindow.show(mContextScrollView, Gravity.CENTER);
         }
 
-//        mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
-//        mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                mPresenter.getIndexInfo();
-//            }
-//        });
+        StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolBar, mStatusBar);
     }
 
     @Override

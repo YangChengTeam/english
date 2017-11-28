@@ -44,8 +44,7 @@ public class BasePayDialogFragment extends DialogFragment
     ViewPager mViewPager;
     @BindView(R.id.btn_pay)
     Button btnPay;
-    @BindView(R.id.ll_container)
-    LinearLayout llContainer;
+
 
 
     @Nullable

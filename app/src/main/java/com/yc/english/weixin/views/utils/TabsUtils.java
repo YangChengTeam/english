@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.shizhefei.view.indicator.Indicator;
 import com.yc.english.R;
+import com.yc.english.intelligent.view.fragments.IntelligentFragment;
 import com.yc.english.weixin.views.fragments.CourseFragment;
 import com.yc.english.weixin.views.fragments.CourseMoreFragment;
 
@@ -24,9 +25,15 @@ public class TabsUtils {
     public static class MyAdapter extends Indicator.IndicatorAdapter {
         private Activity mContext;
         private String[] mTitles;
+        private int mWidth ;
 
         public MyAdapter(Activity context, String[] titles) {
+           this(context, titles, 0);
+        }
+
+        public MyAdapter(Activity context, String[] titles, int width) {
             super();
+            this.mWidth = width;
             this.mContext = context;
             this.mTitles = titles;
         }
@@ -43,14 +50,17 @@ public class TabsUtils {
             }
             TextView textView = (TextView) convertView;
             textView.setText(mTitles[position]);
+            if(mWidth != 0){
+                textView.setWidth(mWidth);
+            }
             return convertView;
         }
     }
 
-    public static class MyFragmentAdapter extends FragmentStatePagerAdapter {
+    public static class MainFragmentAdapter extends FragmentStatePagerAdapter {
         private List<CourseFragment> courseFragments;
         private int count;
-        public MyFragmentAdapter(FragmentManager fm, String[] types) {
+        public MainFragmentAdapter(FragmentManager fm, String[] types) {
             super(fm);
             courseFragments = new ArrayList<>();
             for(int i=0; i < types.length; i++){
@@ -64,6 +74,31 @@ public class TabsUtils {
         @Override
         public Fragment getItem(int position) {
             return courseFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return count;
+        }
+    }
+
+    public static class IntelligentFragmentAdapter extends FragmentStatePagerAdapter {
+        private List<IntelligentFragment> intelligentFragments;
+        private int count;
+        public IntelligentFragmentAdapter(FragmentManager fm, String[] types) {
+            super(fm);
+            intelligentFragments = new ArrayList<>();
+            for(int i=0; i < types.length; i++){
+                IntelligentFragment intelligentFragment = new IntelligentFragment();
+                intelligentFragment.setType(types[i]);
+                intelligentFragments.add(intelligentFragment);
+            }
+            count = types.length;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return intelligentFragments.get(position);
         }
 
         @Override

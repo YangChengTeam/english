@@ -26,7 +26,7 @@
 
         <activity
             android:name=".main.view.activitys.MainActivity"
-            android:theme="@style/AppTheme" />
+             />
 
         <activity
             android:name=".main.view.activitys.SplashActivity"
