@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/vip_score_tutorship_bg"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/group_distance_10">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/group_distance_50"
+            android:layout_marginLeft="@dimen/group_distance_40"
+            android:layout_marginRight="@dimen/group_distance_40"
+            android:layout_marginTop="@dimen/group_distance_30"
+            android:background="@drawable/tutorship_yellow_btn_bg"
+            android:text="购买提分辅导的优势有哪些?"
+            android:textColor="@color/white"
+            android:textSize="@dimen/group_text_16" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/group_distance_20"
+            android:layout_marginTop="32dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="听说读写学"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/group_text_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="基于中学英语学习特点，
+运用移动技术手段，完美
+呈现语言学习中的听、说
+、读、写各种场景，构建
+立体学习模式，学习效果
+最佳。"
+                    android:textColor="@color/gray_aaa" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/group_distance_15"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/vip_listen_speak_icon" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/group_distance_05"
+            android:layout_marginLeft="@dimen/group_distance_15"
+            android:layout_marginRight="@dimen/group_distance_15"
+            android:layout_marginTop="@dimen/group_distance_15"
+            android:background="@color/gray_ddd" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/group_distance_15">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/tutorship_testing_center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/group_distance_15"
+                android:layout_marginRight="@dimen/group_distance_10"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="考点全了解"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/group_text_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="同步微课将课程大纲中的知
+识打散讲解，重点放在必考
+点知识掌握上，可重复收看
+，从此考试无难点。"
+                    android:textColor="@color/gray_aaa" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/group_distance_05"
+            android:layout_marginLeft="@dimen/group_distance_15"
+            android:layout_marginRight="@dimen/group_distance_15"
+            android:layout_marginTop="@dimen/group_distance_15"
+            android:background="@color/gray_ddd" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/group_distance_20"
+            android:layout_marginTop="@dimen/group_distance_15">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="知识智能学"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/group_text_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="基于学习大数据分析，捕
+捉知识盲区，重点推送未
+掌握的知识点练习，减少
+无效重复学习，减轻学习
+负担。"
+                    android:textColor="@color/gray_aaa" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/group_distance_15"
+                android:layout_marginRight="@dimen/group_distance_10"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/vip_knowledge_teach" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/group_distance_05"
+            android:layout_marginLeft="@dimen/group_distance_15"
+            android:layout_marginRight="@dimen/group_distance_10"
+            android:layout_marginTop="@dimen/group_distance_15"
+            android:background="@color/gray_ddd" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/group_distance_20"
+            android:layout_marginTop="@dimen/group_distance_15">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/vip_qustion" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/group_distance_15"
+                android:layout_marginRight="@dimen/group_distance_10"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="问题不过夜"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/group_text_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="一流资源讲师团队，每天在
+线答疑解惑，学习和作业中
+遇到问题及时解决，不把问
+题留到第二天。"
+                    android:textColor="@color/gray_aaa" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

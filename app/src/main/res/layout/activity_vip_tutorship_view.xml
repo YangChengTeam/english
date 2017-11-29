@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="40dp"
+        android:layout_height="90dp"
+        android:layout_marginLeft="@dimen/group_distance_10"
+        android:background="#FB7474"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ems="1"
+            android:gravity="center"
+            android:text="内容"
+            android:textColor="@color/white"
+            android:textSize="@dimen/group_text_18" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginLeft="@dimen/group_distance_10"
+        android:layout_weight="1"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_bad_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="华而不实的口语训练，\n
+单个作业题目辅导，\n
+课外课程学习"
+            android:textColor="#555555"
+            android:textSize="@dimen/group_text_14" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginLeft="@dimen/group_distance_10"
+        android:layout_marginRight="@dimen/group_distance_10"
+        android:layout_weight="1"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_good_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="紧贴教学大纲，听、说、
+读、写四位一体学习，专
+为考试提分辅导"
+            android:textColor="#20B4F8"
+            android:textSize="@dimen/group_text_14" />
+
+    </LinearLayout>
+</LinearLayout>

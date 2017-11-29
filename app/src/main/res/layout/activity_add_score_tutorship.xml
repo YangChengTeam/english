@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:eng="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleTextAppearance="@style/collapsedTitleTextColor"
+            app:contentScrim="@mipmap/base_actionbar"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <LinearLayout
-                android:id="@+id/ll_head"
+            <ImageView
+                android:id="@+id/toolbarWarpper"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_height="match_parent"
                 android:background="@mipmap/vip_score_tutorship"
-                android:orientation="vertical"
-                app:layout_scrollFlags="scroll|enterAlways">
-
-            </LinearLayout>
-
+                app:layout_scrollFlags="scroll|enterAlways" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -37,46 +34,40 @@
                 app:layout_collapseMode="pin" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/score_tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/group_distance_60"
+            android:background="@color/white"
+            app:tabIndicatorColor="@color/primary"
+            app:tabIndicatorHeight="3dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/primary"
+            app:tabTextAppearance="@style/tabLayout_style"
+            app:tabTextColor="@color/black_333" />
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_pay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/base_actionbar"
+            android:text="点击购买"
+            android:textColor="@color/white"
+            android:textSize="@dimen/group_text_16" />
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/score_tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:tabIndicatorColor="@color/primary"
-                app:tabIndicatorHeight="3dp"
-                app:tabSelectedTextColor="@color/primary"
-                app:tabTextAppearance="@style/tabLayout_style"
-                app:tabTextColor="@color/black_333" />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/mViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/btn_pay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/base_actionbar"
-                android:text="点击购买"
-                android:textColor="@color/white"
-                android:textSize="@dimen/group_text_16" />
-
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

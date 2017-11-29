@@ -1,6 +1,6 @@
 package com.yc.english.setting.view.activitys;
 
-import android.os.Bundle;
+import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
@@ -10,10 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yc.english.R;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
+import com.yc.english.main.view.activitys.MainActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/11/8 11:19.
@@ -46,6 +47,9 @@ public class VipEquitiesActivityNew extends BaseActivity {
                 finish();
             }
         });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            StatusBarCompat.black(VipEquitiesActivityNew.this);
+        }
     }
 
     @Override

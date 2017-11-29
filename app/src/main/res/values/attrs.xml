@@ -50,4 +50,11 @@
         <attr name="vip_content_color" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="tutorship_detail_view">
+        <attr name="title" format="string" />
+        <attr name="title_bg_color" format="color" />
+        <attr name="bad_content" format="string" />
+        <attr name="good_content" format="string" />
+    </declare-styleable>
+
 </resources>

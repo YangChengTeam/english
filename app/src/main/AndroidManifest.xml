@@ -271,6 +271,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
         <activity android:name=".speak.view.activity.SpeakMainActivity" />
         <activity android:name=".setting.view.activitys.VipEquitiesActivityNew" />
+        <activity android:name=".vip.views.activity.VipScoreTutorshipActivity" />
     </application>
 
 </manifest>

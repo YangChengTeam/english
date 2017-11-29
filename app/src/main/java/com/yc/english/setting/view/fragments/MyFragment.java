@@ -52,6 +52,7 @@ import com.yc.english.setting.view.activitys.SettingActivity;
 import com.yc.english.setting.view.activitys.VipEquitiesActivityNew;
 import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
 import com.yc.english.setting.view.widgets.MenuItemView;
+import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -247,7 +248,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         RxView.clicks(mOrderMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), MyOrderActivity.class);
+//                Intent intent = new Intent(getActivity(), MyOrderActivity.class);
+                Intent intent = new Intent(getActivity(), VipScoreTutorshipActivity.class);
                 startActivity(intent);
             }
         });

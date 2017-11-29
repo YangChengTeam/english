@@ -57,6 +57,10 @@
         <item name="android:textSize">@dimen/group_text_18</item>
     </style>
 
+    <style name="collapsedTitleTextColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="vip_style">
         <item name="android:windowEnterAnimation">@anim/vip_in_ainm</item>
         <item name="android:windowExitAnimation">@anim/vip_out_ainm</item>
