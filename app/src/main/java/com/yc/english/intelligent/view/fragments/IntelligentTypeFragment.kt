@@ -1,23 +1,18 @@
 package com.yc.english.intelligent.view.fragments
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
-import android.text.TextUtils
-import com.blankj.subutil.util.ThreadPoolUtils
-import com.blankj.utilcode.util.FileIOUtils
+import android.view.Gravity
 import com.blankj.utilcode.util.SizeUtils
 import com.jakewharton.rxbinding.view.RxView
-import com.kk.utils.PathUtils
 import com.shizhefei.view.indicator.slidebar.ColorBar
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener
 import com.yc.english.R
+import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.base.view.BaseActivity
 import com.yc.english.base.view.BaseFragment
-import com.yc.english.base.utils.StatusBarCompat
-import com.yc.english.group.utils.TaskUtil
 import com.yc.english.intelligent.presenter.IntelligentTypePresenter
+import com.yc.english.intelligent.view.activitys.IntelligentVGSelectPopupWindow
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_type_fragment_index.*
 import java.util.concurrent.TimeUnit
@@ -34,9 +29,8 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>() {
         isUseInKotlin = true
     }
 
-
     override fun init() {
-        mPresenter = IntelligentTypePresenter(getActivity(), this)
+        mPresenter = IntelligentTypePresenter(activity, this)
 
         mScrollIndicatorView.setAdapter(TabsUtils.MyAdapter(activity, titles, SizeUtils.dp2px(72f)))
         mScrollIndicatorView.setScrollBar(ColorBar(activity, ContextCompat.getColor(activity, R.color
@@ -72,7 +66,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>() {
         })
 
         RxView.clicks(mIntelligentType).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe {
-
+            IntelligentVGSelectPopupWindow(activity).show(activity.window.decorView.rootView, Gravity.CENTER)
         }
 
         StatusBarCompat.compat(activity as BaseActivity<*>, mToolbarWarpper, mToolbar, R.mipmap.base_actionbar)

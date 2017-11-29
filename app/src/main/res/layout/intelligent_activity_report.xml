@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:eng="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/mToolbarWarpper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <View
+                android:id="@+id/mStatusBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent2"></View>
+
+            <LinearLayout
+                android:id="@+id/mToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/mBackBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:src="@mipmap/intelligent_back"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="单元智能测评报告"
+                        android:textColor="@color/black_333"
+                        android:textSize="@dimen/font_large"/>
+
+                    <LinearLayout
+                        android:id="@+id/ll_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/setting_honour_share"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/gray_ddd"
+                        android:visibility="visible"></View>
+
+                </RelativeLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/intelligent_report_bg"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:text="测评等级"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_larger"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:src="@mipmap/intelligents_report_star_hover"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:src="@mipmap/intelligents_report_star_hover"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:src="@mipmap/intelligents_report_star_hover"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:src="@mipmap/intelligents_report_star_hover"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:src="@mipmap/intelligents_report_star"/>
+                    </LinearLayout>
+
+                    <com.yc.english.base.view.HonourAbilityView
+                        android:id="@+id/mAbilityView"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/transparent"
+                        eng:honour_ability_center_text_size="12sp"
+                        eng:honour_ability_cover_color="#ffffff"
+                        eng:honour_ability_cover_width="2dp"
+                        eng:honour_ability_dot_color="#ffffff"
+                        eng:honour_ability_dot_radius="1.5dp"
+                        eng:honour_ability_line_color="#ffffff"
+                        eng:honour_ability_text_size="15dp"
+                        />
+                </LinearLayout>
+
+                <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    eng:desc="@string/intelligents_en_type1"
+                    eng:text="@string/intelligents_type1"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+
+                <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    eng:desc="@string/intelligents_en_type2"
+                    eng:text="@string/intelligents_type2"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+
+                <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    eng:desc="@string/intelligents_en_type3"
+                    eng:text="@string/intelligents_type3"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+
+                <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    eng:desc="@string/intelligents_en_type4"
+                    eng:text="@string/intelligents_type4"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+
+                <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    eng:desc="@string/intelligents_en_type5"
+                    eng:text="@string/intelligents_type5"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+
+                <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    eng:desc="@string/intelligents_en_type6"
+                    eng:text="@string/intelligents_type6"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1px"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@color/gray_ddd"></View>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="测评分析"
+                            android:textColor="@color/black_333"
+                            android:textSize="@dimen/font_normal"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1px"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@color/gray_ddd"></View>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/intelligents_report_bg">
+
+                        <TextView
+                            android:id="@+id/mReportTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="您的英语水平您的英语水平您的英语水平您的英语水平您的英语水平您的英语水平您的英语水平您的英语水平您的英语水平您的英语水平"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_snormal"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="45dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/gray_ddd"></View>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/intelligents_report_desc"
+                            android:textColor="@color/gray_aaa"
+                            android:textSize="@dimen/font_small"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/intelligents_report_start_btn_bg"
+        android:gravity="center"
+        android:text="开启个性学习计划"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_normal"/>
+</RelativeLayout>

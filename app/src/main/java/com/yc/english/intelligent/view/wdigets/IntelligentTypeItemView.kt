@@ -12,7 +12,7 @@ import com.yc.english.base.view.BaseView
  * Created by zhangkai on 2017/11/27.
  */
 class IntelligentTypeItemView : BaseView {
-    override fun getLayoutId() = R.layout.intelligents_type_item_view
+    override fun getLayoutId() = R.layout.intelligent_type_item_view
 
     val mTitleTextView = findViewById<TextView>(R.id.tvTitle)
     val mDoTextView = findViewById<TextView>(R.id.tvDo)
@@ -40,4 +40,5 @@ class IntelligentTypeItemView : BaseView {
             mDoTextView.setBackground(ContextCompat.getDrawable(context, (R.drawable.intelligents_type_btn_bg)))
         }
     }
+
 }

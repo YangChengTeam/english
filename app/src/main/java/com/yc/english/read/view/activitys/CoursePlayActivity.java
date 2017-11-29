@@ -19,6 +19,7 @@ import com.iflytek.cloud.SynthesizerListener;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.utils.WakeLockUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
@@ -31,6 +32,7 @@ import com.yc.english.read.view.adapter.ReadCourseItemClickAdapter;
 
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindInt;
 import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -98,6 +100,9 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private boolean isNext = false;
 
+    @BindView(R.id.toolbarWarpper)
+    FrameLayout mToolbarWarpper;
+
     @Override
     public int getLayoutId() {
         return R.layout.read_activity_course_play;
@@ -105,6 +110,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     @Override
     public void init() {
+        StatusBarCompat.compat(this, mToolbarWarpper, mToolbar );
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -115,6 +121,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             if (!StringUtils.isEmpty(lastUnitIds)) {
                 nextUnitIds = lastUnitIds.split(",");
             }
+
             if (!StringUtils.isEmpty(lastUnitTitles)) {
                 nextUnitTitles = lastUnitTitles.split("#");
             }

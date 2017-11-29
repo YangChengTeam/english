@@ -94,8 +94,16 @@
     <string name="intelligents_type5">阅读</string>
     <string name="intelligents_type6">写作</string>
 
+    <string name="intelligents_en_type1">Read</string>
+    <string name="intelligents_en_type2">Vocabulary</string>
+    <string name="intelligents_en_type3">Grammar</string>
+    <string name="intelligents_en_type4">Writing</string>
+    <string name="intelligents_en_type5">Hearing</string>
+    <string name="intelligents_en_type6">Oracy</string>
+
     <string name="intelligents_start">开始</string>
     <string name="intelligents_end">完成</string>
 
+    <string name="intelligents_report_desc">基于你的学习大数据， 人工智能系统扫描你的知识盲区，提出以下个性化学习计划方案，请认真学习。</string>
     <string name="intelligents_view">查看测评报告</string>
 </resources>

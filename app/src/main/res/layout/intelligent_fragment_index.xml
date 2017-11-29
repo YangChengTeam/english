@@ -162,6 +162,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/mReportBtn"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginLeft="10dp"
@@ -171,7 +172,8 @@
                 android:elevation="2dp"
                 android:gravity="center"
                 android:text="@string/intelligents_view"
-                android:textColor="@color/primary" />
+                android:textColor="@color/primary"
+                android:clickable="true"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

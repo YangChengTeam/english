@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.shizhefei.view.indicator.Indicator;
 import com.yc.english.R;
 import com.yc.english.intelligent.view.fragments.IntelligentFragment;
+import com.yc.english.intelligent.view.fragments.IntelligentQuestionsFragment;
 import com.yc.english.weixin.views.fragments.CourseFragment;
 import com.yc.english.weixin.views.fragments.CourseMoreFragment;
 
@@ -25,10 +26,10 @@ public class TabsUtils {
     public static class MyAdapter extends Indicator.IndicatorAdapter {
         private Activity mContext;
         private String[] mTitles;
-        private int mWidth ;
+        private int mWidth;
 
         public MyAdapter(Activity context, String[] titles) {
-           this(context, titles, 0);
+            this(context, titles, 0);
         }
 
         public MyAdapter(Activity context, String[] titles, int width) {
@@ -50,7 +51,7 @@ public class TabsUtils {
             }
             TextView textView = (TextView) convertView;
             textView.setText(mTitles[position]);
-            if(mWidth != 0){
+            if (mWidth != 0) {
                 textView.setWidth(mWidth);
             }
             return convertView;
@@ -60,10 +61,11 @@ public class TabsUtils {
     public static class MainFragmentAdapter extends FragmentStatePagerAdapter {
         private List<CourseFragment> courseFragments;
         private int count;
+
         public MainFragmentAdapter(FragmentManager fm, String[] types) {
             super(fm);
             courseFragments = new ArrayList<>();
-            for(int i=0; i < types.length; i++){
+            for (int i = 0; i < types.length; i++) {
                 CourseFragment courseFragment = new CourseFragment();
                 courseFragment.setType(types[i]);
                 courseFragments.add(courseFragment);
@@ -85,10 +87,11 @@ public class TabsUtils {
     public static class IntelligentFragmentAdapter extends FragmentStatePagerAdapter {
         private List<IntelligentFragment> intelligentFragments;
         private int count;
+
         public IntelligentFragmentAdapter(FragmentManager fm, String[] types) {
             super(fm);
             intelligentFragments = new ArrayList<>();
-            for(int i=0; i < types.length; i++){
+            for (int i = 0; i < types.length; i++) {
                 IntelligentFragment intelligentFragment = new IntelligentFragment();
                 intelligentFragment.setType(types[i]);
                 intelligentFragments.add(intelligentFragment);
@@ -107,13 +110,40 @@ public class TabsUtils {
         }
     }
 
+    public static class IntelligentQuestionsFragmentAdapter extends FragmentStatePagerAdapter {
+        private List<IntelligentQuestionsFragment> intelligentQuestionsFragments;
+        private int count;
+
+        public IntelligentQuestionsFragmentAdapter(FragmentManager fm, String[] types) {
+            super(fm);
+            intelligentQuestionsFragments = new ArrayList<>();
+            for (int i = 0; i < types.length; i++) {
+                IntelligentQuestionsFragment intelligentQuestionsFragment = new IntelligentQuestionsFragment();
+                intelligentQuestionsFragment.setType(types[i]);
+                intelligentQuestionsFragments.add(intelligentQuestionsFragment);
+            }
+            count = types.length;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return intelligentQuestionsFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return count;
+        }
+    }
+
     public static class MoreFragmentAdapter extends FragmentStatePagerAdapter {
         private List<CourseMoreFragment> courseFragments;
         private int count;
+
         public MoreFragmentAdapter(FragmentManager fm, String[] types) {
             super(fm);
             courseFragments = new ArrayList<>();
-            for(int i=0; i < types.length; i++){
+            for (int i = 0; i < types.length; i++) {
                 CourseMoreFragment courseMoreFragment = new CourseMoreFragment();
                 courseMoreFragment.setType(types[i]);
                 courseFragments.add(courseMoreFragment);

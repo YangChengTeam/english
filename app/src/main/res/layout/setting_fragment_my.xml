@@ -21,7 +21,6 @@
             app:collapsedTitleGravity="center"
             app:contentScrim="@mipmap/base_actionbar"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
             <include
                 layout="@layout/activity_top_setting"
                 />
@@ -33,7 +32,6 @@
                 app:contentInsetStart="0dp"
                 app:contentInsetLeft="0dp"
                 app:layout_collapseMode="pin"></android.support.v7.widget.Toolbar>
-
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 

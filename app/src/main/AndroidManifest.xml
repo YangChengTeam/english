@@ -274,6 +274,12 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
+        <activity android:name=".intelligent.view.activitys.IntelligentQuestionsActivity"></activity>
+        <activity android:name=".intelligent.view.activitys.IntelligentReportActivity"></activity>
+        <activity android:name=".intelligent.view.activitys.IntelligentResultActivity"></activity>
+        <activity android:name=".intelligent.view.activitys.IntelligentEvaluationActivity"></activity>
+        <activity android:name=".intelligent.view.activitys.IntelligentHandInActivity"></activity>
+        <activity android:name=".intelligent.view.activitys.IntelligentQuestionAnalysisActivtiy"></activity>
     </application>
 
 </manifest>
