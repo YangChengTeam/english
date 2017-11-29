@@ -49,12 +49,18 @@
                 android:background="@mipmap/read_course_top_bg"/>
         </LinearLayout>
 
-        <com.yc.english.base.view.TransparentToolBar
-            android:id="@+id/toolbar"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true">
-        </com.yc.english.base.view.TransparentToolBar>
+            android:id="@+id/toolbarWarpper">
+
+            <com.yc.english.base.view.TransparentToolBar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true">
+            </com.yc.english.base.view.TransparentToolBar>
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/layout_play_operation"

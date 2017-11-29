@@ -66,8 +66,18 @@
                         android:textColor="@color/black_333"
                         android:textSize="@dimen/font_snormal"/>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/gray_ddd"
+                    android:visibility="visible"></View>
             </RelativeLayout>
+
+
         </LinearLayout>
+
     </FrameLayout>
 
     <com.yc.english.base.view.StateView

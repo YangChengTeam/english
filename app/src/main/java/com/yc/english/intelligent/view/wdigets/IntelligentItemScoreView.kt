@@ -1,0 +1,69 @@
+package com.yc.english.intelligent.view.wdigets
+
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.content.Context
+import android.util.AttributeSet
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import com.yc.english.R
+import com.yc.english.base.view.BaseView
+import android.opengl.ETC1.getHeight
+import android.opengl.ETC1.getWidth
+import android.view.ViewTreeObserver
+
+
+/**
+ * Created by zhangkai on 2017/11/29.
+ */
+
+class IntelligentItemScoreView : BaseView {
+    override fun getLayoutId() = R.layout.intelligent_view_item_score
+
+    var mTitleTextView = findViewById<TextView>(R.id.tv_title)
+    var mEnTitleTextView = findViewById<TextView>(R.id.tv_en_title)
+    var mProgressView = findViewById<View>(R.id.v_progress)
+    var mScoreTextView = findViewById<TextView>(R.id.tv_score)
+
+     var mProgressWidth: Int = 912
+
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+        val a = context?.obtainStyledAttributes(attrs, R.styleable.tab_item)
+        val title = a?.getText(R.styleable.tab_item_text)
+        if (title != null) {
+            mTitleTextView.setText(title)
+        }
+        val entitle = a?.getText(R.styleable.tab_item_desc)
+        if (entitle != null) {
+            mEnTitleTextView.setText(entitle)
+        }
+
+        val viewTreeObserver = mProgressView.getViewTreeObserver()
+        if (viewTreeObserver.isAlive()) {
+            viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    mProgressView.getViewTreeObserver().removeGlobalOnLayoutListener(this)
+                    mProgressWidth = (mProgressView.getParent() as ViewGroup).width
+                }
+            })
+        }
+    }
+
+    var progress: Int = 0
+        set(value) {
+            val anim = ValueAnimator.ofFloat(mProgressWidth * value * 1.0f / 100f)
+            anim.duration = 1000
+            anim.addUpdateListener(object : ValueAnimator.AnimatorUpdateListener {
+                override fun onAnimationUpdate(animation: ValueAnimator) {
+                    mProgressView.layoutParams.width = (animation.animatedValue as Float).toInt()
+                    mProgressView.requestLayout()
+                }
+            })
+            anim.startDelay = 1000
+            anim.start()
+            mScoreTextView.text = "${value}%"
+        }
+
+
+}

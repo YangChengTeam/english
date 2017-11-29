@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"  android:color="@color/primary">
+    <item
+        android:drawable="@drawable/intelligents_report_start_btn_bg_item" />
+</ripple>

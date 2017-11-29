@@ -12,5 +12,4 @@ open class IntelligentTypePresenter(context: Context, v: IView?) : BasePresenter
     override fun loadData(forceUpdate: Boolean, showLoadingUI: Boolean) {
 
     }
-
 }

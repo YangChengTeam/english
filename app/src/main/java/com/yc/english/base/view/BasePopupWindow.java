@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.kk.utils.UIUitls;
 import com.yc.english.base.utils.NavgationBarUtils;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -27,6 +29,7 @@ import butterknife.ButterKnife;
 public abstract class BasePopupWindow extends PopupWindow implements IView {
     protected Activity mContext;
     private ColorDrawable mBackgroundDrawable;
+
 
 
     public BasePopupWindow(Activity context){
