@@ -155,6 +155,7 @@
                 </LinearLayout>
 
                 <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    android:id="@+id/mIntelligentItemScoreView1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
@@ -162,6 +163,7 @@
                     eng:text="@string/intelligents_type1"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
                 <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    android:id="@+id/mIntelligentItemScoreView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -169,6 +171,7 @@
                     eng:text="@string/intelligents_type2"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
                 <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    android:id="@+id/mIntelligentItemScoreView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -176,6 +179,7 @@
                     eng:text="@string/intelligents_type3"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
                 <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    android:id="@+id/mIntelligentItemScoreView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -183,6 +187,7 @@
                     eng:text="@string/intelligents_type4"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
                 <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    android:id="@+id/mIntelligentItemScoreView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -190,6 +195,7 @@
                     eng:text="@string/intelligents_type5"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
                 <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    android:id="@+id/mIntelligentItemScoreView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

@@ -8,8 +8,8 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.yc.english.R
 import com.yc.english.base.view.BaseView
-import com.yc.english.intelligent.view.utils.fromHtml
-import com.yc.english.intelligent.view.utils.timeShortFormat
+import com.yc.english.intelligent.utils.fromHtml
+import com.yc.english.intelligent.utils.timeShortFormat
 import rx.Observable
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers

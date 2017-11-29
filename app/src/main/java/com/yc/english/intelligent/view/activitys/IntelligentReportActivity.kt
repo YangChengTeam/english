@@ -23,6 +23,14 @@ class IntelligentReportActivity : BaseActivity<BasePresenter<BaseEngin, IView>>(
                 .MILLISECONDS).subscribe {
             finish()
         }
+
+
+        mIntelligentItemScoreView1.progress = 80
+        mIntelligentItemScoreView2.progress = 90
+        mIntelligentItemScoreView3.progress = 70
+        mIntelligentItemScoreView4.progress = 40
+        mIntelligentItemScoreView5.progress = 30
+        mIntelligentItemScoreView6.progress = 20
     }
 
     override fun getLayoutId() = R.layout.intelligent_activity_report

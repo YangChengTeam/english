@@ -1,7 +1,6 @@
-package com.yc.english.intelligent.view.utils
+package com.yc.english.intelligent.utils
 
 import android.text.Html
-import android.text.Html.FROM_HTML_MODE_LEGACY
 import android.text.Spanned
 
 
