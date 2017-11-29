@@ -17,21 +17,23 @@
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:expandedTitleGravity="center"
             app:collapsedTitleGravity="center"
             app:contentScrim="@mipmap/base_actionbar"
+            app:expandedTitleGravity="center"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
             <include
                 layout="@layout/activity_top_setting"
                 />
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                app:titleTextAppearance="@style/ToolBar"
-                app:contentInsetStart="0dp"
                 app:contentInsetLeft="0dp"
-                app:layout_collapseMode="pin"></android.support.v7.widget.Toolbar>
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin"
+                app:titleTextAppearance="@style/ToolBar"></android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -39,8 +41,7 @@
         android:id="@+id/sv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,8 +72,7 @@
                         eng:honour_ability_dot_color="#0cacf3"
                         eng:honour_ability_dot_radius="1.5dp"
                         eng:honour_ability_line_color="#b5b5b5"
-                        eng:honour_ability_text_size="15dp"
-                        />
+                        eng:honour_ability_text_size="15dp"/>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -84,8 +84,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="10dp"
-                            android:src="@mipmap/setting_honour"
-                            />
+                            android:src="@mipmap/setting_honour"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -95,8 +94,7 @@
                             android:layout_toRightOf="@+id/iv_honour"
                             android:text="综合能力"
                             android:textColor="@color/black"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp"/>
 
                         <ImageView
                             android:id="@+id/iv_share"
@@ -105,8 +103,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="10dp"
-                            android:src="@mipmap/setting_honour_share"
-                            />
+                            android:src="@mipmap/setting_honour_share"/>
 
                     </RelativeLayout>
 
@@ -115,16 +112,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp">
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="90dp"
                         android:background="@mipmap/setting_item_bg"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
 
                         <com.yc.english.setting.view.widgets.MenuItemView
                             android:id="@+id/miv_buy_vip"

@@ -2,6 +2,7 @@ package com.yc.english.intelligent.view.fragments
 
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
+
 import android.view.Gravity
 import com.blankj.utilcode.util.SizeUtils
 import com.jakewharton.rxbinding.view.RxView
@@ -33,7 +34,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>() {
         mPresenter = IntelligentTypePresenter(activity, this)
 
         mScrollIndicatorView.setAdapter(TabsUtils.MyAdapter(activity, titles, SizeUtils.dp2px(72f)))
-        mScrollIndicatorView.setScrollBar(ColorBar(activity, ContextCompat.getColor(activity, R.color
+        mScrollIndicatorView.setScrollBar(ColorBar(activity, ContextCompat.getColor(context!!, R.color
                 .primary), 6))
 
         val unSelectSize = 15f

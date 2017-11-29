@@ -24,9 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".main.view.activitys.MainActivity"
-             />
+        <activity android:name=".main.view.activitys.MainActivity" />
 
         <activity
             android:name=".main.view.activitys.SplashActivity"
@@ -38,8 +36,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".main.view.activitys.LoginActivity"
-            >
+        <activity android:name=".main.view.activitys.LoginActivity">
 
         </activity>
         <activity android:name=".base.view.WebActivity" />
@@ -161,7 +158,6 @@
         <activity
             android:name=".news.view.activity.NewsWeiKeDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity android:name=".speak.view.activity.SpeakMainActivity" />
         <activity android:name=".speak.view.activity.SpeakMoreActivity" />
         <activity
             android:name=".speak.view.activity.SpeakEnglishActivity"
@@ -275,12 +271,17 @@
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
 
+
         <activity android:name=".intelligent.view.activitys.IntelligentQuestionsActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentReportActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentResultActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentEvaluationActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentHandInActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentQuestionAnalysisActivtiy"></activity>
+
+        <activity android:name=".speak.view.activity.SpeakMainActivity" />
+        <activity android:name=".setting.view.activitys.VipEquitiesActivityNew" />
+
     </application>
 
 </manifest>

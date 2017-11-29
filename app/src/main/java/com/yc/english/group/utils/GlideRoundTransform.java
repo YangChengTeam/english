@@ -67,8 +67,8 @@ public class GlideRoundTransform extends BitmapTransformation {
         float intrinsicHeight = drawable.getIntrinsicHeight();
 
         int width = source.getWidth();
-        int height = source.getHeight();
-        height = (int) (width * (intrinsicHeight / intrinsicWidth));
+
+        int height = (int) (width * (intrinsicHeight / intrinsicWidth));
 
         if (!mIsMore && mPosition == 0) {
             height = height * 4 / 5;
@@ -76,7 +76,7 @@ public class GlideRoundTransform extends BitmapTransformation {
 
 //        LogUtils.e("roundCrop " + mPosition + "--" + height + "==" + width);
 
-        Bitmap result = pool.get(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap result = pool.get(width, height, Bitmap.Config.ARGB_4444);
 
         if (result == null) {
             result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);

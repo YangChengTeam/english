@@ -31,7 +31,7 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
 
     override fun init() {
         ThreadPoolUtils(ThreadPoolUtils.SingleThread, 5).execute {
-            val bimap = Blur.fastblur(activity, BitmapFactory.decodeResource(context.resources, R.mipmap
+            val bimap = Blur.fastblur(activity, BitmapFactory.decodeResource(context!!.resources, R.mipmap
                     .intellgent_main_bg)
                     , 25)
             UIUitls.post {

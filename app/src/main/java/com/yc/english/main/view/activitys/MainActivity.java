@@ -13,6 +13,7 @@ import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.utils.StatusBarCompat;
+import com.yc.english.intelligent.view.fragments.IntelligentFragment;
 import com.yc.english.intelligent.view.fragments.IntelligentTypeFragment;
 import com.yc.english.main.contract.MainContract;
 import com.yc.english.main.presenter.MainPresenter;
@@ -96,7 +97,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private IndexFragment mIndexFragment;
     private CourseTypeFragment mClassMainFragment;
+
+
     private IntelligentTypeFragment mIntelligentFragment;
+
     private MyFragment mMyFragment;
 
     class FragmentAdapter extends FragmentStatePagerAdapter {

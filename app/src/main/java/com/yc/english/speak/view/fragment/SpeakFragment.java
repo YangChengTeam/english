@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
@@ -72,8 +73,26 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         });
 
 
-    }
+//        final View view = recyclerView.getChildAt(0);
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//            }
+//
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//
+////                LogUtils.e("dy: " + dy + "  top: "+layoutManager.findFirstVisibleItemPosition() );
+//                //dy>0 向上
+//
+//
+//            }
+//        });
 
+    }
 
 
     @Override

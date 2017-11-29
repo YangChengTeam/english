@@ -83,6 +83,7 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
 
         initListener(item, itemAdapter);
 
+
     }
 
     private void initListener(final SpeakAndReadInfo info, SpeakEnglishItemAdapter itemAdapter) {
@@ -109,6 +110,7 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
 
             }
         });
+
 
     }
 

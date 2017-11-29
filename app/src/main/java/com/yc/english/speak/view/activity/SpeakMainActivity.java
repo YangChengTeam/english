@@ -1,20 +1,11 @@
 package com.yc.english.speak.view.activity;
 
-import android.content.Context;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.shizhefei.view.indicator.FixedIndicatorView;
-import com.shizhefei.view.indicator.Indicator;
-import com.shizhefei.view.indicator.slidebar.ColorBar;
-import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.speak.view.fragment.SpeakFragment;
@@ -26,10 +17,11 @@ import butterknife.BindView;
  */
 
 public class SpeakMainActivity extends FullScreenActivity {
-    @BindView(R.id.fiv_indicator)
-    FixedIndicatorView fivIndicator;
+
     @BindView(R.id.viewPager)
     ViewPager viewpager;
+    @BindView(R.id.m_tabLayout)
+    TabLayout mTabLayout;
 
     private String[] mTitles = new String[]{"说英语", "听英语"};
 
@@ -38,6 +30,7 @@ public class SpeakMainActivity extends FullScreenActivity {
         mToolbar.setTitle(getString(R.string.spoken_language));
         mToolbar.showNavigationIcon();
         initViewPager();
+
     }
 
     @Override
@@ -46,72 +39,11 @@ public class SpeakMainActivity extends FullScreenActivity {
     }
 
     private void initViewPager() {
-        fivIndicator.setAdapter(new PagerIndicator(this));
-        fivIndicator.setScrollBar(new ColorBar(this, ContextCompat.getColor(this, R.color
-                .primary), 6));
-
-        float unSelectSize = 15;
-        float selectSize = 15;
-        int selectColor = ContextCompat.getColor(this, R.color.primary);
-        int unSelectColor = ContextCompat.getColor(this, R.color.black_333);
-        fivIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
-        fivIndicator.setOnIndicatorItemClickListener(new Indicator.OnIndicatorItemClickListener() {
-            @Override
-            public boolean onItemClick(View clickItemView, int position) {
-                viewpager.setCurrentItem(position);
-                return false;
-            }
-        });
-        fivIndicator.setCurrentItem(0, true);
-
         MyFragmentAdapter mFragmentAdapter = new MyFragmentAdapter(getSupportFragmentManager());
         viewpager.setAdapter(mFragmentAdapter);
         viewpager.setCurrentItem(0);
         viewpager.setOffscreenPageLimit(1);
-
-        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                fivIndicator.setCurrentItem(i, true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
-    }
-
-    private class PagerIndicator extends Indicator.IndicatorAdapter {
-
-        protected LayoutInflater layoutInflater;
-
-        private PagerIndicator(Context context) {
-
-            layoutInflater = LayoutInflater.from(context);
-        }
-
-
-        @Override
-        public int getCount() {
-            return mTitles.length;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = layoutInflater.inflate(R.layout.weixin_tab, parent, false);
-            }
-            TextView tv = ((TextView) convertView);
-            tv.setText(mTitles[position]);
-            return convertView;
-        }
-
+        mTabLayout.setupWithViewPager(viewpager);
     }
 
     private SpeakFragment speakFragment;
@@ -123,6 +55,11 @@ public class SpeakMainActivity extends FullScreenActivity {
             super(fm);
         }
 
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mTitles[position];
+        }
 
         @Override
         public Fragment getItem(int position) {
@@ -140,6 +77,7 @@ public class SpeakMainActivity extends FullScreenActivity {
                 }
                 return listenFragment;
             }
+
             return null;
         }
 

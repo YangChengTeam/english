@@ -39,6 +39,7 @@ class IntelligentTypeItemView : BaseView {
             mDoTextView.setText(context.getString(R.string.intelligents_start))
             mDoTextView.setBackground(ContextCompat.getDrawable(context, (R.drawable.intelligents_type_btn_bg)))
         }
+        field = value
     }
 
 }

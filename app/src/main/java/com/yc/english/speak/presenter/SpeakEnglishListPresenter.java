@@ -63,16 +63,18 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
                     public void resultInfoNotOk(String message) {
                         if (page == 1 && isFirst) {
                             mView.showNoData();
+                        } else {
+                            mView.shoReadAndSpeakMorList(null, page, isFirst);
                         }
                     }
 
                     @Override
                     public void reulstInfoOk() {
+                        mView.hideStateView();
                         if (englishInfoWrapper.code == HttpConfig.STATUS_OK && englishInfoWrapper.data != null) {
-                            mView.hideStateView();
                             mView.shoReadAndSpeakMorList(englishInfoWrapper.data.getList(), page, isFirst);
                         } else {
-                            mView.showNoData();
+                            mView.shoReadAndSpeakMorList(null, page, isFirst);
                         }
                     }
                 });

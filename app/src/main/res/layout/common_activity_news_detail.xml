@@ -79,12 +79,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+                <cn.jzvd.JZVideoPlayerStandard
                     android:id="@+id/mJCVideoPlayer"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_margin="@dimen/group_distance_10"
                     android:visibility="gone" />
+
 
                 <com.yc.english.news.view.widget.MediaPlayerView
                     android:id="@+id/mMediaPlayerView"
@@ -98,11 +99,11 @@
                 android:id="@+id/webView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/group_distance_10"
+                android:layout_marginRight="@dimen/group_distance_10"
                 android:background="@color/white"
                 android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:layout_marginLeft="@dimen/group_distance_10"
-                android:layout_marginRight="@dimen/group_distance_10" />
+                android:focusableInTouchMode="true" />
 
 
             <LinearLayout

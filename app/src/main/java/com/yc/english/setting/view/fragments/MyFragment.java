@@ -9,7 +9,11 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+
+import android.view.Gravity;
+
 import android.widget.FrameLayout;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,16 +24,20 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.QQUtils;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
+import com.yc.english.base.view.BasePayDialogFragment;
 import com.yc.english.base.view.HonourAbilityView;
 import com.yc.english.base.view.QQqunDialog;
+
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.utils.StatusBarCompat;
+
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
@@ -41,7 +49,7 @@ import com.yc.english.setting.view.activitys.FeedbackActivity;
 import com.yc.english.setting.view.activitys.MyOrderActivity;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
 import com.yc.english.setting.view.activitys.SettingActivity;
-import com.yc.english.setting.view.activitys.VipEquitiesActivity;
+import com.yc.english.setting.view.activitys.VipEquitiesActivityNew;
 import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
 import com.yc.english.setting.view.widgets.MenuItemView;
 
@@ -169,7 +177,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                     if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
                         intent = new Intent(getActivity(), BuyVipActivity.class);
                     } else {
-                        intent = new Intent(getActivity(), VipEquitiesActivity.class);
+                        intent = new Intent(getActivity(), VipEquitiesActivityNew.class);
                     }
                     startActivity(intent);
                 }
@@ -222,8 +230,9 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         RxView.clicks(mShareMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
-                sharePopupWindow.show(mContentScrollView);
+//                SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
+//                sharePopupWindow.show(mContentScrollView);
+                showVIpDialog();
             }
         });
 
@@ -347,6 +356,13 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Override
     public void zhongxueClick() {
         QQUtils.joinQQZhongXueGroup(getActivity(), "wuzu_LXD28r_DJy7INWx-F4WkuhtzDhE");
+    }
+
+
+    public void showVIpDialog() {
+        BasePayDialogFragment payDialogFragment = new BasePayDialogFragment();
+        payDialogFragment.show(getFragmentManager(), null);
+
     }
 
 }
