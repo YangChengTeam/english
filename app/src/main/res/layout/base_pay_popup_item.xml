@@ -18,6 +18,6 @@
         android:layout_marginTop="@dimen/group_distance_5"
         android:text="教材点读"
         android:textColor="@color/black"
-        android:textSize="@dimen/group_text_10" />
+        android:textSize="@dimen/group_text_12" />
 
 </LinearLayout>

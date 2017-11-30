@@ -139,7 +139,7 @@ public class EnglishApp extends MultiDexApplication {
                 .os.Build.MODEL + " " + android.os.Build.VERSION.RELEASE;
         params.put("sys_version", sv);
         if (GoagalInfo.get().appInfo != null) {
-            params.put("app_version", GoagalInfo.get().appInfo.getVersionName() + "");
+            params.put("app_version", GoagalInfo.get().appInfo.getVersionCode() + "");
         }
         HttpConfig.setDefaultParams(params);
     }

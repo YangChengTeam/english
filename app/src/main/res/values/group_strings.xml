@@ -130,6 +130,7 @@
     <string-array name="vip">
         <item>提分辅导</item>
         <item>会员</item>
+        <item>单次购买</item>
     </string-array>
 
 

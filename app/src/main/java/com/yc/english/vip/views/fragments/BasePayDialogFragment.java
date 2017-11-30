@@ -1,4 +1,4 @@
-package com.yc.english.base.view;
+package com.yc.english.vip.views.fragments;
 
 
 import android.graphics.Color;
@@ -10,7 +10,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
@@ -19,14 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ScreenUtils;
 import com.yc.english.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.yc.english.pay.alipay.SignUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +40,6 @@ public class BasePayDialogFragment extends DialogFragment
     ViewPager mViewPager;
     @BindView(R.id.btn_pay)
     Button btnPay;
-
 
 
     @Nullable
@@ -65,7 +60,7 @@ public class BasePayDialogFragment extends DialogFragment
     private void init() {
 
         mViewPager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
-        mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPager);
 //        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 //        mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
@@ -99,6 +94,7 @@ public class BasePayDialogFragment extends DialogFragment
 
     private BaseVipPayFragment vipPayFragment;
     private BaseVipPayFragment generalFragment;
+    private BaseVipPayFragment singleFragment;
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
         private String[] titles;
@@ -123,6 +119,12 @@ public class BasePayDialogFragment extends DialogFragment
                     generalFragment.setType(2);
                 }
                 return generalFragment;
+            } else if (position == 2) {
+                if (singleFragment == null) {
+                    singleFragment = new BaseVipPayFragment();
+                    singleFragment.setType(3);
+                }
+                return singleFragment;
             }
             return null;
         }

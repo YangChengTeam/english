@@ -1,6 +1,8 @@
 package com.yc.english.setting.view.activitys;
 
 import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +14,6 @@ import android.widget.TextView;
 import com.yc.english.R;
 import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
-import com.yc.english.main.view.activitys.MainActivity;
 
 import butterknife.BindView;
 
@@ -37,7 +38,10 @@ public class VipEquitiesActivityNew extends BaseActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.appbar_layout)
+    AppBarLayout appbarLayout;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void init() {
         toolbar.setNavigationIcon(R.mipmap.vip_back);
@@ -47,9 +51,7 @@ public class VipEquitiesActivityNew extends BaseActivity {
                 finish();
             }
         });
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            StatusBarCompat.black(VipEquitiesActivityNew.this);
-        }
+        StatusBarCompat.compat(this, appbarLayout, toolbar);
     }
 
     @Override

@@ -35,10 +35,10 @@ public class JZMediaSystem extends JZMediaInterface implements PLMediaPlayer.OnP
     @Override
     public void prepare() {
         try {
-//            AVOptions avOptions = new AVOptions();
+            AVOptions avOptions = new AVOptions();
 //            avOptions.setInteger(AVOptions.KEY_BUFFER_TIME, 1000);
-//            avOptions.setInteger(AVOptions.KEY_MEDIACODEC, AVOptions.MEDIA_CODEC_AUTO);
-            mediaPlayer = new PLMediaPlayer(mContext);
+            avOptions.setInteger(AVOptions.KEY_MEDIACODEC, AVOptions.MEDIA_CODEC_AUTO);
+            mediaPlayer = new PLMediaPlayer(mContext, avOptions);
 //            mediaPlayer.reset();
 //            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             if (dataSourceObjects.length > 1) {

@@ -17,12 +17,6 @@
     <dimen name="group_distance_70">70dp</dimen>
     <dimen name="group_distance_105">105dp</dimen>
     <dimen name="group_distance_90">90dp</dimen>
-
-    <!--字体大小-->
-    <dimen name="group_text_16">16sp</dimen>
-    <dimen name="group_text_14">14sp</dimen>
-    <dimen name="group_text_15">15sp</dimen>
-    <dimen name="group_text_12">12sp</dimen>
     <dimen name="group_distance_95">95dp</dimen>
     <dimen name="group_distance_50">50dp</dimen>
     <dimen name="group_distance_160">160dp</dimen>
@@ -36,7 +30,14 @@
     <dimen name="group_text_20">20sp</dimen>
     <dimen name="group_distance_175">175dp</dimen>
     <dimen name="group_distance_72">72dp</dimen>
+
+    <!--字体大小-->
+    <dimen name="group_text_16">16sp</dimen>
+    <dimen name="group_text_14">14sp</dimen>
+    <dimen name="group_text_15">15sp</dimen>
+    <dimen name="group_text_12">12sp</dimen>
+
     <dimen name="group_text_18">18sp</dimen>
-    <dimen name="group_text_10">10dp</dimen>
+    <dimen name="group_text_10">10sp</dimen>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.yc.english.news.view.activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
@@ -107,6 +109,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         screenHeight = ScreenUtils.getScreenHeight();
 
+        mTextViewTitle.setTypeface(Typeface.DEFAULT_BOLD);
+
         initRecycleView();
         initListener();
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -151,10 +155,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         nestedScrollView.setOnScrollChangeListener(new NewsScrollView.onScrollChangeListener() {
             @Override
             public void onScrollChange(int l, int t, int oldl, int oldt) {
-                if (t > screenHeight / 2) {
+                if (t > mTextViewTitle.getMeasuredHeight()) {
                     mToolbar.setTitle(title);
-
-
                 } else {
                     mToolbar.setTitle("");
                 }
@@ -177,16 +179,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
 
     private String makeBody(String data) {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("<html><head><meta charset=\"utf-8\" /><meta content=\"yes\" name=\"apple-mobile-web-app-capable\" />\n" +
-                "    <meta content=\"yes\" name=\"apple-touch-fullscreen\" />\n" +
-                "    <meta content=\"telephone=no,email=no\" name=\"format-detection\" />\n" +
-                "    <meta name=\"App-Config\" content=\"fullscreen=yes,useHistoryState=yes,transition=yes\" /><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no\" />");
-        sb.append("<style> html,body{overflow:hidden;} img { width:100%; height:auto; overflow:hidden;}</style></head><body>");
-        sb.append(data);
-        sb.append("</body></html>");
-        return sb.toString();
+        return data;
     }
 
     private void initWebView(final CourseInfoWrapper data) {

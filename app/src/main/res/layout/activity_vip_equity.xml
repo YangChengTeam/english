@@ -8,9 +8,9 @@
 
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
@@ -77,7 +77,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
 
-                        <com.yc.english.base.view.BasePayItemView
+                        <com.yc.english.vip.views.fragments.BasePayItemView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                             eng:vip_content="微课免费看"
                             eng:vip_icon="@mipmap/vip_equity_weike" />
 
-                        <com.yc.english.base.view.BasePayItemView
+                        <com.yc.english.vip.views.fragments.BasePayItemView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
 
-                        <com.yc.english.base.view.BasePayItemView
+                        <com.yc.english.vip.views.fragments.BasePayItemView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                             app:vip_content="名师辅导课"
                             app:vip_icon="@mipmap/vip_equity_teach" />
 
-                        <com.yc.english.base.view.BasePayItemView
+                        <com.yc.english.vip.views.fragments.BasePayItemView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                     </FrameLayout>
 
 
-                    <com.yc.english.base.view.BasePayItemView
+                    <com.yc.english.vip.views.fragments.BasePayItemView
 
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                         app:vip_content="视频加速"
                         app:vip_icon="@mipmap/vip_equity_tv" />
 
-                    <com.yc.english.base.view.BasePayItemView
+                    <com.yc.english.vip.views.fragments.BasePayItemView
 
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -144,16 +144,14 @@
                     android:layout_marginTop="@dimen/group_distance_10"
                     android:weightSum="4">
 
-                    <com.yc.english.base.view.BasePayItemView
-
+                    <com.yc.english.vip.views.fragments.BasePayItemView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:vip_content="无限建工会"
                         app:vip_icon="@mipmap/vip_equity_union" />
 
-                    <com.yc.english.base.view.BasePayItemView
-
+                    <com.yc.english.vip.views.fragments.BasePayItemView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

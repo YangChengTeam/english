@@ -10,8 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 
-import android.view.Gravity;
-
 import android.widget.FrameLayout;
 
 import android.widget.ImageView;
@@ -31,11 +29,9 @@ import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.QQUtils;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
-import com.yc.english.base.view.BasePayDialogFragment;
 import com.yc.english.base.view.HonourAbilityView;
 import com.yc.english.base.view.QQqunDialog;
 
-import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.utils.StatusBarCompat;
 
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -46,13 +42,13 @@ import com.yc.english.setting.model.bean.MyOrderInfo;
 import com.yc.english.setting.presenter.MyPresenter;
 import com.yc.english.setting.view.activitys.BuyVipActivity;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
-import com.yc.english.setting.view.activitys.MyOrderActivity;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
 import com.yc.english.setting.view.activitys.SettingActivity;
 import com.yc.english.setting.view.activitys.VipEquitiesActivityNew;
 import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
 import com.yc.english.setting.view.widgets.MenuItemView;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
+import com.yc.english.vip.views.fragments.BasePayDialogFragment;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
