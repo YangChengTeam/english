@@ -12,6 +12,8 @@ import com.yc.english.base.view.BaseView
 import android.opengl.ETC1.getHeight
 import android.opengl.ETC1.getWidth
 import android.view.ViewTreeObserver
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 
 
 /**
@@ -26,7 +28,7 @@ class IntelligentItemScoreView : BaseView {
     var mProgressView = findViewById<View>(R.id.v_progress)
     var mScoreTextView = findViewById<TextView>(R.id.tv_score)
 
-     var mProgressWidth: Int = 912
+    var mProgressWidth: Int = 0
 
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         val a = context?.obtainStyledAttributes(attrs, R.styleable.tab_item)
@@ -38,13 +40,17 @@ class IntelligentItemScoreView : BaseView {
         if (entitle != null) {
             mEnTitleTextView.setText(entitle)
         }
+    }
 
+
+    fun progress(value: Int) {
         val viewTreeObserver = mProgressView.getViewTreeObserver()
         if (viewTreeObserver.isAlive()) {
             viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
                     mProgressView.getViewTreeObserver().removeGlobalOnLayoutListener(this)
                     mProgressWidth = (mProgressView.getParent() as ViewGroup).width
+                    progress = value
                 }
             })
         }
@@ -54,15 +60,16 @@ class IntelligentItemScoreView : BaseView {
         set(value) {
             val anim = ValueAnimator.ofFloat(mProgressWidth * value * 1.0f / 100f)
             anim.duration = 1000
+            anim.interpolator = DecelerateInterpolator()
             anim.addUpdateListener(object : ValueAnimator.AnimatorUpdateListener {
                 override fun onAnimationUpdate(animation: ValueAnimator) {
                     mProgressView.layoutParams.width = (animation.animatedValue as Float).toInt()
                     mProgressView.requestLayout()
                 }
             })
-            anim.startDelay = 1000
             anim.start()
             mScoreTextView.text = "${value}%"
+            field = value
         }
 
 

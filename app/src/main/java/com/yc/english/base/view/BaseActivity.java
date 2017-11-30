@@ -61,7 +61,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             e.printStackTrace();
             LogUtils.i(this.getClass().getSimpleName() + " ButterKnife->初始化失败 原因:" + e);
         }
-        BarUtils.setStatusBarColor(this, Color.BLACK);
         StatusBarCompat.transparentStatusBar(this);
         init();
     }

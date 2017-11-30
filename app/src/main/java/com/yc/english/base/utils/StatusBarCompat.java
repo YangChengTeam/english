@@ -17,20 +17,24 @@ import com.yc.english.base.view.BaseActivity;
 
 public final class StatusBarCompat {
     public static void light(BaseActivity activity) {
-        View decorView = activity.getWindow().getDecorView();
-        int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            option = option | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            View decorView = activity.getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                option = option | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            }
+            decorView.setSystemUiVisibility(option);
         }
-        decorView.setSystemUiVisibility(option);
     }
 
     public static void black(BaseActivity activity) {
-        View decorView = activity.getWindow().getDecorView();
-        int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-        decorView.setSystemUiVisibility(option);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            View decorView = activity.getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+        }
     }
 
     public static void transparentStatusBar(BaseActivity activity) {
@@ -46,6 +50,9 @@ public final class StatusBarCompat {
             SystemBarTintManager tintManager = new SystemBarTintManager(activity);
             tintManager.setStatusBarTintEnabled(true);
             tintManager.setStatusBarTintResource(Color.TRANSPARENT);
+        } else {
+            View decorView = activity.getWindow().getDecorView();
+            decorView.setFitsSystemWindows(true);
         }
     }
 
@@ -74,8 +81,12 @@ public final class StatusBarCompat {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             if (mToolbarWarpper != null) {
                 mToolBar.getLayoutParams().height = SizeUtils.dp2px(48f);
+                mToolBar.requestLayout();
                 if (drawableId != 0) {
                     mToolbarWarpper.setBackground(ContextCompat.getDrawable(activity, drawableId));
+                    mToolbarWarpper.requestLayout();
+                } else {
+                    mToolbarWarpper.getLayoutParams().height = SizeUtils.dp2px(48f);
                 }
             }
             if (mStatusBar != null) {
@@ -91,5 +102,6 @@ public final class StatusBarCompat {
                 activity.setToolbarTopMargin(mToolBar);
             }
         }
+
     }
 }

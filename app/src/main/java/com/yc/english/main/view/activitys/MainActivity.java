@@ -44,6 +44,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void init() {
+
         StatusBarCompat.light(this);
 
         mPresenter = new MainPresenter(this, this);
