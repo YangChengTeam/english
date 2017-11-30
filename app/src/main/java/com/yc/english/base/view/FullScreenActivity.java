@@ -1,10 +1,12 @@
 package com.yc.english.base.view;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.StatusBarCompat;
@@ -30,6 +32,9 @@ public abstract class FullScreenActivity<P extends BasePresenter> extends BaseAc
         mToolbar.init(this);
         if (mToolbar instanceof MainToolBar) {
             StatusBarCompat.compat(this, mToolbar, mToolbar.getToolbar(), R.mipmap.base_actionbar);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                mToolbar.getLayoutParams().height = SizeUtils.dp2px(48f);
+            }
         } else if (mToolbar instanceof TaskToolBar) {
             StatusBarCompat.light(this);
             StatusBarCompat.compat(this, mToolbar, mToolbar.getToolbarWarpper(), ((TaskToolBar) mToolbar).getStatusBar());

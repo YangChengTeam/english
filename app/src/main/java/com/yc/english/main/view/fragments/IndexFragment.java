@@ -141,6 +141,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void init() {
+        StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolBar, mStatusBar);
         mPresenter = new IndexPresenter(getActivity(), this);
 
         RxView.clicks(mMoreTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -249,7 +250,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 startActivity(intent);
             }
         });
-
+        mBanner.setFocusable(false);
         mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
@@ -282,7 +283,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-
+        mHotMircoClassRecyclerView.setFocusable(false);
         mHotMircoClassRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mHotMircoClassAdapter = new AritleAdapter(null, 1);
         mHotMircoClassRecyclerView.setAdapter(mHotMircoClassAdapter);
@@ -297,6 +298,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
+        mRvRecommend.setFocusable(false);
         mRvRecommend.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecommendAdapter = new IndexRecommendAdapter(null);
         mRvRecommend.setAdapter(mRecommendAdapter);
@@ -318,7 +320,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             selectGradePopupWindow.show(mContextScrollView, Gravity.CENTER);
         }
 
-        StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolBar, mStatusBar);
+
     }
 
     @Override

@@ -102,6 +102,7 @@
                         />
 
                     <LinearLayout
+                        android:id="@+id/mStarLinearLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -111,25 +112,25 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:src="@mipmap/intelligents_report_star_hover"/>
+                            android:src="@mipmap/intelligents_report_star"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:src="@mipmap/intelligents_report_star_hover"/>
+                            android:src="@mipmap/intelligents_report_star"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:src="@mipmap/intelligents_report_star_hover"/>
+                            android:src="@mipmap/intelligents_report_star"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:src="@mipmap/intelligents_report_star_hover"/>
+                            android:src="@mipmap/intelligents_report_star"/>
 
                         <ImageView
                             android:layout_width="wrap_content"

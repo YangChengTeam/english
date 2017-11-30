@@ -1,5 +1,10 @@
 package com.yc.english.intelligent.view.activitys
 
+import android.animation.ObjectAnimator
+import android.support.v4.content.ContextCompat
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import android.widget.ImageView
 import com.jakewharton.rxbinding.view.RxView
 import com.yc.english.R
 import com.yc.english.base.model.BaseEngin
@@ -25,13 +30,32 @@ class IntelligentReportActivity : BaseActivity<BasePresenter<BaseEngin, IView>>(
         }
 
 
-        mIntelligentItemScoreView1.progress = 80
-        mIntelligentItemScoreView2.progress = 90
-        mIntelligentItemScoreView3.progress = 70
-        mIntelligentItemScoreView4.progress = 40
-        mIntelligentItemScoreView5.progress = 30
-        mIntelligentItemScoreView6.progress = 20
+
+        mIntelligentItemScoreView1.progress(80)
+        mIntelligentItemScoreView2.progress(90)
+        mIntelligentItemScoreView3.progress(20)
+        mIntelligentItemScoreView4.progress(60)
+        mIntelligentItemScoreView5.progress(70)
+        mIntelligentItemScoreView6.progress(20)
+        star(4)
     }
 
     override fun getLayoutId() = R.layout.intelligent_activity_report
+
+    var star: Int = 0
+        set(value) {
+            for (i in 0..(mStarLinearLayout.childCount - 1)) {
+                val starImageView = mStarLinearLayout.getChildAt(i) as ImageView
+                if (i < value) {
+                    starImageView.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.intelligents_report_star_hover))
+                }
+            }
+        }
+
+    fun star(n: Int) {
+        val anim = ObjectAnimator.ofInt(this, "star", 0, n)
+        anim.interpolator = DecelerateInterpolator()
+        anim.duration = 1500
+        anim.start()
+    }
 }
