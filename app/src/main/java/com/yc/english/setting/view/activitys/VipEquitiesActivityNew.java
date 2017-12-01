@@ -1,21 +1,32 @@
 package com.yc.english.setting.view.activitys;
 
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
+import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.vip.utils.VipDialogHelper;
+import com.yc.english.vip.views.fragments.BasePayItemView;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/11/8 11:19.
@@ -27,7 +38,7 @@ public class VipEquitiesActivityNew extends BaseActivity {
     @BindView(R.id.iv_avatar)
     ImageView ivAvatar;
     @BindView(R.id.tv_nickname)
-    TextView tvNickname;
+    TextView mTvNickname;
     @BindView(R.id.tv_school)
     TextView tvSchool;
     @BindView(R.id.ll_head)
@@ -40,6 +51,18 @@ public class VipEquitiesActivityNew extends BaseActivity {
     CoordinatorLayout coordinatorLayout;
     @BindView(R.id.appbar_layout)
     AppBarLayout appbarLayout;
+    @BindView(R.id.btn_open_vip)
+    Button mBtnOpenVip;
+    @BindView(R.id.ll_vip_container)
+    LinearLayout llVipContainer;
+    @BindView(R.id.tv_rights_title)
+    TextView mTvRightsTitle;
+    @BindView(R.id.basePayItemView_vip)
+    BasePayItemView basePayItemViewVip;
+    @BindView(R.id.basePayItemView_ceping)
+    BasePayItemView basePayItemViewCeping;
+
+    private boolean isVip = false;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -52,6 +75,43 @@ public class VipEquitiesActivityNew extends BaseActivity {
             }
         });
         StatusBarCompat.compat(this, appbarLayout, toolbar);
+
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        mTvNickname.setText(userInfo.getNickname());
+
+        if (userInfo.getIsVip() == 1) {
+            isVip = true;
+        }
+        initView();
+        initListener();
+
+
+    }
+
+    private void initListener() {
+        RxView.clicks(mBtnOpenVip).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
+            }
+        });
+
+    }
+
+    private void initView() {
+        if (isVip) {
+            mBtnOpenVip.setVisibility(View.GONE);
+            llVipContainer.setVisibility(View.VISIBLE);
+            mTvRightsTitle.setText(getString(R.string.general_vip_right));
+            basePayItemViewVip.setVisibility(View.GONE);
+            basePayItemViewCeping.setVisibility(View.GONE);
+        } else {
+            mBtnOpenVip.setVisibility(View.VISIBLE);
+            llVipContainer.setVisibility(View.GONE);
+            basePayItemViewVip.setVisibility(View.VISIBLE);
+            basePayItemViewCeping.setVisibility(View.VISIBLE);
+            mTvRightsTitle.setText(getString(R.string.exclusive_right));
+        }
     }
 
     @Override

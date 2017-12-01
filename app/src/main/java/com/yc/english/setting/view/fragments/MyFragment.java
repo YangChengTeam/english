@@ -34,6 +34,7 @@ import com.yc.english.base.view.QQqunDialog;
 
 import com.yc.english.base.utils.StatusBarCompat;
 
+import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
@@ -42,6 +43,7 @@ import com.yc.english.setting.model.bean.MyOrderInfo;
 import com.yc.english.setting.presenter.MyPresenter;
 import com.yc.english.setting.view.activitys.BuyVipActivity;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
+import com.yc.english.setting.view.activitys.MyOrderActivity;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
 import com.yc.english.setting.view.activitys.SettingActivity;
 import com.yc.english.setting.view.activitys.VipEquitiesActivityNew;
@@ -130,7 +132,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset <= -appBarLayout.getHeight() + SizeUtils.dp2px(80)) {
-                    mCollapsingToolbarLayout.setTitle(getString(R.string.main_tab_my)+"  ");
+                    mCollapsingToolbarLayout.setTitle(getString(R.string.main_tab_my) + "  ");
                 } else {
                     mCollapsingToolbarLayout.setTitle("");
                 }
@@ -170,12 +172,12 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             @Override
             public void call(Void aVoid) {
                 if (!UserInfoHelper.isGotoLogin(getActivity())) {
-                    Intent intent;
-                    if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
-                        intent = new Intent(getActivity(), BuyVipActivity.class);
-                    } else {
-                        intent = new Intent(getActivity(), VipEquitiesActivityNew.class);
-                    }
+
+//                    if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
+//                        intent = new Intent(getActivity(), BuyVipActivity.class);
+//                    } else {
+                    Intent intent = new Intent(getActivity(), VipEquitiesActivityNew.class);
+//                    }
                     startActivity(intent);
                 }
             }
@@ -227,9 +229,9 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         RxView.clicks(mShareMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-//                SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
-//                sharePopupWindow.show(mContentScrollView);
-                showVIpDialog();
+                SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
+                sharePopupWindow.show(mContentScrollView);
+
             }
         });
 
@@ -244,13 +246,13 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         RxView.clicks(mOrderMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-//                Intent intent = new Intent(getActivity(), MyOrderActivity.class);
-                Intent intent = new Intent(getActivity(), VipScoreTutorshipActivity.class);
+                Intent intent = new Intent(getActivity(), MyOrderActivity.class);
+
                 startActivity(intent);
             }
         });
 
-        StatusBarCompat.compat((BaseActivity)getActivity(), mToolbarWarpper,  toolbar, R.mipmap.setting_head_bg2);
+        StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, toolbar, R.mipmap.setting_head_bg2);
     }
 
 
@@ -356,11 +358,5 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         QQUtils.joinQQZhongXueGroup(getActivity(), "wuzu_LXD28r_DJy7INWx-F4WkuhtzDhE");
     }
 
-
-    public void showVIpDialog() {
-        BasePayDialogFragment payDialogFragment = new BasePayDialogFragment();
-        payDialogFragment.show(getFragmentManager(), null);
-
-    }
 
 }

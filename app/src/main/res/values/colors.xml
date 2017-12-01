@@ -39,4 +39,5 @@
     <color name="pay_line_color">#cccccc</color>
     <color name="pay_info_color">#515151</color>
     <color name="vip_price_ff3333">#FF3333</color>
+    <color name="general_vip_d39200">#D39200</color>
 </resources>

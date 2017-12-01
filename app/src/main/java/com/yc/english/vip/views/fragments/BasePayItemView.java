@@ -56,13 +56,18 @@ public class BasePayItemView extends BaseView {
 
     }
 
-    public void setContent(CharSequence content) {
-        vipContent.setText(content);
+    public void setContentAndIcon(CharSequence content, int resId) {
+        if (!TextUtils.isEmpty(content))
+            vipContent.setText(content);
+        if (resId != 0) {
+            vipIcon.setImageResource(resId);
+        }
     }
 
     @Override
     public int getLayoutId() {
         return R.layout.base_pay_popup_item;
     }
+
 
 }

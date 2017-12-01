@@ -27,6 +27,8 @@ import com.yc.english.read.presenter.BookUnitPresenter;
 import com.yc.english.read.view.adapter.ReadBookUnitItemClickAdapter;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
 import com.yc.english.setting.view.activitys.BuyVipActivity;
+import com.yc.english.vip.model.bean.GoodsType;
+import com.yc.english.vip.utils.VipDialogHelper;
 
 import java.util.List;
 
@@ -73,7 +75,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
     @Override
     public void init() {
 
-        Bundle bundle = getIntent().getExtras();
+        final Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             bookId = bundle.getString("book_id");
         }
@@ -99,13 +101,13 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                 if (unitInfo.getFree() == 1) {
                     isRead = true;
                 } else {
-                    if(UserInfoHelper.getUserInfo() != null) {
+                    if (UserInfoHelper.getUserInfo() != null) {
                         if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
                             isRead = true;
                         } else {
                             isRead = false;
                         }
-                    }else{
+                    } else {
                         UserInfoHelper.isGotoLogin(BookUnitActivity.this);
                         return;
                     }
@@ -129,8 +131,10 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                         @Override
                         public void onClick(View v) {
                             alertDialog.dismiss();
-                            Intent intent = new Intent(BookUnitActivity.this, BuyVipActivity.class);
-                            startActivity(intent);
+
+                            VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, null);
+//                            Intent intent = new Intent(BookUnitActivity.this, BuyVipActivity.class);
+//                            startActivity(intent);
                         }
                     });
                     alertDialog.show();

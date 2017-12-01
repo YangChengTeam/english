@@ -1,39 +1,35 @@
 package com.yc.english.vip.views.fragments;
 
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ScreenUtils;
+import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
-import com.yc.english.pay.alipay.SignUtils;
+import com.yc.english.vip.model.bean.GoodsType;
+import com.yc.english.weixin.model.domain.CourseInfo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/11/27 15:16.
  */
 
-public class BasePayDialogFragment extends DialogFragment
-
-{
+public class BasePayDialogFragment extends BaseDialogFragment {
     @BindView(R.id.m_tabLayout)
     TabLayout mTabLayout;
     @BindView(R.id.viewpager)
@@ -41,29 +37,33 @@ public class BasePayDialogFragment extends DialogFragment
     @BindView(R.id.btn_pay)
     Button btnPay;
 
+    private List<String> mTitles = new ArrayList<>();
+    private int goodsType;
+    private CourseInfo courseInfo;
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        Window window = getDialog().getWindow();
-        window.setGravity(Gravity.BOTTOM);//((ViewGroup) window.findViewById(android.R.id.content))
-        View view = inflater.inflate(R.layout.base_pay_popupwindow, ((ViewGroup) window.findViewById(android.R.id.content)), false);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//注意此处
-        window.setLayout(ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight() * 2 / 3);//这2行,和上面的一样,注意顺序就行;
-        window.setWindowAnimations(R.style.vip_style);
-        ButterKnife.bind(this, view);
-        init();
-        return view;
-    }
+    public void init() {
+        mTitles.add(getString(R.string.tutorship));
+        mTitles.add(getString(R.string.member));
 
-    private void init() {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            goodsType = bundle.getInt(GoodsType.GOODS_KEY);
+            if (goodsType == GoodsType.GENERAL_TYPE_WEIKE || goodsType == GoodsType.GENERAL_TYPE_DIANDU) {
+                //显示三项
+                mTitles.add(getString(R.string.sigle_buy));
+                if (bundle.getParcelable("courseInfo") != null) {
+                    courseInfo = bundle.getParcelable("courseInfo");
 
-        mViewPager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
+                }
+            }
+
+        }
+
+        mViewPager.setAdapter(new MyPagerAdapter(getChildFragmentManager(), mTitles));
         mViewPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPager);
-//        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-//        mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         mViewPager.setCurrentItem(0);
         final View customView = LayoutInflater.from(getActivity()).inflate(R.layout.vip_tab_item, null);
         final TextView textView = customView.findViewById(R.id.tab_vip);
@@ -89,6 +89,29 @@ public class BasePayDialogFragment extends DialogFragment
 
             }
         });
+        RxView.clicks(btnPay).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+//                OrderParams orderParams = new OrderParams();
+//                orderParams.setTitle(goodInfo.getName());
+//                orderParams.setMoney(goodInfo.getPay_price());
+//                orderParams.setPayWayName(pay_way_name);
+//                List<OrderGood> list = new ArrayList<>();
+//                OrderGood orderGood = new OrderGood();
+//                orderGood.setGood_id(goodInfo.getId());
+//                orderGood.setNum(1);
+//
+//                list.add(orderGood);
+//                orderParams.setGoodsList(list);
+//
+//                mPresenter.createOrder(orderParams);
+            }
+        });
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.base_pay_popupwindow;
     }
 
 
@@ -97,11 +120,13 @@ public class BasePayDialogFragment extends DialogFragment
     private BaseVipPayFragment singleFragment;
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
-        private String[] titles;
 
-        private MyPagerAdapter(FragmentManager fm) {
+        private List<String> mTitles;
+
+        private MyPagerAdapter(FragmentManager fm, List<String> titles) {
             super(fm);
-            titles = getActivity().getResources().getStringArray(R.array.vip);
+            this.mTitles = titles;
+
         }
 
         @Override
@@ -123,6 +148,8 @@ public class BasePayDialogFragment extends DialogFragment
                 if (singleFragment == null) {
                     singleFragment = new BaseVipPayFragment();
                     singleFragment.setType(3);
+                    singleFragment.setGeneralType(goodsType);
+                    singleFragment.setCourserInfo(courseInfo);
                 }
                 return singleFragment;
             }
@@ -131,12 +158,22 @@ public class BasePayDialogFragment extends DialogFragment
 
         @Override
         public int getCount() {
-            return titles.length;
+            return mTitles.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return titles[position];
+            return mTitles.get(position);
         }
     }
+
+    //支付宝支付
+    private void aliPay() {
+
+    }
+
+    //微信支付
+    private void wxPay() {
+    }
+
 }

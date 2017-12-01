@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -15,7 +16,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding.view.RxView;
@@ -32,6 +32,8 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.bean.CourseInfoWrapper;
 import com.yc.english.news.contract.NewsDetailContract;
 import com.yc.english.news.presenter.NewsDetailPresenter;
+import com.yc.english.vip.model.bean.GoodsType;
+import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;
@@ -145,13 +147,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
                 if (currentCourseInfo != null) {
                     if (UserInfoHelper.getUserInfo() != null) {
                         currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
-
-                        Intent intent = new Intent(NewsWeiKeDetailActivity.this, ConfirmOrderActivity.class);
-                        ArrayList<CourseInfo> goodsList = new ArrayList<>();
-                        goodsList.add(currentCourseInfo);
-                        intent.putExtra("total_price", currentCourseInfo.getMPrice());
-                        intent.putParcelableArrayListExtra("goods_list", goodsList);
-                        startActivity(intent);
+                        showBuyDialog();
                     } else {
                         UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
                     }
@@ -191,18 +187,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         });
     }
 
-    private String makeBody(String data) {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("<html><head><meta charset=\"utf-8\" /><meta content=\"yes\" name=\"apple-mobile-web-app-capable\" />\n" +
-                "    <meta content=\"yes\" name=\"apple-touch-fullscreen\" />\n" +
-                "    <meta content=\"telephone=no,email=no\" name=\"format-detection\" />\n" +
-                "    <meta name=\"App-Config\" content=\"fullscreen=yes,useHistoryState=yes,transition=yes\" /><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no\" />");
-        sb.append("<style> html,body{overflow:hidden;} img { width:100%; height:auto; overflow:hidden;}</style></head><body>");
-        sb.append(data);
-        sb.append("</body></html>");
-        return sb.toString();
-    }
 
     private void initWebView(final CourseInfoWrapper data) {
 
@@ -223,7 +207,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
         webSettings.setBlockNetworkImage(true);//设置是否加载网络图片 true 为不加载 false 为加载
 
-        String body = makeBody(data.getInfo().getBody());
+        String body = data.getInfo().getBody();
         webView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null);
 
         webView.setWebViewClient(new WebViewClient() {
@@ -347,12 +331,12 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
                         alertDialog.dismiss();
 
                         currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
-                        Intent intent = new Intent(NewsWeiKeDetailActivity.this, ConfirmOrderActivity.class);
-                        ArrayList<CourseInfo> goodsList = new ArrayList<>();
-                        goodsList.add(currentCourseInfo);
-                        intent.putExtra("total_price", currentCourseInfo.getMPrice());
-                        intent.putParcelableArrayListExtra("goods_list", goodsList);
-                        startActivity(intent);
+
+//                        ArrayList<CourseInfo> goodsList = new ArrayList<>();
+//                        goodsList.add(currentCourseInfo);
+
+                        showBuyDialog();
+
 
                     }
                 });
@@ -423,6 +407,13 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             return;
         }
         super.onBackPressed();
+    }
+
+    private void showBuyDialog() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("courseInfo", currentCourseInfo);
+        bundle.putInt(GoodsType.GOODS_KEY, GoodsType.GENERAL_TYPE_WEIKE);
+        VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, bundle);
     }
 
 

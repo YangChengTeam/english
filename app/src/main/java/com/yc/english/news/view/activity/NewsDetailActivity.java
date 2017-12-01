@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -12,12 +13,12 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
@@ -36,6 +37,8 @@ import com.yc.english.news.contract.NewsDetailContract;
 import com.yc.english.news.presenter.NewsDetailPresenter;
 import com.yc.english.news.view.widget.MediaPlayerView;
 import com.yc.english.news.view.widget.NewsScrollView;
+import com.yc.english.vip.model.bean.GoodsType;
+import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.text.SimpleDateFormat;
@@ -77,6 +80,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     StateView stateView;
     @BindView(R.id.mTextViewFrom)
     TextView mTextViewFrom;
+    @BindView(R.id.fl_player)
+    FrameLayout flPlayer;
 
 
     private NewsDetailAdapter newsDetailAdapter;
@@ -109,7 +114,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         screenHeight = ScreenUtils.getScreenHeight();
 
-        mTextViewTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        mTextViewTitle.setTypeface(Typeface.DEFAULT);
 
         initRecycleView();
         initListener();
@@ -140,6 +145,8 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             playAudio(url);
         } else if (courseInfo.getUrl_type() == 2) {
             playVideo(url, courseInfo.getImg());
+        } else {
+            flPlayer.setVisibility(View.GONE);
         }
 
     }
@@ -178,10 +185,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     }
 
 
-    private String makeBody(String data) {
-        return data;
-    }
-
     private void initWebView(final CourseInfoWrapper data) {
 
         final WebSettings webSettings = webView.getSettings();
@@ -201,7 +204,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
         webSettings.setBlockNetworkImage(true);//设置是否加载网络图片 true 为不加载 false 为加载
 
-        String body = makeBody(data.getInfo().getBody());
+        String body = data.getInfo().getBody();
         webView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null);
 
 
@@ -341,7 +344,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         if (UserInfoHelper.getUserInfo() != null) {
             if (isPlay) {
                 mJCVideoPlayer.startVideo();
-//                mJCVideoPlayer.startPlayLogic();
             } else {
                 final AlertDialog alertDialog = new AlertDialog(NewsDetailActivity.this);
                 alertDialog.setDesc("未购买此课程，是否马上购买？");
@@ -351,12 +353,10 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                         alertDialog.dismiss();
 
                         currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
-                        Intent intent = new Intent(NewsDetailActivity.this, ConfirmOrderActivity.class);
-                        ArrayList<CourseInfo> goodsList = new ArrayList<>();
-                        goodsList.add(currentCourseInfo);
-                        intent.putExtra("total_price", currentCourseInfo.getMPrice());
-                        intent.putParcelableArrayListExtra("goods_list", goodsList);
-                        startActivity(intent);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("courseInfo", currentCourseInfo);
+                        bundle.putInt(GoodsType.GOODS_KEY, GoodsType.GENERAL_TYPE_WEIKE);
+                        VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, bundle);
 
                     }
                 });
@@ -366,6 +366,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             UserInfoHelper.isGotoLogin(NewsDetailActivity.this);
         }
     }
+
 
     private class JavascriptInterface {
 
@@ -415,7 +416,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             llRootView.removeView(webView);
             webView.destroy();
         }
-//
     }
 
     @Override

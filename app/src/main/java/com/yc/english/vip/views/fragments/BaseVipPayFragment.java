@@ -1,6 +1,7 @@
 package com.yc.english.vip.views.fragments;
 
 
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +17,8 @@ import com.blankj.utilcode.util.SizeUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
+import com.yc.english.vip.model.bean.GoodsType;
+import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.concurrent.TimeUnit;
 
@@ -63,9 +66,14 @@ public class BaseVipPayFragment extends BaseFragment {
     LinearLayout llRightContainer;
     @BindView(R.id.ll_month_container)
     LinearLayout llMonthContainer;
+    @BindView(R.id.baseItemView_weike)
+    BasePayItemView baseItemViewWeike;
+    @BindView(R.id.baseItemView_teach)
+    BasePayItemView baseItemViewTeach;
 
-
-    private int mType;
+    private int mType;//1.提分辅导2.VIP会员3.单词购买
+    private int generalType;//点读 微课
+    private CourseInfo courserInfo;
 
 
     @Override
@@ -76,16 +84,33 @@ public class BaseVipPayFragment extends BaseFragment {
             llFirstContent.setVisibility(View.GONE);
             baseItemViewUnion.setVisibility(View.GONE);
             llMonthContainer.setVisibility(View.GONE);
-            baseItemViewCeping.setContent("个性学习计划");
+            if (getGeneralType() == GoodsType.GENERAL_TYPE_WEIKE) {
+                baseItemViewCeping.setContentAndIcon("同步微课", 0);
+            } else if (getGeneralType() == GoodsType.GENERAL_TYPE_DIANDU) {
+                baseItemViewCeping.setContentAndIcon("教材点读", 0);
+            } else if (getGeneralType() == GoodsType.GENERAL_TYPE_INDIVIDUALITY_PLAN) {
+                baseItemViewCeping.setContentAndIcon("个性学习计划", 0);
+            }
+
             LinearLayout.MarginLayoutParams layoutParams = (LinearLayout.MarginLayoutParams) llRightContainer.getLayoutParams();
             layoutParams.topMargin = SizeUtils.dp2px(15);
 
             llRightContainer.setLayoutParams(layoutParams);
             rootView.setGravity(Gravity.TOP);
+
+            if (getCourserInfo() != null) {
+                vipCurrentPrice.setText(String.valueOf(getCourserInfo().getMPrice()));
+                tvVipOriginalPrice.setText(String.format(getString(R.string.original_price), String.valueOf(getCourserInfo().getPrice())));
+            }
         }
-        tvVipThreeMonth.setBackgroundResource(R.drawable.vip_item_select_time);
+        if (mType == 2) {
+            baseItemViewWeike.setContentAndIcon("微课免费看", 0);
+            baseItemViewTeach.setContentAndIcon("名师辅导课", R.mipmap.vip_common_teach);
+        }
+        setTextStyle(tvVipThreeMonth);
         llVipAli.setBackgroundResource(R.drawable.vip_item_select_time);
         tvVipOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
+
         initListener();
 
     }
@@ -94,31 +119,28 @@ public class BaseVipPayFragment extends BaseFragment {
         RxView.clicks(tvVipThreeMonth).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                restoreTextViewBg();
-                tvVipThreeMonth.setBackgroundResource(R.drawable.vip_item_select_time);
+                setTextStyle(tvVipThreeMonth);
 
             }
         });
         RxView.clicks(tvVipSixMonth).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                restoreTextViewBg();
-                tvVipSixMonth.setBackgroundResource(R.drawable.vip_item_select_time);
+
+                setTextStyle(tvVipSixMonth);
 
             }
         });
         RxView.clicks(tvVipTweenMonth).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                restoreTextViewBg();
-                tvVipTweenMonth.setBackgroundResource(R.drawable.vip_item_select_time);
+                setTextStyle(tvVipTweenMonth);
             }
         });
         RxView.clicks(tvVipForever).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                restoreTextViewBg();
-                tvVipForever.setBackgroundResource(R.drawable.vip_item_select_time);
+                setTextStyle(tvVipForever);
             }
         });
         RxView.clicks(llVipAli).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -167,4 +189,20 @@ public class BaseVipPayFragment extends BaseFragment {
     }
 
 
+    public void setGeneralType(int generalType) {
+        this.generalType = generalType;
+    }
+
+    public int getGeneralType() {
+        return generalType;
+    }
+
+
+    public void setCourserInfo(CourseInfo courserInfo) {
+        this.courserInfo = courserInfo;
+    }
+
+    public CourseInfo getCourserInfo() {
+        return courserInfo;
+    }
 }

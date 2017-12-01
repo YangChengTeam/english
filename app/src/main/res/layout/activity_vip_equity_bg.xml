@@ -22,46 +22,59 @@
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:src="@mipmap/default_avatar" />
+            android:src="@mipmap/default_big_avatar" />
 
 
         <TextView
             android:id="@+id/tv_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_ivatar"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:textColor="#ffffff"
             android:textSize="16sp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_nickname"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:gravity="center_vertical">
+            android:layout_marginTop="@dimen/group_distance_5">
 
-            <ImageView
+            <Button
+                android:id="@+id/btn_open_vip"
+                android:layout_width="180dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:background="@drawable/general_btn_selector"
+                android:text="@string/open_vip"
+                android:textColor="@color/general_vip_d39200"
+                android:textSize="@dimen/group_text_16" />
+
+            <LinearLayout
+                android:id="@+id/ll_vip_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
 
-                android:src="@mipmap/vip_vip" />
+                android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/tv_school"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/group_distance_5"
-                android:text="2018-05-08 到期"
-                android:textColor="#ffffff"
-                android:textSize="14sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/vip_vip" />
+
+                <TextView
+                    android:id="@+id/tv_school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/group_distance_5"
+                    android:text="2018-05-08 到期"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
 
 
-        </LinearLayout>
+            </LinearLayout>
 
-
+        </FrameLayout>
     </LinearLayout>
 
 

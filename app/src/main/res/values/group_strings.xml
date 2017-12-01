@@ -99,6 +99,16 @@
     <string name="promptly_open">立即开通</string>
     <string name="vip_right_introduce">VIP会员及普通会员服务协议规则</string>
 
+
+    <string name="open_vip">开通会员</string>
+    <string name="general_vip_right">普通会员专属特权</string>
+    <string name="vip_right">VIP会员专属特权</string>
+    <string name="exclusive_right">专属特权</string>
+    <string name="tutorship">提分辅导</string>
+    <string name="member">会员</string>
+    <string name="sigle_buy">单次购买</string>
+    <string name="original_price">原价%1$s</string>
+
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>
         <item>未完成（%1$d）</item>
@@ -126,11 +136,6 @@
         <item>@string/setting_share</item>
         <item>@string/setting_setting</item>
 
-    </string-array>
-    <string-array name="vip">
-        <item>提分辅导</item>
-        <item>会员</item>
-        <item>单次购买</item>
     </string-array>
 
 

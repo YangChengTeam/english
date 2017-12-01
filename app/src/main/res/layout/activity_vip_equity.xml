@@ -57,12 +57,13 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tv_rights_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:drawableLeft="@mipmap/vip_equity_left"
+                        android:drawablePadding="@dimen/group_distance_5"
                         android:drawableRight="@mipmap/vip_equity_right"
-                        android:text="普通会员专属特权"
                         android:textColor="@color/black"
                         android:textSize="@dimen/group_text_18" />
                 </RelativeLayout>
@@ -152,6 +153,15 @@
                         app:vip_icon="@mipmap/vip_equity_union" />
 
                     <com.yc.english.vip.views.fragments.BasePayItemView
+                        android:id="@+id/basePayItemView_vip"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:vip_content="VIP专属教学"
+                        app:vip_icon="@mipmap/vip_self_icon" />
+
+                    <com.yc.english.vip.views.fragments.BasePayItemView
+                        android:id="@+id/basePayItemView_ceping"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -182,6 +192,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:drawableLeft="@mipmap/vip_equity_left"
+                        android:drawablePadding="@dimen/group_distance_5"
                         android:drawableRight="@mipmap/vip_equity_right"
                         android:text="会员使用说明"
                         android:textColor="@color/black"
