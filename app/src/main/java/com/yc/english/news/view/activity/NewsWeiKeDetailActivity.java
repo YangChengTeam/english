@@ -323,24 +323,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             if (isPlay) {
                 mJCVideoPlayer.startVideo();
             } else {
-                final AlertDialog alertDialog = new AlertDialog(NewsWeiKeDetailActivity.this);
-                alertDialog.setDesc("未购买此课程，是否马上购买？");
-                alertDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-
-                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
-
-//                        ArrayList<CourseInfo> goodsList = new ArrayList<>();
-//                        goodsList.add(currentCourseInfo);
-
-                        showBuyDialog();
-
-
-                    }
-                });
-                alertDialog.show();
+                showBuyDialog();
             }
         } else {
             UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);

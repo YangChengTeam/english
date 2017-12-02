@@ -1,5 +1,7 @@
 package com.yc.english.setting.model.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by wanglin  on 2017/11/6 16:23.
  */
@@ -23,23 +25,24 @@ public class GoodInfo {
      * status_name : 上架
      */
 
-    private String id;
-    private String name;
-    private String type_id;
-    private String type_relate_val;
     private String app_id;
-    private String img;
     private String desp;
-    private String price;
+    private String id;
+    private String img;
     private String m_price;
-    private String vip_price;
-    private String unit;
-    private String use_time_limit;
+    private String name;
+    private String pay_price;//支付价格
+    private String price;
     private String sort;
     private String status;
     private String status_name;
+    private String type_id;
+    private String type_relate_val;
 
-    private String pay_price;//支付价格
+    private String vip_price;
+    private String unit;
+    private String use_time_limit;
+
 
     public String getId() {
         return id;
@@ -168,4 +171,7 @@ public class GoodInfo {
     public void setPay_price(String pay_price) {
         this.pay_price = pay_price;
     }
+
+
+
 }

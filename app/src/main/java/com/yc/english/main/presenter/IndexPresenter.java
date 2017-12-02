@@ -21,6 +21,8 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.model.engin.IndexEngin;
 import com.yc.english.pay.PayWayInfo;
 import com.yc.english.pay.PayWayInfoHelper;
+import com.yc.english.setting.model.bean.GoodInfoWrapper;
+import com.yc.english.vip.utils.VipInfoHelper;
 
 import org.greenrobot.greendao.annotation.Index;
 
@@ -48,6 +50,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
 
         getIndexInfo();
         getPayWayList();
+        getGoodsList(1);
     }
 
 
@@ -179,6 +182,44 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         mSubscriptions.add(subscription);
     }
 
+    private void getGoodsList(int goods_type_id) {
+
+        Subscription subscription = EngineUtils.getGoodsList(mContext, goods_type_id, 1).subscribe(new Subscriber<ResultInfo<GoodInfoWrapper>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.showNoNet();
+            }
+
+            @Override
+            public void onNext(final ResultInfo<GoodInfoWrapper> goodInfoWrapperResultInfo) {
+                ResultInfoHelper.handleResultInfo(goodInfoWrapperResultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (goodInfoWrapperResultInfo.data != null && goodInfoWrapperResultInfo.data.getList() != null) {
+                            VipInfoHelper.setGoodInfoList(goodInfoWrapperResultInfo.data.getList());
+                        }
+                    }
+                });
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
 
 }
 

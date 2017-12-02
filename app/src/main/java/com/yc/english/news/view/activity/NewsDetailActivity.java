@@ -345,22 +345,12 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             if (isPlay) {
                 mJCVideoPlayer.startVideo();
             } else {
-                final AlertDialog alertDialog = new AlertDialog(NewsDetailActivity.this);
-                alertDialog.setDesc("未购买此课程，是否马上购买？");
-                alertDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
 
-                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("courseInfo", currentCourseInfo);
-                        bundle.putInt(GoodsType.GOODS_KEY, GoodsType.GENERAL_TYPE_WEIKE);
-                        VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, bundle);
-
-                    }
-                });
-                alertDialog.show();
+                currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("courseInfo", currentCourseInfo);
+                bundle.putInt(GoodsType.GOODS_KEY, GoodsType.GENERAL_TYPE_WEIKE);
+                VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, bundle);
             }
         } else {
             UserInfoHelper.isGotoLogin(NewsDetailActivity.this);

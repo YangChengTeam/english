@@ -125,19 +125,8 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                         TipsHelper.tips(BookUnitActivity.this, "教材数据异常，请稍后重试");
                     }
                 } else {
-                    final AlertDialog alertDialog = new AlertDialog(BookUnitActivity.this);
-                    alertDialog.setDesc("请购买会员使用点读功能？");
-                    alertDialog.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            alertDialog.dismiss();
 
-                            VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, null);
-//                            Intent intent = new Intent(BookUnitActivity.this, BuyVipActivity.class);
-//                            startActivity(intent);
-                        }
-                    });
-                    alertDialog.show();
+                    VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, null);
                 }
             }
         });
