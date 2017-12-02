@@ -11,6 +11,7 @@ import com.yc.english.R
 import com.yc.english.base.view.BaseView
 import android.opengl.ETC1.getHeight
 import android.opengl.ETC1.getWidth
+import android.os.Build
 import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
@@ -49,7 +50,7 @@ class IntelligentItemScoreView : BaseView {
         if (viewTreeObserver.isAlive()) {
             viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
-                    mProgressView.getViewTreeObserver().removeGlobalOnLayoutListener(this)
+                    mProgressView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     mProgressWidth = (mProgressView.getParent() as ViewGroup).width
                     progress = value
                 }
