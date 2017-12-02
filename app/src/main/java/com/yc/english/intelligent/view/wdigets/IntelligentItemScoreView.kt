@@ -13,6 +13,7 @@ import android.opengl.ETC1.getHeight
 import android.opengl.ETC1.getWidth
 import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 
 
@@ -60,7 +61,7 @@ class IntelligentItemScoreView : BaseView {
         set(value) {
             val anim = ValueAnimator.ofFloat(mProgressWidth * value * 1.0f / 100f)
             anim.duration = 1000
-            anim.interpolator = DecelerateInterpolator()
+            anim.interpolator = AccelerateInterpolator()
             anim.addUpdateListener(object : ValueAnimator.AnimatorUpdateListener {
                 override fun onAnimationUpdate(animation: ValueAnimator) {
                     mProgressView.layoutParams.width = (animation.animatedValue as Float).toInt()

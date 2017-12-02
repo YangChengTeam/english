@@ -279,6 +279,8 @@
         <activity android:name=".intelligent.view.activitys.IntelligentEvaluationActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentHandInActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentQuestionAnalysisActivtiy"></activity>
+        <activity android:name=".intelligent.view.activitys.IntelligentsPushQuestionActivity"></activity>
+        <activity android:name=".intelligent.view.activitys.IntelligentTypeStartBgActivity"></activity>
 
         <activity android:name=".speak.view.activity.SpeakMainActivity" />
         <activity android:name=".setting.view.activitys.VipEquitiesActivityNew" />

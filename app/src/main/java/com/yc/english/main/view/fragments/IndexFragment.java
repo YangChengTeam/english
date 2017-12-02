@@ -48,6 +48,7 @@ import com.yc.english.read.view.activitys.BookActivity;
 import com.yc.english.speak.view.activity.SpeakMainActivity;
 import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
 import com.yc.english.union.view.activitys.UnionMainActivity;
+import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
 import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.yc.english.weixin.views.activitys.CourseTypeActivity;
@@ -170,6 +171,15 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 ReadApp.READ_COMMON_TYPE = 2;
                 Intent intent = new Intent(getActivity(), BookActivity.class);
                 intent.putExtra("tag", "word");
+                startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mAd).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), VipScoreTutorshipActivity.class);
+
                 startActivity(intent);
             }
         });
