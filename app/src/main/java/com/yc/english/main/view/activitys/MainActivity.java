@@ -1,5 +1,6 @@
 package com.yc.english.main.view.activitys;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,10 +10,12 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.utils.StatusBarCompat;
+import com.yc.english.intelligent.view.activitys.IntelligentTypeStartBgActivity;
 import com.yc.english.intelligent.view.fragments.IntelligentFragment;
 import com.yc.english.intelligent.view.fragments.IntelligentTypeFragment;
 import com.yc.english.main.contract.MainContract;
@@ -37,6 +40,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private int mCurrentIndex;
 
 
+    public static String BGKEY = "bgkey";
+
+    private static MainActivity mainActivity;
+
+    public static MainActivity getMainActivity() {
+        return mainActivity;
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.main_activity_main;
@@ -44,6 +55,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void init() {
+        mainActivity = this;
 
         StatusBarCompat.light(this);
 
@@ -51,6 +63,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mTabBar.setOnTabSelectedListener(new TabBar.OnTabSelectedListener() {
             @Override
             public void onSelected(int idx) {
+                if(idx == 2 && SPUtils.getInstance().getString(BGKEY, "").isEmpty()) {
+                    startActivity(new Intent(MainActivity.this, IntelligentTypeStartBgActivity.class));
+                    return;
+                }
                 mViewPager.setCurrentItem(idx, false);
             }
         });
@@ -77,6 +93,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
             @Override
             public void onPageSelected(int position) {
+                if(position == 2 && SPUtils.getInstance().getString(BGKEY, "").isEmpty()) {
+                    startActivity(new Intent(MainActivity.this, IntelligentTypeStartBgActivity.class));
+                    return;
+                }
                 mTabBar.tab(position);
             }
 
@@ -92,6 +112,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     public void goToMy() {
+        mTabBar.tab(3);
+    }
+
+    public void goToIntelligent() {
         mTabBar.tab(2);
     }
 

@@ -1,8 +1,9 @@
 package com.yc.english.intelligent.view.activitys
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.support.v4.content.ContextCompat
-import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import com.jakewharton.rxbinding.view.RxView
@@ -21,12 +22,18 @@ import java.util.concurrent.TimeUnit
 class IntelligentReportActivity : BaseActivity<BasePresenter<BaseEngin, IView>>() {
     override fun init() {
         StatusBarCompat.compat(this, mToolbarWarpper, mToolbar, mStatusBar)
+
         mAbilityView.setDatas(floatArrayOf(0.62f, 0.92f, 0.29f, 0.45f, 0.82f, 0.74f))
                 .setTitles(arrayOf("阅读", "听力", "口语", "写作", "语法", "词汇"))
 
         RxView.clicks(mBackBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
             finish()
+        }
+
+        RxView.clicks(mStartPushBtn).throttleFirst(200, TimeUnit
+                .MILLISECONDS).subscribe {
+            startActivity(Intent(this@IntelligentReportActivity, IntelligentsPushQuestionActivity::class.java))
         }
 
 
@@ -54,7 +61,7 @@ class IntelligentReportActivity : BaseActivity<BasePresenter<BaseEngin, IView>>(
 
     fun star(n: Int) {
         val anim = ObjectAnimator.ofInt(this, "star", 0, n)
-        anim.interpolator = DecelerateInterpolator()
+        anim.interpolator = AccelerateInterpolator()
         anim.duration = 1500
         anim.start()
     }

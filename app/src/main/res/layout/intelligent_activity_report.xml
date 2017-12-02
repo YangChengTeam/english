@@ -35,34 +35,30 @@
 
                     <ImageView
                         android:id="@+id/mBackBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/base_tran_ripple_bg"
+                        android:scaleType="center"
                         android:src="@mipmap/intelligent_back"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="单元智能测评报告"
+                        android:text="练习成绩"
                         android:textColor="@color/black_333"
                         android:textSize="@dimen/font_large"/>
 
-                    <LinearLayout
-                        android:id="@+id/ll_share"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/setting_honour_share"/>
-                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/mShareBtn"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:scaleType="center"
+                        android:background="@drawable/base_tran_ripple_bg"
+                        android:src="@mipmap/setting_honour_share"/>
 
                     <View
                         android:layout_width="match_parent"
@@ -284,13 +280,18 @@
         </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 
+
     <TextView
+        android:id="@+id/mStartPushBtn"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/intelligents_report_start_btn_bg"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:background="@color/primary"
         android:gravity="center"
         android:text="开启个性学习计划"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_normal"/>
+        android:textSize="@dimen/font_big"/>
+
+
 </RelativeLayout>

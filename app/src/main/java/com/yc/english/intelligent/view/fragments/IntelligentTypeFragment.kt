@@ -1,14 +1,22 @@
 package com.yc.english.intelligent.view.fragments
 
+import android.animation.ObjectAnimator
+import android.graphics.BitmapFactory
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 
 import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
+import com.blankj.subutil.util.ThreadPoolUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.jakewharton.rxbinding.view.RxView
+import com.kk.utils.UIUitls
 import com.shizhefei.view.indicator.slidebar.ColorBar
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener
 import com.yc.english.R
+import com.yc.english.base.utils.Blur
 import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.base.view.BaseActivity
 import com.yc.english.base.view.BaseFragment
@@ -25,6 +33,7 @@ import java.util.concurrent.TimeUnit
 open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>() {
     private val titles = arrayOf("Unit 1", "Unit 2", "Unit 3", "Unit 4", "Unit 5", "Unit 6", "Unit 7", "Unit 8")
     private val types = arrayOf("Unit 1", "Unit 2", "Unit 3", "Unit 4", "Unit 5", "Unit 6", "Unit 7", "Unit 8")
+
 
     init {
         isUseInKotlin = true
@@ -70,9 +79,19 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>() {
             IntelligentVGSelectPopupWindow(activity).show(activity.window.decorView.rootView, Gravity.CENTER)
         }
 
+
+
+        ThreadPoolUtils(ThreadPoolUtils.SingleThread, 5).execute {
+            val bimap = Blur.fastblur(activity, BitmapFactory.decodeResource(context!!.resources, R.mipmap
+                    .intellgent_main_bg)
+                    , 25)
+            UIUitls.post {
+                mInfoBg.setImageBitmap(bimap)
+            }
+        }
+
+
         StatusBarCompat.compat(activity as BaseActivity<*>, mToolbarWarpper, mToolbar, R.mipmap.base_actionbar)
-
-
     }
 
     override fun getLayoutId() = R.layout.intelligent_type_fragment_index

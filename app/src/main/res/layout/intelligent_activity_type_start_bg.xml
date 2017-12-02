@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@mipmap/intelligent_type_bg">
+
+    <TextView
+        android:id="@+id/mStartType"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/intelligents_type_start_bg"
+        android:gravity="center"
+        android:text="进入测评"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_big"
+        />
+
+</RelativeLayout>
