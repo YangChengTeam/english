@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:eng="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/mToolbarWarpper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/intelligent_index_bg">
+
+        <RelativeLayout
+            android:id="@+id/mToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <ImageView
+                android:id="@+id/mBackBtn"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/base_tran_ripple_bg"
+                android:src="@mipmap/intelligent_push_back"/>
+
+            <TextView
+                android:id="@+id/mTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="个性化学习计划"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_large"
+                />
+
+            <ImageView
+                android:id="@+id/mShareBtn"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/base_tran_ripple_bg"
+                android:src="@mipmap/intelligent_push_share"/>
+        </RelativeLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></View>
+
+        <com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView
+            android:id="@+id/mIntelligentPushType1"
+            android:layout_width="0dp"
+            android:layout_height="122dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            eng:src="@mipmap/intelligent_push_type1"
+            eng:text="@string/intelligents_type1"></com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></View>
+
+        <com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView
+            android:id="@+id/mIntelligentPushType2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            eng:src="@mipmap/intelligent_push_type2"
+            eng:text="@string/intelligents_type2"></com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></View>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></View>
+
+        <com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView
+            android:id="@+id/mIntelligentPushType3"
+            android:layout_width="0dp"
+            android:layout_height="122dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            eng:src="@mipmap/intelligent_push_type3"
+            eng:text="@string/intelligents_type3"></com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></View>
+
+        <com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView
+            android:id="@+id/mIntelligentPushType4"
+            android:layout_width="0dp"
+            android:layout_height="122dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            eng:src="@mipmap/intelligent_push_type4"
+            eng:text="@string/intelligents_type4"></com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></View>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></View>
+
+        <com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView
+            android:id="@+id/mIntelligentPushType5"
+            android:layout_width="0dp"
+            android:layout_height="122dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            eng:src="@mipmap/intelligent_push_type5"
+            eng:text="@string/intelligents_type5"></com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></View>
+
+        <com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView
+            android:id="@+id/mIntelligentPushType6"
+            android:layout_width="0dp"
+            android:layout_height="122dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            eng:src="@mipmap/intelligent_push_type6"
+            eng:text="@string/intelligents_type6"></com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"></View>
+    </LinearLayout>
+
+</LinearLayout>
