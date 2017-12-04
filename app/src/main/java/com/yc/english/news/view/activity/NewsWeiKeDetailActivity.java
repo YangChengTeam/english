@@ -245,8 +245,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
         mJCVideoPlayer.tinyBackImageView.setVisibility(View.GONE);
         mJCVideoPlayer.batteryLevel.setVisibility(View.GONE);
-        mJCVideoPlayer.backButton.setVisibility(View.GONE);
-
 
         if (currentCourseInfo != null) {
 

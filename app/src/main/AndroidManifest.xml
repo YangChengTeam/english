@@ -45,9 +45,6 @@
             android:name=".read.view.activitys.BookActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".read.view.activitys.CoursePlayActivity"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".read.view.activitys.AddBookActivity"
             android:theme="@style/AppTheme" />
         <activity
@@ -283,6 +280,7 @@
         <activity android:name=".speak.view.activity.SpeakMainActivity" />
         <activity android:name=".setting.view.activitys.VipEquitiesActivity" />
         <activity android:name=".vip.views.activity.VipScoreTutorshipActivity" />
+        <activity android:name=".read.view.activitys.CoursePlayActivity"/>
 
     </application>
 

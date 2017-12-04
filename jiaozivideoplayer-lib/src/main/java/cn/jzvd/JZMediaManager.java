@@ -37,6 +37,7 @@ public class JZMediaManager implements TextureView.SurfaceTextureListener {
         mMediaHandlerThread.start();
         mMediaHandler = new MediaHandler(mMediaHandlerThread.getLooper());
         mainThreadHandler = new Handler();
+
     }
 
     public static JZMediaManager instance() {
@@ -153,6 +154,7 @@ public class JZMediaManager implements TextureView.SurfaceTextureListener {
                 case HANDLER_RELEASE:
                     if (jzMediaInterface != null)
                         jzMediaInterface.release();
+
                     break;
             }
         }

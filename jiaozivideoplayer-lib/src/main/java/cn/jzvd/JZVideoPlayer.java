@@ -391,7 +391,7 @@ public abstract class JZVideoPlayer extends FrameLayout implements View.OnClickL
 
     public void setUp(String url, int screen, Object... objects) {
         LinkedHashMap map = new LinkedHashMap();
-        Log.i(TAG, "setUp: " + map.size());
+        Log.e(TAG, "setUp: " + url);
         map.put(URL_KEY_DEFAULT, url);
         Object[] dataSourceObjects = new Object[1];
         dataSourceObjects[0] = map;
@@ -399,13 +399,15 @@ public abstract class JZVideoPlayer extends FrameLayout implements View.OnClickL
     }
 
     public void setUp(Object[] dataSourceObjects, int defaultUrlMapIndex, int screen, Object... objects) {
-        if (JZMediaManager.instance().jzMediaInterface == null)
-            JZMediaManager.instance().jzMediaInterface = new JZMediaSystem(mContext);
+
 
         if (this.dataSourceObjects != null && JZUtils.getCurrentFromDataSource(dataSourceObjects, currentUrlMapIndex) != null &&
                 JZUtils.getCurrentFromDataSource(this.dataSourceObjects, currentUrlMapIndex).equals(JZUtils.getCurrentFromDataSource(dataSourceObjects, currentUrlMapIndex))) {
             return;
         }
+
+        JZMediaManager.instance().jzMediaInterface = new JZMediaSystem(mContext);
+
         if (isCurrentJZVD() && JZUtils.dataSourceObjectsContainsUri(dataSourceObjects, JZMediaManager.getCurrentDataSource())) {
             int position = 0;
             try {

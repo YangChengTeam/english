@@ -1,8 +1,6 @@
 package com.yc.english.weixin.views.fragments;
 
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -13,22 +11,17 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.shizhefei.view.indicator.FixedIndicatorView;
-import com.shizhefei.view.indicator.Indicator;
-import com.shizhefei.view.indicator.slidebar.ColorBar;
-import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.yc.english.R;
 import com.yc.english.base.helper.ShoppingHelper;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
-import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.contract.OrderContract;
 import com.yc.english.news.presenter.OrderPresenter;
 import com.yc.english.news.view.activity.ShoppingCartActivity;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.weixin.model.domain.CourseInfo;
-import com.yc.english.weixin.views.utils.TabsUtils;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -42,11 +35,6 @@ import rx.functions.Action1;
 
 public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements OrderContract.View {
 
-    @BindView(R.id.viewpager)
-    ViewPager mViewPager;
-
-    @BindView(R.id.fiv_indicator)
-    FixedIndicatorView mFixedIndicatorView;
 
     @BindView(R.id.iv_shopping_cart)
     ImageView mShoppingImageView;
@@ -63,51 +51,9 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
     @BindView(R.id.toolbarWarpper)
     FrameLayout mToolbarWarpper;
 
-    private final String[] titles = new String[]{"音频微课", "视频微课"};
-
     @Override
     public void init() {
         mPresenter = new OrderPresenter(getActivity(), this);
-
-        mFixedIndicatorView.setAdapter(new TabsUtils.MyAdapter(getActivity(), titles));
-        mFixedIndicatorView.setScrollBar(new ColorBar(getActivity(), ContextCompat.getColor(getActivity(), R.color
-                .primary), 6));
-        float unSelectSize = 15;
-        float selectSize = 15;
-        int selectColor = ContextCompat.getColor(getActivity(), R.color.primary);
-        int unSelectColor = ContextCompat.getColor(getActivity(), R.color.black_333);
-        mFixedIndicatorView.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
-        mFixedIndicatorView.setOnIndicatorItemClickListener(new Indicator.OnIndicatorItemClickListener() {
-            @Override
-            public boolean onItemClick(View clickItemView, int position) {
-                mViewPager.setCurrentItem(position);
-                return false;
-            }
-        });
-        mFixedIndicatorView.setCurrentItem(0, true);
-
-        TabsUtils.MainFragmentAdapter mFragmentAdapter = new TabsUtils.MainFragmentAdapter(getChildFragmentManager(),
-                new String[]{"7", "8"});
-        mViewPager.setAdapter(mFragmentAdapter);
-        mViewPager.setCurrentItem(0);
-        mViewPager.setOffscreenPageLimit(1);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                mFixedIndicatorView.setCurrentItem(i, true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
-
 
         RxView.clicks(mShoppingImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -153,36 +99,19 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
         }
     }
 
-
-    @Override
-    public void hideStateView() {
-
-    }
+    
 
     @Override
     public void showLoadingDialog(String msg) {
-
+        ((BaseActivity) getActivity()).showLoadingDialog(msg);
     }
 
     @Override
     public void dismissLoadingDialog() {
-
+        ((BaseActivity) getActivity()).dismissLoadingDialog();
     }
 
-    @Override
-    public void showNoNet() {
 
-    }
-
-    @Override
-    public void showNoData() {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
 
     @Override
     public void showOrderInfo(OrderInfo orderInfo) {

@@ -1,6 +1,7 @@
 package com.yc.english.weixin.model.engin;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.TypeReference;
 import com.blankj.utilcode.util.LogUtils;
@@ -29,11 +30,12 @@ public class WeiKeEngin extends BaseEngin {
         mContext = context;
     }
 
-    public Observable<ResultInfo<WeiKeCategoryWrapper>> getWeikeCategoryList(String type,String page) {
+    public Observable<ResultInfo<WeiKeCategoryWrapper>> getWeikeCategoryList(String type, String page) {
 
         Map<String, String> params = new HashMap<>();
         params.put("page", page);
-        params.put("type_id", type);
+        if (!TextUtils.isEmpty(type))
+            params.put("type_id", type);
 
         LogUtils.e("请求地址--->" + URLConfig.WEIKE_CATEGORY_URL);
 

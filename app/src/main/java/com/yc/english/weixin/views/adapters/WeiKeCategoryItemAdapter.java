@@ -15,11 +15,11 @@ import java.util.List;
  */
 
 public class WeiKeCategoryItemAdapter extends BaseQuickAdapter<WeiKeCategory, BaseViewHolder> {
-    private String mType;
 
-    public WeiKeCategoryItemAdapter(List<WeiKeCategory> data, String type) {
+
+    public WeiKeCategoryItemAdapter(List<WeiKeCategory> data) {
         super(R.layout.weike_item_course, data);
-        this.mType = type;
+
     }
 
     @Override

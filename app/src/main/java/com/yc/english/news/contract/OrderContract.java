@@ -16,7 +16,7 @@ import com.yc.english.pay.alipay.OrderInfo;
  */
 
 public interface OrderContract {
-    interface View extends IView, ILoading, INoData, INoNet, IDialog,IBuy {
+    interface View extends IView,  IDialog,IBuy {
         void showOrderInfo(OrderInfo orderInfo);
 
         void showOrderPayResult(ResultInfo resultInfo);

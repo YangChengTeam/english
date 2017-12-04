@@ -15,7 +15,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -26,10 +25,9 @@ import com.yc.english.read.model.domain.UnitInfoList;
 import com.yc.english.read.presenter.BookUnitPresenter;
 import com.yc.english.read.view.adapter.ReadBookUnitItemClickAdapter;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
-import com.yc.english.setting.view.activitys.BuyVipActivity;
-import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.utils.VipDialogHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -97,6 +95,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                 boolean isRead = true;
 
                 UnitInfo unitInfo = mItemAdapter.getData().get(position);
+
                 //1是免费，2是收费
                 if (unitInfo.getFree() == 1) {
                     isRead = true;
@@ -116,10 +115,9 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                 if (isRead) {
                     if (mItemAdapter.getData() != null && mItemAdapter.getData().get(position) != null) {
                         Intent intent = new Intent(BookUnitActivity.this, CoursePlayActivity.class);
-                        intent.putExtra("unit_id", ((UnitInfo) mItemAdapter.getData().get(position)).getId());
-                        intent.putExtra("unit_title", ((UnitInfo) mItemAdapter.getData().get(position)).getName());
-                        intent.putExtra("last_unit_ids", getLastUnitIds(position));
-                        intent.putExtra("last_unit_titles", getLastUnitTitles(position));
+                        intent.putExtra("position", position);
+                        intent.putParcelableArrayListExtra("unitInfoList", (ArrayList) mItemAdapter.getData());
+
                         startActivity(intent);
                     } else {
                         TipsHelper.tips(BookUnitActivity.this, "教材数据异常，请稍后重试");
@@ -140,33 +138,6 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
         mPresenter.getBookInfoById(bookId);
     }
 
-    public String getLastUnitIds(int position) {
-        int pos = position + 1;
-        if (mItemAdapter.getData() != null && pos < mItemAdapter.getData().size()) {
-            StringBuffer lastUnitIds = new StringBuffer("");
-            for (int i = pos; i < mItemAdapter.getData().size(); i++) {
-                lastUnitIds.append(((UnitInfo) mItemAdapter.getData().get(i)).getId()).append(",");
-            }
-            if (!lastUnitIds.equals("")) {
-                return lastUnitIds.toString();
-            }
-        }
-        return null;
-    }
-
-    public String getLastUnitTitles(int position) {
-        int pos = position + 1;
-        if (mItemAdapter.getData() != null && pos < mItemAdapter.getData().size()) {
-            StringBuffer lastUnitTitles = new StringBuffer("");
-            for (int i = pos; i < mItemAdapter.getData().size(); i++) {
-                lastUnitTitles.append(((UnitInfo) mItemAdapter.getData().get(i)).getName()).append("#");
-            }
-            if (!lastUnitTitles.equals("")) {
-                return lastUnitTitles.toString();
-            }
-        }
-        return null;
-    }
 
     @Override
     public void hideStateView() {

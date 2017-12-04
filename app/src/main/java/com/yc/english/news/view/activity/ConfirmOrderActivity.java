@@ -148,25 +148,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
         return footView;
     }
 
-    @Override
-    public void hideStateView() {
 
-    }
-
-    @Override
-    public void showNoNet() {
-
-    }
-
-    @Override
-    public void showNoData() {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
 
     @Override
     public void showOrderInfo(final OrderInfo orderInfo) {

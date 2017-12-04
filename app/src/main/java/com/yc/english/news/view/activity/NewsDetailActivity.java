@@ -86,7 +86,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     private NewsDetailAdapter newsDetailAdapter;
     private String title;
-    private int screenHeight;
     private String id;
     private long startTime;
     private CourseInfo currentCourseInfo;
@@ -112,7 +111,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             mPresenter.getWeixinInfo(id);
         }
 
-        screenHeight = ScreenUtils.getScreenHeight();
 
         mTextViewTitle.setTypeface(Typeface.DEFAULT);
 
@@ -176,7 +174,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        newsDetailAdapter = new NewsDetailAdapter(this, null);
+        newsDetailAdapter = new NewsDetailAdapter(null);
         mRecyclerView.setAdapter(newsDetailAdapter);
 
         RecyclerView.ItemDecoration itemDecoration = new BaseItemDecoration(this);
@@ -265,12 +263,12 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     private void playVideo(String url, String imgUrl) {
         mJCVideoPlayer.setVisibility(View.VISIBLE);
         mMediaPlayerView.setVisibility(View.GONE);
+        Log.e(TAG, "setUp:app " + url);
         mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
         mJCVideoPlayer.tinyBackImageView.setVisibility(View.GONE);
         mJCVideoPlayer.batteryLevel.setVisibility(View.GONE);
-        mJCVideoPlayer.backButton.setVisibility(View.GONE);
 
         if (currentCourseInfo != null) {
             if (currentCourseInfo.getIsPay() == 0) {
@@ -305,7 +303,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         currentCourseInfo = data.getInfo();
         initData(currentCourseInfo);
         if (data.getRecommend() != null && data.getRecommend().size() > 0) {
-            newsDetailAdapter.setData(data.getRecommend());
+            newsDetailAdapter.setNewData(data.getRecommend());
             mLlRecommend.setVisibility(View.VISIBLE);
         } else {
             mLlRecommend.setVisibility(View.GONE);

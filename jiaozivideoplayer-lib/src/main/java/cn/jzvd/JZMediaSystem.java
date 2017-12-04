@@ -1,9 +1,11 @@
 package cn.jzvd;
 
 import android.content.Context;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.Surface;
+import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.pili.pldroid.player.AVOptions;
@@ -20,7 +22,7 @@ import static cn.jzvd.JZVideoPlayer.TAG;
 public class JZMediaSystem extends JZMediaInterface implements PLMediaPlayer.OnPreparedListener, PLMediaPlayer.OnCompletionListener, PLMediaPlayer.OnBufferingUpdateListener, PLMediaPlayer.OnSeekCompleteListener, PLMediaPlayer.OnErrorListener, PLMediaPlayer.OnInfoListener, PLMediaPlayer.OnVideoSizeChangedListener {
 
     private Context mContext;
-    public PLMediaPlayer mediaPlayer;
+    private PLMediaPlayer mediaPlayer;
     private long time;
 
     public JZMediaSystem(Context context) {
@@ -36,11 +38,10 @@ public class JZMediaSystem extends JZMediaInterface implements PLMediaPlayer.OnP
     public void prepare() {
         try {
             AVOptions avOptions = new AVOptions();
-//            avOptions.setInteger(AVOptions.KEY_BUFFER_TIME, 1000);
-            avOptions.setInteger(AVOptions.KEY_MEDIACODEC, AVOptions.MEDIA_CODEC_AUTO);
+            avOptions.setString(AVOptions.KEY_CACHE_DIR, Config.getDefaultCacheDir(mContext));
+            avOptions.setInteger(AVOptions.KEY_MEDIACODEC, AVOptions.MEDIA_CODEC_HW_DECODE);
             mediaPlayer = new PLMediaPlayer(mContext, avOptions);
-//            mediaPlayer.reset();
-//            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
             if (dataSourceObjects.length > 1) {
                 mediaPlayer.setLooping((boolean) dataSourceObjects[1]);
             }
@@ -66,17 +67,22 @@ public class JZMediaSystem extends JZMediaInterface implements PLMediaPlayer.OnP
 
     @Override
     public void pause() {
-        mediaPlayer.pause();
+        if (mediaPlayer != null)
+            mediaPlayer.pause();
     }
 
     @Override
     public boolean isPlaying() {
-        return mediaPlayer.isPlaying();
+        if (mediaPlayer != null) {
+            return mediaPlayer.isPlaying();
+        }
+        return false;
     }
 
     @Override
     public void seekTo(int time) {
-        mediaPlayer.seekTo(time);
+        if (mediaPlayer != null)
+            mediaPlayer.seekTo(time);
     }
 
     @Override
@@ -91,38 +97,44 @@ public class JZMediaSystem extends JZMediaInterface implements PLMediaPlayer.OnP
 
     @Override
     public int getCurrentPosition() {
-        return (int) mediaPlayer.getCurrentPosition();
+        if (mediaPlayer != null) {
+            return (int) mediaPlayer.getCurrentPosition();
+        }
+        return 0;
     }
 
     @Override
     public int getDuration() {
-        return (int) mediaPlayer.getDuration();
+        if (mediaPlayer != null) {
+            return (int) mediaPlayer.getDuration();
+        }
+        return 0;
     }
 
     @Override
     public void setSurface(Surface surface) {
-        mediaPlayer.setSurface(surface);
+        if (mediaPlayer != null) {
+            mediaPlayer.setSurface(surface);
+        }
     }
 
-//    @Override
-//    public void onPrepared(PLMediaPlayer mediaPlayer) {
-//
-//    }
 
     @Override
     public void onPrepared(PLMediaPlayer plMediaPlayer, int i) {
         long duration = System.currentTimeMillis() - time;
         Log.e("TAG", "onPrepared: " + duration + "ms");
-        mediaPlayer.start();
-        if (currentDataSource.toString().toLowerCase().contains("mp3")) {
-            JZMediaManager.instance().mainThreadHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (JZVideoPlayerManager.getCurrentJzvd() != null) {
-                        JZVideoPlayerManager.getCurrentJzvd().onPrepared();
+        if (mediaPlayer != null) {
+            mediaPlayer.start();
+            if (currentDataSource.toString().toLowerCase().contains("mp3")) {
+                JZMediaManager.instance().mainThreadHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (JZVideoPlayerManager.getCurrentJzvd() != null) {
+                            JZVideoPlayerManager.getCurrentJzvd().onPrepared();
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
@@ -172,6 +184,7 @@ public class JZMediaSystem extends JZMediaInterface implements PLMediaPlayer.OnP
                 }
             }
         });
+        Log.e(TAG, "onError:  " + what + "");
         return true;
     }
 
@@ -192,13 +205,6 @@ public class JZMediaSystem extends JZMediaInterface implements PLMediaPlayer.OnP
         });
         return false;
     }
-
-
-//    @Override
-//    public void onVideoSizeChanged(PLMediaPlayer plMediaPlayer, int width, int height, int i2, int i3) {
-//
-//    }
-
 
     @Override
     public void onVideoSizeChanged(PLMediaPlayer plMediaPlayer, int width, int height) {

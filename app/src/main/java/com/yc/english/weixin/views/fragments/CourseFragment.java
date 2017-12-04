@@ -39,8 +39,6 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
     @BindView(R.id.sv_loading)
     StateView mLoadingStateView;
 
-    private String type;
-
     private int page = 1;
 
     private int pageSize = 20;
@@ -50,9 +48,6 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
     @BindView(R.id.refresh)
     SwipeRefreshLayout mRefreshSwipeRefreshLayout;
 
-    public void setType(String type) {
-        this.type = type;
-    }
 
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
@@ -62,7 +57,7 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
     )
     public void refresh(String tag) {
         page = 1;
-        mPresenter.getWeikeCategoryList(type, page + "");
+        mPresenter.getWeikeCategoryList(page + "");
     }
 
     @Override
@@ -70,14 +65,14 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
 
         mPresenter = new WeiKePresenter(getActivity(), this);
         mCourseRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        mWeiKeCategoryItemAdapter = new WeiKeCategoryItemAdapter(null, type);
+        mWeiKeCategoryItemAdapter = new WeiKeCategoryItemAdapter(null);
         mCourseRecyclerView.setAdapter(mWeiKeCategoryItemAdapter);
 
         mWeiKeCategoryItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getActivity(), WeikeUnitActivity.class);
-                intent.putExtra("type", type);
+
                 intent.putExtra("pid", mWeiKeCategoryItemAdapter.getData().get(position).getId());
                 startActivity(intent);
             }
@@ -86,11 +81,11 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
         mWeiKeCategoryItemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mPresenter.getWeikeCategoryList(type, page + "");
+                mPresenter.getWeikeCategoryList(page + "");
             }
         }, mCourseRecyclerView);
 
-        mPresenter.getWeikeCategoryList(type, page + "");
+        mPresenter.getWeikeCategoryList(page + "");
         mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
         mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -115,7 +110,7 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
         mLoadingStateView.showNoNet(mCourseRecyclerView, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getWeikeCategoryList(type, page + "");
+                mPresenter.getWeikeCategoryList(page + "");
             }
         });
     }

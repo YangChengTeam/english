@@ -38,7 +38,7 @@ public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View
             @Override
             public void onError(Throwable e) {
                 mView.dismissLoadingDialog();
-                mView.showNoNet();
+
             }
 
             @Override
@@ -46,12 +46,12 @@ public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View
                 OrderResultInfoHelper.handleResultInfo(resultInfo, new OrderResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.showNoNet();
+
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.showNoNet();
+
                     }
 
                     @Override

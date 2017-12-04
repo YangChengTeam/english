@@ -35,16 +35,16 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>() {
     }
 
     override fun init() {
-        mPresenter = IntelligentTypePresenter(activity, this)
+        mPresenter = IntelligentTypePresenter(activity!!, this)
 
         mScrollIndicatorView.setAdapter(TabsUtils.MyAdapter(activity, titles, SizeUtils.dp2px(72f)))
-        mScrollIndicatorView.setScrollBar(ColorBar(activity, ContextCompat.getColor(context!!, R.color
+        mScrollIndicatorView.setScrollBar(ColorBar(activity, ContextCompat.getColor(activity!!, R.color
                 .primary), 6))
 
         val unSelectSize = 15f
         val selectSize = 15f
-        val selectColor = ContextCompat.getColor(activity, R.color.primary)
-        val unSelectColor = ContextCompat.getColor(activity, R.color.black_333)
+        val selectColor = ContextCompat.getColor(activity!!, R.color.primary)
+        val unSelectColor = ContextCompat.getColor(activity!!, R.color.black_333)
         mScrollIndicatorView.setOnTransitionListener(OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize))
         mScrollIndicatorView.setOnIndicatorItemClickListener({ clickItemView, position ->
             mViewPager.setCurrentItem(position)
@@ -71,7 +71,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>() {
         })
 
         RxView.clicks(mIntelligentType).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe {
-            IntelligentVGSelectPopupWindow(activity).show(activity.window.decorView.rootView, Gravity.CENTER)
+            IntelligentVGSelectPopupWindow(activity!!).show(activity!!.window.decorView.rootView, Gravity.CENTER)
         }
 
 
