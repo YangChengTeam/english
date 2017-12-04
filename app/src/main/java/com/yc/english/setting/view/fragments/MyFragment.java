@@ -41,16 +41,13 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.contract.MyContract;
 import com.yc.english.setting.model.bean.MyOrderInfo;
 import com.yc.english.setting.presenter.MyPresenter;
-import com.yc.english.setting.view.activitys.BuyVipActivity;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
 import com.yc.english.setting.view.activitys.MyOrderActivity;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
 import com.yc.english.setting.view.activitys.SettingActivity;
-import com.yc.english.setting.view.activitys.VipEquitiesActivityNew;
+import com.yc.english.setting.view.activitys.VipEquitiesActivity;
 import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
 import com.yc.english.setting.view.widgets.MenuItemView;
-import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
-import com.yc.english.vip.views.fragments.BasePayDialogFragment;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -176,7 +173,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 //                    if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
 //                        intent = new Intent(getActivity(), BuyVipActivity.class);
 //                    } else {
-                    Intent intent = new Intent(getActivity(), VipEquitiesActivityNew.class);
+                    Intent intent = new Intent(getActivity(), VipEquitiesActivity.class);
 //                    }
                     startActivity(intent);
                 }

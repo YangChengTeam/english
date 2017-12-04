@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-
+                android:layout_marginTop="@dimen/group_distance_5"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -63,11 +63,10 @@
                     android:src="@mipmap/vip_vip" />
 
                 <TextView
-                    android:id="@+id/tv_school"
+                    android:id="@+id/tv_vip_end_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/group_distance_5"
-                    android:text="2018-05-08 到期"
                     android:textColor="#ffffff"
                     android:textSize="14sp" />
 

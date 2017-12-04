@@ -252,7 +252,6 @@
 
         <activity android:name=".weixin.views.activitys.CourseActivity"></activity>
         <activity android:name=".weixin.views.activitys.WeikeUnitActivity"></activity>
-        <activity android:name=".setting.view.activitys.VipEquitiesActivity" />
         <activity android:name=".weixin.views.activitys.CourseTypeActivity" />
 
         <service android:name=".speak.service.MusicPlayService" />
@@ -282,7 +281,7 @@
         <activity android:name=".intelligent.view.activitys.IntelligentTypeStartBgActivity"></activity>
 
         <activity android:name=".speak.view.activity.SpeakMainActivity" />
-        <activity android:name=".setting.view.activitys.VipEquitiesActivityNew" />
+        <activity android:name=".setting.view.activitys.VipEquitiesActivity" />
         <activity android:name=".vip.views.activity.VipScoreTutorshipActivity" />
 
     </application>

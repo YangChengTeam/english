@@ -1,76 +1,128 @@
 package com.yc.english.setting.view.activitys;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
+import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
-import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.utils.StatusBarCompat;
+import com.yc.english.base.view.BaseActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.setting.model.bean.Config;
-import com.yc.english.setting.view.adapter.VIPEquitiesAdapter;
+import com.yc.english.vip.utils.VipDialogHelper;
+import com.yc.english.vip.views.fragments.BasePayItemView;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/11/8 11:19.
  */
 
-public class VipEquitiesActivity extends FullScreenActivity {
+public class VipEquitiesActivity extends BaseActivity {
 
 
-    @BindView(R.id.recyclerView_open_vip)
-    RecyclerView recyclerViewOpenVip;
-    @BindView(R.id.recyclerView_surplus_days)
-    RecyclerView recyclerViewSurplusDays;
+    @BindView(R.id.iv_avatar)
+    ImageView ivAvatar;
+    @BindView(R.id.tv_nickname)
+    TextView mTvNickname;
+    @BindView(R.id.tv_vip_end_time)
+    TextView mTvEndTime;
+    @BindView(R.id.ll_head)
+    LinearLayout llHead;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.collapsingToolbarLayout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.appbar_layout)
+    AppBarLayout appbarLayout;
+    @BindView(R.id.btn_open_vip)
+    Button mBtnOpenVip;
+    @BindView(R.id.ll_vip_container)
+    LinearLayout llVipContainer;
+    @BindView(R.id.tv_rights_title)
+    TextView mTvRightsTitle;
+    @BindView(R.id.basePayItemView_vip)
+    BasePayItemView basePayItemViewVip;
+    @BindView(R.id.basePayItemView_ceping)
+    BasePayItemView basePayItemViewCeping;
 
+    private boolean isVip = false;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void init() {
-        mToolbar.setTitle(getString(R.string.vip_equities));
-        mToolbar.showNavigationIcon();
+        toolbar.setNavigationIcon(R.mipmap.vip_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        StatusBarCompat.compat(this, appbarLayout, toolbar);
+
         UserInfo userInfo = UserInfoHelper.getUserInfo();
-        long startTime = userInfo.getVip_end_time() - userInfo.getVip_start_time();
-        Date date = new Date();
-        long endTime = userInfo.getVip_end_time() * 1000 - (date.getTime());
-        int openDays = (int) (startTime * 1000 / Config.MS_IN_A_DAY);
-        int surplusDays = (int) (endTime / Config.MS_IN_A_DAY);
-        if (Math.abs(surplusDays) > Math.abs(openDays)) {
-            surplusDays = openDays;
+        mTvNickname.setText(userInfo.getNickname());
+
+        String endTime = TimeUtils.date2String(new Date(userInfo.getVip_end_time() * 1000), new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
+
+        mTvEndTime.setText(String.format(getString(R.string.vip_end_time), endTime));
+        if (userInfo.getIsVip() == 1) {
+            isVip = true;
         }
+        initView();
+        initListener();
+        
+    }
 
-        recyclerViewOpenVip.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    private void initListener() {
+        RxView.clicks(mBtnOpenVip).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
+            }
+        });
 
-        VIPEquitiesAdapter vipEquitiesAdapter = new VIPEquitiesAdapter(translateData(String.valueOf(Math.abs(openDays))));
-        recyclerViewOpenVip.setAdapter(vipEquitiesAdapter);
+    }
 
-        recyclerViewSurplusDays.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        VIPEquitiesAdapter vipEquitiesAdapter2 = new VIPEquitiesAdapter(translateData(String.valueOf(Math.abs(surplusDays))));
-        recyclerViewSurplusDays.setAdapter(vipEquitiesAdapter2);
-
-
+    private void initView() {
+        if (isVip) {
+            mBtnOpenVip.setVisibility(View.GONE);
+            llVipContainer.setVisibility(View.VISIBLE);
+            mTvRightsTitle.setText(getString(R.string.general_vip_right));
+            basePayItemViewVip.setVisibility(View.GONE);
+            basePayItemViewCeping.setVisibility(View.GONE);
+        } else {
+            mBtnOpenVip.setVisibility(View.VISIBLE);
+            llVipContainer.setVisibility(View.GONE);
+            basePayItemViewVip.setVisibility(View.VISIBLE);
+            basePayItemViewCeping.setVisibility(View.VISIBLE);
+            mTvRightsTitle.setText(getString(R.string.exclusive_right));
+        }
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_vip_equities;
-    }
-
-
-    private List<Integer> translateData(String openDays) {
-
-        List<Integer> integerList = new ArrayList<>();
-
-        for (int i = 0; i < openDays.length(); i++) {
-            char d = openDays.charAt(i);
-            integerList.add(Integer.parseInt(String.valueOf(d)));
-        }
-        return integerList;
-
+        return R.layout.activity_vip_equity;
     }
 
 

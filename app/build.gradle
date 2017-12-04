@@ -78,6 +78,7 @@ repositories {
         dirs 'libs'
     }
     mavenCentral()
+    google()
 }
 kapt {
     generateStubs = true
@@ -139,5 +140,6 @@ dependencies {
     compile project(':jiaozivideoplayer-lib')
     compile files('libs/glide-full-4.3.1.jar')
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+
 
 }

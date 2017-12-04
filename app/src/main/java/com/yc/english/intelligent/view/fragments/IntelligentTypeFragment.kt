@@ -1,15 +1,10 @@
 package com.yc.english.intelligent.view.fragments
 
-import android.animation.ObjectAnimator
 import android.graphics.BitmapFactory
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
-
 import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
 import com.blankj.subutil.util.ThreadPoolUtils
-import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.jakewharton.rxbinding.view.RxView
 import com.kk.utils.UIUitls
