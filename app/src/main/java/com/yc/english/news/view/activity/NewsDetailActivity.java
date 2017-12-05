@@ -43,6 +43,7 @@ import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -222,8 +223,17 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                         + "var imgs=document.getElementsByTagName(\"img\");"
                         + "for(var i=0;i<imgs.length;i++) " + "{"
                         + "  imgs[i].onclick=function() " + "{ "
-                        + "    window.HTML.openImg(this.src); "
+                        + "    window.HTML.openImg(this.src);  "
                         + "   }  " + "}" + "}())");
+
+
+//                view.loadUrl("javascript:(function(){"
+//                        + "var imgs=document.getElementsByTagName(\"img\");"
+//                        + "var imgPaths= \"\";"
+//                        + "for(var i=0;i<imgs.length;i++) " + "{"
+//                        + "   imgPaths+=  imgs[i].src+\",\"}"
+//                        + "  window.HTML.getImgs(imgPaths) "
+//                        + "}())");
 
             }
 
@@ -263,7 +273,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     private void playVideo(String url, String imgUrl) {
         mJCVideoPlayer.setVisibility(View.VISIBLE);
         mMediaPlayerView.setVisibility(View.GONE);
-        Log.e(TAG, "setUp:app " + url);
+
         mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
@@ -343,7 +353,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             if (isPlay) {
                 mJCVideoPlayer.startVideo();
             } else {
-
                 currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("courseInfo", currentCourseInfo);
@@ -369,6 +378,12 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             intent.putExtra("position", imageList.indexOf(imgPath));
             startActivity(intent);
 
+        }
+
+        @android.webkit.JavascriptInterface
+        public void getImgs(String imgPaths) {
+
+            LogUtils.e("getImgs " + imgPaths);
         }
 
     }

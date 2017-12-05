@@ -66,19 +66,11 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
             }
             view.setLayoutParams(layoutParams);
         }
-        view.setTag(R.id.img_id, item.getImg());
         Drawable drawable = new BitmapDrawable(mContext.getResources(), BitmapUtils.transformRoundDrawable(mContext, R.mipmap.pic_example, 5));
 
         Glide.with(mContext).load(item.getImg()).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA)
                 .skipMemoryCache(true).error(drawable).dontAnimate()).thumbnail(0.1f).into(view);
 
-//        if (!view.getTag(R.id.img_id).equals(item.getImg())) {
-//            view.setImageDrawable(drawable);
-//        } else {
-//            Glide.with(mContext).load(item.getImg()).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA)
-//                   .skipMemoryCache(true).error(drawable).dontAnimate()).thumbnail(0.1f).into(view);
-//
-//        }
 
     }
 

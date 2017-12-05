@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.weixin.model.domain.CourseInfo;
+import com.yc.english.weixin.model.domain.WeiKeCategory;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -17,19 +18,19 @@ import java.util.Locale;
  * Created by zhangkai on 2017/8/30.
  */
 
-public class AritleAdapter extends BaseQuickAdapter<CourseInfo, BaseViewHolder> {
+public class AritleAdapter extends BaseQuickAdapter<WeiKeCategory, BaseViewHolder> {
 
     private int mType;  // 0 文章  1 微课
 
-    public AritleAdapter(List<CourseInfo> data, int type) {
+    public AritleAdapter(List<WeiKeCategory> data, int type) {
         super(R.layout.index_aritle_item, data);
         this.mType = type;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CourseInfo item) {
+    protected void convert(BaseViewHolder helper, WeiKeCategory item) {
         int position = helper.getAdapterPosition();
-        long addTime = Long.parseLong(item.getAdd_time()) * 1000;
+        long addTime = Long.parseLong(item.getAddTime()) * 1000;
         helper.setText(R.id.tv_time, TimeUtils.millis2String(addTime, new SimpleDateFormat("yyyy-MM-dd " +
                 "HH:mm:ss",
                 Locale.getDefault())));
@@ -43,9 +44,9 @@ public class AritleAdapter extends BaseQuickAdapter<CourseInfo, BaseViewHolder> 
             } else {
                 helper.setVisible(R.id.line, true);
             }
-            if (item.getType_id().equals("7")) {
+            if (item.getTypeId().equals("7")) {
                 helper.setImageResource(R.id.iv_microclass_type, R.mipmap.index_microclass_audio);
-            } else if (item.getType_id().equals("8")) {
+            } else if (item.getTypeId().equals("8")) {
                 helper.setImageResource(R.id.iv_microclass_type, R.mipmap.index_microclass_video);
             }
         }

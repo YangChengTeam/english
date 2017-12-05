@@ -3,6 +3,7 @@ package com.yc.english.main.model.domain;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.yc.english.community.model.domain.CommunityInfo;
 import com.yc.english.weixin.model.domain.CourseInfo;
+import com.yc.english.weixin.model.domain.WeiKeCategory;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class IndexInfo {
 
     private List<CourseInfo> tuijian;
 
-    private List<CourseInfo> weike;
+    private List<WeiKeCategory> weike;
 
     private List<CommunityInfo> shequ;
 
@@ -96,11 +97,11 @@ public class IndexInfo {
         this.tingli = tingli;
     }
 
-    public List<CourseInfo> getWeike() {
+    public List<WeiKeCategory> getWeike() {
         return weike;
     }
 
-    public void setWeike(List<CourseInfo> weike) {
+    public void setWeike(List<WeiKeCategory> weike) {
         this.weike = weike;
     }
 

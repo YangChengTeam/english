@@ -107,7 +107,7 @@
     <string name="tutorship">提分辅导</string>
     <string name="member">会员</string>
     <string name="sigle_buy">单次购买</string>
-    <string name="original_price">原价%1$d元</string>
+    <string name="original_price">原价%1$s元</string>
     <string name="vip_end_time">%1$s 到期</string>
 
     <string-array name="task_finish_result">

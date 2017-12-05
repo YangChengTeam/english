@@ -27,6 +27,7 @@ import com.yc.english.pay.alipay.IPayCallback;
 import com.yc.english.pay.alipay.IWXPay1Impl;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.model.bean.GoodInfo;
+import com.yc.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.english.vip.contract.VipBuyContract;
 import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.presenter.VipBuyPresenter;
@@ -177,9 +178,13 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
     private void restoreGoodInfoAndPayway(int postion) {
         mPayWayName = PayConfig.ali_pay;
-        if (postion == 0 || postion == 1) {
-            mGoodInfo = VipInfoHelper.getGoodInfoList().get(0);
-
+        GoodInfoWrapper goodInfoWrapper = VipInfoHelper.getGoodInfoWrapper();
+        if (postion == 0) {
+            if (goodInfoWrapper.getSvip() != null && goodInfoWrapper.getSvip().size() > 0)
+                mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getSvip().get(0);
+        } else if (postion == 1) {
+            if (goodInfoWrapper.getVip() != null && goodInfoWrapper.getVip().size() > 0)
+                mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getVip().get(0);
         } else if (postion == 2) {
             mGoodInfo = new GoodInfo();
             if (courseInfo != null) {

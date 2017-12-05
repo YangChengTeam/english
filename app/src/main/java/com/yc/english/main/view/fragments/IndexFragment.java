@@ -50,8 +50,10 @@ import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
 import com.yc.english.union.view.activitys.UnionMainActivity;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
 import com.yc.english.weixin.model.domain.CourseInfo;
+import com.yc.english.weixin.model.domain.WeiKeCategory;
 import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.yc.english.weixin.views.activitys.CourseTypeActivity;
+import com.yc.english.weixin.views.activitys.WeikeUnitActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -266,7 +268,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             public void OnBannerClick(int position) {
                 SlideInfo slideInfo = mPresenter.getSlideInfo(position);
                 if (slideInfo.getType().equals("0")) {
-                    if (slideInfo == null || EmptyUtils.isEmpty(slideInfo.getTypeValue())) {
+                    if (EmptyUtils.isEmpty(slideInfo.getTypeValue())) {
                         return;
                     }
                     Intent intent = new Intent(getActivity(), WebActivity.class);
@@ -302,8 +304,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         mHotMircoClassAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
-                intent.putExtra("info", mHotMircoClassAdapter.getData().get(position));
+                Intent intent = new Intent(getActivity(), WeikeUnitActivity.class);
+                intent.putExtra("pid", mHotMircoClassAdapter.getData().get(position).getId());
+                intent.putExtra("type", mHotMircoClassAdapter.getData().get(position).getTypeId());
                 startActivity(intent);
             }
         });

@@ -17,6 +17,7 @@ import com.yc.english.pay.PayConfig;
 import com.yc.english.pay.PayWayInfo;
 import com.yc.english.pay.PayWayInfoHelper;
 import com.yc.english.setting.model.bean.GoodInfo;
+import com.yc.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.utils.VipInfoHelper;
 import com.yc.english.weixin.model.domain.CourseInfo;
@@ -76,7 +77,7 @@ public class BaseVipPayFragment extends BaseFragment {
     private int generalType;//点读 微课
     private CourseInfo courserInfo;
     private onVipClickListener mListener;
-    private List<GoodInfo> goodInfoList;
+
     private List<PayWayInfo> payWayInfoList;
     private int position = 0;
 
@@ -85,11 +86,17 @@ public class BaseVipPayFragment extends BaseFragment {
     private GoodInfo goodInfo;
     private List<View> viewList = new ArrayList<>();
 
+    private List<GoodInfo> sVipList;//提分辅导
+
+    private List<GoodInfo> generalVipList;//普通会员
+
     @Override
     public void init() {
         baseItemViewCeping.setVisibility(mType == 2 ? View.GONE : View.VISIBLE);
-        goodInfoList = VipInfoHelper.getGoodInfoList();
+        GoodInfoWrapper goodInfoWrapper = VipInfoHelper.getGoodInfoWrapper();
 
+        sVipList = goodInfoWrapper.getSvip();
+        generalVipList = goodInfoWrapper.getVip();
 
         if (mType == 3) {
             llFirstContent.setVisibility(View.GONE);
@@ -111,16 +118,17 @@ public class BaseVipPayFragment extends BaseFragment {
 
             if (getCourserInfo() != null) {
 
-                vipCurrentPrice.setText(String.valueOf((int) getCourserInfo().getMPrice()));
-                tvVipOriginalPrice.setText(String.format(getString(R.string.original_price), (int) (getCourserInfo().getPrice())));
+                vipCurrentPrice.setText(String.valueOf(getCourserInfo().getMPrice()));
+                tvVipOriginalPrice.setText(String.format(getString(R.string.original_price), String.valueOf(getCourserInfo().getPrice())));
             }
+        } else if (mType == 2) {
+            baseItemViewWeike.setContentAndIcon("微课免费看", 0);
+            baseItemViewTeach.setContentAndIcon("名师辅导课", R.mipmap.vip_common_teach);
+            setGoodInfo(position, generalVipList);
         } else {
-            if (mType == 2) {
-                baseItemViewWeike.setContentAndIcon("微课免费看", 0);
-                baseItemViewTeach.setContentAndIcon("名师辅导课", R.mipmap.vip_common_teach);
-            }
-            setGoodInfo(position);
+            setGoodInfo(position, sVipList);
         }
+
         setTextStyle(tvVipThreeMonth);
         llVipAli.setBackgroundResource(R.drawable.vip_item_select_time);
         tvVipOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
@@ -195,13 +203,13 @@ public class BaseVipPayFragment extends BaseFragment {
     }
 
 
-    private void setGoodInfo(int position) {
+    private void setGoodInfo(int position, List<GoodInfo> goodInfoList) {
         if (goodInfoList != null && position < goodInfoList.size()) {
             goodInfo = goodInfoList.get(position);
             String payPrice = goodInfo.getPay_price();
             int realPrice = (int) (Float.parseFloat(payPrice));
             vipCurrentPrice.setText(String.valueOf(realPrice));
-            tvVipOriginalPrice.setText(String.format(getString(R.string.original_price), (int) Float.parseFloat(goodInfo.getPrice())));
+            tvVipOriginalPrice.setText(String.format(getString(R.string.original_price), goodInfo.getPrice()));
         }
     }
 
@@ -223,7 +231,12 @@ public class BaseVipPayFragment extends BaseFragment {
             public void call(Void aVoid) {
                 if (view instanceof TextView) {
                     setTextStyle(((TextView) view));
-                    setGoodInfo(position);
+                    if (mType == 1) {
+                        setGoodInfo(position, sVipList);
+                    } else if (mType == 2) {
+                        setGoodInfo(position, generalVipList);
+                    }
+
                 }
                 if (view instanceof LinearLayout) {
                     setPayWayInfo(position);
