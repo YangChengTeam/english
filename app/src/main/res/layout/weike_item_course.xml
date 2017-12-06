@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="6dp"
-              android:background="@drawable/weixin_item_ripple_bg"
-              android:gravity="center"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:background="@drawable/weixin_item_ripple_bg"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="top|center">
@@ -19,9 +19,16 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:scaleType="centerInside"
-            android:src="@mipmap/course_item_default_icon"
-            />
-    </LinearLayout>
+            android:src="@mipmap/course_item_default_icon" />
+
+        <ImageView
+            android:id="@+id/iv_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/group_distance_10"
+            android:layout_marginTop="@dimen/group_distance_10" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,11 +43,11 @@
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="6dp"
             android:layout_marginLeft="8dp"
-            android:text="话题口语"
-            android:lines="2"
             android:ellipsize="end"
+            android:lines="2"
+            android:text="话题口语"
             android:textColor="@color/black_333333"
-            android:textSize="@dimen/font_snormal"/>
+            android:textSize="@dimen/font_snormal" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,7 +62,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="0.5dp"
-                android:src="@mipmap/unit_count_icon"/>
+                android:src="@mipmap/unit_count_icon" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -70,7 +77,7 @@
                     android:layout_gravity="center_vertical"
                     android:text="总共"
                     android:textColor="@color/gray_aaa"
-                    android:textSize="@dimen/font_snormal"/>
+                    android:textSize="@dimen/font_snormal" />
 
                 <TextView
                     android:id="@+id/tv_unit_count"
@@ -79,7 +86,7 @@
                     android:layout_gravity="center_vertical"
                     android:text="12"
                     android:textColor="@color/group_red_fb4c30"
-                    android:textSize="@dimen/font_snormal"/>
+                    android:textSize="@dimen/font_snormal" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -87,7 +94,7 @@
                     android:layout_gravity="center_vertical"
                     android:text="单元"
                     android:textColor="@color/gray_aaa"
-                    android:textSize="@dimen/font_snormal"/>
+                    android:textSize="@dimen/font_snormal" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

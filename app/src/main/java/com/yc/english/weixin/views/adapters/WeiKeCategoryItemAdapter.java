@@ -26,6 +26,7 @@ public class WeiKeCategoryItemAdapter extends BaseQuickAdapter<WeiKeCategory, Ba
     protected void convert(BaseViewHolder helper, WeiKeCategory item) {
         helper.setText(R.id.tv_title, item.getTitle());
         helper.setText(R.id.tv_unit_count, item.getUnitNum() + "");
+        helper.setImageResource(R.id.iv_tag, item.getTypeId().equals("8") ? R.mipmap.weike_tv : R.mipmap.weike_av);
         GlideHelper.imageView(mContext, (ImageView) helper.getView(R.id.iv_icon), item.getImg(), 0);
     }
 }

@@ -393,7 +393,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     private void showBuyDialog() {
         Bundle bundle = new Bundle();
         bundle.putParcelable("courseInfo", currentCourseInfo);
-        bundle.putInt(GoodsType.GOODS_KEY, GoodsType.GENERAL_TYPE_WEIKE);
+        bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_SINGLE_WEIKE);
         VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, bundle);
     }
 

@@ -76,7 +76,8 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
         Bundle bundle = getArguments();
         if (bundle != null) {
             goodsType = bundle.getInt(GoodsType.GOODS_KEY);
-            if (goodsType == GoodsType.GENERAL_TYPE_WEIKE || goodsType == GoodsType.GENERAL_TYPE_DIANDU) {
+            if (goodsType == GoodsType.TYPE_SINGLE_WEIKE || goodsType == GoodsType.TYPE_SINGLE_DIANDU
+                    || goodsType == GoodsType.TYPE_SINGLE_INDIVIDUALITY_PLAN) {
                 //显示三项
                 mTitles.add(getString(R.string.sigle_buy));
                 if (bundle.getParcelable("courseInfo") != null) {
@@ -114,7 +115,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
             }
         });
-        restoreGoodInfoAndPayway(0);
+        restoreGoodInfoAndPayWay(0);
         initListener();
 
     }
@@ -129,7 +130,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
             @Override
             public void onPageSelected(int position) {
-                restoreGoodInfoAndPayway(position);
+                restoreGoodInfoAndPayWay(position);
                 switch (position) {
                     case 0:
                         currentFragment = vipPayFragment;
@@ -141,9 +142,8 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                         currentFragment = singleFragment;
                         break;
                 }
-                if (currentFragment != null) {
-                    currentFragment.setOnVipClickListener(BasePayDialogFragment.this);
-                }
+
+                currentFragment.setOnVipClickListener(BasePayDialogFragment.this);
             }
 
             @Override
@@ -176,16 +176,16 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
         return R.layout.base_pay_popupwindow;
     }
 
-    private void restoreGoodInfoAndPayway(int postion) {
+    private void restoreGoodInfoAndPayWay(int position) {
         mPayWayName = PayConfig.ali_pay;
         GoodInfoWrapper goodInfoWrapper = VipInfoHelper.getGoodInfoWrapper();
-        if (postion == 0) {
+        if (position == 0) {
             if (goodInfoWrapper.getSvip() != null && goodInfoWrapper.getSvip().size() > 0)
                 mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getSvip().get(0);
-        } else if (postion == 1) {
+        } else if (position == 1) {
             if (goodInfoWrapper.getVip() != null && goodInfoWrapper.getVip().size() > 0)
                 mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getVip().get(0);
-        } else if (postion == 2) {
+        } else if (position == 2) {
             mGoodInfo = new GoodInfo();
             if (courseInfo != null) {
                 mGoodInfo.setId(courseInfo.getGoodId());
@@ -207,9 +207,6 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
         }
     }
 
-    private BaseVipPayFragment vipPayFragment;
-    private BaseVipPayFragment generalFragment;
-    private BaseVipPayFragment singleFragment;
 
     @Override
     public void showLoadingDialog(String msg) {
@@ -224,14 +221,11 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
     @Override
     public void onVipClick(GoodInfo goodInfo, String payWayName, int type) {
+        mPayWayName = payWayName;
         switch (type) {
-            case 1:
-            case 2:
+            case GoodsType.TYPE_SVIP:
+            case GoodsType.TYPE_GENERAL_VIP:
                 mGoodInfo = goodInfo;
-                mPayWayName = payWayName;
-                break;
-            case 3:
-                mPayWayName = payWayName;
                 break;
 
         }
@@ -239,6 +233,9 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
         LogUtils.e(mGoodInfo.getPay_price() + "---" + payWayName);
     }
 
+    private BaseVipPayFragment vipPayFragment;
+    private BaseVipPayFragment generalFragment;
+    private BaseVipPayFragment singleFragment;
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
 
@@ -254,7 +251,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
             if (position == 0) {
                 if (vipPayFragment == null) {
                     vipPayFragment = new BaseVipPayFragment();
-                    vipPayFragment.setType(1);
+                    vipPayFragment.setType(GoodsType.TYPE_SVIP);
                 }
                 vipPayFragment.setOnVipClickListener(BasePayDialogFragment.this);
                 return vipPayFragment;
@@ -262,15 +259,14 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
             } else if (position == 1) {
                 if (generalFragment == null) {
                     generalFragment = new BaseVipPayFragment();
-                    generalFragment.setType(2);
+                    generalFragment.setType(GoodsType.TYPE_GENERAL_VIP);
                 }
                 return generalFragment;
 
             } else if (position == 2) {
                 if (singleFragment == null) {
                     singleFragment = new BaseVipPayFragment();
-                    singleFragment.setType(3);
-                    singleFragment.setGeneralType(goodsType);
+                    singleFragment.setType(goodsType);
                     singleFragment.setCourserInfo(courseInfo);
                 }
                 return singleFragment;

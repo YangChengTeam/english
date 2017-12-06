@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
@@ -74,7 +75,7 @@ public class BaseVipPayFragment extends BaseFragment {
     BasePayItemView baseItemViewTeach;
 
     private int mType;//1.提分辅导2.VIP会员3.单次购买
-    private int generalType;//点读 微课
+
     private CourseInfo courserInfo;
     private onVipClickListener mListener;
 
@@ -92,21 +93,28 @@ public class BaseVipPayFragment extends BaseFragment {
 
     @Override
     public void init() {
-        baseItemViewCeping.setVisibility(mType == 2 ? View.GONE : View.VISIBLE);
+        baseItemViewCeping.setVisibility(mType == GoodsType.TYPE_GENERAL_VIP ? View.GONE : View.VISIBLE);
         GoodInfoWrapper goodInfoWrapper = VipInfoHelper.getGoodInfoWrapper();
+
 
         sVipList = goodInfoWrapper.getSvip();
         generalVipList = goodInfoWrapper.getVip();
 
-        if (mType == 3) {
+        if (mType == GoodsType.TYPE_SVIP) {
+            setGoodInfo(position, sVipList);
+        } else if (mType == GoodsType.TYPE_GENERAL_VIP) {
+            baseItemViewWeike.setContentAndIcon("微课免费看", 0);
+            baseItemViewTeach.setContentAndIcon("名师辅导课", R.mipmap.vip_common_teach);
+            setGoodInfo(position, generalVipList);
+        } else {
             llFirstContent.setVisibility(View.GONE);
             baseItemViewUnion.setVisibility(View.GONE);
             llMonthContainer.setVisibility(View.GONE);
-            if (getGeneralType() == GoodsType.GENERAL_TYPE_WEIKE) {
+            if (mType == GoodsType.TYPE_SINGLE_WEIKE) {
                 baseItemViewCeping.setContentAndIcon("同步微课", 0);
-            } else if (getGeneralType() == GoodsType.GENERAL_TYPE_DIANDU) {
+            } else if (mType == GoodsType.TYPE_SINGLE_DIANDU) {
                 baseItemViewCeping.setContentAndIcon("教材点读", 0);
-            } else if (getGeneralType() == GoodsType.GENERAL_TYPE_INDIVIDUALITY_PLAN) {
+            } else if (mType == GoodsType.TYPE_SINGLE_INDIVIDUALITY_PLAN) {
                 baseItemViewCeping.setContentAndIcon("个性学习计划", 0);
             }
 
@@ -117,23 +125,18 @@ public class BaseVipPayFragment extends BaseFragment {
             rootView.setGravity(Gravity.TOP);
 
             if (getCourserInfo() != null) {
-
                 vipCurrentPrice.setText(String.valueOf(getCourserInfo().getMPrice()));
                 tvVipOriginalPrice.setText(String.format(getString(R.string.original_price), String.valueOf(getCourserInfo().getPrice())));
             }
-        } else if (mType == 2) {
-            baseItemViewWeike.setContentAndIcon("微课免费看", 0);
-            baseItemViewTeach.setContentAndIcon("名师辅导课", R.mipmap.vip_common_teach);
-            setGoodInfo(position, generalVipList);
-        } else {
-            setGoodInfo(position, sVipList);
+
         }
 
         setTextStyle(tvVipThreeMonth);
-        llVipAli.setBackgroundResource(R.drawable.vip_item_select_time);
+//        llVipAli.setBackgroundResource(R.drawable.vip_item_select_time);
         tvVipOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
         viewList.add(llVipAli);
         viewList.add(llVipWx);
+        setPayWayInfo(0);
         initListener();
 
     }
@@ -177,14 +180,6 @@ public class BaseVipPayFragment extends BaseFragment {
         tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.group_blue_21b5f8));
     }
 
-
-    public void setGeneralType(int generalType) {
-        this.generalType = generalType;
-    }
-
-    public int getGeneralType() {
-        return generalType;
-    }
 
     public void setCourserInfo(CourseInfo courserInfo) {
         this.courserInfo = courserInfo;
@@ -231,9 +226,9 @@ public class BaseVipPayFragment extends BaseFragment {
             public void call(Void aVoid) {
                 if (view instanceof TextView) {
                     setTextStyle(((TextView) view));
-                    if (mType == 1) {
+                    if (mType == GoodsType.TYPE_SVIP) {
                         setGoodInfo(position, sVipList);
-                    } else if (mType == 2) {
+                    } else if (mType == GoodsType.TYPE_GENERAL_VIP) {
                         setGoodInfo(position, generalVipList);
                     }
 

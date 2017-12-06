@@ -356,7 +356,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                 currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("courseInfo", currentCourseInfo);
-                bundle.putInt(GoodsType.GOODS_KEY, GoodsType.GENERAL_TYPE_WEIKE);
+                bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_SINGLE_WEIKE);
                 VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, bundle);
             }
         } else {
