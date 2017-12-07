@@ -102,6 +102,7 @@
 
     <string name="open_vip">开通会员</string>
     <string name="general_vip_right">普通会员专属特权</string>
+    <string name="tutorship_vip_right">提分辅导专属特权</string>
     <string name="vip_right">VIP会员专属特权</string>
     <string name="exclusive_right">专属特权</string>
     <string name="tutorship">提分辅导</string>

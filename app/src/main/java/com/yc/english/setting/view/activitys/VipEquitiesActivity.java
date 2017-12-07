@@ -1,8 +1,6 @@
 package com.yc.english.setting.view.activitys;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -65,10 +63,15 @@ public class VipEquitiesActivity extends BaseActivity {
     BasePayItemView basePayItemViewVip;
     @BindView(R.id.basePayItemView_ceping)
     BasePayItemView basePayItemViewCeping;
+    @BindView(R.id.vip_icon)
+    ImageView mVipIcon;
+    @BindView(R.id.baseItemView_weike)
+    BasePayItemView baseItemViewWeike;
+    private UserInfo userInfo;
 
     private boolean isVip = false;
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
     @Override
     public void init() {
         toolbar.setNavigationIcon(R.mipmap.vip_back);
@@ -80,7 +83,7 @@ public class VipEquitiesActivity extends BaseActivity {
         });
         StatusBarCompat.compat(this, appbarLayout, toolbar);
 
-        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        userInfo = UserInfoHelper.getUserInfo();
         mTvNickname.setText(userInfo.getNickname());
 
         String endTime = TimeUtils.date2String(new Date(userInfo.getVip_end_time() * 1000), new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
@@ -91,7 +94,7 @@ public class VipEquitiesActivity extends BaseActivity {
         }
         initView();
         initListener();
-        
+
     }
 
     private void initListener() {
@@ -105,18 +108,34 @@ public class VipEquitiesActivity extends BaseActivity {
     }
 
     private void initView() {
-        if (isVip) {
-            mBtnOpenVip.setVisibility(View.GONE);
-            llVipContainer.setVisibility(View.VISIBLE);
-            mTvRightsTitle.setText(getString(R.string.general_vip_right));
-            basePayItemViewVip.setVisibility(View.GONE);
-            basePayItemViewCeping.setVisibility(View.GONE);
-        } else {
+
+        if (userInfo.getIsVip() == 0) {//非会员
             mBtnOpenVip.setVisibility(View.VISIBLE);
             llVipContainer.setVisibility(View.GONE);
             basePayItemViewVip.setVisibility(View.VISIBLE);
             basePayItemViewCeping.setVisibility(View.VISIBLE);
             mTvRightsTitle.setText(getString(R.string.exclusive_right));
+        } else {
+            mBtnOpenVip.setVisibility(View.GONE);
+            llVipContainer.setVisibility(View.VISIBLE);
+            if (userInfo.getIsVip() == 1) {
+                mTvRightsTitle.setText(getString(R.string.general_vip_right));
+                basePayItemViewVip.setVisibility(View.GONE);
+                basePayItemViewCeping.setVisibility(View.GONE);
+                mVipIcon.setImageResource(R.mipmap.vip_vip);
+            } else {
+                mTvRightsTitle.setText(getString(R.string.tutorship_vip_right));
+                mVipIcon.setImageResource(R.mipmap.vip_tifen);
+                baseItemViewWeike.setContentAndIcon("同步微课", 0);
+            }
+        }
+
+
+        if (isVip) {
+
+
+        } else {
+
         }
     }
 

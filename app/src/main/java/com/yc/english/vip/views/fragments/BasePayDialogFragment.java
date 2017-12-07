@@ -15,10 +15,12 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
 import com.yc.english.news.model.domain.OrderGood;
 import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.pay.PayConfig;
@@ -322,6 +324,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 //        int use_time_Limit = Integer.parseInt(goodInfo.getUse_time_limit());
 //        long vip_end_time = date.getTime() + use_time_Limit * 30 * (Config.MS_IN_A_DAY);
 //        UserInfoHelper.getUserInfo().setVip_end_time(vip_end_time / 1000);
+        RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form pay");
         VipDialogHelper.dismissVipDialog();
     }
 

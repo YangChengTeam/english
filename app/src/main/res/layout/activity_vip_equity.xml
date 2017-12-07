@@ -73,30 +73,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/group_distance_10">
 
-                    <FrameLayout
+
+                    <com.yc.english.vip.views.fragments.BasePayItemView
+                        android:id="@+id/baseItemView_weike"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <com.yc.english.vip.views.fragments.BasePayItemView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            eng:vip_content="微课免费看"
-                            eng:vip_icon="@mipmap/vip_equity_weike" />
-
-                        <com.yc.english.vip.views.fragments.BasePayItemView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:visibility="gone"
-                            eng:vip_content="同步微课"
-                            eng:vip_icon="@mipmap/vip_equity_weike" />
-
-
-                    </FrameLayout>
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        eng:vip_content="微课免费看"
+                        eng:vip_icon="@mipmap/vip_equity_weike" />
 
                     <FrameLayout
                         android:layout_width="0dp"

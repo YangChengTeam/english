@@ -72,7 +72,7 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
                     @Override
                     public void run() {
                         UserInfoHelper.utils(mContext, resultInfo);
-                        RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form login");
+                        RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form getUserInfo");
                         mView.finish();
                     }
                 });

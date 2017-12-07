@@ -406,7 +406,7 @@ public abstract class JZVideoPlayer extends FrameLayout implements View.OnClickL
             return;
         }
 
-        JZMediaManager.instance().jzMediaInterface = new JZMediaSystem(mContext);
+        JZMediaManager.instance().jzMediaInterface = new JZMediaNewSystem(mContext);
 
         if (isCurrentJZVD() && JZUtils.dataSourceObjectsContainsUri(dataSourceObjects, JZMediaManager.getCurrentDataSource())) {
             int position = 0;
@@ -727,6 +727,8 @@ public abstract class JZVideoPlayer extends FrameLayout implements View.OnClickL
                 JZMediaManager.instance().releaseMediaPlayer();
             }
         }
+        JZMediaManager.instance().jzMediaInterface = new JZMediaSystem();
+
     }
 
     @Override

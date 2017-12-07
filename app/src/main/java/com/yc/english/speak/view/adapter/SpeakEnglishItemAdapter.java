@@ -71,7 +71,6 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
         Glide.with(mContext).load(item.getImg()).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA)
                 .skipMemoryCache(true).error(drawable).dontAnimate()).thumbnail(0.1f).into(view);
 
-
     }
 
     private void setItemLayoutParams(BaseViewHolder helper, int position) {

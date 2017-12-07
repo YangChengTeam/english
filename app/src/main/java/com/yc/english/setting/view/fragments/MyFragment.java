@@ -257,9 +257,9 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     public void onResume() {
         super.onResume();
         if (UserInfoHelper.getUserInfo() != null && UserInfoHelper.getUserInfo().getIsVip() == 1) {
-            mBuyVipMenuItemView.setTitle("VIP会员信息");
+            mBuyVipMenuItemView.setTitle("会员信息");
         } else {
-            mBuyVipMenuItemView.setTitle("开通VIP会员");
+            mBuyVipMenuItemView.setTitle("开通会员");
         }
 
     }
