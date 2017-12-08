@@ -40,12 +40,12 @@
         "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\jz_add_volume.png"
     },
     {
-        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\jz_back_tiny_normal.png",
-        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\jz_back_tiny_normal.png"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\jz_back_tiny_pressed.png",
         "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\jz_back_tiny_pressed.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\jz_back_tiny_normal.png",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\jz_back_tiny_normal.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\jz_brightness_video.png",

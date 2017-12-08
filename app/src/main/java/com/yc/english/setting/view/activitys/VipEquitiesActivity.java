@@ -67,6 +67,8 @@ public class VipEquitiesActivity extends BaseActivity {
     ImageView mVipIcon;
     @BindView(R.id.baseItemView_weike)
     BasePayItemView baseItemViewWeike;
+    @BindView(R.id.baseItemView_teach)
+    BasePayItemView baseItemViewTeach;
     private UserInfo userInfo;
 
     private boolean isVip = false;
@@ -127,16 +129,11 @@ public class VipEquitiesActivity extends BaseActivity {
                 mTvRightsTitle.setText(getString(R.string.tutorship_vip_right));
                 mVipIcon.setImageResource(R.mipmap.vip_tifen);
                 baseItemViewWeike.setContentAndIcon("同步微课", 0);
+                baseItemViewTeach.setContentAndIcon("VIP专属教学", R.mipmap.vip_self_icon);
+                basePayItemViewVip.setVisibility(View.GONE);
             }
         }
 
-
-        if (isVip) {
-
-
-        } else {
-
-        }
     }
 
     @Override

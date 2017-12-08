@@ -89,7 +89,7 @@
                         android:layout_weight="1">
 
                         <com.yc.english.vip.views.fragments.BasePayItemView
-
+                            android:id="@+id/baseItemView_teach"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

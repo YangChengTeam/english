@@ -35,8 +35,9 @@ public class JZMediaNewSystem extends JZMediaInterface implements PLMediaPlayer.
     public void prepare() {
         try {
             AVOptions avOptions = new AVOptions();
-            avOptions.setString(AVOptions.KEY_CACHE_DIR, Config.getDefaultCacheDir(mContext));
+//            avOptions.setString(AVOptions.KEY_CACHE_DIR, Config.getDefaultCacheDir(mContext));
             avOptions.setInteger(AVOptions.KEY_MEDIACODEC, AVOptions.MEDIA_CODEC_AUTO);
+            avOptions.setInteger(AVOptions.KEY_PREFER_FORMAT, AVOptions.PREFER_FORMAT_MP4);
             mediaPlayer = new PLMediaPlayer(mContext, avOptions);
 
             if (dataSourceObjects.length > 1) {
