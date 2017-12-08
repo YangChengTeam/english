@@ -170,11 +170,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             public void call(Void aVoid) {
                 if (!UserInfoHelper.isGotoLogin(getActivity())) {
 
-//                    if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
-//                        intent = new Intent(getActivity(), BuyVipActivity.class);
-//                    } else {
                     Intent intent = new Intent(getActivity(), VipEquitiesActivity.class);
-//                    }
+
                     startActivity(intent);
                 }
             }
@@ -256,7 +253,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Override
     public void onResume() {
         super.onResume();
-        if (UserInfoHelper.getUserInfo() != null && UserInfoHelper.getUserInfo().getIsVip() == 1) {
+        if (UserInfoHelper.getUserInfo() != null && (UserInfoHelper.getUserInfo().getIsVip() == 1 || UserInfoHelper.getUserInfo().getIsVip() == 2)) {
             mBuyVipMenuItemView.setTitle("会员信息");
         } else {
             mBuyVipMenuItemView.setTitle("开通会员");

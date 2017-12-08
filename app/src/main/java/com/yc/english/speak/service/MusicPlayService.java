@@ -60,6 +60,7 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
     private void initMediaPlayer() {
         try {
             LogUtils.e("initMediaPlayer--->");
+            mMediaPlayer.stop();
             mMediaPlayer.reset();
             setCurrentState(State.STATE_IDLE);
             mMediaPlayer.setDataSource(mSongPath);
