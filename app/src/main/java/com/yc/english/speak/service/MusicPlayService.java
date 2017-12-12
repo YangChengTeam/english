@@ -14,6 +14,7 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.speak.utils.AudioConstant;
+import com.yc.english.speak.view.activity.ListenEnglishActivity;
 
 import java.io.IOException;
 
@@ -37,16 +38,20 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
     @Override
     public void onCreate() {
         super.onCreate();
-        mMediaPlayer = new MediaPlayer();
-        mMediaPlayer.setOnCompletionListener(this);
-        mMediaPlayer.setOnPreparedListener(this);
-        mMediaPlayer.setOnErrorListener(this);
-        mMediaPlayer.setOnBufferingUpdateListener(this);
+
         RxBus.get().register(this);
+        if (mMediaPlayer == null) {
+            mMediaPlayer = new MediaPlayer();
+            mMediaPlayer.setOnCompletionListener(this);
+            mMediaPlayer.setOnPreparedListener(this);
+            mMediaPlayer.setOnErrorListener(this);
+            mMediaPlayer.setOnBufferingUpdateListener(this);
+        }
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        ListenEnglishActivity.isClick = false;
         RxBus.get().post(AudioConstant.INIT_MEDIA_AND_PLAY, mMediaPlayer);
         return super.onStartCommand(intent, flags, startId);
     }
@@ -59,13 +64,18 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
 
     private void initMediaPlayer() {
         try {
-            LogUtils.e("initMediaPlayer--->");
-            mMediaPlayer.stop();
-            mMediaPlayer.reset();
-            setCurrentState(State.STATE_IDLE);
-            mMediaPlayer.setDataSource(mSongPath);
-            setCurrentState(State.START_INITIALIZED);
-            mMediaPlayer.prepareAsync();
+            LogUtils.e("audio initMediaPlayer--->");
+            if(mMediaPlayer != null && !StringUtils.isEmpty(mSongPath)) {
+
+                if(mMediaPlayer.isPlaying()) {
+                    mMediaPlayer.stop();
+                    mMediaPlayer.reset();
+                }
+                setCurrentState(State.STATE_IDLE);
+                mMediaPlayer.setDataSource(mSongPath);
+                setCurrentState(State.START_INITIALIZED);
+                mMediaPlayer.prepareAsync();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,6 +85,7 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
     public void onPrepared(MediaPlayer mediaPlayer) {
         setCurrentState(State.STATE_PREPARED);
         LogUtils.e("audio init finish --->");
+        ListenEnglishActivity.isClick = true;
         play();
     }
 
@@ -86,6 +97,10 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
     )
     public void playState(String path) {
         try {
+            /*if(!ListenEnglishActivity.isClick){
+                return;
+            }*/
+
             //继续播放
             if (!StringUtils.isEmpty(mSongPath) && !StringUtils.isEmpty(path) && mSongPath.equals(path)) {
                 play();
@@ -132,9 +147,11 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
     public void onDestroy() {
         try {
             if (mMediaPlayer != null) {
-                //mMediaPlayer.reset();
-                mMediaPlayer.stop();
+                if(mMediaPlayer.isPlaying()) {
+                    mMediaPlayer.stop();
+                }
                 mMediaPlayer.release();
+                mMediaPlayer = null;
             }
         } catch (Exception e) {
             e.printStackTrace();

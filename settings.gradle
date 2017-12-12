@@ -1,4 +1,4 @@
-include ':app', ':utils', ':securityhttp', ':IMLib', ':IMKit', ':banner', ':share', ':rxbus', ":guide", ':sticker',
-        ':jiaozivideoplayer-lib'
+include ':app', ':utils', ':securityhttp', ':IMLib', ':IMKit', ':banner', ':share', ':rxbus', ":guide", ':sticker',':jiaozivideoplayer-lib'
+
 
 

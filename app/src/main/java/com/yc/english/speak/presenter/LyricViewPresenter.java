@@ -37,7 +37,10 @@ public class LyricViewPresenter implements ListenPlayContract.Presenter {
 
     private String mAudioPath;
 
+    private boolean isPlay;
+
     public LyricViewPresenter(ListenPlayContract.View mainView, Context context, String audioPath) {
+        RxBus.get().register(this);
         mMainView = mainView;
         mContext = context;
         mAudioPath = audioPath;
@@ -50,7 +53,16 @@ public class LyricViewPresenter implements ListenPlayContract.Presenter {
         LogUtils.e("getLrcPath--->" + currentSong.getLrcPath());
         playEnglishAudio.setSong(currentSong);
 
-        RxBus.get().register(this);
+        isPlay = true;
+    }
+
+    public void setSongPath(String audioPath){
+        if(playEnglishAudio == null){
+            playEnglishAudio = PlayEnglishAudio.getInstance();
+        }
+        EnglishLyricBean currentSong = new EnglishLyricBean(audioPath);
+        currentSong.setLrcPath();
+        playEnglishAudio.setSong(currentSong);
     }
 
     @Override
@@ -90,29 +102,31 @@ public class LyricViewPresenter implements ListenPlayContract.Presenter {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what) {
-                case MSG_SEEK_BAR_REFRESH:
-                    try {
-                        if (mMediaPlayer != null) {
-                            mMainView.updateSeekBar(mMediaPlayer.getCurrentPosition());
-                            sendEmptyMessageDelayed(MSG_SEEK_BAR_REFRESH, 120);
+            if (isPlay()) {
+                switch (msg.what) {
+                    case MSG_SEEK_BAR_REFRESH:
+                        try {
+                            if (mMediaPlayer != null) {
+                                mMainView.updateSeekBar(mMediaPlayer.getCurrentPosition());
+                                sendEmptyMessageDelayed(MSG_SEEK_BAR_REFRESH, 120);
+                            }
+                        } catch (Exception e) {
+                            LogUtils.e(e.getMessage());
                         }
-                    } catch (Exception e) {
-                        LogUtils.e(e.getMessage());
-                    }
-                    break;
-                case MSG_MUSIC_LRC_REFRESH:
-                    try {
-                        if (mMediaPlayer != null) {
-                            mMainView.updateLrcView(mMediaPlayer.getCurrentPosition());
+                        break;
+                    case MSG_MUSIC_LRC_REFRESH:
+                        try {
+                            if (mMediaPlayer != null) {
+                                mMainView.updateLrcView(mMediaPlayer.getCurrentPosition());
+                            }
+                        } catch (Exception e) {
+                            LogUtils.e(e.getMessage());
                         }
-                    } catch (Exception e) {
-                        LogUtils.e(e.getMessage());
-                    }
-                    sendEmptyMessageDelayed(MSG_MUSIC_LRC_REFRESH, 120);
-                    break;
-                default:
-                    break;
+                        sendEmptyMessageDelayed(MSG_MUSIC_LRC_REFRESH, 120);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     };
@@ -123,7 +137,8 @@ public class LyricViewPresenter implements ListenPlayContract.Presenter {
             return;
         }
         if (song == null) {
-            song = new EnglishLyricBean(mAudioPath);
+            //song = new EnglishLyricBean(mAudioPath);
+            return;
         }
         playEnglishAudio.play();
         mMainView.resetSeekBar(song.getDuration());
@@ -200,5 +215,13 @@ public class LyricViewPresenter implements ListenPlayContract.Presenter {
     @Override
     public void next() {
 
+    }
+
+    public boolean isPlay() {
+        return isPlay;
+    }
+
+    public void setPlay(boolean play) {
+        isPlay = play;
     }
 }
