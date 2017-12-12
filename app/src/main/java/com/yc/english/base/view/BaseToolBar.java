@@ -100,7 +100,6 @@ public abstract class BaseToolBar extends BaseView {
     }
 
     public void setTitleSize(float titleSize) {
-
         mTitleTextView.setTextSize(UIUtil.dip2px(mContext, titleSize));
     }
 

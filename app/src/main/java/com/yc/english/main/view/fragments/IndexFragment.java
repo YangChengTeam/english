@@ -21,6 +21,7 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
@@ -33,6 +34,8 @@ import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.view.activitys.GroupCommonClassActivity;
 import com.yc.english.group.view.activitys.GroupMainActivity;
+import com.yc.english.intelligent.model.domain.VGInfoWarpper;
+import com.yc.english.intelligent.model.engin.IntelligentTypeEngin;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.model.domain.Constant;
@@ -188,7 +191,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), GroupMainActivity.class);
-
                 startActivity(intent);
             }
         });

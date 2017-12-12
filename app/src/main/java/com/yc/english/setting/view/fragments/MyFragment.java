@@ -10,9 +10,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 
+import android.view.View;
 import android.widget.FrameLayout;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -120,6 +122,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @BindView(R.id.toolbarWarpper)
     FrameLayout mToolbarWarpper;
 
+
+
     @Override
     public void init() {
         mPresenter = new MyPresenter(getActivity(), this);
@@ -133,8 +137,10 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset <= -appBarLayout.getHeight() + SizeUtils.dp2px(80)) {
                     mCollapsingToolbarLayout.setTitle(getString(R.string.main_tab_my) + "  ");
+                    mAvatarImageView.setVisibility(View.INVISIBLE);
                 } else {
                     mCollapsingToolbarLayout.setTitle("");
+                    mAvatarImageView.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -146,7 +152,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 .parseColor("#ff8b01"), Color.parseColor("#fdbb12"), Color.parseColor("#ff5252"), Color.parseColor
                 ("#97d107"), Color.parseColor("#b0eb02")});
 
-
+        mAvatarImageView.setClickable(true);
         RxView.clicks(mAvatarImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {

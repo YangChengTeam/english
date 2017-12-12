@@ -23,5 +23,15 @@ public class Constant {
 
     public static final String COMMUNITY_ACTIVITY_REFRESH = "community_activity_refresh";
 
-    public static final String PAY_WAY_LIST_INFO="pay_way_list_info";
+    public static final String PAY_WAY_LIST_INFO = "pay_way_list_info";
+
+
+    public static final String GET_UNIT = "get_unit";
+    public static final String GET_VERSION = "get_version";
+    public static final String GET_GRADE = "get_grade";
+
+    public static final String RESULT_IN = "result_in";
+    public static final String RESULT_ANS = "result_ans";
+
+
 }

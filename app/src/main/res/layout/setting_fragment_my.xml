@@ -22,10 +22,6 @@
             app:expandedTitleGravity="center"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <include
-                layout="@layout/activity_top_setting"
-                />
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -34,6 +30,10 @@
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
                 app:titleTextAppearance="@style/ToolBar"></android.support.v7.widget.Toolbar>
+
+            <include
+                layout="@layout/activity_top_setting"
+                />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 

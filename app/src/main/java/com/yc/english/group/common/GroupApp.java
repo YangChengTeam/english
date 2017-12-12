@@ -222,7 +222,6 @@ public class GroupApp {
 
         @Override
         public boolean onReceived(Message message, int i) {
-
             if (message.getContent() instanceof InformationNotificationMessage) {
                 InformationNotificationMessage notificationMessage = (InformationNotificationMessage) message.getContent();
                 if (notificationMessage.getMessage().contains("欢迎")) {

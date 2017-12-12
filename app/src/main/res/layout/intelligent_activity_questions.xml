@@ -7,16 +7,47 @@
     <com.yc.english.intelligent.view.wdigets.IntelligentActionbar
         android:id="@+id/mToolbarWarpper"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.yc.english.intelligent.view.wdigets.IntelligentActionbar>
+        android:layout_height="wrap_content"
+        android:background="@color/white"></com.yc.english.intelligent.view.wdigets.IntelligentActionbar>
 
     <FrameLayout
-        android:id="@+id/mDescView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <com.yc.english.base.view.StateView
+            android:id="@+id/mStateView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.yc.english.base.view.StateView>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/mViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <LinearLayout
+                android:id="@+id/mSubmitBtn"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/primary"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/base_tran_ripple_bg"
+                    android:gravity="center"
+                    android:text="练习成绩"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_big"/>
+            </LinearLayout>
+        </RelativeLayout>
     </FrameLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/mViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+
 </LinearLayout>

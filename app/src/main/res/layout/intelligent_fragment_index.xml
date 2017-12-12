@@ -17,42 +17,17 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/mTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:shadowColor="@color/transparent2"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="Unit 1"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_huge"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:shadowColor="@color/black"
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="5"
-                android:text="您去哪儿度假了？"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_larger"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:shadowColor="@color/black"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="Where did you go on vacation?"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_normal"
+                android:textSize="@dimen/font_large"
                 />
 
             <LinearLayout

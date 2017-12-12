@@ -105,8 +105,6 @@ public class EnglishApp extends MultiDexApplication {
                 }
             }
         });
-
-
     }
 
     private static EnglishApp gEnglishApp;

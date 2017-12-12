@@ -30,16 +30,25 @@ class IntelligentTypeItemView : BaseView {
         }
     }
 
+
     var complete: Boolean = false
-    set(value) {
-        if (value) {
-            mDoTextView.setText(context.getString(R.string.intelligents_end))
-            mDoTextView.setBackground(ContextCompat.getDrawable(context, (R.drawable.intelligents_type_btn_end_bg)))
-        } else {
-            mDoTextView.setText(context.getString(R.string.intelligents_start))
-            mDoTextView.setBackground(ContextCompat.getDrawable(context, (R.drawable.intelligents_type_btn_bg)))
+        get() {
+            return field
         }
-        field = value
-    }
+        set(value) {
+            if (value) {
+                mDoTextView.post {
+                    mDoTextView.setText(context.getString(R.string.intelligents_end))
+                    mDoTextView.setBackground(ContextCompat.getDrawable(context, (R.drawable.intelligents_type_btn_end_bg)))
+                    field = value
+                }
+            } else {
+                mDoTextView.post {
+                    mDoTextView.setText(context.getString(R.string.intelligents_start))
+                    mDoTextView.setBackground(ContextCompat.getDrawable(context, (R.drawable.intelligents_type_btn_bg)))
+                    field = value
+                }
+            }
+        }
 
 }

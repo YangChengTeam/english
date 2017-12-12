@@ -16,8 +16,9 @@
         <LinearLayout
             android:id="@+id/ll_head"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
+            android:clickable="true"
             app:layout_scrollFlags="scroll|enterAlways">
             <ImageView
                 android:id="@+id/iv_avatar"
@@ -25,9 +26,8 @@
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:src="@mipmap/default_avatar"/>
-
-
+                android:src="@mipmap/default_avatar"
+                android:duplicateParentState="true"/>
             <TextView
                 android:id="@+id/tv_nickname"
                 android:layout_width="wrap_content"
@@ -37,7 +37,6 @@
                 android:layout_marginTop="8dp"
                 android:textColor="#ffffff"
                 android:textSize="16sp"/>
-
             <TextView
                 android:id="@+id/tv_school"
                 android:layout_width="wrap_content"
@@ -61,7 +60,6 @@
         android:elevation="2dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ll_head"
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
