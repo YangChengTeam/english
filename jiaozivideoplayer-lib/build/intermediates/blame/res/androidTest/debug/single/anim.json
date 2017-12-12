@@ -4,6 +4,14 @@
         "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\anim\\start_fullscreen.xml"
     },
     {
+        "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\quit_fullscreen.xml",
+        "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\anim\\quit_fullscreen.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\start_fullscreen.xml",
+        "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\anim\\start_fullscreen.xml"
+    },
+    {
         "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\quit_fullscreen.xml",
         "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\anim\\quit_fullscreen.xml"
     }
