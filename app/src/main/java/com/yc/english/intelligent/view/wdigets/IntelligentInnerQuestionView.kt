@@ -13,6 +13,7 @@ import com.yc.english.R
 import com.yc.english.base.view.BaseView
 import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.news.view.widget.MediaPlayerView
+import kotlinx.android.synthetic.main.intelligent_view_inner_question.view.*
 
 /**
  * Created by zhangkai on 2017/12/6.
@@ -62,6 +63,9 @@ class IntelligentInnerQuestionView : BaseView {
         mAnalysisView.visibility = View.VISIBLE
         mAnswerTextView.text = fromHtml("正确答案  <font color=#6ec82d>${answer ?: ""}</font>")
         mAnalysisTextView.text = analysis ?: ""
+        if(TextUtils.isEmpty(analysis ?: "")){
+            mAnsTitleTextView.visibility = View.GONE
+        }
     }
 
 }

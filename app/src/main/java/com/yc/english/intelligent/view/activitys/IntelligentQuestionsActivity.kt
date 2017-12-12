@@ -197,7 +197,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
             return
         }
         val alertDialog = AlertDialog(this)
-        alertDialog.setDesc("退出练习,信息将不会保存？")
+        alertDialog.setDesc("确定退出练习？")
         alertDialog.setOnClickListener {
             alertDialog.dismiss()
             finish()

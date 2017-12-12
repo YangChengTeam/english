@@ -2,9 +2,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-    <WebView
-        android:id="@+id/webView"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_alignParentBottom="true"></WebView>
+        android:layout_height="340dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:id="@+id/mCloseBtn"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:src="@mipmap/intelligent_view_close"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            ></WebView>
+    </LinearLayout>
 </RelativeLayout>

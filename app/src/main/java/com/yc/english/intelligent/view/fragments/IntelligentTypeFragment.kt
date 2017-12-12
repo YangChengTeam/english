@@ -34,7 +34,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
     }
 
     override fun init() {
-        mPresenter = IntelligentTypePresenter(activity, this)
+        mPresenter = IntelligentTypePresenter(activity!!, this)
         StatusBarCompat.compat(activity as BaseActivity<*>, mToolbarWarpper, mToolbar, R.mipmap.base_actionbar)
 
         mScrollIndicatorView.setScrollBar(ColorBar(activity, ContextCompat.getColor(context!!, R.color

@@ -5,6 +5,7 @@
                                                  android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/mAppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
@@ -40,12 +41,23 @@
                 android:textColor="@color/black_333"
                 android:textSize="@dimen/font_big"/>
 
-            <ImageView
+            <LinearLayout
                 android:id="@+id/mViewDescBtn"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:clickable="true"
                 android:background="@drawable/base_tran_ripple_bg"
-                android:src="@mipmap/intelligent_view_desc"/>
+                android:visibility="gone"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/intelligent_view_desc"
+                    />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
