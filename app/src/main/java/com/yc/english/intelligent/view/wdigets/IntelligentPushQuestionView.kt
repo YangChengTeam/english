@@ -10,13 +10,13 @@ import com.yc.english.base.view.BaseView
 /**
  * Created by zhangkai on 2017/11/30.
  */
-class IntelligentPushQuestionView: BaseView {
+class IntelligentPushQuestionView : BaseView {
     val mTitleTextView = findViewById<TextView>(R.id.tvTitle)
     val mIconImageView = findViewById<ImageView>(R.id.ivIcon)
 
     override fun getLayoutId() = R.layout.intelligent_view_push_question
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs){
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         val a = context?.obtainStyledAttributes(attrs, R.styleable.tab_item)
         val title = a?.getText(R.styleable.tab_item_text)
         if (title != null) {

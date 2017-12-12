@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/mDescTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="请选择正确的词汇"
+        android:textColor="@color/black_333"
+        android:textSize="@dimen/font_big"
+        />
+
+    <com.yc.english.news.view.widget.MediaPlayerView
+        android:id="@+id/mDescAudioPlayerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ></com.yc.english.news.view.widget.MediaPlayerView>
+
+    <WebView
+        android:id="@+id/mWebView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ></WebView>
+
+</LinearLayout>

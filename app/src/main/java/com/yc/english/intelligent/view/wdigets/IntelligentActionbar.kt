@@ -30,16 +30,16 @@ class IntelligentActionbar : BaseView {
     override fun getLayoutId() = R.layout.intelligent_actionbar
 
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        index = 2
     }
 
-    var total: Int = 15
-    var index: Int = 1
+    var total: Int = 0
+    var index: Int = 0
         set(value) {
             mIndexTextView.text = fromHtml("<font color=#FB4C30>${value}</font>/${total}")
+            field = value
         }
 
-    lateinit var subscribetion: Subscription
+    var subscribetion: Subscription? = null
     fun startTime() {
         subscribetion = Observable.interval(1, TimeUnit.SECONDS).timeInterval().observeOn(AndroidSchedulers
                 .mainThread())
@@ -47,14 +47,20 @@ class IntelligentActionbar : BaseView {
                     mTimes++
                     val minutes = mTimes / 60
                     if (minutes > 60) {
-                        if (!subscribetion.isUnsubscribed) {
-                            subscribetion.unsubscribe()
+                        if (! (subscribetion?.isUnsubscribed ?: false)) {
+                            subscribetion?.unsubscribe()
                         }
                     } else {
                         var seconds = mTimes - minutes * 60
                         mTimeTextView.text = "${timeShortFormat(minutes)}:${timeShortFormat(seconds)}"
                     }
                 }
+    }
+
+    fun stopTime(){
+        if(subscribetion != null && subscribetion?.isUnsubscribed ?: false) {
+            subscribetion?.unsubscribe()
+        }
     }
 
 }
