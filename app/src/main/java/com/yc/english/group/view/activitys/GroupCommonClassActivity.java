@@ -29,6 +29,7 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.union.contract.UnionCommonListContract;
 import com.yc.english.union.presenter.UnionCommonListPresenter;
+import com.yc.english.vip.utils.VipDialogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,13 +82,20 @@ public class GroupCommonClassActivity extends FullScreenActivity<UnionCommonList
             @Override
             public void onJoin(ClassInfo classInfo) {
 
+
                 if (!UserInfoHelper.isGotoLogin(GroupCommonClassActivity.this)) {
-                    int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid());
-                    if (result == 1) {
-                        setMode(classInfo);
+                    if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
+                        int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid());
+                        if (result == 1) {
+                            setMode(classInfo);
+                        } else {
+                            mPresenter.isGroupMember(classInfo);
+                        }
                     } else {
-                        mPresenter.isGroupMember(classInfo);
+                        VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, null);
                     }
+
+
                 }
             }
         });

@@ -63,7 +63,7 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
                     @Override
                     public void reulstInfoOk() {
                         mView.hideStateView();
-                        mView.showGoodVipList(goodInfoWrapperResultInfo.data.getList());
+//                        mView.showGoodVipList(goodInfoWrapperResultInfo.data.getList());
                     }
                 });
 

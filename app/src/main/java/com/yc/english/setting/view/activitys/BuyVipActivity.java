@@ -87,7 +87,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
         mToolbar.setTitle("VIP会员");
         mToolbar.showNavigationIcon();
         iAliPay = new IAliPay1Impl(this);
-        iwxPay = new IWXPay1Impl(BuyVipActivity.this);
+        iwxPay = new IWXPay1Impl(this);
         mRecyclerVip.setLayoutManager(new LinearLayoutManager(this));
         goodVipInfoAdapter = new GoodVipInfoAdapter(null);
         mRecyclerVip.setAdapter(goodVipInfoAdapter);

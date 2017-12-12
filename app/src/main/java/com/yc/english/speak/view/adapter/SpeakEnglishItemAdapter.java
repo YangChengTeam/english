@@ -23,6 +23,7 @@ import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.utils.BitmapUtils;
 import com.yc.english.group.utils.GlideRoundTransform;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
+import com.youth.banner.transformer.DefaultTransformer;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
@@ -65,14 +66,10 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
             }
             view.setLayoutParams(layoutParams);
         }
-        view.setTag(R.id.img_id, item.getImg());
         Drawable drawable = new BitmapDrawable(mContext.getResources(), BitmapUtils.transformRoundDrawable(mContext, R.mipmap.pic_example, 5));
-        if (!view.getTag(R.id.img_id).equals(item.getImg())) {
-            view.setImageDrawable(drawable);
-        } else {
-            Glide.with(mContext).load(item.getImg()).apply(new RequestOptions()
-                   .skipMemoryCache(true).error(drawable)).thumbnail(0.1f).into(view);
-        }
+
+        Glide.with(mContext).load(item.getImg()).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA)
+                .skipMemoryCache(true).error(drawable).dontAnimate()).thumbnail(0.1f).into(view);
 
     }
 

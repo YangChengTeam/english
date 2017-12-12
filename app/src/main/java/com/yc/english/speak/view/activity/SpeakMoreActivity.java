@@ -98,7 +98,6 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
             }
         }, recyclerView);
 
-//        swipeRefreshLayout.setEnabled(false);
         swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.primary));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

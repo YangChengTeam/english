@@ -178,5 +178,9 @@ public interface NetConstant {
     /**
      * 统计学习人数
      */
-    String news_weikeStudying=(isDebug ? debug_base_url : baser_url)+"news/weikeStudying";
+    String news_weikeStudying = (isDebug ? debug_base_url : baser_url) + "news/weikeStudying";
+
+
+    //    String baidu_url="https://image.baidu.com/n/pc_search?isMobile=1&queryImageUrl=";
+    String baidu_url = "http://pic.sogou.com/pic/ris_searchList.jsp?statref=pic_index_common&v=5&ul=1&keyword=";
 }

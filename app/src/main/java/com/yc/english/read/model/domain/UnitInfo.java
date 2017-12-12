@@ -1,5 +1,8 @@
 package com.yc.english.read.model.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
@@ -7,7 +10,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
  * Created by admin on 2017/7/26.
  */
 
-public class UnitInfo implements MultiItemEntity {
+public class UnitInfo implements MultiItemEntity, Parcelable {
 
     public static final int CLICK_ITEM_VIEW = 1;
 
@@ -140,4 +143,52 @@ public class UnitInfo implements MultiItemEntity {
     public void setFree(int free) {
         this.free = free;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.Type);
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.simpleName);
+        dest.writeString(this.pid);
+        dest.writeString(this.bookId);
+        dest.writeString(this.number);
+        dest.writeString(this.wordCount);
+        dest.writeString(this.sentenceCount);
+        dest.writeString(this.isDel);
+        dest.writeString(this.sort);
+        dest.writeInt(this.free);
+    }
+
+    protected UnitInfo(Parcel in) {
+        this.Type = in.readInt();
+        this.id = in.readString();
+        this.name = in.readString();
+        this.simpleName = in.readString();
+        this.pid = in.readString();
+        this.bookId = in.readString();
+        this.number = in.readString();
+        this.wordCount = in.readString();
+        this.sentenceCount = in.readString();
+        this.isDel = in.readString();
+        this.sort = in.readString();
+        this.free = in.readInt();
+    }
+
+    public static final Parcelable.Creator<UnitInfo> CREATOR = new Parcelable.Creator<UnitInfo>() {
+        @Override
+        public UnitInfo createFromParcel(Parcel source) {
+            return new UnitInfo(source);
+        }
+
+        @Override
+        public UnitInfo[] newArray(int size) {
+            return new UnitInfo[size];
+        }
+    };
 }

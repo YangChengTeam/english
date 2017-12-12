@@ -70,7 +70,7 @@ public class TabsUtils {
             courseFragments = new ArrayList<>();
             for (int i = 0; i < types.length; i++) {
                 CourseFragment courseFragment = new CourseFragment();
-                courseFragment.setType(types[i]);
+
                 courseFragments.add(courseFragment);
             }
             count = types.length;

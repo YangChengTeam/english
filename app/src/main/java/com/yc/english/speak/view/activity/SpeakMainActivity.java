@@ -51,7 +51,7 @@ public class SpeakMainActivity extends FullScreenActivity {
 
     private class MyFragmentAdapter extends FragmentStatePagerAdapter {
 
-        public MyFragmentAdapter(FragmentManager fm) {
+        private MyFragmentAdapter(FragmentManager fm) {
             super(fm);
         }
 

@@ -22,7 +22,7 @@ public class UserInfo {
     @JSONField(name = "face")
     private String avatar;
     @JSONField(name = "is_vip")
-    private int isVip;//1.开通会员 0 未开通会员
+    private int isVip;//1.普通会员 0 未开通会员 2 Svip
     private String vip;
     private long vip_end_time;
     private long vip_start_time;

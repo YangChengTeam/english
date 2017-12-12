@@ -1,0 +1,101 @@
+package com.yc.english.setting.presenter;
+
+import android.content.Context;
+
+import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.securityhttp.engin.HttpCoreEngin;
+import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.base.model.BaseEngin;
+import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.model.bean.TaskUploadInfo;
+import com.yc.english.group.utils.EngineUtils;
+import com.yc.english.setting.contract.CameraTaskContract;
+import com.yc.english.setting.model.engin.CameraEngine;
+import com.yc.english.setting.view.activitys.CameraTaskActivity;
+
+import java.io.File;
+
+import rx.Subscriber;
+import rx.Subscription;
+import rx.functions.Action1;
+
+/**
+ * Created by wanglin  on 2017/12/11 15:55.
+ */
+
+public class CameraTaskPresenter extends BasePresenter<CameraEngine, CameraTaskContract.View> implements CameraTaskContract.Presenter {
+
+
+    public CameraTaskPresenter(Context context, CameraTaskContract.View view) {
+        super(context, view);
+        mEngin = new CameraEngine(context);
+    }
+
+    @Override
+    public void loadData(boolean forceUpdate, boolean showLoadingUI) {
+
+    }
+
+    public void uploadFile(File file, String fileName, String name) {
+        mView.showLoadingDialog("正在上传图片");
+        Subscription subscription = EngineUtils.uploadFile(mContext, file, fileName, name).subscribe(new Subscriber<ResultInfo<TaskUploadInfo>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.dismissLoadingDialog();
+            }
+
+            @Override
+            public void onNext(final ResultInfo<TaskUploadInfo> taskUploadInfoResultInfo) {
+                ResultInfoHelper.handleResultInfo(taskUploadInfoResultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+                        mView.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        mView.dismissLoadingDialog();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        mView.dismissLoadingDialog();
+                        if (taskUploadInfoResultInfo.data != null)
+                            mView.showUploadResult(taskUploadInfoResultInfo.data);
+
+//                            pictureDiscern(taskUploadInfoResultInfo.data.getFile_path());
+                    }
+                });
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+    private void pictureDiscern(String filePath) {
+        Subscription subscription = mEngin.pictureDiscern(filePath).subscribe(new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final String stringResultInfo) {
+                if (stringResultInfo != null) {
+//                    mView.showDiscernResult(stringResultInfo);
+                }
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+}

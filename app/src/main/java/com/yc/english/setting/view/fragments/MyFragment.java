@@ -3,16 +3,17 @@ package com.yc.english.setting.view.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
-
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,18 +25,15 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
-
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.QQUtils;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.HonourAbilityView;
 import com.yc.english.base.view.QQqunDialog;
-
-import com.yc.english.base.utils.StatusBarCompat;
-
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
@@ -43,21 +41,21 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.contract.MyContract;
 import com.yc.english.setting.model.bean.MyOrderInfo;
 import com.yc.english.setting.presenter.MyPresenter;
-import com.yc.english.setting.view.activitys.BuyVipActivity;
+import com.yc.english.setting.view.activitys.CameraTaskActivity;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
 import com.yc.english.setting.view.activitys.MyOrderActivity;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
 import com.yc.english.setting.view.activitys.SettingActivity;
-import com.yc.english.setting.view.activitys.VipEquitiesActivityNew;
+import com.yc.english.setting.view.activitys.VipEquitiesActivity;
 import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
 import com.yc.english.setting.view.widgets.MenuItemView;
-import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
-import com.yc.english.vip.views.fragments.BasePayDialogFragment;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.functions.Action1;
 
 /**
@@ -121,7 +119,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @BindView(R.id.toolbarWarpper)
     FrameLayout mToolbarWarpper;
-
+    @BindView(R.id.ll_carmer_search)
+    LinearLayout mLlCarmerSearch;
 
 
     @Override
@@ -137,10 +136,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset <= -appBarLayout.getHeight() + SizeUtils.dp2px(80)) {
                     mCollapsingToolbarLayout.setTitle(getString(R.string.main_tab_my) + "  ");
-                    mAvatarImageView.setVisibility(View.INVISIBLE);
                 } else {
                     mCollapsingToolbarLayout.setTitle("");
-                    mAvatarImageView.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -152,7 +149,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 .parseColor("#ff8b01"), Color.parseColor("#fdbb12"), Color.parseColor("#ff5252"), Color.parseColor
                 ("#97d107"), Color.parseColor("#b0eb02")});
 
-        mAvatarImageView.setClickable(true);
+
         RxView.clicks(mAvatarImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -179,11 +176,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             public void call(Void aVoid) {
                 if (!UserInfoHelper.isGotoLogin(getActivity())) {
 
-//                    if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
-//                        intent = new Intent(getActivity(), BuyVipActivity.class);
-//                    } else {
-                    Intent intent = new Intent(getActivity(), VipEquitiesActivityNew.class);
-//                    }
+                    Intent intent = new Intent(getActivity(), VipEquitiesActivity.class);
+
                     startActivity(intent);
                 }
             }
@@ -259,16 +253,23 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         });
 
         StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, toolbar, R.mipmap.setting_head_bg2);
+        RxView.clicks(mLlCarmerSearch).throttleFirst(200, TimeUnit.MICROSECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), CameraTaskActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        if (UserInfoHelper.getUserInfo() != null && UserInfoHelper.getUserInfo().getIsVip() == 1) {
-            mBuyVipMenuItemView.setTitle("VIP会员信息");
+        if (UserInfoHelper.getUserInfo() != null && (UserInfoHelper.getUserInfo().getIsVip() == 1 || UserInfoHelper.getUserInfo().getIsVip() == 2)) {
+            mBuyVipMenuItemView.setTitle("会员信息");
         } else {
-            mBuyVipMenuItemView.setTitle("开通VIP会员");
+            mBuyVipMenuItemView.setTitle("开通会员");
         }
 
     }

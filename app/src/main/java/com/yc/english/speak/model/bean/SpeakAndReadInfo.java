@@ -40,13 +40,6 @@ public class SpeakAndReadInfo implements Parcelable {
         this.data = data;
     }
 
-    @Override
-    public String toString() {
-        return "SpeakAndReadInfo{" +
-                "type_name='" + type_name + '\'' +
-                ", data=" + data +
-                '}';
-    }
 
     @Override
     public int describeContents() {

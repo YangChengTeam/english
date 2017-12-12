@@ -34,4 +34,7 @@ public class Constant {
     public static final String RESULT_ANS = "result_ans";
 
 
+
+    public static final String VIP_INFO_LIST_INFO = "vip_info_list_info";
+
 }

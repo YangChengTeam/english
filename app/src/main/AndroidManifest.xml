@@ -15,6 +15,13 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="INTERACT_ACROSS_USERS_FULL"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
         android:name=".EnglishApp"
@@ -43,9 +50,6 @@
 
         <activity
             android:name=".read.view.activitys.BookActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".read.view.activitys.CoursePlayActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".read.view.activitys.AddBookActivity"
@@ -252,7 +256,6 @@
 
         <activity android:name=".weixin.views.activitys.CourseActivity"></activity>
         <activity android:name=".weixin.views.activitys.WeikeUnitActivity"></activity>
-        <activity android:name=".setting.view.activitys.VipEquitiesActivity" />
         <activity android:name=".weixin.views.activitys.CourseTypeActivity" />
 
         <service android:name=".speak.service.MusicPlayService" />
@@ -271,7 +274,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
 
-
         <activity android:name=".intelligent.view.activitys.IntelligentQuestionsActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentReportActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentResultActivity"></activity>
@@ -282,8 +284,11 @@
         <activity android:name=".intelligent.view.activitys.IntelligentTypeStartBgActivity"></activity>
 
         <activity android:name=".speak.view.activity.SpeakMainActivity" />
-        <activity android:name=".setting.view.activitys.VipEquitiesActivityNew" />
+        <activity android:name=".setting.view.activitys.VipEquitiesActivity" />
         <activity android:name=".vip.views.activity.VipScoreTutorshipActivity" />
+        <activity android:name=".read.view.activitys.CoursePlayActivity" />
+        <activity android:name=".setting.view.activitys.CameraTaskActivity" />
+        <activity android:name=".setting.view.activitys.TaskShowActivity" />
 
     </application>
 

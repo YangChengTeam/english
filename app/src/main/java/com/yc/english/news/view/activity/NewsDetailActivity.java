@@ -18,19 +18,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
+import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
-import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.group.view.activitys.GroupPictureDetailActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
+import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.news.adapter.NewsDetailAdapter;
 import com.yc.english.news.bean.CourseInfoWrapper;
 import com.yc.english.news.contract.NewsDetailContract;
@@ -44,16 +49,18 @@ import com.yc.english.weixin.model.domain.CourseInfo;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
+import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/9/6 08:32.
  */
 
-public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> implements NewsDetailContract.View, View.OnClickListener {
+public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> implements NewsDetailContract.View {
     private static final String TAG = "NewsDetailActivity";
     @BindView(R.id.mJCVideoPlayer)
     JZVideoPlayerStandard mJCVideoPlayer;
@@ -86,11 +93,11 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     private NewsDetailAdapter newsDetailAdapter;
     private String title;
-    private int screenHeight;
     private String id;
     private long startTime;
     private CourseInfo currentCourseInfo;
-    private boolean isPlay = true;
+
+    private UserInfo userInfo;
 
     @Override
     public void init() {
@@ -112,7 +119,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             mPresenter.getWeixinInfo(id);
         }
 
-        screenHeight = ScreenUtils.getScreenHeight();
 
         mTextViewTitle.setTypeface(Typeface.DEFAULT);
 
@@ -120,7 +126,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         initListener();
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensorEventListener = new JZVideoPlayer.JZAutoFullscreenListener();
-
+        userInfo = UserInfoHelper.getUserInfo();
     }
 
 
@@ -176,7 +182,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        newsDetailAdapter = new NewsDetailAdapter(this, null);
+        newsDetailAdapter = new NewsDetailAdapter(null);
         mRecyclerView.setAdapter(newsDetailAdapter);
 
         RecyclerView.ItemDecoration itemDecoration = new BaseItemDecoration(this);
@@ -224,8 +230,17 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                         + "var imgs=document.getElementsByTagName(\"img\");"
                         + "for(var i=0;i<imgs.length;i++) " + "{"
                         + "  imgs[i].onclick=function() " + "{ "
-                        + "    window.HTML.openImg(this.src); "
+                        + "    window.HTML.openImg(this.src);  "
                         + "   }  " + "}" + "}())");
+
+
+//                view.loadUrl("javascript:(function(){"
+//                        + "var imgs=document.getElementsByTagName(\"img\");"
+//                        + "var imgPaths= \"\";"
+//                        + "for(var i=0;i<imgs.length;i++) " + "{"
+//                        + "   imgPaths+=  imgs[i].src+\",\"}"
+//                        + "  window.HTML.getImgs(imgPaths) "
+//                        + "}())");
 
             }
 
@@ -265,19 +280,35 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     private void playVideo(String url, String imgUrl) {
         mJCVideoPlayer.setVisibility(View.VISIBLE);
         mMediaPlayerView.setVisibility(View.GONE);
+
         mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
         mJCVideoPlayer.tinyBackImageView.setVisibility(View.GONE);
         mJCVideoPlayer.batteryLevel.setVisibility(View.GONE);
-        mJCVideoPlayer.backButton.setVisibility(View.GONE);
+        
 
+        if (judgeVip()) {
+            if (NetworkUtils.getNetworkType() == NetworkUtils.NetworkType.NETWORK_WIFI)
+                mJCVideoPlayer.startVideo();
+            else {
+                click();
+            }
+        } else {
+            click();
+        }
+
+
+    }
+
+    private boolean judgeVip() {
+        boolean isPlay = true;
         if (currentCourseInfo != null) {
             if (currentCourseInfo.getIsPay() == 0) {
                 //未购买
                 if (currentCourseInfo.getUserHas() == 0) {
-                    if (UserInfoHelper.getUserInfo() != null) {
-                        if (UserInfoHelper.getUserInfo().getIsVip() == 0) {
+                    if (userInfo != null) {
+                        if (userInfo.getIsVip() == 0) {
                             isPlay = false;
                         } else {
                             if (currentCourseInfo.getIs_vip() == 0) {
@@ -293,11 +324,45 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             }
         }
 
-        mJCVideoPlayer.thumbImageView.setOnClickListener(this);
-        mJCVideoPlayer.startButton.setOnClickListener(this);
-
+        return isPlay;
     }
 
+
+    public void click() {
+
+        RxView.clicks(mJCVideoPlayer.thumbImageView).throttleFirst(1000, TimeUnit.MICROSECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                startOrBuy();
+            }
+        });
+        RxView.clicks(mJCVideoPlayer.startButton).throttleFirst(1000, TimeUnit.MICROSECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                startOrBuy();
+            }
+        });
+    }
+
+    private void startOrBuy() {
+        if (userInfo != null) {
+            if (judgeVip()) {
+                mJCVideoPlayer.startVideo();
+            } else {
+                showBuyDialog();
+            }
+        } else {
+            UserInfoHelper.isGotoLogin(NewsDetailActivity.this);
+        }
+    }
+
+    private void showBuyDialog() {
+        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("courseInfo", currentCourseInfo);
+        bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_SINGLE_WEIKE);
+        VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, bundle);
+    }
 
     @Override
     public void showCourseResult(CourseInfoWrapper data) {
@@ -305,7 +370,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         currentCourseInfo = data.getInfo();
         initData(currentCourseInfo);
         if (data.getRecommend() != null && data.getRecommend().size() > 0) {
-            newsDetailAdapter.setData(data.getRecommend());
+            newsDetailAdapter.setNewData(data.getRecommend());
             mLlRecommend.setVisibility(View.VISIBLE);
         } else {
             mLlRecommend.setVisibility(View.GONE);
@@ -339,33 +404,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     private ArrayList<String> imageList = new ArrayList<>();
 
-    @Override
-    public void onClick(View v) {
-        if (UserInfoHelper.getUserInfo() != null) {
-            if (isPlay) {
-                mJCVideoPlayer.startVideo();
-            } else {
-                final AlertDialog alertDialog = new AlertDialog(NewsDetailActivity.this);
-                alertDialog.setDesc("未购买此课程，是否马上购买？");
-                alertDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-
-                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("courseInfo", currentCourseInfo);
-                        bundle.putInt(GoodsType.GOODS_KEY, GoodsType.GENERAL_TYPE_WEIKE);
-                        VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, bundle);
-
-                    }
-                });
-                alertDialog.show();
-            }
-        } else {
-            UserInfoHelper.isGotoLogin(NewsDetailActivity.this);
-        }
-    }
 
 
     private class JavascriptInterface {
@@ -383,6 +421,23 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         }
 
+        @android.webkit.JavascriptInterface
+        public void getImgs(String imgPaths) {
+
+            LogUtils.e("getImgs " + imgPaths);
+        }
+
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.COMMUNITY_ACTIVITY_REFRESH)
+            }
+    )
+    public void getInfo(String loginInfo) {
+        userInfo = UserInfoHelper.getUserInfo();
+        judgeVip();
     }
 
     private JZVideoPlayer.JZAutoFullscreenListener mSensorEventListener;

@@ -73,7 +73,7 @@ public class UserInfoHelper {
         UserInfoHelper.saveUserInfo(resultInfo.data.getInfo());
         UserInfoHelper.connect(context, resultInfo.data.getInfo().getUid());
         RxBus.get().post(Constant.USER_INFO, resultInfo.data.getInfo());
-        RxBus.get().post(BusAction.GROUP_LIST, "from login");
+        RxBus.get().post(BusAction.GROUP_LIST, "from getUserInfo");
         SPUtils.getInstance().put(Constant.PHONE, resultInfo.data.getInfo().getMobile());
 //        UserInfoHelper.connect(context, resultInfo.data.getInfo().getUid());
     }

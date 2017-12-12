@@ -7,10 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SDCardUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
+import com.yc.english.base.view.IFinish;
 import com.yc.english.base.view.StateView;
 import com.yc.english.speak.contract.SpeakEnglishContract;
 import com.yc.english.speak.model.bean.SpeakAndReadInfo;
@@ -21,6 +23,7 @@ import com.yc.english.speak.view.adapter.SpeakEnglishAdapter;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
+import java.security.PrivilegedAction;
 import java.util.List;
 
 import butterknife.BindView;
@@ -73,24 +76,41 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         });
 
 
-//        final View view = recyclerView.getChildAt(0);
-//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-//
-////                LogUtils.e("dy: " + dy + "  top: "+layoutManager.findFirstVisibleItemPosition() );
-//                //dy>0 向上
-//
-//
-//            }
-//        });
+        final int paddingTop = recyclerView.getPaddingTop();
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int scrollY = getScollYDistance(recyclerView);
+//                LogUtils.e("dy: " + dy + "  scrollY: " + scrollY + "  paddingTop: " + paddingTop + "--" + recyclerView.getPaddingTop());
+
+
+                //dy>0 向上
+                if (dy >= 0) {
+                    if (scrollY > paddingTop) {
+                        scrollY = paddingTop;
+                    }
+                    recyclerView.setPadding(recyclerView.getPaddingLeft(), -scrollY, recyclerView.getPaddingRight(), recyclerView.getPaddingBottom());
+                } else {
+
+                    if (scrollY > 0) {
+                        scrollY = 0;
+                    } else {
+                        if (Math.abs(scrollY) <= paddingTop) {
+                            scrollY = paddingTop;
+                        }
+                    }
+                    recyclerView.setPadding(recyclerView.getPaddingLeft(), scrollY, recyclerView.getPaddingRight(), recyclerView.getPaddingBottom());
+                }
+
+            }
+        });
 
     }
 
@@ -144,7 +164,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             super.getItemOffsets(outRect, view, parent, state);
-            outRect.set(0, 0, 0, UIUtil.dip2px(getActivity(), 15));
+            outRect.set(0, 0, 0, UIUtil.dip2px(getActivity(), 10));
         }
     }
 
@@ -156,4 +176,14 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
     public void showSpeakEnglishDetail(List<SpeakEnglishBean> list) {
 
     }
+
+    public int getScollYDistance(RecyclerView recyclerView) {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        int position = layoutManager.findFirstVisibleItemPosition();
+        View firstVisiableChildView = layoutManager.findViewByPosition(position);
+        int itemHeight = firstVisiableChildView.getHeight();
+        return (position) * itemHeight - firstVisiableChildView.getTop();
+    }
+
+
 }

@@ -40,6 +40,13 @@
                 android:textColor="@color/black_333"
                 android:textSize="@dimen/font_big"/>
 
+            <ImageView
+                android:id="@+id/mViewDescBtn"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/base_tran_ripple_bg"
+                android:src="@mipmap/intelligent_view_desc"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"

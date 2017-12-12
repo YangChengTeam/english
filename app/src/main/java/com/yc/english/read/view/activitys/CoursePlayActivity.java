@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.SpeechError;
@@ -23,16 +22,19 @@ import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.utils.WakeLockUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.contract.CoursePlayContract;
 import com.yc.english.read.model.domain.EnglishCourseInfo;
 import com.yc.english.read.model.domain.EnglishCourseInfoList;
+import com.yc.english.read.model.domain.UnitInfo;
 import com.yc.english.read.presenter.CoursePlayPresenter;
 import com.yc.english.read.view.adapter.ReadCourseItemClickAdapter;
+import com.yc.english.vip.utils.VipDialogHelper;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -86,15 +88,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private String unitTitle;
 
-    private String lastUnitIds;
-
-    private String[] nextUnitIds;
-
-    private String lastUnitTitles;
-
-    private String[] nextUnitTitles;
-
-    private int currentUnitPosition;
 
     private int currentPage = 1;
 
@@ -102,6 +95,9 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     @BindView(R.id.toolbarWarpper)
     FrameLayout mToolbarWarpper;
+    private int position;
+    private List<UnitInfo> unitInfoList;
+    private boolean isRead;
 
     @Override
     public int getLayoutId() {
@@ -110,21 +106,18 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     @Override
     public void init() {
-        StatusBarCompat.compat(this, mToolbarWarpper, mToolbar );
+        StatusBarCompat.compat(this, mToolbarWarpper, mToolbar);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            unitId = bundle.getString("unit_id");
-            unitTitle = bundle.getString("unit_title");
-            lastUnitIds = bundle.getString("last_unit_ids");
-            lastUnitTitles = bundle.getString("last_unit_titles");
-            if (!StringUtils.isEmpty(lastUnitIds)) {
-                nextUnitIds = lastUnitIds.split(",");
+            position = bundle.getInt("position");
+            unitInfoList = bundle.getParcelableArrayList("unitInfoList");
+            if (unitInfoList != null) {
+                UnitInfo unitInfo = unitInfoList.get(position);
+                unitId = unitInfo.getId();
+                unitTitle = unitInfo.getName();
             }
 
-            if (!StringUtils.isEmpty(lastUnitTitles)) {
-                nextUnitTitles = lastUnitTitles.split("#");
-            }
         }
 
         WakeLockUtils.acquireWakeLock(this);
@@ -159,19 +152,42 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         RxView.clicks(mNextUnitImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (nextUnitIds != null && currentUnitPosition < nextUnitIds.length) {
+
+                if (unitInfoList != null && position + 1 < unitInfoList.size()) {
+                    UnitInfo unitInfo = unitInfoList.get(position + 1);
+                    position++;
+                    //1是免费，2是收费
+                    if (unitInfo.getFree() == 1) {
+                        isRead = true;
+                    } else {
+                        if (UserInfoHelper.getUserInfo() != null) {
+                            if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
+                                isRead = true;
+                            } else {
+                                isRead = false;
+                            }
+                        } else {
+                            UserInfoHelper.isGotoLogin(CoursePlayActivity.this);
+                            return;
+                        }
+                    }
+                    if (!isRead) {
+                        VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, null);
+                        return;
+                    }
+
                     isNext = true;
                     resetPlayState();
-                    if (nextUnitTitles != null && currentUnitPosition < nextUnitTitles.length) {
-                        mToolbar.setTitle(nextUnitTitles[currentUnitPosition]);
-                    }
-                    unitId = nextUnitIds[currentUnitPosition];
-                    currentUnitPosition++;
+                    mToolbar.setTitle(unitInfo.getName());
+                    unitId = unitInfo.getId();
                     currentPage = 1;
                     mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
+
+
                 } else {
                     TipsHelper.tips(CoursePlayActivity.this, "已经是最后一个单元");
                 }
+
             }
         });
 

@@ -13,10 +13,12 @@ import com.yc.english.vip.views.fragments.BasePayDialogFragment;
 
 public class VipDialogHelper {
 
+    private static BasePayDialogFragment basePayDialogFragment;
+
     public static void showVipDialog(FragmentManager manager, String tag, Bundle bundle) {
 
 
-        BasePayDialogFragment basePayDialogFragment = new BasePayDialogFragment();
+        basePayDialogFragment = new BasePayDialogFragment();
 
         if (bundle != null && !bundle.isEmpty()) {
 
@@ -25,6 +27,13 @@ public class VipDialogHelper {
         basePayDialogFragment.show(manager, tag);
 
 
+    }
+
+    public static void dismissVipDialog() {
+        if (basePayDialogFragment!=null)
+        {
+            basePayDialogFragment.dismiss();
+        }
     }
 
 }

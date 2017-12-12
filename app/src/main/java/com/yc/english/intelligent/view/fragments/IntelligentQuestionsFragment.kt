@@ -71,12 +71,12 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
 
     var index: Int = 1
         set(value) {
-            mIndexTextView.text = fromHtml("<font color=#FB4C30>${value}</font>/${mViewPager.adapter.count}")
+            mIndexTextView.text = fromHtml("<font color=#FB4C30>${value}</font>/${mViewPager.adapter?.count ?: 0}")
             field = value
         }
 
     fun next() {
-        if ((activity as IntelligentQuestionsActivity).isHandIn || index >= mViewPager.adapter.count) {
+        if ((activity as IntelligentQuestionsActivity).isHandIn || index >= mViewPager.adapter?.count ?: 0) {
             (activity as IntelligentQuestionsActivity).next()
             return@next
         }

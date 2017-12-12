@@ -94,7 +94,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         }
 
     fun next() {
-        if (isHandIn || mToolbarWarpper.index >= mViewPager.adapter.count) {
+        if (isHandIn || mToolbarWarpper.index >= mViewPager.adapter?.count ?: 0) {
             startActivity(Intent(this, IntelligentHandInActivity::class.java))
             return@next
         }

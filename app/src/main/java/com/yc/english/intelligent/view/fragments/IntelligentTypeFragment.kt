@@ -1,21 +1,12 @@
 package com.yc.english.intelligent.view.fragments
 
-import android.animation.ObjectAnimator
 import android.graphics.BitmapFactory
 import android.support.annotation.MainThread
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
-
 import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
-import com.alibaba.fastjson.JSON
 import com.blankj.subutil.util.ThreadPoolUtils
-import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.hwangjr.rxbus.annotation.Subscribe
-import com.hwangjr.rxbus.annotation.Tag
-import com.hwangjr.rxbus.thread.EventThread
 import com.jakewharton.rxbinding.view.RxView
 import com.kk.utils.UIUitls
 import com.shizhefei.view.indicator.slidebar.ColorBar
@@ -27,11 +18,8 @@ import com.yc.english.base.view.BaseActivity
 import com.yc.english.base.view.BaseFragment
 import com.yc.english.intelligent.contract.IntelligentTypeContract
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
-import com.yc.english.intelligent.model.domain.VGInfoWarpper
 import com.yc.english.intelligent.presenter.IntelligentTypePresenter
-import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.intelligent.view.activitys.IntelligentVGSelectPopupWindow
-import com.yc.english.main.model.domain.Constant
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_type_fragment_index.*
 import java.util.concurrent.TimeUnit
@@ -53,8 +41,8 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
                 .primary), 6))
         val unSelectSize = 15f
         val selectSize = 15f
-        val selectColor = ContextCompat.getColor(activity, R.color.primary)
-        val unSelectColor = ContextCompat.getColor(activity, R.color.black_333)
+        val selectColor = ContextCompat.getColor(context!!, R.color.primary)
+        val unSelectColor = ContextCompat.getColor(context!!, R.color.black_333)
         mScrollIndicatorView.setOnTransitionListener(OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize))
         mScrollIndicatorView.setOnIndicatorItemClickListener({ clickItemView, position ->
             mViewPager.setCurrentItem(position)
@@ -76,7 +64,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
         })
 
         RxView.clicks(mIntelligentType).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe {
-            IntelligentVGSelectPopupWindow(activity).show(activity.window.decorView.rootView, Gravity.CENTER)
+            IntelligentVGSelectPopupWindow(activity!!).show(activity!!.window.decorView.rootView, Gravity.CENTER)
         }
 
         ThreadPoolUtils(ThreadPoolUtils.SingleThread, 5).execute {
@@ -99,14 +87,14 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
 
     @MainThread
     override fun showTitle(title: String) {
-        activity.runOnUiThread {
+        activity!!.runOnUiThread {
             mTitleTextView.text = title
         }
     }
 
     @MainThread
     override fun showInfo(titles: Array<String?>, types: Array<UnitInfoWrapper.UnitInfo?>) {
-        activity.runOnUiThread {
+        activity!!.runOnUiThread {
             mScrollIndicatorView.setAdapter(TabsUtils.MyAdapter(activity, titles, SizeUtils.dp2px(72f)))
             val mFragmentAdapter = TabsUtils.IntelligentFragmentAdapter(childFragmentManager, types)
             mViewPager.setAdapter(mFragmentAdapter)
@@ -114,9 +102,6 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
             mViewPager.setCurrentItem(0)
         }
     }
-
-
-
 
     override fun getLayoutId() = R.layout.intelligent_type_fragment_index
 

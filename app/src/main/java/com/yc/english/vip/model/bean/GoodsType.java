@@ -7,10 +7,12 @@ package com.yc.english.vip.model.bean;
 
 public class GoodsType {
 
-    public static final int VIP_TYPE = 1;
-    public static final int GENERAL_TYPE_WEIKE = 2;
-    public static final int GENERAL_TYPE_DIANDU = 3;
-    public static final int GENERAL_TYPE_INDIVIDUALITY_PLAN = 4;
+    public static final int TYPE_SVIP = 0;//提分辅导
+    public static final int TYPE_GENERAL_VIP = 1;//普通会员
+    public static final int TYPE_SINGLE_WEIKE = 2;//单次购买微课
+    public static final int TYPE_SINGLE_DIANDU = 3;//单次购买点读
+    public static final int TYPE_SINGLE_INDIVIDUALITY_PLAN = 4;//单次购买个性计划
+
 
     public static final String GOODS_KEY = "goods_key";
 }

@@ -15,15 +15,23 @@ public class GoodInfoWrapper {
      */
 
 
-    private List<GoodInfo> list;
+    private List<GoodInfo> svip;
+    private List<GoodInfo> vip;
 
-    public List<GoodInfo> getList() {
-        return list;
+    public List<GoodInfo> getSvip() {
+        return svip;
     }
 
-    public void setList(List<GoodInfo> list) {
-        this.list = list;
+    public void setSvip(List<GoodInfo> svip) {
+        this.svip = svip;
     }
 
+    public List<GoodInfo> getVip() {
+        return vip;
+    }
+
+    public void setVip(List<GoodInfo> vip) {
+        this.vip = vip;
+    }
 
 }

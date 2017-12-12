@@ -71,7 +71,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/group_distance_10">
+                    android:layout_marginTop="@dimen/group_distance_15">
+
+
+                    <com.yc.english.vip.views.fragments.BasePayItemView
+                        android:id="@+id/baseItemView_weike"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        eng:vip_content="微课免费看"
+                        eng:vip_icon="@mipmap/vip_equity_weike" />
 
                     <FrameLayout
                         android:layout_width="0dp"
@@ -79,32 +89,7 @@
                         android:layout_weight="1">
 
                         <com.yc.english.vip.views.fragments.BasePayItemView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            eng:vip_content="微课免费看"
-                            eng:vip_icon="@mipmap/vip_equity_weike" />
-
-                        <com.yc.english.vip.views.fragments.BasePayItemView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:visibility="gone"
-                            eng:vip_content="同步微课"
-                            eng:vip_icon="@mipmap/vip_equity_weike" />
-
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <com.yc.english.vip.views.fragments.BasePayItemView
-
+                            android:id="@+id/baseItemView_teach"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -204,7 +189,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/group_distance_20"
                     android:layout_marginRight="@dimen/group_distance_20"
-                    android:layout_marginTop="@dimen/group_distance_10"
+                    android:layout_marginTop="@dimen/group_distance_15"
                     android:lineSpacingExtra="@dimen/group_distance_5"
                     android:text="1、会员即开即用，有些机型购买会员后，需退出软件重新启动方能使用会员功能。\n
 2、会员使用起始日以购买日为准。\n
