@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/iv_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/group_distance_15"
+        android:layout_marginTop="@dimen/group_distance_15"
+        android:src="@mipmap/task_photograph" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rl_exit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawablePadding="@dimen/group_distance_10"
+                android:drawableTop="@mipmap/task_photo_exit"
+                android:text="退出"
+                android:textSize="@dimen/group_text_16" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_take_photo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/task_photo_photograph" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_task_album"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawablePadding="@dimen/group_distance_10"
+                android:drawableTop="@mipmap/task_photo_album"
+                android:text="相册"
+                android:textSize="@dimen/group_text_16" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</FrameLayout>
