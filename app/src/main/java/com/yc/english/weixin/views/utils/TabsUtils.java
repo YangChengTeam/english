@@ -10,7 +10,10 @@ import android.widget.TextView;
 
 import com.shizhefei.view.indicator.Indicator;
 import com.yc.english.R;
+import com.yc.english.intelligent.model.domain.QuestionInfoWrapper;
+import com.yc.english.intelligent.model.domain.UnitInfoWrapper;
 import com.yc.english.intelligent.view.fragments.IntelligentFragment;
+import com.yc.english.intelligent.view.fragments.IntelligentInnerQuestionFragment;
 import com.yc.english.intelligent.view.fragments.IntelligentQuestionsFragment;
 import com.yc.english.weixin.views.fragments.CourseFragment;
 import com.yc.english.weixin.views.fragments.CourseMoreFragment;
@@ -88,12 +91,12 @@ public class TabsUtils {
         private List<IntelligentFragment> intelligentFragments;
         private int count;
 
-        public IntelligentFragmentAdapter(FragmentManager fm, String[] types) {
+        public IntelligentFragmentAdapter(FragmentManager fm, UnitInfoWrapper.UnitInfo[] types) {
             super(fm);
             intelligentFragments = new ArrayList<>();
             for (int i = 0; i < types.length; i++) {
                 IntelligentFragment intelligentFragment = new IntelligentFragment();
-                intelligentFragment.setType(types[i]);
+                intelligentFragment.setUnitInfo(types[i]);
                 intelligentFragments.add(intelligentFragment);
             }
             count = types.length;
@@ -114,15 +117,15 @@ public class TabsUtils {
         private List<IntelligentQuestionsFragment> intelligentQuestionsFragments;
         private int count;
 
-        public IntelligentQuestionsFragmentAdapter(FragmentManager fm, String[] types) {
+        public IntelligentQuestionsFragmentAdapter(FragmentManager fm, List<QuestionInfoWrapper.QuestionInfo> types) {
             super(fm);
             intelligentQuestionsFragments = new ArrayList<>();
-            for (int i = 0; i < types.length; i++) {
+            for (int i = 0; i < types.size(); i++) {
                 IntelligentQuestionsFragment intelligentQuestionsFragment = new IntelligentQuestionsFragment();
-                intelligentQuestionsFragment.setType(types[i]);
+                intelligentQuestionsFragment.setQuestionInfo(types.get(i));
                 intelligentQuestionsFragments.add(intelligentQuestionsFragment);
             }
-            count = types.length;
+            count = types.size();
         }
 
         @Override
@@ -134,7 +137,52 @@ public class TabsUtils {
         public int getCount() {
             return count;
         }
+
+        @Override
+        public void finishUpdate(ViewGroup container) {
+            try{
+                super.finishUpdate(container);
+            } catch (NullPointerException nullPointerException){
+                System.out.println("Catch the NullPointerException in FragmentPagerAdapter.finishUpdate");
+            }
+        }
     }
+
+    public static class IntelligentInnerQuestionsFragmentAdapter extends FragmentStatePagerAdapter {
+        private List<IntelligentInnerQuestionFragment> intelligentQuestionsFragments;
+        private int count;
+
+        public IntelligentInnerQuestionsFragmentAdapter(FragmentManager fm, List<QuestionInfoWrapper.QuestionInfo> types) {
+            super(fm);
+            intelligentQuestionsFragments = new ArrayList<>();
+            for (int i = 0; i < types.size(); i++) {
+                IntelligentInnerQuestionFragment intelligentQuestionsFragment = new IntelligentInnerQuestionFragment();
+                intelligentQuestionsFragment.setQuestionInfo(types.get(i));
+                intelligentQuestionsFragments.add(intelligentQuestionsFragment);
+            }
+            count = types.size();
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return intelligentQuestionsFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return count;
+        }
+
+        @Override
+        public void finishUpdate(ViewGroup container) {
+            try{
+                super.finishUpdate(container);
+            } catch (NullPointerException nullPointerException){
+                System.out.println("Catch the NullPointerException in FragmentPagerAdapter.finishUpdate");
+            }
+        }
+    }
+
 
     public static class MoreFragmentAdapter extends FragmentStatePagerAdapter {
         private List<CourseMoreFragment> courseFragments;

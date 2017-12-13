@@ -8,30 +8,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/white"
+        android:orientation="vertical"
         >
+
         <com.yc.english.intelligent.view.wdigets.IntelligentActionbar
             android:id="@+id/mToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"></com.yc.english.intelligent.view.wdigets.IntelligentActionbar>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/mRecyclerView"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/mSubmitBtn"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_weight="1"
-        android:background="@color/primary"
-        android:gravity="center"
-        android:text="提交查看解析"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_big"/>
+        android:background="@color/primary">
+
+        <TextView
+            android:id="@+id/mSubmitBtn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/base_tran_ripple_bg"
+            android:gravity="center"
+            android:text="提交练习"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_big"/>
+    </LinearLayout>
 </RelativeLayout>

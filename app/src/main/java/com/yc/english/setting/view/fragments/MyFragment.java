@@ -144,6 +144,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 }
             }
         });
+        
         abilityView.setDatas(new float[]{0.62f, 0.58f, 0.70f, 0.46f, 0.69f,
                 0.84f}).setTitles(new String[]{"阅读", "听力", "口语", "写作", "语法", "词汇"}).setTitleColors(new int[]{Color
                 .parseColor("#0cacfe"), Color

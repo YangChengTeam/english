@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.EnglishApp;
@@ -60,7 +61,7 @@ public class SelectGradePopupWindow extends BasePopupWindow {
     @BindView(R.id.btn_comein)
     Button mComeinButton;
 
-    private int grade = 0;
+    private int grade = -1;
 
     public SelectGradePopupWindow(Activity context) {
         super(context);
@@ -188,21 +189,27 @@ public class SelectGradePopupWindow extends BasePopupWindow {
         RxView.clicks(mComeinButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                dismiss();
-
+                if(grade == -1){
+                    grade = SPUtils.getInstance().getInt("grade", 0);
+                }
                 SPUtils.getInstance().put("grade", grade);
+
                 String period = "-1";
                 if (grade > 6) {
                     period = "1";
                 } else if (grade > 0 && grade <= 6) {
                     period = "0";
+                } else {
+                    ToastUtils.showShort("请选择你所在年级");
+                    return;
                 }
+                dismiss();
                 SPUtils.getInstance().put("period", period);
                 EnglishApp.get().setHttpDefaultParams();
                 if (mRunnable != null) {
                     mRunnable.run();
                 }
-
+                RxBus.get().post(Constant.GET_VERSION, "from select grade");
                 RxBus.get().post(Constant.GRADE_REFRESH, "from select grade");
             }
         });

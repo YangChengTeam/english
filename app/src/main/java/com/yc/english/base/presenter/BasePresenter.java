@@ -44,7 +44,6 @@ public abstract class BasePresenter<M, V extends IView> implements IPresenter {
         mSubscriptions.clear();
     }
 
-
     public void loadData(boolean forceUpdate) {
         loadData(forceUpdate || mFirstLoad, true);
         mFirstLoad = false;

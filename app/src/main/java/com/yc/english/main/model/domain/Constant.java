@@ -25,5 +25,16 @@ public class Constant {
 
     public static final String PAY_WAY_LIST_INFO = "pay_way_list_info";
 
+
+    public static final String GET_UNIT = "get_unit";
+    public static final String GET_VERSION = "get_version";
+    public static final String GET_GRADE = "get_grade";
+
+    public static final String RESULT_IN = "result_in";
+    public static final String RESULT_ANS = "result_ans";
+
+
+
     public static final String VIP_INFO_LIST_INFO = "vip_info_list_info";
+
 }

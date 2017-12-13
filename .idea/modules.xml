@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/banner/banner.iml" filepath="$PROJECT_DIR$/banner/banner.iml" />
       <module fileurl="file://$PROJECT_DIR$/english.iml" filepath="$PROJECT_DIR$/english.iml" />
       <module fileurl="file://$PROJECT_DIR$/guide/guide.iml" filepath="$PROJECT_DIR$/guide/guide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jiaozivideoplayer-lib/jiaozivideoplayer-lib.iml" filepath="$PROJECT_DIR$/jiaozivideoplayer-lib/jiaozivideoplayer-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxbus/rxbus.iml" filepath="$PROJECT_DIR$/rxbus/rxbus.iml" />
       <module fileurl="file://$PROJECT_DIR$/securityhttp/securityhttp.iml" filepath="$PROJECT_DIR$/securityhttp/securityhttp.iml" />
       <module fileurl="file://$PROJECT_DIR$/share/share.iml" filepath="$PROJECT_DIR$/share/share.iml" />

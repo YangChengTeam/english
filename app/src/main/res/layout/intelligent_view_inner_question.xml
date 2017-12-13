@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/mTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="1.There is hardly any rain "
+        android:textColor="@color/black_333"
+        android:textSize="@dimen/font_big"/>
+
+    <com.yc.english.news.view.widget.MediaPlayerView
+        android:id="@+id/mTitleAudioPlayerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"></com.yc.english.news.view.widget.MediaPlayerView>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"></android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/ll_analysis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray_ddd"></View>
+
+        <TextView
+            android:id="@+id/mAnswerTextView"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/font_big"/>
+
+        <TextView
+            android:id="@+id/mAnsTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:text="题型解析"
+            android:textColor="@color/black_333"
+            android:textSize="@dimen/font_big"/>
+
+        <TextView
+            android:id="@+id/mAnalysisTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="58dp"
+            android:textColor="#555555"
+            android:textSize="@dimen/font_normal"/>
+
+
+    </LinearLayout>
+</LinearLayout>

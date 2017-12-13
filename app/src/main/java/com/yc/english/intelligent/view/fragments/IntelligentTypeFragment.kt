@@ -1,6 +1,7 @@
 package com.yc.english.intelligent.view.fragments
 
 import android.graphics.BitmapFactory
+import android.support.annotation.MainThread
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.view.Gravity
@@ -15,6 +16,8 @@ import com.yc.english.base.utils.Blur
 import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.base.view.BaseActivity
 import com.yc.english.base.view.BaseFragment
+import com.yc.english.intelligent.contract.IntelligentTypeContract
+import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentTypePresenter
 import com.yc.english.intelligent.view.activitys.IntelligentVGSelectPopupWindow
 import com.yc.english.weixin.views.utils.TabsUtils
@@ -25,36 +28,26 @@ import java.util.concurrent.TimeUnit
  * Created by zhangkai on 2017/11/24.
  */
 
-open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>() {
-    private val titles = arrayOf("Unit 1", "Unit 2", "Unit 3", "Unit 4", "Unit 5", "Unit 6", "Unit 7", "Unit 8")
-    private val types = arrayOf("Unit 1", "Unit 2", "Unit 3", "Unit 4", "Unit 5", "Unit 6", "Unit 7", "Unit 8")
-
-
+open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), IntelligentTypeContract.View {
     init {
         isUseInKotlin = true
     }
 
     override fun init() {
         mPresenter = IntelligentTypePresenter(activity!!, this)
+        StatusBarCompat.compat(activity as BaseActivity<*>, mToolbarWarpper, mToolbar, R.mipmap.base_actionbar)
 
-        mScrollIndicatorView.setAdapter(TabsUtils.MyAdapter(activity, titles, SizeUtils.dp2px(72f)))
-        mScrollIndicatorView.setScrollBar(ColorBar(activity, ContextCompat.getColor(activity!!, R.color
+        mScrollIndicatorView.setScrollBar(ColorBar(activity, ContextCompat.getColor(context!!, R.color
                 .primary), 6))
-
         val unSelectSize = 15f
         val selectSize = 15f
-        val selectColor = ContextCompat.getColor(activity!!, R.color.primary)
-        val unSelectColor = ContextCompat.getColor(activity!!, R.color.black_333)
+        val selectColor = ContextCompat.getColor(context!!, R.color.primary)
+        val unSelectColor = ContextCompat.getColor(context!!, R.color.black_333)
         mScrollIndicatorView.setOnTransitionListener(OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize))
         mScrollIndicatorView.setOnIndicatorItemClickListener({ clickItemView, position ->
             mViewPager.setCurrentItem(position)
             false
         })
-        mScrollIndicatorView.setCurrentItem(0, true)
-
-        val mFragmentAdapter = TabsUtils.IntelligentFragmentAdapter(childFragmentManager, types)
-        mViewPager.setAdapter(mFragmentAdapter)
-        mViewPager.setCurrentItem(0)
         mViewPager.setOffscreenPageLimit(1)
         mViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(i: Int, v: Float, i1: Int) {
@@ -74,8 +67,6 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>() {
             IntelligentVGSelectPopupWindow(activity!!).show(activity!!.window.decorView.rootView, Gravity.CENTER)
         }
 
-
-
         ThreadPoolUtils(ThreadPoolUtils.SingleThread, 5).execute {
             val bimap = Blur.fastblur(activity, BitmapFactory.decodeResource(context!!.resources, R.mipmap
                     .intellgent_main_bg)
@@ -84,11 +75,35 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>() {
                 mInfoBg.setImageBitmap(bimap)
             }
         }
+    }
 
+    override fun hideStateView() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-        StatusBarCompat.compat(activity as BaseActivity<*>, mToolbarWarpper, mToolbar, R.mipmap.base_actionbar)
+    override fun showLoading() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    @MainThread
+    override fun showTitle(title: String) {
+        activity!!.runOnUiThread {
+            mTitleTextView.text = title
+        }
+    }
+
+    @MainThread
+    override fun showInfo(titles: Array<String?>, types: Array<UnitInfoWrapper.UnitInfo?>) {
+        activity!!.runOnUiThread {
+            mScrollIndicatorView.setAdapter(TabsUtils.MyAdapter(activity, titles, SizeUtils.dp2px(72f)))
+            val mFragmentAdapter = TabsUtils.IntelligentFragmentAdapter(childFragmentManager, types)
+            mViewPager.setAdapter(mFragmentAdapter)
+            mScrollIndicatorView.setCurrentItem(0, true)
+            mViewPager.setCurrentItem(0)
+        }
     }
 
     override fun getLayoutId() = R.layout.intelligent_type_fragment_index
+
 
 }

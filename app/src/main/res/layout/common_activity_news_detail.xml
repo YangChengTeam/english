@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <com.yc.english.base.view.TaskToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <com.yc.english.base.view.StateView
         android:id="@+id/stateView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryDark" />
+        android:background="@color/primaryDark"/>
 
     <com.yc.english.news.view.widget.NewsScrollView
         android:id="@+id/nestedScrollView"
@@ -45,7 +45,7 @@
                     android:layout_marginTop="9dp"
                     android:lineSpacingExtra="@dimen/group_distance_10"
                     android:textColor="@color/black_333333"
-                    android:textSize="21sp" />
+                    android:textSize="21sp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#b5b5b5"
-                        android:textSize="11sp" />
+                        android:textSize="11sp"/>
 
                     <TextView
                         android:id="@+id/mTextViewTime"
@@ -65,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/group_distance_18"
                         android:textColor="#b5b5b5"
-                        android:textSize="11sp" />
+                        android:textSize="11sp"/>
                 </LinearLayout>
 
 
@@ -82,13 +82,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_margin="@dimen/group_distance_10"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
                 <com.yc.english.news.view.widget.MediaPlayerView
                     android:id="@+id/mMediaPlayerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
             </FrameLayout>
 
 
@@ -101,7 +101,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/white"
                 android:focusable="true"
-                android:focusableInTouchMode="true" />
+                android:focusableInTouchMode="true"/>
 
 
             <LinearLayout
@@ -114,7 +114,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/group_distance_10"
-                    android:background="@color/group_gray_e6f2fb" />
+                    android:background="@color/group_gray_e6f2fb"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -128,7 +128,7 @@
                         android:layout_centerVertical="true"
                         android:text="@string/about_recommend"
                         android:textColor="@color/black_333333"
-                        android:textSize="@dimen/group_text_14" />
+                        android:textSize="@dimen/group_text_14"/>
 
                     <LinearLayout
                         android:id="@+id/mLinearLayoutMore"
@@ -146,12 +146,12 @@
                             android:layout_marginRight="@dimen/group_distance_2"
                             android:text="@string/query_more"
                             android:textColor="@color/group_gray_aaa"
-                            android:textSize="@dimen/group_text_14" />
+                            android:textSize="@dimen/group_text_14"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/index_aritle_arrow" />
+                            android:src="@mipmap/index_aritle_arrow"/>
 
                     </LinearLayout>
 
@@ -161,17 +161,17 @@
                     android:layout_width="58dp"
                     android:layout_height="3dp"
                     android:layout_marginLeft="10dp"
-                    android:background="@color/primary" />
+                    android:background="@color/primary"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/group_distance_05"
-                    android:background="@color/group_gary_ddd" />
+                    android:background="@color/group_gary_ddd"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/mRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
