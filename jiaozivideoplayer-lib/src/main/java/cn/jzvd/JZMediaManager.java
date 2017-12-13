@@ -37,13 +37,13 @@ public class JZMediaManager implements TextureView.SurfaceTextureListener {
         mMediaHandlerThread.start();
         mMediaHandler = new MediaHandler(mMediaHandlerThread.getLooper());
         mainThreadHandler = new Handler();
-
+        if (jzMediaInterface == null)
+            jzMediaInterface = new JZMediaIjkplayer();
     }
 
     public static JZMediaManager instance() {
         if (jzMediaManager == null) {
             jzMediaManager = new JZMediaManager();
-
         }
         return jzMediaManager;
     }
@@ -66,15 +66,15 @@ public class JZMediaManager implements TextureView.SurfaceTextureListener {
         instance().jzMediaInterface.currentDataSource = currentDataSource;
     }
 
-    public static int getCurrentPosition() {
+    public static long getCurrentPosition() {
         return instance().jzMediaInterface.getCurrentPosition();
     }
 
-    public static int getDuration() {
+    public static long getDuration() {
         return instance().jzMediaInterface.getDuration();
     }
 
-    public static void seekTo(int time) {
+    public static void seekTo(long time) {
         instance().jzMediaInterface.seekTo(time);
     }
 
@@ -104,7 +104,7 @@ public class JZMediaManager implements TextureView.SurfaceTextureListener {
     }
 
     @Override
-    public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture, int width, int height) {
+    public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture, int i, int i1) {
         Log.i(TAG, "onSurfaceTextureAvailable [" + JZVideoPlayerManager.getCurrentJzvd().hashCode() + "] ");
         if (savedSurfaceTexture == null) {
             savedSurfaceTexture = surfaceTexture;
@@ -115,13 +115,12 @@ public class JZMediaManager implements TextureView.SurfaceTextureListener {
     }
 
     @Override
-    public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture, int width, int height) {
+    public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture, int i, int i1) {
 
     }
 
     @Override
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
-        releaseMediaPlayer();
         return savedSurfaceTexture == null;
     }
 
@@ -146,15 +145,12 @@ public class JZMediaManager implements TextureView.SurfaceTextureListener {
                     jzMediaInterface.prepare();
                     if (surface != null) {
                         surface.release();
-                        surface = null;
                     }
                     surface = new Surface(savedSurfaceTexture);
                     jzMediaInterface.setSurface(surface);
                     break;
                 case HANDLER_RELEASE:
-                    if (jzMediaInterface != null)
-                        jzMediaInterface.release();
-
+                    jzMediaInterface.release();
                     break;
             }
         }
