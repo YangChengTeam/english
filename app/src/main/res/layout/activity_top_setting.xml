@@ -72,11 +72,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/base_btn_ripple_bg"
-            android:clickable="true"
-            android:visibility="gone">
+            android:clickable="true">
 
             <LinearLayout
-                android:id="@+id/ll_error_answer"
+                android:id="@+id/ll_add_score_tutorship"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -88,14 +87,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:src="@mipmap/setting_error_answer" />
+                    android:src="@mipmap/task_tutorship" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
-                    android:text="错题本"
+                    android:text="提分辅导"
                     android:textColor="@color/black_333"
                     android:textSize="16dp" />
             </LinearLayout>
@@ -111,6 +110,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@drawable/base_btn_ripple_bg"
             android:clickable="true">

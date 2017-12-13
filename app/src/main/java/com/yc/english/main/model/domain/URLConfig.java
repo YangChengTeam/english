@@ -2,6 +2,8 @@ package com.yc.english.main.model.domain;
 
 import com.yc.english.base.model.Config;
 
+import java.nio.file.FileAlreadyExistsException;
+
 /**
  * Created by zhangkai on 2017/8/1.
  */
@@ -40,6 +42,8 @@ public class URLConfig {
     public static final String WEIKE_UNIT_URL = getBaseUrl() + "news/getChildList";
 
     public static final String MY_ORDER_URL = getBaseUrl() + "order/lists";
+
+    public static final String Ability_score_url = getBaseUrl() + "UserTest/unitTest";
 
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);

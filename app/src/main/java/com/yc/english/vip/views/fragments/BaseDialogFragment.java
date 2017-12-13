@@ -31,6 +31,7 @@ public abstract class BaseDialogFragment<P extends BasePresenter> extends Dialog
 
     private View rootView;
     protected P mPresenter;
+    public Window window;
 
     @Nullable
     @Override
@@ -39,7 +40,7 @@ public abstract class BaseDialogFragment<P extends BasePresenter> extends Dialog
 
         if (rootView == null) {
             getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-            Window window = getDialog().getWindow();
+            window = getDialog().getWindow();
             window.setGravity(Gravity.BOTTOM);//((ViewGroup) window.findViewById(android.R.id.content))
             rootView = inflater.inflate(getLayoutId(), ((ViewGroup) window.findViewById(android.R.id.content)), false);
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//注意此处
@@ -54,6 +55,7 @@ public abstract class BaseDialogFragment<P extends BasePresenter> extends Dialog
         }
         return rootView;
     }
+
 
     @Override
     public void onResume() {

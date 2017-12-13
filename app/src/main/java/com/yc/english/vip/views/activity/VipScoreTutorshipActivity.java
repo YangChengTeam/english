@@ -1,6 +1,7 @@
 package com.yc.english.vip.views.activity;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -15,13 +16,20 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
+import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
+import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.vip.model.bean.GoodsType;
+import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.vip.views.fragments.VipTutorshipDetailFragment;
 import com.yc.english.vip.views.fragments.VipUserEvaluateFragment;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
+import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/11/28 15:05.
@@ -76,6 +84,21 @@ public class VipScoreTutorshipActivity extends BaseActivity {
                     collapsingToolbarLayout.setTitle("提分辅导");
                 } else {
                     collapsingToolbarLayout.setTitle("");
+                }
+            }
+        });
+
+        initListener();
+
+
+    }
+
+    private void initListener() {
+        RxView.clicks(mBtnPay).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                if (!UserInfoHelper.isGotoLogin(VipScoreTutorshipActivity.this)) {
+                    VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
                 }
             }
         });

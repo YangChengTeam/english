@@ -11,7 +11,9 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.model.bean.MyOrderInfo;
+import com.yc.english.setting.model.bean.ScoreInfo;
 
+import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +74,13 @@ public class MyEngin extends BaseEngin {
         params.put("app_id", "1");
 
         return HttpCoreEngin.get(mContext).rxpost(URLConfig.MY_ORDER_URL, new TypeReference<ResultInfo<List<MyOrderInfo>>>() {
+        }.getType(), params, true, true, true);
+    }
+
+    public Observable<ResultInfo<ScoreInfo>> getAbilityScore() {
+        Map<String, String> params = new HashMap<>();
+        params.put("uid", UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.Ability_score_url, new TypeReference<ResultInfo<ScoreInfo>>() {
         }.getType(), params, true, true, true);
     }
 

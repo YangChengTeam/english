@@ -40,6 +40,7 @@ import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.contract.MyContract;
 import com.yc.english.setting.model.bean.MyOrderInfo;
+import com.yc.english.setting.model.bean.ScoreInfo;
 import com.yc.english.setting.presenter.MyPresenter;
 import com.yc.english.setting.view.activitys.CameraTaskActivity;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
@@ -49,6 +50,7 @@ import com.yc.english.setting.view.activitys.SettingActivity;
 import com.yc.english.setting.view.activitys.VipEquitiesActivity;
 import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
 import com.yc.english.setting.view.widgets.MenuItemView;
+import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -121,7 +123,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     FrameLayout mToolbarWarpper;
     @BindView(R.id.ll_carmer_search)
     LinearLayout mLlCarmerSearch;
-
+    @BindView(R.id.ll_add_score_tutorship)
+    LinearLayout mLlAddScoreTutorship;
 
     @Override
     public void init() {
@@ -141,14 +144,11 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 }
             }
         });
-
-        abilityView.setDatas(new float[]{0.62f, 0.92f, 0.29f, 0.45f, 0.82f,
-                0.74f})
-                .setTitles(new String[]{"阅读", "听力", "口语", "写作", "语法", "词汇"}).setTitleColors(new int[]{Color
+        abilityView.setDatas(new float[]{0.62f, 0.58f, 0.70f, 0.46f, 0.69f,
+                0.84f}).setTitles(new String[]{"阅读", "听力", "口语", "写作", "语法", "词汇"}).setTitleColors(new int[]{Color
                 .parseColor("#0cacfe"), Color
                 .parseColor("#ff8b01"), Color.parseColor("#fdbb12"), Color.parseColor("#ff5252"), Color.parseColor
                 ("#97d107"), Color.parseColor("#b0eb02")});
-
 
         RxView.clicks(mAvatarImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -260,6 +260,15 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 startActivity(intent);
             }
         });
+
+        RxView.clicks(mLlAddScoreTutorship).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), VipScoreTutorshipActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -365,5 +374,16 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         QQUtils.joinQQZhongXueGroup(getActivity(), "wuzu_LXD28r_DJy7INWx-F4WkuhtzDhE");
     }
 
+    @Override
+    public void showScoreResult(ScoreInfo data) {
+        if (data != null)
+            abilityView.setDatas(new float[]{data.getRead(), data.getHearing(), data.getOracy(), data.getWriting(), data.getGrammar(),
+                    data.getVocabulary()}).setTitles(new String[]{"阅读", "听力", "口语", "写作", "语法", "词汇"}).setTitleColors(new int[]{Color
+                    .parseColor("#0cacfe"), Color
+                    .parseColor("#ff8b01"), Color.parseColor("#fdbb12"), Color.parseColor("#ff5252"), Color.parseColor
+                    ("#97d107"), Color.parseColor("#b0eb02")});
+
+
+    }
 
 }

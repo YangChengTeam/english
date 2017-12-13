@@ -14,10 +14,12 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SDCardUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
@@ -284,7 +286,8 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
                         protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
 //                            ToastUtils.showLong("开始下载资源文件");
                             if (ActivityUtils.isValidContext(ListenEnglishActivity.this)) {
-                                Glide.with(ListenEnglishActivity.this).load(R.mipmap.download_loading).into(mIvLoading);
+                                Glide.with(ListenEnglishActivity.this).load(R.mipmap.base_loading)
+                                        .apply(new RequestOptions().override(SizeUtils.dp2px(1080 / 3), SizeUtils.dp2px(408 / 3))).into(mIvLoading);
                             }
                             total = totalBytes / 1024 / 1024;
                         }

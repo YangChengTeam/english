@@ -1,6 +1,5 @@
 package com.yc.english.vip.utils;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
