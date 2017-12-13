@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -60,11 +57,14 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by admin on 2017/10/16.
@@ -113,12 +113,6 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
     private CircularProgressBar playProgressBar;
 
     private float progress = 0;
-
-    private Timer timer;
-
-    private TimerTask task;
-
-    private MediaRecorder mediaRecorder;
 
     private MediaPlayer mPlayer;
 
@@ -236,7 +230,6 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
                     }
                     view.setVisibility(View.GONE);
                     initTask();
-                    timer.schedule(task, 200, 150);
                     tapeStart();
                     isTape = true;
                 }
@@ -318,62 +311,53 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
         mSpeakItemAdapter.notifyDataSetChanged();
     }
 
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                if (progressBar != null && isTape) {
 
-                    int max = 5;
-                    int min = 1;
-                    Random random = new Random();
-                    int num = random.nextInt(max) % (max - min + 1) + min;
 
-                    if (progress >= 45) {
-                        progress = progress - num;
-                    } else {
-                        progress = progress + num;
-                    }
-                    progressBar.setProgress(progress);
-                }
+    private void updateProgress(){
+        if (progressBar != null && isTape) {
+            int max = 5;
+            int min = 1;
+            Random random = new Random();
+            int num = random.nextInt(max) % (max - min + 1) + min;
 
-                if (playProgressBar != null && isPlayTape) {
-
-                    if (progress > 100) {
-                        progress = 100;
-                    } else {
-                        progress = progress + playCount;
-                    }
-
-                    playProgressBar.setProgress(progress);
-                }
-
+            if (progress >= 45) {
+                progress = progress - num;
+            } else {
+                progress = progress + num;
             }
-            super.handleMessage(msg);
+            progressBar.setProgress(progress);
         }
-    };
 
-    public void initTask() {
-        timer = new Timer();
-        task = new TimerTask() {
+        if (playProgressBar != null && isPlayTape) {
 
-            @Override
-            public void run() {
-                // 需要做的事:发送消息
-                Message message = new Message();
-                message.what = 1;
-                handler.sendMessage(message);
+            if (progress > 100) {
+                progress = 100;
+            } else {
+                progress = progress + playCount;
             }
-        };
+
+            playProgressBar.setProgress(progress);
+        }
+
+    }
+
+    private Subscription subscriber;
+    public void initTask() {
+        if(subscriber != null) {
+            return;
+        }
+        subscriber = Observable.interval(200, TimeUnit.MILLISECONDS).delay(150, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Long>() {
+            @Override
+            public void call(Long aLong) {
+                updateProgress();
+            }
+        });
     }
 
     public void stopTask() {
-        if (task != null) {
-            task.cancel();
-            task = null;
-        }
-        if (timer != null) {
-            timer = null;
+        if(subscriber != null && subscriber.isUnsubscribed()){
+            subscriber.unsubscribe();
+            subscriber = null;
         }
     }
 
@@ -416,7 +400,6 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
         try {
             if (audioFile != null && audioFile.exists()) {
                 initTask();
-                timer.schedule(task, 200, 150);
 
                 mPlayer = new MediaPlayer();
                 //设置要播放的文件
