@@ -4,6 +4,10 @@
         "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\jz_back_normal.png"
     },
     {
+<<<<<<< HEAD
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\jz_battery_level_70.png",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\jz_battery_level_70.png"
+=======
         "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\jz_error_normal.png",
         "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\jz_error_normal.png"
     },
@@ -14,6 +18,7 @@
     {
         "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\jz_play_pressed.png",
         "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\jz_play_pressed.png"
+>>>>>>> 98525d75588d553c9ba7d09579cb01de12d47423
     },
     {
         "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\jz_battery_level_10.png",

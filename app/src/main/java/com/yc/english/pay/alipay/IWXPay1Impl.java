@@ -1,11 +1,20 @@
 package com.yc.english.pay.alipay;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageInstaller;
+import android.content.pm.PackageManager;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import java.util.List;
+
+import static android.content.pm.PackageManager.GET_META_DATA;
 
 /**
  * Created by zhangkai on 2017/4/19.
@@ -38,17 +47,37 @@ public class IWXPay1Impl extends IPayImpl {
     }
 
     private void wxpay(PayInfo payInfo) {
-        PayReq request = new PayReq();
-        request.appId = payInfo.getAppid();
-        request.partnerId = payInfo.getMch_id();
-        request.prepayId = payInfo.getPrepay_id();
-        request.packageValue = "Sign=WXPay";
-        request.nonceStr = payInfo.getNonce_str();
-        request.timeStamp = payInfo.getTimestamp();
-        request.sign = payInfo.getSign();
-        IPayImpl.appid = payInfo.getAppid();
-        msgApi.registerApp(payInfo.getAppid());
-        msgApi.sendReq(request);
+
+        if (isPackageInstalled()) {
+            PayReq request = new PayReq();
+            request.appId = payInfo.getAppid();
+            request.partnerId = payInfo.getMch_id();
+            request.prepayId = payInfo.getPrepay_id();
+            request.packageValue = "Sign=WXPay";
+            request.nonceStr = payInfo.getNonce_str();
+            request.timeStamp = payInfo.getTimestamp();
+            request.sign = payInfo.getSign();
+            IPayImpl.appid = payInfo.getAppid();
+            msgApi.registerApp(payInfo.getAppid());
+            msgApi.sendReq(request);
+        } else {
+            ToastUtils.showShort("你没有安装微信,请先安装...");
+        }
+
+    }
+
+    private boolean isPackageInstalled() {
+
+        PackageManager pm = mContext.getPackageManager();
+        List<PackageInfo> packageInfos = pm.getInstalledPackages(GET_META_DATA);
+        if (packageInfos != null) {
+            for (PackageInfo packageInfo : packageInfos) {
+                if ("com.tencent.mm".equals(packageInfo.packageName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

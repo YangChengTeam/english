@@ -24,12 +24,17 @@
         "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable\\jz_seek_thumb_pressed.xml"
     },
     {
+<<<<<<< HEAD
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\jz_bottom_seek_thumb.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable\\jz_bottom_seek_thumb.xml"
+=======
         "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\jz_title_bg.9.png",
         "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable\\jz_title_bg.9.png"
     },
     {
         "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\jz_bottom_progress.xml",
         "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable\\jz_bottom_progress.xml"
+>>>>>>> 98525d75588d553c9ba7d09579cb01de12d47423
     },
     {
         "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\jz_click_back_tiny_selector.xml",
@@ -68,7 +73,16 @@
         "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable\\jz_bottom_bg.9.png"
     },
     {
+<<<<<<< HEAD
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\retry_bg.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable\\retry_bg.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\jz_dialog_progress_bg.xml",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable\\jz_dialog_progress_bg.xml"
+=======
         "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\jz_bottom_seek_thumb.xml",
         "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\drawable\\jz_bottom_seek_thumb.xml"
+>>>>>>> 98525d75588d553c9ba7d09579cb01de12d47423
     }
 ]

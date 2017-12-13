@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
@@ -74,23 +75,30 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
         iwxPay = new IWXPay1Impl(getActivity());
 
         mTitles.add(getString(R.string.tutorship));
-        mTitles.add(getString(R.string.member));
+
         Bundle bundle = getArguments();
         if (bundle != null) {
             goodsType = bundle.getInt(GoodsType.GOODS_KEY);
-            if (goodsType == GoodsType.TYPE_SINGLE_WEIKE || goodsType == GoodsType.TYPE_SINGLE_DIANDU
-                    || goodsType == GoodsType.TYPE_SINGLE_INDIVIDUALITY_PLAN) {
+            if (goodsType == GoodsType.TYPE_SINGLE_INDIVIDUALITY_PLAN) {
+                //隐藏mTabLayout
+                mTabLayout.setVisibility(View.GONE);
+                window.setLayout(ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight() * 3 / 5);
+
+            } else if (goodsType == GoodsType.TYPE_SINGLE_WEIKE || goodsType == GoodsType.TYPE_SINGLE_DIANDU) {
                 //显示三项
+                mTitles.add(getString(R.string.member));
                 mTitles.add(getString(R.string.sigle_buy));
                 if (bundle.getParcelable("courseInfo") != null) {
                     courseInfo = bundle.getParcelable("courseInfo");
                 }
             }
-
+        } else {
+            mTitles.add(getString(R.string.sigle_buy));
         }
 
+
         mViewPager.setAdapter(new MyPagerAdapter(getChildFragmentManager(), mTitles));
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(mTitles.size());
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.setCurrentItem(0);
         final View customView = LayoutInflater.from(getActivity()).inflate(R.layout.vip_tab_item, null);
@@ -238,6 +246,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     private BaseVipPayFragment vipPayFragment;
     private BaseVipPayFragment generalFragment;
     private BaseVipPayFragment singleFragment;
+
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
 

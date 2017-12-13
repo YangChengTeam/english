@@ -4,6 +4,7 @@
     <dimen name="jz_start_button_w_h_normal">45dp</dimen>
     <item name="jz_fullscreen_id" type="id"/>
     <item name="jz_tiny_id" type="id"/>
+    <string name="ijkplayer_dummy"/>
     <string name="no_url">No url</string>
     <string name="replay">Replay</string>
     <string name="tips_not_wifi">You are currently using the mobile network, the player will continue to consume traffic</string>

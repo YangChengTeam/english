@@ -9,6 +9,7 @@ import com.yc.english.base.view.INoNet;
 import com.yc.english.base.view.IView;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.model.bean.MyOrderInfo;
+import com.yc.english.setting.model.bean.ScoreInfo;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ public interface MyContract {
         void showNoLogin(Boolean flag);
 
         void showMyOrderInfoList(List<MyOrderInfo> list);
+
+        void showScoreResult(ScoreInfo data);
     }
 
     interface Presenter extends IPresenter {
