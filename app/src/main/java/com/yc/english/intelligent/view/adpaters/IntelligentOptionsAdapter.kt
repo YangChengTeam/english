@@ -31,7 +31,7 @@ class IntelligentOptionsAdapter(val questionInfo: QuestionInfoWrapper.QuestionIn
             GlideHelper.imageView(mContext, helper?.getView<ImageView>(R.id.iv_answer_image), item, R.mipmap.default_book)
         }
 
-        if (TextUtils.isEmpty(questionInfo?.userAnswer)) {
+        if (TextUtils.isEmpty(questionInfo?.userAnswer) && isResult) {
             questionInfo?.userAnswer = SPUtils.getInstance().getString("userAnswer${questionInfo?.id}", "")
         }
 

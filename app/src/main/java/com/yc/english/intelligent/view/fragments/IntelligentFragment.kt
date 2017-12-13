@@ -13,7 +13,6 @@ import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentPresenter
 import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.intelligent.view.activitys.IntelligentReportActivity
-import com.yc.english.intelligent.view.activitys.IntelligentResultActivity
 import com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
 import com.yc.english.main.model.domain.Constant
 import kotlinx.android.synthetic.main.intelligent_fragment_index.*
@@ -34,7 +33,8 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
     override fun init() {
         RxView.clicks(mReportBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
-            startActivity(Intent(activity, IntelligentReportActivity::class.java))
+            var intent = Intent(activity, IntelligentReportActivity::class.java)
+            startActivity(intent)
         }
 
         if (unitInfo != null) {
@@ -48,6 +48,9 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
         mIntelligentType.post {
             RxView.clicks(mIntelligentType.mDoTextView).throttleFirst(200, TimeUnit
                     .MILLISECONDS).subscribe {
+
+
+
                 var type = ""
                 when (mIntelligentType.tag) {
                     1 -> type = "vocabulary"
@@ -57,15 +60,16 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
                     5 -> type = "read"
                     6 -> type = "writing"
                 }
+                var intent: Intent
                 if (type == "oracy") {
-
+                    intent = Intent(activity, QuestionsActivity::class.java)
                 } else {
-                    var intent = Intent(activity, IntelligentQuestionsActivity::class.java)
-                    intent.putExtra("unitId", unitInfo?.id)
-                    intent.putExtra("type", type)
-                    intent.putExtra("isResultIn", mIntelligentType.complete)
-                    startActivity(intent)
+                    intent = Intent(activity, IntelligentQuestionsActivity::class.java)
                 }
+                intent.putExtra("unitId", unitInfo?.id)
+                intent.putExtra("type", type)
+                intent.putExtra("isResultIn", mIntelligentType.complete)
+                startActivity(intent)
             }
         }
     }
@@ -82,7 +86,7 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
             mReportBtn.text = "查看测评报告"
             mReportBtn.setTextColor(ContextCompat.getColor(context!!, R.color.primary))
         } else {
-            mReportBtn.isClickable = false
+            mReportBtn.isClickable = true
             mReportBtn.text = "完成所有练习,可查看测评报告"
             mReportBtn.setTextColor(ContextCompat.getColor(context!!, R.color.gray_999))
         }

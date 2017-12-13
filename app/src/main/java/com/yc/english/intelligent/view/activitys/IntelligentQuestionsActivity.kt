@@ -3,9 +3,6 @@ package com.yc.english.intelligent.view.activitys
 import android.content.Intent
 import android.support.v4.view.ViewPager
 import android.view.KeyEvent
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import com.blankj.utilcode.util.SPUtils
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
@@ -48,25 +45,12 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
             eixt()
         }
 
-        RxView.clicks(mSubmitBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe {
-            if (isResultIn) {
-                goToResult()
-                return@subscribe
-            }
-
-            if (isHandIn) {
-                startActivity(Intent(this, IntelligentHandInActivity::class.java))
-            }
-        }
-
         unitId = intent.getIntExtra("unitId", 0)
         type = intent.getStringExtra("type")
         isResultIn = intent.getBooleanExtra("isResultIn", false)
 
         if (isResultIn) {
             mToolbarWarpper.stopTime()
-            (mSubmitBtn.parent as ViewGroup).visibility = View.VISIBLE
-            (mSubmitBtn.getChildAt(0) as TextView).text = "练习成绩"
         }
 
         mViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -104,8 +88,6 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
     fun next(actIndex: Int, frgIndex: Int) {
         if (!isResultIn) {
             isHandIn = true
-            (mSubmitBtn.parent as ViewGroup).visibility = View.VISIBLE
-            (mSubmitBtn.getChildAt(0) as TextView).text = "提交练习"
         }
         mViewPager.setCurrentItem(actIndex)
         (mFragmentAdapter?.getItem(actIndex) as IntelligentQuestionsFragment).next(frgIndex)
@@ -119,21 +101,11 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
             (mFragmentAdapter?.getItem(i) as IntelligentQuestionsFragment).next(0)
         }
         mViewPager.setCurrentItem(0)
-        showSubmit()
     }
 
 
     var mFragmentAdapter: TabsUtils.IntelligentQuestionsFragmentAdapter? = null
 
-    private fun showSubmit() {
-        if (!isResultIn) {
-            (mSubmitBtn.parent as ViewGroup).visibility = View.VISIBLE
-            (mSubmitBtn.getChildAt(0) as TextView).text = "提交练习"
-        } else {
-            (mSubmitBtn.parent as ViewGroup).visibility = View.VISIBLE
-            (mSubmitBtn.getChildAt(0) as TextView).text = "练习成绩"
-        }
-    }
 
     override fun showInfo(list: List<QuestionInfoWrapper.QuestionInfo>) {
         questionInfos = list

@@ -16,7 +16,8 @@ object URLConfig {
     val GET_GRADE = getBaseUrl() + "topic/get_grade"
     val GET_UNIT = getBaseUrl() + "topic/get_unit"
     val GET_QUESTION = getBaseUrl() + "topic/topic_list"
-
+    val UPDATE_ANSWERS = getBaseUrl() + "topic/answer_list"
+    val UNIT_REPORT = getBaseUrl() + "unitTest/report"
 
     fun getBaseUrl(): String {
         return if (DEBUG) debugBaseUrl else baseUrl

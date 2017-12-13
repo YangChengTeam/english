@@ -7,6 +7,7 @@ import android.view.View
 import com.alibaba.fastjson.JSON
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.jakewharton.rxbinding.view.RxView
 import com.yc.english.R
 import com.yc.english.base.model.BaseEngin
@@ -15,7 +16,9 @@ import com.yc.english.base.utils.SimpleCacheUtils
 import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.base.view.BaseActivity
 import com.yc.english.base.view.IView
+import com.yc.english.intelligent.contract.IntelligentHandInContract
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
+import com.yc.english.intelligent.presenter.IntelligentHandInPresenter
 import com.yc.english.intelligent.view.adpaters.IntelligentHandInAdapter
 import kotlinx.android.synthetic.main.intelligent_avtivity_hand_in.*
 import java.util.ArrayList
@@ -24,12 +27,15 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by zhangkai on 2017/11/28.
  */
-class IntelligentHandInActivity : BaseActivity<BasePresenter<BaseEngin, IView>>() {
+class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), IntelligentHandInContract.View {
+
 
     var adapter: IntelligentHandInAdapter? = null
     var questionInfos: MutableList<QuestionInfoWrapper.QuestionInfo>? = null
 
     override fun init() {
+        mPresenter = IntelligentHandInPresenter(this, this)
+
         mToolbar.mIndexTextView.visibility = View.GONE
         StatusBarCompat.compat(this, mToolbar, mToolbar.mToolbar, mToolbar.mStatubar)
         RxView.clicks(mToolbar.mBackBtn).throttleFirst(200, TimeUnit
@@ -39,13 +45,7 @@ class IntelligentHandInActivity : BaseActivity<BasePresenter<BaseEngin, IView>>(
 
         RxView.clicks(mSubmitBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
-            finish()
-            SimpleCacheUtils.writeCache(this, "result${IntelligentQuestionsActivity.getInstance()?.unitId}${IntelligentQuestionsActivity.getInstance()?.type}", JSON
-                    .toJSONString(questionInfos))
-            SPUtils.getInstance().put("unitInfo-complete-time-${IntelligentQuestionsActivity.getInstance()?.unitId}${IntelligentQuestionsActivity.getInstance()?.type}", mToolbar.mTimeTextView.text.toString())
-            val intent = Intent(this@IntelligentHandInActivity, IntelligentResultActivity::class.java)
-            intent.putParcelableArrayListExtra("questionInfos", questionInfos as ArrayList<out Parcelable>)
-            startActivity(intent)
+            mPresenter.submitAnswers(questionInfos!!)
         }
 
         mToolbar.mTimeTextView.text = IntelligentQuestionsActivity.getInstance()?.usedTime() ?: ""
@@ -81,8 +81,25 @@ class IntelligentHandInActivity : BaseActivity<BasePresenter<BaseEngin, IView>>(
             IntelligentQuestionsActivity.getInstance()?.next(questionInfo.actIndex, questionInfo.frgIndex)
             finish()
         }
+
+
     }
 
+    override fun showSuccess(msg: String) {
+        runOnUiThread {
+            finish()
+            SimpleCacheUtils.writeCache(this, "result${IntelligentQuestionsActivity.getInstance()?.unitId}${IntelligentQuestionsActivity.getInstance()?.type}", JSON
+                    .toJSONString(questionInfos))
+            SPUtils.getInstance().put("unitInfo-complete-time-${IntelligentQuestionsActivity.getInstance()?.unitId}${IntelligentQuestionsActivity.getInstance()?.type}", mToolbar.mTimeTextView.text.toString())
+            val intent = Intent(this@IntelligentHandInActivity, IntelligentResultActivity::class.java)
+            intent.putParcelableArrayListExtra("questionInfos", questionInfos as ArrayList<out Parcelable>)
+            startActivity(intent)
+        }
+    }
+
+    override fun showFail(msg: String) {
+        ToastUtils.showShort(msg)
+    }
 
     override fun getLayoutId() = R.layout.intelligent_avtivity_hand_in
 

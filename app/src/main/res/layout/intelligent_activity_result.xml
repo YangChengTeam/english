@@ -77,7 +77,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -86,7 +86,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="对11题"
+                android:text="对 题"
                 android:textColor="@color/black_333"
                 android:textSize="@dimen/font_normal"/>
 
@@ -104,7 +104,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="错4题"
+                android:text="错 题"
                 android:textColor="@color/black_333"
                 android:textSize="@dimen/font_normal"/>
         </LinearLayout>
