@@ -15,6 +15,7 @@ import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.intelligent.view.activitys.IntelligentReportActivity
 import com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
 import com.yc.english.main.model.domain.Constant
+import com.yc.english.speak.view.activity.QuestionActivity
 import kotlinx.android.synthetic.main.intelligent_fragment_index.*
 import java.util.concurrent.TimeUnit
 
@@ -62,7 +63,7 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
                 }
                 var intent: Intent
                 if (type == "oracy") {
-                    intent = Intent(activity, QuestionsActivity::class.java)
+                    intent = Intent(activity, QuestionActivity::class.java)
                 } else {
                     intent = Intent(activity, IntelligentQuestionsActivity::class.java)
                 }
