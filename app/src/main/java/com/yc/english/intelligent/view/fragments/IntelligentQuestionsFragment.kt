@@ -5,9 +5,7 @@ import android.support.v4.view.ViewPager
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
-import android.view.ViewTreeObserver
 import com.blankj.utilcode.util.SizeUtils
-
 import com.jakewharton.rxbinding.view.RxView
 import com.yc.english.R
 import com.yc.english.base.model.BaseEngin

@@ -381,9 +381,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Override
     public void showScoreResult(ScoreInfo data) {
         if (data != null)
-            abilityView.setDatas(new float[]{data.getRead()/100f, data.getHearing()/100f, data.getOracy()/100f, data.getWriting()/100f, data.getGrammar()/100f,
-                    data.getVocabulary()/100f});
-
+            abilityView.setDatas(new float[]{data.getRead() / 100f, data.getHearing() / 100f, data.getOracy() / 100f, data.getWriting() / 100f, data.getGrammar() / 100f,
+                    data.getVocabulary() / 100f});
 
 
     }
