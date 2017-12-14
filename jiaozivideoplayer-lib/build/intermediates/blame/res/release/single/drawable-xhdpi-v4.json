@@ -84,12 +84,12 @@
         "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\drawable-xhdpi\\jz_battery_level_100.png"
     },
     {
-        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\jz_clarity_popwindow_bg.9.png",
-        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\drawable-xhdpi\\jz_clarity_popwindow_bg.9.png"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\jz_back_normal.png",
         "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\drawable-xhdpi\\jz_back_normal.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\jz_clarity_popwindow_bg.9.png",
+        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\drawable-xhdpi\\jz_clarity_popwindow_bg.9.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\jz_enlarge.png",
