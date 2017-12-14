@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-tr\\values-tr.xml",
+        "outputFile": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-tr\\values-tr.xml",
         "map": [
             {
                 "to": {
@@ -11,13 +11,13 @@
                     "endOffset": 100
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
+                    "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
-                        "startOffset": 283,
+                        "startOffset": 288,
                         "endColumn": 49,
-                        "endOffset": 328
+                        "endOffset": 333
                     }
                 }
             },
@@ -30,13 +30,13 @@
                     "endOffset": 142
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
+                    "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
-                        "startOffset": 333,
+                        "startOffset": 339,
                         "endColumn": 41,
-                        "endOffset": 370
+                        "endOffset": 376
                     }
                 }
             },
@@ -49,13 +49,13 @@
                     "endOffset": 255
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
+                    "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
-                        "startOffset": 55,
+                        "startOffset": 57,
                         "endColumn": 112,
-                        "endOffset": 163
+                        "endOffset": 165
                     }
                 }
             },
@@ -68,13 +68,13 @@
                     "endOffset": 311
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
+                    "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
-                        "startOffset": 227,
+                        "startOffset": 231,
                         "endColumn": 55,
-                        "endOffset": 278
+                        "endOffset": 282
                     }
                 }
             },
@@ -87,13 +87,13 @@
                     "endOffset": 370
                 },
                 "from": {
-                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
+                    "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
-                        "startOffset": 168,
+                        "startOffset": 171,
                         "endColumn": 58,
-                        "endOffset": 222
+                        "endOffset": 225
                     }
                 }
             }
