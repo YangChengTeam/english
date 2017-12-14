@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -167,6 +168,8 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         return R.layout.question_english_activity;
     }
 
+    private RelativeLayout.LayoutParams params;
+
     @Override
     public void init() {
         mToolbar.setTitle("说英语");
@@ -184,6 +187,9 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
         if (isResultIn) {
             lists = QuestionHelper.getQuestionInfoBeanListFromDB();
+            mCommitLayout.setVisibility(View.GONE);
+        } else {
+            mCommitLayout.setVisibility(View.VISIBLE);
         }
 
         mPresenter = new IntelligentQuestionPresenter(this, this);
@@ -232,8 +238,9 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                             public void call(ResultInfo<VGInfoWarpper> vgInfoWarpperResultInfo) {
                                 dismissLoadingDialog();
                                 if (vgInfoWarpperResultInfo != null && vgInfoWarpperResultInfo.code == HttpConfig.STATUS_OK) {
-                                    ToastUtils.showLong("提交成功");
+                                    //ToastUtils.showLong("提交成功");
                                     QuestionHelper.saveQuestionInfoBeanListToDB(mQuestionItemAdapter.getData());
+                                    finish();
                                 } else {
                                     ToastUtils.showLong("提交失败");
                                 }
@@ -255,9 +262,9 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mQuestionItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (position == lastPosition) {
+                /*if (position == lastPosition) {
                     return;
-                }
+                }*/
 
                 progress = 0;
                 playNum = 0;
@@ -351,7 +358,10 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
     }
 
     public void enableState(int position) {
-        mQuestionItemAdapter.getData().get(position).setShowSpeak(true);
+
+        boolean flag = mQuestionItemAdapter.getData().get(position).isShowSpeak();
+        mQuestionItemAdapter.getData().get(position).setShowSpeak(!flag);
+
         if (lastPosition > -1) {
             if (position != lastPosition) {
                 //mQuestionItemAdapter.getData().get(lastPosition).setShowSpeak(false);
@@ -824,6 +834,13 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
         if (tempList.size() > 0) {
             mQuestionItemAdapter.setNewData(tempList);
+            if (isResultIn) {
+                mCommitLayout.setVisibility(View.GONE);
+            } else {
+                mCommitLayout.setVisibility(View.VISIBLE);
+            }
+        } else {
+            mCommitLayout.setVisibility(View.GONE);
         }
     }
 
