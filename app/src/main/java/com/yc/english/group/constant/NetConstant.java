@@ -180,7 +180,10 @@ public interface NetConstant {
      */
     String news_weikeStudying = (isDebug ? debug_base_url : baser_url) + "news/weikeStudying";
 
-
-    //    String baidu_url="https://image.baidu.com/n/pc_search?isMobile=1&queryImageUrl=";
+    /**
+     * 百度上传路径
+     */
+    String baidu_download_url = "http://image.baidu.com/pictureup/uploadwise";
+    //http://image.baidu.com/wiseshitu?guess=1&queryImageUrl=http://b.hiphotos.baidu.com/image/eW%3D400/sign=0665e2710146f21fdb5e5657c6146960/30adcbef76094b367d00b767a8cc7cd98c109dae.jpg&word=&querySign=2385322296,3855187015&simid=0,0&uptype=upload_wise&srctype=0&hs=%20HTTP/1.1
     String baidu_url = "http://pic.sogou.com/pic/ris_searchList.jsp?statref=pic_index_common&v=5&ul=1&keyword=";
 }

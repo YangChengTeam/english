@@ -144,7 +144,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 }
             }
         });
-        
+
         abilityView.setDatas(new float[]{0.62f, 0.58f, 0.70f, 0.46f, 0.69f,
                 0.84f}).setTitles(new String[]{"阅读", "听力", "口语", "写作", "语法", "词汇"}).setTitleColors(new int[]{Color
                 .parseColor("#0cacfe"), Color
@@ -378,11 +378,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Override
     public void showScoreResult(ScoreInfo data) {
         if (data != null)
-            abilityView.setDatas(new float[]{data.getRead(), data.getHearing(), data.getOracy(), data.getWriting(), data.getGrammar(),
-                    data.getVocabulary()}).setTitles(new String[]{"阅读", "听力", "口语", "写作", "语法", "词汇"}).setTitleColors(new int[]{Color
-                    .parseColor("#0cacfe"), Color
-                    .parseColor("#ff8b01"), Color.parseColor("#fdbb12"), Color.parseColor("#ff5252"), Color.parseColor
-                    ("#97d107"), Color.parseColor("#b0eb02")});
+            abilityView.setDatas(new float[]{data.getRead()/100f, data.getHearing()/100f, data.getOracy()/100f, data.getWriting()/100f, data.getGrammar()/100f,
+                    data.getVocabulary()/100f});
 
 
     }

@@ -77,8 +77,10 @@ public class CameraTaskPresenter extends BasePresenter<CameraEngine, CameraTaskC
         mSubscriptions.add(subscription);
     }
 
-    private void pictureDiscern(String filePath) {
-        Subscription subscription = mEngin.pictureDiscern(filePath).subscribe(new Subscriber<String>() {
+
+    public void uploadFile(File file) {
+        mView.showLoadingDialog("正在上传图片");
+        Subscription subscription = mEngin.uploadFile(file).subscribe(new Subscriber<String>() {
             @Override
             public void onCompleted() {
 
@@ -86,16 +88,16 @@ public class CameraTaskPresenter extends BasePresenter<CameraEngine, CameraTaskC
 
             @Override
             public void onError(Throwable e) {
-
+                mView.dismissLoadingDialog();
             }
 
             @Override
-            public void onNext(final String stringResultInfo) {
-                if (stringResultInfo != null) {
-//                    mView.showDiscernResult(stringResultInfo);
-                }
+            public void onNext(final String string) {
+
+
             }
         });
         mSubscriptions.add(subscription);
     }
+
 }
