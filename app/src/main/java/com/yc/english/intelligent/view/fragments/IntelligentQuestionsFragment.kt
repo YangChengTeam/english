@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewTreeObserver
 import com.blankj.utilcode.util.SizeUtils
+
 import com.jakewharton.rxbinding.view.RxView
 import com.yc.english.R
 import com.yc.english.base.model.BaseEngin
@@ -85,6 +86,7 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
             ppw.loadHtml(questionInfo?.desc ?: "")
             ppw.show(mRootView, Gravity.BOTTOM)
         }
+
     }
 
     var index: Int = 1
@@ -100,6 +102,7 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
         }
         mViewPager.setCurrentItem(index)
     }
+
 
     fun stop() {
         if(mQestionView.mDescAudioPlayerView.visibility == View.VISIBLE)
