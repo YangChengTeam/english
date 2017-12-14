@@ -144,6 +144,7 @@ public class HonourAbilityView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if(datas == null || datas.length < layer){ return;}
         drawPolygon(canvas);
         drawLines(canvas);
         drawCoverAndDots(canvas);

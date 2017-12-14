@@ -76,6 +76,7 @@ public class LoginActivity extends FullScreenActivity<LoginPresenter> implements
             }
         });
 
+
         StatusBarCompat.transparentStatusBar(this);
         StatusBarCompat.compat(this, bgImageView, mToolbar, R.mipmap.main_login_top_bg);
     }

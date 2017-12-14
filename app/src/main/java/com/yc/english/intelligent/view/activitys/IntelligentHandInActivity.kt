@@ -72,10 +72,11 @@ class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), In
     override fun showSuccess(msg: String) {
         runOnUiThread {
             finish()
-            SimpleCacheUtils.writeCache(this, IntelligentQuestionsActivity.getInstance()?.getResultKey()?:"error", JSON
+            SimpleCacheUtils.writeCache(this, IntelligentQuestionsActivity.getInstance()?.getResultKey() ?: "error", JSON
                     .toJSONString(questionInfos))
-            SPUtils.getInstance().put(IntelligentQuestionsActivity.getInstance()?.getFinishTimeKey()?:"error", mToolbar
-            .mTimeTextView.text.toString())
+            SPUtils.getInstance().put(IntelligentQuestionsActivity.getInstance()?.getFinishTimeKey() ?: "error", mToolbar
+                    .mTimeTextView.text.toString())
+            SPUtils.getInstance().put(IntelligentQuestionsActivity.getInstance()?.getFinishKey() ?: "error", 1)
             val intent = Intent(this@IntelligentHandInActivity, IntelligentResultActivity::class.java)
             intent.putParcelableArrayListExtra("questionInfos", questionInfos as ArrayList<out Parcelable>)
             startActivity(intent)
