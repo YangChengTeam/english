@@ -53,19 +53,21 @@ class IntelligentResultActivity : BaseActivity<BasePresenter<BaseEngin, IView>>(
         }
         var questionInfos: ArrayList<QuestionInfoWrapper.QuestionInfo>? = intent.getParcelableArrayListExtra("questionInfos")
         if (questionInfos == null) {
-            val unitId = intent.getIntExtra("unitId", 0)
-            val type = intent.getStringExtra("type")
-            SimpleCacheUtils.readCache(this, "result${unitId}${type}", object : SimpleCacheUtils.CacheRunnable() {
-                override fun run() {
-                    questionInfos = JSON.parseObject<ArrayList<QuestionInfoWrapper.QuestionInfo>>(json, object :
-                            TypeReference<ArrayList<QuestionInfoWrapper
-                            .QuestionInfo>>
-                            () {}.type)
-                    this@IntelligentResultActivity.runOnUiThread {
-                        showInfo(questionInfos!!)
-                    }
-                }
-            })
+            SimpleCacheUtils.readCache(this, IntelligentQuestionsActivity.getInstance()?.getResultKey() ?: "error",
+                    object :
+                            SimpleCacheUtils
+                            .CacheRunnable
+                            () {
+                        override fun run() {
+                            questionInfos = JSON.parseObject<ArrayList<QuestionInfoWrapper.QuestionInfo>>(json, object :
+                                    TypeReference<ArrayList<QuestionInfoWrapper
+                                    .QuestionInfo>>
+                                    () {}.type)
+                            this@IntelligentResultActivity.runOnUiThread {
+                                showInfo(questionInfos!!)
+                            }
+                        }
+                    })
         } else {
             showInfo(questionInfos!!)
         }

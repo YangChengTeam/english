@@ -19,6 +19,7 @@ import com.yc.english.base.view.IView
 import com.yc.english.intelligent.contract.IntelligentHandInContract
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentHandInPresenter
+import com.yc.english.intelligent.utils.getLevel1QuestionInfo
 import com.yc.english.intelligent.view.adpaters.IntelligentHandInAdapter
 import kotlinx.android.synthetic.main.intelligent_avtivity_hand_in.*
 import java.util.ArrayList
@@ -28,10 +29,8 @@ import java.util.concurrent.TimeUnit
  * Created by zhangkai on 2017/11/28.
  */
 class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), IntelligentHandInContract.View {
-
-
     var adapter: IntelligentHandInAdapter? = null
-    var questionInfos: MutableList<QuestionInfoWrapper.QuestionInfo>? = null
+    lateinit var questionInfos: List<QuestionInfoWrapper.QuestionInfo>
 
     override fun init() {
         mPresenter = IntelligentHandInPresenter(this, this)
@@ -49,22 +48,7 @@ class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), In
         }
 
         mToolbar.mTimeTextView.text = IntelligentQuestionsActivity.getInstance()?.usedTime() ?: ""
-        var actIndex = 0
-        var frgIndex = 0
-        questionInfos = ArrayList<QuestionInfoWrapper.QuestionInfo>()
-        for (questionInfo in IntelligentQuestionsActivity.getInstance()?.questionInfos!!) {
-            questionInfo.actIndex = actIndex
-            questionInfos!!.add(questionInfo)
-            if (questionInfo.data != null) {
-                for (questionInfo2 in questionInfo.data!!) {
-                    questionInfo2.frgIndex = frgIndex++
-                    questionInfo2.actIndex = actIndex
-                    questionInfos!!.add(questionInfo2)
-                }
-            }
-            actIndex++
-            frgIndex = 0
-        }
+        questionInfos = getLevel1QuestionInfo(IntelligentQuestionsActivity.getInstance()?.questionInfos!!)
         adapter = IntelligentHandInAdapter(questionInfos!!)
         val gridLayoutManager = GridLayoutManager(this, 5)
         gridLayoutManager.setSpanSizeLookup(object : GridLayoutManager.SpanSizeLookup() {
@@ -88,9 +72,10 @@ class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), In
     override fun showSuccess(msg: String) {
         runOnUiThread {
             finish()
-            SimpleCacheUtils.writeCache(this, "result${IntelligentQuestionsActivity.getInstance()?.unitId}${IntelligentQuestionsActivity.getInstance()?.type}", JSON
+            SimpleCacheUtils.writeCache(this, IntelligentQuestionsActivity.getInstance()?.getResultKey()?:"error", JSON
                     .toJSONString(questionInfos))
-            SPUtils.getInstance().put("unitInfo-complete-time-${IntelligentQuestionsActivity.getInstance()?.unitId}${IntelligentQuestionsActivity.getInstance()?.type}", mToolbar.mTimeTextView.text.toString())
+            SPUtils.getInstance().put(IntelligentQuestionsActivity.getInstance()?.getFinishTimeKey()?:"error", mToolbar
+            .mTimeTextView.text.toString())
             val intent = Intent(this@IntelligentHandInActivity, IntelligentResultActivity::class.java)
             intent.putParcelableArrayListExtra("questionInfos", questionInfos as ArrayList<out Parcelable>)
             startActivity(intent)

@@ -53,6 +53,11 @@ class IntelligentInnerQuestionFragment : BaseFragment<BasePresenter<BaseEngin, I
         showAns("")
     }
 
+    fun stop() {
+        if (mQuestionView.mTitleAudioPlayerView.visibility == View.VISIBLE)
+            mQuestionView.mTitleAudioPlayerView.stop()
+    }
+
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = arrayOf(Tag(Constant.RESULT_ANS)))
     fun showAns(tag: String) {
         if (IntelligentQuestionsActivity.getInstance()?.isResultIn ?: false) {

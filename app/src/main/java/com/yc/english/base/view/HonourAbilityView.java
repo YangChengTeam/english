@@ -14,6 +14,8 @@ import android.view.View;
 import com.blankj.utilcode.util.SizeUtils;
 import com.yc.english.R;
 
+import java.math.BigDecimal;
+
 public class HonourAbilityView extends View {
 
     //default value
@@ -219,8 +221,9 @@ public class HonourAbilityView extends View {
         for (int i = 0; i < datas.length; i++) {
             total += datas[i];
         }
-        float average = total / datas.length;
-        drawText(average + "", centerX, centerY, mCenterTextPaint, canvas);
+        String average = new BigDecimal(total / datas.length * 100+"").setScale(0, BigDecimal.ROUND_HALF_UP)
+                .toString();
+        drawText(average, centerX, centerY, mCenterTextPaint, canvas);
     }
 
     private void drawText(String text, float centerX, float centerY, Paint paint, Canvas canvas) {

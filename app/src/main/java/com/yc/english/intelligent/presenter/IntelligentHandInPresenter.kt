@@ -42,7 +42,6 @@ open class IntelligentHandInPresenter : BasePresenter<IntelligentHandInEngin,
             } else {
                 mView.showFail("提交失败，请重试")
             }
-
         }, {
             mView.dismissLoadingDialog()
             mView.showFail("服务器故障，请重试")

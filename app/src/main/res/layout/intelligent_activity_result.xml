@@ -56,7 +56,8 @@
                         android:layout_alignParentRight="true"
                         android:background="@drawable/base_tran_ripple_bg"
                         android:scaleType="center"
-                        android:src="@mipmap/setting_honour_share"/>
+                        android:src="@mipmap/setting_honour_share"
+                        android:visibility="gone"/>
 
                     <View
                         android:layout_width="match_parent"

@@ -5,6 +5,7 @@ package com.yc.english.intelligent.model.domain
  */
 
 class ReportInfo {
+    var id: Int = 0
     var read: Int = 0
     var vocabulary = 0
     var grammar: Int = 0
@@ -12,4 +13,5 @@ class ReportInfo {
     var hearing: Int = 0
     var oracy: Int = 0
     var desp: String = ""
+    var score: Int = 0
 }
