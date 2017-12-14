@@ -1,19 +1,10 @@
 [
     {
-<<<<<<< HEAD
         "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\release\\anim\\quit_fullscreen.xml",
         "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\src\\main\\res\\anim\\quit_fullscreen.xml"
     },
     {
         "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\release\\anim\\start_fullscreen.xml",
         "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\src\\main\\res\\anim\\start_fullscreen.xml"
-=======
-        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\release\\anim\\start_fullscreen.xml",
-        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\anim\\start_fullscreen.xml"
-    },
-    {
-        "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\release\\anim\\quit_fullscreen.xml",
-        "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\anim\\quit_fullscreen.xml"
->>>>>>> e7be71dd13715a6825cff636074672212dc37189
     }
 ]
