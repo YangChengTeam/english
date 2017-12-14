@@ -9,10 +9,12 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.contract.MyContract;
 import com.yc.english.setting.model.bean.MyOrderInfo;
+import com.yc.english.setting.model.bean.ScoreInfo;
 import com.yc.english.setting.model.engin.MyEngin;
 
 import java.util.List;
 
+import it.sephiroth.android.library.imagezoom.graphics.IBitmapDrawable;
 import rx.Subscriber;
 import rx.Subscription;
 
@@ -31,6 +33,7 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
         getUserInfo();
+        getAbilityScore();
     }
 
 
@@ -107,6 +110,44 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
                         }
                     }
                 });
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+
+    private void getAbilityScore() {
+        Subscription subscription = mEngin.getAbilityScore().subscribe(new Subscriber<ResultInfo<ScoreInfo>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<ScoreInfo> scoreInfoResultInfo) {
+                ResultInfoHelper.handleResultInfo(scoreInfoResultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (scoreInfoResultInfo != null && scoreInfoResultInfo.data != null)
+                            mView.showScoreResult(scoreInfoResultInfo.data);
+                    }
+                });
+
             }
         });
         mSubscriptions.add(subscription);

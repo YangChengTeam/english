@@ -14,6 +14,7 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.news.view.activity.NewsWeiKeDetailActivity;
 import com.yc.english.setting.contract.MyContract;
 import com.yc.english.setting.model.bean.MyOrderInfo;
+import com.yc.english.setting.model.bean.ScoreInfo;
 import com.yc.english.setting.presenter.MyPresenter;
 import com.yc.english.setting.view.adapter.MyOrderItemAdapter;
 
@@ -134,6 +135,11 @@ public class MyOrderActivity extends FullScreenActivity<MyPresenter> implements 
         } else {
             myOrderItemAdapter.loadMoreEnd();
         }
+    }
+
+    @Override
+    public void showScoreResult(ScoreInfo data) {
+
     }
 
     @Override

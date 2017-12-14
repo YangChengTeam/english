@@ -25,6 +25,7 @@ import com.yc.english.read.model.domain.UnitInfoList;
 import com.yc.english.read.presenter.BookUnitPresenter;
 import com.yc.english.read.view.adapter.ReadBookUnitItemClickAdapter;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
+import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.utils.VipDialogHelper;
 
 import java.util.ArrayList;
@@ -124,7 +125,8 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                     }
                 } else {
 
-                    VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, null);
+
+                    VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
                 }
             }
         });

@@ -24,7 +24,6 @@ public class JZMediaSystem extends JZMediaInterface implements MediaPlayer.OnPre
     public void prepare() {
         try {
             mediaPlayer = new MediaPlayer();
-
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             if (dataSourceObjects.length > 1) {
                 mediaPlayer.setLooping((boolean) dataSourceObjects[1]);
@@ -61,10 +60,9 @@ public class JZMediaSystem extends JZMediaInterface implements MediaPlayer.OnPre
     }
 
     @Override
-    public void seekTo(int time) {
-        mediaPlayer.seekTo(time);
+    public void seekTo(long time) {
+        mediaPlayer.seekTo((int) time);
     }
-
 
     @Override
     public void release() {
@@ -73,12 +71,12 @@ public class JZMediaSystem extends JZMediaInterface implements MediaPlayer.OnPre
     }
 
     @Override
-    public int getCurrentPosition() {
+    public long getCurrentPosition() {
         return mediaPlayer.getCurrentPosition();
     }
 
     @Override
-    public int getDuration() {
+    public long getDuration() {
         return mediaPlayer.getDuration();
     }
 

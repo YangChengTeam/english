@@ -289,7 +289,7 @@
         <activity android:name=".read.view.activitys.CoursePlayActivity" />
         <activity android:name=".setting.view.activitys.CameraTaskActivity" />
         <activity android:name=".setting.view.activitys.TaskShowActivity" />
-
+        <activity android:name=".speak.view.activity.QuestionActivity" />
     </application>
 
 </manifest>

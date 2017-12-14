@@ -24,14 +24,14 @@ import java.util.Locale;
 public class JZUtils {
     public static final String TAG = "JiaoZiVideoPlayer";
 
-    public static String stringForTime(int timeMs) {
+    public static String stringForTime(long timeMs) {
         if (timeMs <= 0 || timeMs >= 24 * 60 * 60 * 1000) {
             return "00:00";
         }
-        int totalSeconds = timeMs / 1000;
-        int seconds = totalSeconds % 60;
-        int minutes = (totalSeconds / 60) % 60;
-        int hours = totalSeconds / 3600;
+        long totalSeconds = timeMs / 1000;
+        int seconds = (int) (totalSeconds % 60);
+        int minutes = (int) ((totalSeconds / 60) % 60);
+        int hours = (int) (totalSeconds / 3600);
         StringBuilder stringBuilder = new StringBuilder();
         Formatter mFormatter = new Formatter(stringBuilder, Locale.getDefault());
         if (hours > 0) {
@@ -110,7 +110,7 @@ public class JZUtils {
         return (int) (dpValue * scale + 0.5f);
     }
 
-    public static void saveProgress(Context context, Object url, int progress) {
+    public static void saveProgress(Context context, Object url, long progress) {
         if (!JZVideoPlayer.SAVE_PROGRESS) return;
         Log.i(TAG, "saveProgress: " + progress);
         if (progress < 5000) {
@@ -119,16 +119,15 @@ public class JZUtils {
         SharedPreferences spn = context.getSharedPreferences("JZVD_PROGRESS",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = spn.edit();
-        editor.putInt(url.toString(), progress);
+        editor.putLong("newVersion:" + url.toString(), progress);
         editor.apply();
     }
 
-    public static int getSavedProgress(Context context, Object url) {
+    public static long getSavedProgress(Context context, Object url) {
         if (!JZVideoPlayer.SAVE_PROGRESS) return 0;
-        SharedPreferences spn;
-        spn = context.getSharedPreferences("JZVD_PROGRESS",
+        SharedPreferences spn = context.getSharedPreferences("JZVD_PROGRESS",
                 Context.MODE_PRIVATE);
-        return spn.getInt(url.toString(), 0);
+        return spn.getLong("newVersion:" + url.toString(), 0);
     }
 
     /**
@@ -152,12 +151,12 @@ public class JZUtils {
     public static Object getCurrentFromDataSource(Object[] dataSourceObjects, int index) {
         LinkedHashMap<String, Object> map = (LinkedHashMap) dataSourceObjects[0];
         if (map != null && map.size() > 0) {
-            return getValueFromLinkedMap1(map, index);
+            return getValueFromLinkedMap(map, index);
         }
         return null;
     }
 
-    public static Object getValueFromLinkedMap1(LinkedHashMap<String, Object> map, int index) {
+    public static Object getValueFromLinkedMap(LinkedHashMap<String, Object> map, int index) {
         int currentIndex = 0;
         for (Iterator it = map.keySet().iterator(); it.hasNext(); ) {
             Object key = it.next();
@@ -176,27 +175,6 @@ public class JZUtils {
         }
         return false;
     }
-
-    //------------old------------
-//    public static String getCurrentUrlFromMap(LinkedHashMap<String, String> map, int index) {
-//        if (map.size() == 1) {
-//            return getValueFromLinkedMap(map, index);
-//        } else {
-//            return getValueFromLinkedMap(map, index);
-//        }
-//    }
-
-//    public static String getValueFromLinkedMap(LinkedHashMap<String, String> map, int index) {
-//        int currentIndex = 0;
-//        for (Iterator it = map.keySet().iterator(); it.hasNext(); ) {
-//            Object key = it.next();
-//            if (currentIndex == index) {
-//                return map.get(key);
-//            }
-//            currentIndex++;
-//        }
-//        return null;
-//    }
 
     public static String getKeyFromDataSource(Object[] dataSourceObjects, int index) {
         LinkedHashMap<String, Object> map = (LinkedHashMap) dataSourceObjects[0];

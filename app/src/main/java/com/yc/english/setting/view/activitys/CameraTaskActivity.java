@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -57,6 +58,10 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
     ImageView mIvSwitch;
     @BindView(R.id.rl_exit)
     RelativeLayout rlExit;
+    @BindView(R.id.iv_preview)
+    ImageView mIvPreview;
+    @BindView(R.id.iv_take_photo)
+    ImageView mIvTakePhoto;
     private Camera c;
 
     private Camera.Size mBestPictureSize;
@@ -189,6 +194,7 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
 
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
+
 
             String fileName = SDCardUtils.getSDCardPath() + UUID.randomUUID().toString() + ".jpg";
             File file = new File(fileName);
@@ -434,4 +440,12 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mIvPreview.getVisibility() == View.VISIBLE) {
+            mIvPreview.setVisibility(View.GONE);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

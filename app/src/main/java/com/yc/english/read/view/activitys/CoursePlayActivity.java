@@ -30,6 +30,7 @@ import com.yc.english.read.model.domain.EnglishCourseInfoList;
 import com.yc.english.read.model.domain.UnitInfo;
 import com.yc.english.read.presenter.CoursePlayPresenter;
 import com.yc.english.read.view.adapter.ReadCourseItemClickAdapter;
+import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.utils.VipDialogHelper;
 
 import java.util.List;
@@ -172,7 +173,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                         }
                     }
                     if (!isRead) {
-                        VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, null);
+
+                        VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
                         return;
                     }
 
