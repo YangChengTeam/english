@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -139,19 +140,19 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset <= -appBarLayout.getHeight() + SizeUtils.dp2px(80)) {
                     mCollapsingToolbarLayout.setTitle(getString(R.string.main_tab_my) + "  ");
-                    mAvatarImageView.setVisibility(View.VISIBLE);
+                    mAvatarImageView.setVisibility(View.GONE);
+                    mNickNameTextView.setVisibility(View.GONE);
                 } else {
                     mCollapsingToolbarLayout.setTitle("");
-                    mAvatarImageView.setVisibility(View.GONE);
+                    mAvatarImageView.setVisibility(View.VISIBLE);
+                    mNickNameTextView.setVisibility(View.VISIBLE);
                 }
             }
         });
-
-        abilityView.setDatas(new float[]{0f, 0f, 0f, 0f, 0f,
-                0f}).setTitles(new String[]{"阅读", "听力", "口语", "写作", "语法", "词汇"}).setTitleColors(new int[]{Color
-                .parseColor("#0cacfe"), Color
-                .parseColor("#ff8b01"), Color.parseColor("#fdbb12"), Color.parseColor("#ff5252"), Color.parseColor
-                ("#97d107"), Color.parseColor("#b0eb02")});
+        restoreScoreData();
+        abilityView.setTitles(new String[]{"词汇", "口语", "语法", "听力", "阅读", "写作"}).setTitleColors(new int[]{Color
+                .parseColor("#0cacfe"), Color.parseColor("#ff8b01"), Color.parseColor("#fdbb12"),
+                Color.parseColor("#ff5252"), Color.parseColor("#97d107"), Color.parseColor("#b0eb02")});
 
         RxView.clicks(mAvatarImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -301,6 +302,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     )
     @Override
     public void showUserInfo(UserInfo userInfo) {
+        mPresenter.getAbilityScore(userInfo.getUid());
+
         GlideHelper.circleBorderImageView(getActivity(), mAvatarImageView, userInfo.getAvatar(), R.mipmap
                 .default_avatar, 0.5f, Color.WHITE);
 
@@ -311,6 +314,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         if (!StringUtils.isEmpty(userInfo.getNickname())) {
             mNickNameTextView.setText(userInfo.getNickname());
         }
+
+
     }
 
     @Subscribe(
@@ -325,8 +330,11 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             mAvatarImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.default_big_avatar));
             mNickNameTextView.setText("还没有登录，点击立即登录");
             mSchoolTextView.setText("");
+            restoreScoreData();
         }
+
     }
+
 
     @Override
     public void showMyOrderInfoList(List<MyOrderInfo> list) {
@@ -380,12 +388,12 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     public void showScoreResult(ScoreInfo data) {
-        if (data != null)
-            abilityView.setDatas(new float[]{data.getRead()/100f, data.getHearing()/100f, data.getOracy()/100f, data.getWriting()/100f, data.getGrammar()/100f,
-                    data.getVocabulary()/100f});
+        abilityView.setDatas(new float[]{data.getVocabulary() / 100f, data.getOracy() / 100f, data.getGrammar() / 100f,
+                data.getHearing() / 100f, data.getRead() / 100f, data.getWriting() / 100f});
+    }
 
-
-
+    private void restoreScoreData() {
+        abilityView.setDatas(new float[]{0f, 0f, 0f, 0f, 0f, 0f});
     }
 
 }

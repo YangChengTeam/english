@@ -21,6 +21,7 @@ import com.yc.english.R;
 import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.vip.views.fragments.VipTutorshipDetailFragment;
@@ -88,6 +89,17 @@ public class VipScoreTutorshipActivity extends BaseActivity {
             }
         });
 
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo == null) {
+            mBtnPay.setVisibility(View.VISIBLE);
+        } else {
+            if (userInfo.getIsVip() == 0) {
+                mBtnPay.setVisibility(View.VISIBLE);
+            } else {
+                mBtnPay.setVisibility(View.GONE);
+            }
+        }
+
         initListener();
 
 
@@ -98,6 +110,8 @@ public class VipScoreTutorshipActivity extends BaseActivity {
             @Override
             public void call(Void aVoid) {
                 if (!UserInfoHelper.isGotoLogin(VipScoreTutorshipActivity.this)) {
+
+
                     VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
                 }
             }

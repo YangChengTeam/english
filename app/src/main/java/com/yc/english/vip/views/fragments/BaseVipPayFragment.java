@@ -2,14 +2,16 @@ package com.yc.english.vip.views.fragments;
 
 
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
@@ -24,12 +26,12 @@ import com.yc.english.vip.utils.VipInfoHelper;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.functions.Action1;
 
 /**
@@ -73,6 +75,11 @@ public class BaseVipPayFragment extends BaseFragment {
     BasePayItemView baseItemViewWeike;
     @BindView(R.id.baseItemView_teach)
     BasePayItemView baseItemViewTeach;
+    @BindView(R.id.baseItemView_plan)
+    BasePayItemView baseItemViewPlan;
+    @BindView(R.id.baseItemView_task_tutorship)
+    BasePayItemView baseItemViewTaskTutorship;
+
 
     private int mType;//1.提分辅导2.VIP会员3.单次购买
 
@@ -94,6 +101,8 @@ public class BaseVipPayFragment extends BaseFragment {
     @Override
     public void init() {
         baseItemViewCeping.setVisibility(mType == GoodsType.TYPE_GENERAL_VIP ? View.GONE : View.VISIBLE);
+        baseItemViewPlan.setVisibility(mType == GoodsType.TYPE_SVIP ? View.VISIBLE : View.GONE);
+        baseItemViewTaskTutorship.setVisibility(mType == GoodsType.TYPE_SVIP ? View.VISIBLE : View.GONE);
         GoodInfoWrapper goodInfoWrapper = VipInfoHelper.getGoodInfoWrapper();
 
 
@@ -132,7 +141,7 @@ public class BaseVipPayFragment extends BaseFragment {
         }
 
         setTextStyle(tvVipThreeMonth);
-//        llVipAli.setBackgroundResource(R.drawable.vip_item_select_time);
+
         tvVipOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
         viewList.add(llVipAli);
         viewList.add(llVipWx);
@@ -189,6 +198,7 @@ public class BaseVipPayFragment extends BaseFragment {
         return courserInfo;
     }
 
+
     public interface onVipClickListener {
         void onVipClick(GoodInfo goodInfo, String payWayName, int type);
     }
@@ -203,7 +213,7 @@ public class BaseVipPayFragment extends BaseFragment {
             goodInfo = goodInfoList.get(position);
             String payPrice = goodInfo.getPay_price();
             int realPrice = (int) (Float.parseFloat(payPrice));
-            vipCurrentPrice.setText(String.valueOf(realPrice));
+            vipCurrentPrice.setText(payPrice);
             tvVipOriginalPrice.setText(String.format(getString(R.string.original_price), goodInfo.getPrice()));
         }
     }
