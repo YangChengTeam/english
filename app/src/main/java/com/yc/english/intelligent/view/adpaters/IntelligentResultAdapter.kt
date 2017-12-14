@@ -45,7 +45,6 @@ class IntelligentResultAdapter : BaseMultiItemQuickAdapter<QuestionInfoWrapper.Q
         }
 
         if (data.size - 1 == helper?.adapterPosition) {
-            SPUtils.getInstance().put("unitInfo-unit_finish_detail-${item?.type}${IntelligentQuestionsActivity.getInstance()?.unitId}", 1)
             RxBus.get().post(Constant.RESULT_IN, "${item?.id}$")
         }
     }

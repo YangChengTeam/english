@@ -105,6 +105,16 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         return key
     }
 
+    fun getFinishKey(): String {
+        var key = "finish"
+        if (unitId != 0) {
+            key += "-unitId${unitId}${type}"
+        } else {
+            key += "-reportId${reportId}${type}"
+        }
+        return key
+    }
+
     fun loadData() {
         if (unitId != 0) {
             mPresenter.getQuestion(unitId.toString(), type)
@@ -165,6 +175,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
     }
 
     private fun goToResult() {
+        if (questionInfos == null) return
         isResultIn = true
         intent = Intent(this, IntelligentResultActivity::class.java)
         val infos = getLevel1QuestionInfo(questionInfos!!)
