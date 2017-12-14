@@ -6,7 +6,6 @@ import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.view.ViewTreeObserver
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.jakewharton.rxbinding.view.RxView
 import com.yc.english.R
@@ -33,6 +32,7 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
         isUseInKotlin = true
     }
 
+    lateinit var mFragmentAdapter: TabsUtils.IntelligentInnerQuestionsFragmentAdapter
     override fun init() {
         mQestionView.text = questionInfo?.title
         mQestionView.webview = questionInfo?.desc
@@ -47,28 +47,18 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
             data = arrayListOf(questionInfo ?: QuestionInfoWrapper.QuestionInfo())
         }
 
-        val viewTreeObserver = mQestionView.getViewTreeObserver()
-        if (viewTreeObserver.isAlive()) {
-            viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    mQestionView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-                }
-            })
-        }
-
         mAppBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
 
-            if(TextUtils.isEmpty(questionInfo?.desc ?: "")) return@OnOffsetChangedListener
+            if (TextUtils.isEmpty(questionInfo?.desc ?: "")) return@OnOffsetChangedListener
 
-            if(appBarLayout.getBottom()  <= SizeUtils.dp2px(60f)){
+            if (appBarLayout.getBottom() <= SizeUtils.dp2px(60f)) {
                 mViewDescBtn.visibility = View.VISIBLE
             } else {
                 mViewDescBtn.visibility = View.GONE
             }
         })
 
-        val mFragmentAdapter = TabsUtils.IntelligentInnerQuestionsFragmentAdapter(childFragmentManager, data)
+        mFragmentAdapter = TabsUtils.IntelligentInnerQuestionsFragmentAdapter(childFragmentManager, data)
         mViewPager.setAdapter(mFragmentAdapter)
         mViewPager.setCurrentItem(0)
         index = 1
@@ -79,6 +69,9 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
             }
 
             override fun onPageSelected(i: Int) {
+                for (j in 0..(mFragmentAdapter.count - 1)) {
+                    (mFragmentAdapter.getItem(j) as IntelligentInnerQuestionFragment).stop()
+                }
                 index = i + 1
             }
 
@@ -108,7 +101,12 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
         mViewPager.setCurrentItem(index)
     }
 
-    fun next(index: Int){
+    fun stop() {
+        if(mQestionView.mDescAudioPlayerView.visibility == View.VISIBLE)
+         mQestionView.mDescAudioPlayerView.stop()
+    }
+
+    fun next(index: Int) {
         mViewPager.setCurrentItem(index)
     }
 

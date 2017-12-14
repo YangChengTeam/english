@@ -58,7 +58,8 @@
                         android:layout_alignParentRight="true"
                         android:background="@drawable/base_tran_ripple_bg"
                         android:scaleType="center"
-                        android:src="@mipmap/setting_honour_share"/>
+                        android:src="@mipmap/setting_honour_share"
+                        android:visibility="gone"/>
 
                     <View
                         android:layout_width="match_parent"
@@ -71,7 +72,13 @@
             </LinearLayout>
         </FrameLayout>
 
+        <com.yc.english.base.view.StateView
+            android:id="@+id/mStateView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.yc.english.base.view.StateView>
+
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/mContentView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white">
@@ -248,7 +255,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
-                            android:text="您的英语水平您的英语水平您的英语水平您的英语水平您的英语水平您的英语水平您的英语水平您的英语水平您的英语水平您的英语水平"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="@dimen/font_snormal"/>
                     </LinearLayout>
@@ -278,6 +285,7 @@
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
+
     </LinearLayout>
 
 
@@ -286,6 +294,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/primary">
+
         <TextView
             android:id="@+id/mStartPushBtn"
             android:layout_width="match_parent"

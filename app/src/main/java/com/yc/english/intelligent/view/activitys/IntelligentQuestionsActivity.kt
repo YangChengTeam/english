@@ -1,6 +1,7 @@
 package com.yc.english.intelligent.view.activitys
 
 import android.content.Intent
+import android.os.Parcelable
 import android.support.v4.view.ViewPager
 import android.view.KeyEvent
 import com.blankj.utilcode.util.SPUtils
@@ -16,19 +17,24 @@ import com.yc.english.base.view.BaseActivity
 import com.yc.english.intelligent.contract.IntelligentQuestionContract
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentQuestionPresenter
+import com.yc.english.intelligent.utils.getLevel1QuestionInfo
 import com.yc.english.intelligent.view.fragments.IntelligentQuestionsFragment
 import com.yc.english.main.model.domain.Constant
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_activity_questions.*
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by zhangkai on 2017/11/28.
  */
 class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(), IntelligentQuestionContract.View {
-    var unitId: Int = 0
-    var type: String = ""
+
     var isHandIn = false
+
+    var unitId: Int = 0
+    var reportId: Int = 0
+    var type: String = ""
     var isResultIn = false
 
     companion object {
@@ -46,6 +52,8 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         }
 
         unitId = intent.getIntExtra("unitId", 0)
+        reportId = intent.getIntExtra("reportId", 0)
+
         type = intent.getStringExtra("type")
         isResultIn = intent.getBooleanExtra("isResultIn", false)
 
@@ -60,6 +68,9 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
 
             override fun onPageSelected(i: Int) {
                 mToolbarWarpper.index = i + 1
+                for (j in 0..(mFragmentAdapter.count - 1)) {
+                    (mFragmentAdapter.getItem(j) as IntelligentQuestionsFragment).stop()
+                }
             }
 
             override fun onPageScrollStateChanged(i: Int) {
@@ -67,9 +78,39 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
             }
         })
 
-        mPresenter.getQuestion(unitId.toString(), type)
+
         INSTANCE = this
 
+        loadData()
+
+    }
+
+    fun getResultKey(): String {
+        var key = "result"
+        if (unitId != 0) {
+            key += "-unitId${unitId}${type}"
+        } else {
+            key += "-reportId${reportId}${type}"
+        }
+        return key
+    }
+
+    fun getFinishTimeKey(): String {
+        var key = "finish-time"
+        if (unitId != 0) {
+            key += "-unitId${unitId}${type}"
+        } else {
+            key += "-reportId${reportId}${type}"
+        }
+        return key
+    }
+
+    fun loadData() {
+        if (unitId != 0) {
+            mPresenter.getQuestion(unitId.toString(), type)
+        } else {
+            mPresenter.getPlanDetail(reportId.toString(), type)
+        }
     }
 
     var questionInfos: List<QuestionInfoWrapper.QuestionInfo>? = null
@@ -98,13 +139,13 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         isHandIn = false
         isResultIn = true
         for (i in 0..((mFragmentAdapter?.count ?: 0) - 1)) {
-            (mFragmentAdapter?.getItem(i) as IntelligentQuestionsFragment).next(0)
+            (mFragmentAdapter.getItem(i) as IntelligentQuestionsFragment).next(0)
         }
         mViewPager.setCurrentItem(0)
     }
 
 
-    var mFragmentAdapter: TabsUtils.IntelligentQuestionsFragmentAdapter? = null
+    lateinit var mFragmentAdapter: TabsUtils.IntelligentQuestionsFragmentAdapter
 
 
     override fun showInfo(list: List<QuestionInfoWrapper.QuestionInfo>) {
@@ -118,7 +159,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         if (!isResultIn) {
             mToolbarWarpper.startTime()
         } else {
-            mToolbarWarpper.mTimeTextView.text = SPUtils.getInstance().getString("unitInfo-complete-time-${unitId}${type}", "")
+            mToolbarWarpper.mTimeTextView.text = SPUtils.getInstance().getString(getFinishTimeKey(), "")
             goToResult()
         }
     }
@@ -126,6 +167,8 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
     private fun goToResult() {
         isResultIn = true
         intent = Intent(this, IntelligentResultActivity::class.java)
+        val infos = getLevel1QuestionInfo(questionInfos!!)
+        intent.putParcelableArrayListExtra("questionInfos", infos as ArrayList<out Parcelable>)
         intent.putExtra("unitId", unitId)
         intent.putExtra("type", type)
         startActivity(intent)
@@ -143,7 +186,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
 
     override fun showNoNet() {
         mStateView.showNoNet(mViewPager, HttpConfig.NET_ERROR, {
-            mPresenter.getQuestion(unitId.toString(), type)
+            loadData()
         })
     }
 

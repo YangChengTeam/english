@@ -2,9 +2,8 @@ package com.yc.english.intelligent.contract
 
 import android.support.annotation.MainThread
 import com.yc.english.base.presenter.IPresenter
-import com.yc.english.base.view.IDialog
-import com.yc.english.base.view.ILoading
-import com.yc.english.base.view.IView
+import com.yc.english.base.view.*
+import com.yc.english.intelligent.model.domain.ReportInfo
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 
 /**
@@ -12,9 +11,8 @@ import com.yc.english.intelligent.model.domain.UnitInfoWrapper
  */
 
 interface IntelligentReportContract {
-    interface View : IView, IDialog {
-        fun showSuccess(msg: String)
-        fun showFail(msg: String)
+    interface View : IView, ILoading, INoData, INoNet {
+        fun showInfo(reportInfo: ReportInfo)
     }
 
     interface Presenter : IPresenter {
