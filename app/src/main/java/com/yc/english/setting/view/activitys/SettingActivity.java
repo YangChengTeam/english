@@ -52,7 +52,7 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
         RxView.clicks(mCacheSettingItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if(GlideCatchHelper.getInstance(SettingActivity.this).cleanCatchDisk()) {
+                if (GlideCatchHelper.getInstance(SettingActivity.this).cleanCatchDisk()) {
                     TipsHelper.tips(SettingActivity.this, "清除缓存成功");
                     mCacheSettingItemView.setInfo("0.0Byte");
                 }
@@ -64,7 +64,7 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
         RxView.clicks(mVersionSettingItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Beta.checkUpgrade(true,false);
+                Beta.checkUpgrade(true, false);
             }
         });
 
@@ -77,6 +77,8 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
                 RxBus.get().post(Constant.NO_LOGIN, true);
                 RxBus.get().post(BusAction.GROUP_LIST, "from logout");
                 SPUtils.getInstance().put(ConnectUtils.TOKEN, "");
+                RxBus.get().post(Constant.GET_UNIT, "from logout");
+
                 RongIMUtil.disconnect();
             }
         });

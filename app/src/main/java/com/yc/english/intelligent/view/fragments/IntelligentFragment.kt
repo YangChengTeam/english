@@ -14,7 +14,9 @@ import com.yc.english.intelligent.presenter.IntelligentPresenter
 import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.intelligent.view.activitys.IntelligentReportActivity
 import com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
+import com.yc.english.main.view.activitys.LoginActivity
 import com.yc.english.speak.view.activity.QuestionActivity
 import kotlinx.android.synthetic.main.intelligent_fragment_index.*
 import java.util.concurrent.TimeUnit
@@ -50,6 +52,11 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
         mIntelligentType.post {
             RxView.clicks(mIntelligentType.mDoTextView).throttleFirst(200, TimeUnit
                     .MILLISECONDS).subscribe {
+                if (!UserInfoHelper.isLogin()) {
+                    startActivity(Intent(context, LoginActivity::class.java))
+                    return@subscribe
+                }
+
                 var type = ""
                 when (mIntelligentType.tag) {
                     1 -> type = "vocabulary"
@@ -94,33 +101,29 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
 
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = arrayOf(Tag(Constant.RESULT_IN)))
     fun complete(tag: String) {
-        if (tag == "${unitInfo?.id}") {
-            initIntelligentTypeEvents(mIntelligentType1, mIntelligentType2, mIntelligentType3, mIntelligentType4,
-                    mIntelligentType5, mIntelligentType6)
-        }
+        initIntelligentTypeEvents(mIntelligentType1, mIntelligentType2, mIntelligentType3, mIntelligentType4,
+                mIntelligentType5, mIntelligentType6)
     }
-
-
 
 
     private fun initIntelligentTypeEvents(vararg intelligentTypes: IntelligentTypeItemView) {
         mIntelligentType1.complete = if (unitInfo?.unit_finish_detail?.vocabulary == 1 || SPUtils.getInstance().getInt
-        ("unitInfo-unit_finish_detail-vocabulary${unitInfo?.id}", 0) == 1)
+        ("finish-unitId${unitInfo?.id}vocabulary", 0) == 1)
             true else false
         mIntelligentType2.complete = if (unitInfo?.unit_finish_detail?.oracy == 1 || SPUtils.getInstance().getInt
-        ("unitInfo-unit_finish_detail-oracy${unitInfo?.id}", 0) == 1)
+        ("finish-unitId${unitInfo?.id}oracy", 0) == 1)
             true else false
         mIntelligentType3.complete = if (unitInfo?.unit_finish_detail?.grammar == 1 || SPUtils.getInstance().getInt
-        ("unitInfo-unit_finish_detail-grammar${unitInfo?.id}", 0) == 1)
+        ("finish-unitId${unitInfo?.id}grammar", 0) == 1)
             true else false
         mIntelligentType4.complete = if (unitInfo?.unit_finish_detail?.hearing == 1 || SPUtils.getInstance().getInt
-        ("unitInfo-unit_finish_detail-hearing${unitInfo?.id}", 0) == 1)
+        ("finish-unitId${unitInfo?.id}hearing", 0) == 1)
             true else false
         mIntelligentType5.complete = if (unitInfo?.unit_finish_detail?.read == 1 || SPUtils.getInstance().getInt
-        ("unitInfo-unit_finish_detail-read${unitInfo?.id}", 0) == 1)
+        ("finish-unitId${unitInfo?.id}read", 0) == 1)
             true else false
         mIntelligentType6.complete = if (unitInfo?.unit_finish_detail?.writing == 1 || SPUtils.getInstance().getInt
-        ("unitInfo-unit_finish_detail-writing${unitInfo?.id}", 0) == 1)
+        ("finish-unitId${unitInfo?.id}writing", 0) == 1)
             true else false
         checkAllComplete(mIntelligentType1, mIntelligentType2, mIntelligentType3, mIntelligentType4,
                 mIntelligentType5, mIntelligentType6)

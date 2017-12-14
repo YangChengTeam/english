@@ -1,6 +1,10 @@
 [
     {
+<<<<<<< HEAD
         "outputFile": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-tr\\values-tr.xml",
+=======
+        "outputFile": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-tr\\values-tr.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
         "map": [
             {
                 "to": {
@@ -11,6 +15,7 @@
                     "endOffset": 100
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
                     "position": {
                         "startLine": 5,
@@ -18,6 +23,15 @@
                         "startOffset": 288,
                         "endColumn": 49,
                         "endOffset": 333
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 283,
+                        "endColumn": 49,
+                        "endOffset": 328
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     }
                 }
             },
@@ -30,6 +44,7 @@
                     "endOffset": 142
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
                     "position": {
                         "startLine": 6,
@@ -37,6 +52,15 @@
                         "startOffset": 339,
                         "endColumn": 41,
                         "endOffset": 376
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 333,
+                        "endColumn": 41,
+                        "endOffset": 370
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     }
                 }
             },
@@ -49,6 +73,7 @@
                     "endOffset": 255
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
                     "position": {
                         "startLine": 2,
@@ -56,6 +81,15 @@
                         "startOffset": 57,
                         "endColumn": 112,
                         "endOffset": 165
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 112,
+                        "endOffset": 163
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     }
                 }
             },
@@ -68,6 +102,7 @@
                     "endOffset": 311
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
                     "position": {
                         "startLine": 4,
@@ -75,6 +110,15 @@
                         "startOffset": 231,
                         "endColumn": 55,
                         "endOffset": 282
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 227,
+                        "endColumn": 55,
+                        "endOffset": 278
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     }
                 }
             },
@@ -87,6 +131,7 @@
                     "endOffset": 370
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
                     "position": {
                         "startLine": 3,
@@ -94,6 +139,15 @@
                         "startOffset": 171,
                         "endColumn": 58,
                         "endOffset": 225
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\src\\main\\res\\values-tr\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 168,
+                        "endColumn": 58,
+                        "endOffset": 222
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     }
                 }
             }

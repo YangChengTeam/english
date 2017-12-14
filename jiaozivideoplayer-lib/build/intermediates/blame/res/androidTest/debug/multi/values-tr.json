@@ -1,6 +1,10 @@
 [
     {
+<<<<<<< HEAD
         "outputFile": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-tr\\values-tr.xml",
+=======
+        "outputFile": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-tr\\values-tr.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
         "map": [
             {
                 "to": {
@@ -11,7 +15,11 @@
                     "endOffset": 100
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values-tr\\values-tr.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values-tr\\values-tr.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +38,11 @@
                     "endOffset": 142
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values-tr\\values-tr.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values-tr\\values-tr.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -49,7 +61,11 @@
                     "endOffset": 255
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values-tr\\values-tr.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values-tr\\values-tr.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -68,7 +84,11 @@
                     "endOffset": 311
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values-tr\\values-tr.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values-tr\\values-tr.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -87,7 +107,11 @@
                     "endOffset": 370
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values-tr\\values-tr.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values-tr\\values-tr.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,

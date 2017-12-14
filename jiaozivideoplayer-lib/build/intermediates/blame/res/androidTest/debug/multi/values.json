@@ -1,6 +1,10 @@
 [
     {
+<<<<<<< HEAD
         "outputFile": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+=======
+        "outputFile": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
         "map": [
             {
                 "to": {
@@ -11,7 +15,11 @@
                     "endOffset": 112
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +38,11 @@
                     "endOffset": 170
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -49,7 +61,11 @@
                     "endOffset": 216
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -68,7 +84,11 @@
                     "endOffset": 256
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -87,7 +107,11 @@
                     "endOffset": 293
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "C:\\Users\\admin\\.android\\build-cache\\4813df5e4aa19e86c6177379473cb27dba929e3f\\output\\res\\values\\values.xml",
+=======
+                    "file": "D:\\software\\android-sdk_r24.4.1-windows\\android-sdk-windows\\.android\\build-cache\\4b5be5e634ab1ea313af1a936e75147613610d60\\output\\res\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -106,7 +130,11 @@
                     "endOffset": 335
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -125,7 +153,11 @@
                     "endOffset": 377
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -144,7 +176,11 @@
                     "endOffset": 507
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -163,7 +199,11 @@
                     "endOffset": 566
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -182,7 +222,11 @@
                     "endOffset": 623
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -202,7 +246,11 @@
                     "endOffset": 867
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -223,7 +271,11 @@
                     "endOffset": 1243
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> e7be71dd13715a6825cff636074672212dc37189
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,

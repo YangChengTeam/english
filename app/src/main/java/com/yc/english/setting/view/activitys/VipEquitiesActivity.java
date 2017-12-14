@@ -1,8 +1,10 @@
 package com.yc.english.setting.view.activitys;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -11,12 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.vip.views.fragments.BasePayItemView;
@@ -82,6 +88,7 @@ public class VipEquitiesActivity extends BaseActivity {
         });
         StatusBarCompat.compat(this, appbarLayout, toolbar);
 
+
         userInfo = UserInfoHelper.getUserInfo();
         mTvNickname.setText(userInfo.getNickname());
 
@@ -135,6 +142,17 @@ public class VipEquitiesActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_vip_equity;
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.COMMUNITY_ACTIVITY_REFRESH)
+            }
+    )
+    public void getInfo(String loginInfo) {
+        userInfo = UserInfoHelper.getUserInfo();
+        initView();
     }
 
 
