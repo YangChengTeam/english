@@ -33,7 +33,6 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
         getUserInfo();
-        getAbilityScore();
     }
 
 
@@ -43,6 +42,7 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
             @Override
             public void showUserInfo(UserInfo userInfo) {
                 mView.showUserInfo(userInfo);
+
             }
 
             @Override
@@ -116,8 +116,8 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
     }
 
 
-    private void getAbilityScore() {
-        Subscription subscription = mEngin.getAbilityScore().subscribe(new Subscriber<ResultInfo<ScoreInfo>>() {
+    public void getAbilityScore(String uid) {
+        Subscription subscription = mEngin.getAbilityScore(uid).subscribe(new Subscriber<ResultInfo<ScoreInfo>>() {
             @Override
             public void onCompleted() {
 

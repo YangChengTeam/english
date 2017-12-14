@@ -40,7 +40,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/group_distance_15"
+                android:layout_height="@dimen/group_distance_10"
                 android:background="#f5f5f5" />
 
             <LinearLayout
