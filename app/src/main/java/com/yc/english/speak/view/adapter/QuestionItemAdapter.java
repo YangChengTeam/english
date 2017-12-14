@@ -54,7 +54,7 @@ public class QuestionItemAdapter extends BaseMultiItemQuickAdapter<QuestionInfoB
                 }
 
                 LinearLayout resultLayout = (LinearLayout) helper.getConvertView().findViewById(R.id.layout_result);
-                if (item.isShowResult() || !StringUtils.isEmpty(item.getPercent())) {
+                if (item.isShowResult() || (!StringUtils.isEmpty(item.getPercent()) && Integer.parseInt(item.getPercent()) > 0)) {
                     resultLayout.setVisibility(View.VISIBLE);
                 } else {
                     resultLayout.setVisibility(View.INVISIBLE);
