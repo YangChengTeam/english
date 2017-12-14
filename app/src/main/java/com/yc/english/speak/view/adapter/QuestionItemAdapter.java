@@ -54,18 +54,23 @@ public class QuestionItemAdapter extends BaseMultiItemQuickAdapter<QuestionInfoB
                 }
 
                 LinearLayout resultLayout = (LinearLayout) helper.getConvertView().findViewById(R.id.layout_result);
-                if (item.isShowResult() || (!StringUtils.isEmpty(item.getPercent()) && Integer.parseInt(item.getPercent()) > 0)) {
+                if (item.isShowResult()) {
                     resultLayout.setVisibility(View.VISIBLE);
                 } else {
                     resultLayout.setVisibility(View.INVISIBLE);
                 }
 
+                int percent = 0;
+                if (!StringUtils.isEmpty(item.getPercent())) {
+                    percent = (int) Double.parseDouble(item.getPercent());
+                }
+
                 if (item.isSpeakResult()) {
-                    helper.setText(R.id.tv_result_hint, "Good，不错");
+                    helper.setText(R.id.tv_result_hint, percent + "分,Good");
                     helper.setBackgroundRes(R.id.iv_result, R.mipmap.listen_result_yes);
                 } else {
                     helper.setBackgroundRes(R.id.iv_result, R.mipmap.listen_result_no);
-                    helper.setText(R.id.tv_result_hint, "继续加油");
+                    helper.setText(R.id.tv_result_hint, percent + "分,继续加油");
                 }
 
                 helper.addOnClickListener(R.id.iv_play_read)
