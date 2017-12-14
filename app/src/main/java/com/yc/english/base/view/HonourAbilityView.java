@@ -2,6 +2,7 @@ package com.yc.english.base.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -144,7 +145,9 @@ public class HonourAbilityView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if(datas == null || datas.length < layer){ return;}
+        if (datas == null || datas.length < layer) {
+            return;
+        }
         drawPolygon(canvas);
         drawLines(canvas);
         drawCoverAndDots(canvas);
@@ -222,7 +225,7 @@ public class HonourAbilityView extends View {
         for (int i = 0; i < datas.length; i++) {
             total += datas[i];
         }
-        String average = new BigDecimal(total / datas.length * 100+"").setScale(0, BigDecimal.ROUND_HALF_UP)
+        String average = new BigDecimal(total / datas.length * 100 + "").setScale(0, BigDecimal.ROUND_HALF_UP)
                 .toString();
         drawText(average, centerX, centerY, mCenterTextPaint, canvas);
     }
@@ -371,6 +374,7 @@ public class HonourAbilityView extends View {
 
     public HonourAbilityView setDatas(float[] datas) {
         this.datas = datas;
+        postInvalidate();
         return this;
     }
 
@@ -387,5 +391,15 @@ public class HonourAbilityView extends View {
         this.titleColors = titleColors;
         return this;
     }
+
+    public Bitmap getBitmap() {
+        Bitmap b = Bitmap.createBitmap(this.getLayoutParams().width, this.getLayoutParams().height, Bitmap.Config
+                .ARGB_8888);
+        Canvas c = new Canvas(b);
+        this.layout(this.getLeft(), this.getTop(), this.getRight(), this.getBottom());
+        this.draw(c);
+        return b;
+    }
+
 
 }
