@@ -107,28 +107,34 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
 
 
     private fun initIntelligentTypeEvents(vararg intelligentTypes: IntelligentTypeItemView) {
-        mIntelligentType1.complete = if (unitInfo?.unit_finish_detail?.vocabulary == 1 || SPUtils.getInstance().getInt
-        ("finish-unitId${unitInfo?.id}vocabulary", 0) == 1)
-            true else false
-        mIntelligentType2.complete = if (unitInfo?.unit_finish_detail?.oracy == 1 || SPUtils.getInstance().getInt
-        ("finish-unitId${unitInfo?.id}oracy", 0) == 1)
-            true else false
-        mIntelligentType3.complete = if (unitInfo?.unit_finish_detail?.grammar == 1 || SPUtils.getInstance().getInt
-        ("finish-unitId${unitInfo?.id}grammar", 0) == 1)
-            true else false
-        mIntelligentType4.complete = if (unitInfo?.unit_finish_detail?.hearing == 1 || SPUtils.getInstance().getInt
-        ("finish-unitId${unitInfo?.id}hearing", 0) == 1)
-            true else false
-        mIntelligentType5.complete = if (unitInfo?.unit_finish_detail?.read == 1 || SPUtils.getInstance().getInt
-        ("finish-unitId${unitInfo?.id}read", 0) == 1)
-            true else false
-        mIntelligentType6.complete = if (unitInfo?.unit_finish_detail?.writing == 1 || SPUtils.getInstance().getInt
-        ("finish-unitId${unitInfo?.id}writing", 0) == 1)
-            true else false
+        val flag = UserInfoHelper.isLogin()
+        if (flag) {
+            mIntelligentType1.complete = if (unitInfo?.unit_finish_detail?.vocabulary == 1 || SPUtils.getInstance().getInt
+            ("finish-unitId${unitInfo?.id}vocabulary", 0) == 1)
+                true else false
+            mIntelligentType2.complete = if (unitInfo?.unit_finish_detail?.oracy == 1 || SPUtils.getInstance().getInt
+            ("finish-unitId${unitInfo?.id}oracy", 0) == 1)
+                true else false
+            mIntelligentType3.complete = if (unitInfo?.unit_finish_detail?.grammar == 1 || SPUtils.getInstance().getInt
+            ("finish-unitId${unitInfo?.id}grammar", 0) == 1)
+                true else false
+            mIntelligentType4.complete = if (unitInfo?.unit_finish_detail?.hearing == 1 || SPUtils.getInstance().getInt
+            ("finish-unitId${unitInfo?.id}hearing", 0) == 1)
+                true else false
+            mIntelligentType5.complete = if (unitInfo?.unit_finish_detail?.read == 1 || SPUtils.getInstance().getInt
+            ("finish-unitId${unitInfo?.id}read", 0) == 1)
+                true else false
+            mIntelligentType6.complete = if (unitInfo?.unit_finish_detail?.writing == 1 || SPUtils.getInstance().getInt
+            ("finish-unitId${unitInfo?.id}writing", 0) == 1)
+                true else false
+        }
         checkAllComplete(mIntelligentType1, mIntelligentType2, mIntelligentType3, mIntelligentType4,
                 mIntelligentType5, mIntelligentType6)
         var tag = 1
         for (intelligentType in intelligentTypes) {
+            if (!flag) {
+                intelligentType.complete = false
+            }
             intelligentType.tag = tag++
             setIntelligentTypeEvent(intelligentType)
         }
