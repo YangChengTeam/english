@@ -64,7 +64,7 @@
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ll_head"
+
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout

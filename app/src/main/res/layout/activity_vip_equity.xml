@@ -15,8 +15,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="match_parent">
 
             <include layout="@layout/activity_vip_equity_bg" />
 

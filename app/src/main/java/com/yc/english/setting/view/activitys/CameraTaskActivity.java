@@ -58,8 +58,7 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
     ImageView mIvSwitch;
     @BindView(R.id.rl_exit)
     RelativeLayout rlExit;
-    @BindView(R.id.iv_preview)
-    ImageView mIvPreview;
+
     @BindView(R.id.iv_take_photo)
     ImageView mIvTakePhoto;
     private Camera c;
@@ -207,6 +206,7 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
                 fos.flush();
 
                 mPresenter.uploadFile(file, fileName, "");
+//                mPresenter.uploadFile(file);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -440,12 +440,5 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mIvPreview.getVisibility() == View.VISIBLE) {
-            mIvPreview.setVisibility(View.GONE);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
 }
