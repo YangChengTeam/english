@@ -20,7 +20,9 @@ class IntelligentQuestionView : BaseView {
     override fun getLayoutId() = R.layout.intelligent_view_question
 
     var mDescTextView = findViewById<TextView>(R.id.mDescTextView)
-    var mDescAudioPlayerView = findViewById<MediaPlayerView>(R.id.mDescAudioPlayerView)
+    val mDescAudioPlayerView by lazy {
+        findViewById<MediaPlayerView>(R.id.mDescAudioPlayerView)
+    }
     var mWebView = findViewById<WebView>(R.id.mWebView)
 
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {

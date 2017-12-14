@@ -205,8 +205,8 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
                 fos.write(data);
                 fos.flush();
 
-//                mPresenter.uploadFile(file, fileName, "");
-                mPresenter.uploadFile(file);
+                mPresenter.uploadFile(file, fileName, "");
+//                mPresenter.uploadFile(file);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

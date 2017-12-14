@@ -21,7 +21,9 @@ import kotlinx.android.synthetic.main.intelligent_view_inner_question.view.*
 class IntelligentInnerQuestionView : BaseView {
 
     var mTitleTextView = findViewById<TextView>(R.id.mTitleTextView)
-    var mTitleAudioPlayerView = findViewById<MediaPlayerView>(R.id.mTitleAudioPlayerView)
+    val mTitleAudioPlayerView by lazy {
+        findViewById<MediaPlayerView>(R.id.mTitleAudioPlayerView)
+    }
     var mRecyclerView = findViewById<RecyclerView>(R.id.mRecyclerView)
 
     var mAnswerTextView = findViewById<TextView>(R.id.mAnswerTextView)
@@ -63,7 +65,7 @@ class IntelligentInnerQuestionView : BaseView {
         mAnalysisView.visibility = View.VISIBLE
         mAnswerTextView.text = fromHtml("正确答案  <font color=#6ec82d>${answer ?: ""}</font>")
         mAnalysisTextView.text = analysis ?: ""
-        if(TextUtils.isEmpty(analysis ?: "")){
+        if (TextUtils.isEmpty(analysis ?: "")) {
             mAnsTitleTextView.visibility = View.GONE
         }
     }

@@ -12,11 +12,10 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -32,13 +31,19 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import com.yc.english.R;
+import com.yc.english.base.helper.QuestionHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.intelligent.contract.IntelligentQuestionContract;
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper;
+import com.yc.english.intelligent.model.domain.VGInfoWarpper;
+import com.yc.english.intelligent.model.engin.IntelligentHandInEngin;
 import com.yc.english.intelligent.presenter.IntelligentQuestionPresenter;
 import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
@@ -81,14 +86,8 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
     @BindView(R.id.listen_english_list)
     RecyclerView mListenEnglishRecyclerView;
 
-    @BindView(R.id.speak_seek_bar)
-    SeekBar mSpeakSeekBar;
-
-    @BindView(R.id.tv_current_speak_pos)
-    TextView mCurrentTextView;
-
-    @BindView(R.id.tv_total_speak_pos)
-    TextView mTotalTextView;
+    @BindView(R.id.layout_commit)
+    LinearLayout mCommitLayout;
 
     QuestionItemAdapter mQuestionItemAdapter;
 
@@ -155,15 +154,17 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
     // 语音合成对象
     private SpeechSynthesizer mTts;
 
-    private String unitId;
+    private int unitId;
 
     private String type;
 
     private boolean isResultIn;
 
+    private List<QuestionInfoBean> lists;
+
     @Override
     public int getLayoutId() {
-        return R.layout.speak_english_activity;
+        return R.layout.question_english_activity;
     }
 
     @Override
@@ -173,26 +174,27 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mToolbar.setTitleColor(ContextCompat.getColor(this, R.color.white));
         mTts = SpeechUtils.getTts(this);
 
-        mSpeakSeekBar.setEnabled(false);
-        mSpeakSeekBar.setProgress(1);
-
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
             Bundle bundle = intent.getExtras();
-            unitId = bundle.getString("unitId", "");
+            unitId = bundle.getInt("unitId", 0);
             type = bundle.getString("type", "");
             isResultIn = bundle.getBoolean("isResultIn", false);
+        }
+
+        if (isResultIn) {
+            lists = QuestionHelper.getQuestionInfoBeanListFromDB();
         }
 
         mPresenter = new IntelligentQuestionPresenter(this, this);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mListenEnglishRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(0.3f)));
-        mQuestionItemAdapter = new QuestionItemAdapter(this, null, true);
+        mQuestionItemAdapter = new QuestionItemAdapter(this, lists, true);
 
         mListenEnglishRecyclerView.setLayoutManager(mLinearLayoutManager);
         mListenEnglishRecyclerView.setAdapter(mQuestionItemAdapter);
 
-        mPresenter.getQuestion(unitId, type);
+        mPresenter.getQuestion(unitId + "", type);
 
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面;
@@ -204,6 +206,51 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
         mSharedPreferences = getSharedPreferences(IatSettings.PREFER_NAME,
                 Activity.MODE_PRIVATE);
+
+        RxView.clicks(mCommitLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                showLoadingDialog("正在提交");
+
+                if (mQuestionItemAdapter.getData() != null && mQuestionItemAdapter.getData().size() > 0) {
+                    StringBuffer result = new StringBuffer("[");
+                    for (int i = 0; i < mQuestionItemAdapter.getData().size(); i++) {
+                        QuestionInfoBean infoBean = mQuestionItemAdapter.getData().get(i);
+                        if (infoBean.getItemType() == 2) {
+                            continue;
+                        }
+                        result.append("{\"topic_id\":\"" + infoBean.getId() + "\", \"user_answer\": \"" + infoBean.getPercent() + "\"}");
+                        if (i != mQuestionItemAdapter.getData().size() - 1) {
+                            result.append(",");
+                        }
+                    }
+                    result.append("]");
+
+                    if (!StringUtils.isEmpty(result)) {
+                        new IntelligentHandInEngin(QuestionActivity.this).submitAnwsers(result.toString()).subscribe(new Action1<ResultInfo<VGInfoWarpper>>() {
+                            @Override
+                            public void call(ResultInfo<VGInfoWarpper> vgInfoWarpperResultInfo) {
+                                dismissLoadingDialog();
+                                if (vgInfoWarpperResultInfo != null && vgInfoWarpperResultInfo.code == HttpConfig.STATUS_OK) {
+                                    ToastUtils.showLong("提交成功");
+                                    QuestionHelper.saveQuestionInfoBeanListToDB(mQuestionItemAdapter.getData());
+                                } else {
+                                    ToastUtils.showLong("提交失败");
+                                }
+                            }
+                        }, new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+                                ToastUtils.showLong("提交失败");
+                                dismissLoadingDialog();
+                            }
+                        });
+                    } else {
+                        ToastUtils.showLong("数据异常，请稍后重试");
+                    }
+                }
+            }
+        });
 
         mQuestionItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -220,8 +267,6 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                 stopPlayTape();
                 enableState(position);
 
-                mCurrentTextView.setText((position + 1) + "");
-                mSpeakSeekBar.setProgress(position + 1);
             }
         });
 
@@ -309,7 +354,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mQuestionItemAdapter.getData().get(position).setShowSpeak(true);
         if (lastPosition > -1) {
             if (position != lastPosition) {
-                mQuestionItemAdapter.getData().get(lastPosition).setShowSpeak(false);
+                //mQuestionItemAdapter.getData().get(lastPosition).setShowSpeak(false);
                 isTape = false;
             }
         }
@@ -665,6 +710,8 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             } else {
                 return false;
             }
+            mQuestionItemAdapter.getData().get(lastPosition).setPercent(percent + "");
+            SPUtils.getInstance().put("userAnswer" + mQuestionItemAdapter.getData().get(lastPosition).getId(), percent);
 
             if (percent >= 60) {
                 return true;
@@ -761,29 +808,38 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             QuestionInfoBean questionInfoBean;
             if (questionInfo.getCount() > 0) {
                 questionInfoBean = new QuestionInfoBean(QuestionInfoBean.OPTION_QUESTION);
-
+                tempList.add(setBean(questionInfoBean, questionInfo));
                 if (questionInfo.getData() != null && questionInfo.getData().size() > 0) {
-                    for(int j=0;j<questionInfo.getData().size();j++){
-                        QuestionInfoWrapper.QuestionInfo optionInfo = (QuestionInfoWrapper.QuestionInfo)questionInfo.getData().get(j);
+                    for (int j = 0; j < questionInfo.getData().size(); j++) {
+                        QuestionInfoWrapper.QuestionInfo optionInfo = (QuestionInfoWrapper.QuestionInfo) questionInfo.getData().get(j);
                         QuestionInfoBean optionItem = new QuestionInfoBean(QuestionInfoBean.MAIN_QUESTION);
-                        optionItem.setCnSentence(optionInfo.getAnalysis());
-                        optionItem.setEnSentence(optionInfo.getVoiceText());
-                        tempList.add(optionItem);
+                        tempList.add(setBean(optionItem, optionInfo));
                     }
                 }
             } else {
                 questionInfoBean = new QuestionInfoBean(QuestionInfoBean.MAIN_QUESTION);
+                tempList.add(setBean(questionInfoBean, questionInfo));
             }
-            questionInfoBean.setCnSentence(questionInfo.getAnalysis());
-            questionInfoBean.setEnSentence(questionInfo.getVoiceText());
-            tempList.add(questionInfoBean);
         }
 
         if (tempList.size() > 0) {
             mQuestionItemAdapter.setNewData(tempList);
-            mTotalTextView.setText(list.size() + "");
-            mSpeakSeekBar.setMax(list.size());
         }
+    }
+
+    /**
+     * 重新设置实体类属性
+     *
+     * @param questionInfoBean
+     * @param optionInfo
+     * @return
+     */
+    public QuestionInfoBean setBean(QuestionInfoBean questionInfoBean, QuestionInfoWrapper.QuestionInfo optionInfo) {
+        questionInfoBean.setId(optionInfo.getId());
+        questionInfoBean.setTitle(optionInfo.getTitle());
+        questionInfoBean.setCnSentence(optionInfo.getAnalysis());
+        questionInfoBean.setEnSentence(optionInfo.getVoiceText());
+        return questionInfoBean;
     }
 
     @Override
@@ -796,7 +852,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mStateView.showNoNet(mSpeakListLayout, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getQuestion(unitId, type);
+                mPresenter.getQuestion(unitId + "", type);
             }
         });
     }

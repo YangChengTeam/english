@@ -29,4 +29,16 @@ class IntelligentQuestionEngin(context: Context?) : BaseEngin(context) {
                         "user_id" to uid),
                 true, true, true) as Observable<ResultInfo<QuestionInfoWrapper>>
     }
+
+    fun getPlanDetail(report_id: String, type: String): Observable<ResultInfo<QuestionInfoWrapper>> {
+        var uid = ""
+        if (UserInfoHelper.getUserInfo() != null) {
+            uid = UserInfoHelper.getUserInfo().uid
+        }
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.UNIT_PLAN_DETAIL, object :
+                TypeReference<ResultInfo<QuestionInfoWrapper>>() {}.type, mutableMapOf("report_id" to report_id,
+                "user_id" to uid,
+                "type" to type),
+                true, true, true) as Observable<ResultInfo<QuestionInfoWrapper>>
+    }
 }

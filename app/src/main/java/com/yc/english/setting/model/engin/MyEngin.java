@@ -79,7 +79,7 @@ public class MyEngin extends BaseEngin {
 
     public Observable<ResultInfo<ScoreInfo>> getAbilityScore() {
         Map<String, String> params = new HashMap<>();
-        params.put("uid", UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
+        params.put("uid", UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "24");
         return HttpCoreEngin.get(mContext).rxpost(URLConfig.Ability_score_url, new TypeReference<ResultInfo<ScoreInfo>>() {
         }.getType(), params, true, true, true);
     }

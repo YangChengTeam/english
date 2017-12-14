@@ -212,9 +212,6 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                     public void reulstInfoOk() {
                         if (goodInfoWrapperResultInfo.data != null) {
 
-
-//                            VipInfoHelper.setGoodInfoList(goodInfoWrapperResultInfo.data.getList());
-
                             VipInfoHelper.setGoodInfoWrapper(goodInfoWrapperResultInfo.data);
                         }
                     }

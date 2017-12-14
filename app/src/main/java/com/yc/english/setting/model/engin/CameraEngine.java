@@ -118,14 +118,13 @@ public class CameraEngine extends BaseEngin {
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setReadTimeout(10 * 1000);
                     conn.setConnectTimeout(10 * 1000);
-                    conn.setDoInput(true);  //允许输入流
-                    conn.setDoOutput(true); //允许输出流
                     conn.setUseCaches(false);  //不允许使用缓存
                     conn.setRequestMethod("POST");  //请求方式
                     conn.setRequestProperty("Charset", "UTF-8");  //设置编码
                     conn.setRequestProperty("connection", "keep-alive");
                     conn.setRequestProperty("Content-Type", CONTENT_TYPE + ";Content-Length=" + conn.getContentLength());
-
+//                    conn.setDoInput(true);  //允许输入流
+//                    conn.setDoOutput(true); //允许输出流
                     if (file != null) {
                         /**
                          * 当文件不为空，把文件包装并且上传
@@ -185,7 +184,7 @@ public class CameraEngine extends BaseEngin {
                 }
                 return result;
             }
-        });
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
 
 
     }

@@ -16,16 +16,20 @@ class UnitInfoWrapper {
         var simpleName: String? = ""
         var pid: Int = 0
         var book_id: Int = 0
-        @JSONField(name = "unit_finish_detail") var complete: ComleteInfo? = null
+        @JSONField(name = "unit_finish_detail") var unit_finish_detail: ComleteInfo? = null
     }
 
     class ComleteInfo {
-        var read: Int = 0
-        var vocabulary: Int = 0
-        var grammar: Int = 0
-        var writing: Int = 0
-        var hearing: Int = 0
-        var oracy: Int = 0
+        var read: Int = -1
+        var vocabulary: Int = -1
+        var grammar: Int = -1
+        var writing: Int = -1
+        var hearing: Int = -1
+        var oracy: Int = -1
+    }
+
+    class ComleteItemInfo(var key: String, var value: String, var isComplete: Int) {
+
     }
 }
 

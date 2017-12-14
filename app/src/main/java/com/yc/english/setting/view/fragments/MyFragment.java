@@ -139,14 +139,16 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset <= -appBarLayout.getHeight() + SizeUtils.dp2px(80)) {
                     mCollapsingToolbarLayout.setTitle(getString(R.string.main_tab_my) + "  ");
+                    mAvatarImageView.setVisibility(View.VISIBLE);
                 } else {
                     mCollapsingToolbarLayout.setTitle("");
+                    mAvatarImageView.setVisibility(View.GONE);
                 }
             }
         });
 
-        abilityView.setDatas(new float[]{0.62f, 0.58f, 0.70f, 0.46f, 0.69f,
-                0.84f}).setTitles(new String[]{"阅读", "听力", "口语", "写作", "语法", "词汇"}).setTitleColors(new int[]{Color
+        abilityView.setDatas(new float[]{0f, 0f, 0f, 0f, 0f,
+                0f}).setTitles(new String[]{"阅读", "听力", "口语", "写作", "语法", "词汇"}).setTitleColors(new int[]{Color
                 .parseColor("#0cacfe"), Color
                 .parseColor("#ff8b01"), Color.parseColor("#fdbb12"), Color.parseColor("#ff5252"), Color.parseColor
                 ("#97d107"), Color.parseColor("#b0eb02")});
@@ -278,6 +280,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         super.onResume();
         if (UserInfoHelper.getUserInfo() != null && (UserInfoHelper.getUserInfo().getIsVip() == 1 || UserInfoHelper.getUserInfo().getIsVip() == 2)) {
             mBuyVipMenuItemView.setTitle("会员信息");
+
         } else {
             mBuyVipMenuItemView.setTitle("开通会员");
         }
@@ -380,6 +383,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         if (data != null)
             abilityView.setDatas(new float[]{data.getRead()/100f, data.getHearing()/100f, data.getOracy()/100f, data.getWriting()/100f, data.getGrammar()/100f,
                     data.getVocabulary()/100f});
+
 
 
     }
