@@ -94,7 +94,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
     LinearLayoutManager mLinearLayoutManager;
 
-    private int lastPosition = 0;
+    private int lastPosition = 1;
 
     private boolean isPlay;//播放点读
 
@@ -280,7 +280,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mQuestionItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
+                lastPosition = position;
                 if (view.getId() == R.id.iv_speak_tape && !isTape && !isPlayTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
                     if (currentView != null) {
@@ -362,7 +362,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         boolean flag = mQuestionItemAdapter.getData().get(position).isShowSpeak();
         mQuestionItemAdapter.getData().get(position).setShowSpeak(!flag);
 
-        if (lastPosition > -1) {
+        if (lastPosition > 0) {
             if (position != lastPosition) {
                 //mQuestionItemAdapter.getData().get(lastPosition).setShowSpeak(false);
                 isTape = false;
@@ -834,11 +834,6 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
         if (tempList.size() > 0) {
             mQuestionItemAdapter.setNewData(tempList);
-            if (isResultIn) {
-                mCommitLayout.setVisibility(View.GONE);
-            } else {
-                mCommitLayout.setVisibility(View.VISIBLE);
-            }
         } else {
             mCommitLayout.setVisibility(View.GONE);
         }
@@ -872,11 +867,13 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                 mPresenter.getQuestion(unitId + "", type);
             }
         });
+        mCommitLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void showNoData() {
         mStateView.showNoData(mSpeakListLayout);
+        mCommitLayout.setVisibility(View.GONE);
     }
 
     @Override
