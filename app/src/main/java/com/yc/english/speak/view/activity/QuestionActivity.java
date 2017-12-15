@@ -21,6 +21,7 @@ import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hwangjr.rxbus.RxBus;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -46,6 +47,7 @@ import com.yc.english.intelligent.model.domain.QuestionInfoWrapper;
 import com.yc.english.intelligent.model.domain.VGInfoWarpper;
 import com.yc.english.intelligent.model.engin.IntelligentHandInEngin;
 import com.yc.english.intelligent.presenter.IntelligentQuestionPresenter;
+import com.yc.english.main.model.domain.Constant;
 import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
 import com.yc.english.speak.model.bean.QuestionInfoBean;
@@ -94,7 +96,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
     LinearLayoutManager mLinearLayoutManager;
 
-    private int lastPosition = 0;
+    private int lastPosition = 1;
 
     private boolean isPlay;//播放点读
 
@@ -155,6 +157,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
     // 语音合成对象
     private SpeechSynthesizer mTts;
 
+    private int reportId;
     private int unitId;
 
     private String type;
@@ -169,6 +172,16 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
     }
 
     private RelativeLayout.LayoutParams params;
+
+    private String getFinishKey() {
+        String key = "finish";
+        if (unitId != 0) {
+            key += "-unitId" + unitId + type;
+        } else {
+            key += "-reportId" + reportId + type;
+        }
+        return key;
+    }
 
     @Override
     public void init() {
@@ -188,6 +201,16 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         if (isResultIn) {
             lists = QuestionHelper.getQuestionInfoBeanListFromDB();
             mCommitLayout.setVisibility(View.GONE);
+            for (int i = 0; i < lists.size(); i++) {
+                lists.get(i).setShowResult(true);
+                if (!StringUtils.isEmpty(lists.get(i).getPercent())) {
+                    if (Double.parseDouble(lists.get(i).getPercent()) > 60) {
+                        lists.get(i).setSpeakResult(true);
+                    } else {
+                        lists.get(i).setSpeakResult(false);
+                    }
+                }
+            }
         } else {
             mCommitLayout.setVisibility(View.VISIBLE);
         }
@@ -200,8 +223,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mListenEnglishRecyclerView.setLayoutManager(mLinearLayoutManager);
         mListenEnglishRecyclerView.setAdapter(mQuestionItemAdapter);
 
-        mPresenter.getQuestion(unitId + "", type);
-
+        loadData();
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面;
         mIat = SpeechRecognizer.createRecognizer(QuestionActivity.this, mInitListener);
@@ -240,6 +262,8 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                                 if (vgInfoWarpperResultInfo != null && vgInfoWarpperResultInfo.code == HttpConfig.STATUS_OK) {
                                     //ToastUtils.showLong("提交成功");
                                     QuestionHelper.saveQuestionInfoBeanListToDB(mQuestionItemAdapter.getData());
+                                    SPUtils.getInstance().put(getFinishKey(), 1);
+                                    RxBus.get().post(Constant.RESULT_IN, type);
                                     finish();
                                 } else {
                                     ToastUtils.showLong("提交失败");
@@ -280,7 +304,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mQuestionItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
+                lastPosition = position;
                 if (view.getId() == R.id.iv_speak_tape && !isTape && !isPlayTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
                     if (currentView != null) {
@@ -357,14 +381,22 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         });
     }
 
+    private void loadData() {
+        if (unitId != 0) {
+            mPresenter.getQuestion(unitId + "", type);
+        } else {
+            mPresenter.getPlanDetail(reportId + "", type);
+        }
+    }
+
     public void enableState(int position) {
 
         boolean flag = mQuestionItemAdapter.getData().get(position).isShowSpeak();
         mQuestionItemAdapter.getData().get(position).setShowSpeak(!flag);
 
-        if (lastPosition > -1) {
+        if (lastPosition > 0) {
             if (position != lastPosition) {
-                //mQuestionItemAdapter.getData().get(lastPosition).setShowSpeak(false);
+                mQuestionItemAdapter.getData().get(lastPosition).setShowSpeak(false);
                 isTape = false;
             }
         }
@@ -718,8 +750,9 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             if (matchCount > 0 && sourceList.size() > 0) {
                 percent = (float) matchCount / (float) sourceList.size() * 100;
             } else {
-                return false;
+                percent = 0;
             }
+
             mQuestionItemAdapter.getData().get(lastPosition).setPercent(percent + "");
             SPUtils.getInstance().put("userAnswer" + mQuestionItemAdapter.getData().get(lastPosition).getId(), percent);
 
@@ -835,9 +868,16 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         if (tempList.size() > 0) {
             mQuestionItemAdapter.setNewData(tempList);
             if (isResultIn) {
-                mCommitLayout.setVisibility(View.GONE);
-            } else {
-                mCommitLayout.setVisibility(View.VISIBLE);
+                for (int i = 0; i < mQuestionItemAdapter.getData().size(); i++) {
+                    mQuestionItemAdapter.getData().get(i).setShowResult(true);
+                    if (!StringUtils.isEmpty(mQuestionItemAdapter.getData().get(i).getPercent())) {
+                        if (Double.parseDouble(mQuestionItemAdapter.getData().get(i).getPercent()) > 60) {
+                            mQuestionItemAdapter.getData().get(i).setSpeakResult(true);
+                        } else {
+                            mQuestionItemAdapter.getData().get(i).setSpeakResult(false);
+                        }
+                    }
+                }
             }
         } else {
             mCommitLayout.setVisibility(View.GONE);
@@ -856,6 +896,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         questionInfoBean.setTitle(optionInfo.getTitle());
         questionInfoBean.setCnSentence(optionInfo.getAnalysis());
         questionInfoBean.setEnSentence(optionInfo.getVoiceText());
+        questionInfoBean.setPercent(optionInfo.getUserAnswer());
         return questionInfoBean;
     }
 
@@ -869,14 +910,16 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mStateView.showNoNet(mSpeakListLayout, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getQuestion(unitId + "", type);
+                loadData();
             }
         });
+        mCommitLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void showNoData() {
         mStateView.showNoData(mSpeakListLayout);
+        mCommitLayout.setVisibility(View.GONE);
     }
 
     @Override
