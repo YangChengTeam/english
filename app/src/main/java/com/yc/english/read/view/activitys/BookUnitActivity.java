@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
@@ -118,7 +119,6 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                         Intent intent = new Intent(BookUnitActivity.this, CoursePlayActivity.class);
                         intent.putExtra("position", position);
                         intent.putParcelableArrayListExtra("unitInfoList", (ArrayList) mItemAdapter.getData());
-
                         startActivity(intent);
                     } else {
                         TipsHelper.tips(BookUnitActivity.this, "教材数据异常，请稍后重试");
@@ -127,6 +127,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
 
 
                     VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
+                    MobclickAgent.onEvent(BookUnitActivity.this, "textbook_read", "教材点读");
                 }
             }
         });

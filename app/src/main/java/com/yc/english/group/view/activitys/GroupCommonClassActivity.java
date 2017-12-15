@@ -13,6 +13,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
@@ -27,6 +28,7 @@ import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.read.view.activitys.BookUnitActivity;
 import com.yc.english.union.contract.UnionCommonListContract;
 import com.yc.english.union.presenter.UnionCommonListPresenter;
 import com.yc.english.vip.utils.VipDialogHelper;
@@ -93,6 +95,7 @@ public class GroupCommonClassActivity extends FullScreenActivity<UnionCommonList
                         }
                     } else {
                         VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, null);
+                        MobclickAgent.onEvent(GroupCommonClassActivity.this, "top_teacher_tutorship", "名师辅导");
                     }
 
 

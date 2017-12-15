@@ -59,11 +59,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         StatusBarCompat.light(this);
 
+
         mPresenter = new MainPresenter(this, this);
         mTabBar.setOnTabSelectedListener(new TabBar.OnTabSelectedListener() {
             @Override
             public void onSelected(int idx) {
-                if(idx == 2 && SPUtils.getInstance().getString(BGKEY, "").isEmpty()) {
+                if (idx == 2 && SPUtils.getInstance().getString(BGKEY, "").isEmpty()) {
                     startActivity(new Intent(MainActivity.this, IntelligentTypeStartBgActivity.class));
                     return;
                 }
@@ -93,7 +94,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
             @Override
             public void onPageSelected(int position) {
-                if(position == 2 && SPUtils.getInstance().getString(BGKEY, "").isEmpty()) {
+                if (position == 2 && SPUtils.getInstance().getString(BGKEY, "").isEmpty()) {
                     startActivity(new Intent(MainActivity.this, IntelligentTypeStartBgActivity.class));
                     return;
                 }
@@ -105,6 +106,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
             }
         });
+
+        if (getIntent().getBooleanExtra("appraisal", false)) {
+            goToIntelligent();
+        }
     }
 
     public void goToTask() {

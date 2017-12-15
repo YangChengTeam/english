@@ -26,7 +26,7 @@ public class BasePayItemView extends BaseView {
     TextView vipContent;
     private Drawable drawable;
     private CharSequence content;
-    private int textSize;
+    private float textSize;
     private int textColor;
 
 
@@ -39,7 +39,7 @@ public class BasePayItemView extends BaseView {
             content = ta.getText(R.styleable.vip_item_vip_content);
 
 
-            textSize = ta.getDimensionPixelSize(R.styleable.vip_item_vip_content_size, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12,
+            textSize = ta.getDimension(R.styleable.vip_item_vip_content_size, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12,
                     getResources().getDisplayMetrics()));
             textColor = ta.getColor(R.styleable.vip_item_vip_content_color, ContextCompat.getColor(context, R.color.black));
             if (drawable != null) {
@@ -48,8 +48,8 @@ public class BasePayItemView extends BaseView {
             if (!TextUtils.isEmpty(content)) {
                 vipContent.setText(content);
             }
-//            vipContent.setTextSize(textSize);
             vipContent.setTextColor(textColor);
+            vipContent.getPaint().setTextSize(textSize);
         } finally {
             ta.recycle();
         }

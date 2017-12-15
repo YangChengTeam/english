@@ -1,8 +1,9 @@
 package com.yc.english.group.constant;
 
+import java.nio.file.FileAlreadyExistsException;
+
 /**
  * Created by wanglin  on 2017/8/1 08:31.
- *
  */
 
 public class BusAction {
@@ -27,7 +28,6 @@ public class BusAction {
     public static final String DELETE_FILE = "delete_file";
 
     public static final String FORBID_MEMBER = "forbid_member";
-
 
 
 }
