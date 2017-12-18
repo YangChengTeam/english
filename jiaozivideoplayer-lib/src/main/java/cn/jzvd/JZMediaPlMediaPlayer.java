@@ -85,9 +85,9 @@ public class JZMediaPlMediaPlayer extends JZMediaInterface implements PLMediaPla
     @Override
     public void release() {
         if (mediaPlayer != null) {
-//            mediaPlayer.stop();
+            mediaPlayer.stop();
             mediaPlayer.release();
-//            mediaPlayer = null;
+            mediaPlayer = null;
 
         }
     }
@@ -95,7 +95,7 @@ public class JZMediaPlMediaPlayer extends JZMediaInterface implements PLMediaPla
     @Override
     public long getCurrentPosition() {
         if (mediaPlayer != null) {
-            return  mediaPlayer.getCurrentPosition();
+            return mediaPlayer.getCurrentPosition();
         }
         return 0;
     }
@@ -103,7 +103,7 @@ public class JZMediaPlMediaPlayer extends JZMediaInterface implements PLMediaPla
     @Override
     public long getDuration() {
         if (mediaPlayer != null) {
-            return  mediaPlayer.getDuration();
+            return mediaPlayer.getDuration();
         }
         return 0;
     }

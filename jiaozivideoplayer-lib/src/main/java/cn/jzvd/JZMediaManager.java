@@ -150,7 +150,8 @@ public class JZMediaManager implements TextureView.SurfaceTextureListener {
                     jzMediaInterface.setSurface(surface);
                     break;
                 case HANDLER_RELEASE:
-                    jzMediaInterface.release();
+                    if (jzMediaInterface != null)
+                        jzMediaInterface.release();
                     break;
             }
         }
