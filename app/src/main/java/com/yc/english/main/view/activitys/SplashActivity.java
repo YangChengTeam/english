@@ -20,8 +20,6 @@ import butterknife.BindView;
 
 public class SplashActivity extends BaseActivity<SplashPresenter> implements SplashContract.View {
 
-    @BindView(R.id.iv_splash_logo)
-    ImageView mSplashLogoImageView;
 
     @BindView(R.id.status_bar)
     View mStatusBar;
@@ -30,11 +28,9 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     public void init() {
-        Glide.with(this).load(R.mipmap.splash_logo).into(mSplashLogoImageView);
-        mPresenter = new SplashPresenter(this, this);
-
         StatusBarCompat.light(this);
         StatusBarCompat.compat(this, mStatusBar);
+        gotToMain();
     }
 
     @Override

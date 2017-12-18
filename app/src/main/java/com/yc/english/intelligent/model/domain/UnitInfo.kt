@@ -13,7 +13,7 @@ class UnitInfoWrapper {
         var id: Int = 0
         var name: String = ""
         @JSONField(name = "simple_name")
-        var simpleName: String? = ""
+        var simpleName: String = ""
         var pid: Int = 0
         var book_id: Int = 0
         @JSONField(name = "unit_finish_detail") var unit_finish_detail: ComleteInfo? = null

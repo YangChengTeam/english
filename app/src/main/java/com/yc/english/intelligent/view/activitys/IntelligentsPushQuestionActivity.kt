@@ -16,6 +16,7 @@ import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentPushQuestionPresenter
 import com.yc.english.intelligent.view.adpaters.IntelligentPushAdpater
 import com.yc.english.main.model.domain.Constant
+import com.yc.english.speak.view.activity.QuestionActivity
 import kotlinx.android.synthetic.main.intelligent_activity_push_question.*
 import java.util.concurrent.TimeUnit
 
@@ -32,12 +33,15 @@ class IntelligentsPushQuestionActivity : BaseActivity<IntelligentPushQuestionPre
 
     override fun init() {
         mPresenter = IntelligentPushQuestionPresenter(this, this)
+        StatusBarCompat.light(this)
         StatusBarCompat.compat(this, mToolbarWarpper, mToolbar, R.mipmap.base_actionbar)
 
         RxView.clicks(mBackBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
             finish()
         }
+
+
         adpater = IntelligentPushAdpater()
         mRecyclerView.layoutManager = GridLayoutManager(this, 2)
         mRecyclerView.adapter = adpater
@@ -116,7 +120,13 @@ class IntelligentsPushQuestionActivity : BaseActivity<IntelligentPushQuestionPre
         adpater.setNewData(infos)
         adpater.setOnItemClickListener { adapter, view, position ->
             val comleteInfo = adapter.data.get(position) as UnitInfoWrapper.ComleteItemInfo
-            val intent = Intent(this@IntelligentsPushQuestionActivity, IntelligentQuestionsActivity::class.java)
+            val intent: Intent
+
+            if (comleteInfo.key.equals("oracy")) {
+                intent = Intent(this@IntelligentsPushQuestionActivity, QuestionActivity::class.java)
+            } else {
+                intent = Intent(this@IntelligentsPushQuestionActivity, IntelligentQuestionsActivity::class.java)
+            }
             intent.putExtra("reportId", reportId)
             intent.putExtra("type", comleteInfo.key)
             intent.putExtra("isResultIn", comleteInfo.isComplete == 1)

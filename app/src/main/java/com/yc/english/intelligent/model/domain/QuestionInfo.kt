@@ -48,6 +48,7 @@ class QuestionInfoWrapper {
         var userAnswer: String? = null
         var options: Option? = null
         var data: List<QuestionInfo>? = null
+        var example: String = ""
         var actIndex: Int = 0
         var frgIndex: Int = 0
 

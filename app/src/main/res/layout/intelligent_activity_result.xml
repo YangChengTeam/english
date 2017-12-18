@@ -117,52 +117,20 @@
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
+        android:background="@color/primary"
         >
 
-        <FrameLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/mViewBtn"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/group_orange_ff9a00"
-            >
+            android:background="@drawable/base_tran_ripple_bg"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="查看答案"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_big"/>
 
-            <TextView
-                android:id="@+id/mViewBtn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/base_tran_ripple_bg"
-                android:text="查看解析"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:clickable="true"
-                android:textSize="@dimen/font_big"/>
-        </FrameLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:background="@color/gray_ddd"
-            ></View>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/primary"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/mBackBtn2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/base_tran_ripple_bg"
-                android:gravity="center"
-                android:clickable="true"
-                android:text="返回"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_big"
-                />
-        </FrameLayout>
 
     </LinearLayout>
 

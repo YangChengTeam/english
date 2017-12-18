@@ -1,16 +1,15 @@
 package com.yc.english.intelligent.view.wdigets
 
 import android.content.Context
-import android.support.design.widget.AppBarLayout
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.TextView
 import com.yc.english.R
 import com.yc.english.base.view.BaseView
 import com.yc.english.news.view.widget.MediaPlayerView
+import kotlinx.android.synthetic.main.intelligent_view_question.view.*
 
 /**
  * Created by zhangkai on 2017/12/6.
@@ -19,10 +18,8 @@ import com.yc.english.news.view.widget.MediaPlayerView
 class IntelligentQuestionView : BaseView {
     override fun getLayoutId() = R.layout.intelligent_view_question
 
-    var mDescTextView = findViewById<TextView>(R.id.mDescTextView)
-    val mDescAudioPlayerView by lazy {
-        findViewById<MediaPlayerView>(R.id.mDescAudioPlayerView)
-    }
+    var mTitleTextView = findViewById<TextView>(R.id.mTitleTextView)
+    val mDescAudioPlayerView = findViewById<MediaPlayerView>(R.id.mDescAudioPlayerView)
     var mWebView = findViewById<WebView>(R.id.mWebView)
 
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
@@ -47,13 +44,14 @@ class IntelligentQuestionView : BaseView {
     var text: String? = ""
         set(value) {
             if (TextUtils.isEmpty(value)) {
-                mDescTextView.visibility = View.GONE
+                mTitleTextView.visibility = View.GONE
             } else {
-                mDescTextView.visibility = View.VISIBLE
-                mDescTextView.text = value
+                mTitleTextView.visibility = View.VISIBLE
+                mTitleTextView.text = value
             }
             field = value
         }
+
 
     var media: String? = ""
         set(value) {
@@ -70,9 +68,10 @@ class IntelligentQuestionView : BaseView {
         set(value) {
             if (TextUtils.isEmpty(value)) {
                 mWebView.visibility = View.GONE
+                mLineView.visibility = View.GONE
             } else {
-                (this@IntelligentQuestionView.layoutParams as AppBarLayout.LayoutParams).scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
                 mWebView.visibility = View.VISIBLE
+                mLineView.visibility = View.VISIBLE
                 mWebView.loadDataWithBaseURL(null, value, "text/html", "UTF-8", null);
             }
             field = value

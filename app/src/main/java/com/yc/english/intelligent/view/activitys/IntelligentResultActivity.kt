@@ -4,7 +4,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.KeyEvent
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference
-import com.google.gson.Gson
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
@@ -15,7 +14,6 @@ import com.yc.english.base.model.BaseEngin
 import com.yc.english.base.presenter.BasePresenter
 import com.yc.english.base.utils.SimpleCacheUtils
 import com.yc.english.base.utils.StatusBarCompat
-import com.yc.english.base.view.AlertDialog
 import com.yc.english.base.view.BaseActivity
 import com.yc.english.base.view.IView
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
@@ -33,22 +31,15 @@ class IntelligentResultActivity : BaseActivity<BasePresenter<BaseEngin, IView>>(
 
     lateinit var adapter: IntelligentResultAdapter
     override fun init() {
+        StatusBarCompat.light(this)
         StatusBarCompat.compat(this, mToolbarWarpper, mToolbar, mStatusBar)
-
         RxView.clicks(mBackBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
             back()
         }
 
-        RxView.clicks(mBackBtn2).throttleFirst(200, TimeUnit
-                .MILLISECONDS).subscribe {
-            back()
-        }
-
-
         RxView.clicks(mViewBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
-            RxBus.get().post(Constant.RESULT_ANS, "from result")
             finish()
         }
         var questionInfos: ArrayList<QuestionInfoWrapper.QuestionInfo>? = intent.getParcelableArrayListExtra("questionInfos")
@@ -93,7 +84,6 @@ class IntelligentResultActivity : BaseActivity<BasePresenter<BaseEngin, IView>>(
     }
 
     private fun back() {
-        IntelligentQuestionsActivity.getInstance()?.finish()
         finish()
     }
 

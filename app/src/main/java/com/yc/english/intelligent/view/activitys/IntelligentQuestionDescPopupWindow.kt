@@ -1,9 +1,12 @@
 package com.yc.english.intelligent.view.activitys
 
 import android.app.Activity
+import android.view.View
+import android.view.ViewGroup
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.LinearLayout
+import android.widget.TextView
 import butterknife.BindView
 import com.jakewharton.rxbinding.view.RxView
 import com.yc.english.R
@@ -21,6 +24,9 @@ class IntelligentQuestionDescPopupWindow(context: Activity) : BasePopupWindow(co
 
     @BindView(R.id.webView)
     lateinit var mWebView: WebView
+
+    @BindView(R.id.textView)
+    lateinit var mTextView: TextView
 
     @BindView(R.id.mCloseBtn)
     lateinit var mCloseBtn: LinearLayout
@@ -49,7 +55,13 @@ class IntelligentQuestionDescPopupWindow(context: Activity) : BasePopupWindow(co
     }
 
 
-    fun loadHtml(body: String) {
-        mWebView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null)
+    fun loadHtml(body: String, type: Int) {
+        if (type == 1) {
+            mWebView.visibility = View.VISIBLE
+            mWebView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null)
+        } else {
+            mTextView.text = body
+            (mTextView.parent.parent as ViewGroup).visibility = View.VISIBLE
+        }
     }
 }

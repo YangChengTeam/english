@@ -1,6 +1,7 @@
 package com.yc.english.intelligent.presenter
 
 import android.content.Context
+import android.util.Log
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference
 import com.blankj.utilcode.util.SPUtils
@@ -99,7 +100,6 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
         val subriction = mEngin.getUnit(gradeInfo).subscribe({
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK) {
-
                 if (it?.data?.list != null) {
                     SimpleCacheUtils.writeCache(mContext, "getUnit", JSON.toJSONString(it.data?.list ?: ""))
                     showInfo(it?.data?.list!!)
@@ -114,8 +114,9 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
         val types = arrayOfNulls<UnitInfoWrapper.UnitInfo>(list.size)
         var i = 0
         for (unitInfo in list) {
-            titles[i] = "Unit ${i + 1}"
+            titles[i] = unitInfo.simpleName
             types[i] = unitInfo
+            Log.d("simpleName", unitInfo.simpleName)
             i++
         }
         mView.showInfo(titles, types)

@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import com.blankj.utilcode.util.SPUtils
@@ -37,6 +38,7 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
     var reportId = 0
     override fun init() {
         mPresenter = IntelligentReportPresenter(this, this)
+        StatusBarCompat.light(this)
         StatusBarCompat.compat(this, mToolbarWarpper, mToolbar, mStatusBar)
 
         RxView.clicks(mBackBtn).throttleFirst(200, TimeUnit
@@ -61,6 +63,12 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
                 VipDialogHelper.showVipDialog(supportFragmentManager, "", bundle)
             }
         }
+
+        RxView.clicks(mShareBtn).throttleFirst(200, TimeUnit
+                .MILLISECONDS).subscribe {
+
+        }
+
         unitId = intent.getIntExtra("unitId", 0)
         mPresenter.getReportInfo(unitId.toString())
     }
@@ -105,8 +113,9 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
     override fun showInfo(reportInfo: ReportInfo) {
         reportId = reportInfo.id
 
-        mAbilityView.setDatas(floatArrayOf(reportInfo.vocabulary / 100f, reportInfo.oracy / 100f, reportInfo.grammar / 100f, reportInfo.hearing / 100f, reportInfo.read / 100f,
-                reportInfo.writing / 100f)).setTitles(arrayOf("词汇", "口语", "语法", "听力", "阅读", "写作"))
+        mAbilityView.setDatas(floatArrayOf(reportInfo.vocabulary / 100f, reportInfo.oracy / 100f, reportInfo
+                .hearing / 100f,reportInfo.grammar / 100f, reportInfo.read / 100f,
+                reportInfo.writing / 100f)).setTitles(arrayOf("词汇", "口语", "听力", "语法", "阅读", "写作"))
         mIntelligentItemScoreView1.progress(reportInfo.vocabulary)
         mIntelligentItemScoreView2.progress(reportInfo.oracy)
         mIntelligentItemScoreView3.progress(reportInfo.grammar)
@@ -115,6 +124,8 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
         mIntelligentItemScoreView6.progress(reportInfo.writing)
         mReportTextView.text = reportInfo.desp
         star((reportInfo.score + 4) / 20)
+
+        mStartPushBtn.visibility = View.VISIBLE
     }
 
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = arrayOf(Tag(Constant.COMMUNITY_ACTIVITY_REFRESH)))
