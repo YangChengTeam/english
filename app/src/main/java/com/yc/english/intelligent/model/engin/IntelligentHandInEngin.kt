@@ -17,14 +17,15 @@ import rx.Observable
  */
 
 class IntelligentHandInEngin(context: Context?) : BaseEngin(context) {
-    fun submitAnwsers(answer_list: String): Observable<ResultInfo<VGInfoWarpper>> {
+    fun submitAnwsers(answer_list: String, use_time: String): Observable<ResultInfo<VGInfoWarpper>> {
         var uid = ""
         if (UserInfoHelper.getUserInfo() != null) {
             uid = UserInfoHelper.getUserInfo().uid
         }
         return HttpCoreEngin.get(mContext).rxpost(URLConfig.UPDATE_ANSWERS, object :
                 TypeReference<ResultInfo<VGInfoWarpper>>() {}.type, mutableMapOf("answer_list" to answer_list,
-                "user_id" to uid),
+                "user_id" to uid,
+                "use_time" to use_time),
                 true, true, true) as Observable<ResultInfo<VGInfoWarpper>>
     }
 }

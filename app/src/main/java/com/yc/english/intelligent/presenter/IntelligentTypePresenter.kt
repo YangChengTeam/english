@@ -33,10 +33,6 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
 
     override fun loadData(forceUpdate: Boolean, showLoadingUI: Boolean) {
         if (!forceUpdate) return
-
-        if (!SPUtils.getInstance().getString("period", "").isEmpty()) {
-            getUnit("loadData")
-        }
     }
 
     @Subscribe(thread = EventThread.NEW_THREAD, tags = arrayOf(Tag(Constant.GET_UNIT)))
@@ -89,14 +85,6 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
         SPUtils.getInstance().put(IntelligentVGSelectPopupWindow.DEFAULT_GRADE_KEY, JSON.toJSONString(gradeInfo))
         gradeInfo.versionId = versionId
 
-        SimpleCacheUtils.readCache(mContext, "getUnit", object : SimpleCacheUtils.CacheRunnable() {
-            override fun run() {
-                val list = Gson().fromJson<List<UnitInfoWrapper.UnitInfo>>(json, object : TypeReference<List<UnitInfoWrapper.UnitInfo>>() {}.type)
-                if (list != null && list.size > 0) {
-                    showInfo(list)
-                }
-            }
-        })
         val subriction = mEngin.getUnit(gradeInfo).subscribe({
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK) {
@@ -116,7 +104,6 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
         for (unitInfo in list) {
             titles[i] = unitInfo.simpleName
             types[i] = unitInfo
-            Log.d("simpleName", unitInfo.simpleName)
             i++
         }
         mView.showInfo(titles, types)

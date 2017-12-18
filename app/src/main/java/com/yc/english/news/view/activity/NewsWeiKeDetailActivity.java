@@ -204,16 +204,13 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
                         UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
                     }
                 }
-
             }
         });
-
 
         ViewUtil.switchActivity(NewsWeiKeDetailActivity.this, baseItemViewTextbookRead, 0);
         ViewUtil.switchActivity(NewsWeiKeDetailActivity.this, baseItemViewWordValuable, 1);
         ViewUtil.switchActivity(NewsWeiKeDetailActivity.this, baseItemViewBrainpowerAppraisal, 2);
         ViewUtil.switchActivity(NewsWeiKeDetailActivity.this, baseItemViewScoreTutorship, 3);
-
     }
 
 

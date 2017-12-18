@@ -46,7 +46,7 @@ class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), In
 
         RxView.clicks(mSubmitBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
-            mPresenter.submitAnswers(questionInfos!!)
+            mPresenter.submitAnswers(questionInfos!!, IntelligentQuestionsActivity.getInstance()?.usedTime() ?: "")
         }
 
         mToolbar.mTimeTextView.text = IntelligentQuestionsActivity.getInstance()?.usedTime() ?: ""
@@ -84,7 +84,6 @@ class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), In
             startActivity(intent)
         }
     }
-
 
 
     override fun showFail(msg: String) {

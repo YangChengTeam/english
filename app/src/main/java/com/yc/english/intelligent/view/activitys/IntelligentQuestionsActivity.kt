@@ -147,8 +147,8 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         (mFragmentAdapter?.getItem(actIndex) as IntelligentQuestionsFragment).next(frgIndex)
     }
 
-    private fun stop(){
-        if(mFragmentAdapter == null) return
+    private fun stop() {
+        if (mFragmentAdapter == null) return
         for (j in 0..((mFragmentAdapter?.count ?: 0) - 1)) {
             (mFragmentAdapter?.getItem(j) as IntelligentQuestionsFragment).stop()
         }
@@ -174,7 +174,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
     var mFragmentAdapter: TabsUtils.IntelligentQuestionsFragmentAdapter? = null
 
 
-    override fun showInfo(list: List<QuestionInfoWrapper.QuestionInfo>) {
+    override fun showInfo(list: List<QuestionInfoWrapper.QuestionInfo>, use_time: String?) {
         questionInfos = list
         mToolbarWarpper.total = list.size
         mToolbarWarpper.index = 1
@@ -187,7 +187,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         } else {
             mToolbarWarpper.stopTime()
             (mSubmitBtn.parent as ViewGroup).visibility = View.VISIBLE
-            mToolbarWarpper.mTimeTextView.text = SPUtils.getInstance().getString(getFinishTimeKey(), "")
+            mToolbarWarpper.mTimeTextView.text = use_time ?: SPUtils.getInstance().getString(getFinishTimeKey(), "")
         }
     }
 

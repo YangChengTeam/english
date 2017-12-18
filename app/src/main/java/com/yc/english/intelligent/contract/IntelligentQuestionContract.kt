@@ -9,7 +9,7 @@ import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
  */
 interface IntelligentQuestionContract {
     interface View : IView, ILoading, INoNet, INoData,IDialog {
-        fun showInfo(list: List<QuestionInfoWrapper.QuestionInfo>)
+        fun showInfo(list: List<QuestionInfoWrapper.QuestionInfo>,  use_time: String?)
     }
 
     interface Presenter : IPresenter {
