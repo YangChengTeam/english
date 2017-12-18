@@ -2,32 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
-
-    <LinearLayout
-        android:id="@+id/layout_content"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/layout_title_price"
-        android:background="@color/buy_vip_bg_color">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="6dp"
-            android:src="@mipmap/pay_left_icon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="9dp"
-            android:text="@string/synchronization_teach"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
