@@ -28,4 +28,8 @@ class IntelligentHandInEngin(context: Context?) : BaseEngin(context) {
                 "use_time" to use_time),
                 true, true, true) as Observable<ResultInfo<VGInfoWarpper>>
     }
+
+    fun submitAnwsers(answer_list: String): Observable<ResultInfo<VGInfoWarpper>> {
+        return submitAnwsers(answer_list, "")
+    }
 }
