@@ -25,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/sv_loading"
+        android:layout_marginBottom="48dp"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -41,7 +42,6 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="48dp"
         android:background="@color/primary"
         android:gravity="center">
 

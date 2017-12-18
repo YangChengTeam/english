@@ -202,6 +202,10 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         if (isResultIn) {
             lists = QuestionHelper.getQuestionInfoBeanListFromDB();
             mCommitLayout.setVisibility(View.GONE);
+
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 0);
+            mCommitLayout.setLayoutParams(params);
+
             for (int i = 0; i < lists.size(); i++) {
                 lists.get(i).setShowResult(true);
                 if (!StringUtils.isEmpty(lists.get(i).getPercent())) {
@@ -329,7 +333,12 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                     isTape = false;
                 }
 
-                if (view.getId() == R.id.iv_play_self_speak && !isPlayTape && !isTape && !isPlay && listenSuccess) {
+                if (view.getId() == R.id.iv_play_self_speak && !isPlayTape && !isTape && !isPlay) {
+
+                    String id = mQuestionItemAdapter.getData().get(position).getId();
+                    audioFilePath = Environment.getExternalStorageDirectory() + "/msc/" + UserInfoHelper.getUserInfo().getUid() + "-" + id + ".wav";
+                    audioFile = new File(audioFilePath);
+
                     if (audioFile != null && audioFile.exists()) {
                         View currentView = mLinearLayoutManager.findViewByPosition(position);
                         if (currentView != null) {
@@ -887,6 +896,8 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             }
         } else {
             mCommitLayout.setVisibility(View.GONE);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 0);
+            mCommitLayout.setLayoutParams(params);
         }
     }
 
@@ -920,12 +931,16 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             }
         });
         mCommitLayout.setVisibility(View.GONE);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 0);
+        mCommitLayout.setLayoutParams(params);
     }
 
     @Override
     public void showNoData() {
         mStateView.showNoData(mSpeakListLayout);
         mCommitLayout.setVisibility(View.GONE);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 0);
+        mCommitLayout.setLayoutParams(params);
     }
 
     @Override
