@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -203,9 +204,6 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             lists = QuestionHelper.getQuestionInfoBeanListFromDB();
             mCommitLayout.setVisibility(View.GONE);
 
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 0);
-            mCommitLayout.setLayoutParams(params);
-
             for (int i = 0; i < lists.size(); i++) {
                 lists.get(i).setShowResult(true);
                 if (!StringUtils.isEmpty(lists.get(i).getPercent())) {
@@ -228,6 +226,11 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mListenEnglishRecyclerView.setLayoutManager(mLinearLayoutManager);
         mListenEnglishRecyclerView.setAdapter(mQuestionItemAdapter);
 
+        View footView = new View(this);
+        footView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,SizeUtils.dp2px(48)));
+        mQuestionItemAdapter.setFooterView(footView);
+
+        //mQuestionItemAdapter.setFooterView()
         loadData();
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面;
@@ -896,8 +899,6 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             }
         } else {
             mCommitLayout.setVisibility(View.GONE);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 0);
-            mCommitLayout.setLayoutParams(params);
         }
     }
 
@@ -931,16 +932,12 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             }
         });
         mCommitLayout.setVisibility(View.GONE);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 0);
-        mCommitLayout.setLayoutParams(params);
     }
 
     @Override
     public void showNoData() {
         mStateView.showNoData(mSpeakListLayout);
         mCommitLayout.setVisibility(View.GONE);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 0);
-        mCommitLayout.setLayoutParams(params);
     }
 
     @Override
