@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.main.view.activitys.MainActivity;
+import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
 import com.yc.english.vip.views.fragments.BasePayItemView;
@@ -27,16 +28,19 @@ public class ViewUtil {
                 Intent intent = new Intent();
                 if (i == 0) {
                     intent.setClass(context, BookActivity.class);
-                    intent.putExtra("tag", "read");
+                    ReadApp.READ_COMMON_TYPE = 1;
                 } else if (i == 1) {
                     intent.setClass(context, BookActivity.class);
-                    intent.putExtra("tag", "word");
+                    ReadApp.READ_COMMON_TYPE = 2;
                 } else if (i == 2) {
                     intent.setClass(context, MainActivity.class);
                     intent.putExtra("appraisal", true);
 
                 } else if (i == 3) {
                     intent.setClass(context, VipScoreTutorshipActivity.class);
+                } else if (i == 4) {
+                    intent.setClass(context, MainActivity.class);
+                    intent.putExtra("weike", true);
                 }
                 context.startActivity(intent);
             }

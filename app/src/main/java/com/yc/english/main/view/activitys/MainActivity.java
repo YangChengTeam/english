@@ -110,6 +110,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         if (getIntent().getBooleanExtra("appraisal", false)) {
             goToIntelligent();
         }
+        if (getIntent().getBooleanExtra("weike", false)) {
+            goToTask();
+        }
     }
 
     public void goToTask() {

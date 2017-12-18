@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/read_book_bg_color"
-              android:gravity="top|center"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/read_book_bg_color"
+    android:gravity="top|center"
+    android:orientation="vertical">
 
     <com.yc.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
-    </com.yc.english.base.view.MainToolBar>
+        android:layout_alignParentTop="true"></com.yc.english.base.view.MainToolBar>
 
     <com.yc.english.base.view.StateView
         android:id="@+id/sv_loading"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.yc.english.base.view.StateView>
+        android:layout_height="match_parent"></com.yc.english.base.view.StateView>
 
     <LinearLayout
         android:id="@+id/layout_content"
@@ -47,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/read_book_left_top_icon"/>
+                    android:src="@mipmap/read_book_left_top_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -57,7 +55,7 @@
                     android:layout_toRightOf="@+id/iv_book_top"
                     android:text="@string/read_study_grade_text"
                     android:textColor="@color/read_my_book_color"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
             </RelativeLayout>
 
@@ -75,8 +73,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_grade_list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </android.support.v7.widget.RecyclerView>
+                    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
             </LinearLayout>
         </LinearLayout>
 
@@ -103,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/read_book_left_top_icon"/>
+                    android:src="@mipmap/read_book_left_top_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -113,7 +110,7 @@
                     android:layout_toRightOf="@+id/iv_grade_top"
                     android:text="@string/read_book_version_text"
                     android:textColor="@color/read_my_book_color"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
             </RelativeLayout>
 
@@ -131,8 +128,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_grade_book_list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </android.support.v7.widget.RecyclerView>
+                    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

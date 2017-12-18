@@ -36,7 +36,8 @@
                     android:id="@+id/iv_shopping_cart"
                     android:layout_width="33dp"
                     android:layout_height="33dp"
-                    android:src="@mipmap/shopping_cart_icon" />
+                    android:src="@mipmap/shopping_cart_icon"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/layout_num"
@@ -44,7 +45,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|right"
                     android:background="@mipmap/single_num_icon"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_cart_num"

@@ -56,8 +56,7 @@ public class GroupGroupAdapter extends BaseAdapter<ClassInfo> implements ItemTou
                 .setText(R.id.m_tv_member_count, String.format(mContext.getString(R.string.member_count), Integer.parseInt(classInfo.getCount())))
                 .setText(R.id.m_tv_group_number, String.format(mContext.getString(R.string.groupId), classInfo.getGroupId()))
                 .setImageDrawable(R.id.m_iv_pay_money, ContextCompat.getDrawable(mContext, R.mipmap.group74))
-                .setVisible(R.id.m_iv_pay_money, classInfo.getFee_type() == 1)
-                .setVisible(R.id.btn_introduce, classInfo.getType().equals("2"));
+                .setVisible(R.id.m_iv_pay_money, classInfo.getFee_type() == 1);
 
         GlideHelper.circleImageView(mContext, (ImageView) holder.getView(R.id.m_iv_group_img), classInfo.getImageUrl(), R.mipmap.default_avatar);
 

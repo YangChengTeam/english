@@ -20,9 +20,9 @@
                 android:background="#F5F5F5" />
 
             <ImageView
+                android:id="@+id/iv_advantage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/vip_tutorship_advantage" />
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -152,8 +152,7 @@
                 android:id="@+id/iv_tutorship_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="48dp"
-                android:src="@mipmap/vip_tutorship_advantage_detail" />
+                android:layout_marginBottom="48dp" />
 
             <include
                 layout="@layout/fragment_vip_tutorship_detail_bottom"
