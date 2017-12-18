@@ -400,6 +400,8 @@ public abstract class JZVideoPlayer extends FrameLayout implements View.OnClickL
         Object[] dataSourceObjects = new Object[1];
         dataSourceObjects[0] = map;
         setUp(dataSourceObjects, 0, screen, objects);
+
+        Log.e("TAG", "setUp: " + JZMediaManager.instance().jzMediaInterface.toString());
     }
 
     public void setUp(Object[] dataSourceObjects, int defaultUrlMapIndex, int screen, Object... objects) {
@@ -408,6 +410,7 @@ public abstract class JZVideoPlayer extends FrameLayout implements View.OnClickL
             return;
         }
 
+        JZMediaManager.instance().jzMediaInterface = new JZMediaPlMediaPlayer(mContext);
 
         if (isCurrentJZVD() && JZUtils.dataSourceObjectsContainsUri(dataSourceObjects, JZMediaManager.getCurrentDataSource())) {
             long position = 0;

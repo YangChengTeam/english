@@ -1,6 +1,7 @@
 package com.yc.english.vip.views.activity;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -70,6 +71,9 @@ public class VipScoreTutorshipActivity extends BaseActivity {
     @Override
     public void init() {
 
+//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+//
+//        }
 
         StatusBarCompat.compat(this, mToolbarWarpper, toolbar);
 
@@ -83,6 +87,7 @@ public class VipScoreTutorshipActivity extends BaseActivity {
             }
         });
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
+
 
         mAppbarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
