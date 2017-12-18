@@ -89,7 +89,6 @@ int layout jz_dialog_volume 0x7f030002
 int layout jz_layout_clarity 0x7f030003
 int layout jz_layout_clarity_item 0x7f030004
 int layout jz_layout_standard 0x7f030005
-int string ijkplayer_dummy 0x7f050005
 int string no_url 0x7f050000
 int string replay 0x7f050001
 int string tips_not_wifi 0x7f050002

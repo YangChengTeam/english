@@ -91,7 +91,7 @@ public class ReadBookItemClickAdapter extends BaseMultiItemQuickAdapter<BookInfo
                 guideAddBookPopupWindow.dismiss();
             }
         });
-        guideAddBookPopupWindow.setDebug(true);
+//        guideAddBookPopupWindow.setDebug(true);
         guideAddBookPopupWindow.show(((Activity) mContext).getWindow().getDecorView(), "add book");
     }
 }

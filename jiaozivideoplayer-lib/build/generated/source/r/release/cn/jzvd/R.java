@@ -112,7 +112,6 @@ public final class R {
         public static int jz_layout_standard=0x7f030005;
     }
     public static final class string {
-        public static int ijkplayer_dummy=0x7f050005;
         public static int no_url=0x7f050000;
         public static int replay=0x7f050001;
         public static int tips_not_wifi=0x7f050002;
