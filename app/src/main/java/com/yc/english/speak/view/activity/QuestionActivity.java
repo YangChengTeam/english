@@ -47,6 +47,7 @@ import com.yc.english.intelligent.model.domain.QuestionInfoWrapper;
 import com.yc.english.intelligent.model.domain.VGInfoWarpper;
 import com.yc.english.intelligent.model.engin.IntelligentHandInEngin;
 import com.yc.english.intelligent.presenter.IntelligentQuestionPresenter;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.view.wdigets.SpaceItemDecoration;
@@ -176,9 +177,9 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
     private String getFinishKey() {
         String key = "finish";
         if (unitId != 0) {
-            key += "-unitId" + unitId + type;
+            key += UserInfoHelper.getUserInfo().getUid() + "-unitId" + unitId + type;
         } else {
-            key += "-reportId" + reportId + type;
+            key += UserInfoHelper.getUserInfo().getUid() + "-reportId" + reportId + type;
         }
         return key;
     }
@@ -313,7 +314,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                     }
                     view.setVisibility(View.GONE);
                     initTask();
-                    tapeStart();
+                    tapeStart(((QuestionInfoBean) adapter.getData().get(position)).getId());
                     isTape = true;
                 }
 
@@ -457,10 +458,10 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
     /**
      * 开始录音
      */
-    public void tapeStart() {
+    public void tapeStart(String id) {
         mIatResults.clear();
         // 设置参数
-        setParam();
+        setParam(id);
         boolean isShowDialog = mSharedPreferences.getBoolean(
                 getString(R.string.pref_key_iat_show), false);
         if (isShowDialog) {
@@ -491,6 +492,10 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
      */
     public void playTape(final int position) {
         try {
+            String id = mQuestionItemAdapter.getData().get(position).getId();
+            audioFilePath = Environment.getExternalStorageDirectory() + "/msc/" + UserInfoHelper.getUserInfo().getUid() + "-" + id + ".wav";
+            audioFile = new File(audioFilePath);
+
             if (audioFile != null && audioFile.exists()) {
                 initTask();
 
@@ -773,7 +778,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
      *
      * @return
      */
-    public void setParam() {
+    public void setParam(String id) {
         // 清空参数
         mIat.setParameter(SpeechConstant.PARAMS, null);
 
@@ -825,7 +830,8 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
         // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
         mIat.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-        audioFilePath = Environment.getExternalStorageDirectory() + "/msc/iat.wav";
+
+        audioFilePath = Environment.getExternalStorageDirectory() + "/msc/" + UserInfoHelper.getUserInfo().getUid() + "-" + id + ".wav";
         audioFile = new File(audioFilePath);
         mIat.setParameter(SpeechConstant.ASR_AUDIO_PATH, audioFilePath);
     }
