@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
+import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -70,6 +71,8 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
     private IAliPay1Impl iAliPay;
     private IWXPay1Impl iwxPay;
+
+    private int currentPosition = 0;
 
     @Override
     public void init() {
@@ -155,7 +158,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                         currentFragment = singleFragment;
                         break;
                 }
-
+                currentPosition = position;
                 currentFragment.setOnVipClickListener(BasePayDialogFragment.this);
             }
 
@@ -180,6 +183,10 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 list.add(orderGood);
                 orderParams.setGoodsList(list);
                 mPresenter.createOrder(orderParams);
+
+                umenStatistics(currentPosition);
+
+
             }
         });
     }
@@ -346,6 +353,21 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
         RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form pay");
         VipDialogHelper.dismissVipDialog();
+    }
+
+
+    private void umenStatistics(int position) {
+        switch (position) {
+            case 0:
+                MobclickAgent.onEvent(getActivity(), "score_vip", "提分辅导");
+                break;
+            case 1:
+                MobclickAgent.onEvent(getActivity(), "general_vip", "普通会员");
+                break;
+            case 2:
+                MobclickAgent.onEvent(getActivity(), "single_buy", "单次购买");
+                break;
+        }
     }
 
 }

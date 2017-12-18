@@ -13,23 +13,29 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SizeUtils;
+import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.vip.views.fragments.VipTutorshipDetailFragment;
 import com.yc.english.vip.views.fragments.VipUserEvaluateFragment;
 
+
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.functions.Action1;
 
 /**
@@ -54,9 +60,12 @@ public class VipScoreTutorshipActivity extends BaseActivity {
     ImageView mToolbarWarpper;
     @BindView(R.id.appbar_layout)
     AppBarLayout mAppbarLayout;
+    @BindView(R.id.rl_btn)
+    RelativeLayout rlBtn;
 
     private String[] mTitles = {"辅导详情", "用户评价"};
 
+    private boolean isVip = false;
 
     @Override
     public void init() {
@@ -73,7 +82,6 @@ public class VipScoreTutorshipActivity extends BaseActivity {
                 finish();
             }
         });
-//        collapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
 
         mAppbarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -91,17 +99,29 @@ public class VipScoreTutorshipActivity extends BaseActivity {
 
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (userInfo == null) {
-            mBtnPay.setVisibility(View.VISIBLE);
+            isVip = false;
         } else {
-            if (userInfo.getIsVip() == 0) {
-                mBtnPay.setVisibility(View.VISIBLE);
-            } else {
-                mBtnPay.setVisibility(View.GONE);
-            }
+            isVip = userInfo.getIsVip() == 1 || userInfo.getIsVip() == 2;
         }
+
+        rlBtn.setVisibility(isVip ? View.GONE : View.VISIBLE);
 
         initListener();
 
+
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.USER_INFO)
+            }
+    )
+    public void getUserInfo(UserInfo userInfo) {
+
+        rlBtn.setVisibility(userInfo.getIsVip() == 0 ? View.VISIBLE : View.GONE);
+
+        getWindow().getDecorView().invalidate();
 
     }
 
@@ -110,7 +130,6 @@ public class VipScoreTutorshipActivity extends BaseActivity {
             @Override
             public void call(Void aVoid) {
                 if (!UserInfoHelper.isGotoLogin(VipScoreTutorshipActivity.this)) {
-
 
                     VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
                 }
@@ -139,12 +158,13 @@ public class VipScoreTutorshipActivity extends BaseActivity {
             if (position == 0) {
                 if (vipTutorshipDetailFragment == null) {
                     vipTutorshipDetailFragment = new VipTutorshipDetailFragment();
+                    vipTutorshipDetailFragment.setIsVip(isVip);
                 }
                 return vipTutorshipDetailFragment;
             } else if (position == 1) {
                 if (vipUserEvaluateFragment == null) {
                     vipUserEvaluateFragment = new VipUserEvaluateFragment();
-
+                    vipUserEvaluateFragment.setIsVip(isVip);
                 }
                 return vipUserEvaluateFragment;
             }

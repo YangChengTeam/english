@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/layout_title_price"
+        android:background="@color/buy_vip_bg_color">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="6dp"
+            android:src="@mipmap/pay_left_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="9dp"
+            android:text="@string/synchronization_teach"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/group_distance_10"
+        android:layout_marginTop="@dimen/group_distance_10">
+
+        <com.yc.english.vip.views.fragments.BasePayItemView
+            android:id="@+id/baseItemView_textbook_read"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:vip_content="课本点读"
+            app:vip_icon="@mipmap/textbook_read" />
+
+        <com.yc.english.vip.views.fragments.BasePayItemView
+            android:id="@+id/baseItemView_word_valuable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:vip_content="单词宝典"
+            app:vip_icon="@mipmap/word_valuable" />
+
+        <com.yc.english.vip.views.fragments.BasePayItemView
+            android:id="@+id/baseItemView_brainpower_appraisal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:vip_content="智能测评"
+            app:vip_icon="@mipmap/brainpower_appraisal" />
+
+        <com.yc.english.vip.views.fragments.BasePayItemView
+            android:id="@+id/baseItemView_score_tutorship"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:vip_content="提分辅导"
+            app:vip_icon="@mipmap/score_tutorship" />
+    </LinearLayout>
+</LinearLayout>

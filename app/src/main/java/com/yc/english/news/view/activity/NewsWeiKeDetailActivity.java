@@ -7,6 +7,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -24,9 +26,9 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.helper.ShoppingHelper;
-import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
@@ -38,17 +40,19 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.news.bean.CourseInfoWrapper;
 import com.yc.english.news.contract.NewsDetailContract;
 import com.yc.english.news.presenter.NewsDetailPresenter;
+import com.yc.english.news.utils.ViewUtil;
 import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.utils.VipDialogHelper;
+import com.yc.english.vip.views.fragments.BasePayItemView;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
-
 import rx.functions.Action1;
 
 /**
@@ -95,6 +99,17 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @BindView(R.id.nestedScrollView)
     ScrollView scrollView;
 
+    @BindView(R.id.view_synchronization_teach)
+    View mSynchronizationTeachView;
+    @BindView(R.id.baseItemView_textbook_read)
+    BasePayItemView baseItemViewTextbookRead;
+    @BindView(R.id.baseItemView_word_valuable)
+    BasePayItemView baseItemViewWordValuable;
+    @BindView(R.id.baseItemView_brainpower_appraisal)
+    BasePayItemView baseItemViewBrainpowerAppraisal;
+    @BindView(R.id.baseItemView_score_tutorship)
+    BasePayItemView baseItemViewScoreTutorship;
+
 
     private String title;
 
@@ -132,35 +147,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensorEventListener = new JZVideoPlayer.JZAutoFullscreenListener();
 
-        RxView.clicks(mAddToCartLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                if (currentCourseInfo != null) {
-                    if (UserInfoHelper.getUserInfo() != null) {
-                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
-                        ShoppingHelper.saveCourseInfoToDB(currentCourseInfo);
-                        ToastUtils.showLong("加入购物车成功");
-                    } else {
-                        UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
-                    }
-                }
-            }
-        });
-
-        RxView.clicks(mBuyNowLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                if (currentCourseInfo != null) {
-                    if (UserInfoHelper.getUserInfo() != null) {
-                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
-                        showBuyDialog();
-                    } else {
-                        UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
-                    }
-                }
-
-            }
-        });
 
     }
 
@@ -191,6 +177,43 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
                 sharePopupWindow.show(llRootView);
             }
         });
+
+        RxView.clicks(mAddToCartLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                if (currentCourseInfo != null) {
+                    if (UserInfoHelper.getUserInfo() != null) {
+                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
+                        ShoppingHelper.saveCourseInfoToDB(currentCourseInfo);
+                        ToastUtils.showLong("加入购物车成功");
+                    } else {
+                        UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
+                    }
+                }
+            }
+        });
+
+        RxView.clicks(mBuyNowLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                if (currentCourseInfo != null) {
+                    if (UserInfoHelper.getUserInfo() != null) {
+                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
+                        showBuyDialog();
+                    } else {
+                        UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
+                    }
+                }
+
+            }
+        });
+
+
+        ViewUtil.switchActivity(NewsWeiKeDetailActivity.this, baseItemViewTextbookRead, 0);
+        ViewUtil.switchActivity(NewsWeiKeDetailActivity.this, baseItemViewWordValuable, 1);
+        ViewUtil.switchActivity(NewsWeiKeDetailActivity.this, baseItemViewBrainpowerAppraisal, 2);
+        ViewUtil.switchActivity(NewsWeiKeDetailActivity.this, baseItemViewScoreTutorship, 3);
+
     }
 
 
@@ -294,6 +317,9 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
                 mIsBuyOrVipLayout.setVisibility(View.GONE);
             } else {
                 mIsBuyOrVipLayout.setVisibility(View.VISIBLE);
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mSynchronizationTeachView.getLayoutParams();
+                layoutParams.bottomMargin = SizeUtils.dp2px(45);
+                mSynchronizationTeachView.setLayoutParams(layoutParams);
             }
 
         }
@@ -372,7 +398,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     private ArrayList<String> imageList = new ArrayList<>();
 
-
     private class JavascriptInterface {
 
         @android.webkit.JavascriptInterface
@@ -437,6 +462,8 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         bundle.putParcelable("courseInfo", currentCourseInfo);
         bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_SINGLE_WEIKE);
         VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, bundle);
+        MobclickAgent.onEvent(this, "weike_video", "视频微课学习");
+
     }
 
 

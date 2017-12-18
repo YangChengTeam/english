@@ -74,6 +74,7 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
                 Intent intent = new Intent(getActivity(), WeikeUnitActivity.class);
 
                 intent.putExtra("pid", mWeiKeCategoryItemAdapter.getData().get(position).getId());
+                intent.putExtra("type", mWeiKeCategoryItemAdapter.getData().get(position).getTypeId());
                 startActivity(intent);
             }
         });

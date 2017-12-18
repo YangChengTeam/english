@@ -172,6 +172,11 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true" />
 
+                <include
+                    android:id="@+id/view_synchronization_teach"
+                    layout="@layout/activity_synchronization_teach" />
+
+
             </LinearLayout>
         </ScrollView>
 

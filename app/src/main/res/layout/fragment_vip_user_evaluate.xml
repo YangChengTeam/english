@@ -18,11 +18,12 @@
                 android:background="#F5F5F5" />
 
             <ImageView
+                android:id="@+id/iv_user_evaluate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/vip_evulate_bg"
+                android:layout_marginBottom="48dp"
                 android:scaleType="fitStart"
-                android:layout_marginBottom="48dp"/>
+                android:src="@mipmap/vip_evulate_bg" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

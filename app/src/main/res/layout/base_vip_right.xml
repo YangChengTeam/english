@@ -35,6 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:vip_content="教材点读"
+                    app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_diandu" />
 
                 <com.yc.english.vip.views.fragments.BasePayItemView
@@ -43,6 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:vip_content="同步微课"
+                    app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_weike" />
 
                 <com.yc.english.vip.views.fragments.BasePayItemView
@@ -51,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:vip_content="vip专属教学"
+                    app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_teach" />
 
                 <com.yc.english.vip.views.fragments.BasePayItemView
@@ -59,6 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:vip_content="视频加速"
+                    app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_video" />
 
             </LinearLayout>
@@ -75,6 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:vip_content="无线建工会"
+                    app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_union" />
 
                 <com.yc.english.vip.views.fragments.BasePayItemView
@@ -83,6 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:vip_content="智能测评"
+                    app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_ceping" />
 
                 <com.yc.english.vip.views.fragments.BasePayItemView
@@ -91,6 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:vip_content="个性学习计划"
+                    app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_plan" />
 
                 <com.yc.english.vip.views.fragments.BasePayItemView
@@ -99,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:vip_content="课后作业辅导"
+                    app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_task_tutorship" />
             </LinearLayout>
 

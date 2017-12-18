@@ -16,6 +16,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.jakewharton.rxbinding.view.RxView;
+import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.StatusBarCompat;
@@ -169,6 +170,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                             }
                         } else {
                             UserInfoHelper.isGotoLogin(CoursePlayActivity.this);
+                            MobclickAgent.onEvent(CoursePlayActivity.this, "textbook_read", "教材点读");
                             return;
                         }
                     }

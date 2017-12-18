@@ -140,6 +140,6 @@ dependencies {
     compile project(':jiaozivideoplayer-lib')
     compile files('libs/glide-full-4.3.1.jar')
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-
+//    compile 'com.jph.takephoto:takephoto_library:4.0.3'
 
 }

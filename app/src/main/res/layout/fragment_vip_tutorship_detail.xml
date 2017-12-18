@@ -149,6 +149,7 @@
                 android:background="#F5F5F5" />
 
             <ImageView
+                android:id="@+id/iv_tutorship_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="48dp"

@@ -1,14 +1,22 @@
 package com.yc.english.setting.view.activitys;
 
 
+import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -21,16 +29,20 @@ import com.blankj.utilcode.util.SDCardUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.AvatarHelper;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.TaskUploadInfo;
+import com.yc.english.group.utils.PhotoUtils;
 import com.yc.english.setting.contract.CameraTaskContract;
 import com.yc.english.setting.presenter.CameraTaskPresenter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -48,6 +60,7 @@ import static android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE;
  */
 
 public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implements CameraTaskContract.View {
+
     @BindView(R.id.surfaceView)
     SurfaceView surfaceView;
     @BindView(R.id.rl_take_photo)
@@ -67,6 +80,9 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
     private Camera.Size mBestPreviewSize;
 
     private boolean mIsSurfaceReady;
+
+    public static final int REQUEST_CODE = 100;
+    private static final int ACTION_CROP = 200;
 
     @Override
     public void init() {
@@ -89,12 +105,9 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
         RxView.clicks(rlTaskAlbum).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-//                Intent intent = new Intent();
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                intent.setType("image/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
-//                intent.addCategory(Intent.CATEGORY_OPENABLE);
-//                startActivityForResult(intent, 1);
-                AvatarHelper.openAlbum(CameraTaskActivity.this);
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
         RxView.clicks(mIvSwitch).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -241,12 +254,37 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
         if (c != null) {
             c.stopPreview();
         }
-        Uri uri = data.getData();
-        if (uri != null) {
-            String path = uri.getPath();
-            File file = new File(path);
-            mPresenter.uploadFile(file, path, path.substring(path.lastIndexOf("/") + 1));
+        switch (requestCode) {
+            case REQUEST_CODE:
+                String imagePath = getImageAbsolutePath(CameraTaskActivity.this, data.getData());
+                File file = new File(imagePath);
+                Uri uri = Uri.fromFile(file);
+//                cropImage(uri);
+                mPresenter.uploadFile(file, imagePath, imagePath.substring(imagePath.lastIndexOf("/") + 1));
+                break;
+
+            case ACTION_CROP:
+//                getContentResolver().openInputStream(cropUri);
+                Uri cropUri = data.getData();
+                File file1 = new File(cropUri.getPath());
+                mPresenter.uploadFile(file1, cropUri.getPath(), "");
+
+                break;
         }
+
+
+//        Uri uri = data.getData();
+//        if (uri != null) {
+//            String path = uri.getPath();
+//            File file = new File(path);
+//            mPresenter.uploadFile(file, path, path.substring(path.lastIndexOf("/") + 1));
+//        } else {
+//            Bundle bundle = data.getExtras();
+//            Bitmap photo = null;
+//            if (bundle != null) {
+//                photo = bundle.getParcelable("data");
+//            }
+//        }
 
 
     }
@@ -440,5 +478,113 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
         }
     }
 
+    public void cropImage(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 200);
+        intent.putExtra("outputY", 200);
+        intent.putExtra("return-data", true);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true);
+        startActivityForResult(intent, ACTION_CROP);
+    }
+
+    public static String getImageAbsolutePath(Context context, Uri imageUri) {
+        if (context == null || imageUri == null)
+            return null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, imageUri)) {
+            if (isExternalStorageDocument(imageUri)) {
+                String docId = DocumentsContract.getDocumentId(imageUri);
+                String[] split = docId.split(":");
+                String type = split[0];
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+            } else if (isDownloadsDocument(imageUri)) {
+                String id = DocumentsContract.getDocumentId(imageUri);
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                return getDataColumn(context, contentUri, null, null);
+            } else if (isMediaDocument(imageUri)) {
+                String docId = DocumentsContract.getDocumentId(imageUri);
+                String[] split = docId.split(":");
+                String type = split[0];
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+                String selection = MediaStore.Images.Media._ID + "=?";
+                String[] selectionArgs = new String[]{split[1]};
+                return getDataColumn(context, contentUri, selection, selectionArgs);
+            }
+        } // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(imageUri.getScheme())) {
+            // Return the remote address
+            if (isGooglePhotosUri(imageUri))
+                return imageUri.getLastPathSegment();
+            return getDataColumn(context, imageUri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(imageUri.getScheme())) {
+            return imageUri.getPath();
+        }
+        return null;
+    }
+
+    public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+        Cursor cursor = null;
+        String column = MediaStore.Images.Media.DATA;
+        String[] projection = {column};
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is Google Photos.
+     */
+    public static boolean isGooglePhotosUri(Uri uri) {
+        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
 
 }
