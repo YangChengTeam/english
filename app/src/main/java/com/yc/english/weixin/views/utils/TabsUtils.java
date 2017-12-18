@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -122,6 +123,7 @@ public class TabsUtils {
             intelligentQuestionsFragments = new ArrayList<>();
             for (int i = 0; i < types.size(); i++) {
                 IntelligentQuestionsFragment intelligentQuestionsFragment = new IntelligentQuestionsFragment();
+                types.get(i).setActIndex(i);
                 intelligentQuestionsFragment.setQuestionInfo(types.get(i));
                 intelligentQuestionsFragments.add(intelligentQuestionsFragment);
             }
@@ -140,9 +142,9 @@ public class TabsUtils {
 
         @Override
         public void finishUpdate(ViewGroup container) {
-            try{
+            try {
                 super.finishUpdate(container);
-            } catch (NullPointerException nullPointerException){
+            } catch (NullPointerException nullPointerException) {
                 System.out.println("Catch the NullPointerException in FragmentPagerAdapter.finishUpdate");
             }
         }
@@ -157,6 +159,7 @@ public class TabsUtils {
             intelligentQuestionsFragments = new ArrayList<>();
             for (int i = 0; i < types.size(); i++) {
                 IntelligentInnerQuestionFragment intelligentQuestionsFragment = new IntelligentInnerQuestionFragment();
+                types.get(i).setFrgIndex(i);
                 intelligentQuestionsFragment.setQuestionInfo(types.get(i));
                 intelligentQuestionsFragments.add(intelligentQuestionsFragment);
             }
@@ -175,9 +178,9 @@ public class TabsUtils {
 
         @Override
         public void finishUpdate(ViewGroup container) {
-            try{
+            try {
                 super.finishUpdate(container);
-            } catch (NullPointerException nullPointerException){
+            } catch (NullPointerException nullPointerException) {
                 System.out.println("Catch the NullPointerException in FragmentPagerAdapter.finishUpdate");
             }
         }

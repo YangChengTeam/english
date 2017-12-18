@@ -15,7 +15,7 @@ import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 /**
  * Created by zhangkai on 2017/12/4.
  */
-class IntelligentOptionsAdapter(val questionInfo: QuestionInfoWrapper.QuestionInfo?, val isResult: Boolean) :
+class IntelligentOptionsAdapter(val questionInfo: QuestionInfoWrapper.QuestionInfo?, var isResult: Boolean) :
         BaseQuickAdapter<String,
                 BaseViewHolder>(R.layout
                 .intelligent_item_options) {

@@ -4,4 +4,6 @@
           android:layout_height="match_parent"
           android:gravity="center"
           android:orientation="vertical"
-          android:textSize="@dimen/font_big" />
+          android:textColor="@color/black_333"
+          android:textSize="@dimen/font_big"
+   />

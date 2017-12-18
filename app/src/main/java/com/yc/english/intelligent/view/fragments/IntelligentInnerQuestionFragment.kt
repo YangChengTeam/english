@@ -63,6 +63,8 @@ class IntelligentInnerQuestionFragment : BaseFragment<BasePresenter<BaseEngin, I
         if (IntelligentQuestionsActivity.getInstance()?.isResultIn ?: false) {
             mQuestionView.analysis(questionInfo?.answer, questionInfo?.analysis)
         }
+        adpater?.isResult = true
+        adpater?.notifyDataSetChanged()
     }
 
     override fun getLayoutId() = R.layout.intelligent_fragment_inner_question

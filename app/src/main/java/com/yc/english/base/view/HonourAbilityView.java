@@ -2,6 +2,7 @@ package com.yc.english.base.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -390,5 +391,15 @@ public class HonourAbilityView extends View {
         this.titleColors = titleColors;
         return this;
     }
+
+    public Bitmap getBitmap() {
+        Bitmap b = Bitmap.createBitmap(this.getLayoutParams().width, this.getLayoutParams().height, Bitmap.Config
+                .ARGB_8888);
+        Canvas c = new Canvas(b);
+        this.layout(this.getLeft(), this.getTop(), this.getRight(), this.getBottom());
+        this.draw(c);
+        return b;
+    }
+
 
 }

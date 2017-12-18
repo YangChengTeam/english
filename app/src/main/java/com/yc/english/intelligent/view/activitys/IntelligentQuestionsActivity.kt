@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Parcelable
 import android.support.v4.view.ViewPager
 import android.view.KeyEvent
+import android.view.View
+import android.view.ViewGroup
 import com.blankj.utilcode.util.SPUtils
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
@@ -19,6 +21,7 @@ import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentQuestionPresenter
 import com.yc.english.intelligent.utils.getLevel1QuestionInfo
 import com.yc.english.intelligent.view.fragments.IntelligentQuestionsFragment
+import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_activity_questions.*
@@ -46,6 +49,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
 
     override fun init() {
         mPresenter = IntelligentQuestionPresenter(this, this)
+        StatusBarCompat.light(this)
         StatusBarCompat.compat(this, mToolbarWarpper, mToolbarWarpper.mToolbar, mToolbarWarpper.mStatubar)
         RxView.clicks(mToolbarWarpper.mBackBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe {
             eixt()
@@ -53,12 +57,13 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
 
         unitId = intent.getIntExtra("unitId", 0)
         reportId = intent.getIntExtra("reportId", 0)
-
         type = intent.getStringExtra("type")
         isResultIn = intent.getBooleanExtra("isResultIn", false)
 
-        if (isResultIn) {
-            mToolbarWarpper.stopTime()
+
+        RxView.clicks(mSubmitBtn).throttleFirst(200, TimeUnit
+                .MILLISECONDS).subscribe {
+            goToResult()
         }
 
         mViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -68,9 +73,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
 
             override fun onPageSelected(i: Int) {
                 mToolbarWarpper.index = i + 1
-                for (j in 0..(mFragmentAdapter.count - 1)) {
-                    (mFragmentAdapter.getItem(j) as IntelligentQuestionsFragment).stop()
-                }
+                stop()
             }
 
             override fun onPageScrollStateChanged(i: Int) {
@@ -88,9 +91,9 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
     fun getResultKey(): String {
         var key = "result"
         if (unitId != 0) {
-            key += "-unitId${unitId}${type}"
+            key += "${UserInfoHelper.getUserInfo().uid}-unitId${unitId}${type}"
         } else {
-            key += "-reportId${reportId}${type}"
+            key += "${UserInfoHelper.getUserInfo().uid}-reportId${reportId}${type}"
         }
         return key
     }
@@ -98,9 +101,9 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
     fun getFinishTimeKey(): String {
         var key = "finish-time"
         if (unitId != 0) {
-            key += "-unitId${unitId}${type}"
+            key += "${UserInfoHelper.getUserInfo().uid}-unitId${unitId}${type}"
         } else {
-            key += "-reportId${reportId}${type}"
+            key += "${UserInfoHelper.getUserInfo().uid}-reportId${reportId}${type}"
         }
         return key
     }
@@ -108,9 +111,9 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
     fun getFinishKey(): String {
         var key = "finish"
         if (unitId != 0) {
-            key += "-unitId${unitId}${type}"
+            key += "${UserInfoHelper.getUserInfo().uid}-unitId${unitId}${type}"
         } else {
-            key += "-reportId${reportId}${type}"
+            key += "${UserInfoHelper.getUserInfo().uid}-reportId${reportId}${type}"
         }
         return key
     }
@@ -144,21 +147,34 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         (mFragmentAdapter?.getItem(actIndex) as IntelligentQuestionsFragment).next(frgIndex)
     }
 
+    private fun stop() {
+        if (mFragmentAdapter == null) return
+        for (j in 0..((mFragmentAdapter?.count ?: 0) - 1)) {
+            (mFragmentAdapter?.getItem(j) as IntelligentQuestionsFragment).stop()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stop()
+    }
+
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = arrayOf(Tag(Constant.RESULT_ANS)))
     fun reset(tag: String) {
         isHandIn = false
         isResultIn = true
         for (i in 0..((mFragmentAdapter?.count ?: 0) - 1)) {
-            (mFragmentAdapter.getItem(i) as IntelligentQuestionsFragment).next(0)
+            (mFragmentAdapter?.getItem(i) as IntelligentQuestionsFragment).next(0)
+            (mFragmentAdapter?.getItem(i) as IntelligentQuestionsFragment).showDescView()
         }
         mViewPager.setCurrentItem(0)
     }
 
 
-    lateinit var mFragmentAdapter: TabsUtils.IntelligentQuestionsFragmentAdapter
+    var mFragmentAdapter: TabsUtils.IntelligentQuestionsFragmentAdapter? = null
 
 
-    override fun showInfo(list: List<QuestionInfoWrapper.QuestionInfo>) {
+    override fun showInfo(list: List<QuestionInfoWrapper.QuestionInfo>, use_time: String?) {
         questionInfos = list
         mToolbarWarpper.total = list.size
         mToolbarWarpper.index = 1
@@ -169,21 +185,38 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         if (!isResultIn) {
             mToolbarWarpper.startTime()
         } else {
-            mToolbarWarpper.mTimeTextView.text = SPUtils.getInstance().getString(getFinishTimeKey(), "")
-            goToResult()
+            mToolbarWarpper.stopTime()
+            (mSubmitBtn.parent as ViewGroup).visibility = View.VISIBLE
+            mToolbarWarpper.mTimeTextView.text = use_time ?: SPUtils.getInstance().getString(getFinishTimeKey(), "")
         }
     }
 
     private fun goToResult() {
-        if (questionInfos == null) return
         isResultIn = true
         intent = Intent(this, IntelligentResultActivity::class.java)
         val infos = getLevel1QuestionInfo(questionInfos!!)
         intent.putParcelableArrayListExtra("questionInfos", infos as ArrayList<out Parcelable>)
-        intent.putExtra("unitId", unitId)
-        intent.putExtra("type", type)
         startActivity(intent)
     }
+
+    fun getMaxIndex(idx: Int): Int {
+        if (idx < 0) return 0
+        var count = 0
+        for (i in 0..(idx)) {
+            val questionInfo = questionInfos?.get(i)!!
+            count += questionInfo.count
+        }
+        return count
+    }
+
+    fun getTotalCount(): Int {
+        var count = 0
+        for (questionInfo in questionInfos!!) {
+            count += questionInfo.count
+        }
+        return count
+    }
+
 
     fun usedTime(): String {
         return mToolbarWarpper.mTimeTextView.text.toString()
@@ -209,6 +242,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         mStateView.showLoading(mViewPager)
     }
 
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             eixt()
@@ -219,7 +253,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
 
     private fun eixt() {
         if (isResultIn) {
-            goToResult()
+            finish()
             return
         }
         val alertDialog = AlertDialog(this)

@@ -20,6 +20,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -31,9 +32,28 @@
         </RelativeLayout>
 
         <WebView
+            android:visibility="gone"
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             ></WebView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:visibility="gone"
+            android:background="@color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:paddingBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </RelativeLayout>

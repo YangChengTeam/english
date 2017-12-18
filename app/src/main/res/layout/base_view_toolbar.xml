@@ -19,6 +19,7 @@
             android:layout_gravity="center"
             android:singleLine="true"
             android:text="@string/app_name"
+            android:layout_marginRight="60dp"
             android:textColor="@color/white"
             android:textSize="@dimen/font_large"/>
 

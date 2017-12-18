@@ -45,7 +45,7 @@ class IntelligentResultAdapter : BaseMultiItemQuickAdapter<QuestionInfoWrapper.Q
         }
 
         if (data.size - 1 == helper?.adapterPosition) {
-            RxBus.get().post(Constant.RESULT_IN, "${item?.id}$")
+            RxBus.get().post(Constant.RESULT_IN, "${item?.type}")
         }
     }
 }

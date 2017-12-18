@@ -28,6 +28,7 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
@@ -106,7 +107,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mToolbar.setMenuTitle(getString(R.string.share));
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitleColor(R.color.black_333333);
-
+        StatusBarCompat.light(this);
         startTime = System.currentTimeMillis();
 
         if (getIntent() != null) {

@@ -1,6 +1,7 @@
 package com.yc.english.intelligent.presenter
 
 import android.content.Context
+import android.util.Log
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference
 import com.blankj.utilcode.util.SPUtils
@@ -32,10 +33,6 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
 
     override fun loadData(forceUpdate: Boolean, showLoadingUI: Boolean) {
         if (!forceUpdate) return
-
-        if (!SPUtils.getInstance().getString("period", "").isEmpty()) {
-            getUnit("loadData")
-        }
     }
 
     @Subscribe(thread = EventThread.NEW_THREAD, tags = arrayOf(Tag(Constant.GET_UNIT)))
@@ -88,18 +85,9 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
         SPUtils.getInstance().put(IntelligentVGSelectPopupWindow.DEFAULT_GRADE_KEY, JSON.toJSONString(gradeInfo))
         gradeInfo.versionId = versionId
 
-        SimpleCacheUtils.readCache(mContext, "getUnit", object : SimpleCacheUtils.CacheRunnable() {
-            override fun run() {
-                val list = Gson().fromJson<List<UnitInfoWrapper.UnitInfo>>(json, object : TypeReference<List<UnitInfoWrapper.UnitInfo>>() {}.type)
-                if (list != null && list.size > 0) {
-                    showInfo(list)
-                }
-            }
-        })
         val subriction = mEngin.getUnit(gradeInfo).subscribe({
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK) {
-
                 if (it?.data?.list != null) {
                     SimpleCacheUtils.writeCache(mContext, "getUnit", JSON.toJSONString(it.data?.list ?: ""))
                     showInfo(it?.data?.list!!)
@@ -114,7 +102,7 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
         val types = arrayOfNulls<UnitInfoWrapper.UnitInfo>(list.size)
         var i = 0
         for (unitInfo in list) {
-            titles[i] = "Unit ${i + 1}"
+            titles[i] = unitInfo.simpleName
             types[i] = unitInfo
             i++
         }

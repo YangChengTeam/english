@@ -156,19 +156,19 @@ public class SharePopupWindow extends BasePopupWindow {
         String desc = "说说英语自营首款APP学英语软件上线了，涵盖市面所有主流英语教材，配套各种版本教科书（完全免费），让你随时随地就能通过手机打开书本，进行学习，单词记忆。还有各种趣味方式助你学英语。";
 
         if (mShareInfo != null) {
-            if(TextUtils.isEmpty(mShareInfo.getUrl())){
+            if (TextUtils.isEmpty(mShareInfo.getUrl())) {
                 mShareInfo.setUrl(url);
             }
-            if(TextUtils.isEmpty(mShareInfo.getTitle())){
-                mShareInfo.setUrl(title);
+            if (TextUtils.isEmpty(mShareInfo.getTitle())) {
+                mShareInfo.setTitle(title);
             }
-            if(TextUtils.isEmpty(mShareInfo.getDesp())){
-                mShareInfo.setUrl(desc);
+            if (TextUtils.isEmpty(mShareInfo.getDesp())) {
+                mShareInfo.setDesp(desc);
             }
             UMShareImpl.get().setCallback(mContext, umShareListener).shareUrl(mShareInfo.getTitle(), mShareInfo.getUrl(),
                     mShareInfo.getDesp(), R
-                    .drawable
-                    .share, getShareMedia(tag + ""));
+                            .drawable
+                            .share, getShareMedia(tag + ""));
         } else {
             UMShareImpl.get().setCallback(mContext, umShareListener).shareUrl(title, url, desc, R.drawable
                     .share, getShareMedia(tag + ""));

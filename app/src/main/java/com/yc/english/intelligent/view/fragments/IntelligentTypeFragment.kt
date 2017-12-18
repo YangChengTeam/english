@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.view.Gravity
 import com.blankj.subutil.util.ThreadPoolUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.jakewharton.rxbinding.view.RxView
 import com.kk.utils.UIUitls
@@ -75,6 +76,11 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
                 mInfoBg.setImageBitmap(bimap)
             }
         }
+
+        if (!SPUtils.getInstance().getString("period", "").isEmpty()) {
+            mPresenter.getUnit("loadData")
+        }
+
     }
 
     override fun hideStateView() {
@@ -85,14 +91,12 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    @MainThread
     override fun showTitle(title: String) {
         activity!!.runOnUiThread {
             mTitleTextView.text = title
         }
     }
 
-    @MainThread
     override fun showInfo(titles: Array<String?>, types: Array<UnitInfoWrapper.UnitInfo?>) {
         activity!!.runOnUiThread {
             mScrollIndicatorView.setAdapter(TabsUtils.MyAdapter(activity, titles, SizeUtils.dp2px(72f)))

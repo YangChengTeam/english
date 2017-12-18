@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yc.english.R
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
+import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView
 
 
@@ -23,11 +24,15 @@ class IntelligentPushAdpater : BaseQuickAdapter<UnitInfoWrapper.ComleteItemInfo,
         ("intelligent_push_type${item?.value}", "mipmap")))
         questionView?.mTitleTextView?.text = mContext.getString(getResourceId
         ("intelligents_type${item?.value}", "string"))
-        if(helper!!.adapterPosition % 2 == 0){
+        if (item?.isComplete == 1) {
+            questionView?.mTitleTextView?.text = fromHtml("${questionView?.mTitleTextView?.text}(<font " +
+                    "color='#FB4C30'>已完成</font>)")
+        }
+        if (helper!!.adapterPosition % 2 == 0) {
             (questionView!!.layoutParams as LinearLayout.LayoutParams).leftMargin = SizeUtils.dp2px(10f)
             (questionView!!.layoutParams as LinearLayout.LayoutParams).rightMargin = SizeUtils.dp2px(5f)
 
-        }else{
+        } else {
             (questionView!!.layoutParams as LinearLayout.LayoutParams).leftMargin = SizeUtils.dp2px(5f)
             (questionView!!.layoutParams as LinearLayout.LayoutParams).rightMargin = SizeUtils.dp2px(10f)
         }

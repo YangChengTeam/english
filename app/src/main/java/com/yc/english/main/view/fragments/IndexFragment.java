@@ -2,6 +2,7 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -169,7 +170,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 startActivity(intent);
             }
         });
-
         RxView.clicks(mWordImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -233,10 +233,10 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mExamImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-//                Intent intent = new Intent(getActivity(), UnionMainActivity.class);
-//                startActivity(intent);
-                //todo
-
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("title", "开学送大礼，免费领取英语学习神器");
+                intent.putExtra("url", "http://en.qqtn.com/Public/activity/3.html");
+                startActivity(intent);
             }
         });
 

@@ -392,6 +392,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 data.getGrammar() / 100f, data.getRead() / 100f, data.getWriting() / 100f});
     }
 
+
     private void restoreScoreData() {
         abilityView.setDatas(new float[]{0f, 0f, 0f, 0f, 0f, 0f});
     }

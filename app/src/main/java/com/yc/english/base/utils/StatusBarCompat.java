@@ -93,8 +93,13 @@ public final class StatusBarCompat {
                 mStatusBar.getLayoutParams().height = 0;
             }
         } else {
+
             if (mStatusBar != null) {
-                mStatusBar.getLayoutParams().height = activity.getStatusBarHeight();
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    mStatusBar.getLayoutParams().height = activity.getStatusBarHeight();
+                }else{
+                    mStatusBar.getLayoutParams().height = 0;
+                }
             }
 
             if (mToolBar != null) {
@@ -102,6 +107,5 @@ public final class StatusBarCompat {
                 activity.setToolbarTopMargin(mToolBar);
             }
         }
-
     }
 }
