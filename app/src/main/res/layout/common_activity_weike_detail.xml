@@ -172,53 +172,95 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true" />
 
-                <include
+
+                <LinearLayout
                     android:id="@+id/view_synchronization_teach"
-                    layout="@layout/activity_synchronization_teach" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:background="@color/buy_vip_bg_color">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="6dp"
+                            android:src="@mipmap/pay_left_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="9dp"
+                            android:text="@string/synchronization_teach"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <include layout="@layout/activity_synchronization_teach" />
+                </LinearLayout>
 
 
             </LinearLayout>
         </ScrollView>
 
+
         <LinearLayout
-            android:id="@+id/layout_is_buy_or_vip"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="45dp"
-            android:background="@color/white">
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_05"
+                android:background="@color/gray_ddd" />
 
             <LinearLayout
-                android:id="@+id/layout_add_to_cart"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:gravity="center">
+                android:id="@+id/layout_is_buy_or_vip"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="加入购物车"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_add_to_cart"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center">
 
-            <LinearLayout
-                android:id="@+id/layout_buy_now"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/buy_bg_color"
-                android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="加入购物车"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="立即购买"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                <LinearLayout
+                    android:id="@+id/layout_buy_now"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/buy_bg_color"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="立即购买"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
+
     </RelativeLayout>
 </LinearLayout>

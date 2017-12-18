@@ -1,6 +1,7 @@
 package com.yc.english.read.view.activitys;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,16 +19,19 @@ import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.news.utils.ViewUtil;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.contract.BookContract;
 import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.Constant;
 import com.yc.english.read.presenter.BookPresenter;
 import com.yc.english.read.view.adapter.ReadBookItemClickAdapter;
+import com.yc.english.vip.views.fragments.BasePayItemView;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -48,7 +52,14 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
     @BindView(R.id.ll_content)
     LinearLayout mContentLinearLayout;
 
-    ReadBookItemClickAdapter mItemAdapter;
+    @BindView(R.id.baseItemView_textbook_read)
+    BasePayItemView baseItemViewTextbookRead;
+    @BindView(R.id.baseItemView_word_valuable)
+    BasePayItemView baseItemViewWordValuable;
+    @BindView(R.id.baseItemView_brainpower_appraisal)
+    BasePayItemView baseItemViewBrainpowerAppraisal;
+    @BindView(R.id.baseItemView_score_tutorship)
+    BasePayItemView baseItemViewScoreTutorship;
 
     /**
      * 当前页码
@@ -58,6 +69,9 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
      * 每一页数据记录数
      */
     private int pageCount;
+    ReadBookItemClickAdapter mItemAdapter;
+
+    private boolean isRead = false;
 
     @Override
     public int getLayoutId() {
@@ -72,8 +86,12 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         String titleName;
         if (ReadApp.READ_COMMON_TYPE == 1) {
             titleName = getString(R.string.read_book_text);
+            baseItemViewTextbookRead.setContentAndIcon(getString(R.string.weike_every_day_text), R.mipmap.everyday_weike);
+            isRead = true;
         } else if (ReadApp.READ_COMMON_TYPE == 2) {
             titleName = getString(R.string.word_book_text);
+            baseItemViewWordValuable.setContentAndIcon(getString(R.string.weike_every_day_text), R.mipmap.everyday_weike);
+            isRead = false;
         } else {
             titleName = getString(R.string.word_game_text);
         }
@@ -85,6 +103,13 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         mItemAdapter = new ReadBookItemClickAdapter(this, null);
         mBookRecyclerView.setAdapter(mItemAdapter);
 
+
+        initListener();
+
+
+    }
+
+    private void initListener() {
         mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -105,7 +130,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
         mItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view,final int position) {
+            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 final AlertDialog alertDialog = new AlertDialog(BookActivity.this);
                 alertDialog.setDesc("确认删除该教材？");
                 alertDialog.setOnClickListener(new View.OnClickListener() {
@@ -120,8 +145,19 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
                 return false;
             }
         });
+        if (isRead) {
+            ViewUtil.switchActivity(this, baseItemViewTextbookRead, 4);
+            ViewUtil.switchActivity(this, baseItemViewWordValuable, 1);
+        } else {
+            ViewUtil.switchActivity(this, baseItemViewTextbookRead, 0);
+            ViewUtil.switchActivity(this, baseItemViewWordValuable, 4);
+        }
+        ViewUtil.switchActivity(this, baseItemViewBrainpowerAppraisal, 2);
+        ViewUtil.switchActivity(this, baseItemViewScoreTutorship, 3);
+
 
     }
+
 
     //页面跳转
     public void toUnitActivity(int position, Class cls) {
@@ -192,5 +228,12 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
     @Override
     public void showLoading() {
         mLoadingStateView.showLoading(mContentLinearLayout);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

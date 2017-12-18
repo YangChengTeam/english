@@ -87,7 +87,7 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
                     if (list.size() == 0) {
                         mNumLayout.setVisibility(View.GONE);
                     } else {
-                        mNumLayout.setVisibility(View.VISIBLE);
+                        mNumLayout.setVisibility(View.GONE);
                     }
                 }
                 mCartNumTextView.setText(list.size() + "");
@@ -99,7 +99,6 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
         }
     }
 
-    
 
     @Override
     public void showLoadingDialog(String msg) {
@@ -110,7 +109,6 @@ public class CourseTypeFragment extends BaseFragment<OrderPresenter> implements 
     public void dismissLoadingDialog() {
         ((BaseActivity) getActivity()).dismissLoadingDialog();
     }
-
 
 
     @Override

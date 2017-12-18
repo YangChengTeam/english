@@ -84,9 +84,8 @@ public class GroupCommonClassActivity extends FullScreenActivity<UnionCommonList
             @Override
             public void onJoin(ClassInfo classInfo) {
 
-
                 if (!UserInfoHelper.isGotoLogin(GroupCommonClassActivity.this)) {
-                    if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
+                    if (UserInfoHelper.getUserInfo().getIsVip() == 1 || UserInfoHelper.getUserInfo().getIsVip() == 2) {
                         int result = SPUtils.getInstance().getInt(classInfo.getClass_id() + UserInfoHelper.getUserInfo().getUid());
                         if (result == 1) {
                             setMode(classInfo);
