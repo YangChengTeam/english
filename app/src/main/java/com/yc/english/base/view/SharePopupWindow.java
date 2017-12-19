@@ -149,6 +149,9 @@ public class SharePopupWindow extends BasePopupWindow {
         return SHARE_MEDIA.SINA;
     }
 
+    public UMShareImpl getUMShareImpl(){
+        return  UMShareImpl.get().setCallback(mContext, umShareListener);
+    }
 
     private void shareInfo(int tag) {
         String title = "说说英语APP上线啦！随时随地想学就学";

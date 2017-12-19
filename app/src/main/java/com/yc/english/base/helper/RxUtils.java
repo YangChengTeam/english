@@ -1,16 +1,10 @@
 package com.yc.english.base.helper;
 
 import android.content.Context;
-import android.text.TextUtils;
 
-import com.alibaba.fastjson.JSON;
-import com.blankj.subutil.util.ThreadPoolUtils;
 import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.kk.utils.PathUtils;
-import com.kk.utils.UIUitls;
 import com.umeng.socialize.sina.helper.MD5;
-import com.yc.english.main.model.domain.IndexInfo;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,13 +13,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.Callable;
-
-import javax.xml.parsers.SAXParser;
 
 import rx.Observable;
-import rx.Scheduler;
-import rx.Single;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -49,10 +38,9 @@ public class RxUtils {
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.connect();
 
-
                     String name = MD5.hexdigest(urlStr);
                     if (urlStr.lastIndexOf('/') != -1) {
-                        name = urlStr.substring(urlStr.lastIndexOf('/'));
+                        name += urlStr.substring(urlStr.lastIndexOf('/') + 1);
                     }
 
                     file = new File(PathUtils.makeDir(context, "files"), name);
@@ -79,8 +67,6 @@ public class RxUtils {
             }
         }).subscribeOn(Schedulers.io());
     }
-
-
 
 
 }

@@ -17,6 +17,7 @@ public class ShareInfo {
     }
 
     public class INFO {
+        private int type = 0;
         private String title;
         private String desp;
 
@@ -38,8 +39,6 @@ public class ShareInfo {
         public void setTitle(String title) {
             this.title = title;
         }
-
-
 
         public String getImg() {
             return img;

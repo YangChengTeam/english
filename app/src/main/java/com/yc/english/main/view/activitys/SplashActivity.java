@@ -24,7 +24,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @BindView(R.id.status_bar)
     View mStatusBar;
 
-    private static final int Time = 2000;
+    private static final int Time = 1000;
 
     @Override
     public void init() {

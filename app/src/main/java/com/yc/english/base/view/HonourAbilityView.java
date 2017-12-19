@@ -392,14 +392,4 @@ public class HonourAbilityView extends View {
         return this;
     }
 
-    public Bitmap getBitmap() {
-        Bitmap b = Bitmap.createBitmap(this.getLayoutParams().width, this.getLayoutParams().height, Bitmap.Config
-                .ARGB_8888);
-        Canvas c = new Canvas(b);
-        this.layout(this.getLeft(), this.getTop(), this.getRight(), this.getBottom());
-        this.draw(c);
-        return b;
-    }
-
-
 }
