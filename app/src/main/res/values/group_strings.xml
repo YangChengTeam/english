@@ -98,6 +98,8 @@
     <string name="vip_equities">VIP会员</string>
     <string name="promptly_open">立即开通</string>
     <string name="vip_right_introduce">VIP会员及普通会员服务协议规则</string>
+    <string name="study_introduce">学习保服务协议规则</string>
+
 
 
     <string name="open_vip">开通会员</string>
@@ -111,6 +113,8 @@
     <string name="original_price">原价%1$s元</string>
     <string name="vip_end_time">%1$s 到期</string>
     <string name="synchronization_teach">同步学习</string>
+    <string name="synchronization_weike">同步微课</string>
+    <string name="textbook_read">教材点读</string>
 
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>

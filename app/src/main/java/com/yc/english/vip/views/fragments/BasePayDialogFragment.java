@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -39,7 +40,6 @@ import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.presenter.VipBuyPresenter;
 import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.vip.utils.VipInfoHelper;
-import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +47,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.functions.Action1;
 
 /**
@@ -60,10 +62,13 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     ViewPager mViewPager;
     @BindView(R.id.btn_pay)
     Button btnPay;
+    @BindView(R.id.tv_right_introduce)
+    TextView tvRightIntroduce;
+    Unbinder unbinder;
 
     private List<String> mTitles = new ArrayList<>();
-    private int goodsType;
-    private CourseInfo courseInfo;
+    private int goodsType = GoodsType.TYPE_SVIP;
+
     private BaseVipPayFragment currentFragment;
 
     private GoodInfo mGoodInfo;
@@ -90,18 +95,18 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 mTabLayout.setVisibility(View.GONE);
                 window.setLayout(ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight() * 3 / 5);
 
-            } else if (goodsType == GoodsType.TYPE_SINGLE_WEIKE || goodsType == GoodsType.TYPE_SINGLE_DIANDU) {
+            } else if (goodsType == GoodsType.TYPE_SINGLE_WEIKE) {
                 //显示三项
                 mTitles.add(getString(R.string.member));
-                mTitles.add(getString(R.string.sigle_buy));
-                if (bundle.getParcelable("courseInfo") != null) {
-                    courseInfo = bundle.getParcelable("courseInfo");
-                }
+                mTitles.add(getString(R.string.synchronization_weike));
+            } else if (goodsType == GoodsType.TYPE_SINGLE_DIANDU) {
+                mTitles.add(getString(R.string.member));
+                mTitles.add(getString(R.string.textbook_read));
             }
         } else {
             mTitles.add(getString(R.string.member));
         }
-
+        setPayTitle(0);
 
         mViewPager.setAdapter(new MyPagerAdapter(getChildFragmentManager(), mTitles));
         mViewPager.setOffscreenPageLimit(mTitles.size());
@@ -160,6 +165,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 }
                 currentPosition = position;
                 currentFragment.setOnVipClickListener(BasePayDialogFragment.this);
+                setPayTitle(position);
             }
 
             @Override
@@ -206,11 +212,14 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
             if (goodInfoWrapper.getVip() != null && goodInfoWrapper.getVip().size() > 0)
                 mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getVip().get(0);
         } else if (position == 2) {
-            mGoodInfo = new GoodInfo();
-            if (courseInfo != null) {
-                mGoodInfo.setId(courseInfo.getGoodId());
-                mGoodInfo.setPay_price(courseInfo.getPayPrice() + "");
-                mGoodInfo.setName("商品购买");
+            if (goodsType == GoodsType.TYPE_SINGLE_DIANDU) {
+                if (goodInfoWrapper.getDiandu() != null && goodInfoWrapper.getDiandu().size() > 0) {
+                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getDiandu().get(0);
+                }
+            } else if (goodsType == GoodsType.TYPE_SINGLE_WEIKE) {
+                if (goodInfoWrapper.getWeike() != null && goodInfoWrapper.getWeike().size() > 0) {
+                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getWeike().get(0);
+                }
             }
         }
 
@@ -242,13 +251,8 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     @Override
     public void onVipClick(GoodInfo goodInfo, String payWayName, int type) {
         mPayWayName = payWayName;
-        switch (type) {
-            case GoodsType.TYPE_SVIP:
-            case GoodsType.TYPE_GENERAL_VIP:
-                mGoodInfo = goodInfo;
-                break;
 
-        }
+        mGoodInfo = goodInfo;
 
         LogUtils.e(mGoodInfo.getPay_price() + "---" + payWayName);
     }
@@ -288,7 +292,6 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 if (singleFragment == null) {
                     singleFragment = new BaseVipPayFragment();
                     singleFragment.setType(goodsType);
-                    singleFragment.setCourserInfo(courseInfo);
                 }
                 return singleFragment;
             }
@@ -368,6 +371,21 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 MobclickAgent.onEvent(getActivity(), "single_buy", "单次购买");
                 break;
         }
+    }
+
+    private void setPayTitle(int position) {
+        switch (position) {
+            case 0:
+                btnPay.setText("立即开通(仅限人教版用户)");
+                tvRightIntroduce.setText(getString(R.string.study_introduce));
+                break;
+            case 1:
+            case 2:
+                btnPay.setText("立即开通");
+                tvRightIntroduce.setText(getString(R.string.vip_right_introduce));
+                break;
+        }
+
     }
 
 }

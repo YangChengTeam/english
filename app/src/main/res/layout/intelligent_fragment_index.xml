@@ -64,13 +64,14 @@
                     android:layout_width="10dp"
                     android:layout_height="match_parent"></View>
 
+
                 <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
-                    android:id="@+id/mIntelligentType3"
+                    android:id="@+id/mIntelligentType4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    gb:src="@mipmap/intelligent_type3"
-                    gb:text="@string/intelligents_type3"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+                    gb:src="@mipmap/intelligent_type4"
+                    gb:text="@string/intelligents_type4"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
 
                 <View
                     android:layout_width="10dp"
@@ -88,12 +89,12 @@
                     android:layout_height="match_parent"></View>
 
                 <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
-                    android:id="@+id/mIntelligentType4"
+                    android:id="@+id/mIntelligentType3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    gb:src="@mipmap/intelligent_type4"
-                    gb:text="@string/intelligents_type4"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+                    gb:src="@mipmap/intelligent_type3"
+                    gb:text="@string/intelligents_type3"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
 
                 <View
                     android:layout_width="10dp"

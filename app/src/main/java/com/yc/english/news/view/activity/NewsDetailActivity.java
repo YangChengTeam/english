@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -28,6 +29,7 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
@@ -40,10 +42,12 @@ import com.yc.english.news.adapter.NewsDetailAdapter;
 import com.yc.english.news.bean.CourseInfoWrapper;
 import com.yc.english.news.contract.NewsDetailContract;
 import com.yc.english.news.presenter.NewsDetailPresenter;
+import com.yc.english.news.utils.ViewUtil;
 import com.yc.english.news.view.widget.MediaPlayerView;
 import com.yc.english.news.view.widget.NewsScrollView;
 import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.utils.VipDialogHelper;
+import com.yc.english.vip.views.fragments.BasePayItemView;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.text.SimpleDateFormat;
@@ -52,6 +56,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 import rx.functions.Action1;
@@ -89,6 +94,14 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     TextView mTextViewFrom;
     @BindView(R.id.fl_player)
     FrameLayout flPlayer;
+    @BindView(R.id.baseItemView_textbook_read)
+    BasePayItemView baseItemViewTextbookRead;
+    @BindView(R.id.baseItemView_word_valuable)
+    BasePayItemView baseItemViewWordValuable;
+    @BindView(R.id.baseItemView_brainpower_appraisal)
+    BasePayItemView baseItemViewBrainpowerAppraisal;
+    @BindView(R.id.baseItemView_score_tutorship)
+    BasePayItemView baseItemViewScoreTutorship;
 
 
     private NewsDetailAdapter newsDetailAdapter;
@@ -106,7 +119,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mToolbar.setMenuTitle(getString(R.string.share));
         mToolbar.showNavigationIcon();
         mToolbar.setMenuTitleColor(R.color.black_333333);
-
+        StatusBarCompat.light(this);
         startTime = System.currentTimeMillis();
 
         if (getIntent() != null) {
@@ -175,6 +188,11 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
                 }
             }
         });
+
+        ViewUtil.switchActivity(NewsDetailActivity.this, baseItemViewTextbookRead, 0);
+        ViewUtil.switchActivity(NewsDetailActivity.this, baseItemViewWordValuable, 1);
+        ViewUtil.switchActivity(NewsDetailActivity.this, baseItemViewBrainpowerAppraisal, 2);
+        ViewUtil.switchActivity(NewsDetailActivity.this, baseItemViewScoreTutorship, 3);
     }
 
 
@@ -286,7 +304,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
         mJCVideoPlayer.tinyBackImageView.setVisibility(View.GONE);
         mJCVideoPlayer.batteryLevel.setVisibility(View.GONE);
-        
+
 
         if (judgeVip()) {
             if (NetworkUtils.getNetworkType() == NetworkUtils.NetworkType.NETWORK_WIFI)
@@ -403,7 +421,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     }
 
     private ArrayList<String> imageList = new ArrayList<>();
-
 
 
     private class JavascriptInterface {

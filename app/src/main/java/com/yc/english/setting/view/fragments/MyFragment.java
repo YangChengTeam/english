@@ -276,22 +276,18 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             }
         });
 
-        RxView.clicks(mIvShare).throttleFirst(200,TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mIvShare).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 final SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
                 sharePopupWindow.setOnShareItemClickListener(new SharePopupWindow.OnShareItemClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        sharePopupWindow.ge.shareImage("我的个性学习", ImageUtils.view2Bitmap(mContentView), sharePopupWindow
-//                                .getShareMedia(it
-//                                        .getTag().toString()))
-//                        sharePopupWindow.setOnShareItemClickListener {
-//                            sharePopupWindow.show()
-//                        }
+                        sharePopupWindow.getUMShareImpl().shareImage("个性学习", ImageUtils.view2Bitmap(abilityView), sharePopupWindow.getShareMedia((view.getTag() + "")));
+//
                     }
                 });
-
+                sharePopupWindow.show();
 
             }
         });
@@ -414,6 +410,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         abilityView.setDatas(new float[]{data.getVocabulary() / 100f, data.getOracy() / 100f, data.getHearing() / 100f,
                 data.getGrammar() / 100f, data.getRead() / 100f, data.getWriting() / 100f});
     }
+
 
     private void restoreScoreData() {
         abilityView.setDatas(new float[]{0f, 0f, 0f, 0f, 0f, 0f});

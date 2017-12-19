@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_dialog_progress.xml",
         "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_dialog_progress.xml"
     },
@@ -22,5 +23,29 @@
     {
         "merged": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_layout_clarity.xml",
         "source": "D:\\AndroidStudioProjects\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_layout_clarity.xml"
+=======
+        "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_layout_standard.xml",
+        "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_layout_standard.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_layout_clarity_item.xml",
+        "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_layout_clarity_item.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_dialog_brightness.xml",
+        "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_dialog_brightness.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_dialog_volume.xml",
+        "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_dialog_volume.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_dialog_progress.xml",
+        "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_dialog_progress.xml"
+    },
+    {
+        "merged": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\jz_layout_clarity.xml",
+        "source": "E:\\zdh_git_workspace\\english\\jiaozivideoplayer-lib\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_layout_clarity.xml"
+>>>>>>> c17bd7f1819ff620d1d40a5b8c7f2ec77fc66fb6
     }
 ]

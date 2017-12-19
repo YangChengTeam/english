@@ -861,7 +861,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
 
     @Override
-    public void showInfo(@NotNull List<QuestionInfoWrapper.QuestionInfo> list) {
+    public void showInfo(@NotNull List<QuestionInfoWrapper.QuestionInfo> list, String usetime) {
 
         List<QuestionInfoBean> tempList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {

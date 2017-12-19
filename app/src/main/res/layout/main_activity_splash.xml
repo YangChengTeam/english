@@ -13,15 +13,6 @@
         android:src="@mipmap/splash_bg"
         />
 
-    <ImageView
-        android:id="@+id/iv_splash_logo"
-        android:layout_width="80dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp"
-        android:src="@mipmap/splash_logo"
-        />
-
     <View
         android:id="@+id/status_bar"
         android:layout_width="match_parent"

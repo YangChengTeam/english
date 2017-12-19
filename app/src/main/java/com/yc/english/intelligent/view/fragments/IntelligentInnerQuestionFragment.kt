@@ -43,7 +43,7 @@ class IntelligentInnerQuestionFragment : BaseFragment<BasePresenter<BaseEngin, I
 
         adpater?.onItemClickListener = object : BaseQuickAdapter.OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-                if (IntelligentQuestionsActivity.getInstance()?.isResultIn ?: true) return
+                if (IntelligentQuestionsActivity.getInstance()?.isResultIn ?: false) return
                 questionInfo?.userAnswer = (65 + position).toChar().toString()
                 adapter?.notifyDataSetChanged()
                 SPUtils.getInstance().put("userAnswer${questionInfo?.id}", questionInfo?.userAnswer ?: "")
@@ -62,7 +62,10 @@ class IntelligentInnerQuestionFragment : BaseFragment<BasePresenter<BaseEngin, I
     fun showAns(tag: String) {
         if (IntelligentQuestionsActivity.getInstance()?.isResultIn ?: false) {
             mQuestionView.analysis(questionInfo?.answer, questionInfo?.analysis)
+            adpater?.isResult = true
         }
+
+        adpater?.notifyDataSetChanged()
     }
 
     override fun getLayoutId() = R.layout.intelligent_fragment_inner_question

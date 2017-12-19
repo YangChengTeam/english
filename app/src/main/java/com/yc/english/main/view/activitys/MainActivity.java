@@ -107,12 +107,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             }
         });
 
-        if (getIntent().getBooleanExtra("appraisal", false)) {
-            goToIntelligent();
-        }
-        if (getIntent().getBooleanExtra("weike", false)) {
-            goToTask();
-        }
+
     }
 
     public void goToTask() {
@@ -187,6 +182,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            startActivity(new Intent(this, MainActivity.class));
             final AlertDialog alertDialog = new AlertDialog(this);
             alertDialog.setDesc("确认退出说说英语？");
             alertDialog.setOnClickListener(new View.OnClickListener() {
@@ -203,5 +199,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent.getBooleanExtra("appraisal", false)) {
+            goToIntelligent();
+        }
+        if (intent.getBooleanExtra("weike", false)) {
+            goToTask();
+        }
+    }
 
 }

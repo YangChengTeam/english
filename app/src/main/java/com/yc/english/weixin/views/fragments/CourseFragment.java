@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -68,6 +69,8 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
         mWeiKeCategoryItemAdapter = new WeiKeCategoryItemAdapter(null);
         mCourseRecyclerView.setAdapter(mWeiKeCategoryItemAdapter);
 
+        View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.course_header_view, null);
+        mWeiKeCategoryItemAdapter.addHeaderView(headerView);
         mWeiKeCategoryItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

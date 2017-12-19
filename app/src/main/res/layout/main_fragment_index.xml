@@ -329,14 +329,13 @@
                 android:layout_height="1px"
                 android:background="@color/gray_ddd"></View>
 
-
             <ImageView
-                android:id="@+id/iv_ad"
+                android:id="@+id/iv_exam"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="7dp"
                 android:scaleType="fitXY"
-                android:src="@mipmap/index_ad"/>
+                android:src="@mipmap/index_exam"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -406,12 +405,12 @@
                 android:background="@color/gray_ddd"></View>
 
             <ImageView
-                android:id="@+id/iv_exam"
+                android:id="@+id/iv_ad"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="7dp"
                 android:scaleType="fitXY"
-                android:src="@mipmap/index_exam"/>
+                android:src="@mipmap/index_ad"/>
         </LinearLayout>
     </com.yc.english.base.view.MyScrollview>
     <!--</android.support.v4.widget.SwipeRefreshLayout>-->

@@ -20,7 +20,7 @@ open class IntelligentHandInPresenter : BasePresenter<IntelligentHandInEngin,
 
     }
 
-    fun submitAnswers(questionInfoList: List<QuestionInfoWrapper.QuestionInfo>) {
+    fun submitAnswers(questionInfoList: List<QuestionInfoWrapper.QuestionInfo>, use_time: String) {
         mView.showLoadingDialog("正在提交...")
         var answersList = "["
         for (i in 0..(questionInfoList.size - 1)) {
@@ -34,7 +34,7 @@ open class IntelligentHandInPresenter : BasePresenter<IntelligentHandInEngin,
             }
         }
         answersList += "]"
-        mEngin.submitAnwsers(answersList).subscribe({
+        mEngin.submitAnwsers(answersList, use_time).subscribe({
             mView.dismissLoadingDialog()
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK) {

@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
 
 class QuestionInfoWrapper {
     var list: List<QuestionInfo>? = null
+    var use_time: String? = ""
 
     class QuestionInfo() : MultiItemEntity, Parcelable {
         override fun writeToParcel(dest: Parcel?, flags: Int) {
@@ -48,6 +49,7 @@ class QuestionInfoWrapper {
         var userAnswer: String? = null
         var options: Option? = null
         var data: List<QuestionInfo>? = null
+        var example: String = ""
         var actIndex: Int = 0
         var frgIndex: Int = 0
 

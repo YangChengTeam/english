@@ -71,9 +71,6 @@ public class VipScoreTutorshipActivity extends BaseActivity {
     @Override
     public void init() {
 
-//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-//
-//        }
 
         StatusBarCompat.compat(this, mToolbarWarpper, toolbar);
 

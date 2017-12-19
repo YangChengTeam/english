@@ -5,8 +5,10 @@ import android.support.v4.view.ViewPager
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
-import android.view.ViewTreeObserver
 import com.blankj.utilcode.util.SizeUtils
+import com.hwangjr.rxbus.annotation.Subscribe
+import com.hwangjr.rxbus.annotation.Tag
+import com.hwangjr.rxbus.thread.EventThread
 import com.jakewharton.rxbinding.view.RxView
 import com.yc.english.R
 import com.yc.english.base.model.BaseEngin
@@ -17,6 +19,7 @@ import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.intelligent.view.activitys.IntelligentQuestionDescPopupWindow
 import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
+import com.yc.english.main.model.domain.Constant
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_fragment_questions.*
 import java.util.concurrent.TimeUnit
@@ -37,8 +40,8 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
         mQestionView.text = questionInfo?.title
         mQestionView.webview = questionInfo?.desc
         mQestionView.media = questionInfo?.voiceUrl
-
         var data: List<QuestionInfoWrapper.QuestionInfo>
+
         if (questionInfo?.data != null && questionInfo?.data!!.size > 1) {
             mSmallIndexRelativeLayout.visibility = View.VISIBLE
             data = questionInfo?.data!!
@@ -46,17 +49,6 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
             mSmallIndexRelativeLayout.visibility = View.GONE
             data = arrayListOf(questionInfo ?: QuestionInfoWrapper.QuestionInfo())
         }
-
-        mAppBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-
-            if (TextUtils.isEmpty(questionInfo?.desc ?: "")) return@OnOffsetChangedListener
-
-            if (appBarLayout.getBottom() <= SizeUtils.dp2px(60f)) {
-                mViewDescBtn.visibility = View.VISIBLE
-            } else {
-                mViewDescBtn.visibility = View.GONE
-            }
-        })
 
         mFragmentAdapter = TabsUtils.IntelligentInnerQuestionsFragmentAdapter(childFragmentManager, data)
         mViewPager.setAdapter(mFragmentAdapter)
@@ -82,14 +74,45 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
 
         RxView.clicks(mViewDescBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe {
             val ppw = IntelligentQuestionDescPopupWindow(activity!!)
-            ppw.loadHtml(questionInfo?.desc ?: "")
+            if (questionInfo?.example != "") {
+                ppw.loadHtml(questionInfo?.example ?: "", 1)
+            } else if (questionInfo?.voiceText != "") {
+                ppw.loadHtml(questionInfo?.voiceText ?: "", 2)
+            }
             ppw.show(mRootView, Gravity.BOTTOM)
         }
+
+        showDescView()
+
     }
 
-    var index: Int = 1
+    fun showDescView(){
+        if ((!TextUtils.isEmpty(questionInfo?.example) || !TextUtils.isEmpty(questionInfo?.voiceText)) &&
+                IntelligentQuestionsActivity
+                        .getInstance()?.isResultIn ?: false) {
+            if (questionInfo?.type == "hearing") {
+                mViewDescTextView.text = "原文"
+            } else if (questionInfo?.type == "writing") {
+                mViewDescTextView.text = "范文"
+            }
+            mViewDescBtn.visibility = View.VISIBLE
+
+        } else {
+            mViewDescBtn.visibility = View.GONE
+        }
+
+    }
+
+    var index: Int = 0
         set(value) {
-            mIndexTextView.text = fromHtml("<font color=#FB4C30>${value}</font>/${mViewPager.adapter?.count ?: 0}")
+            if (IntelligentQuestionsActivity.getInstance()?.type.equals("hearing")) {
+                val pindex = questionInfo?.actIndex ?: 0
+                val maxIndex = IntelligentQuestionsActivity.getInstance()?.getMaxIndex(pindex - 1)
+                val count = IntelligentQuestionsActivity.getInstance()?.getTotalCount()
+                mIndexTextView.text = fromHtml("<font color=#FB4C30>${maxIndex?.plus(value)}</font>/${count}")
+            } else {
+                mIndexTextView.text = fromHtml("<font color=#FB4C30>${value}</font>/${mViewPager.adapter?.count ?: 0}")
+            }
             field = value
         }
 
@@ -101,14 +124,17 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
         mViewPager.setCurrentItem(index)
     }
 
+
     fun stop() {
-        if(mQestionView.mDescAudioPlayerView.visibility == View.VISIBLE)
-         mQestionView.mDescAudioPlayerView.stop()
+        if (mQestionView.mDescAudioPlayerView.visibility == View.VISIBLE)
+            mQestionView.mDescAudioPlayerView.stop()
     }
 
     fun next(index: Int) {
         mViewPager.setCurrentItem(index)
     }
+
+
 
 
     override fun getLayoutId() = R.layout.intelligent_fragment_questions
