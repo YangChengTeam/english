@@ -64,7 +64,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     Button btnPay;
     @BindView(R.id.tv_right_introduce)
     TextView tvRightIntroduce;
-    Unbinder unbinder;
+
 
     private List<String> mTitles = new ArrayList<>();
     private int goodsType = GoodsType.TYPE_SVIP;
@@ -378,11 +378,12 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
             case 0:
                 btnPay.setText("立即开通(仅限人教版用户)");
                 tvRightIntroduce.setText(getString(R.string.study_introduce));
+                tvRightIntroduce.setVisibility(View.VISIBLE);
                 break;
             case 1:
             case 2:
                 btnPay.setText("立即开通");
-                tvRightIntroduce.setText(getString(R.string.vip_right_introduce));
+                tvRightIntroduce.setVisibility(View.GONE);
                 break;
         }
 

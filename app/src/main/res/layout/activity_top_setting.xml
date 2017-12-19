@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
-                    android:text="每天十分钟,分数提高二十分"
+                    android:text="每天十分钟,提高二十分"
                     android:textColor="@color/black_333"
                     android:textSize="16dp" />
 
