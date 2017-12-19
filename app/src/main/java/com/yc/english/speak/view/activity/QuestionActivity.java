@@ -98,7 +98,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
     LinearLayoutManager mLinearLayoutManager;
 
-    private int lastPosition = 1;
+    private int lastPosition = -1;
 
     private boolean isPlay;//播放点读
 
@@ -187,7 +187,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
     @Override
     public void init() {
-        mToolbar.setTitle("说英语");
+        mToolbar.setTitle("口语练习");
         mToolbar.showNavigationIcon();
         mToolbar.setTitleColor(ContextCompat.getColor(this, R.color.white));
         mTts = SpeechUtils.getTts(this);
@@ -196,6 +196,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         if (intent.getExtras() != null) {
             Bundle bundle = intent.getExtras();
             unitId = bundle.getInt("unitId", 0);
+            reportId = bundle.getInt("reportId", 0);
             type = bundle.getString("type", "");
             isResultIn = bundle.getBoolean("isResultIn", false);
         }
@@ -215,7 +216,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                 }
             }
         } else {
-            mCommitLayout.setVisibility(View.VISIBLE);
+            //mCommitLayout.setVisibility(View.VISIBLE);
         }
 
         mPresenter = new IntelligentQuestionPresenter(this, this);
@@ -227,7 +228,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mListenEnglishRecyclerView.setAdapter(mQuestionItemAdapter);
 
         View footView = new View(this);
-        footView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,SizeUtils.dp2px(48)));
+        footView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, SizeUtils.dp2px(48)));
         mQuestionItemAdapter.setFooterView(footView);
 
         //mQuestionItemAdapter.setFooterView()
@@ -246,6 +247,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         RxView.clicks(mCommitLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+
                 showLoadingDialog("正在提交");
 
                 if (mQuestionItemAdapter.getData() != null && mQuestionItemAdapter.getData().size() > 0) {
@@ -298,6 +300,10 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                     return;
                 }*/
 
+                if(isTape || isPlayTape || isPlay){
+                    return;
+                }
+
                 progress = 0;
                 playNum = 0;
                 playCount = 0;
@@ -309,10 +315,12 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             }
         });
 
+
         mQuestionItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                lastPosition = position;
+                LogUtils.e("position--->" + position);
+
                 if (view.getId() == R.id.iv_speak_tape && !isTape && !isPlayTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
                     if (currentView != null) {
@@ -388,6 +396,8 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                     //停止播放点读
                     stopPlay();
                 }
+
+                lastPosition = position;
 
                 return false;
             }
@@ -720,6 +730,18 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         if (mIat != null) {
             mIat.stopListening();
         }
+
+        boolean isFlag = true;
+        for (int i = 1; i < mQuestionItemAdapter.getData().size(); i++) {
+            if (mQuestionItemAdapter.getData().get(i).getItemType() == 1 && !mQuestionItemAdapter.getData().get(i).getIsShowResult()) {
+                isFlag = false;
+            }
+        }
+        if (isFlag) {
+            mCommitLayout.setVisibility(View.VISIBLE);
+        } else {
+            mCommitLayout.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -884,6 +906,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         }
 
         if (tempList.size() > 0) {
+
             mQuestionItemAdapter.setNewData(tempList);
             if (isResultIn) {
                 for (int i = 0; i < mQuestionItemAdapter.getData().size(); i++) {
