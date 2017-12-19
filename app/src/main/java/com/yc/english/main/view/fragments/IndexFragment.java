@@ -234,7 +234,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("title", "开学送大礼，免费领取英语学习神器");
+                intent.putExtra("title", "智能测评");
                 intent.putExtra("url", "http://en.qqtn.com/Public/activity/3.html");
                 startActivity(intent);
             }

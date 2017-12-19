@@ -39,6 +39,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
     var reportId: Int = 0
     var type: String = ""
     var isResultIn = false
+    var isNoData = false
 
     companion object {
         var INSTANCE: IntelligentQuestionsActivity? = null
@@ -81,7 +82,14 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
             }
         })
 
-
+        when (type) {
+            "vocabulary" -> mToolbarWarpper.title = "词汇练习"
+            "oracy" -> mToolbarWarpper.title = "口语练习"
+            "grammar" -> mToolbarWarpper.title = "语法练习"
+            "hearing" -> mToolbarWarpper.title = "听力练习"
+            "read" -> mToolbarWarpper.title = "阅读练习"
+            "writing" -> mToolbarWarpper.title = "写作练习"
+        }
         INSTANCE = this
 
         loadData()
@@ -170,9 +178,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         mViewPager.setCurrentItem(0)
     }
 
-
     var mFragmentAdapter: TabsUtils.IntelligentQuestionsFragmentAdapter? = null
-
 
     override fun showInfo(list: List<QuestionInfoWrapper.QuestionInfo>, use_time: String?) {
         questionInfos = list
@@ -187,7 +193,8 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         } else {
             mToolbarWarpper.stopTime()
             (mSubmitBtn.parent as ViewGroup).visibility = View.VISIBLE
-            mToolbarWarpper.mTimeTextView.text = use_time ?: SPUtils.getInstance().getString(getFinishTimeKey(), "")
+            val tuse_time = use_time ?: SPUtils.getInstance().getString(getFinishTimeKey(), "")
+            mToolbarWarpper.mTimeTextView.text = if (tuse_time == "0") "" else tuse_time
         }
     }
 
@@ -235,6 +242,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
     }
 
     override fun showNoData() {
+        isNoData = true
         mStateView.showNoData(mViewPager)
     }
 
@@ -252,7 +260,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
     }
 
     private fun eixt() {
-        if (isResultIn) {
+        if (isResultIn || isNoData) {
             finish()
             return
         }
