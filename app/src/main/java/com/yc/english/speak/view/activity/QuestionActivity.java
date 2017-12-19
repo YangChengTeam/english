@@ -196,6 +196,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         if (intent.getExtras() != null) {
             Bundle bundle = intent.getExtras();
             unitId = bundle.getInt("unitId", 0);
+            reportId = bundle.getInt("reportId", 0);
             type = bundle.getString("type", "");
             isResultIn = bundle.getBoolean("isResultIn", false);
         }
@@ -227,7 +228,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mListenEnglishRecyclerView.setAdapter(mQuestionItemAdapter);
 
         View footView = new View(this);
-        footView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,SizeUtils.dp2px(48)));
+        footView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, SizeUtils.dp2px(48)));
         mQuestionItemAdapter.setFooterView(footView);
 
         //mQuestionItemAdapter.setFooterView()
@@ -309,9 +310,12 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             }
         });
 
+        int readTotalCount = 0;
+
         mQuestionItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                LogUtils.e("position--->" + position);
                 lastPosition = position;
                 if (view.getId() == R.id.iv_speak_tape && !isTape && !isPlayTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
@@ -323,6 +327,9 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                     initTask();
                     tapeStart(((QuestionInfoBean) adapter.getData().get(position)).getId());
                     isTape = true;
+                    if (lastPosition > 0 && lastPosition != position) {
+
+                    }
                 }
 
                 if (view.getId() == R.id.speak_tape_layout && isTape && !isPlayTape && !isPlay) {
@@ -884,6 +891,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         }
 
         if (tempList.size() > 0) {
+            mCommitLayout.setVisibility(View.VISIBLE);
             mQuestionItemAdapter.setNewData(tempList);
             if (isResultIn) {
                 for (int i = 0; i < mQuestionItemAdapter.getData().size(); i++) {
