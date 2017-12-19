@@ -72,7 +72,6 @@ class IntelligentsPushQuestionActivity : BaseActivity<IntelligentPushQuestionPre
     lateinit var infos: MutableList<UnitInfoWrapper.ComleteItemInfo>
     override fun showInfo(comleteInfo: UnitInfoWrapper.ComleteInfo) {
         infos = mutableListOf<UnitInfoWrapper.ComleteItemInfo>()
-
         if (comleteInfo.vocabulary != -1) {
             comleteInfo.vocabulary = if (comleteInfo.vocabulary == 1) comleteInfo.vocabulary else SPUtils.getInstance()
                     .getInt("finish-reportId${reportId}vocabulary", 0)

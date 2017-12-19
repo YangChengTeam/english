@@ -9,7 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center_vertical"
+        android:lineSpacingExtra="5dp"
         android:textColor="@color/black_333"
         android:textSize="@dimen/font_big"
         />
@@ -19,7 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         ></com.yc.english.news.view.widget.MediaPlayerView>
-
 
 
     <View
