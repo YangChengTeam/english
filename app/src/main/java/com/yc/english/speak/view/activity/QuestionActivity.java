@@ -98,7 +98,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
     LinearLayoutManager mLinearLayoutManager;
 
-    private int lastPosition = 1;
+    private int lastPosition = -1;
 
     private boolean isPlay;//播放点读
 
@@ -187,7 +187,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
     @Override
     public void init() {
-        mToolbar.setTitle("说英语");
+        mToolbar.setTitle("口语练习");
         mToolbar.showNavigationIcon();
         mToolbar.setTitleColor(ContextCompat.getColor(this, R.color.white));
         mTts = SpeechUtils.getTts(this);
@@ -216,7 +216,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                 }
             }
         } else {
-            mCommitLayout.setVisibility(View.VISIBLE);
+            //mCommitLayout.setVisibility(View.VISIBLE);
         }
 
         mPresenter = new IntelligentQuestionPresenter(this, this);
@@ -247,6 +247,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         RxView.clicks(mCommitLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+
                 showLoadingDialog("正在提交");
 
                 if (mQuestionItemAdapter.getData() != null && mQuestionItemAdapter.getData().size() > 0) {
@@ -299,6 +300,10 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                     return;
                 }*/
 
+                if(isTape || isPlayTape || isPlay){
+                    return;
+                }
+
                 progress = 0;
                 playNum = 0;
                 playCount = 0;
@@ -310,13 +315,12 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             }
         });
 
-        int readTotalCount = 0;
 
         mQuestionItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtils.e("position--->" + position);
-                lastPosition = position;
+
                 if (view.getId() == R.id.iv_speak_tape && !isTape && !isPlayTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
                     if (currentView != null) {
@@ -327,9 +331,6 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                     initTask();
                     tapeStart(((QuestionInfoBean) adapter.getData().get(position)).getId());
                     isTape = true;
-                    if (lastPosition > 0 && lastPosition != position) {
-
-                    }
                 }
 
                 if (view.getId() == R.id.speak_tape_layout && isTape && !isPlayTape && !isPlay) {
@@ -395,6 +396,8 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                     //停止播放点读
                     stopPlay();
                 }
+
+                lastPosition = position;
 
                 return false;
             }
@@ -727,6 +730,18 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         if (mIat != null) {
             mIat.stopListening();
         }
+
+        boolean isFlag = true;
+        for (int i = 1; i < mQuestionItemAdapter.getData().size(); i++) {
+            if (mQuestionItemAdapter.getData().get(i).getItemType() == 1 && !mQuestionItemAdapter.getData().get(i).getIsShowResult()) {
+                isFlag = false;
+            }
+        }
+        if (isFlag) {
+            mCommitLayout.setVisibility(View.VISIBLE);
+        } else {
+            mCommitLayout.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -891,7 +906,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         }
 
         if (tempList.size() > 0) {
-            mCommitLayout.setVisibility(View.VISIBLE);
+
             mQuestionItemAdapter.setNewData(tempList);
             if (isResultIn) {
                 for (int i = 0; i < mQuestionItemAdapter.getData().size(); i++) {
