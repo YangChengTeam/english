@@ -118,7 +118,7 @@ public class BaseVipPayFragment extends BaseFragment {
         } else {
             llFirstContent.setVisibility(View.GONE);
             baseItemViewUnion.setVisibility(View.GONE);
-            llMonthContainer.setVisibility(View.GONE);
+            tvVipForever.setVisibility(View.GONE);
             if (mType == GoodsType.TYPE_SINGLE_WEIKE) {
                 baseItemViewCeping.setContentAndIcon("同步微课", 0);
             } else if (mType == GoodsType.TYPE_SINGLE_DIANDU) {

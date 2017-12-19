@@ -175,8 +175,9 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                         }
                     }
                     if (!isRead) {
-
-                        VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(GoodsType.GOODS_KEY,GoodsType.TYPE_SINGLE_DIANDU);
+                        VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
                         return;
                     }
 

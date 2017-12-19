@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -108,6 +109,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     AppBarLayout mAppBarLayout;
     @BindView(R.id.miv_my_order)
     MenuItemView mOrderMenuItemView;
+    @BindView(R.id.iv_share)
+    ImageView mIvShare;
 
 
     QQqunDialog qqunDialog;
@@ -270,6 +273,26 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), VipScoreTutorshipActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        RxView.clicks(mIvShare).throttleFirst(200,TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                final SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
+                sharePopupWindow.setOnShareItemClickListener(new SharePopupWindow.OnShareItemClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        sharePopupWindow.ge.shareImage("我的个性学习", ImageUtils.view2Bitmap(mContentView), sharePopupWindow
+//                                .getShareMedia(it
+//                                        .getTag().toString()))
+//                        sharePopupWindow.setOnShareItemClickListener {
+//                            sharePopupWindow.show()
+//                        }
+                    }
+                });
+
+
             }
         });
 

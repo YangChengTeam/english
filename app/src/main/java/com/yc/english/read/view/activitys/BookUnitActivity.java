@@ -124,9 +124,9 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                         TipsHelper.tips(BookUnitActivity.this, "教材数据异常，请稍后重试");
                     }
                 } else {
-
-
-                    VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(GoodsType.GOODS_KEY,GoodsType.TYPE_SINGLE_DIANDU);
+                    VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
                     MobclickAgent.onEvent(BookUnitActivity.this, "textbook_read", "教材点读");
                 }
             }
