@@ -8,7 +8,6 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.hwangjr.rxbus.RxBus
 import com.yc.english.R
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
-import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.main.model.domain.Constant
 
 /**
@@ -28,7 +27,9 @@ class IntelligentResultAdapter : BaseMultiItemQuickAdapter<QuestionInfoWrapper.Q
         when (helper?.itemViewType) {
             0 -> {
                 helper?.setText(R.id.tv_title, item?.title)
-                index = 0
+                if (!(item?.type.equals("hearing") || item?.type.equals("vocabulary"))) {
+                    index = 0
+                }
             }
             1 -> {
                 helper?.setText(R.id.tv_index, (++index).toString())

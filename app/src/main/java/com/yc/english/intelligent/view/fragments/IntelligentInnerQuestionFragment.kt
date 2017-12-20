@@ -34,8 +34,6 @@ class IntelligentInnerQuestionFragment : BaseFragment<BasePresenter<BaseEngin, I
     override fun init() {
         adpater = IntelligentOptionsAdapter(questionInfo, (IntelligentQuestionsActivity.getInstance()?.isResultIn ?: false))
         mQuestionView.mRecyclerView.adapter = adpater
-        mQuestionView.mRecyclerView.layoutParams.height = SizeUtils.dp2px(50f) * (questionInfo?.options?.options?.size
-                ?: 0)
         adpater?.setNewData(questionInfo?.options?.options)
 
         mQuestionView.text = questionInfo?.title

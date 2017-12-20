@@ -42,13 +42,29 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
         var gradeInfo = JSON.parseObject(SPUtils.getInstance().getString(IntelligentVGSelectPopupWindow
                 .DEFAULT_GRADE_KEY, ""), VGInfoWarpper.VGInfo::class.java)
         var title = ""
-        var versionId = 22
+        var versionId = 0
         if (versionInfo != null) {
             title = versionInfo.name ?: versionInfo?.title ?: "人教版"
             versionId = versionInfo.versionId ?: 22
         } else {
-            title = "人教版"
+            versionInfo = VGInfoWarpper.VGInfo()
+            val period = SPUtils.getInstance().getString("period", "0")
+            if (period == "0") {
+                title = "人教版PEP"
+                versionId = 9
+                versionInfo.name = title
+                versionInfo.versionId = versionId
+                versionInfo.id = 69
+            } else {
+                title = "人教版"
+                versionId = 22
+                versionInfo.name = title
+                versionInfo.versionId = versionId
+                versionInfo.id = 200
+            }
         }
+        SPUtils.getInstance().put(IntelligentVGSelectPopupWindow.DEFAULT_VERSION_KEY, JSON.toJSONString(versionInfo))
+
 
         if (gradeInfo == null) {
             gradeInfo = VGInfoWarpper.VGInfo()

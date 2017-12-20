@@ -209,14 +209,13 @@ public class SelectGradePopupWindow extends BasePopupWindow {
                 if (mRunnable != null) {
                     mRunnable.run();
                 }
-                RxBus.get().post(Constant.GET_VERSION, "from select grade");
                 RxBus.get().post(Constant.GRADE_REFRESH, "from select grade");
+                RxBus.get().post(Constant.GET_UNIT, "from select grade");
             }
         });
     }
 
     private void clear() {
-
         m0TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
         m1TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
         m2TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));

@@ -50,7 +50,7 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
 
     private fun setIntelligentTypeEvent(mIntelligentType: IntelligentTypeItemView) {
         mIntelligentType.post {
-            RxView.clicks(mIntelligentType.mDoTextView).throttleFirst(200, TimeUnit
+            RxView.clicks(mIntelligentType).throttleFirst(200, TimeUnit
                     .MILLISECONDS).subscribe {
                 if (!UserInfoHelper.isLogin()) {
                     startActivity(Intent(context, LoginActivity::class.java))
@@ -94,7 +94,7 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
             mReportBtn.setTextColor(ContextCompat.getColor(context!!, R.color.primary))
         } else {
             mReportBtn.isClickable = false
-            mReportBtn.text = "完成所有练习,可查看测评报告"
+            mReportBtn.text = "完成所有练习后,查看测评报告"
             mReportBtn.setTextColor(ContextCompat.getColor(context!!, R.color.gray_999))
         }
     }

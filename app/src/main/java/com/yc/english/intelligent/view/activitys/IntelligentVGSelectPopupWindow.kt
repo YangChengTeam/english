@@ -10,8 +10,10 @@ import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.google.gson.Gson
 import com.hwangjr.rxbus.RxBus
+import com.jakewharton.rxbinding.view.RxView
 import com.kk.securityhttp.domain.ResultInfo
 import com.kk.securityhttp.net.contains.HttpConfig
+import com.yc.english.EnglishApp
 import com.yc.english.R
 import com.yc.english.base.helper.RxUtils
 import com.yc.english.base.utils.SimpleCacheUtils
@@ -21,6 +23,7 @@ import com.yc.english.intelligent.model.engin.IntelligentTypeEngin
 import com.yc.english.intelligent.view.adpaters.IntelligentVGAdpater
 import com.yc.english.main.model.domain.Constant
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -48,6 +51,8 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
     override fun init() {
         typeEngin = IntelligentTypeEngin(mContext)
 
+
+
         mVersionAdapter = IntelligentVGAdpater()
         mVersionAdapter.defaultInfo = JSON.parseObject(SPUtils.getInstance().getString(DEFAULT_VERSION_KEY, ""),
                 VGInfoWarpper.VGInfo::class.java)
@@ -61,19 +66,28 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
         mGradeRecyclerView.adapter = mGradeAdapter
         mGradeRecyclerView.layoutManager = GridLayoutManager(mContext, 3)
 
-
         mVersionAdapter.setOnItemClickListener { adapter, view, position ->
-            if (!view.isSelected) {
-                val vgInfo = mVersionAdapter.data.get(position)
-                mVersionAdapter.defaultInfo = vgInfo
-                SPUtils.getInstance().put(DEFAULT_VERSION_KEY, JSON.toJSONString(vgInfo))
-                getGrade(vgInfo)
+            val vgInfo = mVersionAdapter.data.get(position)
+            if ((mVersionAdapter.defaultInfo?.id ?: 0) == vgInfo.id) {
+                return@setOnItemClickListener
             }
+            SPUtils.getInstance().put(DEFAULT_VERSION_KEY, JSON.toJSONString(vgInfo))
+            if (vgInfo.name!!.contains("PEP")) {
+                SPUtils.getInstance().put("period", "0")
+            } else {
+                SPUtils.getInstance().put("period", "1")
+            }
+            getGrade(vgInfo)
+            mVersionAdapter.defaultInfo = vgInfo
+            adapter.notifyDataSetChanged()
         }
 
 
         mGradeAdapter.setOnItemClickListener { adapter, view, position ->
             val vgInfo = mGradeAdapter.data.get(position)
+            if ((mGradeAdapter.defaultInfo?.id ?: 0) == vgInfo.id) {
+                return@setOnItemClickListener
+            }
             mGradeAdapter.defaultInfo = vgInfo
             SPUtils.getInstance().put(DEFAULT_GRADE_KEY, JSON.toJSONString(vgInfo))
             adapter.notifyDataSetChanged()
@@ -81,7 +95,15 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
             dismiss()
         }
 
+        RxView.clicks(contentView).throttleFirst(200, TimeUnit
+                .MILLISECONDS).subscribe {
+            dismiss()
+        }
+
+
         getVersionInfo()
+
+
     }
 
 
@@ -101,7 +123,6 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
         typeEngin.getVersion().subscribe {
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK) {
-
                 if (mVersionAdapter.defaultInfo == null) {
                     getGrade(it.data?.list?.get(0)!!)
                     SPUtils.getInstance().put(IntelligentVGSelectPopupWindow.DEFAULT_VERSION_KEY, JSON.toJSONString(it.data?.list?.get(0)!!))
@@ -126,12 +147,15 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
                 }
             }
         })
+
+        EnglishApp.get().setHttpDefaultParams()
         typeEngin.getGrade(vgInfo).subscribe {
             val code = it?.code ?: -1
-            if (code == HttpConfig.STATUS_OK && it.data?.list != null && it.data?.list!!.size  > 0) {
+            if (code == HttpConfig.STATUS_OK && it.data?.list != null && it.data?.list!!.size > 0) {
                 mGradeAdapter.setNewData(it.data?.list)
                 SimpleCacheUtils.writeCache(mContext, "getGrade", JSON.toJSONString(it.data?.list ?: ""))
             }
+
         }
     }
 }

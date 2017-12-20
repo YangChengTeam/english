@@ -42,7 +42,7 @@ class IntelligentActionbar : BaseView {
 
     var title: String = ""
         set(value) {
-            mIndexTextView.text = value
+            mTitleTextView.text = value
             field = title
         }
 
