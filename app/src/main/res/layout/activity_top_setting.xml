@@ -67,12 +67,19 @@
 
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/iv_tutorship_main_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/score_tutorship_main" />
+
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/base_btn_ripple_bg"
-            android:clickable="true">
+            android:clickable="true"
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/ll_add_score_tutorship"

@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -18,6 +19,7 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.weixin.contract.WeiKeContract;
 import com.yc.english.weixin.model.domain.WeiKeCategory;
+import com.yc.english.weixin.model.domain.WeiKeCategoryWrapper;
 import com.yc.english.weixin.model.domain.WeiKeInfo;
 import com.yc.english.weixin.presenter.WeiKePresenter;
 import com.yc.english.weixin.views.activitys.WeikeUnitActivity;
@@ -48,6 +50,7 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
 
     @BindView(R.id.refresh)
     SwipeRefreshLayout mRefreshSwipeRefreshLayout;
+    private TextView mTvHeaderView;
 
 
     @Subscribe(
@@ -70,6 +73,7 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
         mCourseRecyclerView.setAdapter(mWeiKeCategoryItemAdapter);
 
         View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.course_header_view, null);
+        mTvHeaderView = headerView.findViewById(R.id.tv_header_view);
         mWeiKeCategoryItemAdapter.addHeaderView(headerView);
         mWeiKeCategoryItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -132,8 +136,9 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
     }
 
     @Override
-    public void showWeikeCategoryList(List<WeiKeCategory> list) {
-
+    public void showWeikeCategoryList(WeiKeCategoryWrapper weiKeCategoryWrapper) {
+        List<WeiKeCategory> list = weiKeCategoryWrapper.getList();
+        int count = weiKeCategoryWrapper.getCount();
         if (page == 1) {
             mWeiKeCategoryItemAdapter.setNewData(list);
         } else {
@@ -146,6 +151,8 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
             mWeiKeCategoryItemAdapter.loadMoreEnd();
         }
         mRefreshSwipeRefreshLayout.setRefreshing(false);
+        mTvHeaderView.setText(String.format(getString(R.string.update_weike), count + ""));
+
     }
 
     @Override

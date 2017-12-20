@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ImageUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -129,6 +128,9 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     LinearLayout mLlCarmerSearch;
     @BindView(R.id.ll_add_score_tutorship)
     LinearLayout mLlAddScoreTutorship;
+    @BindView(R.id.iv_tutorship_main_bg)
+    ImageView ivTutorshipMainBg;
+
 
     @Override
     public void init() {
@@ -268,7 +270,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             }
         });
 
-        RxView.clicks(mLlAddScoreTutorship).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(ivTutorshipMainBg).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), VipScoreTutorshipActivity.class);
@@ -415,5 +417,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     private void restoreScoreData() {
         abilityView.setDatas(new float[]{0f, 0f, 0f, 0f, 0f, 0f});
     }
+
 
 }

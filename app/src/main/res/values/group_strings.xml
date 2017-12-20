@@ -115,6 +115,8 @@
     <string name="synchronization_teach">同步学习</string>
     <string name="synchronization_weike">同步微课</string>
     <string name="textbook_read">教材点读</string>
+    <string name="update_weike">已更新微课%1$s集</string>
+    <string name="forever_vip">永久会员</string>
 
     <string-array name="task_finish_result">
         <item>已完成（%1$d）</item>

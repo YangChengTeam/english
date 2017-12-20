@@ -51,13 +51,13 @@ public class WeiKePresenter extends BasePresenter<WeiKeEngin, WeiKeContract.View
         SimpleCacheUtils.readCache(mContext, WEIKE_INFO, new SimpleCacheUtils.CacheRunnable() {
             @Override
             public void run() {
-                final List<WeiKeCategory> weiKeCategoryList = JSON.parseArray(this.getJson(), WeiKeCategory.class);
+                final WeiKeCategoryWrapper weiKeCategoryWrapper = JSON.parseObject(this.getJson(), WeiKeCategoryWrapper.class);
                 cached = true;
                 UIUitls.post(new Runnable() {
                     @Override
                     public void run() {
                         mView.hideStateView();
-                        mView.showWeikeCategoryList(weiKeCategoryList);
+                        mView.showWeikeCategoryList(weiKeCategoryWrapper);
 
                     }
                 });
@@ -102,9 +102,8 @@ public class WeiKePresenter extends BasePresenter<WeiKeEngin, WeiKeContract.View
 
                     @Override
                     public void reulstInfoOk() {
-                        if (weikeCategoryWrapper.data != null && weikeCategoryWrapper.data.getList() != null &&
-                                weikeCategoryWrapper.data.getList().size() > 0) {
-                            showWeikeCategoryList(weikeCategoryWrapper.data.getList(), true);
+                        if (weikeCategoryWrapper.data != null) {
+                            showWeikeCategoryList(weikeCategoryWrapper.data, true);
 
                             if (page.equals("1")) {
                                 mView.hideStateView();
@@ -122,11 +121,11 @@ public class WeiKePresenter extends BasePresenter<WeiKeEngin, WeiKeContract.View
         mSubscriptions.add(subscription);
     }
 
-    private void showWeikeCategoryList(List<WeiKeCategory> categoryList, boolean isCached) {
+    private void showWeikeCategoryList(WeiKeCategoryWrapper categoryWrapper, boolean isCached) {
         if (isCached) {
-            SimpleCacheUtils.writeCache(mContext, WEIKE_INFO, JSON.toJSONString(categoryList));
+            SimpleCacheUtils.writeCache(mContext, WEIKE_INFO, JSON.toJSONString(categoryWrapper));
         }
-        mView.showWeikeCategoryList(categoryList);
+        mView.showWeikeCategoryList(categoryWrapper);
 
     }
 
