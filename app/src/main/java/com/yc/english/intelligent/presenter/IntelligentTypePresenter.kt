@@ -52,16 +52,15 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
             if (period == "0") {
                 title = "人教版PEP"
                 versionId = 9
-                versionInfo.name = title
-                versionInfo.versionId = versionId
                 versionInfo.id = 69
             } else {
                 title = "人教版"
                 versionId = 22
-                versionInfo.name = title
-                versionInfo.versionId = versionId
                 versionInfo.id = 200
             }
+            versionInfo.name = title
+            versionInfo.title = title
+            versionInfo.versionId = versionId
         }
         SPUtils.getInstance().put(IntelligentVGSelectPopupWindow.DEFAULT_VERSION_KEY, JSON.toJSONString(versionInfo))
 
@@ -73,26 +72,29 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
             gradeInfo.grade = grade
             val name = title     //替换字符的奇技淫巧 1
             when (grade) {
-                1 -> title += "一年级"
-                2 -> title += "二年级"
-                3 -> title += "三年级"
-                4 -> title += "四年级"
+                1, 2, 3, 4 -> title += "四年级"
                 5 -> title += "五年级"
                 6 -> title += "六年级"
                 7 -> title += "七年级"
                 8 -> title += "八年级"
                 9 -> title += "九年级"
             }
-            when (Calendar.getInstance().get(Calendar.MONTH)) {
-                in 3..6 -> {
-                    gradeInfo.partType = 0
-                    title += "上"
-                }
-                in 1..2, in 7..12 -> {
-                    gradeInfo.partType = 1
-                    title += "下"
+            if (title.contains("九年级")) {
+                gradeInfo.partType = 2
+                title += "全"
+            } else {
+                when (Calendar.getInstance().get(Calendar.MONTH)) {
+                    in 3..6 -> {
+                        gradeInfo.partType = 0
+                        title += "上"
+                    }
+                    in 1..2, in 7..12 -> {
+                        gradeInfo.partType = 1
+                        title += "下"
+                    }
                 }
             }
+
             gradeInfo.title = title.replace(name, "") //替换字符的奇技淫巧 2
         } else {
             title += gradeInfo.title ?: ""
