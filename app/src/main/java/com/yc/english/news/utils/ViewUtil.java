@@ -29,10 +29,13 @@ public class ViewUtil {
                 if (i == 0) {
                     intent.setClass(context, BookActivity.class);
                     ReadApp.READ_COMMON_TYPE = 1;
+
                 } else if (i == 1) {
                     intent.setClass(context, BookActivity.class);
                     ReadApp.READ_COMMON_TYPE = 2;
+
                 } else if (i == 2) {
+
                     intent.setClass(context, MainActivity.class);
                     intent.putExtra("appraisal", true);
 
@@ -41,6 +44,7 @@ public class ViewUtil {
                 } else if (i == 4) {
                     intent.setClass(context, MainActivity.class);
                     intent.putExtra("weike", true);
+
                 }
                 context.startActivity(intent);
             }

@@ -71,12 +71,9 @@ public class VipScoreTutorshipActivity extends BaseActivity {
     @Override
     public void init() {
 
-//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-//
-//        }
-
-        StatusBarCompat.compat(this, mToolbarWarpper, toolbar);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            StatusBarCompat.compat(this, mToolbarWarpper, toolbar);
+        }
         mViewPager.setAdapter(new MyFragmentPager(getSupportFragmentManager()));
         scoreTabLayout.setupWithViewPager(mViewPager);
         toolbar.setNavigationIcon(R.mipmap.vip_back);
@@ -87,12 +84,9 @@ public class VipScoreTutorshipActivity extends BaseActivity {
             }
         });
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
-
-
         mAppbarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-
 //                LogUtils.e(verticalOffset + "--" + appBarLayout.getHeight() + "--" + collapsingToolbarLayout.getHeight());
                 if (-verticalOffset + collapsingToolbarLayout.getHeight() >= appBarLayout.getHeight()) {
                     collapsingToolbarLayout.setTitle("提分辅导");

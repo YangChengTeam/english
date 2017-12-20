@@ -13,6 +13,7 @@ import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.news.view.activity.NewsWeiKeDetailActivity;
 import com.yc.english.weixin.contract.WeiKeContract;
 import com.yc.english.weixin.model.domain.WeiKeCategory;
+import com.yc.english.weixin.model.domain.WeiKeCategoryWrapper;
 import com.yc.english.weixin.model.domain.WeiKeInfo;
 import com.yc.english.weixin.presenter.WeiKePresenter;
 import com.yc.english.weixin.views.adapters.WeiKeInfoItemAdapter;
@@ -115,8 +116,9 @@ public class WeikeUnitActivity extends FullScreenActivity<WeiKePresenter> implem
         mLoadingStateView.showLoading(mCategoryListRecyclerView);
     }
 
+
     @Override
-    public void showWeikeCategoryList(List<WeiKeCategory> list) {
+    public void showWeikeCategoryList(WeiKeCategoryWrapper categoryWrapper) {
 
     }
 

@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@mipmap/base_actionbar"
-            android:text="点击购买"
+            android:text="开始提高分数"
             android:textColor="@color/white"
             android:textSize="@dimen/group_text_16" />
 

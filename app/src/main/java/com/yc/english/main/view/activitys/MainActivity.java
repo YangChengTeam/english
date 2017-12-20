@@ -108,12 +108,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             }
         });
 
-        if (getIntent().getBooleanExtra("appraisal", false)) {
-            goToIntelligent();
-        }
-        if (getIntent().getBooleanExtra("weike", false)) {
-            goToTask();
-        }
+
     }
 
     public void goToTask() {
@@ -205,6 +200,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent.getBooleanExtra("appraisal", false)) {
+            goToIntelligent();
+        }
+        if (intent.getBooleanExtra("weike", false)) {
+            goToTask();
+        }
+    }
 
 
 }

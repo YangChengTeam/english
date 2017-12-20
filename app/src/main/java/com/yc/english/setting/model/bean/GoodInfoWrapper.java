@@ -18,6 +18,9 @@ public class GoodInfoWrapper {
     private List<GoodInfo> svip;
     private List<GoodInfo> vip;
 
+    private List<GoodInfo> weike;
+    private List<GoodInfo> diandu;
+
     public List<GoodInfo> getSvip() {
         return svip;
     }
@@ -34,4 +37,19 @@ public class GoodInfoWrapper {
         this.vip = vip;
     }
 
+    public List<GoodInfo> getWeike() {
+        return weike;
+    }
+
+    public void setWeike(List<GoodInfo> weike) {
+        this.weike = weike;
+    }
+
+    public List<GoodInfo> getDiandu() {
+        return diandu;
+    }
+
+    public void setDiandu(List<GoodInfo> diandu) {
+        this.diandu = diandu;
+    }
 }

@@ -151,8 +151,24 @@
             <ImageView
                 android:id="@+id/iv_tutorship_detail"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_distance_15"
+                android:background="#F5F5F5" />
+
+            <TextView
+                android:id="@+id/tv_tip"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="48dp" />
+                android:layout_marginBottom="48dp"
+                android:background="@color/white"
+                android:lineSpacingExtra="@dimen/dp_2"
+                android:padding="@dimen/dp_10"
+                android:text="提分过程：根据学习进度选择同步微课观看,完成每单元智能测评,查看测评报告，总结单元学习,完成个性学习方案,继续下一单元学习，每天坚持十分钟，考试提高二十分！"
+                android:textColor="@color/black_333"
+                android:textSize="@dimen/group_text_14" />
 
             <include
                 layout="@layout/fragment_vip_tutorship_detail_bottom"

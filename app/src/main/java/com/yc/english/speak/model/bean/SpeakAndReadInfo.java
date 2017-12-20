@@ -24,6 +24,8 @@ public class SpeakAndReadInfo implements Parcelable {
     private List<SpeakAndReadItemInfo> data;//整理后数据集合
 
 
+
+
     public String getType_name() {
         return type_name;
     }

@@ -74,18 +74,24 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
                 // TODO: 2017/10/13 视频或音频点击跳转
                 List<SpeakAndReadItemInfo> dataList = speakEnglishItemAdapter.getData();
                 SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
+
                 speakAndReadItemInfo.setInnerPos(position);
+                speakAndReadItemInfo.setOutPos(0);
                 Intent intent = null;
+                List<SpeakAndReadInfo> list = new ArrayList<>();
+                SpeakAndReadInfo speakAndReadInfo = new SpeakAndReadInfo();
+                speakAndReadInfo.setData(dataList);
+                list.add(speakAndReadInfo);
 
                 if (type == 1) {
                     intent = new Intent(SpeakMoreActivity.this, SpeakEnglishActivity.class);
                     intent.putExtra("itemInfo", speakAndReadItemInfo);
-                    intent.putParcelableArrayListExtra("infoList", (ArrayList) dataList);
+                    intent.putParcelableArrayListExtra("infoList", (ArrayList) list);
 
                 } else if (type == 2) {
                     intent = new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class);
                     intent.putExtra("itemInfo", speakAndReadItemInfo);
-                    intent.putParcelableArrayListExtra("infoList", (ArrayList) dataList);
+                    intent.putParcelableArrayListExtra("infoList", (ArrayList) list);
                 }
                 startActivity(intent);
                 return false;
@@ -156,7 +162,7 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
                 speakEnglishItemAdapter.addData(list.get(0).getData());
             }
             speakEnglishItemAdapter.loadMoreComplete();
-        }else {
+        } else {
             speakEnglishItemAdapter.loadMoreEnd();
         }
 

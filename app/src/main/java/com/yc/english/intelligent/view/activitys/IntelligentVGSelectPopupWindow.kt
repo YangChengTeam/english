@@ -5,24 +5,17 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import butterknife.BindView
 import com.alibaba.fastjson.JSON
-import com.alibaba.fastjson.TypeReference
 import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.TimeUtils
-import com.google.gson.Gson
 import com.hwangjr.rxbus.RxBus
 import com.jakewharton.rxbinding.view.RxView
-import com.kk.securityhttp.domain.ResultInfo
 import com.kk.securityhttp.net.contains.HttpConfig
 import com.yc.english.EnglishApp
 import com.yc.english.R
-import com.yc.english.base.helper.RxUtils
-import com.yc.english.base.utils.SimpleCacheUtils
 import com.yc.english.base.view.BasePopupWindow
 import com.yc.english.intelligent.model.domain.VGInfoWarpper
 import com.yc.english.intelligent.model.engin.IntelligentTypeEngin
 import com.yc.english.intelligent.view.adpaters.IntelligentVGAdpater
 import com.yc.english.main.model.domain.Constant
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -50,8 +43,6 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
 
     override fun init() {
         typeEngin = IntelligentTypeEngin(mContext)
-
-
 
         mVersionAdapter = IntelligentVGAdpater()
         mVersionAdapter.defaultInfo = JSON.parseObject(SPUtils.getInstance().getString(DEFAULT_VERSION_KEY, ""),
@@ -108,18 +99,6 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
 
 
     fun getVersionInfo() {
-        SimpleCacheUtils.readCache(mContext, "getVersionInfo", object : SimpleCacheUtils.CacheRunnable() {
-            override fun run() {
-                val list = Gson().fromJson<List<VGInfoWarpper.VGInfo>>(json, object : TypeReference<List<VGInfoWarpper
-                .VGInfo>>() {}.type)
-                if (list != null && list.size > 0) {
-                    mContext.runOnUiThread {
-                        mVersionAdapter.setNewData(list)
-                    }
-                }
-            }
-        })
-
         typeEngin.getVersion().subscribe {
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK) {
@@ -129,33 +108,20 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
                 } else {
                     getGrade(mVersionAdapter.defaultInfo!!)
                 }
-                SimpleCacheUtils.writeCache(mContext, "getVersionInfo", JSON.toJSONString(it.data?.list ?: ""))
                 mVersionAdapter.setNewData(it.data?.list)
             }
         }
     }
 
     fun getGrade(vgInfo: VGInfoWarpper.VGInfo) {
-        SimpleCacheUtils.readCache(mContext, "getGrade", object : SimpleCacheUtils.CacheRunnable() {
-            override fun run() {
-                val list = Gson().fromJson<List<VGInfoWarpper.VGInfo>>(json, object : TypeReference<List<VGInfoWarpper
-                .VGInfo>>() {}.type)
-                if (list != null && list.size > 0) {
-                    mContext.runOnUiThread {
-                        mGradeAdapter.setNewData(list)
-                    }
-                }
-            }
-        })
+
 
         EnglishApp.get().setHttpDefaultParams()
         typeEngin.getGrade(vgInfo).subscribe {
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK && it.data?.list != null && it.data?.list!!.size > 0) {
                 mGradeAdapter.setNewData(it.data?.list)
-                SimpleCacheUtils.writeCache(mContext, "getGrade", JSON.toJSONString(it.data?.list ?: ""))
             }
-
         }
     }
 }

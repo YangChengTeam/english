@@ -83,7 +83,6 @@ public class BaseVipPayFragment extends BaseFragment {
 
     private int mType;//1.提分辅导2.VIP会员3.单次购买
 
-    private CourseInfo courserInfo;
     private onVipClickListener mListener;
 
     private List<PayWayInfo> payWayInfoList;
@@ -97,6 +96,8 @@ public class BaseVipPayFragment extends BaseFragment {
     private List<GoodInfo> sVipList;//提分辅导
 
     private List<GoodInfo> generalVipList;//普通会员
+    private List<GoodInfo> dianduList;//点读
+    private List<GoodInfo> weikeList;//微课
 
     @Override
     public void init() {
@@ -108,21 +109,27 @@ public class BaseVipPayFragment extends BaseFragment {
 
         sVipList = goodInfoWrapper.getSvip();
         generalVipList = goodInfoWrapper.getVip();
+        dianduList = goodInfoWrapper.getDiandu();
+        weikeList = goodInfoWrapper.getWeike();
 
         if (mType == GoodsType.TYPE_SVIP) {
             setGoodInfo(position, sVipList);
         } else if (mType == GoodsType.TYPE_GENERAL_VIP) {
+            tvVipForever.setText("永久会员");
             baseItemViewWeike.setContentAndIcon("微课免费看", 0);
             baseItemViewTeach.setContentAndIcon("名师辅导课", R.mipmap.vip_common_teach);
             setGoodInfo(position, generalVipList);
         } else {
             llFirstContent.setVisibility(View.GONE);
             baseItemViewUnion.setVisibility(View.GONE);
-            llMonthContainer.setVisibility(View.GONE);
+            tvVipForever.setVisibility(View.GONE);
+            tvVipTweenMonth.setText("永久会员");
             if (mType == GoodsType.TYPE_SINGLE_WEIKE) {
                 baseItemViewCeping.setContentAndIcon("同步微课", 0);
+                setGoodInfo(position, weikeList);
             } else if (mType == GoodsType.TYPE_SINGLE_DIANDU) {
                 baseItemViewCeping.setContentAndIcon("教材点读", 0);
+                setGoodInfo(position, dianduList);
             } else if (mType == GoodsType.TYPE_SINGLE_INDIVIDUALITY_PLAN) {
                 baseItemViewCeping.setContentAndIcon("个性学习计划", 0);
             }
@@ -133,10 +140,10 @@ public class BaseVipPayFragment extends BaseFragment {
             llRightContainer.setLayoutParams(layoutParams);
             rootView.setGravity(Gravity.TOP);
 
-            if (getCourserInfo() != null) {
-                vipCurrentPrice.setText(String.valueOf(getCourserInfo().getMPrice()));
-                tvVipOriginalPrice.setText(String.format(getString(R.string.original_price), String.valueOf(getCourserInfo().getPrice())));
-            }
+//            if (getCourserInfo() != null) {
+//                vipCurrentPrice.setText(String.valueOf(getCourserInfo().getMPrice()));
+//                tvVipOriginalPrice.setText(String.format(getString(R.string.original_price), String.valueOf(getCourserInfo().getPrice())));
+//            }
 
         }
 
@@ -190,15 +197,6 @@ public class BaseVipPayFragment extends BaseFragment {
     }
 
 
-    public void setCourserInfo(CourseInfo courserInfo) {
-        this.courserInfo = courserInfo;
-    }
-
-    public CourseInfo getCourserInfo() {
-        return courserInfo;
-    }
-
-
     public interface onVipClickListener {
         void onVipClick(GoodInfo goodInfo, String payWayName, int type);
     }
@@ -240,6 +238,10 @@ public class BaseVipPayFragment extends BaseFragment {
                         setGoodInfo(position, sVipList);
                     } else if (mType == GoodsType.TYPE_GENERAL_VIP) {
                         setGoodInfo(position, generalVipList);
+                    } else if (mType == GoodsType.TYPE_SINGLE_WEIKE) {
+                        setGoodInfo(position, weikeList);
+                    } else if (mType == GoodsType.TYPE_SINGLE_DIANDU) {
+                        setGoodInfo(position, dianduList);
                     }
 
                 }

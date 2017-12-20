@@ -15,9 +15,7 @@ class IntelligentVGAdpater : BaseQuickAdapter<VGInfoWarpper.VGInfo, BaseViewHold
     var defaultInfo: VGInfoWarpper.VGInfo? = null
 
     override fun convert(helper: BaseViewHolder?, item: VGInfoWarpper.VGInfo?) {
-        if (defaultInfo == null && helper?.adapterPosition == 0) {
-            helper?.getView<TextView>(R.id.tv_title)?.isSelected = true
-        } else if (item?.id == defaultInfo?.id) {
+        if (item?.id == defaultInfo?.id) {
             helper?.getView<TextView>(R.id.tv_title)?.isSelected = true
         } else if (defaultInfo?.id == -1 && (item?.grade == defaultInfo?.grade && item?.partType == defaultInfo?.partType)) {
             helper?.getView<TextView>(R.id.tv_title)?.isSelected = true
@@ -25,6 +23,6 @@ class IntelligentVGAdpater : BaseQuickAdapter<VGInfoWarpper.VGInfo, BaseViewHold
             helper?.getView<TextView>(R.id.tv_title)?.isSelected = false
         }
 
-        helper?.setText(R.id.tv_title, item?.name ?: item?.title ?: "人教版")
+        helper?.setText(R.id.tv_title, item?.name ?: item?.title ?: "")
     }
 }

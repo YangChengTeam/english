@@ -1,10 +1,8 @@
 package com.yc.english.setting.view.activitys;
 
-import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -74,11 +72,15 @@ public class VipEquitiesActivity extends BaseActivity {
     BasePayItemView baseItemViewWeike;
     @BindView(R.id.baseItemView_teach)
     BasePayItemView baseItemViewTeach;
+    @BindView(R.id.basePayItemView_task_tutorship)
+    BasePayItemView basePayItemViewTaskTutorship;
+
     private UserInfo userInfo;
 
 
     @Override
     public void init() {
+
         toolbar.setNavigationIcon(R.mipmap.vip_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +96,11 @@ public class VipEquitiesActivity extends BaseActivity {
 
         String endTime = TimeUtils.date2String(new Date(userInfo.getVip_end_time() * 1000), new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
 
+
         mTvEndTime.setText(String.format(getString(R.string.vip_end_time), endTime));
+        if (userInfo.getIsVip() != 0 && endTime.equals("0")) {
+            mTvEndTime.setText(getString(R.string.forever_vip));
+        }
 
         GlideHelper.circleImageView(this, ivAvatar, userInfo.getAvatar(), R.mipmap.default_big_avatar);
 
@@ -127,6 +133,7 @@ public class VipEquitiesActivity extends BaseActivity {
                 mTvRightsTitle.setText(getString(R.string.general_vip_right));
                 basePayItemViewVip.setVisibility(View.GONE);
                 basePayItemViewCeping.setVisibility(View.GONE);
+                basePayItemViewTaskTutorship.setVisibility(View.GONE);
                 mVipIcon.setImageResource(R.mipmap.vip_vip);
             } else if (userInfo.getIsVip() == 2) {
                 mTvRightsTitle.setText(getString(R.string.tutorship_vip_right));
@@ -134,6 +141,10 @@ public class VipEquitiesActivity extends BaseActivity {
                 baseItemViewWeike.setContentAndIcon("同步微课", 0);
                 baseItemViewTeach.setContentAndIcon("VIP专属教学", R.mipmap.vip_self_icon);
                 basePayItemViewVip.setVisibility(View.GONE);
+            } else if (userInfo.getIsVip() == 3) {
+                mVipIcon.setImageResource(R.mipmap.vip_vip_weike);
+            } else if (userInfo.getIsVip() == 4) {
+                mVipIcon.setImageResource(R.mipmap.vip_vip_diandu);
             }
         }
 

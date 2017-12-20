@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_tab_index">好玩英语</string>
+    <string name="main_tab_index">乐学英语</string>
     <string name="main_tab_task">同步微课</string>
     <string name="main_tab_intelligent">智能测评</string>
     <string name="main_tab_my">个性学习</string>

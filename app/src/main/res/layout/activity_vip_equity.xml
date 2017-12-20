@@ -111,8 +111,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:vip_content="视频加速"
-                        app:vip_icon="@mipmap/vip_equity_tv" />
+                        app:vip_content="个人学习计划"
+                        app:vip_icon="@mipmap/vip_equity_teach_plan" />
 
                     <com.yc.english.vip.views.fragments.BasePayItemView
 
@@ -151,6 +151,14 @@
                         android:layout_weight="1"
                         app:vip_content="智能测评"
                         app:vip_icon="@mipmap/vip_equity_ceping" />
+
+                    <com.yc.english.vip.views.fragments.BasePayItemView
+                        android:id="@+id/basePayItemView_task_tutorship"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:vip_content="课后作业辅导"
+                        app:vip_icon="@mipmap/vip_equity_task" />
                 </LinearLayout>
             </LinearLayout>
 
