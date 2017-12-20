@@ -27,8 +27,6 @@ public class VipTutorshipDetailFragment extends BaseFragment {
     @BindView(R.id.tv_tip)
     TextView tvTip;
 
-
-
     private boolean isVip;
 
     @Override
@@ -60,14 +58,11 @@ public class VipTutorshipDetailFragment extends BaseFragment {
     }
 
     private void setBottomMargin(boolean flag) {
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)tvTip.getLayoutParams();
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tvTip.getLayoutParams();
         if (flag) {
             layoutParams.bottomMargin = 0;
             tvTip.setLayoutParams(layoutParams);
         }
     }
-
-
-
 
 }
