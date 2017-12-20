@@ -78,8 +78,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @BindView(R.id.tv_title)
     TextView mTextViewTitle;
 
-    @BindView(R.id.layout_add_to_cart)
-    LinearLayout mAddToCartLayout;
 
     @BindView(R.id.layout_buy_now)
     LinearLayout mBuyNowLayout;
@@ -93,8 +91,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @BindView(R.id.tv_old_price)
     TextView mOldPriceTextView;
 
-    @BindView(R.id.layout_is_buy_or_vip)
-    LinearLayout mIsBuyOrVipLayout;
+
 
     @BindView(R.id.nestedScrollView)
     ScrollView scrollView;
@@ -175,21 +172,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             public void onClick() {
                 SharePopupWindow sharePopupWindow = new SharePopupWindow(NewsWeiKeDetailActivity.this);
                 sharePopupWindow.show(llRootView);
-            }
-        });
-
-        RxView.clicks(mAddToCartLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                if (currentCourseInfo != null) {
-                    if (UserInfoHelper.getUserInfo() != null) {
-                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
-                        ShoppingHelper.saveCourseInfoToDB(currentCourseInfo);
-                        ToastUtils.showLong("加入购物车成功");
-                    } else {
-                        UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
-                    }
-                }
             }
         });
 
@@ -311,9 +293,9 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             }
 
             if (isPlay) {
-                mIsBuyOrVipLayout.setVisibility(View.GONE);
+                mBuyNowLayout.setVisibility(View.GONE);
             } else {
-                mIsBuyOrVipLayout.setVisibility(View.VISIBLE);
+                mBuyNowLayout.setVisibility(View.VISIBLE);
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mSynchronizationTeachView.getLayoutParams();
                 layoutParams.bottomMargin = SizeUtils.dp2px(45);
                 mSynchronizationTeachView.setLayoutParams(layoutParams);

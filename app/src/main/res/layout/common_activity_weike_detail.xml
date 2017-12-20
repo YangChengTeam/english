@@ -222,42 +222,20 @@
                 android:background="@color/gray_ddd" />
 
             <LinearLayout
-                android:id="@+id/layout_is_buy_or_vip"
+                android:id="@+id/layout_buy_now"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:background="@color/white">
+                android:background="@color/buy_bg_color"
+                android:gravity="center">
 
-                <LinearLayout
-                    android:id="@+id/layout_add_to_cart"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="加入购物车"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="立即购买"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
-                <LinearLayout
-                    android:id="@+id/layout_buy_now"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/buy_bg_color"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="立即购买"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
