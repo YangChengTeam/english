@@ -1,6 +1,7 @@
 package com.yc.english.vip.views.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -40,6 +41,7 @@ import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.presenter.VipBuyPresenter;
 import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.vip.utils.VipInfoHelper;
+import com.yc.english.vip.views.activity.ProtocolActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -193,6 +195,14 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 umenStatistics(currentPosition);
 
 
+            }
+        });
+
+        RxView.clicks(tvRightIntroduce).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent intent = new Intent(getActivity(), ProtocolActivity.class);
+                startActivity(intent);
             }
         });
     }
