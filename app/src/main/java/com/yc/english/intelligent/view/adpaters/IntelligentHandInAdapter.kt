@@ -23,7 +23,9 @@ class IntelligentHandInAdapter : BaseMultiItemQuickAdapter<QuestionInfoWrapper.Q
         when (helper?.itemViewType) {
             0 -> {
                 helper?.setText(R.id.tv_title, item?.title)
-                index = 0
+                if (!(item?.type.equals("hearing") || item?.type.equals("vocabulary"))) {
+                    index = 0
+                }
             }
             1 -> {
                 helper?.setText(R.id.tv_index, (++index).toString())

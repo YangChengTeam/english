@@ -96,6 +96,19 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        mToolbarWarpper.stopTime()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isResultIn) {
+            mToolbarWarpper.startTime()
+        }
+    }
+
+
     fun getResultKey(): String {
         var key = "result"
         if (unitId != 0) {
@@ -188,9 +201,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         mFragmentAdapter = TabsUtils.IntelligentQuestionsFragmentAdapter(supportFragmentManager, list)
         mViewPager.setAdapter(mFragmentAdapter)
         mViewPager.setCurrentItem(0)
-        if (!isResultIn) {
-            mToolbarWarpper.startTime()
-        } else {
+        if (isResultIn) {
             mToolbarWarpper.stopTime()
             (mSubmitBtn.parent as ViewGroup).visibility = View.VISIBLE
             val tuse_time = use_time ?: SPUtils.getInstance().getString(getFinishTimeKey(), "")

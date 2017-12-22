@@ -181,23 +181,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(new Intent(this, MainActivity.class));
-            final AlertDialog alertDialog = new AlertDialog(this);
-            alertDialog.setDesc("确认退出说说英语？");
-            alertDialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    alertDialog.dismiss();
-                    finish();
-                    System.exit(0);
-                }
-            });
-            alertDialog.show();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        final AlertDialog alertDialog = new AlertDialog(this);
+        alertDialog.setDesc("确认退出说说英语？");
+        alertDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                finish();
+                System.exit(0);
+            }
+        });
+        alertDialog.show();
     }
 
     @Override
