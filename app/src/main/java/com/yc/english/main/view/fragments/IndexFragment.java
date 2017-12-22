@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -25,6 +26,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.base.helper.RxUtils;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
@@ -61,10 +63,12 @@ import com.yc.english.weixin.views.activitys.WeikeUnitActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 
@@ -137,6 +141,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @BindView(R.id.toolbar)
     LinearLayout mToolBar;
 
+    @BindView(R.id.tv_process)
+    TextView mProcessTextView;
+
     @BindView(R.id.toolbarWarpper)
     FrameLayout mToolbarWarpper;
 
@@ -145,6 +152,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //    @BindView(R.id.refresh)
 //    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
 
+    private String downurl = "http://en.upkao.com/1.apk";
 
     @Override
     public void init() {
@@ -224,8 +232,33 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mUnion).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), UnionMainActivity.class);
-                startActivity(intent);
+                if (AppUtils.isInstallApp("com.yc.phonogram")) {
+                    AppUtils.launchApp("com.yc.phonogram");
+                    return;
+                }
+
+                mUnion.setClickable(false);
+                mProcessTextView.setVisibility(View.VISIBLE);
+                RxUtils.getFile(getContext(), downurl, new RxUtils.Callback() {
+                    @Override
+                    public void process(final float precent) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mProcessTextView.setText((int) (precent * 100) + "%");
+                            }
+                        });
+                    }
+                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<File>() {
+                    @Override
+                    public void call(File file) {
+                        if (file != null) {
+                            mProcessTextView.setVisibility(View.GONE);
+                            AppUtils.installApp(file, "com.yc.english");
+                            mUnion.setClickable(true);
+                        }
+                    }
+                });
             }
         });
 
@@ -391,9 +424,14 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
         }
 
+        if (TextUtils.isEmpty(indexInfo.getDownUrl())) {
+            downurl = indexInfo.getDownUrl();
+        }
+
         if (indexInfo.getWeike() != null) {
             mHotMircoClassAdapter.addData(indexInfo.getWeike());
         }
+
         if (indexInfo.getTuijian() != null) {
             mRecommendAdapter.addData(indexInfo.getTuijian());
         }

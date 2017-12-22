@@ -281,9 +281,7 @@
         <activity android:name=".intelligent.view.activitys.IntelligentQuestionsActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentReportActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentResultActivity"></activity>
-        <activity android:name=".intelligent.view.activitys.IntelligentEvaluationActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentHandInActivity"></activity>
-        <activity android:name=".intelligent.view.activitys.IntelligentWrongQuestionActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentsPushQuestionActivity"></activity>
         <activity android:name=".intelligent.view.activitys.IntelligentTypeStartBgActivity"></activity>
 
@@ -295,6 +293,8 @@
         <activity android:name=".setting.view.activitys.TaskShowActivity" />
         <activity android:name=".speak.view.activity.QuestionActivity" />
         <activity android:name=".vip.views.activity.ProtocolActivity" />
+
+
     </application>
 
 </manifest>

@@ -26,6 +26,16 @@ public class IndexInfo {
     @JSONField(name = "count")
     private CountInfo countInfo;
 
+    @JSONField(name = "down_url")
+    private String downUrl;
+
+    public String getDownUrl() {
+        return downUrl;
+    }
+
+    public void setDownUrl(String downUrl) {
+        this.downUrl = downUrl;
+    }
 
     public CountInfo getCountInfo() {
         return countInfo;
