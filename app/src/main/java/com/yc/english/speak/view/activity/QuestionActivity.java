@@ -98,7 +98,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
     LinearLayoutManager mLinearLayoutManager;
 
-    private int lastPosition = -1;
+    private int lastPosition = 1;
 
     private boolean isPlay;//播放点读
 
@@ -737,7 +737,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                 isFlag = false;
             }
         }
-        if (isFlag) {
+        if (isFlag && !isResultIn) {
             mCommitLayout.setVisibility(View.VISIBLE);
         } else {
             mCommitLayout.setVisibility(View.GONE);

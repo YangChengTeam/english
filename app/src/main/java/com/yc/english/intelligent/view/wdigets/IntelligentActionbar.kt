@@ -23,6 +23,7 @@ class IntelligentActionbar : BaseView {
     var mStatubar = findViewById<View>(R.id.status_bar)
     var mToolbar = findViewById<RelativeLayout>(R.id.toolbar)
     var mBackBtn = findViewById<LinearLayout>(R.id.ll_back)
+    var mTitleTextView = findViewById<TextView>(R.id.tv_title)
     var mTimeTextView = findViewById<TextView>(R.id.tvTime)
     var mIndexTextView = findViewById<TextView>(R.id.tvIndex)
     private var mTimes = 0
@@ -39,6 +40,12 @@ class IntelligentActionbar : BaseView {
             field = value
         }
 
+    var title: String = ""
+        set(value) {
+            mTitleTextView.text = value
+            field = title
+        }
+
     var subscribetion: Subscription? = null
     fun startTime() {
         subscribetion = Observable.interval(1, TimeUnit.SECONDS).timeInterval().observeOn(AndroidSchedulers
@@ -47,7 +54,7 @@ class IntelligentActionbar : BaseView {
                     mTimes++
                     val minutes = mTimes / 60
                     if (minutes > 60) {
-                        if (! (subscribetion?.isUnsubscribed ?: false)) {
+                        if (!(subscribetion?.isUnsubscribed ?: false)) {
                             subscribetion?.unsubscribe()
                         }
                     } else {
@@ -57,8 +64,8 @@ class IntelligentActionbar : BaseView {
                 }
     }
 
-    fun stopTime(){
-        if(subscribetion != null && subscribetion?.isUnsubscribed ?: false) {
+    fun stopTime() {
+        if (subscribetion != null && subscribetion?.isUnsubscribed ?: false) {
             subscribetion?.unsubscribe()
         }
     }

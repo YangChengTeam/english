@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/white"
+            app:layout_collapseMode="pin"
+            app:navigationIcon="@mipmap/intelligent_back">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/protocol"
+                android:textSize="@dimen/group_text_18" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F5F5F5"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/group_distance_30"
+                android:gravity="center"
+                android:text="@string/protocol"
+                android:textColor="@color/black_333"
+                android:textSize="@dimen/group_text_20"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/group_distance_30"
+                android:lineSpacingExtra="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:text="一、购买学习保用户自开通之日起，保证学习日坚持使用10-15分钟，完成每单元智能测评，及个性化学习方案。\n
+二、购买后加客服微信KM0558，将最近一期英语考试试卷，写上注册手机号拍照发给客服，做为服务基础分。\n
+三、学习考核时间为一年期，自购买之日一年后坚持按要求完成学习任务的，未达到提高10-20分，退还学习保购买费用。"
+                android:textSize="@dimen/group_text_16" />
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+
+</android.support.constraint.ConstraintLayout>

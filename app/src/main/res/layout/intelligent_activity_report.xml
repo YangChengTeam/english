@@ -89,6 +89,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/mScoreView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@mipmap/intelligent_report_bg"
@@ -258,7 +259,7 @@
                             android:padding="10dp"
                             android:text=""
                             android:textColor="@color/white"
-                            android:textSize="@dimen/font_snormal"/>
+                            android:textSize="@dimen/font_normal"/>
                     </LinearLayout>
 
                     <LinearLayout

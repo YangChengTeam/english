@@ -105,7 +105,7 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
 
     var index: Int = 0
         set(value) {
-            if (IntelligentQuestionsActivity.getInstance()?.type.equals("hearing")) {
+            if (IntelligentQuestionsActivity.getInstance()?.type.equals("hearing") || IntelligentQuestionsActivity.getInstance()?.type.equals("vocabulary")) {
                 val pindex = questionInfo?.actIndex ?: 0
                 val maxIndex = IntelligentQuestionsActivity.getInstance()?.getMaxIndex(pindex - 1)
                 val count = IntelligentQuestionsActivity.getInstance()?.getTotalCount()

@@ -7,9 +7,10 @@
         android:id="@+id/tv_header_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="已更新微课100集"
-        android:textSize="@dimen/group_text_14" />
+        android:layout_marginRight="@dimen/dp_10"
+        android:gravity="right"
+        android:text="微课共256集，已更新51集"
+        android:textSize="@dimen/group_text_16" />
 
 
 </LinearLayout>

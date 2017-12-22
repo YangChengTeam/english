@@ -67,7 +67,7 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
                 .MILLISECONDS).subscribe {
             val sharePopupWindow = SharePopupWindow(this@IntelligentReportActivity)
             sharePopupWindow.setOnShareItemClickListener {
-                sharePopupWindow.umShareImpl.shareImage("我的个性学习", ImageUtils.view2Bitmap(mContentView), sharePopupWindow
+                sharePopupWindow.umShareImpl.shareImage("测试报告", ImageUtils.view2Bitmap(mScoreView), sharePopupWindow
                         .getShareMedia(it
                                 .getTag().toString()))
             }

@@ -33,14 +33,18 @@
                     android:textSize="@dimen/font_big"
                     />
 
-                <ImageView
+                <RelativeLayout
                     android:id="@+id/mIntelligentType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/intelligent_type"/>
+                    android:background="@drawable/base_tran_ripple_bg">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/intelligent_type"/>
+                </RelativeLayout>
             </RelativeLayout>
         </FrameLayout>
 

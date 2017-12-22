@@ -20,5 +20,7 @@ class VGInfoWarpper {
 
         @JSONField(name = "part_type")
         var partType: Int  = 0
+
+        var isSelect = false
     }
 }
