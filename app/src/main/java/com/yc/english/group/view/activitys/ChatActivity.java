@@ -92,8 +92,6 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
     @Override
     public void init() {
 
-        mToolbar.setLayoutParmas(SizeUtils.dp2px(48f));
-        mToolbar.setTitleGravity(Gravity.CENTER);
         mPresenter = new GroupApplyJoinPresenter(this, this);
         initData();
         initListener();

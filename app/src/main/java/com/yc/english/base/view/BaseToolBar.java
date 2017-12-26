@@ -37,8 +37,7 @@ public abstract class BaseToolBar extends BaseView {
     @BindView(R.id.toolbarWarpper)
     FrameLayout mtoolbarWarpper;
 
-    @BindView(R.id.container)
-    FrameLayout mContainer;
+//
 
     public FrameLayout getToolbarWarpper() {
         return mtoolbarWarpper;
@@ -165,10 +164,5 @@ public abstract class BaseToolBar extends BaseView {
         void onClick();
     }
 
-    public void setLayoutParmas(int height) {
-        FrameLayout.LayoutParams layoutParams = (LayoutParams) mContainer.getLayoutParams();
-        layoutParams.height = height;
 
-        mContainer.setLayoutParams(layoutParams);
-    }
 }
