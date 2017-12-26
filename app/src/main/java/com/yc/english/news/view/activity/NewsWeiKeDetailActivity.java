@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
@@ -247,7 +248,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
      * @param url
      */
     private void playVideo(String url, String imgUrl) {
-        mJCVideoPlayer.setVisibility(View.VISIBLE);
+
         mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);

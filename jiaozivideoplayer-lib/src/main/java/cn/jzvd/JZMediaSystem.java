@@ -66,8 +66,10 @@ public class JZMediaSystem extends JZMediaInterface implements MediaPlayer.OnPre
 
     @Override
     public void release() {
-        if (mediaPlayer != null)
+        if (mediaPlayer != null) {
             mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     @Override

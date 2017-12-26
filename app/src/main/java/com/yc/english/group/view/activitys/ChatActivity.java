@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -89,6 +91,9 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
 
     @Override
     public void init() {
+
+        mToolbar.setLayoutParmas(SizeUtils.dp2px(48f));
+        mToolbar.setTitleGravity(Gravity.CENTER);
         mPresenter = new GroupApplyJoinPresenter(this, this);
         initData();
         initListener();
@@ -133,6 +138,7 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
 
     @Override
     public int getLayoutId() {
+        hasChangeStatus = false;
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
         return R.layout.group_activity_chat;
     }

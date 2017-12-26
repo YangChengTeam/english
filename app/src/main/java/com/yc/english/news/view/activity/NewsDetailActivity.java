@@ -203,9 +203,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         newsDetailAdapter = new NewsDetailAdapter(null);
         mRecyclerView.setAdapter(newsDetailAdapter);
 
-        RecyclerView.ItemDecoration itemDecoration = new BaseItemDecoration(this);
-        mRecyclerView.addItemDecoration(itemDecoration);
-
     }
 
 

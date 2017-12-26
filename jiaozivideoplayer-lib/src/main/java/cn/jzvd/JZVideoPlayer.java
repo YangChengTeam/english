@@ -128,18 +128,21 @@ public abstract class JZVideoPlayer extends FrameLayout implements View.OnClickL
     protected float mGestureDownBrightness;
     protected long mSeekTimePosition;
     boolean tmp_test_back = false;
-    private Context mContext;
+
 
     public JZVideoPlayer(Context context) {
         super(context);
         init(context);
-        this.mContext = context;
+//        if (JZMediaManager.instance().jzMediaInterface == null)
+//            JZMediaManager.instance().jzMediaInterface = new JZMediaPlMediaPlayer(context);
     }
 
     public JZVideoPlayer(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
-        this.mContext = context;
+//        if (JZMediaManager.instance().jzMediaInterface == null)
+//            JZMediaManager.instance().jzMediaInterface = new JZMediaPlMediaPlayer(context);
+
     }
 
     public static void releaseAllVideos() {
@@ -410,7 +413,6 @@ public abstract class JZVideoPlayer extends FrameLayout implements View.OnClickL
             return;
         }
 
-        JZMediaManager.instance().jzMediaInterface = new JZMediaPlMediaPlayer(mContext);
 
         if (isCurrentJZVD() && JZUtils.dataSourceObjectsContainsUri(dataSourceObjects, JZMediaManager.getCurrentDataSource())) {
             long position = 0;
@@ -625,6 +627,7 @@ public abstract class JZVideoPlayer extends FrameLayout implements View.OnClickL
         Log.i(TAG, "onPrepared " + " [" + this.hashCode() + "] ");
         onStatePrepared();
         onStatePlaying();
+        Log.i(TAG, "onPrepared " + " [" + JZMediaManager.instance().jzMediaInterface.toString() + "] ");
     }
 
     public void setState(int state) {
@@ -728,7 +731,8 @@ public abstract class JZVideoPlayer extends FrameLayout implements View.OnClickL
                 JZMediaManager.instance().releaseMediaPlayer();
             }
         }
-        JZMediaManager.instance().jzMediaInterface = new JZMediaSystem();
+        if (JZMediaManager.instance().jzMediaInterface == null)
+            JZMediaManager.instance().jzMediaInterface = new JZMediaSystem();
     }
 
     @Override
