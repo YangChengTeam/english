@@ -2,7 +2,6 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -23,22 +21,17 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.base.helper.RxUtils;
-import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SelectGradePopupWindow;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
-import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.view.activitys.GroupCommonClassActivity;
 import com.yc.english.group.view.activitys.GroupMainActivity;
-import com.yc.english.intelligent.model.domain.VGInfoWarpper;
-import com.yc.english.intelligent.model.engin.IntelligentTypeEngin;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.model.domain.Constant;
@@ -56,19 +49,16 @@ import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
 import com.yc.english.union.view.activitys.UnionMainActivity;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
 import com.yc.english.weixin.model.domain.CourseInfo;
-import com.yc.english.weixin.model.domain.WeiKeCategory;
 import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.yc.english.weixin.views.activitys.CourseTypeActivity;
 import com.yc.english.weixin.views.activitys.WeikeUnitActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
-import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 
@@ -141,9 +131,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @BindView(R.id.toolbar)
     LinearLayout mToolBar;
 
-    @BindView(R.id.tv_process)
-    TextView mProcessTextView;
-
     @BindView(R.id.toolbarWarpper)
     FrameLayout mToolbarWarpper;
 
@@ -152,7 +139,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //    @BindView(R.id.refresh)
 //    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
 
-    private String downurl = "http://en.upkao.com/1.apk";
 
     @Override
     public void init() {
@@ -232,33 +218,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mUnion).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (AppUtils.isInstallApp("com.yc.phonogram")) {
-                    AppUtils.launchApp("com.yc.phonogram");
-                    return;
-                }
-
-                mUnion.setClickable(false);
-                mProcessTextView.setVisibility(View.VISIBLE);
-                RxUtils.getFile(getContext(), downurl, new RxUtils.Callback() {
-                    @Override
-                    public void process(final float precent) {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mProcessTextView.setText((int) (precent * 100) + "%");
-                            }
-                        });
-                    }
-                }).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<File>() {
-                    @Override
-                    public void call(File file) {
-                        if (file != null) {
-                            mProcessTextView.setVisibility(View.GONE);
-                            AppUtils.installApp(file, "com.yc.english");
-                            mUnion.setClickable(true);
-                        }
-                    }
-                });
+                Intent intent = new Intent(getActivity(), UnionMainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -424,14 +385,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
         }
 
-        if (TextUtils.isEmpty(indexInfo.getDownUrl())) {
-            downurl = indexInfo.getDownUrl();
-        }
-
         if (indexInfo.getWeike() != null) {
             mHotMircoClassAdapter.addData(indexInfo.getWeike());
         }
-
         if (indexInfo.getTuijian() != null) {
             mRecommendAdapter.addData(indexInfo.getTuijian());
         }

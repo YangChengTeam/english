@@ -36,8 +36,6 @@ import rx.schedulers.Schedulers;
  */
 
 public class EnglishApp extends MultiDexApplication {
-
-
     @Override
     public void onCreate() {
         gEnglishApp = this;
@@ -63,7 +61,7 @@ public class EnglishApp extends MultiDexApplication {
         Bugly.init(getApplicationContext(), "965a5326ab", false);
 
         //友盟统计
-        UMGameAgent.setDebugMode(true);
+        UMGameAgent.setDebugMode(false);
         UMGameAgent.init(this);
         UMGameAgent.setPlayerLevel(1);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
@@ -92,7 +90,7 @@ public class EnglishApp extends MultiDexApplication {
 
         builder.setWeixin("wx97247860e3d30d2f", "68931a7e136b97bebeb46754082aae0a")
                 .setQQ("1106261461", "p1PGwoz27nVHqoC5")
-                .setDebug(true)
+                .setDebug(false)
                 .build(this);
 
 

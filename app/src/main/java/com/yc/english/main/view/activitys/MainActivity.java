@@ -2,6 +2,7 @@ package com.yc.english.main.view.activitys;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -76,7 +77,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mFragmentAdapter);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(0);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -166,6 +167,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         @Override
         public int getCount() {
             return 4;
+        }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
         }
     }
 

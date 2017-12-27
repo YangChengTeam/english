@@ -93,18 +93,18 @@ class IntelligentsPushQuestionActivity : BaseActivity<IntelligentPushQuestionPre
             infos.add(UnitInfoWrapper.ComleteItemInfo("oracy", "2", comleteInfo.oracy))
         }
 
-        if (comleteInfo.grammar != -1) {
-            comleteInfo.grammar = if (comleteInfo.grammar == 1) comleteInfo.grammar else SPUtils.getInstance()
-                    .getInt(getFinishKey("grammar"), 0)
-
-            infos.add(UnitInfoWrapper.ComleteItemInfo("grammar", "3", comleteInfo.grammar))
-        }
-
         if (comleteInfo.hearing != -1) {
             comleteInfo.hearing = if (comleteInfo.hearing == 1) comleteInfo.hearing else SPUtils.getInstance()
                     .getInt(getFinishKey("hearing"), 0)
 
             infos.add(UnitInfoWrapper.ComleteItemInfo("hearing", "4", comleteInfo.hearing))
+        }
+
+        if (comleteInfo.grammar != -1) {
+            comleteInfo.grammar = if (comleteInfo.grammar == 1) comleteInfo.grammar else SPUtils.getInstance()
+                    .getInt(getFinishKey("grammar"), 0)
+
+            infos.add(UnitInfoWrapper.ComleteItemInfo("grammar", "3", comleteInfo.grammar))
         }
 
         if (comleteInfo.read != -1) {

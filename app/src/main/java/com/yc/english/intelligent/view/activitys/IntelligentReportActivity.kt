@@ -8,6 +8,7 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import com.blankj.utilcode.util.ImageUtils
+import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
@@ -20,6 +21,7 @@ import com.yc.english.base.view.SharePopupWindow
 import com.yc.english.intelligent.contract.IntelligentReportContract
 import com.yc.english.intelligent.model.domain.ReportInfo
 import com.yc.english.intelligent.presenter.IntelligentReportPresenter
+import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
 import com.yc.english.vip.model.bean.GoodsType
@@ -48,7 +50,6 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
             mStartPushBtn.text = "进入个性化学习"
         }
 
-
         RxView.clicks(mStartPushBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
             if (UserInfoHelper.getUserInfo() != null && UserInfoHelper.getUserInfo().isVip == 2) {
@@ -66,11 +67,6 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
         RxView.clicks(mShareBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
             val sharePopupWindow = SharePopupWindow(this@IntelligentReportActivity)
-            sharePopupWindow.setOnShareItemClickListener {
-                sharePopupWindow.umShareImpl.shareImage("测试报告", ImageUtils.view2Bitmap(mScoreView), sharePopupWindow
-                        .getShareMedia(it
-                                .getTag().toString()))
-            }
             sharePopupWindow.show()
         }
 
@@ -127,15 +123,19 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
         mIntelligentItemScoreView4.progress(reportInfo.hearing)
         mIntelligentItemScoreView5.progress(reportInfo.read)
         mIntelligentItemScoreView6.progress(reportInfo.writing)
-        mReportTextView.text = reportInfo.desp
+        mReportTextView.text = fromHtml( reportInfo.desp )
         star((reportInfo.score + 4) / 20)
 
-        mStartPushBtn.visibility = View.VISIBLE
+        if(reportInfo.score == 100){
+            mStartPushBtn.visibility = View.GONE
+        } else {
+            mStartPushBtn.visibility = View.VISIBLE
+        }
+        RxBus.get().post(Constant.USER_INFO, "from question report")
     }
 
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = arrayOf(Tag(Constant.COMMUNITY_ACTIVITY_REFRESH)))
     fun openVip(tag: String) {
         mStartPushBtn.text = "进入个性化学习"
     }
-
 }

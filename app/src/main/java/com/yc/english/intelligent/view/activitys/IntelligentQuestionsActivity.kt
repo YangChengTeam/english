@@ -55,7 +55,6 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         RxView.clicks(mToolbarWarpper.mBackBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe {
             eixt()
         }
-
         unitId = intent.getIntExtra("unitId", 0)
         reportId = intent.getIntExtra("reportId", 0)
         type = intent.getStringExtra("type")
@@ -252,10 +251,13 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         })
     }
 
-    override fun showNoData() {
+
+
+    override fun showNoData(message: String) {
         isNoData = true
-        mStateView.showNoData(mViewPager)
+        mStateView.showNoData(mViewPager, message)
     }
+
 
     override fun showLoading() {
         mStateView.showLoading(mViewPager)

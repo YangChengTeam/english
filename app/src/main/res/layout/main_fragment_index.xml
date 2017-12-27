@@ -212,34 +212,6 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="7dp">
-                    <FrameLayout
-                        android:layout_height="wrap_content"
-                        android:layout_width="0dp"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/iv_union"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:src="@mipmap/index_union"/>
-
-                        <TextView
-                            android:id="@+id/tv_process"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/main_union_bg"
-                            android:gravity="center"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/font_normal"
-                            android:text="0%"
-                            android:visibility="invisible"/>
-                    </FrameLayout>
-
-                    <View
-                        android:layout_width="7dp"
-                        android:layout_height="match_parent"></View>
-
 
                     <ImageView
                         android:id="@+id/iv_word"
@@ -273,7 +245,17 @@
                         android:scaleType="fitXY"
                         android:src="@mipmap/index_teacher_task"/>
 
+                    <View
+                        android:layout_width="7dp"
+                        android:layout_height="match_parent"></View>
 
+                    <ImageView
+                        android:id="@+id/iv_union"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/index_union"/>
                 </LinearLayout>
 
                 <View

@@ -24,7 +24,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:textColor="@color/black_333"
-            android:textSize="@dimen/font_normal"/>
+            android:textSize="@dimen/font_normal"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:text="根据人教版教材教学大纲进度，此单元不在本时段学习范围内，暂不开放，请选择其他单元学习！"/>
 
         <Button
             android:id="@+id/btn_refresh"

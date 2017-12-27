@@ -1,6 +1,7 @@
 package com.yc.english.weixin.views.utils;
 
 import android.app.Activity;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -86,6 +87,11 @@ public class TabsUtils {
         public int getCount() {
             return count;
         }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
+        }
     }
 
     public static class IntelligentFragmentAdapter extends FragmentStatePagerAdapter {
@@ -101,6 +107,11 @@ public class TabsUtils {
                 intelligentFragments.add(intelligentFragment);
             }
             count = types.length;
+        }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
         }
 
         @Override
@@ -128,6 +139,11 @@ public class TabsUtils {
                 intelligentQuestionsFragments.add(intelligentQuestionsFragment);
             }
             count = types.size();
+        }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
         }
 
         @Override
@@ -167,6 +183,11 @@ public class TabsUtils {
         }
 
         @Override
+        public Parcelable saveState() {
+            return null;
+        }
+
+        @Override
         public Fragment getItem(int position) {
             return intelligentQuestionsFragments.get(position);
         }
@@ -200,6 +221,11 @@ public class TabsUtils {
                 courseFragments.add(courseMoreFragment);
             }
             count = types.length;
+        }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
         }
 
         @Override

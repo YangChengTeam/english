@@ -54,7 +54,7 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
         mViewPager.setAdapter(mFragmentAdapter)
         mViewPager.setCurrentItem(0)
         index = 1
-        mViewPager.setOffscreenPageLimit(data.size)
+        mViewPager.setOffscreenPageLimit(1)
         mViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(i: Int, v: Float, i1: Int) {
 
@@ -62,7 +62,9 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
 
             override fun onPageSelected(i: Int) {
                 for (j in 0..(mFragmentAdapter.count - 1)) {
-                    (mFragmentAdapter.getItem(j) as IntelligentInnerQuestionFragment).stop()
+                    if(mFragmentAdapter.getItem(j).isAdded) {
+                        (mFragmentAdapter.getItem(j) as IntelligentInnerQuestionFragment).stop()
+                    }
                 }
                 index = i + 1
             }
