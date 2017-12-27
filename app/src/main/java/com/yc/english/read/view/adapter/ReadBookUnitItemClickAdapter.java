@@ -30,13 +30,14 @@ public class ReadBookUnitItemClickAdapter extends BaseMultiItemQuickAdapter<Unit
         if (item.getFree() == 1) {
             helper.setVisible(R.id.iv_course_vip, false);
         } else {
-            if(UserInfoHelper.getUserInfo() != null) {
-                if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
+            if (UserInfoHelper.getUserInfo() != null) {
+                int isVip = UserInfoHelper.getUserInfo().getIsVip();
+                if (isVip == 1 || isVip == 2 || isVip == 4) {
                     helper.setVisible(R.id.iv_course_vip, false);
                 } else {
                     helper.setVisible(R.id.iv_course_vip, true);
                 }
-            }else{
+            } else {
                 helper.setVisible(R.id.iv_course_vip, true);
             }
         }

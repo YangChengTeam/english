@@ -93,7 +93,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     TextView mOldPriceTextView;
 
 
-
     @BindView(R.id.nestedScrollView)
     ScrollView scrollView;
 
@@ -278,7 +277,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
                 //未购买
                 if (currentCourseInfo.getUserHas() == 0) {
                     if (userInfo != null) {
-                        if (userInfo.getIsVip() == 0) {
+                        if (userInfo.getIsVip() == 0 || userInfo.getIsVip() == 4) {
                             isPlay = false;
                         } else {
                             if (currentCourseInfo.getIs_vip() == 0) {
