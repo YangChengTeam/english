@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -91,6 +92,11 @@ public class ChatActivity extends FullScreenActivity<GroupApplyJoinPresenter> im
 
     @Override
     public void init() {
+
+        View view = mToolbar.findViewById(R.id.container);
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.height=SizeUtils.dp2px(50);
+        view.setLayoutParams(layoutParams);
 
         mPresenter = new GroupApplyJoinPresenter(this, this);
         initData();
