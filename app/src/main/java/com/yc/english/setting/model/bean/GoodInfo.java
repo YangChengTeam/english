@@ -1,7 +1,5 @@
 package com.yc.english.setting.model.bean;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Created by wanglin  on 2017/11/6 16:23.
  */
