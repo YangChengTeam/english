@@ -1,5 +1,7 @@
 package com.yc.english.setting.model.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.List;
 
 /**
@@ -18,7 +20,7 @@ public class GoodInfoWrapper {
     private List<GoodInfo> svip;
     private List<GoodInfo> vip;
 
-    private List<GoodInfo> weike;
+    private List<GoodInfo> wvip;
     private List<GoodInfo> diandu;
 
     public List<GoodInfo> getSvip() {
@@ -37,12 +39,12 @@ public class GoodInfoWrapper {
         this.vip = vip;
     }
 
-    public List<GoodInfo> getWeike() {
-        return weike;
+    public List<GoodInfo> getWvip() {
+        return wvip;
     }
 
-    public void setWeike(List<GoodInfo> weike) {
-        this.weike = weike;
+    public void setWvip(List<GoodInfo> wvip) {
+        this.wvip = wvip;
     }
 
     public List<GoodInfo> getDiandu() {

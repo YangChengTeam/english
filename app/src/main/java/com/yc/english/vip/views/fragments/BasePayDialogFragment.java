@@ -42,6 +42,7 @@ import com.yc.english.vip.presenter.VipBuyPresenter;
 import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.vip.utils.VipInfoHelper;
 import com.yc.english.vip.views.activity.ProtocolActivity;
+import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,6 +74,8 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
     private BaseVipPayFragment currentFragment;
 
+    private CourseInfo courseInfo;
+
     private GoodInfo mGoodInfo;
     private String mPayWayName;
 
@@ -99,6 +102,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
             } else if (goodsType == GoodsType.TYPE_SINGLE_WEIKE) {
                 //显示三项
+                courseInfo = bundle.getParcelable("courseInfo");
                 mTitles.add(getString(R.string.member));
                 mTitles.add(getString(R.string.synchronization_weike));
             } else if (goodsType == GoodsType.TYPE_SINGLE_DIANDU) {
@@ -227,8 +231,8 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                     mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getDiandu().get(0);
                 }
             } else if (goodsType == GoodsType.TYPE_SINGLE_WEIKE) {
-                if (goodInfoWrapper.getWeike() != null && goodInfoWrapper.getWeike().size() > 0) {
-                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getWeike().get(0);
+                if (goodInfoWrapper.getWvip() != null && goodInfoWrapper.getWvip().size() > 0) {
+                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getWvip().get(0);
                 }
             }
         }
@@ -302,6 +306,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 if (singleFragment == null) {
                     singleFragment = new BaseVipPayFragment();
                     singleFragment.setType(goodsType);
+                    singleFragment.setCourseInfo(courseInfo);
                 }
                 return singleFragment;
             }
@@ -359,9 +364,11 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
         Date date = new Date();
         userInfo.setVip_start_time(date.getTime() / 1000);
-        int use_time_Limit = Integer.parseInt(mGoodInfo.getUse_time_limit());
-        long vip_end_time = date.getTime() + use_time_Limit * 30 * (Config.MS_IN_A_DAY);
-        userInfo.setVip_end_time(vip_end_time / 1000);
+        if (mGoodInfo.getUse_time_limit() != null) {
+            int use_time_Limit = Integer.parseInt(mGoodInfo.getUse_time_limit());
+            long vip_end_time = date.getTime() + use_time_Limit * 30 * (Config.MS_IN_A_DAY);
+            userInfo.setVip_end_time(vip_end_time / 1000);
+        }
         UserInfoHelper.saveUserInfo(userInfo);
 
         RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form pay");

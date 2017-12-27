@@ -2,12 +2,9 @@ package com.yc.english.vip.views.fragments;
 
 
 import android.graphics.Paint;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,8 +27,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
 
 /**
@@ -98,6 +93,7 @@ public class BaseVipPayFragment extends BaseFragment {
     private List<GoodInfo> generalVipList;//普通会员
     private List<GoodInfo> dianduList;//点读
     private List<GoodInfo> weikeList;//微课
+    private CourseInfo courseInfo;
 
     @Override
     public void init() {
@@ -110,7 +106,7 @@ public class BaseVipPayFragment extends BaseFragment {
         sVipList = goodInfoWrapper.getSvip();
         generalVipList = goodInfoWrapper.getVip();
         dianduList = goodInfoWrapper.getDiandu();
-        weikeList = goodInfoWrapper.getWeike();
+        weikeList = goodInfoWrapper.getWvip();
 
         if (mType == GoodsType.TYPE_SVIP) {
             setGoodInfo(position, sVipList);
@@ -122,18 +118,20 @@ public class BaseVipPayFragment extends BaseFragment {
         } else {
             llFirstContent.setVisibility(View.GONE);
             baseItemViewUnion.setVisibility(View.GONE);
-            tvVipForever.setVisibility(View.GONE);
             tvVipTweenMonth.setText("永久会员");
             if (mType == GoodsType.TYPE_SINGLE_WEIKE) {
                 baseItemViewCeping.setContentAndIcon("同步微课", 0);
+                tvVipForever.setText("单次微课");
                 setGoodInfo(position, weikeList);
-            } else if (mType == GoodsType.TYPE_SINGLE_DIANDU) {
-                baseItemViewCeping.setContentAndIcon("教材点读", 0);
-                setGoodInfo(position, dianduList);
-            } else if (mType == GoodsType.TYPE_SINGLE_INDIVIDUALITY_PLAN) {
-                baseItemViewCeping.setContentAndIcon("个性学习计划", 0);
+            } else {
+                tvVipForever.setVisibility(View.GONE);
+                if (mType == GoodsType.TYPE_SINGLE_DIANDU) {
+                    baseItemViewCeping.setContentAndIcon("教材点读", 0);
+                    setGoodInfo(position, dianduList);
+                } else if (mType == GoodsType.TYPE_SINGLE_INDIVIDUALITY_PLAN) {
+                    baseItemViewCeping.setContentAndIcon("个性学习计划", 0);
+                }
             }
-
             LinearLayout.MarginLayoutParams layoutParams = (LinearLayout.MarginLayoutParams) llRightContainer.getLayoutParams();
             layoutParams.topMargin = SizeUtils.dp2px(15);
 
@@ -196,6 +194,10 @@ public class BaseVipPayFragment extends BaseFragment {
         tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.group_blue_21b5f8));
     }
 
+    public void setCourseInfo(CourseInfo courseInfo) {
+        this.courseInfo = courseInfo;
+    }
+
 
     public interface onVipClickListener {
         void onVipClick(GoodInfo goodInfo, String payWayName, int type);
@@ -207,6 +209,28 @@ public class BaseVipPayFragment extends BaseFragment {
 
 
     private void setGoodInfo(int position, List<GoodInfo> goodInfoList) {
+        if (mType == GoodsType.TYPE_SINGLE_WEIKE) {
+            if (position == 3) {
+                if (courseInfo != null) {
+                    vipCurrentPrice.setText(String.valueOf(courseInfo.getMPrice()));
+                    tvVipOriginalPrice.setText(String.format(getString(R.string.original_price), String.valueOf(courseInfo.getPrice())));
+                    goodInfo = new GoodInfo();
+                    goodInfo.setId(courseInfo.getGoodId());
+                    goodInfo.setM_price(String.valueOf(courseInfo.getMPrice()));
+                    goodInfo.setPay_price(String.valueOf(courseInfo.getPayPrice()));
+                    goodInfo.setType_id(courseInfo.getType_id());
+                    goodInfo.setName(courseInfo.getTitle());
+
+                }
+            } else {
+                setGoodVipInfo(position, goodInfoList);
+            }
+            return;
+        }
+        setGoodVipInfo(position, goodInfoList);
+    }
+
+    private void setGoodVipInfo(int position, List<GoodInfo> goodInfoList) {
         if (goodInfoList != null && position < goodInfoList.size()) {
             goodInfo = goodInfoList.get(position);
             String payPrice = goodInfo.getPay_price();
@@ -221,10 +245,14 @@ public class BaseVipPayFragment extends BaseFragment {
             view.setBackgroundResource(R.drawable.vip_item_unselect_time);
         }
         payWayInfoList = PayWayInfoHelper.getPayWayInfoList();
-        if (payWayInfoList != null && position < payWayInfoList.size()) {
-            viewList.get(position).setBackgroundResource(R.drawable.vip_item_select_time);
-            paywayName = payWayInfoList.get(position).getPay_way_name();
+        if (payWayInfoList == null) {
+            payWayInfoList.add(new PayWayInfo(PayConfig.ali_pay));
+            payWayInfoList.add(new PayWayInfo(PayConfig.wx_pay));
         }
+
+        viewList.get(position).setBackgroundResource(R.drawable.vip_item_select_time);
+        paywayName = payWayInfoList.get(position).getPay_way_name();
+
     }
 
 
