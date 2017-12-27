@@ -217,7 +217,7 @@ public class BaseVipPayFragment extends BaseFragment {
                     goodInfo = new GoodInfo();
                     goodInfo.setId(courseInfo.getGoodId());
                     goodInfo.setM_price(String.valueOf(courseInfo.getMPrice()));
-                    goodInfo.setPrice(String.valueOf(courseInfo.getPayPrice()));
+                    goodInfo.setPay_price(String.valueOf(courseInfo.getPayPrice()));
                     goodInfo.setType_id(courseInfo.getType_id());
                     goodInfo.setName(courseInfo.getTitle());
 
