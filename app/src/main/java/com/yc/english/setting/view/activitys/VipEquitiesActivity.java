@@ -74,6 +74,12 @@ public class VipEquitiesActivity extends BaseActivity {
     BasePayItemView baseItemViewTeach;
     @BindView(R.id.basePayItemView_task_tutorship)
     BasePayItemView basePayItemViewTaskTutorship;
+    @BindView(R.id.baseItemView_plan_teach)
+    BasePayItemView baseItemViewPlanTeach;
+    @BindView(R.id.baseItemView_book_read)
+    BasePayItemView baseItemViewBookRead;
+    @BindView(R.id.ll_right_container)
+    LinearLayout llRightContainer;
 
     private UserInfo userInfo;
 
@@ -142,9 +148,19 @@ public class VipEquitiesActivity extends BaseActivity {
                 baseItemViewTeach.setContentAndIcon("VIP专属教学", R.mipmap.vip_self_icon);
                 basePayItemViewVip.setVisibility(View.GONE);
             } else if (userInfo.getIsVip() == 3) {
+                mTvRightsTitle.setText(getString(R.string.synchronization_weike_right));
                 mVipIcon.setImageResource(R.mipmap.vip_vip_weike);
+                llRightContainer.setVisibility(View.GONE);
+                baseItemViewTeach.setVisibility(View.GONE);
+                baseItemViewPlanTeach.setVisibility(View.GONE);
+                baseItemViewBookRead.setVisibility(View.GONE);
             } else if (userInfo.getIsVip() == 4) {
+                mTvRightsTitle.setText(getString(R.string.read_book_right));
                 mVipIcon.setImageResource(R.mipmap.vip_vip_diandu);
+                llRightContainer.setVisibility(View.GONE);
+                baseItemViewTeach.setVisibility(View.GONE);
+                baseItemViewPlanTeach.setVisibility(View.GONE);
+                baseItemViewWeike.setVisibility(View.GONE);
             }
         }
 

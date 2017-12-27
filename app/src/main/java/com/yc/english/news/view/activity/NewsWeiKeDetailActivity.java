@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
@@ -90,7 +91,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     @BindView(R.id.tv_old_price)
     TextView mOldPriceTextView;
-
 
 
     @BindView(R.id.nestedScrollView)
@@ -247,7 +247,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
      * @param url
      */
     private void playVideo(String url, String imgUrl) {
-        mJCVideoPlayer.setVisibility(View.VISIBLE);
+
         mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
@@ -277,7 +277,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
                 //未购买
                 if (currentCourseInfo.getUserHas() == 0) {
                     if (userInfo != null) {
-                        if (userInfo.getIsVip() == 0) {
+                        if (userInfo.getIsVip() == 0 || userInfo.getIsVip() == 4) {
                             isPlay = false;
                         } else {
                             if (currentCourseInfo.getIs_vip() == 0) {

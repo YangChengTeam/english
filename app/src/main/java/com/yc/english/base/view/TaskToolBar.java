@@ -3,6 +3,8 @@ package com.yc.english.base.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
@@ -24,6 +26,7 @@ public class TaskToolBar extends BaseToolBar {
 
     @BindView(R.id.status_bar)
     View mStatusBar;
+
 
     public View getStatusBar() {
         return mStatusBar;
@@ -47,14 +50,14 @@ public class TaskToolBar extends BaseToolBar {
     public void setMenuTitle(String mMenuTitle) {
         hasMenu = hasMenu ? hasMenu : false;
         this.mMenuTitle = mMenuTitle;
-        ((View)mMenuTextView.getParent()).setVisibility(View.VISIBLE);
+        ((View) mMenuTextView.getParent()).setVisibility(View.VISIBLE);
         mMenuTextView.setText(mMenuTitle);
     }
 
     @Override
     public void setMenuIcon(int iconResid) {
         super.setMenuIcon(iconResid);
-        ((View)mMenuTextView.getParent()).setVisibility(View.GONE);
+        ((View) mMenuTextView.getParent()).setVisibility(View.GONE);
     }
 
     @Override
@@ -72,5 +75,7 @@ public class TaskToolBar extends BaseToolBar {
             }
         });
     }
+
+
 
 }

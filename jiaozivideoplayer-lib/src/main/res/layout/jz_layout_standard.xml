@@ -12,6 +12,10 @@
 
     </FrameLayout>
 
+    <SurfaceView
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
     <ImageView
         android:id="@+id/thumb"
         android:layout_width="match_parent"

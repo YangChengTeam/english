@@ -26,13 +26,12 @@ public class GroupUnionAdapter extends BaseQuickAdapter<ClassInfo, BaseViewHolde
     @Override
     protected void convert(final BaseViewHolder helper, final ClassInfo classInfo) {
         helper.setText(R.id.m_tv_group_name, classInfo.getClassName())
-                .setText(R.id.m_tv_member_count, String.format(mContext.getString(R.string.member_count), Integer.parseInt(classInfo.getCount())))
+                .setText(R.id.m_tv_member_count, String.format(mContext.getString(R.string.member_count), Integer.parseInt(classInfo.getCount() == null ? (0 + "") : classInfo.getCount())))
                 .setText(R.id.m_tv_group_number, String.format(mContext.getString(R.string.groupId), classInfo.getGroupId()));
         GlideHelper.circleImageView(mContext, (ImageView) helper.getView(R.id.m_iv_group_img), classInfo.getImageUrl(), R.mipmap.default_avatar);
         helper.setVisible(R.id.m_iv_pay_money, classInfo.getFee_type() == 1);
 
     }
-
 
 
 }

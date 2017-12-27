@@ -103,7 +103,8 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                     isRead = true;
                 } else {
                     if (UserInfoHelper.getUserInfo() != null) {
-                        if (UserInfoHelper.getUserInfo().getIsVip() == 1) {
+                        int isVip = UserInfoHelper.getUserInfo().getIsVip();
+                        if (isVip == 1 || isVip == 2 || isVip == 4) {
                             isRead = true;
                         } else {
                             isRead = false;
@@ -125,7 +126,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                     }
                 } else {
                     Bundle bundle = new Bundle();
-                    bundle.putInt(GoodsType.GOODS_KEY,GoodsType.TYPE_SINGLE_DIANDU);
+                    bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_SINGLE_DIANDU);
                     VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
                     MobclickAgent.onEvent(BookUnitActivity.this, "textbook_read", "教材点读");
                 }

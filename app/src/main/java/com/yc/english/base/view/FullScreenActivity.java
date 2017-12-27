@@ -28,14 +28,14 @@ public abstract class FullScreenActivity<P extends BasePresenter> extends BaseAc
         if (mToolbar == null) {
             throw new NullPointerException("error, please set com.yc.english.main.view.MainToolBar id -> toolbar.");
         }
-
         mToolbar.init(this);
         if (mToolbar instanceof MainToolBar) {
             StatusBarCompat.compat(this, mToolbar, mToolbar.getToolbar(), R.mipmap.base_actionbar);
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                 mToolbar.getLayoutParams().height = SizeUtils.dp2px(48f);
             }
-        } else if (mToolbar instanceof TaskToolBar) {
+        } else if (mToolbar instanceof TaskToolBar && hasChangeStatus) {
+
             StatusBarCompat.light(this);
             StatusBarCompat.compat(this, mToolbar, mToolbar.getToolbarWarpper(), ((TaskToolBar) mToolbar).getStatusBar());
         }

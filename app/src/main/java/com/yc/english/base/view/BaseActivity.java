@@ -19,6 +19,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.StatusBarCompat;
+import com.yc.english.group.view.activitys.ChatActivity;
 
 import butterknife.ButterKnife;
 
@@ -30,6 +31,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected P mPresenter;
     protected LoadingDialog mLoadingDialog;
     protected int statusBarHeight;
+    protected boolean hasChangeStatus = true;
 
     public int getStatusBarHeight() {
         return statusBarHeight;
@@ -46,6 +48,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             return;
         }
         statusBarHeight = BarUtils.getStatusBarHeight(this);
+        LogUtils.e("statusBarHeight:  " + statusBarHeight);
         ScreenUtils.setPortrait(this);
         RxBus.get().register(this);
         setContentView(getLayoutId());
@@ -56,18 +59,20 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             e.printStackTrace();
             LogUtils.i(this.getClass().getSimpleName() + " ButterKnife->初始化失败 原因:" + e);
         }
-        StatusBarCompat.transparentStatusBar(this);
+        if (hasChangeStatus) {
+            StatusBarCompat.transparentStatusBar(this);
+        }
         init();
     }
 
-    public void setToolbarTopMargin(View view){
-        if(view.getLayoutParams() instanceof  FrameLayout.LayoutParams) {
+    public void setToolbarTopMargin(View view) {
+        if (view.getLayoutParams() instanceof FrameLayout.LayoutParams) {
             FrameLayout.LayoutParams l = (FrameLayout.LayoutParams) view.getLayoutParams();
             l.setMargins(0, statusBarHeight, 0, 0);
-        } else if(view.getLayoutParams() instanceof  RelativeLayout.LayoutParams){
+        } else if (view.getLayoutParams() instanceof RelativeLayout.LayoutParams) {
             RelativeLayout.LayoutParams l = (RelativeLayout.LayoutParams) view.getLayoutParams();
             l.setMargins(0, statusBarHeight, 0, 0);
-        } else if(view.getLayoutParams() instanceof  LinearLayout.LayoutParams){
+        } else if (view.getLayoutParams() instanceof LinearLayout.LayoutParams) {
             LinearLayout.LayoutParams l = (LinearLayout.LayoutParams) view.getLayoutParams();
             l.setMargins(0, statusBarHeight, 0, 0);
         }

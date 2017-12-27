@@ -37,6 +37,8 @@ public abstract class BaseToolBar extends BaseView {
     @BindView(R.id.toolbarWarpper)
     FrameLayout mtoolbarWarpper;
 
+//
+
     public FrameLayout getToolbarWarpper() {
         return mtoolbarWarpper;
     }
@@ -101,6 +103,10 @@ public abstract class BaseToolBar extends BaseView {
 
     public void setTitleSize(float titleSize) {
         mTitleTextView.setTextSize(UIUtil.dip2px(mContext, titleSize));
+    }
+
+    public void setTitleGravity(int gravity) {
+        mTitleTextView.setGravity(gravity);
     }
 
     public void showNavigationIcon() {
