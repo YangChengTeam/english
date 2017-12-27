@@ -100,7 +100,7 @@ public class VipScoreTutorshipActivity extends BaseActivity {
         if (userInfo == null) {
             isVip = false;
         } else {
-            isVip = userInfo.getIsVip() == 1 || userInfo.getIsVip() == 2;
+            isVip = userInfo.getIsVip() == 2;
         }
 
         rlBtn.setVisibility(isVip ? View.GONE : View.VISIBLE);
