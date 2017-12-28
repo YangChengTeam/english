@@ -74,6 +74,7 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
                         UserInfoHelper.utils(mContext, resultInfo);
                         RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form getUserInfo");
                         RxBus.get().post(Constant.GET_UNIT, "form getUserInfo");
+                        RxBus.get().post(Constant.USER_INFO, "form getUserInfo");
                         mView.finish();
                     }
                 });

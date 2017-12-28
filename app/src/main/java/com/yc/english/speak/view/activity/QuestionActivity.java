@@ -957,11 +957,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mCommitLayout.setVisibility(View.GONE);
     }
 
-    @Override
-    public void showNoData() {
-        mStateView.showNoData(mSpeakListLayout);
-        mCommitLayout.setVisibility(View.GONE);
-    }
+
 
     @Override
     public void showLoading() {
@@ -1070,5 +1066,11 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             mTts.destroy();
             mTts = null;
         }
+    }
+
+    @Override
+    public void showNoData(@NotNull String message) {
+        mStateView.showNoData(mSpeakListLayout, message);
+        mCommitLayout.setVisibility(View.GONE);
     }
 }

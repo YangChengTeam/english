@@ -2,7 +2,6 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,21 +21,17 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SelectGradePopupWindow;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
-import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.view.activitys.GroupCommonClassActivity;
 import com.yc.english.group.view.activitys.GroupMainActivity;
-import com.yc.english.intelligent.model.domain.VGInfoWarpper;
-import com.yc.english.intelligent.model.engin.IntelligentTypeEngin;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.model.domain.Constant;
@@ -54,7 +49,6 @@ import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
 import com.yc.english.union.view.activitys.UnionMainActivity;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
 import com.yc.english.weixin.model.domain.CourseInfo;
-import com.yc.english.weixin.model.domain.WeiKeCategory;
 import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.yc.english.weixin.views.activitys.CourseTypeActivity;
 import com.yc.english.weixin.views.activitys.WeikeUnitActivity;
@@ -360,7 +354,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //        if (!mRefreshSwipeRefreshLayout.isRefreshing())
         mLoadingStateView.showLoading(mContextScrollView);
     }
-
+    
     @Override
     public void hideStateView() {
         mLoadingStateView.hide();

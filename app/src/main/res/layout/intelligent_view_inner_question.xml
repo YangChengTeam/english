@@ -66,4 +66,5 @@
             android:textColor="#555555"
             android:textSize="@dimen/font_normal"/>
     </LinearLayout>
+
 </LinearLayout>

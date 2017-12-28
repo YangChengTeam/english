@@ -42,7 +42,7 @@ open class IntelligentQuestionPresenter :
                     return@subscribe
                 }
             }
-            mView.showNoData()
+            mView.showNoData(it?.message ?: "根据人教版教材教学大纲进度，此单元不在本时段学习范围内，暂不开放，请选择其他单元学习！")
         }, {
             mView.hideStateView()
             mView.showNoNet()
@@ -62,7 +62,7 @@ open class IntelligentQuestionPresenter :
                     return@subscribe
                 }
             }
-            mView.showNoData()
+            mView.showNoData(it?.message ?: "根据人教版教材教学大纲进度，此单元不在本时段学习范围内，暂不开放，请选择其他单元学习！")
         }, {
             mView.hideStateView()
             mView.showNoNet()

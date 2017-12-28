@@ -55,7 +55,6 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         RxView.clicks(mToolbarWarpper.mBackBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe {
             eixt()
         }
-
         unitId = intent.getIntExtra("unitId", 0)
         reportId = intent.getIntExtra("reportId", 0)
         type = intent.getStringExtra("type")
@@ -95,6 +94,19 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         loadData()
 
     }
+
+    override fun onPause() {
+        super.onPause()
+        mToolbarWarpper.stopTime()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isResultIn) {
+            mToolbarWarpper.startTime()
+        }
+    }
+
 
     fun getResultKey(): String {
         var key = "result"
@@ -188,9 +200,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         mFragmentAdapter = TabsUtils.IntelligentQuestionsFragmentAdapter(supportFragmentManager, list)
         mViewPager.setAdapter(mFragmentAdapter)
         mViewPager.setCurrentItem(0)
-        if (!isResultIn) {
-            mToolbarWarpper.startTime()
-        } else {
+        if (isResultIn) {
             mToolbarWarpper.stopTime()
             (mSubmitBtn.parent as ViewGroup).visibility = View.VISIBLE
             val tuse_time = use_time ?: SPUtils.getInstance().getString(getFinishTimeKey(), "")
@@ -241,10 +251,13 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         })
     }
 
-    override fun showNoData() {
+
+
+    override fun showNoData(message: String) {
         isNoData = true
-        mStateView.showNoData(mViewPager)
+        mStateView.showNoData(mViewPager, message)
     }
+
 
     override fun showLoading() {
         mStateView.showLoading(mViewPager)

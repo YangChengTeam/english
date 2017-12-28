@@ -2,6 +2,7 @@ package com.yc.english.main.view.activitys;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -76,7 +77,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mFragmentAdapter);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(0);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -167,6 +168,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         public int getCount() {
             return 4;
         }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
+        }
     }
 
 
@@ -181,23 +187,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(new Intent(this, MainActivity.class));
-            final AlertDialog alertDialog = new AlertDialog(this);
-            alertDialog.setDesc("确认退出说说英语？");
-            alertDialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    alertDialog.dismiss();
-                    finish();
-                    System.exit(0);
-                }
-            });
-            alertDialog.show();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        final AlertDialog alertDialog = new AlertDialog(this);
+        alertDialog.setDesc("确认退出说说英语？");
+        alertDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                finish();
+                System.exit(0);
+            }
+        });
+        alertDialog.show();
     }
 
     @Override

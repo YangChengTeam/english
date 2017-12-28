@@ -282,15 +282,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             @Override
             public void call(Void aVoid) {
                 final SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
-                sharePopupWindow.setOnShareItemClickListener(new SharePopupWindow.OnShareItemClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        sharePopupWindow.getUMShareImpl().shareImage("个性学习", ImageUtils.view2Bitmap(abilityView), sharePopupWindow.getShareMedia((view.getTag() + "")));
-//
-                    }
-                });
                 sharePopupWindow.show();
-
             }
         });
 

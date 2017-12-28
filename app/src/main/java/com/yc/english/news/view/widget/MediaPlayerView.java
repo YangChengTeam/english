@@ -229,7 +229,6 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
         @Override
         public void run() {
             download(mPath);
-
         }
     }
 

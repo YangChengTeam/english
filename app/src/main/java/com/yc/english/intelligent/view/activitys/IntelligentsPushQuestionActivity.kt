@@ -15,6 +15,7 @@ import com.yc.english.intelligent.contract.IntelligentPushQuestionContract
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentPushQuestionPresenter
 import com.yc.english.intelligent.view.adpaters.IntelligentPushAdpater
+import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
 import com.yc.english.speak.view.activity.QuestionActivity
 import kotlinx.android.synthetic.main.intelligent_activity_push_question.*
@@ -69,41 +70,47 @@ class IntelligentsPushQuestionActivity : BaseActivity<IntelligentPushQuestionPre
         mStateView.showLoading(mRecyclerView)
     }
 
+    fun getFinishKey(type: String): String {
+        var key = "finish"
+        key += "${UserInfoHelper.getUserInfo().uid}-reportId${reportId}${type}"
+        return key
+    }
+
     lateinit var infos: MutableList<UnitInfoWrapper.ComleteItemInfo>
     override fun showInfo(comleteInfo: UnitInfoWrapper.ComleteInfo) {
         infos = mutableListOf<UnitInfoWrapper.ComleteItemInfo>()
         if (comleteInfo.vocabulary != -1) {
             comleteInfo.vocabulary = if (comleteInfo.vocabulary == 1) comleteInfo.vocabulary else SPUtils.getInstance()
-                    .getInt("finish-reportId${reportId}vocabulary", 0)
+                    .getInt(getFinishKey("vocabulary"), 0)
 
             infos.add(UnitInfoWrapper.ComleteItemInfo("vocabulary", "1", comleteInfo.vocabulary))
         }
 
         if (comleteInfo.oracy != -1) {
             comleteInfo.oracy = if (comleteInfo.oracy == 1) comleteInfo.oracy else SPUtils.getInstance()
-                    .getInt("finish-reportId${reportId}oracy", 0)
+                    .getInt(getFinishKey("oracy"), 0)
 
             infos.add(UnitInfoWrapper.ComleteItemInfo("oracy", "2", comleteInfo.oracy))
         }
 
-        if (comleteInfo.grammar != -1) {
-            comleteInfo.grammar = if (comleteInfo.grammar == 1) comleteInfo.grammar else SPUtils.getInstance()
-                    .getInt("finish-reportId${reportId}grammar", 0)
-
-            infos.add(UnitInfoWrapper.ComleteItemInfo("grammar", "3", comleteInfo.grammar))
-        }
-
         if (comleteInfo.hearing != -1) {
             comleteInfo.hearing = if (comleteInfo.hearing == 1) comleteInfo.hearing else SPUtils.getInstance()
-                    .getInt("finish-reportId${reportId}hearing", 0)
+                    .getInt(getFinishKey("hearing"), 0)
 
             infos.add(UnitInfoWrapper.ComleteItemInfo("hearing", "4", comleteInfo.hearing))
+        }
+
+        if (comleteInfo.grammar != -1) {
+            comleteInfo.grammar = if (comleteInfo.grammar == 1) comleteInfo.grammar else SPUtils.getInstance()
+                    .getInt(getFinishKey("grammar"), 0)
+
+            infos.add(UnitInfoWrapper.ComleteItemInfo("grammar", "3", comleteInfo.grammar))
         }
 
         if (comleteInfo.read != -1) {
 
             comleteInfo.read = if (comleteInfo.read == 1) comleteInfo.read else SPUtils.getInstance()
-                    .getInt("finish-reportId${reportId}read", 0)
+                    .getInt(getFinishKey("read"), 0)
 
 
             infos.add(UnitInfoWrapper.ComleteItemInfo("read", "5", comleteInfo.read))
@@ -112,7 +119,7 @@ class IntelligentsPushQuestionActivity : BaseActivity<IntelligentPushQuestionPre
         if (comleteInfo.writing != -1) {
 
             comleteInfo.writing = if (comleteInfo.writing == 1) comleteInfo.writing else SPUtils.getInstance()
-                    .getInt("finish-reportId${reportId}writing", 0)
+                    .getInt(getFinishKey("writing"), 0)
 
             infos.add(UnitInfoWrapper.ComleteItemInfo("writing", "6", comleteInfo.writing))
         }
