@@ -52,7 +52,7 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         ListenEnglishActivity.isClick = false;
-        RxBus.get().post(AudioConstant.INIT_MEDIA_AND_PLAY, mMediaPlayer);
+        RxBus.get().post(AudioConstant.INIT_MEDIA_AND_PLAY, mMediaPlayer != null ? mMediaPlayer : new MediaPlayer());
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -65,9 +65,9 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
     private void initMediaPlayer() {
         try {
             LogUtils.e("audio initMediaPlayer--->");
-            if(mMediaPlayer != null && !StringUtils.isEmpty(mSongPath)) {
+            if (mMediaPlayer != null && !StringUtils.isEmpty(mSongPath)) {
 
-                if(mMediaPlayer.isPlaying()) {
+                if (mMediaPlayer.isPlaying()) {
                     mMediaPlayer.stop();
                     mMediaPlayer.reset();
                 }
@@ -147,7 +147,7 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
     public void onDestroy() {
         try {
             if (mMediaPlayer != null) {
-                if(mMediaPlayer.isPlaying()) {
+                if (mMediaPlayer.isPlaying()) {
                     mMediaPlayer.stop();
                 }
                 mMediaPlayer.release();

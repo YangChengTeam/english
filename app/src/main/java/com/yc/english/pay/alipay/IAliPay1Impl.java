@@ -98,6 +98,7 @@ public class IAliPay1Impl extends IPayImpl {
             // 构造PayTask 对象
             PayTask alipay = new PayTask(mContext);
 
+
             // 调用支付接口，获取支付结果
             Map<String, String> result = alipay.payV2(mPayInfo, false);
             PayResult payResult = new PayResult(result);
