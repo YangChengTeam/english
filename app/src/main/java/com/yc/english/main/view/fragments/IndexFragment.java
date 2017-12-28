@@ -354,7 +354,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //        if (!mRefreshSwipeRefreshLayout.isRefreshing())
         mLoadingStateView.showLoading(mContextScrollView);
     }
-
+    
     @Override
     public void hideStateView() {
         mLoadingStateView.hide();
