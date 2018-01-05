@@ -91,8 +91,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @BindView(R.id.iv_task)
     ImageView mTaskImageView;
 
-    @BindView(R.id.iv_union)
-    ImageView mUnion;
+    @BindView(R.id.iv_homework_answer)
+    ImageView mHomeworkAnswer;
 
     @BindView(R.id.iv_exam)
     ImageView mExamImageView;
@@ -215,10 +215,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-        RxView.clicks(mUnion).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mHomeworkAnswer).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), UnionMainActivity.class);
+                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                intent.putExtra("id","17" );
                 startActivity(intent);
             }
         });
@@ -354,7 +355,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //        if (!mRefreshSwipeRefreshLayout.isRefreshing())
         mLoadingStateView.showLoading(mContextScrollView);
     }
-    
+
     @Override
     public void hideStateView() {
         mLoadingStateView.hide();

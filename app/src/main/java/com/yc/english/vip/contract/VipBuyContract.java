@@ -15,7 +15,6 @@ import com.yc.english.pay.alipay.OrderInfo;
 public interface VipBuyContract {
 
     interface View extends IView,IDialog {
-//        void showGoodVipList(List<GoodInfo> list);
 
         void showOrderInfo(OrderInfo data, String s, String money);
     }

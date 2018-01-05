@@ -85,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primaryDark"
-        android:visibility="gone"></com.yc.english.base.view.StateView>
+        android:visibility="gone"/>
 
     <!--<android.support.v4.widget.SwipeRefreshLayout-->
     <!--android:id="@+id/refresh"-->
@@ -214,6 +214,18 @@
                     android:layout_marginTop="7dp">
 
                     <ImageView
+                        android:id="@+id/iv_homework_answer"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/index_home_answer"/>
+
+                    <View
+                        android:layout_width="7dp"
+                        android:layout_height="match_parent"></View>
+
+                    <ImageView
                         android:id="@+id/iv_word"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -244,18 +256,6 @@
                         android:layout_weight="1"
                         android:scaleType="fitXY"
                         android:src="@mipmap/index_teacher_task"/>
-
-                    <View
-                        android:layout_width="7dp"
-                        android:layout_height="match_parent"></View>
-
-                    <ImageView
-                        android:id="@+id/iv_union"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="fitXY"
-                        android:src="@mipmap/index_union"/>
                 </LinearLayout>
 
                 <View

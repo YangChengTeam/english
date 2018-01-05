@@ -76,7 +76,12 @@ public class GroupCommonClassActivity extends FullScreenActivity<UnionCommonList
             @Override
             public void call(Void aVoid) {
                 if (!UserInfoHelper.isGotoLogin(GroupCommonClassActivity.this))
-                    startActivity(new Intent(GroupCommonClassActivity.this, GroupJoinActivity.class));
+                    if (UserInfoHelper.getUserInfo().getIsVip() == 1 || UserInfoHelper.getUserInfo().getIsVip() == 2) {
+                        startActivity(new Intent(GroupCommonClassActivity.this, GroupJoinActivity.class));
+                    }else {
+                        VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, null);
+                        MobclickAgent.onEvent(GroupCommonClassActivity.this, "top_teacher_tutorship", "名师辅导");
+                    }
             }
         });
 

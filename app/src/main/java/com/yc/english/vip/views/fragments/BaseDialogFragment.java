@@ -35,7 +35,7 @@ public abstract class BaseDialogFragment<P extends BasePresenter> extends Dialog
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@Nullable LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         RxBus.get().register(this);
 
         if (rootView == null) {

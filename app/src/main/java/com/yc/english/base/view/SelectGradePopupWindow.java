@@ -28,14 +28,7 @@ import rx.functions.Action1;
 
 public class SelectGradePopupWindow extends BasePopupWindow {
 
-    @BindView(R.id.tv_1)
-    TextView m1TextView;
 
-    @BindView(R.id.tv_2)
-    TextView m2TextView;
-
-    @BindView(R.id.tv_3)
-    TextView m3TextView;
 
     @BindView(R.id.tv_4)
     TextView m4TextView;
@@ -55,8 +48,6 @@ public class SelectGradePopupWindow extends BasePopupWindow {
     @BindView(R.id.tv_9)
     TextView m9TextView;
 
-    @BindView(R.id.tv_0)
-    TextView m0TextView;
 
     @BindView(R.id.btn_comein)
     Button mComeinButton;
@@ -74,18 +65,6 @@ public class SelectGradePopupWindow extends BasePopupWindow {
         final int tgrade = SPUtils.getInstance().getInt("grade", 0);
         grade = tgrade;
         switch (tgrade) {
-            case 0:
-                select(m0TextView);
-                break;
-            case 1:
-                select(m1TextView);
-                break;
-            case 2:
-                select(m2TextView);
-                break;
-            case 3:
-                select(m3TextView);
-                break;
             case 4:
                 select(m4TextView);
                 break;
@@ -106,37 +85,6 @@ public class SelectGradePopupWindow extends BasePopupWindow {
                 break;
         }
 
-        RxView.clicks(m0TextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                select(m0TextView);
-                grade = 0;
-            }
-        });
-
-        RxView.clicks(m1TextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                select(m1TextView);
-                grade = 1;
-            }
-        });
-
-        RxView.clicks(m2TextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                select(m2TextView);
-                grade = 2;
-            }
-        });
-
-        RxView.clicks(m3TextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                select(m3TextView);
-                grade = 3;
-            }
-        });
 
         RxView.clicks(m4TextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -216,10 +164,6 @@ public class SelectGradePopupWindow extends BasePopupWindow {
     }
 
     private void clear() {
-        m0TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
-        m1TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
-        m2TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
-        m3TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
         m4TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
         m5TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
         m6TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
@@ -227,10 +171,6 @@ public class SelectGradePopupWindow extends BasePopupWindow {
         m8TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
         m9TextView.setTextColor(ContextCompat.getColor(mContext, R.color.black_333));
 
-        m0TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
-        m1TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
-        m2TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
-        m3TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
         m4TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
         m5TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
         m6TextView.setBackground(DrawableUtils.setBg(mContext, 2, 1, R.color.gray_ddd));
