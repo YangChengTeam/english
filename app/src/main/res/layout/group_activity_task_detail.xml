@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yc.english.base.view.TaskToolBar
+    <com.yc.junior.english.base.view.TaskToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.yc.english.base.view.StateView
+    <com.yc.junior.english.base.view.StateView
         android:id="@+id/stateView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -84,7 +84,7 @@
 
                 <include layout="@layout/group_common_divider" />
 
-                <com.yc.english.group.view.widget.MultifunctionLinearLayout
+                <com.yc.junior.english.group.view.widget.MultifunctionLinearLayout
                     android:id="@+id/m_ll_task_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -252,7 +252,7 @@
                             android:textSize="@dimen/group_text_14" />
                     </LinearLayout>
 
-                    <com.yc.english.group.view.widget.MultifunctionLinearLayout
+                    <com.yc.junior.english.group.view.widget.MultifunctionLinearLayout
                         android:id="@+id/do_multifunctionLinearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

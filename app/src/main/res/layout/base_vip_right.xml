@@ -28,9 +28,10 @@
             <LinearLayout
                 android:id="@+id/ll_first_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
-                <com.yc.english.vip.views.fragments.BasePayItemView
+                <com.yc.junior.english.vip.views.fragments.BasePayItemView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -38,7 +39,7 @@
                     app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_diandu" />
 
-                <com.yc.english.vip.views.fragments.BasePayItemView
+                <com.yc.junior.english.vip.views.fragments.BasePayItemView
                     android:id="@+id/baseItemView_weike"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -47,7 +48,7 @@
                     app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_weike" />
 
-                <com.yc.english.vip.views.fragments.BasePayItemView
+                <com.yc.junior.english.vip.views.fragments.BasePayItemView
                     android:id="@+id/baseItemView_teach"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -56,7 +57,7 @@
                     app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_teach" />
 
-                <com.yc.english.vip.views.fragments.BasePayItemView
+                <com.yc.junior.english.vip.views.fragments.BasePayItemView
 
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -68,12 +69,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_second_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/group_distance_5"
-                android:weightSum="4">
+                android:weightSum="4"
+                android:visibility="gone">
 
-                <com.yc.english.vip.views.fragments.BasePayItemView
+                <com.yc.junior.english.vip.views.fragments.BasePayItemView
                     android:id="@+id/baseItemView_union"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -82,7 +85,7 @@
                     app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_union" />
 
-                <com.yc.english.vip.views.fragments.BasePayItemView
+                <com.yc.junior.english.vip.views.fragments.BasePayItemView
                     android:id="@+id/baseItemView_ceping"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -91,7 +94,7 @@
                     app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_ceping" />
 
-                <com.yc.english.vip.views.fragments.BasePayItemView
+                <com.yc.junior.english.vip.views.fragments.BasePayItemView
                     android:id="@+id/baseItemView_plan"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -100,7 +103,7 @@
                     app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_plan" />
 
-                <com.yc.english.vip.views.fragments.BasePayItemView
+                <com.yc.junior.english.vip.views.fragments.BasePayItemView
                     android:id="@+id/baseItemView_task_tutorship"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

@@ -3,12 +3,12 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical">
-    <com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView
+    <com.yc.junior.english.intelligent.view.wdigets.IntelligentPushQuestionView
         android:id="@+id/mIntelligentPushType1"
         android:layout_width="match_parent"
         android:layout_height="122dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-       ></com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView>
+       ></com.yc.junior.english.intelligent.view.wdigets.IntelligentPushQuestionView>
 </LinearLayout>

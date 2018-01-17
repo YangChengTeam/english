@@ -1,0 +1,73 @@
+package com.yc.junior.english.intelligent.view.wdigets
+
+import android.content.Context
+import android.util.AttributeSet
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
+import com.yc.junior.english.R
+import com.yc.junior.english.base.view.BaseView
+import com.yc.junior.english.intelligent.utils.fromHtml
+import com.yc.junior.english.intelligent.utils.timeShortFormat
+import rx.Observable
+import rx.Subscription
+import rx.android.schedulers.AndroidSchedulers
+import java.util.concurrent.TimeUnit
+
+/**
+ * Created by zhangkai on 2017/11/28.
+ */
+class IntelligentActionbar : BaseView {
+
+    var mStatubar = findViewById<View>(R.id.status_bar)
+    var mToolbar = findViewById<RelativeLayout>(R.id.toolbar)
+    var mBackBtn = findViewById<LinearLayout>(R.id.ll_back)
+    var mTitleTextView = findViewById<TextView>(R.id.tv_title)
+    var mTimeTextView = findViewById<TextView>(R.id.tvTime)
+    var mIndexTextView = findViewById<TextView>(R.id.tvIndex)
+    private var mTimes = 0
+
+    override fun getLayoutId() = R.layout.intelligent_actionbar
+
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    }
+
+    var total: Int = 0
+    var index: Int = 0
+        set(value) {
+            mIndexTextView.text = fromHtml("<font color=#FB4C30>${value}</font>/${total}")
+            field = value
+        }
+
+    var title: String = ""
+        set(value) {
+            mTitleTextView.text = value
+            field = title
+        }
+
+    var subscribetion: Subscription? = null
+    fun startTime() {
+        subscribetion = Observable.interval(1, TimeUnit.SECONDS).timeInterval().observeOn(AndroidSchedulers
+                .mainThread())
+                .subscribe {
+                    mTimes++
+                    val minutes = mTimes / 60
+                    if (minutes > 60) {
+                        if (!(subscribetion?.isUnsubscribed ?: false)) {
+                            subscribetion?.unsubscribe()
+                        }
+                    } else {
+                        var seconds = mTimes - minutes * 60
+                        mTimeTextView.text = "${timeShortFormat(minutes)}:${timeShortFormat(seconds)}"
+                    }
+                }
+    }
+
+    fun stopTime() {
+        if (subscribetion != null && subscribetion?.isUnsubscribed ?: false) {
+            subscribetion?.unsubscribe()
+        }
+    }
+
+}

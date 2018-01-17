@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yc.english.base.view.TaskToolBar
+    <com.yc.junior.english.base.view.TaskToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <fragment
         android:id="@+id/conversation"
-        android:name="com.yc.english.group.view.fragments.ConversationExFragment"
+        android:name="com.yc.junior.english.group.view.fragments.ConversationExFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

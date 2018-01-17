@@ -67,12 +67,12 @@
                             android:layout_marginLeft="@dimen/group_distance_10"
                             android:layout_marginRight="@dimen/group_distance_10"
                             android:layout_weight="1"
-                            android:text="说说英语提分辅导"
+                            android:text="初中英语考试提分辅导"
                             android:textColor="@color/white"
                             android:textSize="@dimen/group_text_16" />
                     </LinearLayout>
 
-                    <com.yc.english.vip.views.widget.TutorshipDetailView
+                    <com.yc.junior.english.vip.views.widget.TutorshipDetailView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:bad_content="华而不实的口语训练，
@@ -85,7 +85,7 @@
 
                         app:title_bg_color="#FB7474" />
 
-                    <com.yc.english.vip.views.widget.TutorshipDetailView
+                    <com.yc.junior.english.vip.views.widget.TutorshipDetailView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/group_distance_10"
@@ -98,7 +98,7 @@
                         app:title="方式"
                         app:title_bg_color="#5FDB28" />
 
-                    <com.yc.english.vip.views.widget.TutorshipDetailView
+                    <com.yc.junior.english.vip.views.widget.TutorshipDetailView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/group_distance_10"
@@ -111,7 +111,7 @@
                         app:title="师资"
                         app:title_bg_color="#FFA63D" />
 
-                    <com.yc.english.vip.views.widget.TutorshipDetailView
+                    <com.yc.junior.english.vip.views.widget.TutorshipDetailView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/group_distance_10"
@@ -122,7 +122,7 @@
                         app:title="形式"
                         app:title_bg_color="#DB28D9" />
 
-                    <com.yc.english.vip.views.widget.TutorshipDetailView
+                    <com.yc.junior.english.vip.views.widget.TutorshipDetailView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/group_distance_10"

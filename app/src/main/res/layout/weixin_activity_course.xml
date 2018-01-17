@@ -4,21 +4,21 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.yc.english.base.view.MainToolBar
+    <com.yc.junior.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
-    </com.yc.english.base.view.MainToolBar>
+    </com.yc.junior.english.base.view.MainToolBar>
 
-    <com.yc.english.base.view.StateView
+    <com.yc.junior.english.base.view.StateView
         android:id="@+id/sv_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primaryDark"
         android:visibility="gone"
         >
-    </com.yc.english.base.view.StateView>
+    </com.yc.junior.english.base.view.StateView>
 
 
     <android.support.v7.widget.RecyclerView

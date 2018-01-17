@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="提分辅导"
-        android:textColor="@color/primary"
+        android:textColor="@color/black_333"
         android:textSize="18sp" />
 
     <ImageView
