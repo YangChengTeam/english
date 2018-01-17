@@ -5,7 +5,6 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -17,6 +16,7 @@ import com.yc.english.intelligent.model.domain.UnitInfoWrapper;
 import com.yc.english.intelligent.view.fragments.IntelligentFragment;
 import com.yc.english.intelligent.view.fragments.IntelligentInnerQuestionFragment;
 import com.yc.english.intelligent.view.fragments.IntelligentQuestionsFragment;
+import com.yc.english.weixin.views.fragments.AnswerFragment;
 import com.yc.english.weixin.views.fragments.CourseFragment;
 import com.yc.english.weixin.views.fragments.CourseMoreFragment;
 
@@ -231,6 +231,36 @@ public class TabsUtils {
         @Override
         public Fragment getItem(int position) {
             return courseFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return count;
+        }
+    }
+
+
+    /**
+     * 教材答案adapter
+     */
+    public static class AnswerFragmentAdapter extends FragmentStatePagerAdapter {
+        private List<AnswerFragment> answerFragments;
+        private int count;
+
+        public AnswerFragmentAdapter(FragmentManager fm, String[] types) {
+            super(fm);
+            answerFragments = new ArrayList<>();
+            for (int i = 0; i < types.length; i++) {
+                AnswerFragment answerFragment = new AnswerFragment();
+                answerFragment.setType(types[i]);
+                answerFragments.add(answerFragment);
+            }
+            count = types.length;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return answerFragments.get(position);
         }
 
         @Override

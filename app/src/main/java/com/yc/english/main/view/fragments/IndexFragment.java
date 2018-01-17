@@ -218,6 +218,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mHomeworkAnswer).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                MobclickAgent.onEvent(getActivity(), "teacher_answer_in", "教材答案入口点击");
                 Intent intent = new Intent(getActivity(), CourseActivity.class);
                 intent.putExtra("title", "教材答案");
                 intent.putExtra("type", "17");
