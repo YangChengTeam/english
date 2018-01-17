@@ -27,7 +27,7 @@ public class SpeakMainActivity extends FullScreenActivity {
 
     @Override
     public void init() {
-        mToolbar.setTitle(getString(R.string.spoken_language));
+        mToolbar.setTitle(getString(R.string.dub_language));
         mToolbar.showNavigationIcon();
         initViewPager();
 

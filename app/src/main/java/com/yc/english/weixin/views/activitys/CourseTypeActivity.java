@@ -12,8 +12,8 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
-import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.main.model.domain.Constant;
@@ -55,6 +55,7 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
         mCourseAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MobclickAgent.onEvent(CourseTypeActivity.this, "fine_read_click", "精品推荐");
                 Intent intent = new Intent(CourseTypeActivity.this, NewsDetailActivity.class);
                 intent.putExtra("info", mCourseAdapter.getData().get(position));
                 startActivity(intent);

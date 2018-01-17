@@ -219,7 +219,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/index_home_answer"/>
+                        android:src="@mipmap/course_answer_icon"/>
 
                     <View
                         android:layout_width="7dp"

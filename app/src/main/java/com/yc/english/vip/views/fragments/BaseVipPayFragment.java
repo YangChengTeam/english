@@ -148,8 +148,8 @@ public class BaseVipPayFragment extends BaseFragment {
         setTextStyle(tvVipThreeMonth);
 
         tvVipOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
-        viewList.add(llVipAli);
         viewList.add(llVipWx);
+        viewList.add(llVipAli);
         setPayWayInfo(0);
         initListener();
 
@@ -161,9 +161,8 @@ public class BaseVipPayFragment extends BaseFragment {
         click(tvVipSixMonth, 1);
         click(tvVipTweenMonth, 2);
         click(tvVipForever, 3);
-        click(llVipAli, 0);
-        click(llVipWx, 1);
-
+        click(llVipWx, 0);
+        click(llVipAli, 1);
     }
 
     @Override
@@ -246,8 +245,9 @@ public class BaseVipPayFragment extends BaseFragment {
         }
         payWayInfoList = PayWayInfoHelper.getPayWayInfoList();
         if (payWayInfoList == null) {
-            payWayInfoList.add(new PayWayInfo(PayConfig.ali_pay));
+            payWayInfoList = new ArrayList<>();
             payWayInfoList.add(new PayWayInfo(PayConfig.wx_pay));
+            payWayInfoList.add(new PayWayInfo(PayConfig.ali_pay));
         }
 
         viewList.get(position).setBackgroundResource(R.drawable.vip_item_select_time);

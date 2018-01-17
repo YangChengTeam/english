@@ -21,6 +21,7 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.utils.StatusBarCompat;
@@ -46,7 +47,6 @@ import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.yc.english.speak.view.activity.SpeakMainActivity;
 import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
-import com.yc.english.union.view.activitys.UnionMainActivity;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
 import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.activitys.CourseActivity;
@@ -218,8 +218,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mHomeworkAnswer).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
-                intent.putExtra("id","17" );
+                Intent intent = new Intent(getActivity(), CourseActivity.class);
+                intent.putExtra("title", "教材答案");
+                intent.putExtra("type", "17");
                 startActivity(intent);
             }
         });
@@ -317,6 +318,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MobclickAgent.onEvent(getActivity(), "fine_read_click", "精品推荐");
                 CourseInfo courseInfo = (CourseInfo) adapter.getItem(position);
                 Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("info", courseInfo);
@@ -378,6 +380,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             RxView.clicks(mHotTitleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
                 @Override
                 public void call(Void aVoid) {
+                    MobclickAgent.onEvent(getActivity(), "toady_hot_click", "今日热点");
                     Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                     intent.putExtra("info", indexInfo.getRedian().get(0));
                     startActivity(intent);

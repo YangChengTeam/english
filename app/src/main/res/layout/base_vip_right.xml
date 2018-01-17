@@ -249,7 +249,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/vip_payway" />
+        <LinearLayout
+            android:id="@+id/ll_vip_wx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/group_distance_15"
+            android:background="@drawable/vip_item_time_selector"
+            android:paddingBottom="@dimen/group_distance_5"
+            android:paddingLeft="@dimen/group_distance_10"
+            android:paddingRight="@dimen/group_distance_10"
+            android:paddingTop="@dimen/group_distance_5">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/vip_wxpay" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_vip_ali"
@@ -266,24 +281,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/vip_alipay" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/ll_vip_wx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/group_distance_15"
-            android:background="@drawable/vip_item_time_selector"
-            android:paddingBottom="@dimen/group_distance_5"
-            android:paddingLeft="@dimen/group_distance_10"
-            android:paddingRight="@dimen/group_distance_10"
-            android:paddingTop="@dimen/group_distance_5">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/vip_wxpay" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
