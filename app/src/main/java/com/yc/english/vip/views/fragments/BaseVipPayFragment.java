@@ -15,7 +15,6 @@ import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.pay.PayConfig;
 import com.yc.english.pay.PayWayInfo;
-import com.yc.english.pay.PayWayInfoHelper;
 import com.yc.english.setting.model.bean.GoodInfo;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.english.vip.model.bean.GoodsType;
@@ -243,16 +242,13 @@ public class BaseVipPayFragment extends BaseFragment {
         for (View view : viewList) {
             view.setBackgroundResource(R.drawable.vip_item_unselect_time);
         }
-        payWayInfoList = PayWayInfoHelper.getPayWayInfoList();
-        if (payWayInfoList == null) {
-            payWayInfoList = new ArrayList<>();
-            payWayInfoList.add(new PayWayInfo(PayConfig.wx_pay));
-            payWayInfoList.add(new PayWayInfo(PayConfig.ali_pay));
-        }
+
+        payWayInfoList = new ArrayList<>();
+        payWayInfoList.add(new PayWayInfo(PayConfig.wx_pay));
+        payWayInfoList.add(new PayWayInfo(PayConfig.ali_pay));
 
         viewList.get(position).setBackgroundResource(R.drawable.vip_item_select_time);
         paywayName = payWayInfoList.get(position).getPay_way_name();
-
     }
 
 

@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -50,8 +49,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
 
 /**
@@ -217,7 +214,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     }
 
     private void restoreGoodInfoAndPayWay(int position) {
-        mPayWayName = PayConfig.ali_pay;
+        mPayWayName = PayConfig.wx_pay;
         GoodInfoWrapper goodInfoWrapper = VipInfoHelper.getGoodInfoWrapper();
         if (position == 0) {
             if (goodInfoWrapper.getSvip() != null && goodInfoWrapper.getSvip().size() > 0)
