@@ -130,6 +130,7 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
             mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_stop));
             mediaPlayer.pause();
             currentState = STATE_PAUSE;
+            isPlay = false;
         }
     }
 
@@ -137,6 +138,7 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
     public void onClick(View v) {
 
         isPlay = !isPlay;
+        LogUtils.e("TAG", isPlay);
         if (currentState == STATE_PREPARED && clickListener != null) {
             clickListener.onMediaClick();
         }
@@ -190,6 +192,7 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
 
     public void setPath(String path) {
 
+        LogUtils.e("TAG", path);
         try {
             String name = getFileName(path);
             File file = new File(PathUtils.makeDir(mContext, "news"), name);
@@ -197,9 +200,13 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
             if (file.exists()) {//设置播放file文件
                 LogUtils.e("from file");
                 mediaPlayer.reset();
-                mediaPlayer.setDataSource(mContext, Uri.parse(file.getAbsolutePath()));
+                try {
+                    mediaPlayer.setDataSource(mContext, Uri.parse(file.getAbsolutePath()));
+                } catch (Exception e) {
+                    mediaPlayer.setDataSource(path);
+                }
                 mediaPlayer.prepareAsync();// 准备
-                currentState =STATE_PREPARED;
+                currentState = STATE_PREPARED;
             } else {
                 LogUtils.e("from path");
                 mediaPlayer.reset();
@@ -263,6 +270,7 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
             mediaPlayer.release();
             mediaPlayer = null;
         }
+
         mHandler.removeCallbacks(myRunnable);
         executorService.shutdown();
         executorService = null;
