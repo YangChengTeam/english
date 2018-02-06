@@ -5,7 +5,6 @@ import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.kk.securityhttp.domain.GoagalInfo;
@@ -36,6 +35,12 @@ import rx.schedulers.Schedulers;
  */
 
 public class EnglishApp extends MultiDexApplication {
+
+    //是否开启了分享获取VIP试用资格
+    public static boolean isOpenShareVip;
+
+    public static int trialDays;
+
     @Override
     public void onCreate() {
         gEnglishApp = this;
@@ -54,7 +59,6 @@ public class EnglishApp extends MultiDexApplication {
         });
         SpeechUtils.setAppids(this);
     }
-
 
     private void init() {
         //腾迅自动更新

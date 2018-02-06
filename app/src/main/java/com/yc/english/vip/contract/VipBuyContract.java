@@ -2,8 +2,6 @@ package com.yc.english.vip.contract;
 
 import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.base.view.IDialog;
-import com.yc.english.base.view.ILoading;
-import com.yc.english.base.view.INoData;
 import com.yc.english.base.view.INoNet;
 import com.yc.english.base.view.IView;
 import com.yc.english.pay.alipay.OrderInfo;
@@ -14,9 +12,10 @@ import com.yc.english.pay.alipay.OrderInfo;
 
 public interface VipBuyContract {
 
-    interface View extends IView,IDialog {
+    interface View extends IView,IDialog,INoNet {
 
         void showOrderInfo(OrderInfo data, String s, String money);
+        void shareAllow();
     }
 
     interface Presenter extends IPresenter {

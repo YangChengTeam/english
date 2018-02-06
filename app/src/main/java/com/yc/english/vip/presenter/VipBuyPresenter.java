@@ -10,7 +10,6 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.pay.alipay.OrderInfo;
-import com.yc.english.setting.contract.GoodsListContract;
 import com.yc.english.vip.contract.VipBuyContract;
 
 import rx.Subscriber;
@@ -70,4 +69,43 @@ public class VipBuyPresenter extends BasePresenter<BaseEngin, VipBuyContract.Vie
         });
         mSubscriptions.add(subscription);
     }
+
+
+    public void getShareVipAllow(String userId) {
+
+        Subscription subscription = EngineUtils.getShareVipAllow(mContext,userId).subscribe(new Subscriber<ResultInfo>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.showNoNet();
+            }
+
+            @Override
+            public void onNext(final ResultInfo shareResult) {
+                ResultInfoHelper.handleResultInfo(shareResult, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+                        mView.showNoNet();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        mView.shareAllow();
+                    }
+                });
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
 }

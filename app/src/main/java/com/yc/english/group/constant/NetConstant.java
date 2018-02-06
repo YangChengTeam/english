@@ -188,5 +188,12 @@ public interface NetConstant {
 
     String baidu_url = "http://image.baidu.com/wiseshitu?guess=1&fr=duturesultcam&uptype=upload_wise&queryImageUrl=";
 
-
+    /**
+     * 分享是否开启体验VIP
+     */
+    String share_is_vip = (isDebug ? debug_base_url : baser_url) + "share/status";
+    /**
+     * 是否获得资格
+     */
+    String share_is_allow = (isDebug ? debug_base_url : baser_url) + "share/reward";
 }
