@@ -2,9 +2,9 @@ package com.yc.english.base.view;
 
 import android.app.Activity;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
@@ -28,6 +28,8 @@ import rx.functions.Action1;
 
 public class SharePopupWindow extends BasePopupWindow {
 
+    @BindView(R.id.share_layout)
+    LinearLayout shareLayout;
 
     @BindView(R.id.si_weixin_friend)
     ShareItemView mWxFriendShareItemView;
@@ -57,6 +59,8 @@ public class SharePopupWindow extends BasePopupWindow {
     }
 
     private LoadingDialog loadingDialog;
+
+    private boolean isFromPay;
 
     public SharePopupWindow(Activity context) {
         super(context);
@@ -90,7 +94,11 @@ public class SharePopupWindow extends BasePopupWindow {
                 public void call(Void aVoid) {
                     shareItemView.setTag(tmpI + "");
                     if (onShareItemClickListener != null) {
-                        onShareItemClickListener.onClick(shareItemView);
+                        if (isFromPay) {
+                            shareInfo(tmpI);
+                        } else {
+                            onShareItemClickListener.onClick(shareItemView);
+                        }
                     } else {
                         shareInfo(tmpI);
                     }
@@ -102,6 +110,14 @@ public class SharePopupWindow extends BasePopupWindow {
         this.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
+    public void setBackColor(int color) {
+        shareLayout.setBackgroundResource(color);
+        mCancelTextView.setBackgroundResource(color);
+    }
+
+    public void setFromPay(boolean fromPay) {
+        isFromPay = fromPay;
+    }
 
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
@@ -114,6 +130,11 @@ public class SharePopupWindow extends BasePopupWindow {
         public void onResult(SHARE_MEDIA share_media) {
             loadingDialog.dismiss();
             TipsHelper.tips(mContext, "分享成功");
+            if (isFromPay) {
+                if (onShareItemClickListener != null) {
+                    onShareItemClickListener.onShareSuccess();
+                }
+            }
         }
 
         @Override
@@ -149,8 +170,8 @@ public class SharePopupWindow extends BasePopupWindow {
         return SHARE_MEDIA.SINA;
     }
 
-    public UMShareImpl getUMShareImpl(){
-        return  UMShareImpl.get().setCallback(mContext, umShareListener);
+    public UMShareImpl getUMShareImpl() {
+        return UMShareImpl.get().setCallback(mContext, umShareListener);
     }
 
     private void shareInfo(int tag) {
@@ -190,6 +211,8 @@ public class SharePopupWindow extends BasePopupWindow {
 
     public interface OnShareItemClickListener {
         void onClick(View view);
+
+        void onShareSuccess();
     }
 
     @Override
@@ -201,5 +224,6 @@ public class SharePopupWindow extends BasePopupWindow {
     public int getAnimationID() {
         return R.style.share_anim;
     }
+
 
 }

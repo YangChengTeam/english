@@ -86,6 +86,7 @@ public class VipEquitiesActivity extends BaseActivity {
 
     @Override
     public void init() {
+        userInfo = UserInfoHelper.getUserInfo();
 
         toolbar.setNavigationIcon(R.mipmap.vip_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -96,23 +97,12 @@ public class VipEquitiesActivity extends BaseActivity {
         });
         StatusBarCompat.compat(this, appbarLayout, toolbar);
 
-
-        userInfo = UserInfoHelper.getUserInfo();
         mTvNickname.setText(userInfo.getNickname());
-
-        String endTime = TimeUtils.date2String(new Date(userInfo.getVip_end_time() * 1000), new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
-
-
-        mTvEndTime.setText(String.format(getString(R.string.vip_end_time), endTime));
-        if (userInfo.getIsVip() != 0 && endTime.equals("0")) {
-            mTvEndTime.setText(getString(R.string.forever_vip));
-        }
 
         GlideHelper.circleImageView(this, ivAvatar, userInfo.getAvatar(), R.mipmap.default_big_avatar);
 
         initView();
         initListener();
-
     }
 
     private void initListener() {
@@ -122,48 +112,53 @@ public class VipEquitiesActivity extends BaseActivity {
                 VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
             }
         });
-
     }
 
     private void initView() {
-        if (userInfo.getIsVip() == 0) {//非会员
-            mBtnOpenVip.setVisibility(View.VISIBLE);
-            llVipContainer.setVisibility(View.GONE);
-            basePayItemViewVip.setVisibility(View.VISIBLE);
-            basePayItemViewCeping.setVisibility(View.VISIBLE);
-            mTvRightsTitle.setText(getString(R.string.exclusive_right));
-        } else {
-            mBtnOpenVip.setVisibility(View.GONE);
-            llVipContainer.setVisibility(View.VISIBLE);
-            if (userInfo.getIsVip() == 1) {
-                mTvRightsTitle.setText(getString(R.string.general_vip_right));
-                basePayItemViewVip.setVisibility(View.GONE);
-                basePayItemViewCeping.setVisibility(View.GONE);
-                basePayItemViewTaskTutorship.setVisibility(View.GONE);
-                mVipIcon.setImageResource(R.mipmap.vip_vip);
-            } else if (userInfo.getIsVip() == 2) {
-                mTvRightsTitle.setText(getString(R.string.tutorship_vip_right));
-                mVipIcon.setImageResource(R.mipmap.vip_tifen);
-                baseItemViewWeike.setContentAndIcon("同步微课", 0);
-                baseItemViewTeach.setContentAndIcon("VIP专属教学", R.mipmap.vip_self_icon);
-                basePayItemViewVip.setVisibility(View.GONE);
-            } else if (userInfo.getIsVip() == 3) {
-                mTvRightsTitle.setText(getString(R.string.synchronization_weike_right));
-                mVipIcon.setImageResource(R.mipmap.vip_vip_weike);
-                llRightContainer.setVisibility(View.GONE);
-                baseItemViewTeach.setVisibility(View.GONE);
-                baseItemViewPlanTeach.setVisibility(View.GONE);
-                baseItemViewBookRead.setVisibility(View.GONE);
-            } else if (userInfo.getIsVip() == 4) {
-                mTvRightsTitle.setText(getString(R.string.read_book_right));
-                mVipIcon.setImageResource(R.mipmap.vip_vip_diandu);
-                llRightContainer.setVisibility(View.GONE);
-                baseItemViewTeach.setVisibility(View.GONE);
-                baseItemViewPlanTeach.setVisibility(View.GONE);
-                baseItemViewWeike.setVisibility(View.GONE);
+        if (userInfo != null) {
+            String endTime = TimeUtils.date2String(new Date(userInfo.getVip_end_time() * 1000), new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
+            mTvEndTime.setText(String.format(getString(R.string.vip_end_time), endTime));
+            if (userInfo.getIsVip() != 0 && endTime.equals("0")) {
+                mTvEndTime.setText(getString(R.string.forever_vip));
+            }
+            if (userInfo.getIsVip() == 0) {//非会员
+                mBtnOpenVip.setVisibility(View.VISIBLE);
+                llVipContainer.setVisibility(View.GONE);
+                basePayItemViewVip.setVisibility(View.VISIBLE);
+                basePayItemViewCeping.setVisibility(View.VISIBLE);
+                mTvRightsTitle.setText(getString(R.string.exclusive_right));
+            } else {
+                mBtnOpenVip.setVisibility(View.GONE);
+                llVipContainer.setVisibility(View.VISIBLE);
+                if (userInfo.getIsVip() == 1) {
+                    mTvRightsTitle.setText(getString(R.string.general_vip_right));
+                    basePayItemViewVip.setVisibility(View.GONE);
+                    basePayItemViewCeping.setVisibility(View.GONE);
+                    basePayItemViewTaskTutorship.setVisibility(View.GONE);
+                    mVipIcon.setImageResource(R.mipmap.vip_vip);
+                } else if (userInfo.getIsVip() == 2) {
+                    mTvRightsTitle.setText(getString(R.string.tutorship_vip_right));
+                    mVipIcon.setImageResource(R.mipmap.vip_tifen);
+                    baseItemViewWeike.setContentAndIcon("同步微课", 0);
+                    baseItemViewTeach.setContentAndIcon("VIP专属教学", R.mipmap.vip_self_icon);
+                    basePayItemViewVip.setVisibility(View.GONE);
+                } else if (userInfo.getIsVip() == 3) {
+                    mTvRightsTitle.setText(getString(R.string.synchronization_weike_right));
+                    mVipIcon.setImageResource(R.mipmap.vip_vip_weike);
+                    llRightContainer.setVisibility(View.GONE);
+                    baseItemViewTeach.setVisibility(View.GONE);
+                    baseItemViewPlanTeach.setVisibility(View.GONE);
+                    baseItemViewBookRead.setVisibility(View.GONE);
+                } else if (userInfo.getIsVip() == 4) {
+                    mTvRightsTitle.setText(getString(R.string.read_book_right));
+                    mVipIcon.setImageResource(R.mipmap.vip_vip_diandu);
+                    llRightContainer.setVisibility(View.GONE);
+                    baseItemViewTeach.setVisibility(View.GONE);
+                    baseItemViewPlanTeach.setVisibility(View.GONE);
+                    baseItemViewWeike.setVisibility(View.GONE);
+                }
             }
         }
-
     }
 
     @Override

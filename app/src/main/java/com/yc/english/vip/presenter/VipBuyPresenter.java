@@ -10,7 +10,6 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.pay.alipay.OrderInfo;
-import com.yc.english.setting.contract.GoodsListContract;
 import com.yc.english.vip.contract.VipBuyContract;
 
 import rx.Subscriber;
@@ -23,7 +22,7 @@ import rx.Subscription;
 public class VipBuyPresenter extends BasePresenter<BaseEngin, VipBuyContract.View> {
     public VipBuyPresenter(Context context, VipBuyContract.View view) {
         super(context, view);
-        mEngin =new BaseEngin(context);
+        mEngin = new BaseEngin(context);
     }
 
     @Override
@@ -36,7 +35,7 @@ public class VipBuyPresenter extends BasePresenter<BaseEngin, VipBuyContract.Vie
         Subscription subscription = EngineUtils.createOrder(mContext, orderParams.getTitle(), orderParams.getMoney(), orderParams.getMoney(), orderParams.getPayWayName(), orderParams.getGoodsList()).subscribe(new Subscriber<ResultInfo<OrderInfo>>() {
             @Override
             public void onCompleted() {
-
+                mView.dismissLoadingDialog();
             }
 
             @Override
@@ -46,23 +45,66 @@ public class VipBuyPresenter extends BasePresenter<BaseEngin, VipBuyContract.Vie
 
             @Override
             public void onNext(final ResultInfo<OrderInfo> orderInfoResultInfo) {
-                ResultInfoHelper.handleResultInfo(orderInfoResultInfo, new ResultInfoHelper.Callback() {
+                mView.dismissLoadingDialog();
+//                if (orderInfoResultInfo!= null){
+                mView.showOrderInfo(orderInfoResultInfo, orderParams.getMoney(), orderParams.getTitle());
+//                }
+
+//                ResultInfoHelper.handleResultInfo(orderInfoResultInfo, new ResultInfoHelper.Callback() {
+//                    @Override
+//                    public void resultInfoEmpty(String message) {
+//
+//                        TipsHelper.tips(mContext,message);
+//                    }
+//
+//                    @Override
+//                    public void resultInfoNotOk(String message) {
+//                        mView.dismissLoadingDialog();
+//                        TipsHelper.tips(mContext,message);
+//                    }
+//
+//                    @Override
+//                    public void reulstInfoOk() {
+//                        mView.dismissLoadingDialog();
+//
+//                    }
+//                });
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+
+    public void getShareVipAllow(String userId) {
+
+        Subscription subscription = EngineUtils.getShareVipAllow(mContext, userId).subscribe(new Subscriber<ResultInfo>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.showNoNet();
+            }
+
+            @Override
+            public void onNext(final ResultInfo shareResult) {
+                ResultInfoHelper.handleResultInfo(shareResult, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.dismissLoadingDialog();
-                        TipsHelper.tips(mContext,message);
+                        mView.showNoNet();
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.dismissLoadingDialog();
-                        TipsHelper.tips(mContext,message);
+                        mView.showNoNet();
                     }
 
                     @Override
                     public void reulstInfoOk() {
-                        mView.dismissLoadingDialog();
-                        mView.showOrderInfo(orderInfoResultInfo.data, orderParams.getMoney(), orderParams.getTitle());
+                        mView.shareAllow();
                     }
                 });
 
@@ -70,4 +112,5 @@ public class VipBuyPresenter extends BasePresenter<BaseEngin, VipBuyContract.Vie
         });
         mSubscriptions.add(subscription);
     }
+
 }

@@ -28,6 +28,7 @@ import com.yc.english.news.model.domain.OrderGood;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.english.pay.PayWayInfo;
+import com.yc.english.setting.model.bean.ShareStateInfo;
 
 import java.io.File;
 import java.util.HashMap;
@@ -405,6 +406,7 @@ public class EngineUtils {
 
     /**
      * 统计音频学习人数
+     *
      * @param context
      * @param user_id
      * @param news_id
@@ -414,11 +416,29 @@ public class EngineUtils {
 
         Map<String, String> params = new HashMap<>();
 
-            params.put("user_id", user_id);
+        params.put("user_id", user_id);
 
         params.put("news_id", news_id);
 
         return HttpCoreEngin.get(context).rxpost(NetConstant.news_weikeStudying, new TypeReference<ResultInfo<String>>() {
+        }.getType(), params, true, true, true);
+    }
+
+    /**
+     * 获取是否开启分享体验VIP
+     * @param context
+     * @return
+     */
+    public static Observable<ResultInfo<ShareStateInfo>> getShareVipState(Context context) {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.share_is_vip, new TypeReference<ResultInfo<ShareStateInfo>>() {
+        }.getType(), null, true, true, true);
+    }
+
+    public static Observable<ResultInfo> getShareVipAllow(Context context, String user_id) {
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", user_id);
+
+        return HttpCoreEngin.get(context).rxpost(NetConstant.share_is_allow, new TypeReference<ResultInfo>() {
         }.getType(), params, true, true, true);
     }
 

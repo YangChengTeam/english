@@ -292,7 +292,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Override
     public void onResume() {
         super.onResume();
-        if (UserInfoHelper.getUserInfo() != null && (UserInfoHelper.getUserInfo().getIsVip() == 1 || UserInfoHelper.getUserInfo().getIsVip() == 2)) {
+        if (UserInfoHelper.getUserInfo() != null && (UserInfoHelper.getUserInfo().getIsVip() == 1 || UserInfoHelper.getUserInfo().getIsVip() == 2 || UserInfoHelper.getUserInfo().getIsVip() == 3 || UserInfoHelper.getUserInfo().getIsVip() == 4)) {
             mBuyVipMenuItemView.setTitle("会员信息");
 
         } else {

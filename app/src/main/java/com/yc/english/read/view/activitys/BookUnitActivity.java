@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
@@ -19,6 +22,8 @@ import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
+import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.read.contract.BookUnitContract;
 import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.UnitInfo;
@@ -66,6 +71,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
     private List<UnitInfo> mBookUnitDatas;
 
     private String bookId;
+    private UserInfo userInfo;
 
     @Override
     public int getLayoutId() {
@@ -102,7 +108,8 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                 if (unitInfo.getFree() == 1) {
                     isRead = true;
                 } else {
-                    if (UserInfoHelper.getUserInfo() != null) {
+                    userInfo = UserInfoHelper.getUserInfo();
+                    if (userInfo != null) {
                         int isVip = UserInfoHelper.getUserInfo().getIsVip();
                         if (isVip == 1 || isVip == 2 || isVip == 4) {
                             isRead = true;
@@ -188,5 +195,16 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
             mBookPressTextView.setText(bookInfo.getPress());
             mBookUnitTotalTextView.setText(bookInfo.getSentenceCount() + getString(R.string.read_sentence_text));
         }
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.COMMUNITY_ACTIVITY_REFRESH)
+            }
+    )
+    public void getInfo(String loginInfo) {
+        userInfo = UserInfoHelper.getUserInfo();
+        mItemAdapter.notifyDataSetChanged();
     }
 }

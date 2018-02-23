@@ -9,4 +9,5 @@
     <string name="edit_text">编辑</string>
     <string name="done_text">完成</string>
     <string name="weike_every_day_text">每日微课</string>
+    <string name="waiting_update_text">请静待更新……</string>
 </resources>

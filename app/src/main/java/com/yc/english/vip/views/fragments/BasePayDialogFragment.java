@@ -16,12 +16,17 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.domain.ResultInfo;
 import com.umeng.analytics.MobclickAgent;
+import com.yc.english.EnglishApp;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseActivity;
+import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
@@ -55,7 +60,7 @@ import rx.functions.Action1;
  * Created by wanglin  on 2017/11/27 15:16.
  */
 
-public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> implements VipBuyContract.View, BaseVipPayFragment.onVipClickListener {
+public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> implements VipBuyContract.View, BaseVipPayFragment.onVipClickListener, SharePopupWindow.OnShareItemClickListener {
     @BindView(R.id.m_tabLayout)
     TabLayout mTabLayout;
     @BindView(R.id.viewpager)
@@ -65,6 +70,8 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     @BindView(R.id.tv_right_introduce)
     TextView tvRightIntroduce;
 
+    @BindView(R.id.btn_share)
+    Button btnShare;
 
     private List<String> mTitles = new ArrayList<>();
     private int goodsType = GoodsType.TYPE_SVIP;
@@ -80,6 +87,8 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     private IWXPay1Impl iwxPay;
 
     private int currentPosition = 0;
+
+    SharePopupWindow sharePopupWindow;
 
     @Override
     public void init() {
@@ -139,6 +148,11 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
             }
         });
+
+        if (EnglishApp.isOpenShareVip) {
+            btnShare.setVisibility(View.VISIBLE);
+        }
+
         restoreGoodInfoAndPayWay(0);
         initListener();
 
@@ -206,6 +220,17 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 startActivity(intent);
             }
         });
+
+        RxView.clicks(btnShare).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                sharePopupWindow = new SharePopupWindow(getActivity());
+                sharePopupWindow.setBackColor(R.drawable.share_vip_bg);
+                sharePopupWindow.setOnShareItemClickListener(BasePayDialogFragment.this);
+                sharePopupWindow.setFromPay(true);
+                sharePopupWindow.show(rootView);
+            }
+        });
     }
 
     @Override
@@ -237,13 +262,23 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     }
 
     @Override
-    public void showOrderInfo(OrderInfo orderInfo, String money, String name) {
-        orderInfo.setMoney(Float.parseFloat(money));
-        orderInfo.setName(name);
-        if (mPayWayName.equals(PayConfig.ali_pay)) {
-            aliPay(orderInfo);
-        } else {
-            wxPay(orderInfo);
+    public void showOrderInfo(ResultInfo<OrderInfo> orderInfo, String money, String name) {
+
+        if (orderInfo != null) {
+            if (orderInfo.code == 2) {
+                TipsHelper.tips(getActivity(), orderInfo.message);
+                updateSuccessData();
+                return;
+            }
+            if (orderInfo.data != null) {
+                orderInfo.data.setMoney(Float.parseFloat(money));
+                orderInfo.data.setName(name);
+                if (mPayWayName.equals(PayConfig.ali_pay)) {
+                    aliPay(orderInfo.data);
+                } else {
+                    wxPay(orderInfo.data);
+                }
+            }
         }
     }
 
@@ -357,6 +392,10 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
             userInfo.setIsVip(2);
         } else if (mGoodInfo.getType_id().equals("1")) {
             userInfo.setIsVip(1);
+        } else if (mGoodInfo.getType_id().equals("3")) {
+            userInfo.setIsVip(4);
+        } else if (mGoodInfo.getType_id().equals("5")) {
+            userInfo.setIsVip(3);
         }
 
         Date date = new Date();
@@ -371,7 +410,6 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
         RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form pay");
         VipDialogHelper.dismissVipDialog();
     }
-
 
     private void umenStatistics(int position) {
         switch (position) {
@@ -403,4 +441,54 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
     }
 
+    @Override
+    public void hideStateView() {
+
+    }
+
+    @Override
+    public void showNoNet() {
+        if (sharePopupWindow != null && sharePopupWindow.isShowing()) {
+            sharePopupWindow.dismiss();
+        }
+        VipDialogHelper.dismissVipDialog();
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onShareSuccess() {
+        ToastUtils.showLong("分享成功");
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo != null) {
+            mPresenter.getShareVipAllow(userInfo.getUid());
+        }
+    }
+
+    @Override
+    public void shareAllow() {
+
+        if (sharePopupWindow != null && sharePopupWindow.isShowing()) {
+            sharePopupWindow.dismiss();
+        }
+        VipDialogHelper.dismissVipDialog();
+
+        if (EnglishApp.trialDays > 0) {
+            LogUtils.i("shareAllow --->");
+            UserInfo userInfo = UserInfoHelper.getUserInfo();
+            userInfo.setIsVip(2);
+
+            userInfo.setVip_start_time(TimeUtils.getNowMills() / 1000);
+
+            long vip_end_time = TimeUtils.getNowMills() + EnglishApp.trialDays * (Config.MS_IN_A_DAY);
+            userInfo.setVip_end_time(vip_end_time / 1000);
+
+            UserInfoHelper.saveUserInfo(userInfo);
+        }
+
+        RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form pay");
+    }
 }

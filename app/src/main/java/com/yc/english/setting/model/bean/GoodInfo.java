@@ -34,7 +34,7 @@ public class GoodInfo {
     private String sort;
     private String status;
     private String status_name;
-    private String type_id;
+    private String type_id;//1.普通会员 2.单独微课 3. 点读会员 4.svip 5.微课会员
     private String type_relate_val;
 
     private String vip_price;

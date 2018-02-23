@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ll_container"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/ll_container"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="vertical">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/m_tabLayout"
@@ -15,35 +15,49 @@
         app:tabIndicatorHeight="2dp"
         app:tabSelectedTextColor="@color/primary"
         app:tabTextAppearance="@style/tabLayout_style"
-        app:tabTextColor="@color/black_333" />
+        app:tabTextColor="@color/black_333"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/group_distance_05"
-        android:background="@color/gray_aaa" />
+        android:background="@color/gray_aaa"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_marginBottom="@dimen/dp_4"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_weight="1"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/group_distance_05"
-        android:background="@color/gray_aaa" />
+        android:background="@color/gray_aaa"/>
 
     <Button
         android:id="@+id/btn_pay"
         style="@style/group_btn_blue_style"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/group_distance_50"
+        android:layout_height="@dimen/group_distance_40"
         android:layout_marginBottom="@dimen/group_distance_10"
         android:layout_marginLeft="@dimen/group_distance_15"
         android:layout_marginRight="@dimen/group_distance_15"
         android:layout_marginTop="@dimen/group_distance_10"
         android:text="@string/promptly_open"
-        android:textSize="@dimen/group_text_18" />
+        android:textSize="@dimen/sp_16"/>
+
+    <Button
+        android:id="@+id/btn_share"
+        style="@style/group_btn_blue_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/group_distance_40"
+        android:layout_marginBottom="@dimen/group_distance_10"
+        android:layout_marginLeft="@dimen/group_distance_15"
+        android:layout_marginRight="@dimen/group_distance_15"
+        android:text="@string/share_use_text"
+        android:textSize="@dimen/sp_16"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tv_right_introduce"
@@ -53,5 +67,5 @@
         android:layout_marginBottom="@dimen/group_distance_10"
         android:text="@string/vip_right_introduce"
         android:textColor="@color/gray_aaa"
-        android:textSize="@dimen/group_text_14" />
+        android:textSize="@dimen/group_text_14"/>
 </LinearLayout>

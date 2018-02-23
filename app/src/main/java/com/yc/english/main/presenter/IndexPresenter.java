@@ -1,15 +1,12 @@
 package com.yc.english.main.presenter;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.blankj.subutil.util.ThreadPoolUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.utils.UIUitls;
+import com.yc.english.EnglishApp;
 import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.base.helper.RxUtils;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.SimpleCacheUtils;
 import com.yc.english.group.utils.EngineUtils;
@@ -22,9 +19,8 @@ import com.yc.english.main.model.engin.IndexEngin;
 import com.yc.english.pay.PayWayInfo;
 import com.yc.english.pay.PayWayInfoHelper;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
+import com.yc.english.setting.model.bean.ShareStateInfo;
 import com.yc.english.vip.utils.VipInfoHelper;
-
-import org.greenrobot.greendao.annotation.Index;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +47,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         getIndexInfo();
         getPayWayList();
         getGoodsList(1);
+        getOpenShareVip();
     }
 
 
@@ -213,6 +210,52 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                         if (goodInfoWrapperResultInfo.data != null) {
 
                             VipInfoHelper.setGoodInfoWrapper(goodInfoWrapperResultInfo.data);
+                        }
+                    }
+                });
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+
+    /**
+     * 分享是否开启体验VIP
+     */
+    private void getOpenShareVip() {
+
+        Subscription subscription = EngineUtils.getShareVipState(mContext).subscribe(new Subscriber<ResultInfo<ShareStateInfo>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.showNoNet();
+            }
+
+            @Override
+            public void onNext(final ResultInfo<ShareStateInfo> shareResult) {
+                ResultInfoHelper.handleResultInfo(shareResult, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (shareResult.data != null) {
+                            if(shareResult.data.getStatus() == 1){
+                                EnglishApp.isOpenShareVip = true;
+                                EnglishApp.trialDays = shareResult.data.getDays();
+                            }
                         }
                     }
                 });
