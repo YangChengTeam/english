@@ -390,13 +390,13 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     }
 
     @Override
-    public void xiaoxueClick() {
-        QQUtils.joinQQGroup(getActivity(), "C9GzeOgLm4zrKerAk3Hr8gUiWsOhMzR7");
+    public void xiaoxueClick() {//  C9GzeOgLm4zrKerAk3Hr8gUiWsOhMzR7
+        QQUtils.joinQQGroup(getActivity(), "mgo5d9WztUiBuZhK4JvmwMY11F_YIrmw");
     }
 
     @Override
     public void zhongxueClick() {
-        QQUtils.joinQQZhongXueGroup(getActivity(), "wuzu_LXD28r_DJy7INWx-F4WkuhtzDhE");
+        QQUtils.joinQQZhongXueGroup(getActivity(), "njur_1bUpbe7G0-UcKu0ZZgx2r5CrnFV");
     }
 
     @Override
