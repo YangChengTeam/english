@@ -1,6 +1,11 @@
 package com.yc.english.vip.views.fragments;
 
 
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -14,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.TimeUtils;
@@ -51,6 +57,8 @@ import com.yc.english.weixin.model.domain.CourseInfo;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -73,6 +81,9 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     @BindView(R.id.btn_share)
     Button btnShare;
 
+    @BindView(R.id.btn_follow)
+    Button btnFollow;
+
     private List<String> mTitles = new ArrayList<>();
     private int goodsType = GoodsType.TYPE_SVIP;
 
@@ -89,6 +100,10 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     private int currentPosition = 0;
 
     SharePopupWindow sharePopupWindow;
+
+    private int timeNum = 0;
+
+    private Timer timer = null;
 
     @Override
     public void init() {
@@ -231,6 +246,79 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 sharePopupWindow.show(rootView);
             }
         });
+        //关注
+        RxView.clicks(btnFollow).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+
+                if (!AppUtils.isInstallApp("com.tencent.mm")) {
+                    ToastUtils.showLong("请安装微信");
+                    return;
+                }
+
+                openWeiXin();
+            }
+        });
+    }
+
+    public void openWeiXin() {
+
+        MobclickAgent.onEvent(getActivity(), "weixin_click", AppUtils.getAppVersionName());
+        ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        // 将文本内容放到系统剪贴板里。
+        cm.setPrimaryClip(ClipData.newPlainText(null, "ssyingyu"));
+        ToastUtils.showLong("复制成功，可以关注公众号了");
+
+        try {
+            Intent intent = new Intent();
+            ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui" +
+                    ".LauncherUI");
+            intent.setAction(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setComponent(cmp);
+            ((Activity) getActivity()).startActivityForResult(intent, 1);
+
+            timeStart();
+        } catch (Exception e) {
+            LogUtils.e(e.getMessage());
+        }
+    }
+
+    public void timeStart() {
+        if (timer == null) {
+            timer = new Timer();
+        }
+        timeNum = 0;
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                timeNum++;
+                if (timeNum > 12) {
+                    timer.cancel();
+                    timer.purge();
+                    timer = null;
+                }
+            }
+        };
+        timer.schedule(task, 1000, 1000);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LogUtils.i("onResume--->");
+        computeTime();
+    }
+
+    public void computeTime(){
+        if (timeNum > 12) {
+            UserInfo userInfo = UserInfoHelper.getUserInfo();
+            if (userInfo != null) {
+                mPresenter.getShareVipAllow(userInfo.getUid());
+            }
+        }
     }
 
     @Override
