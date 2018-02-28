@@ -56,8 +56,8 @@ public class LyricViewPresenter implements ListenPlayContract.Presenter {
         isPlay = true;
     }
 
-    public void setSongPath(String audioPath){
-        if(playEnglishAudio == null){
+    public void setSongPath(String audioPath) {
+        if (playEnglishAudio == null) {
             playEnglishAudio = PlayEnglishAudio.getInstance();
         }
         EnglishLyricBean currentSong = new EnglishLyricBean(audioPath);
@@ -183,8 +183,12 @@ public class LyricViewPresenter implements ListenPlayContract.Presenter {
             }
     )
     public void onMediaPlayerCreated(MediaPlayer mediaPlayer) {
-        mMediaPlayer = mediaPlayer;
-        playMusic(playEnglishAudio.getCurrSong());
+        try {
+            mMediaPlayer = mediaPlayer;
+            playMusic(playEnglishAudio.getCurrSong());
+        } catch (Exception e) {
+            LogUtils.e(e.getMessage());
+        }
     }
 
     @Subscribe(
