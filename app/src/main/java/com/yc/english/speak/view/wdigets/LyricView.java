@@ -734,41 +734,44 @@ public class LyricView extends View {
      * 逐行解析歌词内容
      */
     private void analyzeLyric(LyricInfo lyricInfo, String line) {
+        try {
+            if (!StringUtils.isEmpty(line)) {
+                line = line.substring(line.indexOf("["), line.length());
+            }
 
-        if(!StringUtils.isEmpty(line)){
-            line = line.substring(line.indexOf("["),line.length());
-        }
-
-        int index = line.lastIndexOf("]");
-        if (line.startsWith("[offset:")) {
-            // time offset
-            lyricInfo.songOffset = Long.parseLong(line.substring(8, index).trim());
-            return;
-        }
-        if (line.startsWith("[ti:")) {
-            // title
-            lyricInfo.songTitle = line.substring(4, index).trim();
-            return;
-        }
-        if (line.startsWith("[ar:")) {
-            // artist
-            lyricInfo.songArtist = line.substring(4, index).trim();
-            return;
-        }
-        if (line.startsWith("[al:")) {
-            // album
-            lyricInfo.songAlbum = line.substring(4, index).trim();
-            return;
-        }
-        if (line.startsWith("[by:")) {
-            return;
-        }
-        if (index >= 9 && line.trim().length() > index + 1) {
-            // lyrics
-            LineInfo lineInfo = new LineInfo();
-            lineInfo.content = line.substring(10, line.length());
-            lineInfo.start = measureStartTimeMillis(line.substring(0, index));
-            lyricInfo.songLines.add(lineInfo);
+            int index = line.lastIndexOf("]");
+            if (line.startsWith("[offset:")) {
+                // time offset
+                lyricInfo.songOffset = Long.parseLong(line.substring(8, index).trim());
+                return;
+            }
+            if (line.startsWith("[ti:")) {
+                // title
+                lyricInfo.songTitle = line.substring(4, index).trim();
+                return;
+            }
+            if (line.startsWith("[ar:")) {
+                // artist
+                lyricInfo.songArtist = line.substring(4, index).trim();
+                return;
+            }
+            if (line.startsWith("[al:")) {
+                // album
+                lyricInfo.songAlbum = line.substring(4, index).trim();
+                return;
+            }
+            if (line.startsWith("[by:")) {
+                return;
+            }
+            if (index >= 9 && line.trim().length() > index + 1) {
+                // lyrics
+                LineInfo lineInfo = new LineInfo();
+                lineInfo.content = line.substring(10, line.length());
+                lineInfo.start = measureStartTimeMillis(line.substring(0, index));
+                lyricInfo.songLines.add(lineInfo);
+            }
+        }catch (Exception e){
+            LogUtils.e(e.getMessage());
         }
     }
 
