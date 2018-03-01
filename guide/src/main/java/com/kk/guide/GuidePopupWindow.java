@@ -1,7 +1,10 @@
 package com.kk.guide;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -11,9 +14,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by zhangkai on 2017/6/16.
@@ -127,15 +127,36 @@ public class GuidePopupWindow extends PopupWindow {
     }
 
     public void show(final View view, final String key) {
-        if (GuideUtil.getString(mContext, key).isEmpty() || isDebug) {
-            GuideUtil.postDelayed((long) mDelay * 1000, new Runnable() {
-                @Override
-                public void run() {
-                    GuidePopupWindow.this.showAtLocation(view
-                            , Gravity.NO_GRAVITY, 0, 0);
-                    GuideUtil.putString(mContext, key, key);
-                }
-            });
+        if(isValidContext(mContext)) {
+            if (GuideUtil.getString(mContext, key).isEmpty() || isDebug) {
+                GuideUtil.postDelayed((long) mDelay * 1000, new Runnable() {
+                    @Override
+                    public void run() {
+                        GuidePopupWindow.this.showAtLocation(view
+                                , Gravity.NO_GRAVITY, 0, 0);
+                        GuideUtil.putString(mContext, key, key);
+                    }
+                });
+            }
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private boolean isValidContext(Context ctx) {
+        Activity activity = (Activity) ctx;
+
+        if (Build.VERSION.SDK_INT > 17) {
+            if (activity == null || activity.isDestroyed() || activity.isFinishing()) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            if (activity == null || activity.isFinishing()) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 

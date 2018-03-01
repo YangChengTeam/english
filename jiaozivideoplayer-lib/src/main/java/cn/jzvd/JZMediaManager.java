@@ -138,21 +138,27 @@ public class JZMediaManager implements TextureView.SurfaceTextureListener {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what) {
-                case HANDLER_PREPARE:
-                    currentVideoWidth = 0;
-                    currentVideoHeight = 0;
-                    jzMediaInterface.prepare();
-                    if (surface != null) {
-                        surface.release();
-                    }
-                    surface = new Surface(savedSurfaceTexture);
-                    jzMediaInterface.setSurface(surface);
-                    break;
-                case HANDLER_RELEASE:
-                    if (jzMediaInterface != null)
-                        jzMediaInterface.release();
-                    break;
+            try {
+                switch (msg.what) {
+                    case HANDLER_PREPARE:
+                        currentVideoWidth = 0;
+                        currentVideoHeight = 0;
+                        jzMediaInterface.prepare();
+                        if (surface != null) {
+                            surface.release();
+                        }
+                        if (savedSurfaceTexture != null) {
+                            surface = new Surface(savedSurfaceTexture);
+                            jzMediaInterface.setSurface(surface);
+                        }
+                        break;
+                    case HANDLER_RELEASE:
+                        if (jzMediaInterface != null)
+                            jzMediaInterface.release();
+                        break;
+                }
+            }catch (Exception e){
+                Log.e("SurfaceTexture",e.getMessage());
             }
         }
     }
