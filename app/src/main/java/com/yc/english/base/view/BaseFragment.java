@@ -28,8 +28,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RxBus.get().register(this);
         if (mRootView == null) {
-            mRootView = View.inflate(getActivity(), getLayoutId(), null);
-            if(!isUseInKotlin) {
+            mRootView = inflater.inflate(getLayoutId(), null);
+            if (!isUseInKotlin) {
                 try {
                     ButterKnife.bind(this, mRootView);
                 } catch (Exception e) {
@@ -45,17 +45,17 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(isUseInKotlin){
+        if (isUseInKotlin) {
             init();
         }
     }
 
-    public void setToolbarTopMargin(View view){
-        ((BaseActivity)getActivity()).setToolbarTopMargin(view);
+    public void setToolbarTopMargin(View view) {
+        ((BaseActivity) getActivity()).setToolbarTopMargin(view);
     }
 
-    public int getStatusbarHeight(){
-        return ((BaseActivity)getActivity()).statusBarHeight;
+    public int getStatusbarHeight() {
+        return ((BaseActivity) getActivity()).statusBarHeight;
     }
 
     @Override
@@ -84,7 +84,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
             mPresenter.unsubscribe();
         RxBus.get().unregister(this);
     }
-
 
 
 }

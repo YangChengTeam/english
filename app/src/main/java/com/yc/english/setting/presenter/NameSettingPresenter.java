@@ -3,9 +3,9 @@ package com.yc.english.setting.presenter;
 import android.content.Context;
 
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.UIUitls;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.RongIMUtil;

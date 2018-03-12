@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.UIUitls;
 import com.bumptech.glide.Glide;
-import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.utils.StatusBarCompat;

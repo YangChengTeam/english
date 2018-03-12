@@ -33,7 +33,7 @@ public class GroupMyGroupListPresenter extends BasePresenter<BaseEngin, GroupMyG
         if (userInfo != null) {
             String uid = userInfo.getUid();
             getMyGroupList(mContext, uid, "-1", "0");
-            getMemberList(mContext, "", "0", uid, "0");
+
         } else {
             mView.showMyGroupList(null);
         }

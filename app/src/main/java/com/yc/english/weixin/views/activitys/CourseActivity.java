@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kk.utils.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
@@ -110,22 +111,28 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
 
     @Override
     public void showWeixinList(List<CourseInfo> list) {
-        if (list == null) {
-            mCourseAdapter.loadMoreEnd();
-            return;
-        }
+        try {
 
-        if (page == 1) {
-            mCourseAdapter.setNewData(list);
-        } else {
-            mCourseAdapter.addData(list);
-        }
 
-        if (list.size() == pageSize) {
-            page++;
-            mCourseAdapter.loadMoreComplete();
-        } else {
-            mCourseAdapter.loadMoreEnd();
+            if (list == null) {
+                mCourseAdapter.loadMoreEnd();
+                return;
+            }
+
+            if (page == 1) {
+                mCourseAdapter.setNewData(list);
+            } else {
+                mCourseAdapter.addData(list);
+            }
+
+            if (list.size() == pageSize) {
+                page++;
+                mCourseAdapter.loadMoreComplete();
+            } else {
+                mCourseAdapter.loadMoreEnd();
+            }
+        } catch (Exception e) {
+            LogUtil.msg("TAG " + e.getMessage());
         }
     }
 

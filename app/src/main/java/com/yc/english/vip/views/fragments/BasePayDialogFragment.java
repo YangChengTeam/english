@@ -140,7 +140,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.setCurrentItem(0);
         final View customView = LayoutInflater.from(getActivity()).inflate(R.layout.vip_tab_item, null);
-        final TextView textView = customView.findViewById(R.id.tab_vip);
+        final TextView textView = (TextView) customView.findViewById(R.id.tab_vip);
         mTabLayout.getTabAt(0).setCustomView(customView);
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

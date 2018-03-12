@@ -18,9 +18,9 @@ import kotlinx.android.synthetic.main.intelligent_view_question.view.*
 class IntelligentQuestionView : BaseView {
     override fun getLayoutId() = R.layout.intelligent_view_question
 
-    var mTitleTextView = findViewById<TextView>(R.id.mTitleTextView)
-    val mDescAudioPlayerView = findViewById<MediaPlayerView>(R.id.mDescAudioPlayerView)
-    var mWebView = findViewById<WebView>(R.id.mWebView)
+    var mTitleTextView = findViewById(R.id.mTitleTextView) as TextView
+    val mDescAudioPlayerView = findViewById(R.id.mDescAudioPlayerView) as MediaPlayerView
+    var mWebView = findViewById(R.id.mWebView) as WebView
 
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         val webSettings = mWebView.getSettings()

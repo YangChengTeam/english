@@ -73,7 +73,7 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
         mCourseRecyclerView.setAdapter(mWeiKeCategoryItemAdapter);
 
         View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.course_header_view, null);
-        mTvHeaderView = headerView.findViewById(R.id.tv_header_view);
+        mTvHeaderView = (TextView) headerView.findViewById(R.id.tv_header_view);
         mWeiKeCategoryItemAdapter.addHeaderView(headerView);
         mWeiKeCategoryItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

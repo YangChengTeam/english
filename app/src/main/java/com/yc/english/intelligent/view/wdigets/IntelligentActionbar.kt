@@ -20,12 +20,12 @@ import java.util.concurrent.TimeUnit
  */
 class IntelligentActionbar : BaseView {
 
-    var mStatubar = findViewById<View>(R.id.status_bar)
-    var mToolbar = findViewById<RelativeLayout>(R.id.toolbar)
-    var mBackBtn = findViewById<LinearLayout>(R.id.ll_back)
-    var mTitleTextView = findViewById<TextView>(R.id.tv_title)
-    var mTimeTextView = findViewById<TextView>(R.id.tvTime)
-    var mIndexTextView = findViewById<TextView>(R.id.tvIndex)
+    var mStatubar = findViewById(R.id.status_bar) as View
+    var mToolbar = findViewById(R.id.toolbar) as RelativeLayout
+    var mBackBtn = findViewById(R.id.ll_back) as LinearLayout
+    var mTitleTextView = findViewById(R.id.tv_title) as TextView
+    var mTimeTextView = findViewById(R.id.tvTime) as TextView
+    var mIndexTextView = findViewById(R.id.tvIndex) as TextView
     private var mTimes = 0
 
     override fun getLayoutId() = R.layout.intelligent_actionbar

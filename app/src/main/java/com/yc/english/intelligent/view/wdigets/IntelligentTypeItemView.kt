@@ -14,9 +14,9 @@ import com.yc.english.base.view.BaseView
 class IntelligentTypeItemView : BaseView {
     override fun getLayoutId() = R.layout.intelligent_type_item_view
 
-    val mTitleTextView = findViewById<TextView>(R.id.tvTitle)
-    val mDoTextView = findViewById<TextView>(R.id.tvDo)
-    val mIconImageView = findViewById<ImageView>(R.id.ivIcon)
+    val mTitleTextView = findViewById(R.id.tvTitle) as TextView
+    val mDoTextView = findViewById(R.id.tvDo) as TextView
+    val mIconImageView = findViewById(R.id.ivIcon) as ImageView
 
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         val a = context?.obtainStyledAttributes(attrs, R.styleable.tab_item)

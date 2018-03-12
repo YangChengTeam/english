@@ -20,15 +20,15 @@ import kotlinx.android.synthetic.main.intelligent_view_inner_question.view.*
  */
 class IntelligentInnerQuestionView : BaseView {
 
-    var mTitleTextView = findViewById<TextView>(R.id.mTitleTextView)
+    var mTitleTextView = findViewById(R.id.mTitleTextView) as TextView
     val mTitleAudioPlayerView by lazy {
-        findViewById<MediaPlayerView>(R.id.mTitleAudioPlayerView)
+        findViewById(R.id.mTitleAudioPlayerView) as MediaPlayerView
     }
-    var mRecyclerView = findViewById<RecyclerView>(R.id.mRecyclerView)
+    var mRecyclerView = findViewById(R.id.mRecyclerView) as RecyclerView
 
-    var mAnswerTextView = findViewById<TextView>(R.id.mAnswerTextView)
-    var mAnalysisTextView = findViewById<TextView>(R.id.mAnalysisTextView)
-    var mAnalysisView = findViewById<LinearLayout>(R.id.ll_analysis)
+    var mAnswerTextView = findViewById(R.id.mAnswerTextView) as TextView
+    var mAnalysisTextView = findViewById(R.id.mAnalysisTextView) as TextView
+    var mAnalysisView = findViewById(R.id.ll_analysis) as LinearLayout
 
     override fun getLayoutId() = R.layout.intelligent_view_inner_question
 

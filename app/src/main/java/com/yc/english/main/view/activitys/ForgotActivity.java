@@ -7,8 +7,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.UIUitls;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.utils.StatusBarCompat;

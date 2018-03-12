@@ -60,7 +60,7 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
         });
 
 
-        mVersionSettingItemView.setInfo(GoagalInfo.get().appInfo.getVersionName());
+        mVersionSettingItemView.setInfo(GoagalInfo.get().packageInfo.versionName);
         RxView.clicks(mVersionSettingItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {

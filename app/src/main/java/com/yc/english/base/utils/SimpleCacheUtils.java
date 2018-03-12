@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.blankj.subutil.util.ThreadPoolUtils;
 import com.blankj.utilcode.util.FileIOUtils;
-import com.kk.utils.PathUtils;
+import com.blankj.utilcode.util.PathUtils;
 
 /**
  * Created by zhangkai on 2017/11/22.

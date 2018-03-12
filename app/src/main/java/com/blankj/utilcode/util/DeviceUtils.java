@@ -51,7 +51,7 @@ public final class DeviceUtils {
      * @return 设备系统版本号
      */
     public static int getSDKVersion() {
-        return android.os.Build.VERSION.SDK_INT;
+        return Build.VERSION.SDK_INT;
     }
 
 

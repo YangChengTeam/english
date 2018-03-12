@@ -10,7 +10,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ScreenUtils;
-import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.zhihu.matisse.internal.utils.UIUtils;
 

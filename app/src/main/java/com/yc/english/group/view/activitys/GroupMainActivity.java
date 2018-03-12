@@ -34,6 +34,7 @@ import com.yc.english.group.view.activitys.teacher.GroupCreateActivity;
 import com.yc.english.group.view.activitys.teacher.GroupVerifyActivity;
 import com.yc.english.group.view.adapter.GroupGroupAdapter;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.UserInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,11 +82,16 @@ public class GroupMainActivity extends FullScreenActivity<GroupMyGroupListPresen
         mToolbar.setTitle(getString(R.string.group));
         mToolbar.showNavigationIcon();
 
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo != null) {
+            String uid = userInfo.getUid();
+            mPresenter.getMemberList(this, "", "0", uid, "0");
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new GroupGroupAdapter(this, true, null);
         recyclerView.setAdapter(adapter);
 
-        ItemTouchHelperCallback helperCallback = new ItemTouchHelperCallback(this,adapter);
+        ItemTouchHelperCallback helperCallback = new ItemTouchHelperCallback(this, adapter);
 
         helperCallback.setSwipeEnable(false);
         helperCallback.setDragEnable(true);

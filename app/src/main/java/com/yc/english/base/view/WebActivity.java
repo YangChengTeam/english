@@ -9,7 +9,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.kk.utils.UIUitls;
+import com.blankj.utilcode.util.UIUitls;
 import com.yc.english.R;
 
 import butterknife.BindView;
