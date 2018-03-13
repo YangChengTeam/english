@@ -410,6 +410,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="7dp"
                 android:scaleType="fitXY"
+                android:visibility="gone"
                 android:src="@mipmap/index_exam"/>
         </LinearLayout>
     </com.yc.english.base.view.MyScrollview>
