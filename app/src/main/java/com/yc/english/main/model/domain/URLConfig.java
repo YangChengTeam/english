@@ -2,8 +2,6 @@ package com.yc.english.main.model.domain;
 
 import com.yc.english.base.model.Config;
 
-import java.nio.file.FileAlreadyExistsException;
-
 /**
  * Created by zhangkai on 2017/8/1.
  */

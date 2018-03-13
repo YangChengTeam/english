@@ -17,7 +17,7 @@ public class OrderResultInfoHelper {
 
         if (resultInfo.code == HttpConfig.STATUS_OK) {
             callback.reulstInfoOk();
-        } else if (resultInfo.code == HttpConfig.STATUS_ALREADY_BY) {
+        } else if (resultInfo.code == 2) {
             callback.reulstInfoIsBuy();
         } else {
             callback.resultInfoNotOk(getMessage(resultInfo.message, HttpConfig.SERVICE_ERROR));

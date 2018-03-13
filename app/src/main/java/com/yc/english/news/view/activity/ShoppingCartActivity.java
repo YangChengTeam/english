@@ -204,7 +204,7 @@ public class ShoppingCartActivity extends FullScreenActivity {
         boolean flag = false;
         for (int i = 0; i < mCartItemAdapter.getData().size(); i++) {
             View view = linearLayoutManager.findViewByPosition(i);
-            CheckBox checkBox = view.findViewById(R.id.ck_cart_item);
+            CheckBox checkBox = (CheckBox) view.findViewById(R.id.ck_cart_item);
             if (checkBox.isChecked()) {
                 flag = true;
             }

@@ -108,11 +108,18 @@ public class BaseVipPayFragment extends BaseFragment {
         weikeList = goodInfoWrapper.getWvip();
 
         if (mType == GoodsType.TYPE_SVIP) {
+            tvVipThreeMonth.setText("1个月");
+            tvVipSixMonth.setText("3个月");
+            tvVipTweenMonth.setText("6个月");
+            tvVipForever.setVisibility(View.INVISIBLE);
+
             setGoodInfo(position, sVipList);
+
+
         } else if (mType == GoodsType.TYPE_GENERAL_VIP) {
             tvVipForever.setText("永久会员");
             baseItemViewWeike.setContentAndIcon("微课免费看", 0);
-            baseItemViewTeach.setContentAndIcon("名师辅导课", R.mipmap.vip_common_teach);
+            baseItemViewTeach.setContentAndIcon("名师辅导群", R.mipmap.vip_common_teach);
             setGoodInfo(position, generalVipList);
         } else {
             llFirstContent.setVisibility(View.GONE);

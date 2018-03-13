@@ -1,17 +1,10 @@
 package com.yc.english.news.view.widget;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.ScrollView;
-
-import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.Utils;
-import com.kk.utils.UIUitls;
 
 /**
  * Created by wanglin  on 2017/9/7 15:38.

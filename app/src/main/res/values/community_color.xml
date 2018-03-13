@@ -8,4 +8,5 @@
 
     <color name="comment_item_bg_color">#3Ff1f1f1</color>
     <color name="comment_line_color">#7fdddddd</color>
+    <color name="success_score_color">#39c45d</color>
 </resources>

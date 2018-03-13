@@ -3,7 +3,7 @@ package com.yc.english.base.helper;
 import android.content.Context;
 
 import com.blankj.utilcode.util.EmptyUtils;
-import com.kk.utils.PathUtils;
+import com.blankj.utilcode.util.PathUtils;
 import com.umeng.socialize.sina.helper.MD5;
 
 import java.io.File;

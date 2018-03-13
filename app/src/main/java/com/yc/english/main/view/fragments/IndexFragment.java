@@ -31,7 +31,7 @@ import com.yc.english.base.view.SelectGradePopupWindow;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.WebActivity;
-import com.yc.english.group.view.activitys.GroupCommonClassActivity;
+import com.yc.english.group.view.activitys.CoachScoreActivity;
 import com.yc.english.group.view.activitys.GroupMainActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
@@ -210,7 +210,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mTeacherTask).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), GroupCommonClassActivity.class);
+                Intent intent = new Intent(getActivity(), CoachScoreActivity.class);
                 startActivity(intent);
             }
         });
@@ -231,8 +231,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void call(Void aVoid) {
                 Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("title", "智能测评");
-                intent.putExtra("url", "http://en.qqtn.com/Public/activity/3.html");
+                intent.putExtra("title", "小学英语音标点读");
+                intent.putExtra("url", "http:\\/\\/a.app.qq.com\\/o\\/simple.jsp?pkgname=com.yc.phonogram");
                 startActivity(intent);
             }
         });

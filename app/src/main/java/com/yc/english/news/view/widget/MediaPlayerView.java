@@ -18,9 +18,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.PathUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.kk.utils.PathUtils;
 import com.umeng.socialize.sina.helper.MD5;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
@@ -87,9 +87,9 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
 
     private void init(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.mediaplayer_view, this, true);
-        mImageView = view.findViewById(R.id.mImageView);
-        mSeekBar = view.findViewById(R.id.mSeekBar);
-        mTextViewTime = view.findViewById(R.id.mTextViewTime);
+        mImageView = (ImageView) view.findViewById(R.id.mImageView);
+        mSeekBar = (SeekBar) view.findViewById(R.id.mSeekBar);
+        mTextViewTime = (TextView) view.findViewById(R.id.mTextViewTime);
         mSeekBar.setOnSeekBarChangeListener(new MySeekBarListener());
         executorService = Executors.newSingleThreadExecutor();
         mImageView.setOnClickListener(this);

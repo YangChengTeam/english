@@ -7,8 +7,8 @@ import android.view.Gravity
 import com.blankj.subutil.util.ThreadPoolUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.blankj.utilcode.util.UIUitls
 import com.jakewharton.rxbinding.view.RxView
-import com.kk.utils.UIUitls
 import com.shizhefei.view.indicator.slidebar.ColorBar
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener
 import com.yc.english.R

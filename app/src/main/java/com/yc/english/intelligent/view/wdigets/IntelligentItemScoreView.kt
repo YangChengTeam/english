@@ -25,10 +25,10 @@ import android.view.animation.DecelerateInterpolator
 class IntelligentItemScoreView : BaseView {
     override fun getLayoutId() = R.layout.intelligent_view_item_score
 
-    var mTitleTextView = findViewById<TextView>(R.id.tv_title)
-    var mEnTitleTextView = findViewById<TextView>(R.id.tv_en_title)
-    var mProgressView = findViewById<View>(R.id.v_progress)
-    var mScoreTextView = findViewById<TextView>(R.id.tv_score)
+    var mTitleTextView = findViewById(R.id.tv_title) as TextView
+    var mEnTitleTextView = findViewById(R.id.tv_en_title) as TextView
+    var mProgressView = findViewById(R.id.v_progress) as View
+    var mScoreTextView = findViewById(R.id.tv_score)as TextView
 
     var mProgressWidth: Int = 0
 

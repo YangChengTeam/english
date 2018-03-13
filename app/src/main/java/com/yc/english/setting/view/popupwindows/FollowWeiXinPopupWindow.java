@@ -5,8 +5,8 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ClipboardUtils;
+import com.blankj.utilcode.util.UIUitls;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.UIUitls;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BasePopupWindow;

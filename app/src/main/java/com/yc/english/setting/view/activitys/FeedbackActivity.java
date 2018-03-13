@@ -4,32 +4,23 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.ClipboardUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.PhoneUtils;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.UIUitls;
 import com.yc.english.R;
-import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.utils.QQUtils;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.base.view.ShareItemView;
 import com.yc.english.setting.contract.FeedbackContract;
 import com.yc.english.setting.presenter.FeedbackPersenter;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.functions.Action1;
 
 /**

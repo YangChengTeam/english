@@ -11,8 +11,8 @@ import com.yc.english.base.view.BaseView
  * Created by zhangkai on 2017/11/30.
  */
 class IntelligentPushQuestionView : BaseView {
-    val mTitleTextView = findViewById<TextView>(R.id.tvTitle)
-    val mIconImageView = findViewById<ImageView>(R.id.ivIcon)
+    val mTitleTextView = findViewById(R.id.tvTitle) as TextView
+    val mIconImageView = findViewById(R.id.ivIcon) as ImageView
 
     override fun getLayoutId() = R.layout.intelligent_view_push_question
 

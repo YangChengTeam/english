@@ -255,7 +255,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/index_teacher_task"/>
+                        android:src="@mipmap/raise_score"/>
                 </LinearLayout>
 
                 <View
@@ -335,7 +335,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="7dp"
                 android:scaleType="fitXY"
-                android:src="@mipmap/index_ad"/>
+                android:src="@mipmap/xiaoxueyinbbiao_ad"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

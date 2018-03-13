@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.blankj.utilcode.util.UIUitls;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.utils.UIUitls;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.RxUtils;
 import com.yc.english.base.presenter.BasePresenter;

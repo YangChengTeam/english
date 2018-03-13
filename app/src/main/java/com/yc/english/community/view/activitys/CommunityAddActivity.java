@@ -122,7 +122,7 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
                                 files.add(tempFile);
                             }
                         }
-                        upFileInfo.files = files;
+//                        upFileInfo.files = files;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
