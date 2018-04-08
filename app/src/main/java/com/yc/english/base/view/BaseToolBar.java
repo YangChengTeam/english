@@ -1,7 +1,6 @@
 package com.yc.english.base.view;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.MenuItem;
@@ -9,15 +8,12 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ScreenUtils;
 import com.yc.english.R;
-import com.zhihu.matisse.internal.utils.UIUtils;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
 import javax.annotation.Nullable;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 
 /**
