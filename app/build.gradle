@@ -110,7 +110,7 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:+'
     compile 'com.jakewharton.rxbinding:rxbinding-design:+'
     compile project(':banner')
-    compile files('libs/commons-codec-1.4.jar')
+//    compile files('libs/commons-codec-1.4.jar')
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'
     compile files('libs/Msc.jar')
