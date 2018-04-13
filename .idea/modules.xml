@@ -10,7 +10,6 @@
       <module fileurl="file://$PROJECT_DIR$/guide/guide.iml" filepath="$PROJECT_DIR$/guide/guide.iml" />
       <module fileurl="file://$PROJECT_DIR$/jiaozivideoplayer-lib/jiaozivideoplayer-lib.iml" filepath="$PROJECT_DIR$/jiaozivideoplayer-lib/jiaozivideoplayer-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxbus/rxbus.iml" filepath="$PROJECT_DIR$/rxbus/rxbus.iml" />
-      <module fileurl="file://D:\AndroidStudioProjects\english\securityhttp\securityhttp.iml" filepath="D:\AndroidStudioProjects\english\securityhttp\securityhttp.iml" />
       <module fileurl="file://$PROJECT_DIR$/share/share.iml" filepath="$PROJECT_DIR$/share/share.iml" />
       <module fileurl="file://$PROJECT_DIR$/sticker/sticker.iml" filepath="$PROJECT_DIR$/sticker/sticker.iml" />
     </modules>
