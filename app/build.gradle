@@ -143,4 +143,9 @@ dependencies {
     compile project(':rxbus')
     compile 'com.android.support:recyclerview-v7:25.0.3'
 
+    configurations.all {
+        resolutionStrategy {
+            force 'com.android.support:support-v4:25.3.1'
+        }
+    }
 }
