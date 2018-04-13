@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.util.Log;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -91,8 +93,8 @@ public class WebActivity extends FullScreenActivity {
             }
 
         });
-
         mMainWebView.loadUrl(url);
+
     }
 
     @Override

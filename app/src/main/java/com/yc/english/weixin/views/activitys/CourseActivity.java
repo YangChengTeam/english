@@ -1,16 +1,22 @@
 package com.yc.english.weixin.views.activitys;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.base.view.WebActivity;
 import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.weixin.contract.CourseContract;
 import com.yc.english.weixin.model.domain.CourseInfo;
@@ -18,8 +24,11 @@ import com.yc.english.weixin.presenter.CoursePresenter;
 import com.yc.english.weixin.views.adapters.CourseAdapter;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import rx.functions.Action1;
 
 /**
  * Created by zhangkai on 2017/9/6.
@@ -31,19 +40,27 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
 
     @BindView(R.id.rv_course)
     RecyclerView mCourseRecyclerView;
+    @BindView(R.id.btn_download)
+    Button btnDownload;
+    @BindView(R.id.rl_container)
+    RelativeLayout rlContainer;
 
     private CourseAdapter mCourseAdapter;
     private String type = "";
     private int page = 1;
     private int pageSize = 20;
+    private String downloadUrl = "http://zhushou.360.cn/detail/index/soft_id/3975738?recrefer=SE_D_51%E7%AD%94%E6%A1%88";
 
     @Override
     public void init() {
         mPresenter = new CoursePresenter(this, this);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         if (intent != null) {
             mToolbar.setTitle(intent.getStringExtra("title") + "");
             type = intent.getStringExtra("type") + "";
+            if (type.equals("17")) {
+                btnDownload.setVisibility(View.VISIBLE);
+            }
         }
         mToolbar.showNavigationIcon();
 
@@ -60,6 +77,7 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
 
                 if (type.equals("17")) {
                     MobclickAgent.onEvent(CourseActivity.this, "teacher_answer_click", "教材答案点击详情");
+
                 }
                 Intent intent = new Intent(CourseActivity.this, NewsDetailActivity.class);
                 intent.putExtra("info", mCourseAdapter.getData().get(position));
@@ -76,6 +94,17 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
 
         mPresenter.getWeiXinList(type, page + "", pageSize + "");
 
+        RxView.clicks(btnDownload).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+//                Intent intent1 = new Intent(CourseActivity.this, WebActivity.class);
+                Intent intent1 = new Intent();
+                intent1.setData(Uri.parse(downloadUrl));
+                intent1.setAction(Intent.ACTION_VIEW);
+//                intent1.putExtra("url", downloadUrl);
+                startActivity(intent1);
+            }
+        });
 
     }
 
@@ -91,7 +120,7 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
 
     @Override
     public void showNoNet() {
-        mLoadingStateView.showNoNet(mCourseRecyclerView, "网络不给力", new View.OnClickListener() {
+        mLoadingStateView.showNoNet(rlContainer, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPresenter.getWeiXinList(type, page + "", pageSize + "");
@@ -101,12 +130,12 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
 
     @Override
     public void showNoData() {
-        mLoadingStateView.showNoData(mCourseRecyclerView);
+        mLoadingStateView.showNoData(rlContainer);
     }
 
     @Override
     public void showLoading() {
-        mLoadingStateView.showLoading(mCourseRecyclerView);
+        mLoadingStateView.showLoading(rlContainer);
     }
 
     @Override
@@ -145,4 +174,5 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
     public void end() {
         mCourseAdapter.loadMoreEnd();
     }
+
 }

@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.yc.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
-    </com.yc.english.base.view.MainToolBar>
+        android:layout_alignParentTop="true"></com.yc.english.base.view.MainToolBar>
 
     <com.yc.english.base.view.StateView
         android:id="@+id/sv_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primaryDark"
-        android:visibility="gone"
-        >
-    </com.yc.english.base.view.StateView>
+        android:visibility="gone"></com.yc.english.base.view.StateView>
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_course"
+    <RelativeLayout
+        android:id="@+id/rl_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/primaryDark"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_course"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primaryDark"></android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/btn_download"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/base_actionbar"
+            android:text="下载51答案app"
+            android:textColor="@color/white"
+            android:textSize="@dimen/group_text_16"
+            android:visibility="gone"/>
+    </RelativeLayout>
 </LinearLayout>
