@@ -167,6 +167,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mWordImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                MobclickAgent.onEvent(getActivity(), "word_books", "单词宝典");
                 ReadApp.READ_COMMON_TYPE = 2;
                 Intent intent = new Intent(getActivity(), BookActivity.class);
                 intent.putExtra("tag", "word");
@@ -186,6 +187,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mTaskImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                MobclickAgent.onEvent(getActivity(), "task_online", "在线作业");
                 Intent intent = new Intent(getActivity(), GroupMainActivity.class);
                 startActivity(intent);
             }
@@ -240,6 +242,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mSpeakImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                MobclickAgent.onEvent(getActivity(), "listen_and_speak", "配音听力");
                 Intent intent = new Intent(getActivity(), SpeakMainActivity.class);
                 startActivity(intent);
             }
