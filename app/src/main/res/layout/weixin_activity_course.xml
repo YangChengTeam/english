@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@mipmap/base_actionbar"
-            android:text="下载51答案app"
+            android:text="找中小学各科作业答案,下载51答案"
             android:textColor="@color/white"
             android:textSize="@dimen/group_text_16"
             android:visibility="gone"/>

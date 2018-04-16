@@ -105,6 +105,8 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
     private Timer timer = null;
     private boolean isDiandu;
+    private boolean isWeike;
+    private boolean isOther;
 
     @Override
     public void init() {
@@ -125,15 +127,17 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
             } else if (goodsType == GoodsType.TYPE_SINGLE_WEIKE) {
                 //显示三项
                 courseInfo = bundle.getParcelable("courseInfo");
-                mTitles.add(getString(R.string.member));
-                mTitles.add(getString(R.string.synchronization_weike));
+                mTitles.add(0, getString(R.string.synchronization_weike));
+                mTitles.add(1, getString(R.string.member));
+                isWeike = true;
             } else if (goodsType == GoodsType.TYPE_SINGLE_DIANDU) {
                 mTitles.add(0, getString(R.string.textbook_read));
                 mTitles.add(1, getString(R.string.member));
                 isDiandu = true;
             }
         } else {
-            mTitles.add(getString(R.string.member));
+            mTitles.add(0, getString(R.string.member));
+            isOther = true;
         }
         setPayTitle(0);
 
@@ -144,8 +148,11 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
         final View customView = LayoutInflater.from(getActivity()).inflate(R.layout.vip_tab_item, null);
         final TextView textView = (TextView) customView.findViewById(R.id.tab_vip);
 
-        if (isDiandu) {
+        if (isDiandu || isWeike) {
             mTabLayout.getTabAt(2).setCustomView(customView);
+            textView.setTextColor(ContextCompat.getColor(getActivity(), R.color.black_333));
+        } else if (isOther) {
+            mTabLayout.getTabAt(1).setCustomView(customView);
             textView.setTextColor(ContextCompat.getColor(getActivity(), R.color.black_333));
         } else {
             mTabLayout.getTabAt(0).setCustomView(customView);
@@ -153,8 +160,12 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (isDiandu) {
+                if (isDiandu || isWeike) {
                     if (tab.getPosition() == 2) {
+                        textView.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary));
+                    }
+                } else if (isOther) {
+                    if (tab.getPosition() == 1) {
                         textView.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary));
                     }
                 } else {
@@ -167,9 +178,9 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                if (isDiandu && tab.getPosition() == 2 || tab.getPosition() == 0) {
-                    textView.setTextColor(ContextCompat.getColor(getActivity(), R.color.black_333));
-                }
+//                if (((isDiandu || isWeike) && tab.getPosition() == 2) || (isOther && tab.getPosition() == 1) || tab.getPosition() == 0) {
+                textView.setTextColor(ContextCompat.getColor(getActivity(), R.color.black_333));
+//                }
             }
 
             @Override
@@ -200,21 +211,27 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 restoreGoodInfoAndPayWay(position);
                 switch (position) {
                     case 0:
-                        if (isDiandu) {
+                        if (isDiandu || isWeike) {
                             currentFragment = singleFragment;
+                        } else if (isOther) {
+                            currentFragment = generalFragment;
                         } else {
                             currentFragment = vipPayFragment;
                         }
                         break;
                     case 1:
-                        currentFragment = generalFragment;
-                        break;
-                    case 2:
-                        if (isDiandu) {
+                        if (isOther) {
                             currentFragment = vipPayFragment;
                         } else {
-                            currentFragment = singleFragment;
+                            currentFragment = generalFragment;
                         }
+                        break;
+                    case 2:
+//                        if (isDiandu || isWeike) {
+                        currentFragment = vipPayFragment;
+//                        } else {
+//                            currentFragment = singleFragment;
+//                        }
                         break;
                 }
                 currentPosition = position;
@@ -330,7 +347,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     @Override
     public void onResume() {
         super.onResume();
-        LogUtils.i("onResume--->");
+
         computeTime();
     }
 
@@ -356,22 +373,35 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 if (goodInfoWrapper.getDiandu() != null && goodInfoWrapper.getDiandu().size() > 0) {
                     mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getDiandu().get(0);
                 }
+            } else if (isWeike) {
+                if (goodInfoWrapper.getWvip() != null && goodInfoWrapper.getWvip().size() > 0) {
+                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getWvip().get(0);
+                }
+            } else if (isOther) {
+                if (goodInfoWrapper.getVip() != null && goodInfoWrapper.getVip().size() > 0)
+                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getVip().get(0);
             } else {
                 if (goodInfoWrapper.getSvip() != null && goodInfoWrapper.getSvip().size() > 0)
                     mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getSvip().get(0);
             }
         } else if (position == 1) {
-            if (goodInfoWrapper.getVip() != null && goodInfoWrapper.getVip().size() > 0)
-                mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getVip().get(0);
-        } else if (position == 2) {
-            if (goodsType == GoodsType.TYPE_SINGLE_DIANDU) {
+            if (isOther) {
                 if (goodInfoWrapper.getSvip() != null && goodInfoWrapper.getSvip().size() > 0)
                     mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getSvip().get(0);
-            } else if (goodsType == GoodsType.TYPE_SINGLE_WEIKE) {
-                if (goodInfoWrapper.getWvip() != null && goodInfoWrapper.getWvip().size() > 0) {
-                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getWvip().get(0);
-                }
+            } else {
+                if (goodInfoWrapper.getVip() != null && goodInfoWrapper.getVip().size() > 0)
+                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getVip().get(0);
             }
+        } else if (position == 2) {
+            if (isDiandu || isWeike) {
+                if (goodInfoWrapper.getSvip() != null && goodInfoWrapper.getSvip().size() > 0)
+                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getSvip().get(0);
+            }
+//            else if (goodsType == GoodsType.TYPE_SINGLE_WEIKE) {
+//                if (goodInfoWrapper.getWvip() != null && goodInfoWrapper.getWvip().size() > 0) {
+//                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getWvip().get(0);
+//                }
+//            }
         }
 
     }
@@ -437,7 +467,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
 
             if (position == 0) {
-                if (isDiandu) {
+                if (isDiandu || isWeike) {
                     if (singleFragment == null) {
                         singleFragment = new BaseVipPayFragment();
                         singleFragment.setType(goodsType);
@@ -445,6 +475,14 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                     }
                     singleFragment.setOnVipClickListener(BasePayDialogFragment.this);
                     return singleFragment;
+                }
+                if (isOther) {
+                    if (generalFragment == null) {
+                        generalFragment = new BaseVipPayFragment();
+                        generalFragment.setType(GoodsType.TYPE_GENERAL_VIP);
+                    }
+                    generalFragment.setOnVipClickListener(BasePayDialogFragment.this);
+                    return generalFragment;
                 }
 
                 if (vipPayFragment == null) {
@@ -455,6 +493,13 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 return vipPayFragment;
 
             } else if (position == 1) {
+                if (isOther) {
+                    if (vipPayFragment == null) {
+                        vipPayFragment = new BaseVipPayFragment();
+                        vipPayFragment.setType(GoodsType.TYPE_SVIP);
+                    }
+                    return vipPayFragment;
+                }
                 if (generalFragment == null) {
                     generalFragment = new BaseVipPayFragment();
                     generalFragment.setType(GoodsType.TYPE_GENERAL_VIP);
@@ -462,7 +507,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 return generalFragment;
 
             } else if (position == 2) {
-                if (isDiandu) {
+                if (isDiandu || isWeike) {
                     if (vipPayFragment == null) {
                         vipPayFragment = new BaseVipPayFragment();
                         vipPayFragment.setType(GoodsType.TYPE_SVIP);
@@ -470,12 +515,12 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                     return vipPayFragment;
                 }
 
-                if (singleFragment == null) {
-                    singleFragment = new BaseVipPayFragment();
-                    singleFragment.setType(goodsType);
-                    singleFragment.setCourseInfo(courseInfo);
-                }
-                return singleFragment;
+//                if (singleFragment == null) {
+//                    singleFragment = new BaseVipPayFragment();
+//                    singleFragment.setType(goodsType);
+//                    singleFragment.setCourseInfo(courseInfo);
+//                }
+//                return singleFragment;
             }
 
             return null;
@@ -549,13 +594,23 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     private void umenStatistics(int position) {
         switch (position) {
             case 0:
-                MobclickAgent.onEvent(getActivity(), "score_vip", "提分辅导");
+                if (isWeike || isDiandu) {
+                    MobclickAgent.onEvent(getActivity(), "single_buy", "单次购买");
+                } else if (isOther) {
+                    MobclickAgent.onEvent(getActivity(), "general_vip", "普通会员");
+                } else {
+                    MobclickAgent.onEvent(getActivity(), "score_vip", "提分辅导");
+                }
                 break;
             case 1:
-                MobclickAgent.onEvent(getActivity(), "general_vip", "普通会员");
+                if (isOther) {
+                    MobclickAgent.onEvent(getActivity(), "score_vip", "提分辅导");
+                } else {
+                    MobclickAgent.onEvent(getActivity(), "general_vip", "普通会员");
+                }
                 break;
             case 2:
-                MobclickAgent.onEvent(getActivity(), "single_buy", "单次购买");
+                MobclickAgent.onEvent(getActivity(), "score_vip", "提分辅导");
                 break;
         }
     }
@@ -563,7 +618,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     private void setPayTitle(int position) {
         switch (position) {
             case 0:
-                if (isDiandu) {
+                if (isDiandu || isWeike || isOther) {
                     btnPay.setText("立即开通");
                     tvRightIntroduce.setVisibility(View.GONE);
                 } else {
@@ -573,11 +628,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                 }
                 break;
             case 1:
-                btnPay.setText("立即开通");
-                tvRightIntroduce.setVisibility(View.GONE);
-                break;
-            case 2:
-                if (isDiandu) {
+                if (isOther) {
                     btnPay.setText("立即开通(仅限人教版用户)");
                     tvRightIntroduce.setText(getString(R.string.study_introduce));
                     tvRightIntroduce.setVisibility(View.VISIBLE);
@@ -585,6 +636,16 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                     btnPay.setText("立即开通");
                     tvRightIntroduce.setVisibility(View.GONE);
                 }
+                break;
+            case 2:
+//                if (isDiandu) {
+                btnPay.setText("立即开通(仅限人教版用户)");
+                tvRightIntroduce.setText(getString(R.string.study_introduce));
+                tvRightIntroduce.setVisibility(View.VISIBLE);
+//                } else {
+//                    btnPay.setText("立即开通");
+//                    tvRightIntroduce.setVisibility(View.GONE);
+//                }
                 break;
         }
 
