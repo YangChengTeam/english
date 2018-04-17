@@ -42,6 +42,10 @@ public class EnglishCourseInfo implements MultiItemEntity {
 
     private boolean isPlay = false;
 
+    private boolean isShow;//是否显示
+
+    private boolean speakResult;//显示结果
+
     public EnglishCourseInfo() {
         super();
     }
@@ -128,6 +132,22 @@ public class EnglishCourseInfo implements MultiItemEntity {
 
     public void setIsDel(String isDel) {
         this.isDel = isDel;
+    }
+
+    public boolean isShow() {
+        return isShow;
+    }
+
+    public void setShow(boolean show) {
+        isShow = show;
+    }
+
+    public boolean isSpeakResult() {
+        return speakResult;
+    }
+
+    public void setSpeakResult(boolean speakResult) {
+        this.speakResult = speakResult;
     }
 
     @Override

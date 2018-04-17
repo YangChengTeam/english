@@ -1,6 +1,10 @@
 package com.yc.english.read.view.activitys;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,11 +14,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.iflytek.cloud.ErrorCode;
+import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.jakewharton.rxbinding.view.RxView;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
@@ -31,11 +45,21 @@ import com.yc.english.read.model.domain.EnglishCourseInfoList;
 import com.yc.english.read.model.domain.UnitInfo;
 import com.yc.english.read.presenter.CoursePlayPresenter;
 import com.yc.english.read.view.adapter.ReadCourseItemClickAdapter;
+import com.yc.english.speak.utils.IatSettings;
+import com.yc.english.speak.utils.VoiceJsonParser;
 import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.utils.VipDialogHelper;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
@@ -77,9 +101,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     LinearLayoutManager linearLayoutManager;
 
-    // 语音合成对象
-    private SpeechSynthesizer mTts;
-
     private boolean isCountinue = false;
 
     private int languageType = 1; //1:中英,2:英,3:中
@@ -90,16 +111,55 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private String unitTitle;
 
-
     private int currentPage = 1;
 
     private boolean isNext = false;
 
     @BindView(R.id.toolbarWarpper)
     FrameLayout mToolbarWarpper;
+
     private int position;
+
     private List<UnitInfo> unitInfoList;
+
     private boolean isRead;
+
+    // 语音听写对象
+    private SpeechRecognizer mIat;
+
+    /**
+     * 函数调用返回值
+     */
+    private int ret = 0;
+
+    /**
+     * 用HashMap存储听写结果
+     */
+    private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
+
+    // 语音合成对象
+    private SpeechSynthesizer mTts;
+
+    private SharedPreferences mSharedPreferences;
+    /**
+     * 引擎类型
+     */
+    private String mEngineType = SpeechConstant.TYPE_CLOUD;
+
+    private boolean mTranslateEnable = false;
+
+    private MediaPlayer mPlayer;
+
+    private File audioFile;
+
+    private String audioFilePath;
+
+    private String voiceText;
+
+    private int lastPosition = 0;
+
+    // 语音听写UI
+    private RecognizerDialog mIatDialog;
 
     @Override
     public int getLayoutId() {
@@ -119,7 +179,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 unitId = unitInfo.getId();
                 unitTitle = unitInfo.getName();
             }
-
         }
 
         WakeLockUtils.acquireWakeLock(this);
@@ -135,6 +194,18 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
         mItemAdapter = new ReadCourseItemClickAdapter(this, null);
         mCourseRecyclerView.setAdapter(mItemAdapter);
+
+        // 初始化识别无UI识别对象
+        // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
+        mIat = SpeechRecognizer.createRecognizer(CoursePlayActivity.this, mInitListener);
+
+        // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
+        // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
+        mIatDialog = new RecognizerDialog(CoursePlayActivity.this, mInitListener);
+
+        mSharedPreferences = getSharedPreferences(IatSettings.PREFER_NAME, Activity.MODE_PRIVATE);
+
+        setParam();
 
         mTsSubject = PublishSubject.create();
         mTsSubject.delay(800, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Integer>() {
@@ -248,13 +319,33 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, final View view, int position) {
-                if (position == playPosition) {
+                /*if (position == playPosition) {
                     return;
-                }
+                }*/
                 isCountinue = false;
                 playPosition = position;
                 enableState(playPosition);
                 startSynthesizer(playPosition);
+            }
+        });
+
+        //点击跟读按钮后操作
+        mItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.iv_tape) {
+                    //ToastUtils.showLong("开始跟读");
+
+                    lastPosition = position;
+
+                    isCountinue = false;
+                    disableState();
+
+                    //弹出录音界面
+                    mIatDialog.setListener(mRecognizerDialogListener);
+                    mIatDialog.show();
+                }
+                return false;
             }
         });
 
@@ -280,6 +371,46 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             com.yc.english.base.utils.SpeechUtils.setAppids(this);
         }
     }
+
+    /**
+     * 初始化监听器。
+     */
+    private InitListener mInitListener = new InitListener() {
+
+        @Override
+        public void onInit(int code) {
+            LogUtils.e("SpeechRecognizer init() code = " + code);
+            if (code != ErrorCode.SUCCESS) {
+                ToastUtils.showLong("初始化失败，错误码：" + code);
+            }
+        }
+    };
+
+    /**
+     * 听写UI监听器
+     */
+    public RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+        @Override
+        public void onResult(RecognizerResult results, boolean isLast) {
+            LogUtils.i("RecognizerDialogListener result--->" + results + "---" + isLast);
+            if (!mTranslateEnable) {
+                printResult(results);
+            }
+        }
+
+        /**
+         * 识别回调错误.
+         */
+        @Override
+        public void onError(SpeechError error) {
+            if (mTranslateEnable && error.getErrorCode() == 14002) {
+                ToastUtils.showLong(error.getPlainDescription(true) + "\n请确认是否已开通翻译功能");
+            } else {
+                ToastUtils.showLong(error.getPlainDescription(true));
+            }
+        }
+
+    };
 
     protected boolean isSlideToBottom(RecyclerView recyclerView) {
         if (recyclerView == null) return false;
@@ -318,6 +449,174 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     @Override
     public void showLoading() {
         mStateView.showLoading(mCourseRecyclerView, 2);
+    }
+
+    /**
+     * 参数设置
+     *
+     * @return
+     */
+    public void setParam() {
+        // 清空参数
+        mIat.setParameter(SpeechConstant.PARAMS, null);
+
+        // 设置听写引擎
+        mIat.setParameter(SpeechConstant.ENGINE_TYPE, mEngineType);
+        // 设置返回结果格式
+        mIat.setParameter(SpeechConstant.RESULT_TYPE, "json");
+
+        this.mTranslateEnable = mSharedPreferences.getBoolean(this.getString(R.string.pref_key_translate), false);
+        if (mTranslateEnable) {
+            LogUtils.e("translate enable");
+            mIat.setParameter(SpeechConstant.ASR_SCH, "1");
+            mIat.setParameter(SpeechConstant.ADD_CAP, "translate");
+            mIat.setParameter(SpeechConstant.TRS_SRC, "its");
+        }
+
+        String lag = mSharedPreferences.getString("iat_language_preference",
+                "en_us");
+        if (lag.equals("en_us")) {
+            // 设置语言
+            mIat.setParameter(SpeechConstant.LANGUAGE, "en_us");
+            mIat.setParameter(SpeechConstant.ACCENT, null);
+
+            if (mTranslateEnable) {
+                mIat.setParameter(SpeechConstant.ORI_LANG, "en");
+                mIat.setParameter(SpeechConstant.TRANS_LANG, "cn");
+            }
+        } else {
+            // 设置语言
+            mIat.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+            // 设置语言区域
+            mIat.setParameter(SpeechConstant.ACCENT, lag);
+
+            if (mTranslateEnable) {
+                mIat.setParameter(SpeechConstant.ORI_LANG, "cn");
+                mIat.setParameter(SpeechConstant.TRANS_LANG, "en");
+            }
+        }
+
+        // 设置语音前端点:静音超时时间，即用户多长时间不说话则当做超时处理
+        mIat.setParameter(SpeechConstant.VAD_BOS, mSharedPreferences.getString("iat_vadbos_preference", "4000"));
+
+        // 设置语音后端点:后端点静音检测时间，即用户停止说话多长时间内即认为不再输入， 自动停止录音
+        mIat.setParameter(SpeechConstant.VAD_EOS, mSharedPreferences.getString("iat_vadeos_preference", "1000"));
+
+        // 设置标点符号,设置为"0"返回结果无标点,设置为"1"返回结果有标点
+        mIat.setParameter(SpeechConstant.ASR_PTT, mSharedPreferences.getString("iat_punc_preference", "0"));
+
+        // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
+        // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
+        mIat.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
+        audioFilePath = Environment.getExternalStorageDirectory() + "/msc/iat.wav";
+        audioFile = new File(audioFilePath);
+        mIat.setParameter(SpeechConstant.ASR_AUDIO_PATH, audioFilePath);
+    }
+
+    private void printResult(RecognizerResult results) {
+        String text = VoiceJsonParser.parseIatResult(results.getResultString());
+
+        if(StringUtils.isEmpty(text)){
+            return;
+        }
+        LogUtils.e("the text--->" + text);
+
+        String sn = null;
+        // 读取json结果中的sn字段
+        try {
+            JSONObject resultJson = new JSONObject(results.getResultString());
+            sn = resultJson.optString("sn");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        mIatResults.put(sn, text);
+
+        StringBuffer resultBuffer = new StringBuffer();
+        for (String key : mIatResults.keySet()) {
+            resultBuffer.append(mIatResults.get(key));
+        }
+        voiceText = resultBuffer.toString();
+        if (!StringUtils.isEmpty(voiceText)) {
+            LogUtils.e("result text --->" + voiceText);
+        }
+
+        LogUtils.i("first --->" + mItemAdapter.getData().get(lastPosition).getSubTitle());
+
+        mItemAdapter.getData().get(lastPosition).setShow(true);
+
+        if (compareResult(mItemAdapter.getData().get(lastPosition).getSubTitle(), voiceText)) {
+            LogUtils.i("result --->" + true);
+            mItemAdapter.getData().get(lastPosition).setSpeakResult(true);
+        } else {
+            LogUtils.i("result --->" + false);
+            mItemAdapter.getData().get(lastPosition).setSpeakResult(false);
+        }
+
+        mItemAdapter.notifyDataSetChanged();
+
+        if (mIat != null) {
+            mIat.stopListening();
+        }
+    }
+
+    /**
+     * 将录入的语音与源语音进行对比
+     *
+     * @param sourceSen
+     * @param speakSen
+     * @return
+     */
+    public boolean compareResult(String sourceSen, String speakSen) {
+
+        try {
+            if (StringUtils.isEmpty(sourceSen) || StringUtils.isEmpty(speakSen)) {
+                return false;
+            }
+
+            String regEx = " |、|，|。|；|？|！|,|\\.|;|\\?|!|]|:|：|\"|-";
+            Pattern p = Pattern.compile(regEx);
+
+            //按照句子结束符分割句子
+            String[] words = p.split(sourceSen);
+            List<String> sourceList = new ArrayList<>();
+            for (int i = 0; i < words.length; i++) {
+                if (!StringUtils.isTrimEmpty(words[i])) {
+                    sourceList.add(words[i]);
+                }
+            }
+
+            List<String> speakList = new ArrayList<>();
+            String[] speakWords = p.split(speakSen);
+            for (int m = 0; m < speakWords.length; m++) {
+                if (!StringUtils.isTrimEmpty(speakWords[m])) {
+                    speakList.add(speakWords[m]);
+                }
+            }
+
+            int matchCount = 0;
+            float percent = 0;
+            for (String str : sourceList) {
+                if (speakList.contains(str)) {
+                    matchCount++;
+                }
+            }
+
+            if (matchCount > 0 && sourceList.size() > 0) {
+                percent = (float) matchCount / (float) sourceList.size() * 100;
+            } else {
+                return false;
+            }
+
+            if (percent >= 60) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
@@ -400,6 +699,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     public void resetPlay() {
         for (EnglishCourseInfo englishCourseInfo : mItemAdapter.getData()) {
             englishCourseInfo.setPlay(false);
+            englishCourseInfo.setShow(false);
         }
     }
 
@@ -416,6 +716,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         resetPlay();
         mCoursePlayImageView.setBackgroundResource(R.drawable.read_playing_course_btn_selector);
         mItemAdapter.getData().get(postion).setPlay(true);
+        mItemAdapter.setLastPosition(playPosition);
         mItemAdapter.notifyDataSetChanged();
     }
 
@@ -425,6 +726,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         }
         mTts.stopSpeaking();
         resetPlay();
+        mItemAdapter.setLastPosition(playPosition);
         mItemAdapter.notifyDataSetChanged();
     }
 
