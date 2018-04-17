@@ -10,4 +10,6 @@
     <string name="done_text">完成</string>
     <string name="weike_every_day_text">每日微课</string>
     <string name="waiting_update_text">请静待更新……</string>
+    <string name="intell_correct_answer">正答 %1$d 题</string>
+    <string name="intell_error_answer">错答 %1$d 题</string>
 </resources>

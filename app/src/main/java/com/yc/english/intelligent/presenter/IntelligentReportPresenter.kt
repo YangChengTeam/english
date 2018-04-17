@@ -1,12 +1,9 @@
 package com.yc.english.intelligent.presenter
 
 import android.content.Context
-import com.alibaba.fastjson.JSON
 import com.kk.securityhttp.net.contains.HttpConfig
 import com.yc.english.base.presenter.BasePresenter
-import com.yc.english.base.utils.SimpleCacheUtils
 import com.yc.english.intelligent.contract.IntelligentReportContract
-import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.model.engin.IntelligentReportEngin
 
 /**
@@ -30,6 +27,7 @@ open class IntelligentReportPresenter : BasePresenter<IntelligentReportEngin,
             if (code == HttpConfig.STATUS_OK) {
                 if (it?.data != null) {
                     mView.showInfo(it.data)
+                    getPlanDetail("" + it.data.id, "grammar")
                     return@subscribe
                 }
             }
@@ -39,4 +37,20 @@ open class IntelligentReportPresenter : BasePresenter<IntelligentReportEngin,
             mView.showNoNet()
         })
     }
+
+    fun getPlanDetail(report_id: String, type: String) {
+
+        mEngin.getPlanDetail(report_id, type).subscribe({
+            val code = it.code
+            if (code == HttpConfig.STATUS_OK) {
+                if (it.data != null && it.data.list != null) {
+                    mView.showPlanDetail(it.data.list!!)
+                    return@subscribe
+                }
+            }
+        })
+
+    }
+
+
 }

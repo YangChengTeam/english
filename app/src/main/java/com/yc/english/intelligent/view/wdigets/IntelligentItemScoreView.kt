@@ -16,6 +16,9 @@ import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
+import android.widget.LinearLayout
+import com.blankj.utilcode.util.ScreenUtils
+import kotlinx.android.synthetic.main.intelligent_view_item_score.view.*
 
 
 /**
@@ -42,6 +45,10 @@ class IntelligentItemScoreView : BaseView {
         if (entitle != null) {
             mEnTitleTextView.setText(entitle)
         }
+        val params = ll_progress.layoutParams as LinearLayout.LayoutParams
+        params.width = ScreenUtils.getScreenWidth() * 4 / 5
+        ll_progress.layoutParams = params
+
     }
 
 

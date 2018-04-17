@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.blankj.utilcode.util.LogUtils;
+
 import butterknife.ButterKnife;
 
 /**
@@ -12,8 +13,11 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseView extends FrameLayout implements IView {
+    protected Context mContext;
+
     public BaseView(Context context) {
         super(context);
+        this.mContext = context;
         inflate(context, getLayoutId(), this);
 
         try {
@@ -28,6 +32,7 @@ public abstract class BaseView extends FrameLayout implements IView {
 
     public BaseView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.mContext = context;
         inflate(context, getLayoutId(), this);
 
         try {

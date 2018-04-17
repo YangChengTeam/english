@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:eng="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:eng="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,15 +41,15 @@
                         android:layout_centerVertical="true"
                         android:background="@drawable/base_tran_ripple_bg"
                         android:scaleType="center"
-                        android:src="@mipmap/intelligent_back"/>
+                        android:src="@mipmap/intelligent_back" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="练习成绩"
+                        android:text="测评报告"
                         android:textColor="@color/black_333"
-                        android:textSize="@dimen/font_large"/>
+                        android:textSize="@dimen/font_large" />
 
 
                     <ImageView
@@ -58,8 +59,7 @@
                         android:layout_alignParentRight="true"
                         android:background="@drawable/base_tran_ripple_bg"
                         android:scaleType="center"
-                        android:src="@mipmap/setting_honour_share"
-                        />
+                        android:src="@mipmap/setting_honour_share" />
 
                     <View
                         android:layout_width="match_parent"
@@ -102,8 +102,7 @@
                         android:layout_marginTop="10dp"
                         android:text="测评等级"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/font_larger"
-                        />
+                        android:textSize="@dimen/font_larger" />
 
                     <LinearLayout
                         android:id="@+id/mStarLinearLayout"
@@ -116,31 +115,31 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:src="@mipmap/intelligents_report_star"/>
+                            android:src="@mipmap/intelligents_report_star" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:src="@mipmap/intelligents_report_star"/>
+                            android:src="@mipmap/intelligents_report_star" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:src="@mipmap/intelligents_report_star"/>
+                            android:src="@mipmap/intelligents_report_star" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:src="@mipmap/intelligents_report_star"/>
+                            android:src="@mipmap/intelligents_report_star" />
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:src="@mipmap/intelligents_report_star"/>
+                            android:src="@mipmap/intelligents_report_star" />
                     </LinearLayout>
 
                     <com.yc.english.base.view.HonourAbilityView
@@ -155,8 +154,72 @@
                         eng:honour_ability_dot_color="#ffffff"
                         eng:honour_ability_dot_radius="1.5dp"
                         eng:honour_ability_line_color="#ffffff"
-                        eng:honour_ability_text_size="15dp"
-                        />
+                        eng:honour_ability_text_size="15dp" />
+
+                    <!--<com.yc.english.intelligent.view.wdigets.IntelligentRingView-->
+                    <!--android:id="@+id/ringView"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/group_distance_10"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.yc.english.intelligent.view.wdigets.RingView
+                            android:id="@+id/ringView"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            android:layout_gravity="center"
+                            app:firstColor="#F7CDCA"
+                            app:radius="30dp"
+                            app:ringTextColor="@color/group_orange_ff9a00"
+                            app:ringTextSize="@dimen/group_text_16"
+                            app:secondColor="@color/group_orange_ff9a00"
+                            app:speed="10" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/group_distance_15"
+                            android:gravity="center">
+
+                            <View
+                                android:layout_width="@dimen/group_distance_20"
+                                android:layout_height="@dimen/group_distance_20"
+                                android:background="@color/group_orange_ff9a00" />
+
+                            <TextView
+                                android:id="@+id/tv_correct_answer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/group_distance_5"
+                                android:textColor="@color/gray_aaa" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/group_distance_10"
+                            android:gravity="center">
+
+                            <View
+                                android:layout_width="@dimen/group_distance_20"
+                                android:layout_height="@dimen/group_distance_20"
+                                android:background="#F7CDCA" />
+
+                            <TextView
+                                android:id="@+id/tv_error_answer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/group_distance_5"
+                                android:textColor="@color/gray_aaa" />
+
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
@@ -208,6 +271,42 @@
                     eng:desc="@string/intelligents_en_type6"
                     eng:text="@string/intelligents_type6"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/group_distance_15"
+                    android:background="#E50002"
+                    android:orientation="vertical"
+                    android:padding="@dimen/group_distance_15">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="薄弱知识点"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/group_text_18" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/weakness_recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/group_distance_05"
+                        android:background="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_sum_weakness"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/group_distance_10"
+                        android:text="您有xx个薄弱知识点需改善，说说英语期待帮助您完善薄弱知识点，助您学业进步！"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/group_text_12" />
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -233,9 +332,9 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="测评分析"
+                            android:text="测评总结"
                             android:textColor="@color/black_333"
-                            android:textSize="@dimen/font_normal"/>
+                            android:textSize="@dimen/font_normal" />
 
                         <View
                             android:layout_width="0dp"
@@ -259,7 +358,7 @@
                             android:padding="10dp"
                             android:text=""
                             android:textColor="@color/white"
-                            android:textSize="@dimen/font_normal"/>
+                            android:textSize="@dimen/font_normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -280,7 +379,7 @@
                             android:padding="10dp"
                             android:text="@string/intelligents_report_desc"
                             android:textColor="@color/gray_aaa"
-                            android:textSize="@dimen/font_small"/>
+                            android:textSize="@dimen/font_small" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -306,7 +405,7 @@
             android:text="开启个性学习计划"
             android:textColor="@color/white"
             android:textSize="@dimen/font_big"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </FrameLayout>
 
 </RelativeLayout>

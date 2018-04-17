@@ -8,6 +8,9 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import com.blankj.utilcode.util.ImageUtils
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
@@ -19,9 +22,11 @@ import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.base.view.BaseActivity
 import com.yc.english.base.view.SharePopupWindow
 import com.yc.english.intelligent.contract.IntelligentReportContract
+import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.model.domain.ReportInfo
 import com.yc.english.intelligent.presenter.IntelligentReportPresenter
 import com.yc.english.intelligent.utils.fromHtml
+import com.yc.english.intelligent.view.adpaters.IntelligentReportWeakAdapter
 import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
 import com.yc.english.vip.model.bean.GoodsType
@@ -34,12 +39,14 @@ import java.util.concurrent.TimeUnit
  */
 class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), IntelligentReportContract.View {
 
+
     var unitId: Int = 0
     var reportId = 0
     override fun init() {
         mPresenter = IntelligentReportPresenter(this, this)
         StatusBarCompat.light(this)
         StatusBarCompat.compat(this, mToolbarWarpper, mToolbar, mStatusBar)
+
 
         RxView.clicks(mBackBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
@@ -123,10 +130,14 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
         mIntelligentItemScoreView4.progress(reportInfo.hearing)
         mIntelligentItemScoreView5.progress(reportInfo.read)
         mIntelligentItemScoreView6.progress(reportInfo.writing)
-        mReportTextView.text = fromHtml( reportInfo.desp )
+        mReportTextView.text = fromHtml(reportInfo.desp)
         star((reportInfo.score + 4) / 20)
 
-        if(reportInfo.score == 100){
+        ringView.setText("" + reportInfo.score)
+        tv_correct_answer.text = String.format(getString(R.string.intell_correct_answer), 32)
+        tv_error_answer.text = String.format(getString(R.string.intell_error_answer), 31)
+
+        if (reportInfo.score == 100) {
             mStartPushBtn.visibility = View.GONE
         } else {
             mStartPushBtn.visibility = View.VISIBLE
@@ -137,5 +148,15 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = arrayOf(Tag(Constant.COMMUNITY_ACTIVITY_REFRESH)))
     fun openVip(tag: String) {
         mStartPushBtn.text = "进入个性化学习"
+    }
+
+    override fun showPlanDetail(data: List<QuestionInfoWrapper.QuestionInfo>) {
+        val layoutManager = FlexboxLayoutManager(this)
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.alignItems = AlignItems.STRETCH
+        weakness_recyclerView.layoutManager = FlexboxLayoutManager(this)
+
+        val adapter = IntelligentReportWeakAdapter(data)
+        weakness_recyclerView.adapter = adapter
     }
 }

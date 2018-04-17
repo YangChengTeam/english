@@ -57,4 +57,14 @@
         <attr name="good_content" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="RingView">
+        <attr name="firstColor" format="color|reference" />
+        <attr name="secondColor" format="color|reference" />
+        <attr name="radius" format="dimension" />
+        <attr name="speed" format="integer" />
+        <attr name="ringTextSize" format="dimension" />
+        <attr name="ringTextColor" format="color|reference" />
+        <attr name="ringText" format="string" />
+
+    </declare-styleable>
 </resources>

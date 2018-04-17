@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.yc.english.intelligent.view.wdigets.RingView
+        android:id="@+id/ringView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        app:firstColor="#F7CDCA"
+        app:radius="40dp"
+        app:ringTextColor="#C14C40"
+        app:ringTextSize="16sp"
+        app:secondColor="#E50002"
+        app:speed="10" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/group_distance_15"
+        android:gravity="center">
+
+        <View
+            android:layout_width="@dimen/group_distance_20"
+            android:layout_height="@dimen/group_distance_20"
+            android:background="#E50002" />
+
+        <TextView
+            android:id="@+id/tv_correct_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/group_distance_5"
+            android:text="正答 32 题" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/group_distance_10"
+        android:gravity="center">
+
+        <View
+            android:layout_width="@dimen/group_distance_20"
+            android:layout_height="@dimen/group_distance_20"
+            android:background="#F7CDCA" />
+
+        <TextView
+            android:id="@+id/tv_error_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/group_distance_5"
+            android:text="错答 31 题" />
+
+    </LinearLayout>
+</LinearLayout>
