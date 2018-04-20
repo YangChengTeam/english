@@ -31,7 +31,7 @@
     <color name="group_red_fb4c30">#FB4C30</color>
     <color name="group_orange_ff9a00">#FF9A00</color>
     <color name="orange_ffe1be">#FFE1BE</color>
-
+    <color name="orange_ffc516">#FFC516</color>
     <color name="buy_vip_bg_color">#e7f1fb</color>
     <color name="course_bg_color">#e6f1fb</color>
     <color name="buy_bg_color">#e92b54</color>
@@ -40,4 +40,5 @@
     <color name="pay_info_color">#515151</color>
     <color name="vip_price_ff3333">#FF3333</color>
     <color name="general_vip_d39200">#D39200</color>
+    <color name="green_33CBA5">#33CBA5</color>
 </resources>

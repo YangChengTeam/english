@@ -95,14 +95,12 @@
                     android:background="@mipmap/intelligent_report_bg"
                     android:orientation="vertical">
 
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:text="测评等级"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_larger" />
+                        android:src="@mipmap/appraisal_level" />
 
                     <LinearLayout
                         android:id="@+id/mStarLinearLayout"
@@ -173,119 +171,161 @@
                             android:layout_width="200dp"
                             android:layout_height="200dp"
                             android:layout_gravity="center"
-                            app:firstColor="#F7CDCA"
-                            app:radius="30dp"
-                            app:ringTextColor="@color/group_orange_ff9a00"
+                            app:firstColor="@color/green_33CBA5"
+                            app:radius="@dimen/group_distance_50"
+                            app:ringTextColor="@color/orange_ffc516"
                             app:ringTextSize="@dimen/group_text_16"
-                            app:secondColor="@color/group_orange_ff9a00"
+                            app:secondColor="@color/orange_ffc516"
                             app:speed="10" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/group_distance_15"
-                            android:gravity="center">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                            <View
-                                android:layout_width="@dimen/group_distance_20"
-                                android:layout_height="@dimen/group_distance_20"
-                                android:background="@color/group_orange_ff9a00" />
-
-                            <TextView
-                                android:id="@+id/tv_correct_answer"
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/group_distance_5"
-                                android:textColor="@color/gray_aaa" />
+                                android:layout_weight="1"
+                                android:gravity="center">
 
+                                <View
+                                    android:layout_width="@dimen/group_distance_20"
+                                    android:layout_height="@dimen/group_distance_20"
+                                    android:background="@color/orange_ffc516" />
+
+                                <TextView
+                                    android:id="@+id/tv_correct_answer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/group_distance_10"
+                                    android:textColor="@color/orange_ffc516" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <View
+                                    android:layout_width="@dimen/group_distance_20"
+                                    android:layout_height="@dimen/group_distance_20"
+                                    android:background="@color/green_33CBA5" />
+
+                                <TextView
+                                    android:id="@+id/tv_error_answer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/group_distance_5"
+                                    android:textColor="@color/green_33CBA5" />
+
+                            </LinearLayout>
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/group_distance_10"
-                            android:gravity="center">
-
-                            <View
-                                android:layout_width="@dimen/group_distance_20"
-                                android:layout_height="@dimen/group_distance_20"
-                                android:background="#F7CDCA" />
-
-                            <TextView
-                                android:id="@+id/tv_error_answer"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/group_distance_5"
-                                android:textColor="@color/gray_aaa" />
-
-                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
-                <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
-                    android:id="@+id/mIntelligentItemScoreView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    eng:desc="@string/intelligents_en_type1"
-                    eng:text="@string/intelligents_type1"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
-
-                <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
-                    android:id="@+id/mIntelligentItemScoreView2"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    eng:desc="@string/intelligents_en_type2"
-                    eng:text="@string/intelligents_type2"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+                    android:background="@mipmap/intelligent_score_bg"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/group_distance_15"
+                    android:paddingRight="@dimen/group_distance_15">
 
-                <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
-                    android:id="@+id/mIntelligentItemScoreView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    eng:desc="@string/intelligents_en_type4"
-                    eng:text="@string/intelligents_type4"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+                    <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                        android:id="@+id/mIntelligentItemScoreView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        eng:desc="@string/intelligents_en_type1"
+                        eng:text="@string/intelligents_type1"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
-                <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
-                    android:id="@+id/mIntelligentItemScoreView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    eng:desc="@string/intelligents_en_type3"
-                    eng:text="@string/intelligents_type3"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+                    <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                        android:id="@+id/mIntelligentItemScoreView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        eng:desc="@string/intelligents_en_type2"
+                        eng:text="@string/intelligents_type2"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+
+                    <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                        android:id="@+id/mIntelligentItemScoreView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        eng:desc="@string/intelligents_en_type4"
+                        eng:text="@string/intelligents_type4"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+
+                    <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                        android:id="@+id/mIntelligentItemScoreView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        eng:desc="@string/intelligents_en_type3"
+                        eng:text="@string/intelligents_type3"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
 
-                <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
-                    android:id="@+id/mIntelligentItemScoreView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    eng:desc="@string/intelligents_en_type5"
-                    eng:text="@string/intelligents_type5"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+                    <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                        android:id="@+id/mIntelligentItemScoreView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        eng:desc="@string/intelligents_en_type5"
+                        eng:text="@string/intelligents_type5"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
-                <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
-                    android:id="@+id/mIntelligentItemScoreView6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    eng:desc="@string/intelligents_en_type6"
-                    eng:text="@string/intelligents_type6"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+                    <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                        android:id="@+id/mIntelligentItemScoreView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        eng:desc="@string/intelligents_en_type6"
+                        eng:text="@string/intelligents_type6"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+                </LinearLayout>
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/group_distance_15"
-                    android:background="#E50002"
+                    android:layout_marginTop="-20dp"
+                    android:background="@mipmap/intelligent_weak_bg"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/weakness_knolwge" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:background="#2195E7"
                     android:orientation="vertical"
-                    android:padding="@dimen/group_distance_15">
+                    android:paddingBottom="@dimen/group_distance_15"
+                    android:paddingLeft="@dimen/group_distance_15"
+                    android:paddingRight="@dimen/group_distance_15">
+
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+
+                    <!--android:orientation="vertical">-->
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="薄弱知识点"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/group_text_18" />
+                        android:textSize="@dimen/group_text_18"
+                        android:visibility="gone" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/weakness_recyclerView"
@@ -302,87 +342,120 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/group_distance_10"
-                        android:text="您有xx个薄弱知识点需改善，说说英语期待帮助您完善薄弱知识点，助您学业进步！"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/group_text_12" />
-                </LinearLayout>
+                        android:textSize="@dimen/group_text_12"
+                        android:textStyle="bold" />
+                    <!--</LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:orientation="horizontal">
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1px"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:background="@color/gray_ddd"></View>
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="测评总结"
-                            android:textColor="@color/black_333"
-                            android:textSize="@dimen/font_normal" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1px"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:background="@color/gray_ddd"></View>
-                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/group_distance_20"
+                        android:src="@mipmap/error_sum_bg" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/intelligents_report_bg">
+                        android:layout_marginTop="@dimen/group_distance_15"
+                        android:background="@drawable/error_outer_bg"
+                        android:padding="@dimen/group_distance_10">
 
-                        <TextView
-                            android:id="@+id/mReportTextView"
+                        <com.yc.english.intelligent.view.wdigets.MyRecyclerView
+                            android:id="@+id/errorsRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:text=""
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/font_normal" />
+                            android:background="@drawable/intelligent_out_bg"
+                            android:padding="@dimen/group_distance_15" />
+
                     </LinearLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="45dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/group_distance_20"
                         android:orientation="vertical">
 
-                        <View
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:background="@color/gray_ddd"></View>
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
-                        <TextView
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1px"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:background="@color/gray_ddd"></View>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="测评总结"
+                                android:textColor="@color/black_333"
+                                android:textSize="@dimen/font_normal" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1px"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:background="@color/gray_ddd"></View>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@mipmap/appraisal_sum_bg" />
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:text="@string/intelligents_report_desc"
-                            android:textColor="@color/gray_aaa"
-                            android:textSize="@dimen/font_small" />
+                            android:layout_marginTop="@dimen/group_distance_15"
+                            android:background="@drawable/error_outer_bg"
+                            android:padding="@dimen/group_distance_10">
+
+                            <TextView
+                                android:id="@+id/mReportTextView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/intelligent_out_bg"
+                                android:padding="10dp"
+                                android:text=""
+                                android:textColor="#2195E7"
+                                android:textSize="@dimen/font_normal" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="45dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1px"
+                                android:background="@color/gray_ddd"></View>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="@string/intelligents_report_desc"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/font_small"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
@@ -400,7 +473,7 @@
             android:id="@+id/mStartPushBtn"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@drawable/base_tran_ripple_bg"
+            android:background="@mipmap/start_plan_btn"
             android:gravity="center"
             android:text="开启个性学习计划"
             android:textColor="@color/white"

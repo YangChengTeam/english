@@ -12,4 +12,9 @@
     <string name="waiting_update_text">请静待更新……</string>
     <string name="intell_correct_answer">正答 %1$d 题</string>
     <string name="intell_error_answer">错答 %1$d 题</string>
+    <string name="weakness_knowledge">您有%1$d个薄弱知识点需改善，说说英语期待帮助您完善薄弱知识点，助您学业进步！</string>
+    <string name="your_answer">你的答案:</string>
+    <string name="reference_answer">参考答案:</string>
+    <string name="analysis">解析</string>
+    <string name="knowledge">考查知识点</string>
 </resources>

@@ -97,6 +97,7 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
         RxView.clicks(btnDownload).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                MobclickAgent.onEvent(CourseActivity.this, "download_51answer", "51答案下载");
 //                Intent intent1 = new Intent(CourseActivity.this, WebActivity.class);
                 Intent intent1 = new Intent();
                 intent1.setData(Uri.parse(downloadUrl));
@@ -141,7 +142,6 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
     @Override
     public void showWeixinList(List<CourseInfo> list) {
         try {
-
 
             if (list == null) {
                 mCourseAdapter.loadMoreEnd();

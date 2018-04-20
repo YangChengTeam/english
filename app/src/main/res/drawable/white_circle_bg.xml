@@ -5,4 +5,5 @@
         android:width="@dimen/group_distance_1"
         android:color="@color/white" />
     <corners android:radius="@dimen/group_distance_15" />
+    <solid android:color="@color/white" />
 </shape>

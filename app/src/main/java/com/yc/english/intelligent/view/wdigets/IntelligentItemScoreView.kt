@@ -45,9 +45,9 @@ class IntelligentItemScoreView : BaseView {
         if (entitle != null) {
             mEnTitleTextView.setText(entitle)
         }
-        val params = ll_progress.layoutParams as LinearLayout.LayoutParams
-        params.width = ScreenUtils.getScreenWidth() * 4 / 5
-        ll_progress.layoutParams = params
+//        val params = ll_progress.layoutParams as LinearLayout.LayoutParams
+//        params.width = ScreenUtils.getScreenWidth() * 4 / 5
+//        ll_progress.layoutParams = params
 
     }
 

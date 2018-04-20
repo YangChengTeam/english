@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_title_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="@dimen/group_distance_5"
+        android:textColor="#2195E7" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_answer"
+            android:textColor="#2195E7" />
+
+        <TextView
+            android:id="@+id/tv_your_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/group_distance_10"
+            android:text="C"
+            android:textColor="@color/orange_ffc516"
+            android:textSize="@dimen/sp_16" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/group_distance_15"
+            android:text="@string/reference_answer"
+            android:textColor="#2195E7" />
+
+        <TextView
+            android:id="@+id/tv_reference_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/group_distance_10"
+            android:text="C"
+            android:textColor="@color/green_33CBA5"
+            android:textSize="@dimen/sp_16" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/analysis"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_analysis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="@dimen/group_distance_5"
+        android:text="句意：奶昔做好了。请_____搅拌器。turn on意为“打开”；turn off意为“关掉”；turn up意为“（音量等）调大”；turn down意为“（音量等）调小”。根据句意可知选B。"
+        android:textColor="#2195E7" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/knowledge"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_knowledge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="动词"
+        android:textColor="#2195E7" />
+</LinearLayout>

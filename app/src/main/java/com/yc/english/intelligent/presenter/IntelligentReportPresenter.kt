@@ -27,7 +27,7 @@ open class IntelligentReportPresenter : BasePresenter<IntelligentReportEngin,
             if (code == HttpConfig.STATUS_OK) {
                 if (it?.data != null) {
                     mView.showInfo(it.data)
-                    getPlanDetail("" + it.data.id, "grammar")
+//                    getPlanDetail("" + it.data.id, "grammar")
                     return@subscribe
                 }
             }
@@ -44,7 +44,7 @@ open class IntelligentReportPresenter : BasePresenter<IntelligentReportEngin,
             val code = it.code
             if (code == HttpConfig.STATUS_OK) {
                 if (it.data != null && it.data.list != null) {
-                    mView.showPlanDetail(it.data.list!!)
+//                    mView.showPlanDetail(it.data.list!!)
                     return@subscribe
                 }
             }

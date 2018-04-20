@@ -2,8 +2,11 @@ package com.yc.english.intelligent.view.activitys
 
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
@@ -26,12 +29,14 @@ import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.model.domain.ReportInfo
 import com.yc.english.intelligent.presenter.IntelligentReportPresenter
 import com.yc.english.intelligent.utils.fromHtml
+import com.yc.english.intelligent.view.adpaters.IntelligentReportErrorAdapter
 import com.yc.english.intelligent.view.adpaters.IntelligentReportWeakAdapter
 import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
 import com.yc.english.vip.model.bean.GoodsType
 import com.yc.english.vip.utils.VipDialogHelper
 import kotlinx.android.synthetic.main.intelligent_activity_report.*
+import net.lucode.hackware.magicindicator.buildins.UIUtil
 import java.util.concurrent.TimeUnit
 
 /**
@@ -134,8 +139,24 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
         star((reportInfo.score + 4) / 20)
 
         ringView.setText("" + reportInfo.score)
-        tv_correct_answer.text = String.format(getString(R.string.intell_correct_answer), 32)
-        tv_error_answer.text = String.format(getString(R.string.intell_error_answer), 31)
+        tv_correct_answer.text = String.format(getString(R.string.intell_correct_answer), reportInfo.getRightSum())
+        tv_error_answer.text = String.format(getString(R.string.intell_error_answer), reportInfo.getErrorSum())
+
+        val layoutManager = FlexboxLayoutManager(this)
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.alignItems = AlignItems.STRETCH
+        weakness_recyclerView.layoutManager = FlexboxLayoutManager(this)
+
+        val list = (1..10).map { "" + it }
+
+        val adapter = IntelligentReportWeakAdapter(reportInfo.error_grammar!!)
+//        val adapter = IntelligentReportWeakAdapter(list)
+        weakness_recyclerView.adapter = adapter
+        weakness_recyclerView.addItemDecoration(MyItemDecoration())
+        tv_sum_weakness.text = String.format(getString(R.string.weakness_knowledge), reportInfo.error_grammar!!.size)
+
+        errorsRecyclerView.layoutManager = LinearLayoutManager(this)
+        errorsRecyclerView.adapter = IntelligentReportErrorAdapter(reportInfo.err_tips!!)
 
         if (reportInfo.score == 100) {
             mStartPushBtn.visibility = View.GONE
@@ -151,12 +172,13 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
     }
 
     override fun showPlanDetail(data: List<QuestionInfoWrapper.QuestionInfo>) {
-        val layoutManager = FlexboxLayoutManager(this)
-        layoutManager.flexWrap = FlexWrap.WRAP
-        layoutManager.alignItems = AlignItems.STRETCH
-        weakness_recyclerView.layoutManager = FlexboxLayoutManager(this)
 
-        val adapter = IntelligentReportWeakAdapter(data)
-        weakness_recyclerView.adapter = adapter
+    }
+
+    private inner class MyItemDecoration : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+            super.getItemOffsets(outRect, view, parent, state)
+            outRect.set(0, 0, UIUtil.dip2px(this@IntelligentReportActivity, 10.0), UIUtil.dip2px(this@IntelligentReportActivity, 10.0))
+        }
     }
 }

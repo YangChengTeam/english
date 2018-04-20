@@ -99,14 +99,19 @@ public class RingView extends View {
         int width = center - mRaduis / 2;//半径
         mPaint.setStrokeWidth(mRaduis);//设置圆环的宽度
         mPaint.setAntiAlias(true);//消除锯齿
-        mPaint.setStyle(Paint.Style.STROKE);//设置圆环空心
+
         RectF ovalRect = new RectF(center - width, center - width, center + width, center + width);
 
         if (!isNext) {
+            mPaint.setStyle(Paint.Style.FILL);
+            mPaint.setColor(Color.WHITE);
+            canvas.drawCircle(center, center, center, mPaint);
+            mPaint.setStyle(Paint.Style.STROKE);//设置圆环空心
             mPaint.setColor(mFirstColor);
             canvas.drawCircle(center, center, width, mPaint);
             mPaint.setColor(mSecondColor);
             canvas.drawArc(ovalRect, 0, mProgress, false, mPaint);
+
         } else {
             mPaint.setColor(mSecondColor); // 设置圆环的颜色
             canvas.drawCircle(center, center, width, mPaint); // 画出圆环
@@ -122,6 +127,7 @@ public class RingView extends View {
     private void drawText(Canvas canvas, int center) {
         mPaint.setColor(mTextColor);
         mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setFakeBoldText(true);
 
         mPaint.setTextSize(SizeUtils.sp2px(18));
         mPaint.getTextBounds(mTitle, 0, mTitle.length(), mRect);
