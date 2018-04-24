@@ -162,4 +162,5 @@ public class EnglishCourseInfo implements MultiItemEntity {
     public void setPlay(boolean play) {
         isPlay = play;
     }
+
 }

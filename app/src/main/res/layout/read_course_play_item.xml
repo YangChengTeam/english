@@ -1,70 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
+        android:layout_margin="2dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_2">
+
+            <TextView
+                android:id="@+id/tv_english_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="I am a hero"
+                android:textColor="@color/gray_999"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:id="@+id/tv_chinese_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="我是一个英雄"
+                android:textColor="@color/gray_999"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_play"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:gravity="left|center">
+
+            <ImageView
+                android:id="@+id/iv_audio_gif_play"
+                android:layout_width="24dp"
+                android:layout_height="16dp"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_tape"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center|right"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_speak_result"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/item_play_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/dp_10">
-
-        <TextView
-            android:id="@+id/tv_english_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="I am a hero"
-            android:textColor="@color/gray_999"
-            android:textSize="@dimen/sp_16" />
-
-        <TextView
-            android:id="@+id/tv_chinese_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="2dp"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="我是一个英雄"
-            android:textColor="@color/gray_999"
-            android:textSize="@dimen/sp_14" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/layout_play"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:gravity="left|center">
+        android:visibility="gone">
 
         <ImageView
-            android:id="@+id/iv_audio_gif_play"
-            android:layout_width="24dp"
-            android:layout_height="16dp"
-            android:visibility="visible" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/layout_tape"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:layout_gravity="center|right"
-        android:gravity="center">
+            android:id="@+id/iv_play"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:clickable="true"
+            android:src="@mipmap/item_read_normal_icon" />
 
         <ImageView
             android:id="@+id/iv_tape"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@mipmap/tape_icon"
-            android:visibility="gone" />
-    </RelativeLayout>
-</FrameLayout>
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:clickable="true"
+            android:src="@drawable/read_item_tape_selector" />
+
+        <ImageView
+            android:id="@+id/iv_play_tape"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:clickable="true"
+            android:src="@mipmap/item_tape_play_normal_icon" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:background="@color/item_line_color"></View>
+</LinearLayout>

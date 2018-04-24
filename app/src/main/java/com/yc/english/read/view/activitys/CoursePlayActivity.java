@@ -2,6 +2,7 @@ package com.yc.english.read.view.activitys;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -324,8 +326,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 }*/
                 isCountinue = false;
                 playPosition = position;
-                enableState(playPosition);
-                startSynthesizer(playPosition);
+                itemChoose(playPosition);
+                //startSynthesizer(playPosition);
             }
         });
 
@@ -333,11 +335,11 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         mItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                playPosition = position;
                 if (view.getId() == R.id.iv_tape) {
                     //ToastUtils.showLong("开始跟读");
 
                     lastPosition = position;
-
                     isCountinue = false;
                     disableState();
 
@@ -345,6 +347,30 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                     mIatDialog.setListener(mRecognizerDialogListener);
                     mIatDialog.show();
                 }
+                if (view.getId() == R.id.iv_play && mTts != null) {
+                    if (mTts.isSpeaking()) {
+                        mTts.stopSpeaking();
+                        disableState();
+                    } else {
+                        isCountinue = false;
+                        enableState(playPosition);
+                        startSynthesizer(playPosition);
+                    }
+                }
+                if (view.getId() == R.id.iv_play_tape && mItemAdapter.getData().get(lastPosition).isShow()) {
+                    if(mPlayer != null && mPlayer.isPlaying()){
+                        stopPlayTape();
+                        View currentView = linearLayoutManager.findViewByPosition(position);
+                        if (currentView != null) {
+                            Glide.with(CoursePlayActivity.this).load(R.mipmap.item_tape_play_normal_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
+                        }
+                    }else {
+                        playTape(position);
+                    }
+                }else{
+                    ToastUtils.showLong("请先录音评测后再回放");
+                }
+
                 return false;
             }
         });
@@ -516,7 +542,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     private void printResult(RecognizerResult results) {
         String text = VoiceJsonParser.parseIatResult(results.getResultString());
 
-        if(StringUtils.isEmpty(text)){
+        if (StringUtils.isEmpty(text)) {
             return;
         }
         LogUtils.e("the text--->" + text);
@@ -703,6 +729,22 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         }
     }
 
+    public void itemChoose(int postion) {
+        if (postion < 0 || postion >= mItemAdapter.getData().size()) {
+            return;
+        }
+        if (playPosition > 2) {
+            linearLayoutManager.scrollToPositionWithOffset(playPosition - 2, 0);
+        }
+        if (mTts != null) {
+            mTts.stopSpeaking();
+        }
+        resetPlay();
+        mCoursePlayImageView.setBackgroundResource(R.drawable.read_playing_course_btn_selector);
+        mItemAdapter.setLastPosition(playPosition);
+        mItemAdapter.notifyDataSetChanged();
+    }
+
     public void enableState(int postion) {
         if (postion < 0 || postion >= mItemAdapter.getData().size()) {
             return;
@@ -728,6 +770,53 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         resetPlay();
         mItemAdapter.setLastPosition(playPosition);
         mItemAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 播放录音
+     */
+    public void playTape(final int position) {
+        try {
+            if (audioFile != null && audioFile.exists()) {
+                View currentView = linearLayoutManager.findViewByPosition(position);
+                if (currentView != null) {
+                    Glide.with(CoursePlayActivity.this).load(R.mipmap.item_read_press_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
+                }
+
+                mPlayer = new MediaPlayer();
+                //设置要播放的文件
+                mPlayer.setDataSource(audioFile.getAbsolutePath());
+                mPlayer.prepare();
+                //播放
+                mPlayer.start();
+                mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        disableState();
+                        stopPlayTape();
+
+                        View currentView = linearLayoutManager.findViewByPosition(position);
+                        if (currentView != null) {
+                            Glide.with(CoursePlayActivity.this).load(R.mipmap.item_tape_play_normal_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
+                        }
+                    }
+                });
+
+            }
+        } catch (Exception e) {
+            LogUtils.e("prepare() failed");
+        }
+    }
+
+    /**
+     * 停止播放录音
+     */
+    public void stopPlayTape() {
+        if (mPlayer != null) {
+            mPlayer.stop();
+            mPlayer.release();
+            mPlayer = null;
+        }
     }
 
     @Override

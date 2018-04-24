@@ -49,36 +49,45 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
         helper.setText(R.id.tv_chinese_title, item.getMeans())
                 .setText(R.id.tv_english_title, item.getSubTitle())
                 .addOnClickListener(R.id.layout_play)
-                .addOnClickListener(R.id.iv_tape);
+                .addOnClickListener(R.id.iv_tape).addOnClickListener(R.id.iv_play).addOnClickListener(R.id.iv_play_tape);
 
         if (item.isPlay()) {
             helper.setVisible(R.id.iv_audio_gif_play, true);
             Glide.with(mContext).load(R.mipmap.read_audio_gif_play).into((ImageView) helper.getView(R.id.iv_audio_gif_play));
             helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.black_333)).setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.black_333));
             //helper.setVisible(R.id.layout_tape, true);
-            helper.setVisible(R.id.iv_tape,true);
+            helper.setVisible(R.id.iv_speak_result,true);
             //helper.setVisible(R.id.iv_result, false);
+            Glide.with(mContext).load(R.mipmap.item_read_press_icon).into(((ImageView) helper.getView(R.id.iv_play)));
         } else {
+            Glide.with(mContext).load(R.mipmap.item_read_normal_icon).into(((ImageView) helper.getView(R.id.iv_play)));
+
             helper.setVisible(R.id.iv_audio_gif_play, false);
             helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.gray_999)).setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.gray_999));
             if(helper.getAdapterPosition() == getLastPosition()) {
-                helper.setVisible(R.id.iv_tape, true);
+                helper.setVisible(R.id.iv_speak_result, true);
             }else{
-                helper.setVisible(R.id.iv_tape, false);
+                helper.setVisible(R.id.iv_speak_result, false);
             }
         }
 
         LogUtils.i("item--->current position" + helper.getAdapterPosition() + "---last---"+ getLastPosition());
 
         if(item.isShow()) {
-            helper.setVisible(R.id.iv_tape,true);
+            helper.setVisible(R.id.iv_speak_result,true);
             if (item.isSpeakResult()) {
-                helper.setBackgroundRes(R.id.iv_tape, R.mipmap.listen_result_yes);
+                helper.setBackgroundRes(R.id.iv_speak_result, R.mipmap.listen_result_yes);
             } else {
-                helper.setBackgroundRes(R.id.iv_tape, R.mipmap.listen_result_no);
+                helper.setBackgroundRes(R.id.iv_speak_result, R.mipmap.listen_result_no);
             }
         }else{
             //helper.setVisible(R.id.iv_tape,false);
+        }
+
+        if(helper.getAdapterPosition() == getLastPosition()) {
+            helper.setVisible(R.id.item_play_layout,true);
+        }else{
+            helper.setVisible(R.id.item_play_layout,false);
         }
 
         switch (languageType) {
