@@ -12,8 +12,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 21
 
-        versionCode 34
-        versionName "1.5"
+        versionCode 35
+        versionName "1.5.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -145,5 +145,8 @@ dependencies {
         resolutionStrategy {
             force 'com.android.support:support-v4:25.3.1'
         }
+    }
+    compile ('com.github.huburt-Hu:NewbieGuide:v2.1.0') {
+        exclude group: 'com.android.support'
     }
 }

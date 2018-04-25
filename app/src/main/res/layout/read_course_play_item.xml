@@ -82,24 +82,24 @@
 
         <ImageView
             android:id="@+id/iv_play"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:clickable="true"
             android:src="@mipmap/item_read_normal_icon" />
 
         <ImageView
             android:id="@+id/iv_tape"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="36dp"
             android:clickable="true"
-            android:src="@drawable/read_item_tape_selector" />
+            android:src="@drawable/item_tape_normal_icon" />
 
         <ImageView
             android:id="@+id/iv_play_tape"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="36dp"
             android:clickable="true"
             android:src="@mipmap/item_tape_play_normal_icon" />
     </LinearLayout>

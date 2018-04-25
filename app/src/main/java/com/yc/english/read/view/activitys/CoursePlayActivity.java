@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.app.hubert.guide.NewbieGuide;
+import com.app.hubert.guide.model.GuidePage;
+import com.app.hubert.guide.model.HighLight;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -170,8 +173,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     @Override
     public void init() {
-        StatusBarCompat.compat(this, mToolbarWarpper, mToolbar);
 
+        StatusBarCompat.compat(this, mToolbarWarpper, mToolbar);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             position = bundle.getInt("position");
@@ -337,16 +340,29 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 playPosition = position;
                 if (view.getId() == R.id.iv_tape) {
-                    //ToastUtils.showLong("开始跟读");
 
                     lastPosition = position;
                     isCountinue = false;
                     disableState();
 
                     //弹出录音界面
-                    mIatDialog.setListener(mRecognizerDialogListener);
-                    mIatDialog.show();
+                    //mIatDialog.setListener(mRecognizerDialogListener);
+                    //mIatDialog.show();
+
+                    View currentView = linearLayoutManager.findViewByPosition(playPosition);
+                    if (currentView != null) {
+                        ((ImageView) currentView.findViewById(R.id.iv_tape)).setImageResource(R.drawable.record_microphone);
+                    }
+
+                    ret = mIat.startListening(mRecognizerListener);
+                    if (ret != ErrorCode.SUCCESS) {
+                        ToastUtils.showLong("听写失败,错误码：" + ret);
+                    } else {
+                        //ToastUtils.showLong("开始");
+                    }
+                    return false;
                 }
+
                 if (view.getId() == R.id.iv_play && mTts != null) {
                     if (mTts.isSpeaking()) {
                         mTts.stopSpeaking();
@@ -356,7 +372,9 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                         enableState(playPosition);
                         startSynthesizer(playPosition);
                     }
+                    return false;
                 }
+
                 if (view.getId() == R.id.iv_play_tape && mItemAdapter.getData().get(lastPosition).isShow()) {
                     if(mPlayer != null && mPlayer.isPlaying()){
                         stopPlayTape();
@@ -437,6 +455,88 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         }
 
     };
+
+    /**
+     * 听写监听器。
+     */
+    private RecognizerListener mRecognizerListener = new RecognizerListener() {
+
+        @Override
+        public void onBeginOfSpeech() {
+            // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
+            //ToastUtils.showLong("开始说话");
+        }
+
+        @Override
+        public void onError(SpeechError error) {
+            // Tips：
+            // 错误码：10118(您没有说话)，可能是录音机权限被禁，需要提示用户打开应用的录音权限。
+            // 如果使用本地功能（语记）需要提示用户开启语记的录音权限。
+            if (mTranslateEnable && error.getErrorCode() == 14002) {
+                ToastUtils.showLong(error.getPlainDescription(true) + "\n请确认是否已开通翻译功能");
+            } else {
+                //ToastUtils.showLong(error.getPlainDescription(true));
+
+                ToastUtils.showLong("听写识别错误，请重试");
+
+                View currentView = linearLayoutManager.findViewByPosition(playPosition);
+                if (currentView != null) {
+                    ((ImageView) currentView.findViewById(R.id.iv_tape)).setImageResource(R.drawable.item_tape_normal_icon);
+                }
+
+                if (mIat != null) {
+                    mIat.stopListening();
+                }
+            }
+        }
+
+        @Override
+        public void onEndOfSpeech() {
+            // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
+            //ToastUtils.showLong("结束说话");
+        }
+
+        @Override
+        public void onResult(RecognizerResult results, boolean isLast) {
+            LogUtils.e("results string"+results.getResultString());
+
+            if (mTranslateEnable) {
+                //printTransResult(results);
+            } else {
+
+                View currentView = linearLayoutManager.findViewByPosition(playPosition);
+                if (currentView != null) {
+                    ((ImageView) currentView.findViewById(R.id.iv_tape)).setImageResource(R.drawable.item_tape_normal_icon);
+                }
+
+                printResult(results);
+            }
+
+        }
+
+        @Override
+        public void onVolumeChanged(int volume, byte[] data) {
+            //ToastUtils.showLong("当前正在说话，音量大小：" + volume);
+            LogUtils.e("音量大小--->" + volume);
+
+            View currentView = linearLayoutManager.findViewByPosition(playPosition);
+            if (currentView != null) {
+                ((ImageView) currentView.findViewById(R.id.iv_tape)).getDrawable().setLevel((int) (3000 + 6000 * volume * 12 / 100));
+            }
+
+        }
+
+        @Override
+        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+            // 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因
+            // 若使用本地能力，会话id为null
+            //	if (SpeechEvent.EVENT_SESSION_ID == eventType) {
+            //		String sid = obj.getString(SpeechEvent.KEY_EVENT_SESSION_ID);
+            //		Log.d(TAG, "session id =" + sid);
+            //	}
+        }
+    };
+
 
     protected boolean isSlideToBottom(RecyclerView recyclerView) {
         if (recyclerView == null) return false;
@@ -837,6 +937,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             mTts.stopSpeaking();
         }
     }
+
 
     @Override
     public void showCourseListData(EnglishCourseInfoList englishCourseInfoList) {
