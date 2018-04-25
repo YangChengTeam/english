@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -50,6 +51,7 @@ import com.yc.english.read.model.domain.EnglishCourseInfoList;
 import com.yc.english.read.model.domain.UnitInfo;
 import com.yc.english.read.presenter.CoursePlayPresenter;
 import com.yc.english.read.view.adapter.ReadCourseItemClickAdapter;
+import com.yc.english.read.view.wdigets.PopupWindowFactory;
 import com.yc.english.speak.utils.IatSettings;
 import com.yc.english.speak.utils.VoiceJsonParser;
 import com.yc.english.vip.model.bean.GoodsType;
@@ -165,6 +167,10 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     // 语音听写UI
     private RecognizerDialog mIatDialog;
+
+    private ImageView mTapeImageView;
+
+    private PopupWindowFactory mTapePop;
 
     @Override
     public int getLayoutId() {
@@ -349,10 +355,17 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                     //mIatDialog.setListener(mRecognizerDialogListener);
                     //mIatDialog.show();
 
-                    View currentView = linearLayoutManager.findViewByPosition(playPosition);
+                    /*View currentView = linearLayoutManager.findViewByPosition(playPosition);
                     if (currentView != null) {
                         ((ImageView) currentView.findViewById(R.id.iv_tape)).setImageResource(R.drawable.record_microphone);
-                    }
+                    }*/
+
+                    final View tapeView = View.inflate(CoursePlayActivity.this, R.layout.layout_microphone, null);
+                    mTapePop = new PopupWindowFactory(CoursePlayActivity.this,tapeView);
+
+                    //PopupWindow布局文件里面的控件
+                    mTapeImageView = (ImageView) tapeView.findViewById(R.id.iv_recording_icon);
+                    mTapePop.showAtLocation(mLayoutContext, Gravity.CENTER,0,0);
 
                     ret = mIat.startListening(mRecognizerListener);
                     if (ret != ErrorCode.SUCCESS) {
@@ -469,21 +482,16 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
         @Override
         public void onError(SpeechError error) {
+            if(mTapePop != null && mTapePop.getPopupWindow().isShowing()){
+                mTapePop.dismiss();
+            }
             // Tips：
             // 错误码：10118(您没有说话)，可能是录音机权限被禁，需要提示用户打开应用的录音权限。
             // 如果使用本地功能（语记）需要提示用户开启语记的录音权限。
             if (mTranslateEnable && error.getErrorCode() == 14002) {
                 ToastUtils.showLong(error.getPlainDescription(true) + "\n请确认是否已开通翻译功能");
             } else {
-                //ToastUtils.showLong(error.getPlainDescription(true));
-
                 ToastUtils.showLong("听写识别错误，请重试");
-
-                View currentView = linearLayoutManager.findViewByPosition(playPosition);
-                if (currentView != null) {
-                    ((ImageView) currentView.findViewById(R.id.iv_tape)).setImageResource(R.drawable.item_tape_normal_icon);
-                }
-
                 if (mIat != null) {
                     mIat.stopListening();
                 }
@@ -494,36 +502,31 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         public void onEndOfSpeech() {
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
             //ToastUtils.showLong("结束说话");
+            if(mTapePop != null && mTapePop.getPopupWindow().isShowing()){
+                mTapePop.dismiss();
+            }
         }
 
         @Override
         public void onResult(RecognizerResult results, boolean isLast) {
             LogUtils.e("results string"+results.getResultString());
 
+            if(mTapePop != null && mTapePop.getPopupWindow().isShowing()){
+                mTapePop.dismiss();
+            }
+
             if (mTranslateEnable) {
                 //printTransResult(results);
             } else {
-
-                View currentView = linearLayoutManager.findViewByPosition(playPosition);
-                if (currentView != null) {
-                    ((ImageView) currentView.findViewById(R.id.iv_tape)).setImageResource(R.drawable.item_tape_normal_icon);
-                }
-
                 printResult(results);
             }
-
         }
 
         @Override
         public void onVolumeChanged(int volume, byte[] data) {
             //ToastUtils.showLong("当前正在说话，音量大小：" + volume);
             LogUtils.e("音量大小--->" + volume);
-
-            View currentView = linearLayoutManager.findViewByPosition(playPosition);
-            if (currentView != null) {
-                ((ImageView) currentView.findViewById(R.id.iv_tape)).getDrawable().setLevel((int) (3000 + 6000 * volume * 12 / 100));
-            }
-
+            mTapeImageView.getDrawable().setLevel((int) (3000 + 6000 * volume * 18 / 100));
         }
 
         @Override

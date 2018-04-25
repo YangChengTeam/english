@@ -26,4 +26,5 @@
     <color name="read_book_version_select_color">#eeeeee</color>
 
     <color name="item_line_color">#3ff2f2f2</color>
+    <color name="colorGray">#7f000000</color>
 </resources>

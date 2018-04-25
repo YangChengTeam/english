@@ -93,7 +93,7 @@
             android:layout_height="36dp"
             android:layout_marginLeft="36dp"
             android:clickable="true"
-            android:src="@drawable/item_tape_normal_icon" />
+            android:src="@mipmap/item_tape_press_icon" />
 
         <ImageView
             android:id="@+id/iv_play_tape"

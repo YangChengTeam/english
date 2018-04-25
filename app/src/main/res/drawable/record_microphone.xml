@@ -2,11 +2,11 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@android:id/background"
-        android:drawable="@drawable/item_tape_normal_top_icon" />
+        android:drawable="@drawable/record_top" />
     <item android:id="@android:id/progress">
         <clip
             android:clipOrientation="vertical"
-            android:drawable="@drawable/item_tape_normal_icon"
+            android:drawable="@drawable/record_bottom"
             android:gravity="bottom" />
     </item>
 </layer-list>
