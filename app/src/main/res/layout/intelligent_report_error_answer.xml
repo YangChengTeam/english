@@ -7,8 +7,11 @@
         android:id="@+id/tv_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="A"
-        android:layout_marginRight="@dimen/group_distance_5"
         android:textColor="@color/group_blue_21b5f8" />
+
+    <ImageView
+        android:id="@+id/iv_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </android.support.constraint.ConstraintLayout>

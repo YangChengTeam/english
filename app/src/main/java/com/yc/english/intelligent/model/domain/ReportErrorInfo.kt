@@ -14,4 +14,5 @@ class ReportErrorInfo {
     var title: String = ""
     var knowledge: String = ""
     var options: List<String>? = null
+    var type: String = ""
 }
