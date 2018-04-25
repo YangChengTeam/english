@@ -171,11 +171,11 @@
                             android:layout_width="200dp"
                             android:layout_height="200dp"
                             android:layout_gravity="center"
-                            app:firstColor="@color/green_33CBA5"
+                            app:firstColor="@color/orange_ffc516"
                             app:radius="@dimen/group_distance_50"
-                            app:ringTextColor="@color/orange_ffc516"
+                            app:ringTextColor="@color/green_33CBA5"
                             app:ringTextSize="@dimen/group_text_16"
-                            app:secondColor="@color/orange_ffc516"
+                            app:secondColor="@color/green_33CBA5"
                             app:speed="10" />
 
                         <LinearLayout
@@ -194,7 +194,7 @@
                                 <View
                                     android:layout_width="@dimen/group_distance_20"
                                     android:layout_height="@dimen/group_distance_20"
-                                    android:background="@color/orange_ffc516" />
+                                    android:background="@color/green_33CBA5" />
 
                                 <TextView
                                     android:id="@+id/tv_correct_answer"
@@ -202,7 +202,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginLeft="@dimen/group_distance_10"
-                                    android:textColor="@color/orange_ffc516" />
+                                    android:textColor="@color/green_33CBA5" />
 
                             </LinearLayout>
 
@@ -215,7 +215,7 @@
                                 <View
                                     android:layout_width="@dimen/group_distance_20"
                                     android:layout_height="@dimen/group_distance_20"
-                                    android:background="@color/green_33CBA5" />
+                                    android:background="@color/orange_ffc516" />
 
                                 <TextView
                                     android:id="@+id/tv_error_answer"
@@ -223,7 +223,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginLeft="@dimen/group_distance_5"
-                                    android:textColor="@color/green_33CBA5" />
+                                    android:textColor="@color/orange_ffc516" />
 
                             </LinearLayout>
                         </LinearLayout>
