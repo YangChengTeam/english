@@ -52,14 +52,14 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="1dp"
                 android:layout_weight="4"
-                android:background="@color/green_33CBA5"
+                android:background="@color/orange_ffc516"
                 android:orientation="horizontal">
 
                 <View
                     android:id="@+id/v_progress"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@color/group_orange_ff9a00"></View>
+                    android:background="@color/green_33CBA5"></View>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -128,7 +128,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:text="80%"
-                android:textColor="@color/group_orange_ff9a00"
+                android:textColor="@color/green_33CBA5"
                 android:textSize="@dimen/font_normal" />
 
         </LinearLayout>
