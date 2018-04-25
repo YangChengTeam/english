@@ -1,5 +1,7 @@
 package com.yc.english.intelligent.view.adpaters
 
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yc.english.R
@@ -17,5 +19,9 @@ class IntelligentReportErrorAdapter(errors: List<ReportErrorInfo>) : BaseQuickAd
                 .setText(R.id.tv_reference_answer, item.answer)
                 .setText(R.id.tv_analysis, item.analysis)
                 .setText(R.id.tv_knowledge, item.knowledge)
+        val recyclerView = helper.getView<RecyclerView>(R.id.option_recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = IntelligentReportErrorItemAdapter(item.options!!)
+
     }
 }
