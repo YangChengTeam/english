@@ -247,7 +247,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
      * @param url
      */
     private void playVideo(String url, String imgUrl) {
-
         mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);

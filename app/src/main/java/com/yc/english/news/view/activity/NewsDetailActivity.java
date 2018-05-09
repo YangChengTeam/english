@@ -295,6 +295,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
      * @param url
      */
     private void playVideo(String url, String imgUrl) {
+
         mJCVideoPlayer.setVisibility(View.VISIBLE);
         mMediaPlayerView.setVisibility(View.GONE);
         mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
