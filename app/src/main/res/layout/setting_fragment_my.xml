@@ -60,7 +60,7 @@
                     android:orientation="vertical"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <com.yc.english.base.view.HonourAbilityView
+                    <com.yc.junior.english.base.view.HonourAbilityView
                         android:id="@+id/credit_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -122,19 +122,19 @@
                         android:background="@mipmap/setting_item_bg"
                         android:orientation="vertical">
 
-                        <com.yc.english.setting.view.widgets.MenuItemView
+                        <com.yc.junior.english.setting.view.widgets.MenuItemView
                             android:id="@+id/miv_buy_vip"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             eng:src="@mipmap/setting_vip"
-                            eng:text="@string/setting_buy_vip"></com.yc.english.setting.view.widgets.MenuItemView>
+                            eng:text="@string/setting_buy_vip"></com.yc.junior.english.setting.view.widgets.MenuItemView>
 
-                        <com.yc.english.setting.view.widgets.MenuItemView
+                        <com.yc.junior.english.setting.view.widgets.MenuItemView
                             android:id="@+id/miv_my_order"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             eng:src="@mipmap/setting_order"
-                            eng:text="@string/my_order"></com.yc.english.setting.view.widgets.MenuItemView>
+                            eng:text="@string/my_order"></com.yc.junior.english.setting.view.widgets.MenuItemView>
 
 
                     </LinearLayout>
@@ -146,19 +146,19 @@
                         android:background="@mipmap/setting_item_bg"
                         android:orientation="vertical">
 
-                        <com.yc.english.setting.view.widgets.MenuItemView
+                        <com.yc.junior.english.setting.view.widgets.MenuItemView
                             android:id="@+id/miv_qq"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             eng:src="@mipmap/setting_qq"
-                            eng:text="@string/setting_qq_group"></com.yc.english.setting.view.widgets.MenuItemView>
+                            eng:text="@string/setting_qq_group"></com.yc.junior.english.setting.view.widgets.MenuItemView>
 
-                        <com.yc.english.setting.view.widgets.MenuItemView
+                        <com.yc.junior.english.setting.view.widgets.MenuItemView
                             android:id="@+id/miv_weixin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             eng:src="@mipmap/setting_wx"
-                            eng:text="@string/setting_weixin"></com.yc.english.setting.view.widgets.MenuItemView>
+                            eng:text="@string/setting_weixin"></com.yc.junior.english.setting.view.widgets.MenuItemView>
                     </LinearLayout>
 
 
@@ -169,19 +169,19 @@
                         android:background="@mipmap/setting_item_bg"
                         android:orientation="vertical">
 
-                        <com.yc.english.setting.view.widgets.MenuItemView
+                        <com.yc.junior.english.setting.view.widgets.MenuItemView
                             android:id="@+id/miv_feedback"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             eng:src="@mipmap/setting_customer"
-                            eng:text="@string/setting_feedback"></com.yc.english.setting.view.widgets.MenuItemView>
+                            eng:text="@string/setting_feedback"></com.yc.junior.english.setting.view.widgets.MenuItemView>
 
-                        <com.yc.english.setting.view.widgets.MenuItemView
+                        <com.yc.junior.english.setting.view.widgets.MenuItemView
                             android:id="@+id/miv_share"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             eng:src="@mipmap/setting_share"
-                            eng:text="@string/setting_share"></com.yc.english.setting.view.widgets.MenuItemView>
+                            eng:text="@string/setting_share"></com.yc.junior.english.setting.view.widgets.MenuItemView>
                     </LinearLayout>
 
 
@@ -192,19 +192,19 @@
                         android:background="@mipmap/setting_item_bg"
                         android:orientation="vertical">
 
-                        <com.yc.english.setting.view.widgets.MenuItemView
+                        <com.yc.junior.english.setting.view.widgets.MenuItemView
                             android:id="@+id/miv_to_market"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             eng:src="@mipmap/setting_market"
-                            eng:text="@string/setting_to_market"></com.yc.english.setting.view.widgets.MenuItemView>
+                            eng:text="@string/setting_to_market"></com.yc.junior.english.setting.view.widgets.MenuItemView>
 
-                        <com.yc.english.setting.view.widgets.MenuItemView
+                        <com.yc.junior.english.setting.view.widgets.MenuItemView
                             android:id="@+id/miv_setting"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             eng:src="@mipmap/setting_setting"
-                            eng:text="@string/setting_setting"></com.yc.english.setting.view.widgets.MenuItemView>
+                            eng:text="@string/setting_setting"></com.yc.junior.english.setting.view.widgets.MenuItemView>
                     </LinearLayout>
                 </LinearLayout>
 

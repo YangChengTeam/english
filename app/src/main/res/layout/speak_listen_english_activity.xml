@@ -6,11 +6,11 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.yc.english.base.view.MainToolBar
+    <com.yc.junior.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"></com.yc.english.base.view.MainToolBar>
+        android:layout_alignParentTop="true"></com.yc.junior.english.base.view.MainToolBar>
 
     <FrameLayout
         android:id="@+id/linear_layout_music_cover"
@@ -30,7 +30,7 @@
             android:layout_marginTop="@dimen/group_distance_10" />
 
 
-        <com.yc.english.speak.view.wdigets.LyricView
+        <com.yc.junior.english.speak.view.wdigets.LyricView
             android:id="@+id/custom_lyric_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
