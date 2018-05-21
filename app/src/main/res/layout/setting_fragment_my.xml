@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout android:id="@+id/coordinatorLayout"
-                                                 xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:eng="http://schemas.android.com/apk/res-auto"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:background="#f5f5f5">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:eng="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout"
@@ -31,9 +31,7 @@
                 app:layout_collapseMode="pin"
                 app:titleTextAppearance="@style/ToolBar"></android.support.v7.widget.Toolbar>
 
-            <include
-                layout="@layout/activity_top_setting"
-                />
+            <include layout="@layout/activity_top_setting" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -72,7 +70,7 @@
                         eng:honour_ability_dot_color="#0cacf3"
                         eng:honour_ability_dot_radius="1.5dp"
                         eng:honour_ability_line_color="#b5b5b5"
-                        eng:honour_ability_text_size="15dp"/>
+                        eng:honour_ability_text_size="15dp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -84,7 +82,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="10dp"
-                            android:src="@mipmap/setting_honour"/>
+                            android:src="@mipmap/setting_honour" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -94,7 +92,7 @@
                             android:layout_toRightOf="@+id/iv_honour"
                             android:text="综合能力"
                             android:textColor="@color/black"
-                            android:textSize="16dp"/>
+                            android:textSize="16dp" />
 
                         <ImageView
                             android:id="@+id/iv_share"
@@ -103,7 +101,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="10dp"
-                            android:src="@mipmap/setting_honour_share"/>
+                            android:src="@mipmap/setting_honour_share" />
 
                     </RelativeLayout>
 
@@ -216,7 +214,7 @@
                     android:gravity="center"
                     android:text="语音技术由科大讯飞提供"
                     android:textColor="@color/gray_ddd"
-                    android:textSize="@dimen/font_snormal"/>
+                    android:textSize="@dimen/font_snormal" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
