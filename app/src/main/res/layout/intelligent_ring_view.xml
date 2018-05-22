@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.yc.english.intelligent.view.wdigets.RingView
+    <com.yc.junior.english.intelligent.view.wdigets.RingView
         android:id="@+id/ringView"
         android:layout_width="250dp"
         android:layout_height="250dp"

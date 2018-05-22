@@ -4,18 +4,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yc.english.base.view.TaskToolBar
+    <com.yc.junior.english.base.view.TaskToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.yc.english.base.view.StateView
+    <com.yc.junior.english.base.view.StateView
         android:id="@+id/stateView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primaryDark" />
 
-    <com.yc.english.news.view.widget.NewsScrollView
+    <com.yc.junior.english.news.view.widget.NewsScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -84,7 +84,7 @@
                     android:layout_margin="@dimen/group_distance_10"
                     android:visibility="gone" />
 
-                <com.yc.english.news.view.widget.MediaPlayerView
+                <com.yc.junior.english.news.view.widget.MediaPlayerView
                     android:id="@+id/mMediaPlayerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -210,5 +210,5 @@
 
 
         </LinearLayout>
-    </com.yc.english.news.view.widget.NewsScrollView>
+    </com.yc.junior.english.news.view.widget.NewsScrollView>
 </LinearLayout>

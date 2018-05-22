@@ -63,7 +63,7 @@
     <fragment
         android:tag="weixin_course_tag"
         android:id="@+id/fragment_weike"
-        android:name="com.yc.english.weixin.views.fragments.CourseFragment"
+        android:name="com.yc.junior.english.weixin.views.fragments.CourseFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

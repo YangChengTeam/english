@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yc.english.base.view.MainToolBar
+    <com.yc.junior.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -20,7 +20,7 @@
             android:background="@color/group_gray_e6f2fb"
             android:orientation="vertical">
 
-            <com.yc.english.base.view.StateView
+            <com.yc.junior.english.base.view.StateView
                 android:id="@+id/stateView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

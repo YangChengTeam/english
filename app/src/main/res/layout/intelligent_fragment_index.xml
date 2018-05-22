@@ -40,38 +40,38 @@
                     android:layout_width="10dp"
                     android:layout_height="match_parent"></View>
 
-                <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+                <com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView
                     android:id="@+id/mIntelligentType1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     gb:src="@mipmap/intelligent_type1"
-                    gb:text="@string/intelligents_type1"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+                    gb:text="@string/intelligents_type1"></com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView>
 
                 <View
                     android:layout_width="10dp"
                     android:layout_height="match_parent"></View>
 
-                <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+                <com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView
                     android:id="@+id/mIntelligentType2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     gb:src="@mipmap/intelligent_type2"
-                    gb:text="@string/intelligents_type2"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+                    gb:text="@string/intelligents_type2"></com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView>
 
                 <View
                     android:layout_width="10dp"
                     android:layout_height="match_parent"></View>
 
 
-                <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+                <com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView
                     android:id="@+id/mIntelligentType4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     gb:src="@mipmap/intelligent_type4"
-                    gb:text="@string/intelligents_type4"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+                    gb:text="@string/intelligents_type4"></com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView>
 
                 <View
                     android:layout_width="10dp"
@@ -88,37 +88,37 @@
                     android:layout_width="10dp"
                     android:layout_height="match_parent"></View>
 
-                <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+                <com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView
                     android:id="@+id/mIntelligentType3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     gb:src="@mipmap/intelligent_type3"
-                    gb:text="@string/intelligents_type3"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+                    gb:text="@string/intelligents_type3"></com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView>
 
                 <View
                     android:layout_width="10dp"
                     android:layout_height="match_parent"></View>
 
-                <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+                <com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView
                     android:id="@+id/mIntelligentType5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     gb:src="@mipmap/intelligent_type5"
-                    gb:text="@string/intelligents_type5"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+                    gb:text="@string/intelligents_type5"></com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView>
 
                 <View
                     android:layout_width="10dp"
                     android:layout_height="match_parent"></View>
 
-                <com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView
+                <com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView
                     android:id="@+id/mIntelligentType6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     gb:src="@mipmap/intelligent_type6"
-                    gb:text="@string/intelligents_type6"></com.yc.english.intelligent.view.wdigets.IntelligentTypeItemView>
+                    gb:text="@string/intelligents_type6"></com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView>
 
                 <View
                     android:layout_width="10dp"

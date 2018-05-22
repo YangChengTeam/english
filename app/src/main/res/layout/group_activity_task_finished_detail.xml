@@ -5,12 +5,12 @@
     android:background="@color/group_gray_e6f2fb"
     android:orientation="vertical">
 
-    <com.yc.english.base.view.TaskToolBar
+    <com.yc.junior.english.base.view.TaskToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.yc.english.base.view.StateView
+    <com.yc.junior.english.base.view.StateView
         android:id="@+id/stateView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -74,7 +74,7 @@
 
                 <include layout="@layout/group_common_divider" />
 
-                <com.yc.english.group.view.widget.MultifunctionLinearLayout
+                <com.yc.junior.english.group.view.widget.MultifunctionLinearLayout
                     android:id="@+id/publish_multifunctionLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -92,7 +92,7 @@
 
                 <include layout="@layout/group_common_divider" />
 
-                <com.yc.english.group.view.widget.MultifunctionLinearLayout
+                <com.yc.junior.english.group.view.widget.MultifunctionLinearLayout
                     android:id="@+id/do_multifunctionLinearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

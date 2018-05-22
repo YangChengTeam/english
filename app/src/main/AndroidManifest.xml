@@ -2,7 +2,7 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.yc.english">
+    package="com.yc.junior.english">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -107,7 +107,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="com.yc.english"
+                    android:host="com.yc.junior.english"
                     android:pathPrefix="/conversation/"
                     android:scheme="rong" />
             </intent-filter>
@@ -124,7 +124,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="com.yc.english"
+                    android:host="com.yc.junior.english"
                     android:pathPrefix="/conversationlist"
                     android:scheme="rong" />
             </intent-filter>
@@ -193,7 +193,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.yc.english.FileProvider"
+            android:authorities="com.yc.junior.english.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -231,7 +231,7 @@
             android:value="app_online" />
 
         <meta-data
-            android:name="com.yc.english.base.helper.GlideConfiguration"
+            android:name="com.yc.junior.english.base.helper.GlideConfiguration"
             android:value="AppGlideModule" />
 
         <activity

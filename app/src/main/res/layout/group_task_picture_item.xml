@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
 
-    <com.yc.english.group.view.widget.ZoomImageView
+    <com.yc.junior.english.group.view.widget.ZoomImageView
         android:id="@+id/iv_picture_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

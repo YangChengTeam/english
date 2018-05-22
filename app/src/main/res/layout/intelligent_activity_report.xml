@@ -72,10 +72,10 @@
             </LinearLayout>
         </FrameLayout>
 
-        <com.yc.english.base.view.StateView
+        <com.yc.junior.english.base.view.StateView
             android:id="@+id/mStateView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.yc.english.base.view.StateView>
+            android:layout_height="match_parent"></com.yc.junior.english.base.view.StateView>
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/mContentView"
@@ -140,7 +140,7 @@
                             android:src="@mipmap/intelligents_report_star" />
                     </LinearLayout>
 
-                    <com.yc.english.base.view.HonourAbilityView
+                    <com.yc.junior.english.base.view.HonourAbilityView
                         android:id="@+id/mAbilityView"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
@@ -154,7 +154,7 @@
                         eng:honour_ability_line_color="#ffffff"
                         eng:honour_ability_text_size="15dp" />
 
-                    <!--<com.yc.english.intelligent.view.wdigets.IntelligentRingView-->
+                    <!--com.yc.junior.englishlish.intelligent.view.wdigets.IntelligentRingView-->
                     <!--android:id="@+id/ringView"-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content" />-->
@@ -166,7 +166,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <com.yc.english.intelligent.view.wdigets.RingView
+                        <com.yc.junior.english.intelligent.view.wdigets.RingView
                             android:id="@+id/ringView"
                             android:layout_width="200dp"
                             android:layout_height="200dp"
@@ -239,54 +239,54 @@
                     android:paddingLeft="@dimen/group_distance_15"
                     android:paddingRight="@dimen/group_distance_15">
 
-                    <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    <com.yc.junior.english.intelligent.view.wdigets.IntelligentItemScoreView
                         android:id="@+id/mIntelligentItemScoreView1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
                         eng:desc="@string/intelligents_en_type1"
-                        eng:text="@string/intelligents_type1"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+                        eng:text="@string/intelligents_type1"></com.yc.junior.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
-                    <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    <com.yc.junior.english.intelligent.view.wdigets.IntelligentItemScoreView
                         android:id="@+id/mIntelligentItemScoreView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         eng:desc="@string/intelligents_en_type2"
-                        eng:text="@string/intelligents_type2"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+                        eng:text="@string/intelligents_type2"></com.yc.junior.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
-                    <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    <com.yc.junior.english.intelligent.view.wdigets.IntelligentItemScoreView
                         android:id="@+id/mIntelligentItemScoreView4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         eng:desc="@string/intelligents_en_type4"
-                        eng:text="@string/intelligents_type4"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+                        eng:text="@string/intelligents_type4"></com.yc.junior.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
-                    <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    <com.yc.junior.english.intelligent.view.wdigets.IntelligentItemScoreView
                         android:id="@+id/mIntelligentItemScoreView3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         eng:desc="@string/intelligents_en_type3"
-                        eng:text="@string/intelligents_type3"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+                        eng:text="@string/intelligents_type3"></com.yc.junior.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
 
-                    <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    <com.yc.junior.english.intelligent.view.wdigets.IntelligentItemScoreView
                         android:id="@+id/mIntelligentItemScoreView5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         eng:desc="@string/intelligents_en_type5"
-                        eng:text="@string/intelligents_type5"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+                        eng:text="@string/intelligents_type5"></com.yc.junior.english.intelligent.view.wdigets.IntelligentItemScoreView>
 
-                    <com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView
+                    <com.yc.junior.english.intelligent.view.wdigets.IntelligentItemScoreView
                         android:id="@+id/mIntelligentItemScoreView6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         eng:desc="@string/intelligents_en_type6"
-                        eng:text="@string/intelligents_type6"></com.yc.english.intelligent.view.wdigets.IntelligentItemScoreView>
+                        eng:text="@string/intelligents_type6"></com.yc.junior.english.intelligent.view.wdigets.IntelligentItemScoreView>
                 </LinearLayout>
 
 
@@ -361,7 +361,7 @@
                         android:background="@drawable/error_outer_bg"
                         android:padding="@dimen/group_distance_10">
 
-                        <com.yc.english.intelligent.view.wdigets.MyRecyclerView
+                        <com.yc.junior.english.intelligent.view.wdigets.MyRecyclerView
                             android:id="@+id/errorsRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
