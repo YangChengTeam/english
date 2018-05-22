@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:background="@color/black">
 
-    <com.yc.junior.english.community.view.wdigets.TouchImageView
+    <com.yc.english.community.view.wdigets.TouchImageView
         android:id="@+id/touch_image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

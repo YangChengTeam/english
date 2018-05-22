@@ -7,13 +7,13 @@ android {
     compileSdkVersion 25
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "com.yc.junior.english"
+        applicationId "com.yc.english"
 
         minSdkVersion 16
         targetSdkVersion 21
 
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 35
+        versionName "1.5.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -51,16 +51,16 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('junior_english.jks')
+            storeFile file('english.jks')
             storePassword "123456"
-            keyAlias "junior_english"
+            keyAlias "english"
             keyPassword "123456"
         }
 
         release {
-            storeFile file('junior_english.jks')
+            storeFile file('english.jks')
             storePassword "123456"
-            keyAlias "junior_english"
+            keyAlias "english"
             keyPassword "123456"
         }
     }
@@ -69,7 +69,7 @@ android {
 
 greendao {
     schemaVersion 2
-    daoPackage 'com.yc.junior.english.base.dao'
+    daoPackage 'com.yc.english.base.dao'
     targetGenDir 'src/main/java'
 }
 

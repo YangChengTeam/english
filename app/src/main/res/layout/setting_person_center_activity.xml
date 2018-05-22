@@ -6,10 +6,10 @@
               android:background="@color/primaryDark"
               android:orientation="vertical">
 
-    <com.yc.junior.english.base.view.MainToolBar
+    <com.yc.english.base.view.MainToolBar
         android:id="@id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.yc.junior.english.base.view.MainToolBar>
+        android:layout_height="wrap_content"></com.yc.english.base.view.MainToolBar>
 
 
     <LinearLayout
@@ -21,48 +21,48 @@
         android:background="@drawable/setting_item_bg"
         android:orientation="vertical">
 
-        <com.yc.junior.english.setting.view.widgets.SettingItemView
+        <com.yc.english.setting.view.widgets.SettingItemView
             android:id="@+id/si_avatar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             eng:text="@string/setting_change_avatar">
-        </com.yc.junior.english.setting.view.widgets.SettingItemView>
+        </com.yc.english.setting.view.widgets.SettingItemView>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/primaryDark"></View>
 
-        <com.yc.junior.english.setting.view.widgets.SettingItemView
+        <com.yc.english.setting.view.widgets.SettingItemView
             android:id="@+id/si_name"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             eng:text="@string/setting_name">
-        </com.yc.junior.english.setting.view.widgets.SettingItemView>
+        </com.yc.english.setting.view.widgets.SettingItemView>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/primaryDark"></View>
 
-        <com.yc.junior.english.setting.view.widgets.SettingItemView
+        <com.yc.english.setting.view.widgets.SettingItemView
             android:id="@+id/si_school"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             eng:text="@string/setting_school">
-        </com.yc.junior.english.setting.view.widgets.SettingItemView>
+        </com.yc.english.setting.view.widgets.SettingItemView>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/primaryDark"></View>
 
-        <com.yc.junior.english.setting.view.widgets.SettingItemView
+        <com.yc.english.setting.view.widgets.SettingItemView
             android:id="@+id/si_grade"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             eng:text="年级">
-        </com.yc.junior.english.setting.view.widgets.SettingItemView>
+        </com.yc.english.setting.view.widgets.SettingItemView>
     </LinearLayout>
 
     <LinearLayout
@@ -74,23 +74,23 @@
         android:background="@drawable/setting_item_bg"
         android:orientation="vertical">
 
-        <com.yc.junior.english.setting.view.widgets.SettingItemView
+        <com.yc.english.setting.view.widgets.SettingItemView
             android:id="@+id/si_phone"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             eng:desc="15902745869"
             eng:text="@string/setting_phone">
-        </com.yc.junior.english.setting.view.widgets.SettingItemView>
+        </com.yc.english.setting.view.widgets.SettingItemView>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/primaryDark"></View>
 
-        <com.yc.junior.english.setting.view.widgets.SettingItemView
+        <com.yc.english.setting.view.widgets.SettingItemView
             android:id="@+id/si_password"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            eng:text="@string/setting_modify_password"></com.yc.junior.english.setting.view.widgets.SettingItemView>
+            eng:text="@string/setting_modify_password"></com.yc.english.setting.view.widgets.SettingItemView>
     </LinearLayout>
 </LinearLayout>

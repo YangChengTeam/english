@@ -49,10 +49,10 @@
         </RelativeLayout>
     </FrameLayout>
 
-    <com.yc.junior.english.base.view.StateView
+    <com.yc.english.base.view.StateView
         android:id="@+id/mStateView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.yc.junior.english.base.view.StateView>
+        android:layout_height="match_parent"></com.yc.english.base.view.StateView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mRecyclerView"

@@ -6,12 +6,12 @@
               android:orientation="vertical">
 
 
-    <com.yc.junior.english.intelligent.view.wdigets.IntelligentQuestionView
+    <com.yc.english.intelligent.view.wdigets.IntelligentQuestionView
         android:id="@+id/mQestionView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        ></com.yc.junior.english.intelligent.view.wdigets.IntelligentQuestionView>
+        ></com.yc.english.intelligent.view.wdigets.IntelligentQuestionView>
 
     <RelativeLayout
         android:id="@+id/mSmallIndexRelativeLayout"

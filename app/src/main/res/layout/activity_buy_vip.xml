@@ -5,12 +5,12 @@
     android:background="@color/buy_vip_bg_color"
     android:orientation="vertical">
 
-    <com.yc.junior.english.base.view.MainToolBar
+    <com.yc.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.yc.junior.english.base.view.StateView
+    <com.yc.english.base.view.StateView
         android:id="@+id/stateView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

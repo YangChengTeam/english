@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.yc.junior.english.base.view.TaskToolBar
+    <com.yc.english.base.view.TaskToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.yc.junior.english.base.view.StateView
+    <com.yc.english.base.view.StateView
         android:id="@+id/stateView"
         android:layout_width="match_parent"
         android:background="@color/group_gray_e6f2fb"

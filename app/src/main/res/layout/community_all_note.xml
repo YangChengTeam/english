@@ -4,11 +4,11 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.yc.junior.english.base.view.StateView
+    <com.yc.english.base.view.StateView
         android:id="@+id/sv_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.yc.junior.english.base.view.StateView>
+    </com.yc.english.base.view.StateView>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/pull_to_refresh"

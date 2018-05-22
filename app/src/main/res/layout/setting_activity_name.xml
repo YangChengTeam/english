@@ -5,11 +5,11 @@
               android:layout_height="match_parent"
               android:background="@color/primaryDark"
     >
-    <com.yc.junior.english.base.view.MainToolBar
+    <com.yc.english.base.view.MainToolBar
         android:id="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ></com.yc.junior.english.base.view.MainToolBar>
+        ></com.yc.english.base.view.MainToolBar>
 
     <EditText
         android:id="@+id/et_value"

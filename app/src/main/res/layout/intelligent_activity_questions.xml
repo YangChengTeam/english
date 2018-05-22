@@ -4,26 +4,26 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.yc.junior.english.intelligent.view.wdigets.IntelligentActionbar
+    <com.yc.english.intelligent.view.wdigets.IntelligentActionbar
         android:id="@+id/mToolbarWarpper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"></com.yc.junior.english.intelligent.view.wdigets.IntelligentActionbar>
+        android:background="@color/white"></com.yc.english.intelligent.view.wdigets.IntelligentActionbar>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <com.yc.junior.english.base.view.StateView
+        <com.yc.english.base.view.StateView
             android:id="@+id/mStateView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.yc.junior.english.base.view.StateView>
+            android:layout_height="match_parent"></com.yc.english.base.view.StateView>
 
-        <com.yc.junior.english.base.view.OutViewPager
+        <com.yc.english.base.view.OutViewPager
             android:id="@+id/mViewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.yc.junior.english.base.view.OutViewPager>
+            android:layout_height="match_parent"></com.yc.english.base.view.OutViewPager>
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -6,10 +6,10 @@
     >
 
 
-    <com.yc.junior.english.intelligent.view.wdigets.IntelligentInnerQuestionView
+    <com.yc.english.intelligent.view.wdigets.IntelligentInnerQuestionView
         android:id="@+id/mQuestionView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.yc.junior.english.intelligent.view.wdigets.IntelligentInnerQuestionView>
+        android:layout_height="wrap_content"></com.yc.english.intelligent.view.wdigets.IntelligentInnerQuestionView>
 
 
 </ScrollView>

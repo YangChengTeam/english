@@ -24,11 +24,11 @@
             android:orientation="vertical"
             android:paddingBottom="20dp">
 
-            <com.yc.junior.english.base.view.StateView
+            <com.yc.english.base.view.StateView
                 android:id="@+id/sv_loading"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            </com.yc.junior.english.base.view.StateView>
+            </com.yc.english.base.view.StateView>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_course_list"
@@ -54,12 +54,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/toolbarWarpper">
 
-            <com.yc.junior.english.base.view.TransparentToolBar
+            <com.yc.english.base.view.TransparentToolBar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true">
-            </com.yc.junior.english.base.view.TransparentToolBar>
+            </com.yc.english.base.view.TransparentToolBar>
         </FrameLayout>
 
         <LinearLayout

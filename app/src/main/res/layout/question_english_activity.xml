@@ -5,20 +5,20 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-    <com.yc.junior.english.base.view.MainToolBar
+    <com.yc.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
-    </com.yc.junior.english.base.view.MainToolBar>
+    </com.yc.english.base.view.MainToolBar>
 
-    <com.yc.junior.english.base.view.StateView
+    <com.yc.english.base.view.StateView
         android:id="@+id/sv_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:visibility="gone">
-    </com.yc.junior.english.base.view.StateView>
+    </com.yc.english.base.view.StateView>
 
     <LinearLayout
         android:id="@+id/speak_list_layout"

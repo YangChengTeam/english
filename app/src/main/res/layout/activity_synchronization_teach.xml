@@ -11,7 +11,7 @@
         android:layout_marginBottom="@dimen/group_distance_10"
         android:layout_marginTop="@dimen/group_distance_10">
 
-        <com.yc.junior.english.vip.views.fragments.BasePayItemView
+        <com.yc.english.vip.views.fragments.BasePayItemView
             android:id="@+id/baseItemView_textbook_read"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             app:vip_content="课本点读"
             app:vip_icon="@mipmap/textbook_read" />
 
-        <com.yc.junior.english.vip.views.fragments.BasePayItemView
+        <com.yc.english.vip.views.fragments.BasePayItemView
             android:id="@+id/baseItemView_word_valuable"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             app:vip_content="单词宝典"
             app:vip_icon="@mipmap/word_valuable" />
 
-        <com.yc.junior.english.vip.views.fragments.BasePayItemView
+        <com.yc.english.vip.views.fragments.BasePayItemView
             android:id="@+id/baseItemView_brainpower_appraisal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             app:vip_content="智能测评"
             app:vip_icon="@mipmap/brainpower_appraisal" />
 
-        <com.yc.junior.english.vip.views.fragments.BasePayItemView
+        <com.yc.english.vip.views.fragments.BasePayItemView
             android:id="@+id/baseItemView_score_tutorship"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

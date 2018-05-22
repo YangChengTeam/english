@@ -12,11 +12,11 @@
         android:orientation="vertical"
         >
 
-        <com.yc.junior.english.intelligent.view.wdigets.IntelligentActionbar
+        <com.yc.english.intelligent.view.wdigets.IntelligentActionbar
             android:id="@+id/mToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"></com.yc.junior.english.intelligent.view.wdigets.IntelligentActionbar>
+            android:background="@color/white"></com.yc.english.intelligent.view.wdigets.IntelligentActionbar>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/mRecyclerView"
