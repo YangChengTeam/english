@@ -120,7 +120,7 @@
     <string name="synchronization_teach">同步学习</string>
     <string name="synchronization_weike">同步微课</string>
     <string name="textbook_read">教材点读</string>
-    <string name="update_weike">微课共256集，已更新%1$s集</string>
+    <string name="update_weike">已更新%1$s集</string>
     <string name="forever_vip">永久会员</string>
     <string name="protocol">学习保服务协议</string>
     <string-array name="task_finish_result">

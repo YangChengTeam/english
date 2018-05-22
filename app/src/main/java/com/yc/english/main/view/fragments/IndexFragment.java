@@ -21,6 +21,9 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
@@ -273,10 +276,19 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                     if (EmptyUtils.isEmpty(slideInfo.getTypeValue())) {
                         return;
                     }
-                    Intent intent = new Intent(getActivity(), WebActivity.class);
-                    intent.putExtra("title", slideInfo.getTitle());
-                    intent.putExtra("url", slideInfo.getTypeValue());
-                    startActivity(intent);
+
+                    String appId = "wx675cae9b4a8b26b0"; // 填应用AppId
+                    IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), appId);
+
+                    WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+                    req.userName = "gh_e46e21f44c08"; // 填小程序原始id
+//                    req.path = path;                  //拉起小程序页面的可带参路径，不填默认拉起小程序首页
+                    req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
+                    api.sendReq(req);
+//                    Intent intent = new Intent(getActivity(), WebActivity.class);
+//                    intent.putExtra("title", slideInfo.getTitle());
+//                    intent.putExtra("url", slideInfo.getTypeValue());
+//                    startActivity(intent);
                 } else if (slideInfo.getType().equals("1")) {
                     try {
                         String typeValue = slideInfo.getTypeValue();
@@ -399,6 +411,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         if (indexInfo.getTuijian() != null) {
             mRecommendAdapter.addData(indexInfo.getTuijian());
         }
+
 //        mRefreshSwipeRefreshLayout.setRefreshing(false);
     }
 
