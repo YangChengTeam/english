@@ -5,22 +5,21 @@ import android.os.Parcelable
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.alibaba.fastjson.JSON
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.hwangjr.rxbus.RxBus
 import com.jakewharton.rxbinding.view.RxView
+import com.umeng.analytics.MobclickAgent
 import com.yc.english.R
-import com.yc.english.base.model.BaseEngin
-import com.yc.english.base.presenter.BasePresenter
 import com.yc.english.base.utils.SimpleCacheUtils
 import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.base.view.BaseActivity
-import com.yc.english.base.view.IView
 import com.yc.english.intelligent.contract.IntelligentHandInContract
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentHandInPresenter
 import com.yc.english.intelligent.utils.getLevel1QuestionInfo
+import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
+import com.yc.english.intelligent.view.activitys.IntelligentResultActivity
 import com.yc.english.intelligent.view.adpaters.IntelligentHandInAdapter
 import com.yc.english.main.model.domain.Constant
 import kotlinx.android.synthetic.main.intelligent_avtivity_hand_in.*
@@ -35,6 +34,7 @@ class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), In
     lateinit var questionInfos: List<QuestionInfoWrapper.QuestionInfo>
 
     override fun init() {
+        MobclickAgent.onEvent(this, "intelligent_handin", "智能评测-交卷")
         mPresenter = IntelligentHandInPresenter(this, this)
         mToolbar.mIndexTextView.visibility = View.GONE
         StatusBarCompat.light(this)

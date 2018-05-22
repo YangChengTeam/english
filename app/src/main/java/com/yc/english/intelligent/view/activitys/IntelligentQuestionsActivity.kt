@@ -12,6 +12,7 @@ import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
 import com.jakewharton.rxbinding.view.RxView
 import com.kk.securityhttp.net.contains.HttpConfig
+import com.umeng.analytics.MobclickAgent
 import com.yc.english.R
 import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.base.view.AlertDialog
@@ -20,6 +21,7 @@ import com.yc.english.intelligent.contract.IntelligentQuestionContract
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentQuestionPresenter
 import com.yc.english.intelligent.utils.getLevel1QuestionInfo
+import com.yc.english.intelligent.view.activitys.IntelligentResultActivity
 import com.yc.english.intelligent.view.fragments.IntelligentQuestionsFragment
 import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
@@ -49,6 +51,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
     }
 
     override fun init() {
+        MobclickAgent.onEvent(this, "intelligent_question", "智能评测-题目")
         mPresenter = IntelligentQuestionPresenter(this, this)
         StatusBarCompat.light(this)
         StatusBarCompat.compat(this, mToolbarWarpper, mToolbarWarpper.mToolbar, mToolbarWarpper.mStatubar)

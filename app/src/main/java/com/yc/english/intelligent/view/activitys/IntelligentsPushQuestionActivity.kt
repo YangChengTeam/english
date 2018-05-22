@@ -8,6 +8,8 @@ import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
 import com.jakewharton.rxbinding.view.RxView
 import com.kk.securityhttp.net.contains.HttpConfig
+import com.umeng.analytics.MobclickAgent
+import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.R
 import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.base.view.BaseActivity
@@ -33,6 +35,8 @@ class IntelligentsPushQuestionActivity : BaseActivity<IntelligentPushQuestionPre
     lateinit var adpater: IntelligentPushAdpater
 
     override fun init() {
+        MobclickAgent.onEvent(this, "intelligent_push_question", "智能评测-推送题目")
+
         mPresenter = IntelligentPushQuestionPresenter(this, this)
         StatusBarCompat.light(this)
         StatusBarCompat.compat(this, mToolbarWarpper, mToolbar, R.mipmap.base_actionbar)
