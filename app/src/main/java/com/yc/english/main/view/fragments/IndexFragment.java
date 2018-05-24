@@ -21,6 +21,7 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.utils.LogUtil;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -272,16 +273,17 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void OnBannerClick(int position) {
                 SlideInfo slideInfo = mPresenter.getSlideInfo(position);
-                if (slideInfo.getType().equals("0")) {
+                LogUtil.msg("image:  " + slideInfo.getType() + "---" + slideInfo.getTypeValue());
+                if (slideInfo.getType().equals("2")) {
                     if (EmptyUtils.isEmpty(slideInfo.getTypeValue())) {
                         return;
                     }
-
-                    String appId = "wx675cae9b4a8b26b0"; // 填应用AppId
+                    String[] strs = slideInfo.getTypeValue().split("\\|");
+                    String appId = strs[1]; // 填应用AppId
                     IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), appId);
 
                     WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
-                    req.userName = "gh_e46e21f44c08"; // 填小程序原始id
+                    req.userName = strs[0]; // 填小程序原始id
 //                    req.path = path;                  //拉起小程序页面的可带参路径，不填默认拉起小程序首页
                     req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
                     api.sendReq(req);
