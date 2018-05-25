@@ -11,6 +11,7 @@ import com.app.hubert.guide.listener.OnLayoutInflatedListener;
 import com.app.hubert.guide.model.GuidePage;
 import com.app.hubert.guide.model.HighLight;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -119,17 +120,23 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
 
         LogUtils.i("item--->current position" + helper.getAdapterPosition() + "---last---" + getLastPosition());
 
+        int percent = 0;
+        if (!StringUtils.isEmpty(item.getPercent())) {
+            percent = (int) Double.parseDouble(item.getPercent());
+        }
+
         if (item.isShow()) {
             helper.setVisible(R.id.iv_speak_result, true);
             if (item.isSpeakResult()) {
-                helper.setText(R.id.tv_result_hint,"Good,不错");
+                helper.setText(R.id.tv_result_hint,percent + "分,Good");
                 helper.setBackgroundRes(R.id.iv_speak_result, R.mipmap.read_item_result_yes);
             } else {
-                helper.setText(R.id.tv_result_hint,"继续加油");
+                helper.setText(R.id.tv_result_hint, percent + "分,加油");
                 helper.setBackgroundRes(R.id.iv_speak_result, R.mipmap.listen_result_no);
             }
         } else {
-            //helper.setVisible(R.id.iv_tape,false);
+            helper.setText(R.id.tv_result_hint, "");
+            helper.setVisible(R.id.iv_speak_result, false);
         }
 
         if (helper.getAdapterPosition() == getLastPosition()) {
