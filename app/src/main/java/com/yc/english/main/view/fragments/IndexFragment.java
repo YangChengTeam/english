@@ -297,9 +297,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                     } catch (Exception e) {
 
                     }
-                } else if (slideInfo.getTypeValue().equals("2")) {
+                } else if (slideInfo.getType().equals("2")) {
                     try {
-                        String[] strs = slideInfo.getTypeValue().split("\\|");
+                        String typeValue = slideInfo.getTypeValue();
+                        if (TextUtils.isEmpty(typeValue)) return;
+                        String[] strs = typeValue.split("\\|");
                         if (strs.length > 1) {
                             String appId = strs[1]; // 填应用AppId
                             IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), appId);
