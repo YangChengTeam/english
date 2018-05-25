@@ -273,26 +273,14 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void OnBannerClick(int position) {
                 SlideInfo slideInfo = mPresenter.getSlideInfo(position);
-                if (slideInfo.getType().equals("2")) {
+                if (slideInfo.getType().equals("0")) {
                     if (EmptyUtils.isEmpty(slideInfo.getTypeValue())) {
                         return;
                     }
-                    String[] strs = slideInfo.getTypeValue().split("\\|");
-                    if(strs.length>1){
-                        String appId = strs[1]; // 填应用AppId
-                        IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), appId);
-
-                        WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
-                        req.userName = strs[0]; // 填小程序原始id
-//                    req.path = path;                  //拉起小程序页面的可带参路径，不填默认拉起小程序首页
-                        req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
-                        api.sendReq(req);
-                    }
-
-//                    Intent intent = new Intent(getActivity(), WebActivity.class);
-//                    intent.putExtra("title", slideInfo.getTitle());
-//                    intent.putExtra("url", slideInfo.getTypeValue());
-//                    startActivity(intent);
+                    Intent intent = new Intent(getActivity(), WebActivity.class);
+                    intent.putExtra("title", slideInfo.getTitle());
+                    intent.putExtra("url", slideInfo.getTypeValue());
+                    startActivity(intent);
                 } else if (slideInfo.getType().equals("1")) {
                     try {
                         String typeValue = slideInfo.getTypeValue();
@@ -306,6 +294,22 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                             intent.putExtra("info", courseInfo);
                         }
                         startActivity(intent);
+                    } catch (Exception e) {
+
+                    }
+                } else if (slideInfo.getTypeValue().equals("2")) {
+                    try {
+                        String[] strs = slideInfo.getTypeValue().split("\\|");
+                        if (strs.length > 1) {
+                            String appId = strs[1]; // 填应用AppId
+                            IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), appId);
+
+                            WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+                            req.userName = strs[0]; // 填小程序原始id
+//                    req.path = path;                  //拉起小程序页面的可带参路径，不填默认拉起小程序首页
+                            req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
+                            api.sendReq(req);
+                        }
                     } catch (Exception e) {
 
                     }
