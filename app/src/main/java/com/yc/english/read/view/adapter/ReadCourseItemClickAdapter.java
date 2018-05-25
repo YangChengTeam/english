@@ -100,6 +100,7 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
             helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.black_333)).setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.black_333));
             //helper.setVisible(R.id.layout_tape, true);
             helper.setVisible(R.id.iv_speak_result, true);
+            helper.setVisible(R.id.tv_result_hint,true);
             //helper.setVisible(R.id.iv_result, false);
             Glide.with(mContext).load(R.mipmap.item_read_press_icon).into(((ImageView) helper.getView(R.id.iv_play)));
         } else {
@@ -109,8 +110,10 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
             helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.gray_999)).setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.gray_999));
             if (helper.getAdapterPosition() == getLastPosition()) {
                 helper.setVisible(R.id.iv_speak_result, true);
+                helper.setVisible(R.id.tv_result_hint,true);
             } else {
                 helper.setVisible(R.id.iv_speak_result, false);
+                helper.setVisible(R.id.tv_result_hint,false);
             }
         }
 
@@ -119,8 +122,10 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
         if (item.isShow()) {
             helper.setVisible(R.id.iv_speak_result, true);
             if (item.isSpeakResult()) {
+                helper.setText(R.id.tv_result_hint,"Good,不错");
                 helper.setBackgroundRes(R.id.iv_speak_result, R.mipmap.read_item_result_yes);
             } else {
+                helper.setText(R.id.tv_result_hint,"继续加油");
                 helper.setBackgroundRes(R.id.iv_speak_result, R.mipmap.listen_result_no);
             }
         } else {
