@@ -4,11 +4,12 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.KeyEvent
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference
-import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
 import com.jakewharton.rxbinding.view.RxView
+import com.umeng.analytics.MobclickAgent
+import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.R
 import com.yc.english.base.model.BaseEngin
 import com.yc.english.base.presenter.BasePresenter
@@ -31,6 +32,7 @@ class IntelligentResultActivity : BaseActivity<BasePresenter<BaseEngin, IView>>(
 
     lateinit var adapter: IntelligentResultAdapter
     override fun init() {
+        MobclickAgent.onEvent(this, "intelligent_result", "智能评测-结果")
         StatusBarCompat.light(this)
         StatusBarCompat.compat(this, mToolbarWarpper, mToolbar, mStatusBar)
         RxView.clicks(mBackBtn).throttleFirst(200, TimeUnit

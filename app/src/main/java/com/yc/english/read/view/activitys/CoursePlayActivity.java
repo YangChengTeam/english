@@ -737,6 +737,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 return false;
             }
 
+            mItemAdapter.getData().get(lastPosition).setPercent(percent+"");
+
             if (percent >= 60) {
                 return true;
             } else {

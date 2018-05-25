@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
-import com.blankj.utilcode.util.ImageUtils
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -20,6 +19,7 @@ import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
 import com.jakewharton.rxbinding.view.RxView
 import com.kk.securityhttp.net.contains.HttpConfig
+import com.umeng.analytics.MobclickAgent
 import com.yc.english.R
 import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.base.view.BaseActivity
@@ -48,6 +48,7 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
     var unitId: Int = 0
     var reportId = 0
     override fun init() {
+        MobclickAgent.onEvent(this, "intelligent_report", "智能评测-报告")
         mPresenter = IntelligentReportPresenter(this, this)
         StatusBarCompat.light(this)
         StatusBarCompat.compat(this, mToolbarWarpper, mToolbar, mStatusBar)

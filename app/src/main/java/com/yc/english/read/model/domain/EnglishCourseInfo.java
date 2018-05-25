@@ -46,6 +46,8 @@ public class EnglishCourseInfo implements MultiItemEntity {
 
     private boolean speakResult;//显示结果
 
+    private String percent = "0";
+
     public EnglishCourseInfo() {
         super();
     }
@@ -163,4 +165,11 @@ public class EnglishCourseInfo implements MultiItemEntity {
         isPlay = play;
     }
 
+    public String getPercent() {
+        return percent;
+    }
+
+    public void setPercent(String percent) {
+        this.percent = percent;
+    }
 }
