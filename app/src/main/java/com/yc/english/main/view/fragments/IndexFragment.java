@@ -21,7 +21,6 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.LogUtil;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -354,8 +353,14 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
 
         if (SPUtils.getInstance().getString("period", "").isEmpty()) {
-            SelectGradePopupWindow selectGradePopupWindow = new SelectGradePopupWindow(getActivity());
-            selectGradePopupWindow.show(mContextScrollView, Gravity.CENTER);
+            mContextScrollView.post(new Runnable() {
+                @Override
+                public void run() {
+                    SelectGradePopupWindow selectGradePopupWindow = new SelectGradePopupWindow(getActivity());
+                    selectGradePopupWindow.show(mContextScrollView, Gravity.CENTER);
+                }
+            });
+
         }
 
 

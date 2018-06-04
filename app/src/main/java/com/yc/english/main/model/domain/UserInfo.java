@@ -76,6 +76,7 @@ public class UserInfo {
     }
 
     public String getUid() {
+
         return uid;
     }
 
