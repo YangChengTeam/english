@@ -1,7 +1,5 @@
 package com.yc.english.setting.model.bean;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 import java.util.List;
 
 /**
