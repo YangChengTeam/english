@@ -22,6 +22,8 @@ import com.yc.english.vip.utils.VipInfoHelper;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -105,6 +107,13 @@ public class BaseVipPayFragment extends BaseFragment {
         sVipList = goodInfoWrapper.getSvip();
         generalVipList = goodInfoWrapper.getVip();
         dianduList = goodInfoWrapper.getDiandu();
+        Collections.sort(dianduList, new Comparator<GoodInfo>() {
+            @Override
+            public int compare(GoodInfo o1, GoodInfo o2) {
+                return Integer.parseInt(o1.getUse_time_limit()) - Integer.parseInt(o2.getUse_time_limit());
+            }
+        });
+
         weikeList = goodInfoWrapper.getWvip();
 
         if (mType == GoodsType.TYPE_SVIP) {
@@ -130,11 +139,16 @@ public class BaseVipPayFragment extends BaseFragment {
                 tvVipForever.setText("单次微课");
                 setGoodInfo(position, weikeList);
             } else {
-                tvVipForever.setVisibility(View.GONE);
+
                 if (mType == GoodsType.TYPE_SINGLE_DIANDU) {
+                    tvVipThreeMonth.setText("1个月");
+                    tvVipSixMonth.setText("3个月");
+                    tvVipTweenMonth.setText("6个月");
+                    tvVipForever.setText("永久会员");
                     baseItemViewCeping.setContentAndIcon("教材点读", 0);
                     setGoodInfo(position, dianduList);
                 } else if (mType == GoodsType.TYPE_SINGLE_INDIVIDUALITY_PLAN) {
+                    tvVipForever.setVisibility(View.GONE);
                     baseItemViewCeping.setContentAndIcon("个性学习计划", 0);
                 }
             }

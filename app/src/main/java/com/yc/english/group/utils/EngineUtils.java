@@ -391,8 +391,8 @@ public class EngineUtils {
 
         Map<String, String> params = new HashMap<>();
         UserInfo userInfo = UserInfoHelper.getUserInfo();
-        params.put("user_id", UserInfoHelper.getUserInfo().getUid());
-        params.put("user_name", userInfo.getName());
+        params.put("user_id", userInfo != null ? userInfo.getUid() : "");
+        params.put("user_name", userInfo != null ? userInfo.getName() : "");
         params.put("app_id", String.valueOf(1));
         params.put("title", title);
         params.put("price_total", price_total);
@@ -426,6 +426,7 @@ public class EngineUtils {
 
     /**
      * 获取是否开启分享体验VIP
+     *
      * @param context
      * @return
      */
