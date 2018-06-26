@@ -55,6 +55,8 @@ import com.yc.english.vip.views.activity.ProtocolActivity;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
@@ -371,7 +373,14 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
         if (position == 0) {
             if (isDiandu) {
                 if (goodInfoWrapper.getDiandu() != null && goodInfoWrapper.getDiandu().size() > 0) {
-                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getDiandu().get(0);
+                    List<GoodInfo> dianduList = VipInfoHelper.getGoodInfoWrapper().getDiandu();
+                    Collections.sort(dianduList, new Comparator<GoodInfo>() {
+                        @Override
+                        public int compare(GoodInfo o1, GoodInfo o2) {
+                            return Integer.parseInt(o1.getUse_time_limit())-Integer.parseInt(o2.getUse_time_limit());
+                        }
+                    });
+                    mGoodInfo = dianduList.get(0);
                 }
             } else if (isWeike) {
                 if (goodInfoWrapper.getWvip() != null && goodInfoWrapper.getWvip().size() > 0) {
