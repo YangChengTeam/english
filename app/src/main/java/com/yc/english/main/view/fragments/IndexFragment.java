@@ -21,6 +21,8 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.utils.LogUtil;
+import com.kk.utils.ToastUtil;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -301,6 +303,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                         String typeValue = slideInfo.getTypeValue();
                         if (TextUtils.isEmpty(typeValue)) return;
                         String[] strs = typeValue.split("\\|");
+                        LogUtil.msg("tag: " + strs[0] + "---" + strs[1]);
                         if (strs.length > 1) {
                             String appId = strs[1]; // 填应用AppId
                             IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), appId);
@@ -312,7 +315,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                             api.sendReq(req);
                         }
                     } catch (Exception e) {
-
+                        LogUtil.msg("e :" + e.getMessage());
+                        ToastUtil.toast(getActivity(),"");
                     }
                 }
             }

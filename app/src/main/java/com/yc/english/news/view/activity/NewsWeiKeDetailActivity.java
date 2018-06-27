@@ -414,7 +414,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtil.msg("tag :  onResume");
+
         Sensor accelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(mSensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -423,7 +423,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @Override
     protected void onPause() {
         super.onPause();
-        LogUtil.msg("tag :  onPause");
+
         JZVideoPlayer.releaseAllVideos();
         mSensorManager.unregisterListener(mSensorEventListener);
         JZVideoPlayer.clearSavedProgress(this, null);
