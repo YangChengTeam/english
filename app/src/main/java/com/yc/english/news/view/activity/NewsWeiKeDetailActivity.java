@@ -315,6 +315,18 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         judgeVip();
     }
 
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.PAY_SIGNAL_SUCCESS)
+            }
+    )
+    public void getSignalInfo(String info) {
+        mPresenter.getWeiKeDetail(id, userInfo != null ? userInfo.getUid() : "");
+        currentCourseInfo.setUserHas(1);
+        judgeVip();
+    }
+
 
     private void click() {
         RxView.clicks(mJCVideoPlayer.thumbImageView).throttleFirst(1000, TimeUnit.MICROSECONDS).subscribe(new Action1<Void>() {
@@ -436,6 +448,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     }
 
     private void showBuyDialog() {
+        VipDialogHelper.dismissVipDialog();
         Bundle bundle = new Bundle();
         bundle.putParcelable("courseInfo", currentCourseInfo);
         bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_SINGLE_WEIKE);

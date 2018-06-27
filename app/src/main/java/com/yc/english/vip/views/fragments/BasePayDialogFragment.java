@@ -377,7 +377,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
                     Collections.sort(dianduList, new Comparator<GoodInfo>() {
                         @Override
                         public int compare(GoodInfo o1, GoodInfo o2) {
-                            return Integer.parseInt(o1.getUse_time_limit())-Integer.parseInt(o2.getUse_time_limit());
+                            return Integer.parseInt(o1.getUse_time_limit()) - Integer.parseInt(o2.getUse_time_limit());
                         }
                     });
                     mGoodInfo = dianduList.get(0);
@@ -576,15 +576,23 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     }
 
     private void updateSuccessData() {
+        boolean isVip = false;
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         if (mGoodInfo.getType_id().equals("4")) {
             userInfo.setIsVip(2);
+            isVip = true;
         } else if (mGoodInfo.getType_id().equals("1")) {
             userInfo.setIsVip(1);
+            isVip = true;
         } else if (mGoodInfo.getType_id().equals("3")) {
             userInfo.setIsVip(4);
+            isVip = true;
         } else if (mGoodInfo.getType_id().equals("5")) {
             userInfo.setIsVip(3);
+            isVip = true;
+        } else if (mGoodInfo.getType_id().equals("2")) {//单次微课支付
+            isVip = false;
+
         }
 
         Date date = new Date();
@@ -595,8 +603,11 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
             userInfo.setVip_end_time(vip_end_time / 1000);
         }
         UserInfoHelper.saveUserInfo(userInfo);
-
-        RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form pay");
+        if (isVip) {
+            RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form pay");
+        } else {
+            RxBus.get().post(Constant.PAY_SIGNAL_SUCCESS, "signal success");
+        }
         VipDialogHelper.dismissVipDialog();
     }
 
