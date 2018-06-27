@@ -27,6 +27,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.kk.utils.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.helper.ShoppingHelper;
@@ -413,7 +414,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @Override
     protected void onResume() {
         super.onResume();
-
+        LogUtil.msg("tag :  onResume");
         Sensor accelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(mSensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -422,6 +423,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @Override
     protected void onPause() {
         super.onPause();
+        LogUtil.msg("tag :  onPause");
         JZVideoPlayer.releaseAllVideos();
         mSensorManager.unregisterListener(mSensorEventListener);
         JZVideoPlayer.clearSavedProgress(this, null);
