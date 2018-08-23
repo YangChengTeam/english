@@ -16,6 +16,7 @@ import butterknife.OnClick;
  */
 
 public class TabBar extends BaseView {
+
     @BindView(R.id.item_index)
     TabItem mIndexItem;
 
@@ -32,8 +33,8 @@ public class TabBar extends BaseView {
         super(context, attrs);
 
         mIndexItem.setTag(0);
-        mTaskItem.setTag(1);
-        mIntelligent.setTag(2);
+        mIntelligent.setTag(1);
+        mTaskItem.setTag(2);
         mMyItem.setTag(3);
 
     }
@@ -43,75 +44,75 @@ public class TabBar extends BaseView {
         return R.layout.main_view_tab_bar;
     }
 
-    @OnClick({R.id.item_index, R.id.item_task, R.id.item_intelligent ,R.id.item_my})
-    public void OnClick(TabItem item){
-        if(onTabSelectedListener == null) throw  new NullPointerException("listener == null");
+    @OnClick({R.id.item_index, R.id.item_task, R.id.item_intelligent, R.id.item_my})
+    public void OnClick(TabItem item) {
+        if (onTabSelectedListener == null) throw new NullPointerException("listener == null");
 
-        int index = (int)item.getTag();
+        int index = (int) item.getTag();
         clearSelectedItem();
         item.selected(getSelectedIconDrawable(index));
         onTabSelectedListener.onSelected(index);
     }
 
-    public void tab(int idx){
+    public void tab(int idx) {
         clearSelectedItem();
         getTabItem(idx).selected(getSelectedIconDrawable(idx));
         onTabSelectedListener.onSelected(idx);
     }
 
-    private TabItem getTabItem(int idx){
-        switch (idx){
+    private TabItem getTabItem(int idx) {
+        switch (idx) {
             case 0:
                 return mIndexItem;
             case 1:
-                return mTaskItem;
-            case 2:
                 return mIntelligent;
+            case 2:
+                return mTaskItem;
             case 3:
                 return mMyItem;
         }
         return mIndexItem;
     }
 
-    private void clearSelectedItem(){
+    private void clearSelectedItem() {
         mIndexItem.normal(getIconDrawable(0));
-        mTaskItem.normal(getIconDrawable(1));
-        mIntelligent.normal(getIconDrawable(2));
+        mIntelligent.normal(getIconDrawable(1));
+        mTaskItem.normal(getIconDrawable(2));
         mMyItem.normal(getIconDrawable(3));
     }
 
-    private Drawable getIconDrawable(int idx){
-        switch (idx){
+    private Drawable getIconDrawable(int idx) {
+        switch (idx) {
             case 0:
-                return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_index);
+                return ContextCompat.getDrawable(getContext(), R.mipmap.main_tab_index);
             case 1:
-                return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_task);
+                return ContextCompat.getDrawable(getContext(), R.mipmap.main_tab_intelligent);
             case 2:
-                return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_intelligent);
+                return ContextCompat.getDrawable(getContext(), R.mipmap.main_tab_task);
             case 3:
-                return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_my);
+                return ContextCompat.getDrawable(getContext(), R.mipmap.main_tab_my);
 
         }
         return ContextCompat.getDrawable(getContext(), R.mipmap.main_tab_index_selected);
     }
 
-    private Drawable getSelectedIconDrawable(int idx){
-        switch (idx){
+    private Drawable getSelectedIconDrawable(int idx) {
+        switch (idx) {
             case 0:
-                return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_index_selected);
+                return ContextCompat.getDrawable(getContext(), R.mipmap.main_tab_index_selected);
             case 1:
-                return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_task_selected);
+                return ContextCompat.getDrawable(getContext(), R.mipmap.main_tab_intelligent_selected);
             case 2:
-                return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_intelligent_selected);
+                return ContextCompat.getDrawable(getContext(), R.mipmap.main_tab_task_selected);
             case 3:
-                return ContextCompat.getDrawable(getContext(),R.mipmap.main_tab_my_selected);
+                return ContextCompat.getDrawable(getContext(), R.mipmap.main_tab_my_selected);
         }
         return ContextCompat.getDrawable(getContext(), R.mipmap.main_tab_index);
     }
 
     private OnTabSelectedListener onTabSelectedListener;
 
-    public void setOnTabSelectedListener(OnTabSelectedListener onTabSelectedListener){
+    public void setOnTabSelectedListener(OnTabSelectedListener onTabSelectedListener) {
         this.onTabSelectedListener = onTabSelectedListener;
     }
 

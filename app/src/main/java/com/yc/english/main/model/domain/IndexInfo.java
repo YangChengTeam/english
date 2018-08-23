@@ -28,6 +28,8 @@ public class IndexInfo {
 
     @JSONField(name = "down_url")
     private String downUrl;
+    @JSONField(name = "advlist")
+    private List<SlideInfo> advInfo;
 
     public String getDownUrl() {
         return downUrl;
@@ -129,5 +131,13 @@ public class IndexInfo {
 
     public void setTuijian(List<CourseInfo> tuijian) {
         this.tuijian = tuijian;
+    }
+
+    public List<SlideInfo> getAdvInfo() {
+        return advInfo;
+    }
+
+    public void setAdvInfo(List<SlideInfo> advInfo) {
+        this.advInfo = advInfo;
     }
 }

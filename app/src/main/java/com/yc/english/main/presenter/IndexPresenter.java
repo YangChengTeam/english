@@ -1,6 +1,7 @@
 package com.yc.english.main.presenter;
 
 import android.content.Context;
+import android.os.UserManager;
 
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.UIUitls;
@@ -47,7 +48,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         getIndexInfo();
         getPayWayList();
         getGoodsList(1);
-        getOpenShareVip();
+
     }
 
 
@@ -220,50 +221,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
     }
 
 
-    /**
-     * 分享是否开启体验VIP
-     */
-    private void getOpenShareVip() {
 
-        Subscription subscription = EngineUtils.getShareVipState(mContext).subscribe(new Subscriber<ResultInfo<ShareStateInfo>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                mView.showNoNet();
-            }
-
-            @Override
-            public void onNext(final ResultInfo<ShareStateInfo> shareResult) {
-                ResultInfoHelper.handleResultInfo(shareResult, new ResultInfoHelper.Callback() {
-                    @Override
-                    public void resultInfoEmpty(String message) {
-
-                    }
-
-                    @Override
-                    public void resultInfoNotOk(String message) {
-
-                    }
-
-                    @Override
-                    public void reulstInfoOk() {
-                        if (shareResult.data != null) {
-                            if(shareResult.data.getStatus() == 1){
-                                EnglishApp.isOpenShareVip = true;
-                                EnglishApp.trialDays = shareResult.data.getDays();
-                            }
-                        }
-                    }
-                });
-
-            }
-        });
-        mSubscriptions.add(subscription);
-    }
 
 }
 

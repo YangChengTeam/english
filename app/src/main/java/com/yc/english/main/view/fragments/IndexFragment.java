@@ -27,6 +27,7 @@ import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
+import com.yc.english.EnglishApp;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.utils.StatusBarCompat;
@@ -36,6 +37,7 @@ import com.yc.english.base.view.SelectGradePopupWindow;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.WebActivity;
+import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.view.activitys.CoachScoreActivity;
 import com.yc.english.group.view.activitys.GroupMainActivity;
 import com.yc.english.main.contract.IndexContract;
@@ -192,9 +194,10 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mTaskImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                MobclickAgent.onEvent(getActivity(), "task_online", "在线作业");
-                Intent intent = new Intent(getActivity(), GroupMainActivity.class);
+                MobclickAgent.onEvent(getActivity(), "listen_and_speak", "配音听力");
+                Intent intent = new Intent(getActivity(), SpeakMainActivity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -226,20 +229,22 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void call(Void aVoid) {
                 MobclickAgent.onEvent(getActivity(), "teacher_answer_in", "教材答案入口点击");
-                Intent intent = new Intent(getActivity(), CourseActivity.class);
-                intent.putExtra("title", "教材答案");
-                intent.putExtra("type", "17");
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), CourseActivity.class);
+//                intent.putExtra("title", "教材答案");
+//                intent.putExtra("type", "17");
+//                startActivity(intent);
+                switchSmallProcedure(GroupConstant.originid, GroupConstant.appid);
             }
         });
 
-
+//"http:\\/\\/a.app.qq.com\\/o\\/simple.jsp?pkgname=com.yc.phonogram"
         RxView.clicks(mExamImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                if (advInfo == null) return;
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra("title", "小学英语音标点读");
-                intent.putExtra("url", "http:\\/\\/a.app.qq.com\\/o\\/simple.jsp?pkgname=com.yc.phonogram");
+                intent.putExtra("url", advInfo.getTypeValue());
                 startActivity(intent);
             }
         });
@@ -247,9 +252,30 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mSpeakImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                MobclickAgent.onEvent(getActivity(), "listen_and_speak", "配音听力");
-                Intent intent = new Intent(getActivity(), SpeakMainActivity.class);
-                startActivity(intent);
+                MobclickAgent.onEvent(getActivity(), "task_online", "在线作业");
+                // todo 这里是在线作业 融云im模块
+//                Intent intent = new Intent(getActivity(), GroupMainActivity.class);
+//                startActivity(intent);
+                ToastUtil.toast2(getActivity(), "功能正在开发中...");
+
+//                SlideInfo slideInfo = mPresenter.getSlideInfo(0);
+//                if (slideInfo.getType().equals("2")) {
+//                    try {
+//                        String typeValue = slideInfo.getTypeValue();
+//                        if (TextUtils.isEmpty(typeValue)) return;
+//                        String[] strs = typeValue.split("\\|");
+//                        LogUtil.msg("tag: " + strs[0] + "---" + strs[1]);
+//                        if (strs.length > 1) {
+//                            // 填应用AppId
+//                            String appId = strs[1];
+//                            String originId = strs[0];
+//                            switchSmallProcedure(originId, appId);
+//                        }
+//                    } catch (Exception e) {
+//                        LogUtil.msg("e :" + e.getMessage());
+//                        ToastUtil.toast(getActivity(), "");
+//                    }
+//                }
             }
         });
 
@@ -271,6 +297,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         });
         mBanner.setFocusable(false);
         mBanner.setOnBannerListener(new OnBannerListener() {
+
+
             @Override
             public void OnBannerClick(int position) {
                 SlideInfo slideInfo = mPresenter.getSlideInfo(position);
@@ -305,18 +333,14 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                         String[] strs = typeValue.split("\\|");
                         LogUtil.msg("tag: " + strs[0] + "---" + strs[1]);
                         if (strs.length > 1) {
-                            String appId = strs[1]; // 填应用AppId
-                            IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), appId);
-
-                            WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
-                            req.userName = strs[0]; // 填小程序原始id
-//                    req.path = path;                  //拉起小程序页面的可带参路径，不填默认拉起小程序首页
-                            req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
-                            api.sendReq(req);
+                            // 填应用AppId
+                            String appId = strs[1];
+                            String originId = strs[0];
+                            switchSmallProcedure(originId, appId);
                         }
                     } catch (Exception e) {
                         LogUtil.msg("e :" + e.getMessage());
-                        ToastUtil.toast(getActivity(),"");
+                        ToastUtil.toast(getActivity(), "");
                     }
                 }
             }
@@ -357,17 +381,32 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
 
         if (SPUtils.getInstance().getString("period", "").isEmpty()) {
-            mContextScrollView.post(new Runnable() {
-                @Override
-                public void run() {
-                    SelectGradePopupWindow selectGradePopupWindow = new SelectGradePopupWindow(getActivity());
-                    selectGradePopupWindow.show(mContextScrollView, Gravity.CENTER);
-                }
-            });
+
+            SPUtils.getInstance().put("grade", 4);
+            SPUtils.getInstance().put("period", "0");
+            EnglishApp.get().setHttpDefaultParams();
+//            mContextScrollView.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    SelectGradePopupWindow selectGradePopupWindow = new SelectGradePopupWindow(getActivity());
+//                    selectGradePopupWindow.show(mContextScrollView, Gravity.CENTER);
+//                }
+//            });
 
         }
 
+    }
 
+    private SlideInfo advInfo;//广告页
+
+    private void switchSmallProcedure(String strs, String appId) {
+        IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), appId);
+
+        WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+        req.userName = strs; // 填小程序原始id
+//                    req.path = path;                  //拉起小程序页面的可带参路径，不填默认拉起小程序首页
+        req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
+        api.sendReq(req);
     }
 
     @Override
@@ -429,6 +468,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         }
         if (indexInfo.getTuijian() != null) {
             mRecommendAdapter.addData(indexInfo.getTuijian());
+        }
+        if (indexInfo.getAdvInfo() != null && indexInfo.getAdvInfo().size() > 0) {
+            SlideInfo slideInfo = indexInfo.getAdvInfo().get(0);
+            advInfo = slideInfo;
+            GlideHelper.imageView(getContext(), mExamImageView, slideInfo.getImg(), R.mipmap.xiaoxueyinbbiao_ad);
         }
 
 //        mRefreshSwipeRefreshLayout.setRefreshing(false);

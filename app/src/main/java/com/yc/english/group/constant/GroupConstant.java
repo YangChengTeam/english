@@ -48,4 +48,9 @@ public interface GroupConstant {
 
     String FORBID_CONTENT = "该群开启了全员禁言，请稍候在发言...";
 
+    String appid = "wx675cae9b4a8b26b0";
+    String originid = "gh_5732adc868b8";
+    //  wx12cb08c1129462cd
+    //  gh_5732adc868b8
+
 }

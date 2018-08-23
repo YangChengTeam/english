@@ -201,7 +201,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/speak_main"/>
+                        android:src="@mipmap/soundmark_1vs1"/>
                 </LinearLayout>
 
 
@@ -214,12 +214,12 @@
                     android:layout_marginTop="7dp">
 
                     <ImageView
-                        android:id="@+id/iv_homework_answer"
+                        android:id="@+id/iv_teacher_task"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/course_answer_icon"/>
+                        android:src="@mipmap/soundmark_read"/>
 
                     <View
                         android:layout_width="7dp"
@@ -243,19 +243,21 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/index_task"/>
+                        android:src="@mipmap/dub_audition"/>
 
                     <View
                         android:layout_width="7dp"
                         android:layout_height="match_parent"></View>
 
+
                     <ImageView
-                        android:id="@+id/iv_teacher_task"
+                        android:id="@+id/iv_homework_answer"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/raise_score"/>
+                        android:src="@mipmap/index_home_answer"/>
+
                 </LinearLayout>
 
                 <View

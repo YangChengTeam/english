@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <LinearLayout
@@ -30,21 +30,31 @@
                     android:layout_marginLeft="10dp"
                     android:text="人教版八年级上"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/font_big"
-                    />
+                    android:textSize="@dimen/font_big" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/mIntelligentType"
-                    android:layout_width="50dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/base_tran_ripple_bg">
-                    <ImageView
+                    android:background="@drawable/base_tran_ripple_bg"
+                    android:gravity="center"
+                    android:paddingRight="@dimen/group_distance_10">
+
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:src="@mipmap/intelligent_type"/>
-                </RelativeLayout>
+                        android:text="@string/select_grade"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/iv_select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/intelligent_type" />
+
+                </LinearLayout>
             </RelativeLayout>
         </FrameLayout>
 
@@ -68,14 +78,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@mipmap/intellgent_main_bg"
-                android:scaleType="fitXY">
-            </ImageView>
+                android:scaleType="fitXY"></ImageView>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/mViewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                ></android.support.v4.view.ViewPager>
+                android:layout_height="match_parent"></android.support.v4.view.ViewPager>
         </FrameLayout>
     </LinearLayout>
 </FrameLayout>

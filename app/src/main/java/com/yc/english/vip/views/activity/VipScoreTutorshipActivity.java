@@ -28,6 +28,7 @@ import com.yc.english.group.constant.BusAction;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.vip.views.fragments.VipTutorshipDetailFragment;
 import com.yc.english.vip.views.fragments.VipUserEvaluateFragment;
@@ -129,8 +130,9 @@ public class VipScoreTutorshipActivity extends BaseActivity {
             @Override
             public void call(Void aVoid) {
                 if (!UserInfoHelper.isGotoLogin(VipScoreTutorshipActivity.this)) {
-
-                    VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(GoodsType.GOODS_KEY,GoodsType.TYPE_GENERAL_VIP);
+                    VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
                 }
             }
         });

@@ -108,6 +108,15 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
                 } else {
                     getGrade(mVersionAdapter.defaultInfo!!)
                 }
+                it.data.list!!.map {
+                    if (it.name!!.contains("PEP")) {
+                        it.alias = "小学"
+                    } else {
+                        it.alias = "初中"
+
+                    }
+                }
+
                 mVersionAdapter.setNewData(it.data?.list)
             }
         }

@@ -113,21 +113,12 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
     private fun initIntelligentTypeEvents(vararg intelligentTypes: IntelligentTypeItemView) {
         val flag = UserInfoHelper.isLogin()
         if (flag) {
-            mIntelligentType1.complete = if (unitInfo?.unit_finish_detail?.vocabulary == 1 || isComplete
-            ("vocabulary")) true else false
-            mIntelligentType2.complete = if (unitInfo?.unit_finish_detail?.oracy == 1 || isComplete
-            ("oracy"))
-                true else false
-            mIntelligentType3.complete = if (unitInfo?.unit_finish_detail?.grammar == 1 || isComplete
-            ("grammar")) true else false
-            mIntelligentType4.complete = if (unitInfo?.unit_finish_detail?.hearing == 1 || isComplete
-            ("hearing"))
-                true else false
-            mIntelligentType5.complete = if (unitInfo?.unit_finish_detail?.read == 1 || isComplete
-            ("read")) true else false
-            mIntelligentType6.complete = if (unitInfo?.unit_finish_detail?.writing == 1 || isComplete
-            ("writing"))
-                true else false
+            mIntelligentType1.complete = unitInfo?.unit_finish_detail?.vocabulary == 1 || isComplete("vocabulary")
+            mIntelligentType2.complete = unitInfo?.unit_finish_detail?.oracy == 1 || isComplete("oracy")
+            mIntelligentType3.complete = unitInfo?.unit_finish_detail?.grammar == 1 || isComplete("grammar")
+            mIntelligentType4.complete = unitInfo?.unit_finish_detail?.hearing == 1 || isComplete("hearing")
+            mIntelligentType5.complete = unitInfo?.unit_finish_detail?.read == 1 || isComplete("read")
+            mIntelligentType6.complete = unitInfo?.unit_finish_detail?.writing == 1 || isComplete("writing")
         }
         checkAllComplete(mIntelligentType1, mIntelligentType2, mIntelligentType3, mIntelligentType4,
                 mIntelligentType5, mIntelligentType6)

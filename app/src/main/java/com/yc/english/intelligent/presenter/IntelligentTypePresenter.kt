@@ -1,9 +1,11 @@
 package com.yc.english.intelligent.presenter
 
 import android.content.Context
+import android.text.TextUtils
 import android.util.Log
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.google.gson.Gson
 import com.hwangjr.rxbus.RxBus
@@ -11,6 +13,7 @@ import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
 import com.kk.securityhttp.net.contains.HttpConfig
+import com.kk.utils.LogUtil
 import com.yc.english.base.presenter.BasePresenter
 import com.yc.english.base.utils.SimpleCacheUtils
 import com.yc.english.intelligent.contract.IntelligentTypeContract
@@ -44,17 +47,26 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
         var title = ""
         var versionId = 0
         if (versionInfo != null) {
-            title = versionInfo.name ?: versionInfo?.title ?: "人教版"
+            LogUtil.msg("getUnit:  " + versionInfo.title + "--" + versionInfo.alias + "--" + versionInfo.name)
+
+            title = versionInfo.alias ?: versionInfo.title ?: ""
+            if (TextUtils.isEmpty(title)) {
+                title = if (versionInfo.name!!.contains("PEP")) {
+                    "小学"
+                } else {
+                    "初中"
+                }
+            }
             versionId = versionInfo.versionId ?: 22
         } else {
             versionInfo = VGInfoWarpper.VGInfo()
             val period = SPUtils.getInstance().getString("period", "0")
             if (period == "0") {
-                title = "人教版PEP"
+                title = "小学"
                 versionId = 9
                 versionInfo.id = 69
             } else {
-                title = "人教版"
+                title = "初中"
                 versionId = 22
                 versionInfo.id = 200
             }
@@ -107,7 +119,8 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK) {
                 if (it?.data?.list != null) {
-                    SimpleCacheUtils.writeCache(mContext, "getUnit", JSON.toJSONString(it.data?.list ?: ""))
+                    SimpleCacheUtils.writeCache(mContext, "getUnit", JSON.toJSONString(it.data?.list
+                            ?: ""))
                     showInfo(it?.data?.list!!)
                 }
             }

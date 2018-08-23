@@ -2,9 +2,12 @@ package com.yc.english.vip.views.fragments;
 
 
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +31,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.functions.Action1;
 
 /**
@@ -75,6 +80,10 @@ public class BaseVipPayFragment extends BaseFragment {
     BasePayItemView baseItemViewPlan;
     @BindView(R.id.baseItemView_task_tutorship)
     BasePayItemView baseItemViewTaskTutorship;
+    @BindView(R.id.baseItemView_video_fast)
+    BasePayItemView baseItemViewVideoFast;
+    @BindView(R.id.vip_price_unit)
+    TextView vipPriceUnit;
 
 
     private int mType;//1.提分辅导2.VIP会员3.单次购买
@@ -121,14 +130,18 @@ public class BaseVipPayFragment extends BaseFragment {
             tvVipSixMonth.setText("3个月");
             tvVipTweenMonth.setText("6个月");
             tvVipForever.setVisibility(View.INVISIBLE);
-
             setGoodInfo(position, sVipList);
 
 
         } else if (mType == GoodsType.TYPE_GENERAL_VIP) {
+            tvVipThreeMonth.setVisibility(View.GONE);
+            tvVipSixMonth.setVisibility(View.GONE);
+            tvVipTweenMonth.setVisibility(View.GONE);
             tvVipForever.setText("永久会员");
+            setTextStyle(tvVipForever);
             baseItemViewWeike.setContentAndIcon("微课免费看", 0);
-            baseItemViewTeach.setContentAndIcon("名师辅导群", R.mipmap.vip_common_teach);
+            baseItemViewTeach.setContentAndIcon("智能测评", R.mipmap.vip_ceping);
+            baseItemViewVideoFast.setContentAndIcon("个人学习计划", R.mipmap.vip_plan);
             setGoodInfo(position, generalVipList);
         } else {
             llFirstContent.setVisibility(View.GONE);
@@ -165,7 +178,7 @@ public class BaseVipPayFragment extends BaseFragment {
 
         }
 
-        setTextStyle(tvVipThreeMonth);
+//        setTextStyle(tvVipThreeMonth);
 
         tvVipOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
         viewList.add(llVipWx);
@@ -251,7 +264,11 @@ public class BaseVipPayFragment extends BaseFragment {
 
     private void setGoodVipInfo(int position, List<GoodInfo> goodInfoList) {
         if (goodInfoList != null && position < goodInfoList.size()) {
-            goodInfo = goodInfoList.get(position);
+            if (mType == GoodsType.TYPE_GENERAL_VIP) {
+                goodInfo = goodInfoList.get(0);
+            } else {
+                goodInfo = goodInfoList.get(position);
+            }
             String payPrice = goodInfo.getPay_price();
             int realPrice = (int) (Float.parseFloat(payPrice));
             vipCurrentPrice.setText(payPrice);

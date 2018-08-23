@@ -133,7 +133,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                     }
                 } else {
                     Bundle bundle = new Bundle();
-                    bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_SINGLE_DIANDU);
+                    bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
                     VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
                     MobclickAgent.onEvent(BookUnitActivity.this, "textbook_read", "教材点读");
                 }

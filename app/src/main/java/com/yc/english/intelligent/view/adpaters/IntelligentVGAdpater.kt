@@ -23,6 +23,6 @@ class IntelligentVGAdpater : BaseQuickAdapter<VGInfoWarpper.VGInfo, BaseViewHold
             helper?.getView<TextView>(R.id.tv_title)?.isSelected = false
         }
 
-        helper?.setText(R.id.tv_title, item?.name ?: item?.title ?: "")
+        helper?.setText(R.id.tv_title, item?.alias ?: item?.title ?: "")
     }
 }

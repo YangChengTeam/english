@@ -29,20 +29,20 @@
                 gb:text="@string/main_tab_index"></com.yc.english.main.view.wdigets.TabItem>
 
             <com.yc.english.main.view.wdigets.TabItem
-                android:id="@+id/item_task"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                gb:src="@mipmap/main_tab_task"
-                gb:text="@string/main_tab_task"></com.yc.english.main.view.wdigets.TabItem>
-
-            <com.yc.english.main.view.wdigets.TabItem
                 android:id="@+id/item_intelligent"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 gb:src="@mipmap/main_tab_intelligent"
                 gb:text="@string/main_tab_intelligent"></com.yc.english.main.view.wdigets.TabItem>
+
+            <com.yc.english.main.view.wdigets.TabItem
+                android:id="@+id/item_task"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                gb:src="@mipmap/main_tab_task"
+                gb:text="@string/main_tab_task"></com.yc.english.main.view.wdigets.TabItem>
 
 
             <com.yc.english.main.view.wdigets.TabItem

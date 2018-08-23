@@ -45,7 +45,7 @@ public abstract class BaseDialogFragment<P extends BasePresenter> extends Dialog
             window.setGravity(Gravity.BOTTOM);//((ViewGroup) window.findViewById(android.R.id.content))
             rootView = inflater.inflate(getLayoutId(), ((ViewGroup) window.findViewById(android.R.id.content)), false);
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//注意此处
-            window.setLayout(ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight() * 2 / 3 + SizeUtils.dp2px(50));//这2行,和上面的一样,注意顺序就行;
+            window.setLayout(ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight()*3  / 5 + SizeUtils.dp2px(50));//这2行,和上面的一样,注意顺序就行;
             window.setWindowAnimations(R.style.vip_style);
             try {
                 ButterKnife.bind(this, rootView);

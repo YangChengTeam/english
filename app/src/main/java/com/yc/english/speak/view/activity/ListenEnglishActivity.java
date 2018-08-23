@@ -330,13 +330,13 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
                         protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
                             total = totalBytes / 1024 / 1024;
                             progresses = soFarBytes / 1024 / 1024;
-                            Log.e("progress total", "progress total--->" + total + "progress--->" + progresses);
+//                            Log.e("progress total", "progress total--->" + total + "progress--->" + progresses);
                         }
 
                         @Override
                         protected void completed(BaseDownloadTask task) {
                             progresses = total;
-                            Log.e("completed progress", " completed progress--->" + progresses);
+//                            Log.e("completed progress", " completed progress--->" + progresses);
 //                            ToastUtils.showLong("资源文件下载完成");
                             downAudioLrcFile();//继续下载资源词句文件
                         }

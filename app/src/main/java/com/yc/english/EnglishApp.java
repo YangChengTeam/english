@@ -40,6 +40,7 @@ public class EnglishApp extends MultiDexApplication {
     //是否开启了分享获取VIP试用资格
     public static boolean isOpenShareVip;
 
+    //体验时间（单位：天）
     public static int trialDays;
 
     @Override

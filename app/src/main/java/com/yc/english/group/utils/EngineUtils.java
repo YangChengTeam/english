@@ -430,7 +430,9 @@ public class EngineUtils {
      * @param context
      * @return
      */
-    public static Observable<ResultInfo<ShareStateInfo>> getShareVipState(Context context) {
+    public static Observable<ResultInfo<ShareStateInfo>> getShareVipState(Context context,String user_id) {
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", user_id);
         return HttpCoreEngin.get(context).rxpost(NetConstant.share_is_vip, new TypeReference<ResultInfo<ShareStateInfo>>() {
         }.getType(), null, true, true, true);
     }

@@ -259,7 +259,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                     }
                     if (!isRead) {
                         Bundle bundle = new Bundle();
-                        bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_SINGLE_DIANDU);
+                        bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
                         VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
                         return;
                     }

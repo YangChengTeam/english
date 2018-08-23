@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">说说英语</string>
+    <string name="app_name">英语点读学习</string>
 
     <string name="rc_voice_rec">手指上滑，取消发送</string>
     <string name="rc_voice_cancel">松开手指，取消发送</string>
@@ -17,4 +17,5 @@
     <string name="reference_answer">参考答案:</string>
     <string name="analysis">解析</string>
     <string name="knowledge">考查知识点</string>
+    <string name="select_grade">选年级</string>
 </resources>

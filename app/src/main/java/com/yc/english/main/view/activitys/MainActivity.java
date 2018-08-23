@@ -66,7 +66,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mTabBar.setOnTabSelectedListener(new TabBar.OnTabSelectedListener() {
             @Override
             public void onSelected(int idx) {
-                if (idx == 2 && SPUtils.getInstance().getString(BGKEY, "").isEmpty()) {
+                if (idx == 1 && SPUtils.getInstance().getString(BGKEY, "").isEmpty()) {
                     startActivity(new Intent(MainActivity.this, IntelligentTypeStartBgActivity.class));
                     return;
                 }
@@ -113,7 +113,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     public void goToTask() {
-        mTabBar.tab(1);
+        mTabBar.tab(2);
     }
 
     public void goToMy() {
@@ -121,7 +121,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     public void goToIntelligent() {
-        mTabBar.tab(2);
+        mTabBar.tab(1);
     }
 
 
@@ -146,15 +146,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 }
                 return mIndexFragment;
             } else if (position == 1) {
-                if (mClassMainFragment == null) {
-                    mClassMainFragment = new CourseTypeFragment();
-                }
-                return mClassMainFragment;
-            } else if (position == 2) {
                 if (mIntelligentFragment == null) {
                     mIntelligentFragment = new IntelligentTypeFragment();
                 }
                 return mIntelligentFragment;
+            } else if (position == 2) {
+                if (mClassMainFragment == null) {
+                    mClassMainFragment = new CourseTypeFragment();
+                }
+                return mClassMainFragment;
             } else if (position == 3) {
                 if (mMyFragment == null) {
                     mMyFragment = new MyFragment();

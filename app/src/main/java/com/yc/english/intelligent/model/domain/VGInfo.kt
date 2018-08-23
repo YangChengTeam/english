@@ -19,8 +19,10 @@ class VGInfoWarpper {
         var title: String? = null
 
         @JSONField(name = "part_type")
-        var partType: Int  = 0
+        var partType: Int = 0
 
         var isSelect = false
+
+        var alias: String? = null
     }
 }

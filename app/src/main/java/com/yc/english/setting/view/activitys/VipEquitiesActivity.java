@@ -1,5 +1,6 @@
 package com.yc.english.setting.view.activitys;
 
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -22,6 +23,7 @@ import com.yc.english.base.view.BaseActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.vip.views.fragments.BasePayItemView;
 
@@ -109,7 +111,9 @@ public class VipEquitiesActivity extends BaseActivity {
         RxView.clicks(mBtnOpenVip).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
+                Bundle bundle = new Bundle();
+                bundle.putInt(GoodsType.GOODS_KEY,GoodsType.TYPE_GENERAL_VIP);
+                VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
             }
         });
     }

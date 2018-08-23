@@ -42,11 +42,11 @@ public class MusicPlayService extends Service implements MediaPlayer.OnCompletio
         RxBus.get().register(this);
         if (mMediaPlayer == null) {
             mMediaPlayer = new MediaPlayer();
-            mMediaPlayer.setOnCompletionListener(this);
-            mMediaPlayer.setOnPreparedListener(this);
-            mMediaPlayer.setOnErrorListener(this);
-            mMediaPlayer.setOnBufferingUpdateListener(this);
         }
+        mMediaPlayer.setOnCompletionListener(this);
+        mMediaPlayer.setOnPreparedListener(this);
+        mMediaPlayer.setOnErrorListener(this);
+        mMediaPlayer.setOnBufferingUpdateListener(this);
     }
 
     @Override

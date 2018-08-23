@@ -59,22 +59,27 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
             finish()
         }
 
-        if (UserInfoHelper.getUserInfo() != null && UserInfoHelper.getUserInfo().isVip == 2) {
-            mStartPushBtn.text = "进入个性化学习"
-        }
+        mStartPushBtn.text = "进入个性化学习"
+//        if (UserInfoHelper.getUserInfo() != null && UserInfoHelper.getUserInfo().isVip == 2) {
+//            mStartPushBtn.text = "进入个性化学习"
+//        }
 
         RxView.clicks(mStartPushBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
-            if (UserInfoHelper.getUserInfo() != null && UserInfoHelper.getUserInfo().isVip == 2) {
-                mStartPushBtn.text = "进入个性化学习"
-                val intent = Intent(this@IntelligentReportActivity, IntelligentsPushQuestionActivity::class.java)
-                intent.putExtra("reportId", reportId)
-                startActivity(intent)
-            } else {
-                val bundle = Bundle()
-                bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_SINGLE_INDIVIDUALITY_PLAN)
-                VipDialogHelper.showVipDialog(supportFragmentManager, "", bundle)
-            }
+
+            val intent = Intent(this@IntelligentReportActivity, IntelligentsPushQuestionActivity::class.java)
+            intent.putExtra("reportId", reportId)
+            startActivity(intent)
+//            if (UserInfoHelper.getUserInfo() != null && UserInfoHelper.getUserInfo().isVip == 2) {
+//                mStartPushBtn.text = "进入个性化学习"
+//                val intent = Intent(this@IntelligentReportActivity, IntelligentsPushQuestionActivity::class.java)
+//                intent.putExtra("reportId", reportId)
+//                startActivity(intent)
+//            } else {
+//                val bundle = Bundle()
+//                bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_SINGLE_INDIVIDUALITY_PLAN)
+//                VipDialogHelper.showVipDialog(supportFragmentManager, "", bundle)
+//            }
         }
 
         RxView.clicks(mShareBtn).throttleFirst(200, TimeUnit

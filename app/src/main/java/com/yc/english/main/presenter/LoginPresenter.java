@@ -8,13 +8,18 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.utils.LogUtil;
+import com.yc.english.EnglishApp;
+import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
+import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.contract.LoginContract;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.main.model.engin.LoginEngin;
+import com.yc.english.setting.model.bean.ShareStateInfo;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -71,10 +76,12 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
                 handleResultInfo(resultInfo, new Runnable() {
                     @Override
                     public void run() {
+                        LogUtil.msg("login success");
                         UserInfoHelper.utils(mContext, resultInfo);
                         RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form getUserInfo");
                         RxBus.get().post(Constant.GET_UNIT, "form getUserInfo");
                         RxBus.get().post(Constant.USER_INFO, "form getUserInfo");
+                        getOpenShareVip(resultInfo.data.getInfo().getUid());
                         mView.finish();
                     }
                 });
@@ -105,4 +112,49 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
         mSubscriptions.add(subscription);
     }
 
+    /**
+     * 分享是否开启体验VIP
+     */
+    private void getOpenShareVip(String usr_id) {
+
+        LogUtil.msg("login success  " + usr_id);
+        Subscription subscription = EngineUtils.getShareVipState(mContext, usr_id).subscribe(new Subscriber<ResultInfo<ShareStateInfo>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<ShareStateInfo> shareResult) {
+                ResultInfoHelper.handleResultInfo(shareResult, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (shareResult.data != null) {
+                            if (shareResult.data.getStatus() == 1) {
+                                EnglishApp.isOpenShareVip = true;
+                                EnglishApp.trialDays = shareResult.data.getDays();
+                            }
+                        }
+                    }
+                });
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
 }

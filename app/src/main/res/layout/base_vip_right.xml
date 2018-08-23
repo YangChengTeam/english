@@ -57,7 +57,7 @@
                     app:vip_icon="@mipmap/vip_teach" />
 
                 <com.yc.english.vip.views.fragments.BasePayItemView
-
+                    android:id="@+id/baseItemView_video_fast"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -78,6 +78,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:visibility="gone"
                     app:vip_content="无线建工会"
                     app:vip_content_size="@dimen/group_text_10"
                     app:vip_icon="@mipmap/vip_union" />
@@ -132,6 +133,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:weightSum="4"
             android:layout_marginLeft="@dimen/group_distance_15">
 
             <TextView
@@ -249,6 +251,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/vip_payway" />
+
         <LinearLayout
             android:id="@+id/ll_vip_wx"
             android:layout_width="wrap_content"

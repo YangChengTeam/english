@@ -453,7 +453,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         VipDialogHelper.dismissVipDialog();
         Bundle bundle = new Bundle();
         bundle.putParcelable("courseInfo", currentCourseInfo);
-        bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_SINGLE_WEIKE);
+        bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
         VipDialogHelper.showVipDialog(getSupportFragmentManager(), null, bundle);
         MobclickAgent.onEvent(this, "weike_video", "视频微课学习");
 

@@ -131,4 +131,6 @@ public class UserInfo {
     public void setVip_start_time(long vip_start_time) {
         this.vip_start_time = vip_start_time;
     }
+
+
 }
