@@ -98,10 +98,8 @@ public class VipScoreTutorshipActivity extends BaseActivity {
         });
 
         UserInfo userInfo = UserInfoHelper.getUserInfo();
-        if (userInfo == null) {
-            isVip = false;
-        } else {
-            isVip = userInfo.getIsVip() == 2;
+        if (userInfo != null && userInfo.getIsVip() == 1) {
+            isVip = true;
         }
 
         rlBtn.setVisibility(isVip ? View.GONE : View.VISIBLE);
@@ -131,7 +129,7 @@ public class VipScoreTutorshipActivity extends BaseActivity {
             public void call(Void aVoid) {
                 if (!UserInfoHelper.isGotoLogin(VipScoreTutorshipActivity.this)) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt(GoodsType.GOODS_KEY,GoodsType.TYPE_GENERAL_VIP);
+                    bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
                     VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
                 }
             }

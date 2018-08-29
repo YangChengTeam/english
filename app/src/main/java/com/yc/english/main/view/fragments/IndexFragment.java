@@ -2,12 +2,16 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,13 +37,12 @@ import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
-import com.yc.english.base.view.SelectGradePopupWindow;
+import com.yc.english.base.view.IndexVipKidDialog;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.group.view.activitys.CoachScoreActivity;
-import com.yc.english.group.view.activitys.GroupMainActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.model.domain.Constant;
@@ -57,15 +60,20 @@ import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
 import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.activitys.CourseActivity;
+import com.yc.english.weixin.views.activitys.CourseClassifyActivity;
 import com.yc.english.weixin.views.activitys.CourseTypeActivity;
 import com.yc.english.weixin.views.activitys.WeikeUnitActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.functions.Action1;
 
 
@@ -120,6 +128,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     LinearLayout mllRecommendMore;
     @BindView(R.id.rv_recommend)
     RecyclerView mRvRecommend;
+    @BindView(R.id.iv_weike)
+    ImageView ivWeike;
+    @BindView(R.id.iv_spoken)
+    ImageView ivSpoken;
+
 
     private AritleAdapter mHotMircoClassAdapter;
 
@@ -162,6 +175,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
+        //课本点读入口
         RxView.clicks(mReadImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -242,10 +256,15 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void call(Void aVoid) {
                 if (advInfo == null) return;
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("title", "小学英语音标点读");
-                intent.putExtra("url", advInfo.getTypeValue());
+                MobclickAgent.onEvent(getActivity(), advInfo.getStatistics());
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(advInfo.getTypeValue()));
                 startActivity(intent);
+
+//                Intent intent = new Intent(getActivity(), WebActivity.class);
+//                intent.putExtra("title", "小说阅读");
+//                intent.putExtra("url", advInfo.getTypeValue());
+//                startActivity(intent);
             }
         });
 
@@ -256,7 +275,10 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 // todo 这里是在线作业 融云im模块
 //                Intent intent = new Intent(getActivity(), GroupMainActivity.class);
 //                startActivity(intent);
-                ToastUtil.toast2(getActivity(), "功能正在开发中...");
+
+
+//                ToastUtil.toast2(getActivity(), "功能正在开发中...");
+                switchSmallProcedure(GroupConstant.assistant_originid, GroupConstant.appid);
 
 //                SlideInfo slideInfo = mPresenter.getSlideInfo(0);
 //                if (slideInfo.getType().equals("2")) {
@@ -302,6 +324,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void OnBannerClick(int position) {
                 SlideInfo slideInfo = mPresenter.getSlideInfo(position);
+                //友盟统计各个幻灯点击数
+                MobclickAgent.onEvent(getActivity(), slideInfo.getStatistics());
                 if (slideInfo.getType().equals("0")) {
                     if (EmptyUtils.isEmpty(slideInfo.getTypeValue())) {
                         return;
@@ -379,6 +403,25 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
+        RxView.clicks(ivWeike).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                MobclickAgent.onEvent(getActivity(), "synchronous_weike", "同步微课");
+                Intent intent = new Intent(getActivity(), CourseClassifyActivity.class);
+                intent.putExtra("type", 8);
+                startActivity(intent);
+            }
+        });
+        RxView.clicks(ivSpoken).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                MobclickAgent.onEvent(getActivity(), "spoken_teach", "口语学习");
+                Intent intent = new Intent(getActivity(), CourseClassifyActivity.class);
+                intent.putExtra("type", 7);
+                startActivity(intent);
+            }
+        });
+
 
         if (SPUtils.getInstance().getString("period", "").isEmpty()) {
 
@@ -394,6 +437,28 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //            });
 
         }
+        if (isShowDialog()) {
+
+            IndexVipKidDialog indexVipKidDialog = new IndexVipKidDialog(getActivity());
+            indexVipKidDialog.show();
+        }
+    }
+
+    //1.当天是否弹出过
+    //2.当天时间过后替换成最新时间
+    private boolean isShowDialog() {
+        boolean isShow = false;
+        int days = SPUtils.getInstance().getInt(GroupConstant.EVERY_DAY_DIALOG, 0);//保存的时间
+        LogUtil.msg("days:  " + days);
+//        Date date = new Date();
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+        if (days < day) {
+            isShow = true;
+            SPUtils.getInstance().put(GroupConstant.EVERY_DAY_DIALOG, day);
+        }
+
+        return isShow;
+
 
     }
 
@@ -467,7 +532,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             mHotMircoClassAdapter.addData(indexInfo.getWeike());
         }
         if (indexInfo.getTuijian() != null) {
-            mRecommendAdapter.addData(indexInfo.getTuijian());
+            List<CourseInfo> tuijians = indexInfo.getTuijian();
+            if (tuijians.size() > 5) {
+                tuijians = indexInfo.getTuijian().subList(0, 5);
+            }
+            mRecommendAdapter.setNewData(tuijians);
         }
         if (indexInfo.getAdvInfo() != null && indexInfo.getAdvInfo().size() > 0) {
             SlideInfo slideInfo = indexInfo.getAdvInfo().get(0);

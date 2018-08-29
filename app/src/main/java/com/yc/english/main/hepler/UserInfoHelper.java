@@ -167,7 +167,7 @@ public class UserInfoHelper {
                     @Override
                     public void reulstInfoOk() {
                         UserInfoHelper.saveUserInfo(userInfoResultInfo.data.getInfo());
-                        getOpenShareVip(context, userInfoResultInfo.data.getInfo().getUid());
+//                        getOpenShareVip(context, userInfoResultInfo.data.getInfo().getUid());
 //                        UserInfoHelper.connect(context, userInfoResultInfo.data.getInfo().getUid());
                     }
                 });

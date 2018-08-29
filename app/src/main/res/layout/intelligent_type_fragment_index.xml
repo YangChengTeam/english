@@ -28,7 +28,6 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:text="人教版八年级上"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_big" />
 
@@ -39,6 +38,7 @@
                     android:layout_alignParentRight="true"
                     android:background="@drawable/base_tran_ripple_bg"
                     android:gravity="center"
+                    android:paddingLeft="@dimen/group_distance_10"
                     android:paddingRight="@dimen/group_distance_10">
 
 
@@ -52,7 +52,7 @@
                         android:id="@+id/iv_select"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/intelligent_type" />
+                        android:src="@mipmap/arrow_down" />
 
                 </LinearLayout>
             </RelativeLayout>

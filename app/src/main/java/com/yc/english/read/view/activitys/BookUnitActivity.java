@@ -95,6 +95,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
         mItemAdapter = new ReadBookUnitItemClickAdapter(this, mBookUnitDatas);
         mBookUnitRecyclerView.setAdapter(mItemAdapter);
         mBookUnitRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(10)));
+        userInfo = UserInfoHelper.getUserInfo();
         mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -108,14 +109,9 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                 if (unitInfo.getFree() == 1) {
                     isRead = true;
                 } else {
-                    userInfo = UserInfoHelper.getUserInfo();
                     if (userInfo != null) {
-                        int isVip = UserInfoHelper.getUserInfo().getIsVip();
-                        if (isVip == 1 || isVip == 2 || isVip == 4) {
-                            isRead = true;
-                        } else {
-                            isRead = false;
-                        }
+                        int isVip =userInfo.getIsVip();
+                        isRead = isVip == 1;
                     } else {
                         UserInfoHelper.isGotoLogin(BookUnitActivity.this);
                         return;

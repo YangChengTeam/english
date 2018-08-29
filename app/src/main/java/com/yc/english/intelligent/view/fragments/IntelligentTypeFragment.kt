@@ -5,10 +5,12 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.view.Gravity
 import com.blankj.subutil.util.ThreadPoolUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.UIUitls
 import com.jakewharton.rxbinding.view.RxView
+import com.kk.utils.LogUtil
 import com.shizhefei.view.indicator.slidebar.ColorBar
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener
 import com.yc.english.R
@@ -33,6 +35,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
         isUseInKotlin = true
     }
 
+    var popupWindow: IntelligentVGSelectPopupWindow? = null
     override fun init() {
         mPresenter = IntelligentTypePresenter(activity!!, this)
         StatusBarCompat.compat(activity as BaseActivity<*>, mToolbarWarpper, mToolbar, R.mipmap.base_actionbar)
@@ -63,8 +66,17 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
             }
         })
 
+//
         RxView.clicks(mIntelligentType).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe {
-            IntelligentVGSelectPopupWindow(activity!!).show(activity!!.window.decorView.rootView, Gravity.CENTER)
+            val popupWindow = IntelligentVGSelectPopupWindow(activity!!)
+            popupWindow.show(activity!!.window.decorView.rootView, Gravity.CENTER)
+            iv_select.setImageResource(R.mipmap.arrow_up)
+            popupWindow.setOnDismissListener { iv_select.setImageResource(R.mipmap.arrow_down) }
+
+        }
+
+        if (popupWindow != null) {
+
         }
 
         ThreadPoolUtils(ThreadPoolUtils.SingleThread, 5).execute {
@@ -76,6 +88,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
             }
         }
 
+        LogUtil.msg("period:  " + SPUtils.getInstance().getString("period", ""))
         if (!SPUtils.getInstance().getString("period", "").isEmpty()) {
             mPresenter.getUnit("loadData")
         }

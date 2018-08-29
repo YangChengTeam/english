@@ -8,7 +8,7 @@
         android:layout_width="83dp"
         android:layout_height="30dp"
         android:background="@drawable/intelligents_item_vg_selector"
-        android:text="人教版"
+
         android:textColor="@color/black_333"
         android:textSize="@dimen/font_small"
         android:layout_centerInParent="true"

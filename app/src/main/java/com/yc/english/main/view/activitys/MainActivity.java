@@ -1,5 +1,6 @@
 package com.yc.english.main.view.activitys;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Parcelable;
@@ -11,6 +12,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.yc.english.R;
@@ -60,7 +63,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mainActivity = this;
 
         StatusBarCompat.light(this);
-
+        dimBackground(0.5f, 1.0f);
 
         mPresenter = new MainPresenter(this, this);
         mTabBar.setOnTabSelectedListener(new TabBar.OnTabSelectedListener() {
@@ -213,5 +216,21 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
     }
 
+
+    private void dimBackground(final float from, final float to) {
+        final Window window = getWindow();
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(from, to);
+        valueAnimator.setDuration(500);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                WindowManager.LayoutParams params = window.getAttributes();
+                params.alpha = (Float) animation.getAnimatedValue();
+                window.setAttributes(params);
+            }
+        });
+
+        valueAnimator.start();
+    }
 
 }

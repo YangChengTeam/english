@@ -34,9 +34,13 @@ public class Constant {
     public static final String RESULT_ANS = "result_ans";
 
 
-
     public static final String VIP_INFO_LIST_INFO = "vip_info_list_info";
 
     public static final String PAY_SIGNAL_SUCCESS = "pay_signal_success";
+
+    public static final String DEFAULT_VERSION_KEY = "default_version_key";
+
+    public static final String DEFAULT_GRADE_KEY = "default_grade_key";
+
 
 }

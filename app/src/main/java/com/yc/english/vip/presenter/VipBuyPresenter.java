@@ -81,7 +81,7 @@ public class VipBuyPresenter extends BasePresenter<BaseEngin, VipBuyContract.Vie
 
     public void getShareVipAllow(String userId) {
 
-        Subscription subscription = EngineUtils.getShareVipAllow(mContext, userId).subscribe(new Subscriber<ResultInfo>() {
+        Subscription subscription = EngineUtils.getShareVipAllow(mContext, userId).subscribe(new Subscriber<ResultInfo<Integer>>() {
             @Override
             public void onCompleted() {
 
@@ -93,7 +93,7 @@ public class VipBuyPresenter extends BasePresenter<BaseEngin, VipBuyContract.Vie
             }
 
             @Override
-            public void onNext(final ResultInfo shareResult) {
+            public void onNext(final ResultInfo<Integer> shareResult) {
                 ResultInfoHelper.handleResultInfo(shareResult, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
@@ -107,7 +107,7 @@ public class VipBuyPresenter extends BasePresenter<BaseEngin, VipBuyContract.Vie
 
                     @Override
                     public void reulstInfoOk() {
-                        mView.shareAllow();
+                        mView.shareAllow(shareResult.data);
                     }
                 });
 

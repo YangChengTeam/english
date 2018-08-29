@@ -17,5 +17,5 @@
     <string name="reference_answer">参考答案:</string>
     <string name="analysis">解析</string>
     <string name="knowledge">考查知识点</string>
-    <string name="select_grade">选年级</string>
+    <string name="select_grade">年级</string>
 </resources>

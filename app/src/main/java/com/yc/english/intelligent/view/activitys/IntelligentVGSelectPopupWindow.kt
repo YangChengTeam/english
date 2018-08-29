@@ -5,10 +5,12 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import butterknife.BindView
 import com.alibaba.fastjson.JSON
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.hwangjr.rxbus.RxBus
 import com.jakewharton.rxbinding.view.RxView
 import com.kk.securityhttp.net.contains.HttpConfig
+import com.kk.utils.LogUtil
 import com.yc.english.EnglishApp
 import com.yc.english.R
 import com.yc.english.base.view.BasePopupWindow
@@ -36,33 +38,30 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
     lateinit var mGradeAdapter: IntelligentVGAdpater
     lateinit var typeEngin: IntelligentTypeEngin
 
-    companion object {
-        const val DEFAULT_VERSION_KEY = "DEFAULT_VERSION_KEY"
-        const val DEFAULT_GRADE_KEY = "DEFAULT_GRADE_KEY"
-    }
 
     override fun init() {
         typeEngin = IntelligentTypeEngin(mContext)
 
         mVersionAdapter = IntelligentVGAdpater()
-        mVersionAdapter.defaultInfo = JSON.parseObject(SPUtils.getInstance().getString(DEFAULT_VERSION_KEY, ""),
+        mVersionAdapter.defaultInfo = JSON.parseObject(SPUtils.getInstance().getString(Constant.DEFAULT_VERSION_KEY, ""),
                 VGInfoWarpper.VGInfo::class.java)
         mVersionRecyclerView.adapter = mVersionAdapter
         mVersionRecyclerView.layoutManager = GridLayoutManager(mContext, 3)
 
 
         mGradeAdapter = IntelligentVGAdpater()
-        mGradeAdapter.defaultInfo = JSON.parseObject(SPUtils.getInstance().getString(DEFAULT_GRADE_KEY, ""),
+        mGradeAdapter.defaultInfo = JSON.parseObject(SPUtils.getInstance().getString(Constant.DEFAULT_GRADE_KEY, ""),
                 VGInfoWarpper.VGInfo::class.java)
         mGradeRecyclerView.adapter = mGradeAdapter
         mGradeRecyclerView.layoutManager = GridLayoutManager(mContext, 3)
 
         mVersionAdapter.setOnItemClickListener { adapter, view, position ->
+
             val vgInfo = mVersionAdapter.data.get(position)
             if ((mVersionAdapter.defaultInfo?.id ?: 0) == vgInfo.id) {
                 return@setOnItemClickListener
             }
-            SPUtils.getInstance().put(DEFAULT_VERSION_KEY, JSON.toJSONString(vgInfo))
+            SPUtils.getInstance().put(Constant.DEFAULT_VERSION_KEY, JSON.toJSONString(vgInfo))
             if (vgInfo.name!!.contains("PEP")) {
                 SPUtils.getInstance().put("period", "0")
             } else {
@@ -80,7 +79,7 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
                 return@setOnItemClickListener
             }
             mGradeAdapter.defaultInfo = vgInfo
-            SPUtils.getInstance().put(DEFAULT_GRADE_KEY, JSON.toJSONString(vgInfo))
+            SPUtils.getInstance().put(Constant.DEFAULT_GRADE_KEY, JSON.toJSONString(vgInfo))
             adapter.notifyDataSetChanged()
             RxBus.get().post(Constant.GET_UNIT, "from select")
             dismiss()
@@ -104,7 +103,7 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
             if (code == HttpConfig.STATUS_OK) {
                 if (mVersionAdapter.defaultInfo == null) {
                     getGrade(it.data?.list?.get(0)!!)
-                    SPUtils.getInstance().put(IntelligentVGSelectPopupWindow.DEFAULT_VERSION_KEY, JSON.toJSONString(it.data?.list?.get(0)!!))
+                    SPUtils.getInstance().put(Constant.DEFAULT_VERSION_KEY, JSON.toJSONString(it.data?.list?.get(0)!!))
                 } else {
                     getGrade(mVersionAdapter.defaultInfo!!)
                 }

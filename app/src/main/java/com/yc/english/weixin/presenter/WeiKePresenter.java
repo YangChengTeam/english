@@ -1,6 +1,7 @@
 package com.yc.english.weixin.presenter;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.NetworkUtils;
@@ -32,6 +33,7 @@ import rx.Subscription;
 public class WeiKePresenter extends BasePresenter<WeiKeEngin, WeiKeContract.View> implements WeiKeContract.Presenter {
 
     private final String WEIKE_INFO = "weike_info";
+    private final String SPOKEN_INFO = "spoken_info";
 
     public WeiKePresenter(Context context, WeiKeContract.View iView) {
         super(context, iView);
@@ -44,11 +46,19 @@ public class WeiKePresenter extends BasePresenter<WeiKeEngin, WeiKeContract.View
     }
 
     @Override
-    public void getWeikeCategoryList(final String page) {
+    public void getWeikeCategoryList(String type, final String page) {
         if (page.equals("1")) {
             mView.showLoading();
         }
-        SimpleCacheUtils.readCache(mContext, WEIKE_INFO, new SimpleCacheUtils.CacheRunnable() {
+        String key = "";
+        if (TextUtils.equals("7", type)) {
+            key = SPOKEN_INFO;
+        } else if (TextUtils.equals("8", type)) {
+            key = WEIKE_INFO;
+        }
+
+
+        SimpleCacheUtils.readCache(mContext, key, new SimpleCacheUtils.CacheRunnable() {
             @Override
             public void run() {
                 final WeiKeCategoryWrapper weiKeCategoryWrapper = JSON.parseObject(this.getJson(), WeiKeCategoryWrapper.class);
@@ -68,7 +78,8 @@ public class WeiKePresenter extends BasePresenter<WeiKeEngin, WeiKeContract.View
         if (NetworkUtils.getNetworkType() == NetworkUtils.NetworkType.NETWORK_NO) {
             return;
         }
-        Subscription subscription = mEngin.getWeikeCategoryList(null, page).subscribe(new Subscriber<ResultInfo<WeiKeCategoryWrapper>>() {
+        final String finalKey = key;
+        Subscription subscription = mEngin.getWeikeCategoryList(type, page).subscribe(new Subscriber<ResultInfo<WeiKeCategoryWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -103,7 +114,7 @@ public class WeiKePresenter extends BasePresenter<WeiKeEngin, WeiKeContract.View
                     @Override
                     public void reulstInfoOk() {
                         if (weikeCategoryWrapper.data != null) {
-                            showWeikeCategoryList(weikeCategoryWrapper.data, true);
+                            showWeikeCategoryList(weikeCategoryWrapper.data, finalKey, true);
 
                             if (page.equals("1")) {
                                 mView.hideStateView();
@@ -121,9 +132,9 @@ public class WeiKePresenter extends BasePresenter<WeiKeEngin, WeiKeContract.View
         mSubscriptions.add(subscription);
     }
 
-    private void showWeikeCategoryList(WeiKeCategoryWrapper categoryWrapper, boolean isCached) {
+    private void showWeikeCategoryList(WeiKeCategoryWrapper categoryWrapper, String finalKey, boolean isCached) {
         if (isCached) {
-            SimpleCacheUtils.writeCache(mContext, WEIKE_INFO, JSON.toJSONString(categoryWrapper));
+            SimpleCacheUtils.writeCache(mContext, finalKey, JSON.toJSONString(categoryWrapper));
         }
         mView.showWeikeCategoryList(categoryWrapper);
 

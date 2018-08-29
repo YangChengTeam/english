@@ -1,7 +1,6 @@
 package com.yc.english.intelligent.model.engin
 
 import android.content.Context
-import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference
 import com.kk.securityhttp.domain.ResultInfo
 import com.kk.securityhttp.engin.HttpCoreEngin

@@ -437,11 +437,11 @@ public class EngineUtils {
         }.getType(), null, true, true, true);
     }
 
-    public static Observable<ResultInfo> getShareVipAllow(Context context, String user_id) {
+    public static Observable<ResultInfo<Integer>> getShareVipAllow(Context context, String user_id) {
         Map<String, String> params = new HashMap<>();
         params.put("user_id", user_id);
 
-        return HttpCoreEngin.get(context).rxpost(NetConstant.share_is_allow, new TypeReference<ResultInfo>() {
+        return HttpCoreEngin.get(context).rxpost(NetConstant.share_is_allow, new TypeReference<ResultInfo<Integer>>() {
         }.getType(), params, true, true, true);
     }
 

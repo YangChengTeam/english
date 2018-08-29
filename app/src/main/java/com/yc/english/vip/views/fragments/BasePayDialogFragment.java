@@ -105,6 +105,8 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     private Timer timer = null;
     private boolean isDiandu;
     private boolean isWeike;
+
+
 //    private boolean isOther;
 
     @Override
@@ -190,8 +192,14 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 //            }
 //        });
 
-        if (EnglishApp.isOpenShareVip) {
-            btnShare.setVisibility(View.GONE);
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo != null) {
+            if (userInfo.getIsVip() == 1 && userInfo.getVip_end_time() > userInfo.getTest_end_time()) {
+                btnShare.setVisibility(View.GONE);
+            } else {
+                btnShare.setVisibility(View.VISIBLE);
+            }
+
         } else {
             btnShare.setVisibility(View.VISIBLE);
         }
@@ -694,22 +702,24 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     }
 
     @Override
-    public void shareAllow() {
+    public void shareAllow(Integer data) {
 
         if (sharePopupWindow != null && sharePopupWindow.isShowing()) {
             sharePopupWindow.dismiss();
         }
         VipDialogHelper.dismissVipDialog();
 
-        if (EnglishApp.trialDays > 0) {
+        if (data > 0) {
             LogUtils.i("shareAllow --->");
             UserInfo userInfo = UserInfoHelper.getUserInfo();
-            userInfo.setIsVip(2);
+            userInfo.setIsVip(1);
 
             userInfo.setVip_start_time(TimeUtils.getNowMills() / 1000);
-
-            long vip_end_time = TimeUtils.getNowMills() + EnglishApp.trialDays * (Config.MS_IN_A_DAY);
+//MS_IN_A_DAY
+            long vip_end_time = TimeUtils.getNowMills() + data * (Config.TEST_DAY);
+            long test_end_time = TimeUtils.getNowMills() + data * (Config.TEST_DAY);
             userInfo.setVip_end_time(vip_end_time / 1000);
+            userInfo.setTest_end_time(test_end_time / 1000);
 
             UserInfoHelper.saveUserInfo(userInfo);
         }

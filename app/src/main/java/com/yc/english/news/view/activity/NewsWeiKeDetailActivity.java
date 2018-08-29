@@ -270,28 +270,10 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     private boolean judgeVip() {
         boolean isPlay = true;
-        if (currentCourseInfo != null) {
-
-            //收费
-            if (currentCourseInfo.getIsPay() == 0) {
-                //未购买
-                if (currentCourseInfo.getUserHas() == 0) {
-                    if (userInfo != null) {
-                        if (userInfo.getIsVip() == 0 || userInfo.getIsVip() == 4) {
-                            isPlay = false;
-                        } else {
-                            if (currentCourseInfo.getIs_vip() == 0) {
-                                isPlay = false;
-                            }
-                        }
-                    } else {
-                        isPlay = false;
-                    }
-                } else {
-                    isPlay = true;
-                }
+        if (userInfo != null) {
+            if (userInfo.getIsVip() == 0) {
+                isPlay = false;
             }
-
             if (isPlay) {
                 mBuyNowLayout.setVisibility(View.GONE);
             } else {
@@ -300,8 +282,32 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
                 layoutParams.bottomMargin = SizeUtils.dp2px(45);
                 mSynchronizationTeachView.setLayoutParams(layoutParams);
             }
-
         }
+//        if (currentCourseInfo != null) {
+//
+//            //收费
+//            if (currentCourseInfo.getIsPay() == 0) {
+//                //未购买
+//                if (currentCourseInfo.getUserHas() == 0) {
+//                    if (userInfo != null) {
+//                        if (userInfo.getIsVip() == 0) {
+//                            isPlay = false;
+//                        } else {
+//                            if (currentCourseInfo.getIs_vip() == 0) {
+//                                isPlay = false;
+//                            }
+//                        }
+//                    } else {
+//                        isPlay = false;
+//                    }
+//                } else {
+//                    isPlay = true;
+//                }
+//            }
+//
+//
+//
+//        }
         return isPlay;
     }
 

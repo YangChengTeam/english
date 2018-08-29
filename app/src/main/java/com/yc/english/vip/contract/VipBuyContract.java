@@ -16,7 +16,7 @@ public interface VipBuyContract {
     interface View extends IView,IDialog,INoNet {
 
         void showOrderInfo(ResultInfo<OrderInfo> data, String s, String money);
-        void shareAllow();
+        void shareAllow(Integer data);
     }
 
     interface Presenter extends IPresenter {

@@ -112,7 +112,7 @@ public class VipEquitiesActivity extends BaseActivity {
             @Override
             public void call(Void aVoid) {
                 Bundle bundle = new Bundle();
-                bundle.putInt(GoodsType.GOODS_KEY,GoodsType.TYPE_GENERAL_VIP);
+                bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
                 VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
             }
         });
@@ -120,11 +120,19 @@ public class VipEquitiesActivity extends BaseActivity {
 
     private void initView() {
         if (userInfo != null) {
-            String endTime = TimeUtils.date2String(new Date(userInfo.getVip_end_time() * 1000), new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
-            mTvEndTime.setText(String.format(getString(R.string.vip_end_time), endTime));
-            if (userInfo.getIsVip() != 0 && endTime.equals("0")) {
-                mTvEndTime.setText(getString(R.string.forever_vip));
+            if (userInfo.getIsVip() == 1) {
+                if (userInfo.getVip_end_time() > userInfo.getTest_end_time()) {
+                    mTvEndTime.setText(getString(R.string.forever_vip));
+                } else {
+                    String endTime = TimeUtils.date2String(new Date(userInfo.getTest_end_time() * 1000), new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
+                    mTvEndTime.setText(String.format(getString(R.string.vip_end_time), endTime));
+                }
             }
+
+//            if (userInfo.getIsVip() != 0 && endTime.equals("0")) {
+//                mTvEndTime.setText(getString(R.string.forever_vip));
+//            }
+
             if (userInfo.getIsVip() == 0) {//非会员
                 mBtnOpenVip.setVisibility(View.VISIBLE);
                 llVipContainer.setVisibility(View.GONE);
@@ -135,9 +143,10 @@ public class VipEquitiesActivity extends BaseActivity {
                 mBtnOpenVip.setVisibility(View.GONE);
                 llVipContainer.setVisibility(View.VISIBLE);
                 if (userInfo.getIsVip() == 1) {
+
                     mTvRightsTitle.setText(getString(R.string.general_vip_right));
                     basePayItemViewVip.setVisibility(View.GONE);
-                    basePayItemViewCeping.setVisibility(View.GONE);
+//                    basePayItemViewCeping.setVisibility(View.GONE);
                     basePayItemViewTaskTutorship.setVisibility(View.GONE);
                     mVipIcon.setImageResource(R.mipmap.vip_vip);
                 } else if (userInfo.getIsVip() == 2) {

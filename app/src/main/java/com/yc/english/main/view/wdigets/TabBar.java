@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
+import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseView;
 
@@ -49,6 +50,9 @@ public class TabBar extends BaseView {
         if (onTabSelectedListener == null) throw new NullPointerException("listener == null");
 
         int index = (int) item.getTag();
+        if (index == 2) {
+            MobclickAgent.onEvent(mContext, "1vs1_tutorship");
+        }
         clearSelectedItem();
         item.selected(getSelectedIconDrawable(index));
         onTabSelectedListener.onSelected(index);

@@ -17,6 +17,8 @@ public class SlideInfo {
     private String isDel;
     private String sort;
 
+    private String statistics;//友盟统计字段
+
 
 
     public String getId() {
@@ -75,4 +77,11 @@ public class SlideInfo {
         this.sort = sort;
     }
 
+    public String getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(String statistics) {
+        this.statistics = statistics;
+    }
 }

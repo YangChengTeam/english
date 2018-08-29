@@ -2,12 +2,8 @@ package com.yc.english.intelligent.presenter
 
 import android.content.Context
 import android.text.TextUtils
-import android.util.Log
 import com.alibaba.fastjson.JSON
-import com.alibaba.fastjson.TypeReference
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
-import com.google.gson.Gson
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
@@ -40,15 +36,16 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
 
     @Subscribe(thread = EventThread.NEW_THREAD, tags = arrayOf(Tag(Constant.GET_UNIT)))
     fun getUnit(tag: String) {
-        var versionInfo = JSON.parseObject(SPUtils.getInstance().getString(IntelligentVGSelectPopupWindow
-                .DEFAULT_VERSION_KEY, ""), VGInfoWarpper.VGInfo::class.java)
-        var gradeInfo = JSON.parseObject(SPUtils.getInstance().getString(IntelligentVGSelectPopupWindow
-                .DEFAULT_GRADE_KEY, ""), VGInfoWarpper.VGInfo::class.java)
+        LogUtil.msg("versionInfo:  sp" + SPUtils.getInstance().getString(Constant
+                .DEFAULT_VERSION_KEY, ""))
+        var versionInfo = JSON.parseObject(SPUtils.getInstance().getString(Constant.DEFAULT_VERSION_KEY, ""), VGInfoWarpper.VGInfo::class.java)
+
+        var gradeInfo = JSON.parseObject(SPUtils.getInstance().getString(Constant.DEFAULT_GRADE_KEY, ""), VGInfoWarpper.VGInfo::class.java)
         var title = ""
         var versionId = 0
         if (versionInfo != null) {
             LogUtil.msg("getUnit:  " + versionInfo.title + "--" + versionInfo.alias + "--" + versionInfo.name)
-
+            LogUtil.msg("versionInfo: before  " + versionInfo.toString())
             title = versionInfo.alias ?: versionInfo.title ?: ""
             if (TextUtils.isEmpty(title)) {
                 title = if (versionInfo.name!!.contains("PEP")) {
@@ -65,17 +62,21 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
                 title = "小学"
                 versionId = 9
                 versionInfo.id = 69
+                versionInfo.name = "人教版PEP"
             } else {
                 title = "初中"
                 versionId = 22
                 versionInfo.id = 200
+                versionInfo.name = "人教版"
             }
-            versionInfo.name = title
             versionInfo.title = title
             versionInfo.versionId = versionId
         }
-        SPUtils.getInstance().put(IntelligentVGSelectPopupWindow.DEFAULT_VERSION_KEY, JSON.toJSONString(versionInfo))
 
+        LogUtil.msg("versionInfo: after " + versionInfo.toString() + "--json--" + JSON.toJSONString(versionInfo))
+        SPUtils.getInstance().put(Constant.DEFAULT_VERSION_KEY, JSON.toJSONString(versionInfo))
+        LogUtil.msg("versionInfo:  sp after  " + SPUtils.getInstance().getString(Constant
+                .DEFAULT_VERSION_KEY, ""))
 
         if (gradeInfo == null) {
             gradeInfo = VGInfoWarpper.VGInfo()
@@ -112,7 +113,7 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
             title += gradeInfo.title ?: ""
         }
         mView.showTitle(title)
-        SPUtils.getInstance().put(IntelligentVGSelectPopupWindow.DEFAULT_GRADE_KEY, JSON.toJSONString(gradeInfo))
+        SPUtils.getInstance().put(Constant.DEFAULT_GRADE_KEY, JSON.toJSONString(gradeInfo))
         gradeInfo.versionId = versionId
 
         val subriction = mEngin.getUnit(gradeInfo).subscribe({
@@ -145,7 +146,7 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
         mEngin.getVersion().subscribe({
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK && it.data?.list != null) {
-                SPUtils.getInstance().put(IntelligentVGSelectPopupWindow.DEFAULT_VERSION_KEY, JSON.toJSONString(it.data?.list?.get(0)!!))
+                SPUtils.getInstance().put(Constant.DEFAULT_VERSION_KEY, JSON.toJSONString(it.data?.list?.get(0)!!))
                 getUnit("after getVersionInfo")
             }
         }, {})

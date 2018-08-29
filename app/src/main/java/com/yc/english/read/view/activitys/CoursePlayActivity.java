@@ -24,6 +24,9 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -44,6 +47,8 @@ import com.yc.english.base.utils.WakeLockUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
+import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.contract.CoursePlayContract;
 import com.yc.english.read.model.domain.EnglishCourseInfo;
@@ -171,6 +176,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     private ImageView mTapeImageView;
 
     private PopupWindowFactory mTapePop;
+    private UserInfo userInfo;
 
     @Override
     public int getLayoutId() {
@@ -231,7 +237,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 }
             }
         });
-
+        userInfo = UserInfoHelper.getUserInfo();
         //下一单元
         RxView.clicks(mNextUnitImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -244,13 +250,9 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                     if (unitInfo.getFree() == 1) {
                         isRead = true;
                     } else {
-                        if (UserInfoHelper.getUserInfo() != null) {
-                            int isVip = UserInfoHelper.getUserInfo().getIsVip();
-                            if (isVip == 1 || isVip == 2 || isVip == 4) {
-                                isRead = true;
-                            } else {
-                                isRead = false;
-                            }
+                        if (userInfo != null) {
+                            int isVip = userInfo.getIsVip();
+                            isRead = isVip == 1;
                         } else {
                             UserInfoHelper.isGotoLogin(CoursePlayActivity.this);
                             MobclickAgent.onEvent(CoursePlayActivity.this, "textbook_read", "教材点读");
@@ -361,11 +363,11 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                     }*/
 
                     final View tapeView = View.inflate(CoursePlayActivity.this, R.layout.layout_microphone, null);
-                    mTapePop = new PopupWindowFactory(CoursePlayActivity.this,tapeView);
+                    mTapePop = new PopupWindowFactory(CoursePlayActivity.this, tapeView);
 
                     //PopupWindow布局文件里面的控件
                     mTapeImageView = (ImageView) tapeView.findViewById(R.id.iv_recording_icon);
-                    mTapePop.showAtLocation(mLayoutContext, Gravity.CENTER,0,0);
+                    mTapePop.showAtLocation(mLayoutContext, Gravity.CENTER, 0, 0);
 
                     ret = mIat.startListening(mRecognizerListener);
                     if (ret != ErrorCode.SUCCESS) {
@@ -389,16 +391,16 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 }
 
                 if (view.getId() == R.id.iv_play_tape && mItemAdapter.getData().get(lastPosition).isShow()) {
-                    if(mPlayer != null && mPlayer.isPlaying()){
+                    if (mPlayer != null && mPlayer.isPlaying()) {
                         stopPlayTape();
                         View currentView = linearLayoutManager.findViewByPosition(position);
                         if (currentView != null) {
                             Glide.with(CoursePlayActivity.this).load(R.mipmap.item_tape_play_normal_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
                         }
-                    }else {
+                    } else {
                         playTape(position);
                     }
-                }else{
+                } else {
                     ToastUtils.showLong("请先录音评测后再回放");
                 }
 
@@ -482,7 +484,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
         @Override
         public void onError(SpeechError error) {
-            if(mTapePop != null && mTapePop.getPopupWindow().isShowing()){
+            if (mTapePop != null && mTapePop.getPopupWindow().isShowing()) {
                 mTapePop.dismiss();
             }
             // Tips：
@@ -502,16 +504,16 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         public void onEndOfSpeech() {
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
             //ToastUtils.showLong("结束说话");
-            if(mTapePop != null && mTapePop.getPopupWindow().isShowing()){
+            if (mTapePop != null && mTapePop.getPopupWindow().isShowing()) {
                 mTapePop.dismiss();
             }
         }
 
         @Override
         public void onResult(RecognizerResult results, boolean isLast) {
-            LogUtils.e("results string"+results.getResultString());
+            LogUtils.e("results string" + results.getResultString());
 
-            if(mTapePop != null && mTapePop.getPopupWindow().isShowing()){
+            if (mTapePop != null && mTapePop.getPopupWindow().isShowing()) {
                 mTapePop.dismiss();
             }
 
@@ -737,7 +739,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 return false;
             }
 
-            mItemAdapter.getData().get(lastPosition).setPercent(percent+"");
+            mItemAdapter.getData().get(lastPosition).setPercent(percent + "");
 
             if (percent >= 60) {
                 return true;
@@ -954,6 +956,16 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 mItemAdapter.addData(englishCourseInfoList.list);
             }
         }
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.COMMUNITY_ACTIVITY_REFRESH)
+            }
+    )
+    public void getInfo(String loginInfo) {
+        userInfo = UserInfoHelper.getUserInfo();
     }
 
 }

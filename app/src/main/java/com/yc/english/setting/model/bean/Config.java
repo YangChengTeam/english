@@ -7,4 +7,6 @@ package com.yc.english.setting.model.bean;
 public class Config {
 
     public static final long MS_IN_A_DAY = 1000 * 60 * 60 * 24;
+
+    public static final long TEST_DAY = 1000 * 60 ;//1分钟
 }

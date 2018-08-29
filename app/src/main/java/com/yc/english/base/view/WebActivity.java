@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.blankj.utilcode.util.UIUitls;
+import com.kk.utils.LogUtil;
 import com.yc.english.R;
 
 import butterknife.BindView;
@@ -40,7 +41,7 @@ public class WebActivity extends FullScreenActivity {
         mToolbar.setTitle(title);
         mToolbar.showNavigationIcon();
 
-        WebSettings webSettings = mMainWebView.getSettings();
+         WebSettings webSettings = mMainWebView.getSettings();
         webSettings.setLoadsImagesAutomatically(false);
         webSettings.setAllowUniversalAccessFromFileURLs(true);
         webSettings.setJavaScriptEnabled(true);
@@ -54,6 +55,9 @@ public class WebActivity extends FullScreenActivity {
         webSettings.setAppCacheEnabled(true);
         webSettings.setDatabaseEnabled(true);
         webSettings.setLoadsImagesAutomatically(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setBlockNetworkImage(false);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);   // 默认使用缓存
         webSettings.setAllowFileAccess(true);   // 可以读取文件缓存(manifest生效)
         String appCaceDir = this.getDir("cache", Context.MODE_PRIVATE).getPath();
@@ -77,6 +81,8 @@ public class WebActivity extends FullScreenActivity {
                     }
                 });
             }
+
+
         });
 
 
@@ -84,6 +90,7 @@ public class WebActivity extends FullScreenActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+
             }
 
             @Override
@@ -92,9 +99,10 @@ public class WebActivity extends FullScreenActivity {
                 dismissLoadingDialog();
             }
 
-        });
-        mMainWebView.loadUrl(url);
 
+        });
+
+        mMainWebView.loadUrl(url);
     }
 
     @Override

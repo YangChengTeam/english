@@ -1,14 +1,9 @@
 package com.yc.english.intelligent.view.fragments
 
-import android.support.design.widget.AppBarLayout
 import android.support.v4.view.ViewPager
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
-import com.blankj.utilcode.util.SizeUtils
-import com.hwangjr.rxbus.annotation.Subscribe
-import com.hwangjr.rxbus.annotation.Tag
-import com.hwangjr.rxbus.thread.EventThread
 import com.jakewharton.rxbinding.view.RxView
 import com.yc.english.R
 import com.yc.english.base.model.BaseEngin
@@ -19,7 +14,6 @@ import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.intelligent.view.activitys.IntelligentQuestionDescPopupWindow
 import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
-import com.yc.english.main.model.domain.Constant
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_fragment_questions.*
 import java.util.concurrent.TimeUnit

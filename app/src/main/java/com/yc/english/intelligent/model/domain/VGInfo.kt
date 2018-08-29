@@ -24,5 +24,11 @@ class VGInfoWarpper {
         var isSelect = false
 
         var alias: String? = null
+
+        override fun toString(): String {
+            return "VGInfo(id=$id, versionId=$versionId, name=$name, grade=$grade, title=$title, partType=$partType, isSelect=$isSelect, alias=$alias)"
+        }
+
+
     }
 }

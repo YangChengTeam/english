@@ -1,15 +1,12 @@
 package com.yc.english.intelligent.model.engin
 
 import android.content.Context
-import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference
 import com.kk.securityhttp.domain.ResultInfo
 import com.kk.securityhttp.engin.HttpCoreEngin
 import com.yc.english.base.model.BaseEngin
-import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.model.domain.URLConfig
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
-import com.yc.english.intelligent.model.domain.VGInfoWarpper
 import com.yc.english.main.hepler.UserInfoHelper
 import rx.Observable
 

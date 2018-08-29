@@ -17,7 +17,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="@mipmap/base_actionbar"
             app:expandedTitleTextAppearance="@style/collapsedTitleTextColor"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <ImageView
                 android:id="@+id/toolbarWarpper"

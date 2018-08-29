@@ -26,6 +26,7 @@ public class UserInfo {
     private String vip;
     private long vip_end_time;
     private long vip_start_time;
+    private long test_end_time;//通过分享获得的VIP时间
 
     public String getMobile() {
         return mobile;
@@ -132,5 +133,11 @@ public class UserInfo {
         this.vip_start_time = vip_start_time;
     }
 
+    public long getTest_end_time() {
+        return test_end_time;
+    }
 
+    public void setTest_end_time(long test_end_time) {
+        this.test_end_time = test_end_time;
+    }
 }

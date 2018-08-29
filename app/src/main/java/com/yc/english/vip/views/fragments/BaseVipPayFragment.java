@@ -98,11 +98,11 @@ public class BaseVipPayFragment extends BaseFragment {
     private GoodInfo goodInfo;
     private List<View> viewList = new ArrayList<>();
 
-    private List<GoodInfo> sVipList;//提分辅导
+//    private List<GoodInfo> sVipList;//提分辅导
 
     private List<GoodInfo> generalVipList;//普通会员
-    private List<GoodInfo> dianduList;//点读
-    private List<GoodInfo> weikeList;//微课
+    //    private List<GoodInfo> dianduList;//点读
+//    private List<GoodInfo> weikeList;//微课
     private CourseInfo courseInfo;
 
     @Override
@@ -113,24 +113,24 @@ public class BaseVipPayFragment extends BaseFragment {
         GoodInfoWrapper goodInfoWrapper = VipInfoHelper.getGoodInfoWrapper();
 
 
-        sVipList = goodInfoWrapper.getSvip();
+//        sVipList = goodInfoWrapper.getSvip();
         generalVipList = goodInfoWrapper.getVip();
-        dianduList = goodInfoWrapper.getDiandu();
-        Collections.sort(dianduList, new Comparator<GoodInfo>() {
-            @Override
-            public int compare(GoodInfo o1, GoodInfo o2) {
-                return Integer.parseInt(o1.getUse_time_limit()) - Integer.parseInt(o2.getUse_time_limit());
-            }
-        });
-
-        weikeList = goodInfoWrapper.getWvip();
+//        dianduList = goodInfoWrapper.getDiandu();
+//        Collections.sort(dianduList, new Comparator<GoodInfo>() {
+//            @Override
+//            public int compare(GoodInfo o1, GoodInfo o2) {
+//                return Integer.parseInt(o1.getUse_time_limit()) - Integer.parseInt(o2.getUse_time_limit());
+//            }
+//        });
+//
+//        weikeList = goodInfoWrapper.getWvip();
 
         if (mType == GoodsType.TYPE_SVIP) {
             tvVipThreeMonth.setText("1个月");
             tvVipSixMonth.setText("3个月");
             tvVipTweenMonth.setText("6个月");
             tvVipForever.setVisibility(View.INVISIBLE);
-            setGoodInfo(position, sVipList);
+//            setGoodInfo(position, sVipList);
 
 
         } else if (mType == GoodsType.TYPE_GENERAL_VIP) {
@@ -150,7 +150,7 @@ public class BaseVipPayFragment extends BaseFragment {
             if (mType == GoodsType.TYPE_SINGLE_WEIKE) {
                 baseItemViewCeping.setContentAndIcon("同步微课", 0);
                 tvVipForever.setText("单次微课");
-                setGoodInfo(position, weikeList);
+//                setGoodInfo(position, weikeList);
             } else {
 
                 if (mType == GoodsType.TYPE_SINGLE_DIANDU) {
@@ -159,7 +159,7 @@ public class BaseVipPayFragment extends BaseFragment {
                     tvVipTweenMonth.setText("6个月");
                     tvVipForever.setText("永久会员");
                     baseItemViewCeping.setContentAndIcon("教材点读", 0);
-                    setGoodInfo(position, dianduList);
+//                    setGoodInfo(position, dianduList);
                 } else if (mType == GoodsType.TYPE_SINGLE_INDIVIDUALITY_PLAN) {
                     tvVipForever.setVisibility(View.GONE);
                     baseItemViewCeping.setContentAndIcon("个性学习计划", 0);
@@ -264,11 +264,8 @@ public class BaseVipPayFragment extends BaseFragment {
 
     private void setGoodVipInfo(int position, List<GoodInfo> goodInfoList) {
         if (goodInfoList != null && position < goodInfoList.size()) {
-            if (mType == GoodsType.TYPE_GENERAL_VIP) {
-                goodInfo = goodInfoList.get(0);
-            } else {
-                goodInfo = goodInfoList.get(position);
-            }
+
+            goodInfo = goodInfoList.get(position);
             String payPrice = goodInfo.getPay_price();
             int realPrice = (int) (Float.parseFloat(payPrice));
             vipCurrentPrice.setText(payPrice);
@@ -297,13 +294,13 @@ public class BaseVipPayFragment extends BaseFragment {
                 if (view instanceof TextView) {
                     setTextStyle(((TextView) view));
                     if (mType == GoodsType.TYPE_SVIP) {
-                        setGoodInfo(position, sVipList);
+//                        setGoodInfo(position, sVipList);
                     } else if (mType == GoodsType.TYPE_GENERAL_VIP) {
                         setGoodInfo(position, generalVipList);
                     } else if (mType == GoodsType.TYPE_SINGLE_WEIKE) {
-                        setGoodInfo(position, weikeList);
+//                        setGoodInfo(position, weikeList);
                     } else if (mType == GoodsType.TYPE_SINGLE_DIANDU) {
-                        setGoodInfo(position, dianduList);
+//                        setGoodInfo(position, dianduList);
                     }
 
                 }

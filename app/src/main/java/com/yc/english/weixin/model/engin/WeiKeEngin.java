@@ -30,12 +30,18 @@ public class WeiKeEngin extends BaseEngin {
         mContext = context;
     }
 
+    /**
+     *
+     * @param type 指定微课类型 7.音频 8.视频
+     * @param page
+     * @return
+     */
     public Observable<ResultInfo<WeiKeCategoryWrapper>> getWeikeCategoryList(String type, String page) {
 
         Map<String, String> params = new HashMap<>();
         params.put("page", page);
-        if (!TextUtils.isEmpty(type))
-            params.put("type_id", type);
+
+        params.put("top_list_type", type);
 
         LogUtils.e("请求地址--->" + URLConfig.WEIKE_CATEGORY_URL);
 
