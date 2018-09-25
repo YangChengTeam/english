@@ -46,7 +46,7 @@ public class WeiKePresenter extends BasePresenter<WeiKeEngin, WeiKeContract.View
     }
 
     @Override
-    public void getWeikeCategoryList(String type, final String page) {
+    public void getWeikeCategoryList(String type, final String page, String cate) {
         if (page.equals("1")) {
             mView.showLoading();
         }
@@ -79,7 +79,7 @@ public class WeiKePresenter extends BasePresenter<WeiKeEngin, WeiKeContract.View
             return;
         }
         final String finalKey = key;
-        Subscription subscription = mEngin.getWeikeCategoryList(type, page).subscribe(new Subscriber<ResultInfo<WeiKeCategoryWrapper>>() {
+        Subscription subscription = mEngin.getWeikeCategoryList(type, page, cate).subscribe(new Subscriber<ResultInfo<WeiKeCategoryWrapper>>() {
             @Override
             public void onCompleted() {
 

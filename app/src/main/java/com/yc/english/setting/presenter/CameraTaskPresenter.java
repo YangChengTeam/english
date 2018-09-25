@@ -3,21 +3,17 @@ package com.yc.english.setting.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.setting.contract.CameraTaskContract;
 import com.yc.english.setting.model.engin.CameraEngine;
-import com.yc.english.setting.view.activitys.CameraTaskActivity;
 
 import java.io.File;
 
 import rx.Subscriber;
 import rx.Subscription;
-import rx.functions.Action1;
 
 /**
  * Created by wanglin  on 2017/12/11 15:55.

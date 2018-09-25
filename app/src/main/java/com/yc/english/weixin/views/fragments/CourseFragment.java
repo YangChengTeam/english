@@ -52,6 +52,7 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
     SwipeRefreshLayout mRefreshSwipeRefreshLayout;
     private TextView mTvHeaderView;
     private String type;
+    private String cate;
 
 
     @Subscribe(
@@ -62,13 +63,14 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
     )
     public void refresh(String tag) {
         page = 1;
-        mPresenter.getWeikeCategoryList(type, page + "");
+        mPresenter.getWeikeCategoryList(type, page + "", cate);
     }
 
     @Override
     public void init() {
         if (getArguments() != null) {
             type = getArguments().getString("type");
+            cate = getArguments().getString("cate");
         }
 
         mPresenter = new WeiKePresenter(getActivity(), this);
@@ -93,11 +95,11 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
         mWeiKeCategoryItemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mPresenter.getWeikeCategoryList(type, page + "");
+                mPresenter.getWeikeCategoryList(type, page + "", cate);
             }
         }, mCourseRecyclerView);
 
-        mPresenter.getWeikeCategoryList(type, page + "");
+        mPresenter.getWeikeCategoryList(type, page + "", cate);
         mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
         mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -122,7 +124,7 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
         mLoadingStateView.showNoNet(mCourseRecyclerView, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getWeikeCategoryList(type, page + "");
+                mPresenter.getWeikeCategoryList(type, page + "", cate);
             }
         });
     }

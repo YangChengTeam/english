@@ -106,7 +106,7 @@
 
 
     <string name="open_vip">开通会员</string>
-    <string name="general_vip_right">普通会员专属特权</string>
+    <string name="general_vip_right">会员专属特权</string>
     <string name="tutorship_vip_right">提分辅导专属特权</string>
     <string name="synchronization_weike_right">同步微课专属特权</string>
     <string name="read_book_right">课本点读专属特权</string>

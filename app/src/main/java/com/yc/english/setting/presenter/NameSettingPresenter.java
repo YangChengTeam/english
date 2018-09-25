@@ -8,11 +8,9 @@ import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.setting.contract.NameSettingContract;
 import com.yc.english.setting.model.engin.MyEngin;
 
@@ -60,7 +58,6 @@ public class NameSettingPresenter extends BasePresenter<MyEngin, NameSettingCont
                                 TipsHelper.tips(mContext, "修改成功");
                                 UserInfo userInfo = UserInfoHelper.getUserInfo();
                                 if (!StringUtils.isEmpty(name)) {
-                                    RongIMUtil.refreshUserInfo();
                                     userInfo.setNickname(name);
                                 }
                                 if (!StringUtils.isEmpty(school)) {

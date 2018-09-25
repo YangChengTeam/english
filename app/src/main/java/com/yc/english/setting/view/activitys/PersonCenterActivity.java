@@ -1,32 +1,19 @@
 package com.yc.english.setting.view.activitys;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Base64;
-import android.view.Gravity;
+import android.text.TextUtils;
+import android.view.TextureView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.request.RequestOptions;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.AvatarHelper;
-import com.yc.english.base.helper.GlideCircleTransformation;
 import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SelectGradePopupWindow;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -36,7 +23,7 @@ import com.yc.english.setting.contract.PersonCenterContract;
 import com.yc.english.setting.presenter.PersonCenterPresenter;
 import com.yc.english.setting.view.widgets.SettingItemView;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -159,7 +146,11 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
             mNameSettingItemView.setHintInfo("还有填写姓名~");
         }
 
-        mPhoneSettingItemView.setInfo(userInfo.getMobile());
+        String phone = userInfo.getMobile();
+        if (!TextUtils.isEmpty(phone)) {
+            phone = phone.replace(phone.substring(3, 7), "****");
+        }
+        mPhoneSettingItemView.setInfo(phone);
     }
 
     private void setGradeInfo() {
@@ -204,11 +195,12 @@ public class PersonCenterActivity extends FullScreenActivity<PersonCenterPresent
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        AvatarHelper.uploadAvatar(this, new AvatarHelper.IAvatar() {
+
+        AvatarHelper.onActivityForResult(PersonCenterActivity.this, requestCode, resultCode, data, new AvatarHelper.IAvatar() {
             @Override
             public void uploadAvatar(String image) {
                 mPresenter.uploadAvatar(image);
             }
-        }, requestCode, resultCode, data);
+        });
     }
 }

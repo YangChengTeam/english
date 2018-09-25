@@ -136,4 +136,10 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
 
     override fun getLayoutId() = R.layout.intelligent_fragment_index
 
+    @Subscribe(thread = EventThread.MAIN_THREAD, tags = arrayOf(Tag(Constant.REMOVE_ANSWER)))
+    fun clear(result: String) {
+        initIntelligentTypeEvents(mIntelligentType1, mIntelligentType2, mIntelligentType3, mIntelligentType4,
+                mIntelligentType5, mIntelligentType6)
+    }
+
 }

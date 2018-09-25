@@ -43,6 +43,10 @@ public class URLConfig {
 
     public static final String Ability_score_url = getBaseUrl() + "UserTest/unitTest";
 
+    public static final String INDEX_DIALOG_URL = getBaseUrl() + "index/adv_init";
+
+    public static final String INDEX_MENU_URL = getBaseUrl() + "index/menu_adv";
+
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }

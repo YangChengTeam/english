@@ -2,14 +2,12 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -27,9 +25,15 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
-import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.qq.e.ads.banner.ADSize;
+import com.qq.e.ads.banner.AbstractBannerADListener;
+import com.qq.e.ads.banner.BannerView;
+import com.qq.e.ads.cfg.MultiProcessFlag;
+import com.qq.e.ads.nativ.NativeExpressAD;
+import com.qq.e.ads.nativ.NativeExpressADView;
+import com.qq.e.comm.pi.AdData;
+import com.qq.e.comm.util.AdError;
+import com.qq.e.comm.util.GDTLogger;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.EnglishApp;
 import com.yc.english.R;
@@ -42,7 +46,6 @@ import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.constant.GroupConstant;
-import com.yc.english.group.view.activitys.CoachScoreActivity;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.model.domain.Constant;
@@ -52,11 +55,12 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.presenter.IndexPresenter;
 import com.yc.english.main.view.activitys.MainActivity;
 import com.yc.english.main.view.adapters.AritleAdapter;
+import com.yc.english.news.utils.SmallProcedureUtils;
 import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.yc.english.speak.view.activity.SpeakMainActivity;
-import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
+import com.yc.english.speak.view.adapter.IndexRecommendAdapterNew;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
 import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.activitys.CourseActivity;
@@ -67,13 +71,11 @@ import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
 
 
@@ -81,7 +83,7 @@ import rx.functions.Action1;
  * Created by zhangkai on 2017/7/24.
  */
 
-public class IndexFragment extends BaseFragment<IndexPresenter> implements IndexContract.View {
+public class IndexFragment extends BaseFragment<IndexPresenter> implements IndexContract.View, NativeExpressAD.NativeExpressADListener {
     @BindView(R.id.sv_content)
     ScrollView mContextScrollView;
 
@@ -132,6 +134,10 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     ImageView ivWeike;
     @BindView(R.id.iv_spoken)
     ImageView ivSpoken;
+    @BindView(R.id.bannerContainer)
+    FrameLayout bannerContainer;
+    @BindView(R.id.bannerBottomContainer)
+    FrameLayout bannerBottomContainer;
 
 
     private AritleAdapter mHotMircoClassAdapter;
@@ -154,14 +160,24 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @BindView(R.id.toolbarWarpper)
     FrameLayout mToolbarWarpper;
 
-    private IndexRecommendAdapter mRecommendAdapter;
+    private IndexRecommendAdapterNew mRecommendAdapter;
 
-//    @BindView(R.id.refresh)
-//    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
+    @BindView(R.id.refresh)
+    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
+    private SlideInfo dialogInfo;
+
+    public static final int AD_COUNT = 1;// 加载广告的条数，取值范围为[1, 10]
+    public static int FIRST_AD_POSITION = 2; // 第一条广告的位置
+    private List<NativeExpressADView> mAdViewList;
+    private HashMap<NativeExpressADView, Integer> mAdViewPositionMap = new HashMap<>();
+    public static final String TAG = "IndexFragment";
 
 
     @Override
     public void init() {
+        showTencentAdv(bannerContainer, Constant.BANNER_ADV1);
+        showTencentAdv(bannerBottomContainer, Constant.BANNER_ADV2);
+        initNativeExpressAD();
         StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolBar, mStatusBar);
         mPresenter = new IndexPresenter(getActivity(), this);
 
@@ -231,11 +247,15 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
+        //音标点读
         RxView.clicks(mTeacherTask).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), CoachScoreActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), CoachScoreActivity.class);
+//                startActivity(intent);
+
+                SmallProcedureUtils.switchSmallProcedure(getActivity(), "gh_e46e21f44c08", GroupConstant.appid);
+
             }
         });
 
@@ -247,57 +267,38 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //                intent.putExtra("title", "教材答案");
 //                intent.putExtra("type", "17");
 //                startActivity(intent);
-                switchSmallProcedure(GroupConstant.originid, GroupConstant.appid);
+                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.originid, GroupConstant.appid);
             }
         });
 
-//"http:\\/\\/a.app.qq.com\\/o\\/simple.jsp?pkgname=com.yc.phonogram"
         RxView.clicks(mExamImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
                 if (advInfo == null) return;
-                MobclickAgent.onEvent(getActivity(), advInfo.getStatistics());
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(advInfo.getTypeValue()));
-                startActivity(intent);
-
-//                Intent intent = new Intent(getActivity(), WebActivity.class);
-//                intent.putExtra("title", "小说阅读");
-//                intent.putExtra("url", advInfo.getTypeValue());
+//                MobclickAgent.onEvent(getActivity(), advInfo.getStatistics());
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setData(Uri.parse(advInfo.getTypeValue()));
 //                startActivity(intent);
+
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("title", advInfo.getTitle());
+                intent.putExtra("url", advInfo.getTypeValue());
+                startActivity(intent);
             }
         });
 
         RxView.clicks(mSpeakImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                MobclickAgent.onEvent(getActivity(), "task_online", "在线作业");
+                MobclickAgent.onEvent(getActivity(), "task_online", "音标1对1");
                 // todo 这里是在线作业 融云im模块
 //                Intent intent = new Intent(getActivity(), GroupMainActivity.class);
 //                startActivity(intent);
 
 
 //                ToastUtil.toast2(getActivity(), "功能正在开发中...");
-                switchSmallProcedure(GroupConstant.assistant_originid, GroupConstant.appid);
+                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.assistant_originid, GroupConstant.appid);
 
-//                SlideInfo slideInfo = mPresenter.getSlideInfo(0);
-//                if (slideInfo.getType().equals("2")) {
-//                    try {
-//                        String typeValue = slideInfo.getTypeValue();
-//                        if (TextUtils.isEmpty(typeValue)) return;
-//                        String[] strs = typeValue.split("\\|");
-//                        LogUtil.msg("tag: " + strs[0] + "---" + strs[1]);
-//                        if (strs.length > 1) {
-//                            // 填应用AppId
-//                            String appId = strs[1];
-//                            String originId = strs[0];
-//                            switchSmallProcedure(originId, appId);
-//                        }
-//                    } catch (Exception e) {
-//                        LogUtil.msg("e :" + e.getMessage());
-//                        ToastUtil.toast(getActivity(), "");
-//                    }
-//                }
             }
         });
 
@@ -360,7 +361,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                             // 填应用AppId
                             String appId = strs[1];
                             String originId = strs[0];
-                            switchSmallProcedure(originId, appId);
+                            SmallProcedureUtils.switchSmallProcedure(getActivity(), originId, appId);
                         }
                     } catch (Exception e) {
                         LogUtil.msg("e :" + e.getMessage());
@@ -388,15 +389,15 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
         mRvRecommend.setFocusable(false);
         mRvRecommend.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecommendAdapter = new IndexRecommendAdapter(null);
+        mRvRecommend.setHasFixedSize(true);
+        mRecommendAdapter = new IndexRecommendAdapterNew(getActivity(), null, mAdViewPositionMap);
         mRvRecommend.setAdapter(mRecommendAdapter);
 
-        mRecommendAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-
+        mRecommendAdapter.setOnItemClickListener(new IndexRecommendAdapterNew.OnItemClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemClick(View view, int position) {
                 MobclickAgent.onEvent(getActivity(), "fine_read_click", "精品推荐");
-                CourseInfo courseInfo = (CourseInfo) adapter.getItem(position);
+                CourseInfo courseInfo = mRecommendAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("info", courseInfo);
                 startActivity(intent);
@@ -409,6 +410,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 MobclickAgent.onEvent(getActivity(), "synchronous_weike", "同步微课");
                 Intent intent = new Intent(getActivity(), CourseClassifyActivity.class);
                 intent.putExtra("type", 8);
+                intent.putExtra("cate", 1);
                 startActivity(intent);
             }
         });
@@ -418,6 +420,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 MobclickAgent.onEvent(getActivity(), "spoken_teach", "口语学习");
                 Intent intent = new Intent(getActivity(), CourseClassifyActivity.class);
                 intent.putExtra("type", 7);
+                intent.putExtra("cate", 2);
                 startActivity(intent);
             }
         });
@@ -439,9 +442,20 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         }
         if (isShowDialog()) {
 
-            IndexVipKidDialog indexVipKidDialog = new IndexVipKidDialog(getActivity());
+            IndexVipKidDialog indexVipKidDialog = new IndexVipKidDialog(getActivity(), getDialogInfo());
             indexVipKidDialog.show();
         }
+
+        mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primary));
+        mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.getIndexInfo(true);
+//                if (null != banner) banner.loadAD();
+
+            }
+        });
+
     }
 
     //1.当天是否弹出过
@@ -449,8 +463,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     private boolean isShowDialog() {
         boolean isShow = false;
         int days = SPUtils.getInstance().getInt(GroupConstant.EVERY_DAY_DIALOG, 0);//保存的时间
-        LogUtil.msg("days:  " + days);
-//        Date date = new Date();
+
         int day = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
         if (days < day) {
             isShow = true;
@@ -463,15 +476,40 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     }
 
     private SlideInfo advInfo;//广告页
+    private BannerView banner;//banner广告
 
-    private void switchSmallProcedure(String strs, String appId) {
-        IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), appId);
+    private void showTencentAdv(ViewGroup viewGroup, String bannerId) {
+        // 创建 Banner 广告 AdView 对象
+        // appId : 在 http://e.qq.com/dev/ 能看到的 app 唯一字符串
+        // posId : 在 http://e.qq.com/dev/ 生成的数字串，并非 appid 或者 appkey
+        if (banner != null) {
+            banner.destroy();
+        }
+        banner = new BannerView(getActivity(), com.qq.e.ads.banner.ADSize.BANNER, Constant.TENCENT_ADV_ID, bannerId);
+        //设置广告轮播时间，为0或30~120之间的数字，单位为s,0标识不自动轮播
+        banner.setRefresh(10);
+        banner.setADListener(new AbstractBannerADListener() {
+            @Override
+            public void onNoAD(AdError adError) {
+                Log.i("AD_DEMO", "BannerNoAD，eCode=" + adError.getErrorCode());
+//                banner.loadAD();
+            }
 
-        WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
-        req.userName = strs; // 填小程序原始id
-//                    req.path = path;                  //拉起小程序页面的可带参路径，不填默认拉起小程序首页
-        req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
-        api.sendReq(req);
+            @Override
+            public void onADReceiv() {
+                Log.i("AD_DEMO", "ONBannerReceive");
+            }
+
+            @Override
+            public void onADClicked() {
+                super.onADClicked();
+                Log.e("AD_DEMO", "onADClicked: ");
+            }
+        });
+        viewGroup.addView(banner);
+        /* 发起广告请求，收到广告数据后会展示数据   */
+        banner.loadAD();
+
     }
 
     @Override
@@ -511,9 +549,10 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 .start();
     }
 
+    private List<CourseInfo> tuijians;
 
     @Override
-    public void showInfo(final IndexInfo indexInfo) {
+    public void showInfo(final IndexInfo indexInfo, boolean isFresh) {
         if (indexInfo.getRedian() != null && indexInfo.getRedian().size() > 0) {
             mHotTitleTextView.setText(indexInfo.getRedian().get(0).getTitle());
             RxView.clicks(mHotTitleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -532,11 +571,15 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             mHotMircoClassAdapter.addData(indexInfo.getWeike());
         }
         if (indexInfo.getTuijian() != null) {
-            List<CourseInfo> tuijians = indexInfo.getTuijian();
-            if (tuijians.size() > 5) {
-                tuijians = indexInfo.getTuijian().subList(0, 5);
+            tuijians = indexInfo.getTuijian();
+            if (tuijians.size() > 4) {
+                tuijians = indexInfo.getTuijian().subList(0, 4);
             }
-            mRecommendAdapter.setNewData(tuijians);
+            mRecommendAdapter.addNewData(tuijians);
+
+            if (isFresh) {
+                onADLoaded(mAdViewList);
+            }
         }
         if (indexInfo.getAdvInfo() != null && indexInfo.getAdvInfo().size() > 0) {
             SlideInfo slideInfo = indexInfo.getAdvInfo().get(0);
@@ -544,7 +587,15 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             GlideHelper.imageView(getContext(), mExamImageView, slideInfo.getImg(), R.mipmap.xiaoxueyinbbiao_ad);
         }
 
-//        mRefreshSwipeRefreshLayout.setRefreshing(false);
+        if (mRefreshSwipeRefreshLayout.isRefreshing())
+            mRefreshSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    private void initNativeExpressAD() {//com.qq.e.ads.nativ.ADSize.FULL_WIDTH
+        MultiProcessFlag.setMultiProcess(true);
+        com.qq.e.ads.nativ.ADSize adSize = new com.qq.e.ads.nativ.ADSize(com.qq.e.ads.nativ.ADSize.FULL_WIDTH, com.qq.e.ads.nativ.ADSize.AUTO_HEIGHT); // 消息流中用AUTO_HEIGHT // 消息流中用AUTO_HEIGHT
+        NativeExpressAD mADManager = new NativeExpressAD(getActivity(), adSize, Constant.TENCENT_ADV_ID, Constant.NATIVE_ADV_ID, this);
+        mADManager.loadAD(AD_COUNT);
     }
 
     @Subscribe(
@@ -581,6 +632,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showNoNet() {
+        if (mRefreshSwipeRefreshLayout.isRefreshing())
+            mRefreshSwipeRefreshLayout.setRefreshing(false);
         mLoadingStateView.showNoNet(mContextScrollView, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -591,8 +644,105 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showNoData() {
+        if (mRefreshSwipeRefreshLayout.isRefreshing())
+            mRefreshSwipeRefreshLayout.setRefreshing(false);
         mLoadingStateView.showNoData(mContextScrollView);
+
     }
 
 
+    public void setDialogInfo(SlideInfo dialogInfo) {
+        this.dialogInfo = dialogInfo;
+    }
+
+    public SlideInfo getDialogInfo() {
+        return dialogInfo;
+    }
+
+
+    @Override
+    public void onNoAD(AdError adError) {
+        Log.i(TAG,
+                String.format("onNoAD, error code: %d, error msg: %s", adError.getErrorCode(),
+                        adError.getErrorMsg()));
+    }
+
+    private NativeExpressADView view;
+
+    @Override
+    public void onADLoaded(List<NativeExpressADView> adList) {
+        if (adList != null && adList.size() > 0) {
+            mAdViewList = adList;
+//            if (view != null) {
+//                view.destroy();
+//            }
+            int position = FIRST_AD_POSITION;
+            view = mAdViewList.get(0);
+            GDTLogger.i("ad load[" + 0 + "]: " + getAdInfo(view));
+            mAdViewPositionMap.put(view, FIRST_AD_POSITION);
+            mRecommendAdapter.addADViewToPosition(position, mAdViewList.get(0));
+        }
+    }
+
+    private String getAdInfo(NativeExpressADView nativeExpressADView) {
+        AdData adData = nativeExpressADView.getBoundData();
+        if (adData != null) {
+            StringBuilder infoBuilder = new StringBuilder();
+            infoBuilder.append("title:").append(adData.getTitle()).append(",")
+                    .append("desc:").append(adData.getDesc()).append(",")
+                    .append("patternType:").append(adData.getAdPatternType());
+            return infoBuilder.toString();
+        }
+        return null;
+    }
+
+    @Override
+    public void onRenderFail(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onRenderSuccess(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onADExposure(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onADClicked(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onADClosed(NativeExpressADView adView) {
+        if (mRecommendAdapter != null) {
+            int removedPosition = mAdViewPositionMap.get(adView);
+            mRecommendAdapter.removeADView(removedPosition, adView);
+        }
+    }
+
+    @Override
+    public void onADLeftApplication(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onADOpenOverlay(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onADCloseOverlay(NativeExpressADView nativeExpressADView) {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (view != null) view.destroy();
+        if (banner != null) banner.destroy();
+    }
 }

@@ -1,12 +1,10 @@
 package com.yc.english.main.presenter;
 
 import android.content.Context;
-import android.os.UserManager;
 
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.UIUitls;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.yc.english.EnglishApp;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.SimpleCacheUtils;
@@ -20,7 +18,6 @@ import com.yc.english.main.model.engin.IndexEngin;
 import com.yc.english.pay.PayWayInfo;
 import com.yc.english.pay.PayWayInfoHelper;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
-import com.yc.english.setting.model.bean.ShareStateInfo;
 import com.yc.english.vip.utils.VipInfoHelper;
 
 import java.util.ArrayList;
@@ -45,7 +42,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
 
-        getIndexInfo();
+        getIndexInfo(false);
         getPayWayList();
         getGoodsList(1);
 
@@ -53,7 +50,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
 
 
     @Override
-    public void getIndexInfo() {
+    public void getIndexInfo(final boolean isFresh) {
         getAvatar();
 
         mView.showLoading();
@@ -66,7 +63,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                     @Override
                     public void run() {
                         mView.hideStateView();
-                        showIndexInfo(indexInfo, false);
+                        showIndexInfo(indexInfo, false,isFresh);
                     }
                 });
             }
@@ -105,7 +102,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                     @Override
                     public void reulstInfoOk() {
                         mView.hideStateView();
-                        showIndexInfo(resultInfo.data, true);
+                        showIndexInfo(resultInfo.data, true,isFresh);
                     }
                 });
             }
@@ -113,7 +110,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         mSubscriptions.add(subscription);
     }
 
-    private void showIndexInfo(IndexInfo indexInfo, boolean isCached) {
+    private void showIndexInfo(IndexInfo indexInfo, boolean isCached,boolean isFresh) {
         if (indexInfo.getSlideInfo() != null) {
             if (isCached) {
                 SimpleCacheUtils.writeCache(mContext, INDEX_INFO, JSON.toJSONString(indexInfo));
@@ -124,7 +121,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                 images.add(slideInfo.getImg());
             }
             mView.showBanner(images);
-            mView.showInfo(indexInfo);
+            mView.showInfo(indexInfo, isFresh);
         }
     }
 
@@ -219,8 +216,6 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         });
         mSubscriptions.add(subscription);
     }
-
-
 
 
 }

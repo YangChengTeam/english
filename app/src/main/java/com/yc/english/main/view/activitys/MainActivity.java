@@ -8,22 +8,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.yc.english.R;
+import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.BaseActivity;
-import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.intelligent.view.activitys.IntelligentTypeStartBgActivity;
-import com.yc.english.intelligent.view.fragments.IntelligentFragment;
 import com.yc.english.intelligent.view.fragments.IntelligentTypeFragment;
 import com.yc.english.main.contract.MainContract;
+import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.presenter.MainPresenter;
 import com.yc.english.main.view.fragments.IndexFragment;
 import com.yc.english.main.view.wdigets.TabBar;
@@ -48,6 +46,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public static String BGKEY = "bgkey";
 
     private static MainActivity mainActivity;
+    private SlideInfo slideInfo;
 
     public static MainActivity getMainActivity() {
         return mainActivity;
@@ -64,6 +63,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         StatusBarCompat.light(this);
         dimBackground(0.5f, 1.0f);
+
+        if (getIntent().hasExtra("dialogInfo")) {
+            slideInfo = getIntent().getParcelableExtra("dialogInfo");
+        }
 
         mPresenter = new MainPresenter(this, this);
         mTabBar.setOnTabSelectedListener(new TabBar.OnTabSelectedListener() {
@@ -99,7 +102,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 2 && SPUtils.getInstance().getString(BGKEY, "").isEmpty()) {
+                if (position == 1 && SPUtils.getInstance().getString(BGKEY, "").isEmpty()) {
                     startActivity(new Intent(MainActivity.this, IntelligentTypeStartBgActivity.class));
                     return;
                 }
@@ -147,6 +150,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 if (mIndexFragment == null) {
                     mIndexFragment = new IndexFragment();
                 }
+                mIndexFragment.setDialogInfo(slideInfo);
                 return mIndexFragment;
             } else if (position == 1) {
                 if (mIntelligentFragment == null) {

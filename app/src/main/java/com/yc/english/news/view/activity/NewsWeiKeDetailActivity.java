@@ -35,7 +35,7 @@ import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
-import com.yc.english.group.view.activitys.GroupPictureDetailActivity;
+import com.yc.english.group.activitys.GroupPictureDetailActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
@@ -45,6 +45,7 @@ import com.yc.english.news.presenter.NewsDetailPresenter;
 import com.yc.english.news.utils.ViewUtil;
 import com.yc.english.vip.model.bean.GoodsType;
 import com.yc.english.vip.utils.VipDialogHelper;
+import com.yc.english.vip.utils.VipInfoHelper;
 import com.yc.english.vip.views.fragments.BasePayItemView;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
@@ -161,8 +162,13 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             playVideo(url, courseInfo.getImg());
 
             mLearnCountTextView.setText(courseInfo.getUserNum());
-            mNowPriceTextView.setText("¥" + courseInfo.getMPrice());
-            mOldPriceTextView.setText("原价:¥" + courseInfo.getPrice());
+            if (VipInfoHelper.getGoodInfoWrapper() != null && VipInfoHelper.getGoodInfoWrapper().getVip() != null) {
+                if (VipInfoHelper.getGoodInfoWrapper().getVip().size() > 0) {
+                    mNowPriceTextView.setText("永久会员 ¥" + VipInfoHelper.getGoodInfoWrapper().getVip().get(0).getVip_price());
+                    mOldPriceTextView.setText("永久会员 原价:¥" + VipInfoHelper.getGoodInfoWrapper().getVip().get(0).getPrice());
+                }
+            }
+
 
         }
     }
@@ -269,45 +275,20 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     }
 
     private boolean judgeVip() {
-        boolean isPlay = true;
-        if (userInfo != null) {
-            if (userInfo.getIsVip() == 0) {
-                isPlay = false;
-            }
-            if (isPlay) {
-                mBuyNowLayout.setVisibility(View.GONE);
-            } else {
-                mBuyNowLayout.setVisibility(View.VISIBLE);
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mSynchronizationTeachView.getLayoutParams();
-                layoutParams.bottomMargin = SizeUtils.dp2px(45);
-                mSynchronizationTeachView.setLayoutParams(layoutParams);
-            }
+        boolean isPlay = false;
+
+        if (UserInfoHelper.isVip(userInfo)) {
+            isPlay = true;
         }
-//        if (currentCourseInfo != null) {
-//
-//            //收费
-//            if (currentCourseInfo.getIsPay() == 0) {
-//                //未购买
-//                if (currentCourseInfo.getUserHas() == 0) {
-//                    if (userInfo != null) {
-//                        if (userInfo.getIsVip() == 0) {
-//                            isPlay = false;
-//                        } else {
-//                            if (currentCourseInfo.getIs_vip() == 0) {
-//                                isPlay = false;
-//                            }
-//                        }
-//                    } else {
-//                        isPlay = false;
-//                    }
-//                } else {
-//                    isPlay = true;
-//                }
-//            }
-//
-//
-//
-//        }
+        if (isPlay) {
+            mBuyNowLayout.setVisibility(View.GONE);
+        } else {
+            mBuyNowLayout.setVisibility(View.VISIBLE);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mSynchronizationTeachView.getLayoutParams();
+            layoutParams.bottomMargin = SizeUtils.dp2px(45);
+            mSynchronizationTeachView.setLayoutParams(layoutParams);
+        }
+
         return isPlay;
     }
 

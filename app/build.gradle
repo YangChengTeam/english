@@ -12,14 +12,16 @@ android {
         minSdkVersion 16
         targetSdkVersion 21
 
-        versionCode 42
-        versionName "1.6.2"
+        versionCode 55
+        versionName "1.7.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86"
         }
+        flavorDimensions 'default'//这句不能少
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
     }
     buildTypes {
         release {
@@ -63,6 +65,44 @@ android {
             keyPassword "123456"
         }
     }
+    //多渠道打包支持
+    productFlavors {
+        app_online {//默认的
+        }
+        Tencent {//投放应用宝市场
+            //     manifestPlaceholders = [UMENG_CHANNEL_VALUE: Tencent]
+        }
+        Baidu {//投放百度市场
+        }
+        Wandoujia {//投放豌豆荚市场
+        }
+        Zhushou {//投放91助手
+        }
+        Qihoo {//投放360助手市场
+        }
+        Vivo {//投放vivo市场
+        }
+        Oppo {//投放oppo市场
+        }
+        Xiaomi {//投放小米市场
+        }
+        Meizu {//投放魅族市场
+        }
+        Huawei {//投放华为应用市场
+        }
+        Lenovo {//投放联想市场
+        }
+        Gionee {//投放金立市场
+        }
+        Anzhi {//安智应用市场
+        }
+
+    }
+    //注意我注释掉的，可以去掉注释，那样的话，下面这句就可以不用了
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
 }
 
 
@@ -98,13 +138,10 @@ dependencies {
     compile 'com.android.support:support-annotations:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:cardview-v7:25.3.1'
-
     implementation 'com.jakewharton:butterknife:8.8.1'
     kapt 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile files('libs/MiPush_SDK_Client_3_2_2.jar')
-    compile project(':IMKit')
-    compile project(':IMLib')
     compile 'com.mylib:comm-recyclviewadapter:1.1.2'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.3'
     compile 'com.jakewharton.rxbinding:rxbinding:+'
@@ -150,4 +187,6 @@ dependencies {
     compile('com.github.huburt-Hu:NewbieGuide:v2.1.0') {
         exclude group: 'com.android.support'
     }
+    //    compile 'com.jph.takephoto:takephoto_library:4.1.0'
+    implementation files('libs/GDTUnionSDK.4.19.574.min.jar')
 }

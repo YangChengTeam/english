@@ -3,11 +3,22 @@ package com.yc.english.main.view.wdigets;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.blankj.utilcode.util.SPUtils;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
+import com.kk.utils.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseView;
+import com.yc.english.group.constant.BusAction;
+import com.yc.english.main.model.domain.Constant;
+import com.yc.english.main.model.domain.SlideInfo;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,6 +41,9 @@ public class TabBar extends BaseView {
     @BindView(R.id.item_my)
     TabItem mMyItem;
 
+
+    private String statics = "1vs1_tutorship";
+
     public TabBar(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -50,8 +64,14 @@ public class TabBar extends BaseView {
         if (onTabSelectedListener == null) throw new NullPointerException("listener == null");
 
         int index = (int) item.getTag();
+
+
+        SlideInfo slideInfo = JSON.parseObject(SPUtils.getInstance().getString(Constant.INDEX_MENU_STATICS), SlideInfo.class);
+        if (null != slideInfo) {
+            statics = slideInfo.getStatistics();
+        }
         if (index == 2) {
-            MobclickAgent.onEvent(mContext, "1vs1_tutorship");
+            MobclickAgent.onEvent(mContext, statics);
         }
         clearSelectedItem();
         item.selected(getSelectedIconDrawable(index));
@@ -63,6 +83,7 @@ public class TabBar extends BaseView {
         getTabItem(idx).selected(getSelectedIconDrawable(idx));
         onTabSelectedListener.onSelected(idx);
     }
+
 
     private TabItem getTabItem(int idx) {
         switch (idx) {

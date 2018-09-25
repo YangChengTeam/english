@@ -8,8 +8,8 @@ import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
  * Created by zhangkai on 2017/12/6.
  */
 interface IntelligentQuestionContract {
-    interface View : IView, ILoading, INoNet,IDialog {
-        fun showInfo(list: List<QuestionInfoWrapper.QuestionInfo>,  use_time: String?)
+    interface View : IView, ILoading, INoNet, IDialog, IFinish {
+        fun showInfo(list: List<QuestionInfoWrapper.QuestionInfo>, use_time: String?)
         fun showNoData(message: String);
     }
 

@@ -11,12 +11,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Looper;
 import android.support.annotation.IntDef;
+import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -26,7 +29,11 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.UIUitls;
+import com.kk.utils.LogUtil;
+import com.kk.utils.ScreenUtil;
 import com.yc.english.R;
 
 import org.mozilla.universalchardet.UniversalDetector;
@@ -50,6 +57,7 @@ import java.util.regex.Pattern;
  * Created by zhengken.me on 2016/11/27.
  * ClassName    : LyricView
  * Description  :
+ * 显示歌词文件
  */
 public class LyricView extends View {
 
@@ -75,7 +83,7 @@ public class LyricView extends View {
     private static final int INDICATOR_TIME_MARGIN_RIGHT = 7;//dp
 
     private static final int DEFAULT_TEXT_SIZE = 14;//sp
-    private static final int DEFAULT_MAX_LENGTH = 300;//dp
+    private int DEFAULT_MAX_LENGTH = 300;//dp
     private static final int DEFAULT_LINE_SPACE = 18;//dp
 
     private int mHintColor;
@@ -120,7 +128,8 @@ public class LyricView extends View {
     private int mLineColor = Color.parseColor("#cdcdcd");
     private int mBtnColor = Color.parseColor("#cdcdcd");
 
-    private List<Integer> mLineFeedRecord = new ArrayList<>();
+    private List<Integer> mLineFeedRecord = new ArrayList<>();//存放每行歌词显示几行的集合
+    private List<Boolean> mLineFeeds = new ArrayList<>();
     private boolean mEnableLineFeed = false;
     private int mExtraHeight = 0;
 
@@ -129,7 +138,6 @@ public class LyricView extends View {
     private String mCurrentLyricFilePath = null;
 
     private OnPlayerClickListener mClickListener;
-
 
     public LyricView(Context context) {
         super(context);
@@ -149,23 +157,25 @@ public class LyricView extends View {
         initMyView(context);
     }
 
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         return super.dispatchTouchEvent(event);
     }
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         if (mVelocityTracker == null) {
             mVelocityTracker = VelocityTracker.obtain();
         }
-        mVelocityTracker.addMovement(event);
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_CANCEL:
                 actionCancel(event);
                 break;
             case MotionEvent.ACTION_DOWN:
+                mVelocityTracker.addMovement(event);
                 actionDown(event);
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -200,8 +210,8 @@ public class LyricView extends View {
 
             for (int i = 0; i < mLineCount; i++) {
                 float x = 0;
-                switch (mTextAlign) {
-                    case LEFT:
+                switch (mTextAlign) {//ScreenUtil.dip2px(mContext, INDICATOR_ICON_PLAY_MARGIN_LEFT) +
+                    case LEFT://todo 新加的间距
                         x = INDICATOR_ICON_PLAY_MARGIN_LEFT + INDICATOR_LINE_MARGIN + mBtnPlayRect.width();
                         break;
                     case CENTER:
@@ -212,20 +222,35 @@ public class LyricView extends View {
                         break;
                 }
 
-                float y;
-                if (mEnableLineFeed && i > 0) {
-                    y = getMeasuredHeight() * 0.5f + i * mLineHeight - mScrollY + mLineFeedRecord.get(i - 1);
+                float y = 0;//getMeasuredHeight() * 0.5f+
+
+//                if (i == 0) {
+//                    y = getStartHeight(false) + mLineHeight - mScrollY;
+//                } else {
+//                    if (mLineFeeds.get(i - 1)) {
+//                        y += mTextHeight * 2 + mLineHeight * i;
+//                    } else {
+//                        y += mTextHeight + mLineHeight * i;
+//                    }
+//                }
+                if (i > 0 && mEnableLineFeed) {
+                    y = getStartHeight(false) + i * mLineHeight - mScrollY + mLineFeedRecord.get(i - 1);
                 } else {
-                    y = getMeasuredHeight() * 0.5f + i * mLineHeight - mScrollY;
+                    y = getStartHeight(false) + i * mLineHeight - mScrollY;
+
+                    //0 ,
                 }
 
 //                float y = getHeight() * 0.5f + i * mLineHeight - mScrollY;
+
+
                 if (y < 0) {
                     continue;
                 }
                 if (y > getHeight()) {
                     break;
                 }
+                //    实现当前播放位置高亮显示
                 if (i == mCurrentPlayLine - 2) {
                     mTextPaint.setColor(mHighLightColor);
                 } else if (i == mLineNumberUnderIndicator && mShowIndicator) {
@@ -233,7 +258,7 @@ public class LyricView extends View {
                 } else {
                     mTextPaint.setColor(mDefaultColor);
                 }
-                if (mIsShade && (y > getHeight() - mShaderWidth || y < mShaderWidth)) {
+                if (mIsShade && (y > getMeasuredHeight() - mShaderWidth || y < mShaderWidth)) {
                     if (y < mShaderWidth) {
                         mTextPaint.setAlpha(26 + (int) (23000.0f * y / mShaderWidth * 0.01f));
                     } else {
@@ -244,7 +269,7 @@ public class LyricView extends View {
                 }
 
                 if (mEnableLineFeed) {
-                    LogUtils.e("歌词--" + i + "--->" + mLyricInfo.songLines.get(i).content);
+//                    LogUtil.msg("y:  " + mCurrentPlayLine + "  x  " + x);
                     StaticLayout staticLayout = new StaticLayout(mLyricInfo.songLines.get(i).content, mTextPaint,
                             mMaxLength,
                             Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
@@ -258,23 +283,32 @@ public class LyricView extends View {
             }
         } else {
             mTextPaint.setColor(mHintColor);
-            canvas.drawText(mDefaultHint, getMeasuredWidth() / 2, getMeasuredHeight() / 2, mTextPaint);
+            canvas.drawText(mDefaultHint, getMeasuredWidth() / 2, getStartHeight(false), mTextPaint);
         }
+    }
+
+
+    private int getStartHeight(boolean isCenter) {
+        if (isCenter) {
+            return getMeasuredHeight() / 2;
+        }
+        return getMeasuredHeight() / 9;
+
     }
 
     private void getAttrs(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.LyricView);
-        mIsShade = ta.getBoolean(R.styleable.LyricView_fadeInFadeOut, false);
-        mDefaultHint = ta.getString(R.styleable.LyricView_hint) != null
+        mIsShade = ta.getBoolean(R.styleable.LyricView_fadeInFadeOut, false);//是否淡入淡出
+        mDefaultHint = ta.getString(R.styleable.LyricView_hint) != null//当歌词文件不存在时显示字符串
                 ? ta.getString(R.styleable.LyricView_hint)
                 : getResources().getString(R.string.default_hint);
-        mHintColor = ta.getColor(R.styleable.LyricView_hintColor, Color.parseColor("#FFFFFF"));
-        mDefaultColor = ta.getColor(R.styleable.LyricView_textColor, Color.parseColor("#8D8D8D"));
-        mHighLightColor = ta.getColor(R.styleable.LyricView_highlightColor, Color.parseColor("#FFFFFF"));
-        mTextSize = ta.getDimensionPixelSize(R.styleable.LyricView_textSize, (int) getRawSize(TypedValue.COMPLEX_UNIT_SP, DEFAULT_TEXT_SIZE));
-        mTextAlign = ta.getInt(R.styleable.LyricView_textAlign, CENTER);
-        mMaxLength = ta.getDimensionPixelSize(R.styleable.LyricView_maxLength, (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_MAX_LENGTH));
-        mLineSpace = ta.getDimensionPixelSize(R.styleable.LyricView_lineSpace, (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_LINE_SPACE));
+        mHintColor = ta.getColor(R.styleable.LyricView_hintColor, Color.parseColor("#FFFFFF"));//提示文字颜色
+        mDefaultColor = ta.getColor(R.styleable.LyricView_textColor, Color.parseColor("#8D8D8D"));//歌词颜色
+        mHighLightColor = ta.getColor(R.styleable.LyricView_highlightColor, Color.parseColor("#FFFFFF"));//当前高亮颜色显示
+        mTextSize = ta.getDimensionPixelSize(R.styleable.LyricView_textSize, (int) getRawSize(TypedValue.COMPLEX_UNIT_SP, DEFAULT_TEXT_SIZE));//歌词文字大小
+        mTextAlign = ta.getInt(R.styleable.LyricView_textAlign, CENTER);//歌词对齐方式
+        mMaxLength = ta.getDimensionPixelSize(R.styleable.LyricView_maxLength, (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_MAX_LENGTH));//歌词最大宽度
+        mLineSpace = ta.getDimensionPixelSize(R.styleable.LyricView_lineSpace, (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_LINE_SPACE));//歌词行间距
         ta.recycle();
     }
 
@@ -332,17 +366,20 @@ public class LyricView extends View {
             try {
                 setupLyricResource(new FileInputStream(file), charsetName);
 
-                for (int i = 0; i < mLyricInfo.songLines.size(); i++) {
-
+                for (int i = 0; i < mLineCount; i++) {
+//(int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_MAX_LENGTH)
                     StaticLayout staticLayout = new StaticLayout(mLyricInfo.songLines.get(i).content, mTextPaint,
-                            (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_MAX_LENGTH),
-                            Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
-
+                            mMaxLength, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+                    LogUtil.msg("count:  " + staticLayout.getLineCount());
                     if (staticLayout.getLineCount() > 1) {
-                        mEnableLineFeed = true;
-                        mExtraHeight = mExtraHeight + (staticLayout.getLineCount() - 1) * mTextHeight;
-                    }
 
+                        mEnableLineFeed = true;
+                        mLineFeeds.add(i, true);
+                        mExtraHeight = mExtraHeight + (staticLayout.getLineCount() - 1) * mTextHeight;
+
+                    } else {
+                        mLineFeeds.add(i, false);
+                    }
                     mLineFeedRecord.add(i, mExtraHeight);
 
                 }
@@ -354,14 +391,14 @@ public class LyricView extends View {
         }
     }
 
-    private void setLineSpace(float lineSpace) {
-        if (mLineSpace != lineSpace) {
-            mLineSpace = getRawSize(TypedValue.COMPLEX_UNIT_DIP, lineSpace);
-            measureLineHeight();
-            mScrollY = measureCurrentScrollY(mCurrentPlayLine);
-            invalidateView();
-        }
-    }
+//    private void setLineSpace(float lineSpace) {
+//        if (mLineSpace != lineSpace) {
+//            mLineSpace = getRawSize(TypedValue.COMPLEX_UNIT_DIP, lineSpace);
+//            measureLineHeight();
+//            mScrollY = measureCurrentScrollY(mCurrentPlayLine);
+//            invalidateView();
+//        }
+//    }
 
     public void reset() {
         resetView();
@@ -389,12 +426,16 @@ public class LyricView extends View {
     }
 
 
+    /**
+     * 手势移动执行事件
+     *
+     * @param event
+     */
     private void actionMove(MotionEvent event) {
         if (scrollable()) {
-            final VelocityTracker tracker = mVelocityTracker;
-            tracker.computeCurrentVelocity(UNITS_SECOND, maxVelocity);
+            mVelocityTracker.computeCurrentVelocity(UNITS_SECOND, maxVelocity);
             mScrollY = mLastScrollY + mDownY - event.getY();
-            mVelocity = tracker.getYVelocity();
+            mVelocity = mVelocityTracker.getYVelocity();
             measureCurrentLine();
         }
     }
@@ -460,7 +501,7 @@ public class LyricView extends View {
 
         //绘制 分割线
         Path pathLine = new Path();
-        pathLine.moveTo(mBtnPlayRect.right + getRawSize(TypedValue.COMPLEX_UNIT_DIP, INDICATOR_LINE_MARGIN) - remainWidth, getMeasuredHeight() * 0.5f);
+        pathLine.moveTo(mBtnPlayRect.right + getRawSize(TypedValue.COMPLEX_UNIT_DIP, INDICATOR_LINE_MARGIN) - remainWidth, getStartHeight(true));
         pathLine.lineTo(getWidth() - getRawSize(TypedValue.COMPLEX_UNIT_DIP, INDICATOR_TIME_MARGIN_RIGHT) - getRawSize(TypedValue.COMPLEX_UNIT_DIP, INDICATOR_LINE_MARGIN), getHeight() * 0.5f);
         canvas.drawPath(pathLine, mLinePaint);
 
@@ -539,6 +580,7 @@ public class LyricView extends View {
 
     private void initMyView(Context context) {
         maxVelocity = ViewConfiguration.get(context).getScaledMaximumFlingVelocity();
+
         initPaint();
         initAllBounds();
     }
@@ -546,12 +588,10 @@ public class LyricView extends View {
     private void initAllBounds() {
         setRawTextSize(mTextSize);
 
-        setLineSpace(mLineSpace);
         measureLineHeight();
 
         mTimerRect = new Rect();
         mTimerPaint.getTextBounds(mDefaultTime, 0, mDefaultTime.length(), mTimerRect);
-
 
     }
 
@@ -596,8 +636,16 @@ public class LyricView extends View {
 
     }
 
+    /**
+     * 获取当前指定行号
+     *
+     * @param line
+     * @return
+     */
     private float measureCurrentScrollY(int line) {
-        if (mEnableLineFeed && line > 1) {
+
+        LogUtil.msg("line: " + line);
+        if (line > 1 && mLineFeeds.get(line - 1)) {
             return (line - 1) * mLineHeight + mLineFeedRecord.get(line - 1);
         }
         return (line - 1) * mLineHeight;
@@ -613,11 +661,21 @@ public class LyricView extends View {
         }
     }
 
+    /**
+     * 测量行高
+     * 行高 = 文字高度+行间距
+     */
     private void measureLineHeight() {
-        Rect lineBound = new Rect();
-        mTextPaint.getTextBounds(mDefaultHint, 0, mDefaultHint.length(), lineBound);
-        mTextHeight = lineBound.height();
-        mLineHeight = mTextHeight + mLineSpace;
+//        Rect lineBound = new Rect();
+
+//        mTextPaint.getTextBounds(mDefaultHint, 0, mDefaultHint.length(), lineBound);
+//        mTextHeight = lineBound.height();
+//        mLineHeight = mTextHeight + mLineSpace;
+
+        mTextHeight = (int) Math.ceil(mTextPaint.getFontMetrics().descent - mTextPaint.getFontMetrics().ascent);
+        mLineHeight = mTextHeight + mLineSpace + mTextPaint.getFontMetrics().leading;
+
+        LogUtil.msg("mTextHeight: " + mTextHeight + "---" + mLineHeight);
     }
 
     /**
@@ -626,16 +684,21 @@ public class LyricView extends View {
     private void measureCurrentLine() {
         float baseScrollY = mScrollY + mLineHeight * 0.5f;
 
-        if (mEnableLineFeed) {
-            for (int i = mLyricInfo.songLines.size(); i >= 0; i--) {
+//        if (mEnableLineFeed) {
+        for (int i = mLineCount; i >= 0; i--) {
+            if (i >= 1 && mLineFeeds.get(i - 1)) {
                 if (baseScrollY > measureCurrentScrollY(i) + mLineSpace * 0.2) {
                     mLineNumberUnderIndicator = i - 1;
                     break;
                 }
+            } else {
+                mLineNumberUnderIndicator = (int) (baseScrollY / mLineHeight);
             }
-        } else {
-            mLineNumberUnderIndicator = (int) (baseScrollY / mLineHeight);
+
         }
+//        } else {
+//            mLineNumberUnderIndicator = (int) (baseScrollY / mLineHeight);
+//        }
 
 
     }
@@ -678,11 +741,11 @@ public class LyricView extends View {
     }
 
     private boolean scrollable() {
-        return mLyricInfo != null && mLyricInfo.songLines != null && mLyricInfo.songLines.size() > 0;
+        return mLyricInfo != null && mLyricInfo.songLines != null && mLineCount > 0;
     }
 
     private void scrollToCurrentTimeMillis(long time) {
-
+        Log.d(TAG, "scrollToCurrentTimeMillis() called with: time = [" + time + "]" + mLineCount);
         int position = 0;
         if (scrollable()) {
             for (int i = 0, size = mLineCount; i < size; i++) {
@@ -698,12 +761,19 @@ public class LyricView extends View {
         }
         if (mCurrentPlayLine != position) {
             mCurrentPlayLine = position;
+
             if (!mFling && !mUserTouch) {
                 smoothScrollTo(measureCurrentScrollY(position));
             }
         }
     }
 
+    /**
+     * 解析歌词并保存
+     *
+     * @param inputStream
+     * @param charsetName
+     */
     private void setupLyricResource(InputStream inputStream, String charsetName) {
         if (inputStream != null) {
             try {
@@ -770,7 +840,7 @@ public class LyricView extends View {
                 lineInfo.start = measureStartTimeMillis(line.substring(0, index));
                 lyricInfo.songLines.add(lineInfo);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             LogUtils.e(e.getMessage());
         }
     }
@@ -817,6 +887,7 @@ public class LyricView extends View {
         mLineCount = 0;
         mScrollY = 0;
         mEnableLineFeed = false;
+        mLineFeeds.clear();
         mLineFeedRecord.clear();
         mExtraHeight = 0;
     }
@@ -837,7 +908,6 @@ public class LyricView extends View {
             mTextPaint.setTextSize(size);
             measureLineHeight();
             mScrollY = measureCurrentScrollY(mCurrentPlayLine);
-            invalidateView();
         }
     }
 

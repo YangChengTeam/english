@@ -21,15 +21,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.View;
-
-import com.blankj.utilcode.util.LogUtils;
-import com.yc.english.base.view.AlertDialog;
-import com.yc.english.group.model.bean.ClassInfo;
-
-import java.util.List;
-
-import butterknife.OnItemSelected;
 
 public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 

@@ -36,18 +36,6 @@
         android:background="@color/gray_aaa" />
 
     <Button
-        android:id="@+id/btn_share"
-        style="@style/group_btn_blue_style"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/group_distance_40"
-        android:layout_marginBottom="@dimen/group_distance_10"
-        android:layout_marginLeft="@dimen/group_distance_15"
-        android:layout_marginRight="@dimen/group_distance_15"
-        android:layout_marginTop="@dimen/group_distance_10"
-        android:text="@string/share_use_text"
-        android:textSize="@dimen/sp_16" />
-
-    <Button
         android:id="@+id/btn_pay"
         style="@style/group_btn_blue_style"
         android:layout_width="match_parent"
@@ -55,8 +43,21 @@
         android:layout_marginBottom="@dimen/group_distance_10"
         android:layout_marginLeft="@dimen/group_distance_15"
         android:layout_marginRight="@dimen/group_distance_15"
+        android:layout_marginTop="@dimen/group_distance_10"
         android:text="@string/promptly_open"
         android:textSize="@dimen/sp_16" />
+
+    <Button
+        android:id="@+id/btn_share"
+        style="@style/group_btn_blue_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/group_distance_40"
+        android:layout_marginBottom="@dimen/group_distance_10"
+        android:layout_marginLeft="@dimen/group_distance_15"
+        android:layout_marginRight="@dimen/group_distance_15"
+        android:text="@string/share_use_text"
+        android:textSize="@dimen/sp_16" />
+
 
     <Button
         android:id="@+id/btn_follow"

@@ -1,30 +1,30 @@
 package com.yc.english.speak.view.activity;
 
+import android.app.Notification;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SDCardUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.liulishuo.filedownloader.BaseDownloadTask;
-import com.liulishuo.filedownloader.FileDownloadListener;
-import com.liulishuo.filedownloader.FileDownloader;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
+import com.yc.english.base.view.StateView;
+import com.yc.english.main.model.domain.Constant;
 import com.yc.english.speak.contract.ListenEnglishContract;
 import com.yc.english.speak.contract.ListenPlayContract;
 import com.yc.english.speak.model.bean.ListenEnglishBean;
@@ -32,24 +32,27 @@ import com.yc.english.speak.model.bean.SpeakAndReadInfo;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
 import com.yc.english.speak.presenter.ListenEnglishPresenter;
 import com.yc.english.speak.presenter.LyricViewPresenter;
-import com.yc.english.speak.service.MusicPlayService;
+import com.yc.english.speak.utils.NotificationUtil;
 import com.yc.english.speak.view.wdigets.LyricView;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
 /**
  * Created by admin on 2017/10/19.
+ * view
+ *
  */
 
 public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPresenter> implements ListenEnglishContract.View, ListenPlayContract.View, View.OnClickListener, SeekBar.OnSeekBarChangeListener, LyricView.OnPlayerClickListener {
 
-    private static final String TAG = "MainFragment";
 
-    private ListenPlayContract.Presenter mPlayPresenter;
+    @BindView(R.id.stateView)
+    StateView stateView;
+    @BindView(R.id.linear_layout_music_cover)
+    FrameLayout linearLayoutMusicCover;
 
     @BindView(R.id.custom_lyric_view)
     LyricView mLyricView;
@@ -71,29 +74,15 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
 
     @BindView(R.id.btn_next)
     ImageView mNext;
-    @BindView(R.id.iv_loading)
-    ImageView mIvLoading;
+
     private LyricViewPresenter mLyricViewPresenter;
 
-    private Intent mPlayService;
 
-    private int progresses = 0;
+    private String currentAudioUrl;//播放的MP3音频地址.mp3
 
-    private int total = 0;
-
-    private File audioFile;
-
-    private File lrcFile;
+    private String currentAudioLrcUrl;//音频歌词文件地址.lrc
 
     private boolean isDownSuccess;
-
-    private boolean isURLValidate;
-
-    private String fileName = "";//ID
-
-    private String currentAudioUrl;
-
-    private String currentAudioLrcUrl;
 
     private List<SpeakAndReadInfo> listenList;
 
@@ -103,11 +92,13 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
 
     private int innerDataPosition;
 
-    private boolean isPrevOver;
+    private boolean isPrevOver;//是否有上一个
 
-    private boolean isNextOver;
+    private boolean isNextOver;//是否有下一个
 
-    public static boolean isClick = true;
+
+    private ListenEnglishBean listenEnglishBean;
+    private NotificationPlayerReceiver receiver;
 
     @Override
     public int getLayoutId() {
@@ -116,27 +107,34 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
 
     @Override
     public void setPresenter(@NonNull ListenPlayContract.Presenter presenter) {
-        mPlayPresenter = presenter;
     }
 
     @Override
     public void init() {
-        mToolbar.setTitle("听英语");
+
         mToolbar.showNavigationIcon();
         mToolbar.setTitleColor(ContextCompat.getColor(this, R.color.white));
 
         Intent intent = getIntent();
-        currentItemInfo = (SpeakAndReadItemInfo) intent.getParcelableExtra("itemInfo");
-        listenList = (ArrayList) intent.getParcelableArrayListExtra("infoList");
-        fileName = currentItemInfo.getId();
+        if (null != intent) {
+            currentItemInfo = intent.getParcelableExtra("itemInfo");
+            listenList = intent.getParcelableArrayListExtra("infoList");
 
-        outDataPosition = currentItemInfo.getOutPos();
-        innerDataPosition = currentItemInfo.getInnerPos();
 
-        setListener();
-        FileDownloader.setup(this);
-        mPresenter = new ListenEnglishPresenter(this, this);
-        mPresenter.getListenEnglishDetail(currentItemInfo.getId());
+            outDataPosition = currentItemInfo.getOutPos();
+            innerDataPosition = currentItemInfo.getInnerPos();
+
+            mToolbar.setTitle(currentItemInfo.getTitle());
+            setListener();
+
+            mPresenter = new ListenEnglishPresenter(this, this);
+            mPresenter.getListenEnglishDetail(currentItemInfo.getId());
+            mLyricViewPresenter = new LyricViewPresenter(this, this);
+            mLyricViewPresenter.startService();
+            listenEnglishBean = new ListenEnglishBean();
+
+        }
+        registerReciver();
     }
 
     public boolean getPrevInfo() {
@@ -144,7 +142,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         LogUtils.e("outDataPosition getPrevInfo: " + outDataPosition + "--innerDataPosition--" + innerDataPosition);
         if (!isPrevOver) {
             innerDataPosition--;
-            if (innerDataPosition < 0) {
+            if (innerDataPosition < 0) {//
                 outDataPosition--;
                 if (outDataPosition < 0) {
                     outDataPosition = 0;
@@ -152,13 +150,16 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
                     isPrevOver = true;
                     isNextOver = false;
                 } else {
-                    if (outDataPosition > -1 && listenList.get(outDataPosition).getData() != null) {
+                    if (listenList != null && listenList.get(outDataPosition).getData() != null) {
                         innerDataPosition = listenList.get(outDataPosition).getData().size() - 1;
+                        currentItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
 
-                        SpeakAndReadItemInfo speakAndReadItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
-                        fileName = speakAndReadItemInfo.getId();
-                        currentAudioUrl = speakAndReadItemInfo.getMp3();
-                        currentAudioLrcUrl = speakAndReadItemInfo.getWord_file();
+                        mToolbar.setTitle(currentItemInfo.getTitle());
+
+                        currentAudioUrl = currentItemInfo.getMp3();
+                        currentAudioLrcUrl = currentItemInfo.getWord_file();
+
+                        setListenBean(currentItemInfo);
                     } else {
                         isPrevOver = true;
                         isNextOver = false;
@@ -166,10 +167,14 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
                 }
             } else {
                 if (outDataPosition > -1 && outDataPosition < listenList.size() && innerDataPosition > -1 && innerDataPosition < listenList.get(outDataPosition).getData().size()) {
-                    SpeakAndReadItemInfo speakAndReadItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
-                    fileName = speakAndReadItemInfo.getId();
-                    currentAudioUrl = speakAndReadItemInfo.getMp3();
-                    currentAudioLrcUrl = speakAndReadItemInfo.getWord_file();
+                    currentItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
+                    mToolbar.setTitle(currentItemInfo.getTitle());
+
+                    currentAudioUrl = currentItemInfo.getMp3();
+                    currentAudioLrcUrl = currentItemInfo.getWord_file();
+
+                    setListenBean(currentItemInfo);
+
                     isNextOver = false;
                 } else {
                     isPrevOver = true;
@@ -180,7 +185,16 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         return isPrevOver;
     }
 
+
+    private void setListenBean(SpeakAndReadItemInfo speakAndReadItemInfo) {
+        if (listenEnglishBean == null) listenEnglishBean = new ListenEnglishBean();
+        listenEnglishBean.setMp3(speakAndReadItemInfo.getMp3());
+        listenEnglishBean.setWordFile(speakAndReadItemInfo.getWord_file());
+        listenEnglishBean.setId(speakAndReadItemInfo.getId());
+    }
+
     public boolean getNextInfo() {
+
         LogUtils.e("outDataPosition getNextInfo: " + outDataPosition + "--innerDataPosition--" + innerDataPosition);
         if (!isNextOver) {
             innerDataPosition++;
@@ -195,10 +209,14 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
                     if (listenList.get(outDataPosition).getData() != null) {
                         innerDataPosition = 0;
 
-                        SpeakAndReadItemInfo speakAndReadItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
-                        fileName = speakAndReadItemInfo.getId();
-                        currentAudioUrl = speakAndReadItemInfo.getMp3();
-                        currentAudioLrcUrl = speakAndReadItemInfo.getWord_file();
+                        currentItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
+
+                        mToolbar.setTitle(currentItemInfo.getTitle());
+
+                        currentAudioUrl = currentItemInfo.getMp3();
+                        currentAudioLrcUrl = currentItemInfo.getWord_file();
+
+                        setListenBean(currentItemInfo);
                     } else {
                         isNextOver = true;
                         isPrevOver = false;
@@ -206,10 +224,12 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
                 }
             } else {
                 if (outDataPosition > -1 && outDataPosition < listenList.size() && innerDataPosition > -1 && innerDataPosition < listenList.get(outDataPosition).getData().size()) {
-                    SpeakAndReadItemInfo speakAndReadItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
-                    fileName = speakAndReadItemInfo.getId();
-                    currentAudioUrl = speakAndReadItemInfo.getMp3();
-                    currentAudioLrcUrl = speakAndReadItemInfo.getWord_file();
+                    currentItemInfo = listenList.get(outDataPosition).getData().get(innerDataPosition);
+                    mToolbar.setTitle(currentItemInfo.getTitle());
+
+                    currentAudioUrl = currentItemInfo.getMp3();
+                    currentAudioLrcUrl = currentItemInfo.getWord_file();
+                    setListenBean(currentItemInfo);
                     isPrevOver = false;
                 } else {
                     isNextOver = true;
@@ -219,6 +239,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         }
         return isNextOver;
     }
+
 
     @Override
     public void updateTitle(String title) {
@@ -246,48 +267,34 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         mSeekBar.setProgress(0);
     }
 
-    @Override
-    public void onClick(View v) {
-        if (isClick) {
-            switch (v.getId()) {
-                case R.id.btn_play_pause:
-                    if (isDownSuccess) {
-                        mPlayPresenter.onBtnPlayPausePressed();
-                    } else {
-                        if (!isURLValidate) {
-                            ToastUtils.showLong("资源文件下载有误，请重试");
-                            return;
-                        }
-                        ToastUtils.showLong("资源文件下载中");
-                    }
-                    break;
-                case R.id.btn_prev:
-                    if (!getPrevInfo()) {
-                        downAudioFile();
-                    } else {
-                        ToastUtils.showLong("暂无更多信息");
-                    }
-                    break;
-                case R.id.btn_next:
-                    if (!getNextInfo()) {
-                        downAudioFile();
-                    } else {
-                        ToastUtils.showLong("暂无更多信息");
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 
     @Override
-    public void setListener() {
-        mPrev.setOnClickListener(ListenEnglishActivity.this);
-        mPlayPause.setOnClickListener(ListenEnglishActivity.this);
-        mNext.setOnClickListener(ListenEnglishActivity.this);
-        mSeekBar.setOnSeekBarChangeListener(ListenEnglishActivity.this);
-        mLyricView.setOnPlayerClickListener(ListenEnglishActivity.this);
+    public void onClick(View v) {
+
+
+        switch (v.getId()) {
+            case R.id.btn_play_pause:
+
+                if (isDownSuccess) {
+                    mLyricViewPresenter.onBtnPlayPausePressed();
+                } else {
+                    if (!URLIsValidate(currentAudioUrl, "mp3") || !URLIsValidate(currentAudioLrcUrl, "lrc")) {
+                        ToastUtils.showLong("资源文件下载有误，请重试");
+                        return;
+                    }
+                    ToastUtils.showLong("资源文件下载中");
+                }
+                break;
+            case R.id.btn_prev:
+                pre();
+                break;
+            case R.id.btn_next:
+                next();
+                break;
+            default:
+                break;
+        }
+
     }
 
     public boolean URLIsValidate(String url, String type) {
@@ -303,153 +310,23 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         return false;
     }
 
-    public void downAudioFile() {
-        progresses = 0;
-        total = 0;
-
-        File fileDir = new File(SDCardUtils.getSDCardPath() + "/yc_english");
-        if (FileUtils.createOrExistsDir(fileDir)) {
-
-            String audioPath = fileDir + "/" + fileName + ".mp3";
-            audioFile = new File(audioPath);
-            if (!audioFile.exists()) {
-                isURLValidate = URLIsValidate(currentAudioUrl, "mp3");
-                if (isURLValidate) {
-                    FileDownloader.getImpl().create(currentAudioUrl).setPath(audioPath, false).setListener(new FileDownloadListener() {
-                        @Override
-                        protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-//                            ToastUtils.showLong("开始下载资源文件");
-                            if (ActivityUtils.isValidContext(ListenEnglishActivity.this)) {
-                                Glide.with(ListenEnglishActivity.this).load(R.mipmap.base_loading)
-                                        .apply(new RequestOptions().override(SizeUtils.dp2px(1080 / 3), SizeUtils.dp2px(408 / 3))).into(mIvLoading);
-                            }
-                            total = totalBytes / 1024 / 1024;
-                        }
-
-                        @Override
-                        protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                            total = totalBytes / 1024 / 1024;
-                            progresses = soFarBytes / 1024 / 1024;
-//                            Log.e("progress total", "progress total--->" + total + "progress--->" + progresses);
-                        }
-
-                        @Override
-                        protected void completed(BaseDownloadTask task) {
-                            progresses = total;
-//                            Log.e("completed progress", " completed progress--->" + progresses);
-//                            ToastUtils.showLong("资源文件下载完成");
-                            downAudioLrcFile();//继续下载资源词句文件
-                        }
-
-                        @Override
-                        protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-
-                        }
-
-                        @Override
-                        protected void error(BaseDownloadTask task, Throwable e) {
-
-                        }
-
-                        @Override
-                        protected void warn(BaseDownloadTask task) {
-
-                        }
-
-                    }).start();
-                } else {
-                    ToastUtils.showLong("资源文件下载有误，请重试");
-                }
-            } else {
-                downAudioLrcFile();//继续下载资源词句文件
-            }
-        }
+    @Override
+    public void setListener() {
+        mPrev.setOnClickListener(ListenEnglishActivity.this);
+        mPlayPause.setOnClickListener(ListenEnglishActivity.this);
+        mNext.setOnClickListener(ListenEnglishActivity.this);
+        mSeekBar.setOnSeekBarChangeListener(ListenEnglishActivity.this);
+        mLyricView.setOnPlayerClickListener(ListenEnglishActivity.this);
     }
 
-    public void downAudioLrcFile() {
-        progresses = 0;
-        total = 0;
-
-        File fileDir = new File(SDCardUtils.getSDCardPath() + "/yc_english");
-
-        if (FileUtils.createOrExistsDir(fileDir)) {
-
-            String lrcPath = fileDir + "/" + fileName + ".lrc";
-            lrcFile = new File(lrcPath);
-            if (!lrcFile.exists()) {
-                isURLValidate = URLIsValidate(currentAudioLrcUrl, "lrc");
-                if (isURLValidate) {
-                    FileDownloader.getImpl().create(currentAudioLrcUrl).setPath(lrcPath, false).setListener(new FileDownloadListener() {
-                        @Override
-                        protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-//                            ToastUtils.showLong("开始下载资源文件");
-                            total = totalBytes / 1024 / 1024;
-                        }
-
-                        @Override
-                        protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                            total = totalBytes / 1024 / 1024;
-                            progresses = soFarBytes / 1024 / 1024;
-                            Log.e("progress total", "progress total--->" + total + "progress--->" + progresses);
-                        }
-
-                        @Override
-                        protected void completed(BaseDownloadTask task) {
-                            progresses = total;
-                            Log.e("completed progress", " completed progress--->" + progresses);
-
-                            isDownSuccess = true;
-                            if (ActivityUtils.isValidContext(ListenEnglishActivity.this)) {
-                                Glide.with(ListenEnglishActivity.this).clear(mIvLoading);
-                            }
-                            mIvLoading.setVisibility(View.GONE);
-
-                            if(mLyricViewPresenter != null){
-                                mLyricViewPresenter.setSongPath(audioFile.getAbsolutePath());
-                            }else{
-                                mLyricViewPresenter = new LyricViewPresenter(ListenEnglishActivity.this, ListenEnglishActivity.this, audioFile.getAbsolutePath());
-                            }
-
-                            startService(mPlayService);
-                        }
-
-                        @Override
-                        protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-
-                        }
-
-                        @Override
-                        protected void error(BaseDownloadTask task, Throwable e) {
-
-                        }
-
-                        @Override
-                        protected void warn(BaseDownloadTask task) {
-
-                        }
-
-                    }).start();
-                } else {
-                    ToastUtils.showLong("资源文件下载有误，请重试");
-                }
-            } else {
-                isDownSuccess = true;
-
-                startService(mPlayService);
-
-                if(mLyricViewPresenter != null){
-                    mLyricViewPresenter.setSongPath(audioFile.getAbsolutePath());
-                }else{
-                    mLyricViewPresenter = new LyricViewPresenter(ListenEnglishActivity.this, ListenEnglishActivity.this, audioFile.getAbsolutePath());
-                }
-            }
-        }
-    }
 
     @Override
     public void initLrcView(File lrcFile) {
         mLyricView.setLyricFile(lrcFile);
+        setNotifyFlag(false, true);
+
     }
+
 
     @Override
     public void updateLrcView(int progress) {
@@ -477,8 +354,11 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         }
         if (setPlayImage) {
             mPlayPause.setImageDrawable(getResources().getDrawable(R.drawable.btn_play_selector));
+
+            setNotifyFlag(false, false);
         } else {
             mPlayPause.setImageDrawable(getResources().getDrawable(R.drawable.btn_pause_selector));
+            setNotifyFlag(false, true);
         }
     }
 
@@ -492,77 +372,152 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
     }
 
     @Override
+    public void updateDone(boolean isDone) {
+        isDownSuccess = isDone;
+    }
+
+    @Override
+    public void onCompletion() {
+        next();
+    }
+
+    @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
-            mPlayPresenter.onProgressChanged(progress);
+            mLyricViewPresenter.onProgressChanged(progress);
         }
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        mPlayPresenter.pause();
+
+        mLyricViewPresenter.pause();
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        mPlayPresenter.play();
+
+        mLyricViewPresenter.play();
     }
 
     @Override
     public void onPlayerClicked(long progress, String content) {
-        mPlayPresenter.play();
-        mPlayPresenter.onProgressChanged((int) progress);
+
+        mLyricViewPresenter.play();
+        mLyricViewPresenter.onProgressChanged((int) progress);
     }
 
 
     @Override
     public void hideStateView() {
-
+        stateView.hide();
     }
 
     @Override
     public void showNoNet() {
-
+        stateView.showNoNet(linearLayoutMusicCover, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getListenEnglishDetail(currentItemInfo.getId());
+            }
+        });
     }
 
     @Override
     public void showNoData() {
-
+        stateView.showNoData(linearLayoutMusicCover);
     }
 
     @Override
     public void showLoading() {
-
+        stateView.showLoading(linearLayoutMusicCover);
     }
 
     @Override
     public void showListenEnglishDetail(ListenEnglishBean listenEnglishBean) {
-        fileName = currentItemInfo.getId();
+
         currentAudioUrl = listenEnglishBean.getMp3();
         currentAudioLrcUrl = listenEnglishBean.getWordFile();
-        LogUtils.e("file url--->" + currentAudioUrl + "---lrc url --->" + currentAudioLrcUrl);
-        mPlayService = new Intent(ListenEnglishActivity.this, MusicPlayService.class);
-        downAudioFile();
-    }
+        LogUtils.e("file url--->" + currentAudioUrl + "  ---lrc url --->" + currentAudioLrcUrl);
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mLyricViewPresenter != null) {
-            mLyricViewPresenter.setPlay(false);
-        }
+        mLyricViewPresenter.downAudioFile(listenEnglishBean);
     }
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "onDestroy");
         super.onDestroy();
-        if (mPlayPresenter != null) {
-            mPlayPresenter.destroy();
+        if (mLyricViewPresenter != null) {
+            mLyricViewPresenter.destroy();
         }
-        if (mPlayService != null) {
-            stopService(mPlayService);
+        if (null != receiver) {
+            unregisterReceiver(receiver);
+        }
+        setNotifyFlag(true, false);
+
+    }
+
+    //上一首
+    private void pre() {
+        if (!getPrevInfo()) {
+            mLyricViewPresenter.downAudioFile(listenEnglishBean);
+        } else {
+            ToastUtils.showLong("暂无更多歌曲");
         }
     }
+
+    //下一首
+    private void next() {
+        if (!getNextInfo()) {
+            mLyricViewPresenter.downAudioFile(listenEnglishBean);
+        } else {
+            ToastUtils.showLong("暂无更多歌曲");
+        }
+    }
+
+    private void setNotifyFlag(boolean isClear, boolean isPlay) {
+        int flag = Notification.FLAG_NO_CLEAR;
+        if (isClear) {
+            flag = Notification.FLAG_AUTO_CANCEL;
+        }
+        NotificationUtil.showNotify(this, currentItemInfo.getTitle(), isPlay, flag);
+    }
+
+    private void registerReciver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constant.NOTIFY_NEXT);
+        intentFilter.addAction(Constant.NOTIFY_PRE);
+        intentFilter.addAction(Constant.NOTIFY_PLAY_PAUSE);
+        intentFilter.addAction(Constant.NOTIFY_CANCEL);
+        receiver = new NotificationPlayerReceiver();
+        this.registerReceiver(receiver, intentFilter);
+    }
+
+    public class NotificationPlayerReceiver extends BroadcastReceiver {
+
+        private static final String TAG = "NotificationPlayerRecei";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            Log.e(TAG, "onReceive: " + action);
+            if (!TextUtils.isEmpty(action)) {
+                switch (action) {
+                    case Constant.NOTIFY_NEXT:
+                        next();
+                        break;
+                    case Constant.NOTIFY_PRE:
+                        pre();
+                        break;
+                    case Constant.NOTIFY_PLAY_PAUSE:
+                        mLyricViewPresenter.onBtnPlayPausePressed();
+                        break;
+                    case Constant.NOTIFY_CANCEL:
+                        NotificationUtil.clear(ListenEnglishActivity.this);
+                        break;
+                }
+            }
+        }
+    }
+
 
 }

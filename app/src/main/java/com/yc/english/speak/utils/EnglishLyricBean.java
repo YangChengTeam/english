@@ -1,6 +1,8 @@
 package com.yc.english.speak.utils;
 
 import android.media.MediaMetadataRetriever;
+import android.support.design.internal.ScrimInsetsFrameLayout;
+import android.text.TextUtils;
 
 import com.blankj.utilcode.util.LogUtils;
 
@@ -10,10 +12,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 
+/**
+ * 获取播放音频的相关信息包括标题、作者、播放时长等
+ */
 public class EnglishLyricBean {
 
     public EnglishLyricBean(String songPath) {
         mSongPath = songPath;
+        setLrcPath();
     }
 
     private String mTitle;
@@ -31,6 +37,7 @@ public class EnglishLyricBean {
     }
 
     public void setLrcPath() {
+        if (TextUtils.isEmpty(mSongPath)) return;
         String lrcPath = mSongPath.substring(0, mSongPath.length() - 3) + "lrc";
         LogUtils.e("setLrcPath--->" + lrcPath);
         mLrcPath = lrcPath;
@@ -58,7 +65,7 @@ public class EnglishLyricBean {
     public void setmTitle() {
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource(mSongPath);
-        mTitle = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+        mTitle = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);//获取音频文件的标题
     }
 
     public String getmTitle() {

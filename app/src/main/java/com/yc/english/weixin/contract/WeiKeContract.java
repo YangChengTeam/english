@@ -27,7 +27,7 @@ public interface WeiKeContract {
     }
 
     interface Presenter extends IPresenter {
-        void getWeikeCategoryList(String type,String page);
+        void getWeikeCategoryList(String type,String page,String cate);
 
         void getWeiKeInfoList(String pid, String page);
     }

@@ -1,6 +1,5 @@
 package com.yc.english.speak.contract;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 
 import com.yc.english.speak.utils.EnglishLyricBean;
@@ -34,23 +33,30 @@ public interface ListenPlayContract {
         /**
          * 设置 播放-暂停 按钮图片
          *
-         * @param isPlaying -true: play图片 -false: pause图片
+         * @param isPlaying -true:  pause图片 -false:play图片
          */
         void updatePlayButton(boolean isPlaying);
 
         void updateSeekBar(int progress);
 
+        void updateDone(boolean isDone);
+
+        void onCompletion();//当前一首播放完成
     }
 
     interface Presenter extends SpeakBasePresenter {
 
-        void processIntent(Intent intent);
 
+        /**
+         * 暂停
+         */
         void pause();
 
+        /**
+         * 播放
+         */
         void play();
 
-        void playMusic(EnglishLyricBean song);
 
         void onBtnPlayPausePressed();
 

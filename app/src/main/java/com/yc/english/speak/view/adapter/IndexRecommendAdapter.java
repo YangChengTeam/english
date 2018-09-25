@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.weixin.model.domain.CourseInfo;
@@ -38,4 +39,7 @@ public class IndexRecommendAdapter extends BaseQuickAdapter<CourseInfo, BaseView
         }
 
     }
+
+
+
 }

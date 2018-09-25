@@ -120,7 +120,7 @@ public class VipEquitiesActivity extends BaseActivity {
 
     private void initView() {
         if (userInfo != null) {
-            if (userInfo.getIsVip() == 1) {
+            if (UserInfoHelper.isVip(userInfo)) {
                 if (userInfo.getVip_end_time() > userInfo.getTest_end_time()) {
                     mTvEndTime.setText(getString(R.string.forever_vip));
                 } else {
@@ -133,7 +133,7 @@ public class VipEquitiesActivity extends BaseActivity {
 //                mTvEndTime.setText(getString(R.string.forever_vip));
 //            }
 
-            if (userInfo.getIsVip() == 0) {//非会员
+            if (!UserInfoHelper.isVip(userInfo)) {//非会员
                 mBtnOpenVip.setVisibility(View.VISIBLE);
                 llVipContainer.setVisibility(View.GONE);
                 basePayItemViewVip.setVisibility(View.VISIBLE);

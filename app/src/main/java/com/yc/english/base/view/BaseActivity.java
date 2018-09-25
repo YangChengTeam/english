@@ -19,7 +19,6 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.StatusBarCompat;
-import com.yc.english.group.view.activitys.ChatActivity;
 
 import butterknife.ButterKnife;
 

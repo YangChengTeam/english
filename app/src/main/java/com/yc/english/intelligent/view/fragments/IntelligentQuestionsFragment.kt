@@ -123,7 +123,7 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
 
     fun stop() {
         if (mQestionView.mDescAudioPlayerView.visibility == View.VISIBLE)
-            mQestionView.mDescAudioPlayerView.stop()
+            mQestionView.mDescAudioPlayerView.pause()
     }
 
     fun next(index: Int) {

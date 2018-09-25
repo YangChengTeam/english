@@ -20,16 +20,18 @@ public class CourseClassifyActivity extends FullScreenActivity {
         Intent intent = getIntent();
         if (intent != null) {
             int type = intent.getIntExtra("type", 0);
+            int cate = intent.getIntExtra("cate", 1);
 
             if (type == 7) {
-                mToolbar.setTitle("每日音频");
+                mToolbar.setTitle("口语学习");
             } else if (type == 8) {
-                mToolbar.setTitle("每日视频");
+                mToolbar.setTitle("同步微课");
             }
 
             CourseFragment courseFragment = new CourseFragment();
             Bundle bundle = new Bundle();
             bundle.putString("type", type + "");
+            bundle.putString("cate", cate + "");
             courseFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.container, courseFragment).commit();
 

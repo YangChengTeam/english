@@ -23,7 +23,7 @@ import java.util.List;
 
 public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<EnglishCourseInfo, BaseViewHolder> {
 
-    private Context mContext;
+//    private Context mContext;
 
     private int languageType = 1;
 
@@ -47,7 +47,7 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
 
     public ReadCourseItemClickAdapter(Context mContext, List<EnglishCourseInfo> data) {
         super(data);
-        this.mContext = mContext;
+//        this.mContext = mContext;
         addItemType(EnglishCourseInfo.CLICK_ITEM_VIEW, R.layout.read_course_play_item);
     }
 
@@ -59,23 +59,24 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
                 .addOnClickListener(R.id.iv_tape).addOnClickListener(R.id.iv_play).addOnClickListener(R.id.iv_play_tape);
 
         if (helper.getAdapterPosition() == 0) {
-            ImageView guideLeftView = (ImageView) helper.getConvertView().findViewById(R.id.iv_play);
-            ImageView guideCenterView = (ImageView) helper.getConvertView().findViewById(R.id.iv_tape);
-            ImageView guideRightView = (ImageView) helper.getConvertView().findViewById(R.id.iv_play_tape);
+            ImageView guideLeftView = helper.getView(R.id.iv_play);
+            ImageView guideCenterView = helper.getView(R.id.iv_tape);
+            ImageView guideRightView = helper.getView(R.id.iv_play_tape);
+
             //设置引导视图
             NewbieGuide.with((Activity) mContext)
                     .setLabel("guide1")
                     .addGuidePage(GuidePage.newInstance()
-                        .addHighLight(guideLeftView, HighLight.Shape.ROUND_RECTANGLE, 16,3)
-                        .setLayoutRes(R.layout.read_guide_left_view)
-                        .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
-                            @Override
-                            public void onLayoutInflated(View view) {
+                            .addHighLight(guideLeftView, HighLight.Shape.ROUND_RECTANGLE, 16, 3)
+                            .setLayoutRes(R.layout.read_guide_left_view)
+                            .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
+                                @Override
+                                public void onLayoutInflated(View view) {
 
-                            }
-                        }))
+                                }
+                            }))
                     .addGuidePage(GuidePage.newInstance()
-                            .addHighLight(guideCenterView, HighLight.Shape.ROUND_RECTANGLE, 16,3)
+                            .addHighLight(guideCenterView, HighLight.Shape.ROUND_RECTANGLE, 16, 3)
                             .setLayoutRes(R.layout.read_guide_center_view)
                             .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
                                 @Override
@@ -84,7 +85,7 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
                                 }
                             }))
                     .addGuidePage(GuidePage.newInstance()
-                            .addHighLight(guideRightView, HighLight.Shape.ROUND_RECTANGLE, 16,3)
+                            .addHighLight(guideRightView, HighLight.Shape.ROUND_RECTANGLE, 16, 3)
                             .setLayoutRes(R.layout.read_guide_right_view)
                             .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
                                 @Override
@@ -101,7 +102,7 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
             helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.black_333)).setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.black_333));
             //helper.setVisible(R.id.layout_tape, true);
             helper.setVisible(R.id.iv_speak_result, true);
-            helper.setVisible(R.id.tv_result_hint,true);
+            helper.setVisible(R.id.tv_result_hint, true);
             //helper.setVisible(R.id.iv_result, false);
             Glide.with(mContext).load(R.mipmap.item_read_press_icon).into(((ImageView) helper.getView(R.id.iv_play)));
         } else {
@@ -111,10 +112,10 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
             helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.gray_999)).setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.gray_999));
             if (helper.getAdapterPosition() == getLastPosition()) {
                 helper.setVisible(R.id.iv_speak_result, true);
-                helper.setVisible(R.id.tv_result_hint,true);
+                helper.setVisible(R.id.tv_result_hint, true);
             } else {
                 helper.setVisible(R.id.iv_speak_result, false);
-                helper.setVisible(R.id.tv_result_hint,false);
+                helper.setVisible(R.id.tv_result_hint, false);
             }
         }
 
@@ -128,7 +129,7 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
         if (item.isShow()) {
             helper.setVisible(R.id.iv_speak_result, true);
             if (item.isSpeakResult()) {
-                helper.setText(R.id.tv_result_hint,percent + "分,Good");
+                helper.setText(R.id.tv_result_hint, percent + "分,Good");
                 helper.setBackgroundRes(R.id.iv_speak_result, R.mipmap.read_item_result_yes);
             } else {
                 helper.setText(R.id.tv_result_hint, percent + "分,加油");

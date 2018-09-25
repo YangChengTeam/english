@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#29323A"
     android:orientation="vertical">
 
     <com.yc.english.base.view.MainToolBar
@@ -12,35 +12,45 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"></com.yc.english.base.view.MainToolBar>
 
-    <FrameLayout
-        android:id="@+id/linear_layout_music_cover"
+
+    <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/relative_layout_seek_bar_wrapper"
+        android:layout_height="match_parent"
+        android:layout_above="@id/relative_layout_seek_bar_wrapper"
         android:layout_below="@+id/toolbar"
-        android:background="@color/listen_bg_color"
-        android:clickable="true"
-        android:gravity="center">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/group_distance_10" />
-
-
-        <com.yc.english.speak.view.wdigets.LyricView
-            android:id="@+id/custom_lyric_view"
+        <com.yc.english.base.view.StateView
+            android:id="@+id/stateView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:highlightColor="@color/high_light_color"
-            app:hint="暂无消息"
-            app:hintColor="@color/listen_bg_color"
-            app:textColor="@color/black"
-            app:textSize="16sp" />
-    </FrameLayout>
+            android:background="@color/group_gray_e6f2fb" />
 
+        <FrameLayout
+            android:id="@+id/linear_layout_music_cover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/listen_bg_color"
+            android:clickable="true"
+            android:gravity="center">
+
+            <com.yc.english.speak.view.wdigets.LyricView
+                android:id="@+id/custom_lyric_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:highlightColor="@color/primary"
+                app:hint="暂无消息"
+                app:hintColor="@color/listen_bg_color"
+                app:maxLength="320dp"
+                app:textAlign="left"
+                app:textColor="@color/black"
+                app:lineSpace="@dimen/group_distance_10"
+                app:textSize="16sp" />
+        </FrameLayout>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/relative_layout_seek_bar_wrapper"
@@ -57,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="00:00"
-            android:textColor="@color/gray_aaa"
+            android:textColor="@color/gray_949595"
             android:textSize="10sp" />
 
         <SeekBar
@@ -79,7 +89,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="00:00"
-            android:textColor="@color/black_333"
+            android:textColor="@color/gray_949595"
             android:textSize="10sp" />
     </RelativeLayout>
 
@@ -105,6 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:scaleType="centerInside"
+
             android:src="@drawable/btn_play_selector" />
 
         <ImageView
@@ -129,4 +140,6 @@
             android:textSize="14sp"
             android:visibility="gone" />
     </RelativeLayout>
+
+
 </RelativeLayout>

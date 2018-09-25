@@ -8,7 +8,7 @@
     <string name="rc_voice_too_long">录制时间超长</string>
     <string name="edit_text">编辑</string>
     <string name="done_text">完成</string>
-    <string name="weike_every_day_text">每日微课</string>
+    <string name="weike_every_day_text">同步微课</string>
     <string name="waiting_update_text">请静待更新……</string>
     <string name="intell_correct_answer">正答 %1$d 题</string>
     <string name="intell_error_answer">错答 %1$d 题</string>
@@ -18,4 +18,5 @@
     <string name="analysis">解析</string>
     <string name="knowledge">考查知识点</string>
     <string name="select_grade">年级</string>
+    <string name="click_to_skip"> 点击跳过 %d</string>
 </resources>

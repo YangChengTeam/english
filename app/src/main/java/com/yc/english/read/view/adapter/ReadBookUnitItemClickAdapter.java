@@ -31,8 +31,7 @@ public class ReadBookUnitItemClickAdapter extends BaseMultiItemQuickAdapter<Unit
             helper.setVisible(R.id.iv_course_vip, false);
         } else {
             if (UserInfoHelper.getUserInfo() != null) {
-                int isVip = UserInfoHelper.getUserInfo().getIsVip();
-                if (isVip == 1 || isVip == 2 || isVip == 4) {
+                if (UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
                     helper.setVisible(R.id.iv_course_vip, false);
                 } else {
                     helper.setVisible(R.id.iv_course_vip, true);

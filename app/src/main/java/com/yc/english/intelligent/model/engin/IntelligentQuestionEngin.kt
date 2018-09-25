@@ -41,4 +41,12 @@ class IntelligentQuestionEngin(context: Context?) : BaseEngin(context) {
                 "type" to type),
                 true, true, true) as Observable<ResultInfo<QuestionInfoWrapper>>
     }
+
+    fun removeAnswer(unitId: String, kpoint_type: String, test_type: String): Observable<ResultInfo<String>> {
+        var uid = if (UserInfoHelper.getUserInfo() != null) UserInfoHelper.getUserInfo().uid else ""
+        return HttpCoreEngin.get(mContext).rxpost(URLConfig.REMOVE_ANSWER, object : TypeReference<ResultInfo<String>>() {}.type, mutableMapOf("unit_id" to unitId,
+                "kpoint_type" to kpoint_type,
+                "test_type" to test_type,
+                "user_id" to uid), true, true, true) as Observable<ResultInfo<String>>
+    }
 }

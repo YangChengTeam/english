@@ -1,12 +1,15 @@
 package com.yc.english.main.model.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 /**
  * Created by zhangkai on 2017/8/11.
  */
 
-public class SlideInfo {
+public class SlideInfo implements Parcelable {
     private String id;
     private String title;
     private String type;
@@ -19,6 +22,7 @@ public class SlideInfo {
 
     private String statistics;//友盟统计字段
 
+    private String url;//跳转链接
 
 
     public String getId() {
@@ -84,4 +88,57 @@ public class SlideInfo {
     public void setStatistics(String statistics) {
         this.statistics = statistics;
     }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.type);
+        dest.writeString(this.img);
+        dest.writeString(this.typeValue);
+        dest.writeString(this.isDel);
+        dest.writeString(this.sort);
+        dest.writeString(this.statistics);
+        dest.writeString(this.url);
+    }
+
+    public SlideInfo() {
+    }
+
+    protected SlideInfo(Parcel in) {
+        this.id = in.readString();
+        this.title = in.readString();
+        this.type = in.readString();
+        this.img = in.readString();
+        this.typeValue = in.readString();
+        this.isDel = in.readString();
+        this.sort = in.readString();
+        this.statistics = in.readString();
+        this.url = in.readString();
+    }
+
+    public static final Parcelable.Creator<SlideInfo> CREATOR = new Parcelable.Creator<SlideInfo>() {
+        @Override
+        public SlideInfo createFromParcel(Parcel source) {
+            return new SlideInfo(source);
+        }
+
+        @Override
+        public SlideInfo[] newArray(int size) {
+            return new SlideInfo[size];
+        }
+    };
 }

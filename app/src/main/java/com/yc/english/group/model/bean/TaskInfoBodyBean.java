@@ -48,7 +48,7 @@ public class TaskInfoBodyBean implements Parcelable {
         this.voices = voices;
     }
 
-    public static final Parcelable.Creator<TaskInfoBodyBean> CREATOR = new Parcelable.Creator<TaskInfoBodyBean>() {
+    public static final Creator<TaskInfoBodyBean> CREATOR = new Creator<TaskInfoBodyBean>() {
 
         @Override
         public TaskInfoBodyBean createFromParcel(Parcel source) {

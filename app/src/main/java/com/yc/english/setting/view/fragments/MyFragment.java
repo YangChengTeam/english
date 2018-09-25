@@ -113,6 +113,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
 
     QQqunDialog qqunDialog;
+
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
 
@@ -292,12 +293,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Override
     public void onResume() {
         super.onResume();
-        if (UserInfoHelper.getUserInfo() != null && (UserInfoHelper.getUserInfo().getIsVip() == 1 || UserInfoHelper.getUserInfo().getIsVip() == 2 || UserInfoHelper.getUserInfo().getIsVip() == 3 || UserInfoHelper.getUserInfo().getIsVip() == 4)) {
-            mBuyVipMenuItemView.setTitle("会员信息");
 
-        } else {
-            mBuyVipMenuItemView.setTitle("开通会员");
-        }
 
     }
 
@@ -328,6 +324,12 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             mNickNameTextView.setText(userInfo.getNickname());
         }
 
+        if (UserInfoHelper.isVip(userInfo)) {
+            mBuyVipMenuItemView.setTitle("会员信息");
+        } else {
+            mBuyVipMenuItemView.setTitle("开通会员");
+        }
+
 
     }
 
@@ -343,6 +345,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             mAvatarImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.default_big_avatar));
             mNickNameTextView.setText("还没有登录，点击立即登录");
             mSchoolTextView.setText("");
+            mBuyVipMenuItemView.setTitle("开通会员");
             restoreScoreData();
         }
 
@@ -391,12 +394,12 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     public void xiaoxueClick() {//  C9GzeOgLm4zrKerAk3Hr8gUiWsOhMzR7
-        QQUtils.joinQQGroup(getActivity(), "mgo5d9WztUiBuZhK4JvmwMY11F_YIrmw");
+        QQUtils.joinQQGroup(getActivity(), "-KHOf9yt4Cifr9VNSOM7PUs9u41ssG9_");
     }
 
     @Override
     public void zhongxueClick() {
-        QQUtils.joinQQZhongXueGroup(getActivity(), "njur_1bUpbe7G0-UcKu0ZZgx2r5CrnFV");
+        QQUtils.joinQQZhongXueGroup(getActivity(), "_3srBJmmySTC6K7ct-heNvasSGoB9T4M");
     }
 
     @Override

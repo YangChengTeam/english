@@ -11,7 +11,6 @@ import com.kk.guide.GuideCallback;
 import com.kk.guide.GuidePopupWindow;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.group.view.activitys.student.GroupJoinActivity;
 import com.yc.english.read.model.domain.BookInfo;
 
 import java.util.List;

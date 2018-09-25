@@ -36,8 +36,7 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
 
     @Subscribe(thread = EventThread.NEW_THREAD, tags = arrayOf(Tag(Constant.GET_UNIT)))
     fun getUnit(tag: String) {
-        LogUtil.msg("versionInfo:  sp" + SPUtils.getInstance().getString(Constant
-                .DEFAULT_VERSION_KEY, ""))
+
         var versionInfo = JSON.parseObject(SPUtils.getInstance().getString(Constant.DEFAULT_VERSION_KEY, ""), VGInfoWarpper.VGInfo::class.java)
 
         var gradeInfo = JSON.parseObject(SPUtils.getInstance().getString(Constant.DEFAULT_GRADE_KEY, ""), VGInfoWarpper.VGInfo::class.java)
@@ -45,7 +44,7 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
         var versionId = 0
         if (versionInfo != null) {
             LogUtil.msg("getUnit:  " + versionInfo.title + "--" + versionInfo.alias + "--" + versionInfo.name)
-            LogUtil.msg("versionInfo: before  " + versionInfo.toString())
+
             title = versionInfo.alias ?: versionInfo.title ?: ""
             if (TextUtils.isEmpty(title)) {
                 title = if (versionInfo.name!!.contains("PEP")) {
@@ -73,10 +72,7 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
             versionInfo.versionId = versionId
         }
 
-        LogUtil.msg("versionInfo: after " + versionInfo.toString() + "--json--" + JSON.toJSONString(versionInfo))
         SPUtils.getInstance().put(Constant.DEFAULT_VERSION_KEY, JSON.toJSONString(versionInfo))
-        LogUtil.msg("versionInfo:  sp after  " + SPUtils.getInstance().getString(Constant
-                .DEFAULT_VERSION_KEY, ""))
 
         if (gradeInfo == null) {
             gradeInfo = VGInfoWarpper.VGInfo()

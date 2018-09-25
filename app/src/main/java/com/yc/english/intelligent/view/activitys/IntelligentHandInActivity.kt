@@ -61,9 +61,9 @@ class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), In
         mRecyclerView.adapter = adapter
         mRecyclerView.layoutManager = gridLayoutManager
 
-        adapter!!.setOnItemClickListener { adapter, view, position ->
+        adapter!!.setOnItemClickListener { adapter, _, position ->
             if (adapter.getItemViewType(position) == 0) return@setOnItemClickListener
-            val questionInfo = adapter.data.get(position) as QuestionInfoWrapper.QuestionInfo
+            val questionInfo = adapter.data[position] as QuestionInfoWrapper.QuestionInfo
             IntelligentQuestionsActivity.getInstance()?.next(questionInfo.actIndex, questionInfo.frgIndex)
             finish()
         }

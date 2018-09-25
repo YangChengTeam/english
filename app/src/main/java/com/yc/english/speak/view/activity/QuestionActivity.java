@@ -37,6 +37,7 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.kk.utils.LogUtil;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import com.yc.english.R;
 import com.yc.english.base.helper.QuestionHelper;
@@ -71,6 +72,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -97,6 +99,9 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
     QuestionItemAdapter mQuestionItemAdapter;
 
     LinearLayoutManager mLinearLayoutManager;
+
+    @BindView(R.id.layout_retry)
+    LinearLayout mLayoutRetry;
 
     private int lastPosition = 1;
 
@@ -204,6 +209,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         if (isResultIn) {
             lists = QuestionHelper.getQuestionInfoBeanListFromDB();
             mCommitLayout.setVisibility(View.GONE);
+            mLayoutRetry.setVisibility(View.VISIBLE);
 
             for (int i = 0; i < lists.size(); i++) {
                 lists.get(i).setShowResult(true);
@@ -217,6 +223,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             }
         } else {
             //mCommitLayout.setVisibility(View.VISIBLE);
+            mLayoutRetry.setVisibility(View.GONE);
         }
 
         mPresenter = new IntelligentQuestionPresenter(this, this);
@@ -300,7 +307,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                     return;
                 }*/
 
-                if(isTape || isPlayTape || isPlay){
+                if (isTape || isPlayTape || isPlay) {
                     return;
                 }
 
@@ -312,6 +319,12 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                 stopPlayTape();
                 enableState(position);
 
+            }
+        });
+        RxView.clicks(mLayoutRetry).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                mPresenter.removeAnswer(unitId + "", type, "1");
             }
         });
 
@@ -739,8 +752,10 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         }
         if (isFlag && !isResultIn) {
             mCommitLayout.setVisibility(View.VISIBLE);
+
         } else {
             mCommitLayout.setVisibility(View.GONE);
+
         }
     }
 
@@ -922,6 +937,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             }
         } else {
             mCommitLayout.setVisibility(View.GONE);
+            mLayoutRetry.setVisibility(View.GONE);
         }
     }
 
@@ -956,7 +972,6 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         });
         mCommitLayout.setVisibility(View.GONE);
     }
-
 
 
     @Override
@@ -1073,4 +1088,5 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mStateView.showNoData(mSpeakListLayout, message);
         mCommitLayout.setVisibility(View.GONE);
     }
+
 }

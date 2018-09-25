@@ -1,6 +1,7 @@
 package com.blankj.utilcode.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 
 import java.io.File;
@@ -10,7 +11,7 @@ import java.io.File;
  */
 
 public class PathUtils {
-    public static String makeConfigDir(Context context){
+    public static String makeConfigDir(Context context) {
         return makeDir(context, "config");
     }
 
@@ -24,7 +25,15 @@ public class PathUtils {
     }
 
     private static String makeBaseDir(Context context) {
-        File dir = new File(Environment.getExternalStorageDirectory() + "/" + context.getPackageName());
+        //Environment.getExternalStorageDirectory()
+
+        File file;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            file = context.getExternalFilesDir(null);
+        } else {
+            file = Environment.getExternalStorageDirectory();
+        }
+        File dir = new File(file + "/" + context.getPackageName());
         if (!dir.exists()) {
             dir.mkdir();
         }

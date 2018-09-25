@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.util.ArrayMap;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,19 +25,13 @@ import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 
 import java.io.File;
-import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -47,7 +40,7 @@ import java.util.concurrent.Executors;
  */
 
 public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPreparedListener,
-        MediaPlayer.OnCompletionListener, View.OnClickListener {
+        MediaPlayer.OnCompletionListener, View.OnClickListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnErrorListener {
     private Context mContext;
     private boolean isPlay;
     private MediaPlayer mediaPlayer;
@@ -61,11 +54,11 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
     public static final int STATE_PREPARED = 0x01;
     public static final int STATE_START = 0x02;
     public static final int STATE_PAUSE = 0x03;
-    public static final int STATE_STOP = 0x04;
+    public static final int STATE_COMPLETE = 0x04;
     public static final int STATE_DESTROY = 0x05;
+    public static final int STATE_STOP = 0x06;
 
     private int currentState;
-    private MyRunnable myRunnable;
 
     private ExecutorService executorService;
 
@@ -90,20 +83,55 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
         mImageView = (ImageView) view.findViewById(R.id.mImageView);
         mSeekBar = (SeekBar) view.findViewById(R.id.mSeekBar);
         mTextViewTime = (TextView) view.findViewById(R.id.mTextViewTime);
-        mSeekBar.setOnSeekBarChangeListener(new MySeekBarListener());
+
         executorService = Executors.newSingleThreadExecutor();
-        mImageView.setOnClickListener(this);
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayer.setOnPreparedListener(this);
-        mediaPlayer.setOnCompletionListener(this);
+
+        initListener();
 
     }
 
-    /**
-     * 开始播放
-     */
-    private void start() {
+    private void initListener() {
+        mImageView.setOnClickListener(this);
+        mSeekBar.setOnSeekBarChangeListener(new MySeekBarListener());
+        mediaPlayer.setOnPreparedListener(this);
+        mediaPlayer.setOnCompletionListener(this);
+        mediaPlayer.setOnBufferingUpdateListener(this);
+        mediaPlayer.setOnErrorListener(this);
+    }
+
+
+    //初始化播放器
+    private void initMediaPlayer(String path) {
+
+        reset();
+        try {
+            currentState = STATE_INITIALIZE;
+            mediaPlayer.setDataSource(path);
+            mediaPlayer.prepareAsync();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    //重置播放器
+    private void reset() {
+        if (mediaPlayer == null) mediaPlayer = new MediaPlayer();
+        if (currentState == STATE_INITIALIZE || currentState == STATE_PAUSE ||
+                currentState == STATE_COMPLETE || currentState == STATE_START
+                || currentState == STATE_PREPARED || currentState == STATE_STOP) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+        }
+    }
+
+    //播放文件
+    private void play() {
+
         if (currentState == STATE_DESTROY) {
             return;
         }
@@ -112,41 +140,78 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
             return;
         }
         try {
-            if (currentState == STATE_PREPARED || currentState == STATE_PAUSE || currentState == STATE_STOP) {
-                mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_play));
-                mediaPlayer.start();// 开始
-                myRunnable = new MyRunnable();
-                mHandler.postDelayed(myRunnable, 0);
-                currentState = STATE_START;
-            }
-        } catch (Exception e) {
-            ToastUtils.showShort("播放失败");
-        }
 
+
+            if (null != mediaPlayer) mediaPlayer.start();// 开始
+            currentState = STATE_START;
+            mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_play));
+            mHandler.postDelayed(myRunnable, 0);
+        } catch (Exception e) {
+
+        }
     }
 
-    public void stop() {
-        if (mediaPlayer != null && currentState == STATE_START) {
+    //暂停播放
+    public void pause() {
+        try {
+            if (null != mediaPlayer && currentState == STATE_START) {
+                currentState = STATE_PAUSE;
+                mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_stop));
+                mediaPlayer.pause();
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    //播放完成
+    private void complete() {
+        if (null != mediaPlayer) {
             mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_stop));
-            mediaPlayer.pause();
-            currentState = STATE_PAUSE;
-            isPlay = false;
+            mSeekBar.setProgress(0);
+            currentState = STATE_COMPLETE;
+        }
+    }
+    
+
+
+    @Override
+    public void onPrepared(final MediaPlayer mp) {
+        currentState = STATE_PREPARED;
+        try {
+            mSeekBar.setMax(mp.getDuration());//设置进度条
+            mTextViewTime.setText(TimeUtils.millis2String(mp.getDuration(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
+        } catch (Exception e) {
+            LogUtils.e(e.getMessage());
+            ToastUtils.showShort("播放失败");
         }
     }
 
     @Override
     public void onClick(View v) {
 
-        isPlay = !isPlay;
+        if (null != mediaPlayer)
+            isPlay = mediaPlayer.isPlaying();
+
+
         LogUtils.e("TAG", isPlay);
         if (currentState == STATE_PREPARED && clickListener != null) {
             clickListener.onMediaClick();
         }
         if (isPlay) {
-            start();
+            pause();
         } else {
-            stop();
+            play();
         }
+    }
+
+    @Override
+    public void onBufferingUpdate(MediaPlayer mp, int percent) {
+
+    }
+
+    @Override
+    public boolean onError(MediaPlayer mp, int what, int extra) {
+        return false;
     }
 
     //进度条处理
@@ -162,17 +227,17 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
         public void onStopTrackingTouch(SeekBar seekBar) {
             mediaPlayer.seekTo(seekBar.getProgress());
             mTextViewTime.setText(TimeUtils.millis2String(mediaPlayer.getCurrentPosition(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
-            start();
-            isPlay = true;
+            play();
         }
 
     }
 
-    private class MyRunnable implements Runnable {
+
+    private Runnable myRunnable = new Runnable() {
         @Override
         public void run() {
             try {
-                if (mediaPlayer != null) {
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                     mSeekBar.setProgress(mediaPlayer.getCurrentPosition());
                     mTextViewTime.setText(TimeUtils.millis2String(mediaPlayer.getCurrentPosition(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
                     mHandler.postDelayed(this, 10);
@@ -181,8 +246,7 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
                 LogUtils.e(e.getMessage());
             }
         }
-    }
-
+    };
 
     /**
      * 调用setPath()方法
@@ -199,25 +263,22 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
 
             if (file.exists()) {//设置播放file文件
                 LogUtils.e("from file");
-                mediaPlayer.reset();
+//                mediaPlayer.reset();
+
                 try {
-                    mediaPlayer.setDataSource(mContext, Uri.parse(file.getAbsolutePath()));
+                    initMediaPlayer(file.getAbsolutePath());
                 } catch (Exception e) {
-                    mediaPlayer.setDataSource(path);
+//                    mediaPlayer.setDataSource(path);
                 }
-                mediaPlayer.prepareAsync();// 准备
-                currentState = STATE_PREPARED;
             } else {
                 LogUtils.e("from path");
-                mediaPlayer.reset();
-                mediaPlayer.setDataSource(path);
-                currentState = STATE_INITIALIZE;
-                mediaPlayer.prepareAsync();// 准备
                 executorService.submit(new DownloadTask(path));
+                initMediaPlayer(path);
+
             }
 
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             LogUtils.e(e.getMessage());
 
@@ -239,34 +300,17 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
         }
     }
 
-    @Override
-    public void onPrepared(final MediaPlayer mp) {
-        try {
-
-            mSeekBar.setMax(mp.getDuration());//设置进度条
-
-            mTextViewTime.setText(TimeUtils.millis2String(mp.getDuration(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
-
-            currentState = STATE_PREPARED;
-
-        } catch (Exception e) {
-            LogUtils.e(e.getMessage());
-            ToastUtils.showShort("播放失败");
-        }
-    }
-
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        mImageView.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.media_stop));
-        isPlay = false;
-        currentState = STATE_STOP;
+        complete();
     }
 
     public void destroy() {
         currentState = STATE_DESTROY;
         if (mediaPlayer != null) {
             mediaPlayer.stop();
+            mediaPlayer.reset();
             mediaPlayer.release();
             mediaPlayer = null;
         }

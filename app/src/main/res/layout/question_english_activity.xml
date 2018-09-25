@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <com.yc.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
-    </com.yc.english.base.view.MainToolBar>
+        android:layout_alignParentTop="true"></com.yc.english.base.view.MainToolBar>
 
     <com.yc.english.base.view.StateView
         android:id="@+id/sv_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:visibility="gone">
-    </com.yc.english.base.view.StateView>
+        android:visibility="gone"></com.yc.english.base.view.StateView>
 
     <LinearLayout
         android:id="@+id/speak_list_layout"
@@ -33,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:dividerHeight="0dp"/>
+            android:dividerHeight="0dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,8 +40,8 @@
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:background="@color/primary"
-        android:visibility="gone"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,6 +51,26 @@
             android:gravity="center"
             android:text="提交试卷"
             android:textColor="@color/white"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_retry"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/primary"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/base_tran_ripple_bg"
+            android:gravity="center"
+            android:text="再做一次"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
 </RelativeLayout>

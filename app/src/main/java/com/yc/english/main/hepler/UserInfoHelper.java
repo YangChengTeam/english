@@ -7,28 +7,18 @@ import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.UIUitls;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.utils.LogUtil;
-import com.yc.english.EnglishApp;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.group.constant.BusAction;
-import com.yc.english.group.model.bean.TokenInfo;
-import com.yc.english.group.utils.ConnectUtils;
-import com.yc.english.group.utils.EngineUtils;
-import com.yc.english.group.view.provider.PublishTaskMessageProvider;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.main.view.activitys.LoginActivity;
-import com.yc.english.setting.model.bean.ShareStateInfo;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -79,50 +69,12 @@ public class UserInfoHelper {
         UserInfoHelper.saveUserInfo(resultInfo.data.getInfo());
 //        UserInfoHelper.connect(context, resultInfo.data.getInfo().getUid());
         RxBus.get().post(Constant.USER_INFO, resultInfo.data.getInfo());
-        RxBus.get().post(BusAction.GROUP_LIST, "from getUserInfo");
+//        RxBus.get().post(BusAction.GROUP_LIST, "from getUserInfo");
         SPUtils.getInstance().put(Constant.PHONE, resultInfo.data.getInfo().getMobile());
 //        UserInfoHelper.connect(context, resultInfo.data.getInfo().getUid());
     }
 
-    public static void connect(final Context context, final String uid) {
-        String token = SPUtils.getInstance().getString(ConnectUtils.TOKEN);
-        if (!StringUtils.isEmpty(token)) {
-            ConnectUtils.contact(context, token);
-        }
-        EnginHelper.getTokenInfo(context, uid).subscribe(new
-                                                                 Subscriber<ResultInfo<TokenInfo>>() {
-                                                                     @Override
-                                                                     public void onCompleted() {
 
-                                                                     }
-
-                                                                     @Override
-                                                                     public void onError(Throwable e) {
-                                                                         connect(context, uid);
-                                                                     }
-
-                                                                     @Override
-                                                                     public void onNext(final ResultInfo<TokenInfo> resultInfo) {
-                                                                         ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
-                                                                             @Override
-                                                                             public void resultInfoEmpty(String message) {
-                                                                                 connect(context, uid);
-                                                                             }
-
-                                                                             @Override
-                                                                             public void resultInfoNotOk(String message) {
-                                                                                 connect(context, uid);
-                                                                             }
-
-                                                                             @Override
-                                                                             public void reulstInfoOk() {
-                                                                                 ConnectUtils.contact(context,
-                                                                                         resultInfo.data.getToken());
-                                                                             }
-                                                                         });
-                                                                     }
-                                                                 });
-    }
 
     public static void login(final Context context) {
         UserInfo userInfo = UserInfoHelper.getUserInfo();
@@ -176,50 +128,7 @@ public class UserInfoHelper {
 
     }
 
-    /**
-     * 分享是否开启体验VIP
-     */
-    private static void getOpenShareVip(Context context, String usr_id) {
 
-        LogUtil.msg("login success  " + usr_id);
-        EngineUtils.getShareVipState(context, usr_id).subscribe(new Subscriber<ResultInfo<ShareStateInfo>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(final ResultInfo<ShareStateInfo> shareResult) {
-                ResultInfoHelper.handleResultInfo(shareResult, new ResultInfoHelper.Callback() {
-                    @Override
-                    public void resultInfoEmpty(String message) {
-
-                    }
-
-                    @Override
-                    public void resultInfoNotOk(String message) {
-
-                    }
-
-                    @Override
-                    public void reulstInfoOk() {
-                        if (shareResult.data != null) {
-                            if (shareResult.data.getStatus() == 1) {
-                                EnglishApp.isOpenShareVip = true;
-                                EnglishApp.trialDays = shareResult.data.getDays();
-                            }
-                        }
-                    }
-                });
-
-            }
-        });
-    }
 
     public static boolean isGotoLogin(Context context) {
         if (!isLogin()) {
@@ -265,6 +174,14 @@ public class UserInfoHelper {
     }
 
 
+    public static boolean isVip(UserInfo userInfo) {
+        if (userInfo == null) return false;
+        long currentTime = System.currentTimeMillis();
+        if (userInfo.getIsVip() == 1) {
+            return currentTime <= (userInfo.getVip_end_time() * 1000) || currentTime <= (userInfo.getTest_end_time() * 1000);
+        }
+        return false;
+    }
 
 
     private static String toJsonStr(UserInfo userInfo) {

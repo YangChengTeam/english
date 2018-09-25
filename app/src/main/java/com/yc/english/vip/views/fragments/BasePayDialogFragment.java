@@ -716,8 +716,8 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
             userInfo.setVip_start_time(TimeUtils.getNowMills() / 1000);
 //MS_IN_A_DAY
-            long vip_end_time = TimeUtils.getNowMills() + data * (Config.TEST_DAY);
-            long test_end_time = TimeUtils.getNowMills() + data * (Config.TEST_DAY);
+            long vip_end_time = TimeUtils.getNowMills() + data * (Config.MS_IN_A_DAY);
+            long test_end_time = TimeUtils.getNowMills() + data * (Config.MS_IN_A_DAY);
             userInfo.setVip_end_time(vip_end_time / 1000);
             userInfo.setTest_end_time(test_end_time / 1000);
 

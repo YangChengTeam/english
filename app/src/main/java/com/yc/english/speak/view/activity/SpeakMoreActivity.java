@@ -7,7 +7,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
@@ -88,7 +87,7 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
                     intent.putExtra("itemInfo", speakAndReadItemInfo);
                     intent.putParcelableArrayListExtra("infoList", (ArrayList) list);
 
-                } else if (type == 2) {
+                } else if (type == 2) {//todo 随时替换
                     intent = new Intent(SpeakMoreActivity.this, ListenEnglishActivity.class);
                     intent.putExtra("itemInfo", speakAndReadItemInfo);
                     intent.putParcelableArrayListExtra("infoList", (ArrayList) list);

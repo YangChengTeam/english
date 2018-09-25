@@ -53,7 +53,7 @@ class IntelligentInnerQuestionFragment : BaseFragment<BasePresenter<BaseEngin, I
 
     fun stop() {
         if (mQuestionView.mTitleAudioPlayerView.visibility == View.VISIBLE)
-            mQuestionView.mTitleAudioPlayerView.stop()
+            mQuestionView.mTitleAudioPlayerView.pause()
     }
 
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = arrayOf(Tag(Constant.RESULT_ANS)))

@@ -28,4 +28,5 @@ public class BusAction {
     public static final String FORBID_MEMBER = "forbid_member";
 
 
+    public static final String NOTIFY_PLAY_PAUSE = "NOTIFY_PLAY_PAUSE";
 }

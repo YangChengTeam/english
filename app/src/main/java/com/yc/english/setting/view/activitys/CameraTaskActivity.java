@@ -1,7 +1,6 @@
 package com.yc.english.setting.view.activitys;
 
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -12,14 +11,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -28,21 +24,15 @@ import android.widget.RelativeLayout;
 import com.blankj.utilcode.util.SDCardUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
-import com.yc.english.base.helper.AvatarHelper;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseActivity;
-import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.TaskUploadInfo;
-import com.yc.english.group.utils.PhotoUtils;
 import com.yc.english.setting.contract.CameraTaskContract;
 import com.yc.english.setting.presenter.CameraTaskPresenter;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -171,14 +161,11 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
         return R.layout.activity_photograph_task;
     }
 
-
     @Override
     public void showUploadResult(TaskUploadInfo data) {
-        Intent intent = new Intent(this, TaskShowActivity.class);
-        intent.putExtra("data", NetConstant.baidu_url + data.getFile_path());
-        startActivity(intent);
-        finish();
+
     }
+
 
     private class MyCallBack implements SurfaceHolder.Callback {
 

@@ -82,6 +82,7 @@ class IntelligentVGSelectPopupWindow(context: Activity) : BasePopupWindow(contex
             SPUtils.getInstance().put(Constant.DEFAULT_GRADE_KEY, JSON.toJSONString(vgInfo))
             adapter.notifyDataSetChanged()
             RxBus.get().post(Constant.GET_UNIT, "from select")
+            SPUtils.getInstance().remove(Constant.INTELLIGENT_POS)
             dismiss()
         }
 

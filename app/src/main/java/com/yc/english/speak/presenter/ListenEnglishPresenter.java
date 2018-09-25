@@ -3,6 +3,7 @@ package com.yc.english.speak.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.speak.contract.ListenEnglishContract;
@@ -30,7 +31,7 @@ public class ListenEnglishPresenter extends BasePresenter<ListenEnglishEngin, Li
 
     @Override
     public void getListenEnglishDetail(String id) {
-
+        mView.showLoading();
         Subscription subscribe = mEngin.getListenReadDetail(mContext, id).subscribe(new Subscriber<ResultInfo<ListenEnglishWarpper>>() {
             @Override
             public void onCompleted() {
@@ -58,8 +59,12 @@ public class ListenEnglishPresenter extends BasePresenter<ListenEnglishEngin, Li
 
                     @Override
                     public void reulstInfoOk() {
-                        if (resultInfo != null && resultInfo.data != null && resultInfo.data.info != null) {
+
+                        if (resultInfo != null && resultInfo.code == HttpConfig.STATUS_OK && resultInfo.data != null && resultInfo.data.info != null) {
                             mView.showListenEnglishDetail(resultInfo.data.info);
+                            mView.hideStateView();
+                        } else {
+                            mView.showNoData();
                         }
                     }
                 });

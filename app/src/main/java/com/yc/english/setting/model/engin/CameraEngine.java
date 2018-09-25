@@ -3,14 +3,9 @@ package com.yc.english.setting.model.engin;
 import android.content.Context;
 import android.util.Log;
 
-import com.alibaba.fastjson.TypeReference;
 import com.blankj.utilcode.util.LogUtils;
-import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.engin.HttpCoreEngin;
-import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstant;
-import com.yc.english.group.model.bean.TaskUploadInfo;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -25,7 +20,6 @@ import java.net.URL;
 import java.util.UUID;
 
 import rx.Observable;
-import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;

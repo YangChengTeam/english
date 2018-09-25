@@ -64,9 +64,13 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         isResultIn = intent.getBooleanExtra("isResultIn", false)
 
 
-        RxView.clicks(mSubmitBtn).throttleFirst(200, TimeUnit
+        RxView.clicks(mLookScore).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
             goToResult()
+        }
+        RxView.clicks(mRetryExam).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe {
+            //todo 重新做题
+            mPresenter.removeAnswer("$unitId", type, "1")
         }
 
         mViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -105,7 +109,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
 
     override fun onResume() {
         super.onResume()
-        if (!isResultIn) {
+        if (!isResultIn && !isNoData) {
             mToolbarWarpper.startTime()
         }
     }
@@ -255,7 +259,6 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
     }
 
 
-
     override fun showNoData(message: String) {
         isNoData = true
         mStateView.showNoData(mViewPager, message)
@@ -288,4 +291,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         }
         alertDialog.show()
     }
+
+
+
 }

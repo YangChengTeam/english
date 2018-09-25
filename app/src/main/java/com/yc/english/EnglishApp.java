@@ -1,10 +1,13 @@
 package com.yc.english;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.os.Build;
-import android.provider.Settings;
+import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
@@ -17,10 +20,8 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.model.ShareInfo;
-import com.yc.english.base.utils.RongIMUtil;
 import com.yc.english.base.utils.SpeechUtils;
 import com.yc.english.base.view.SharePopupWindow;
-import com.yc.english.group.common.GroupApp;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.read.common.ReadApp;
 
@@ -35,13 +36,16 @@ import rx.schedulers.Schedulers;
  * Created by zhangkai on 2017/7/24.
  */
 
-public class EnglishApp extends MultiDexApplication {
+public class EnglishApp extends MultiDexApplication implements Application.ActivityLifecycleCallbacks {
+    private static final String TAG = "EnglishApp";
 
     //是否开启了分享获取VIP试用资格
     public static boolean isOpenShareVip;
 
     //体验时间（单位：天）
     public static int trialDays;
+
+    public static boolean isBackground;//是否在后台
 
     @Override
     public void onCreate() {
@@ -53,13 +57,14 @@ public class EnglishApp extends MultiDexApplication {
         Observable.just("").observeOn(Schedulers.io()).subscribe(new Action1<String>() {
             @Override
             public void call(String s) {
-                GroupApp.init(EnglishApp.this);
                 ReadApp.init(EnglishApp.this);
                 SpeechUtils.setDefaultAppid(EnglishApp.this);
                 init();
             }
         });
         SpeechUtils.setAppids(this);
+        //监听activity的生命周期强大
+        registerActivityLifecycleCallbacks(this);
     }
 
     private void init() {
@@ -151,11 +156,41 @@ public class EnglishApp extends MultiDexApplication {
         MultiDex.install(this);
     }
 
+
     @Override
-    public void onTerminate() {
-        super.onTerminate();
-        RongIMUtil.disconnect();
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        Log.e(TAG, "onActivityCreated: ");
     }
 
+    @Override
+    public void onActivityStarted(Activity activity) {
+        Log.e(TAG, "onActivityStarted: ");
+    }
 
+    @Override
+    public void onActivityResumed(Activity activity) {
+        Log.e(TAG, "onActivityResumed: ");
+        isBackground = false;
+    }
+
+    @Override
+    public void onActivityPaused(Activity activity) {
+        Log.e(TAG, "onActivityPaused: ");
+        isBackground = true;
+    }
+
+    @Override
+    public void onActivityStopped(Activity activity) {
+        Log.e(TAG, "onActivityStopped: ");
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+        Log.e(TAG, "onActivitySaveInstanceState: ");
+    }
+
+    @Override
+    public void onActivityDestroyed(Activity activity) {
+        Log.e(TAG, "onActivityDestroyed: ");
+    }
 }

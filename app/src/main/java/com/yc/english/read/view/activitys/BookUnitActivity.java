@@ -110,8 +110,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                     isRead = true;
                 } else {
                     if (userInfo != null) {
-                        int isVip =userInfo.getIsVip();
-                        isRead = isVip == 1;
+                        isRead = UserInfoHelper.isVip(userInfo);
                     } else {
                         UserInfoHelper.isGotoLogin(BookUnitActivity.this);
                         return;
@@ -120,6 +119,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
 
                 if (isRead) {
                     if (mItemAdapter.getData() != null && mItemAdapter.getData().get(position) != null) {
+                        MobclickAgent.onEvent(BookUnitActivity.this, "book_read", "教材点读");
                         Intent intent = new Intent(BookUnitActivity.this, CoursePlayActivity.class);
                         intent.putExtra("position", position);
                         intent.putParcelableArrayListExtra("unitInfoList", (ArrayList) mItemAdapter.getData());
@@ -131,7 +131,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                     Bundle bundle = new Bundle();
                     bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
                     VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
-                    MobclickAgent.onEvent(BookUnitActivity.this, "textbook_read", "教材点读");
+                    MobclickAgent.onEvent(BookUnitActivity.this, "textbook_read", "教材点读购买");
                 }
             }
         });
@@ -141,7 +141,6 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
     @Override
     protected void onResume() {
         super.onResume();
-
         mPresenter.getBookInfoById(bookId);
     }
 

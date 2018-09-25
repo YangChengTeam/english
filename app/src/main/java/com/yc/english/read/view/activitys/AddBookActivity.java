@@ -59,7 +59,6 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
 
     private int lastVersionPosition = -1;
 
-    BookEngin bookEngin;
 
     @Override
     public int getLayoutId() {
@@ -69,7 +68,6 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
     @Override
     public void init() {
 
-        bookEngin = new BookEngin(AddBookActivity.this);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

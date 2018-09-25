@@ -1,16 +1,20 @@
 package com.yc.english.news.view.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.webkit.JavascriptInterface;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,7 +26,6 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
-import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -34,7 +37,7 @@ import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
-import com.yc.english.group.view.activitys.GroupPictureDetailActivity;
+import com.yc.english.group.activitys.GroupPictureDetailActivity;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
@@ -56,9 +59,6 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import cn.jzvd.JZMediaIjkplayer;
-import cn.jzvd.JZMediaManager;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 import rx.functions.Action1;
@@ -216,14 +216,14 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         //设置自适应屏幕，两者合用
         webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-
-        webView.addJavascriptInterface(new JavascriptInterface(), "HTML");
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1)
+            webView.addJavascriptInterface(new JavascriptInterface(), "HTML");
 
         //其他细节操作
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); //关闭webview中缓存 //优先使用缓存:
-        webSettings.setAllowFileAccess(true); //设置可以访问文件
+        webSettings.setAllowFileAccess(true); //设置可以访问本地文件
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
-        webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
+//        webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
         webSettings.setBlockNetworkImage(true);//设置是否加载网络图片 true 为不加载 false 为加载
 
@@ -260,10 +260,20 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 //                        + "}())");
 
             }
-
-
         });
 
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                return super.onJsAlert(view, url, message, result);
+            }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                Log.e(TAG, "onReceivedTitle: " + title);
+            }
+        });
 
     }
 
@@ -394,6 +404,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         }
     }
 
+
     @Override
     public void hideStateView() {
         stateView.hide();
@@ -466,6 +477,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         super.onResume();
         Sensor accelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(mSensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        webView.onResume();
     }
 
 
@@ -475,7 +487,9 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         JZVideoPlayer.releaseAllVideos();
         mSensorManager.unregisterListener(mSensorEventListener);
         JZVideoPlayer.clearSavedProgress(this, null);
+        webView.onPause();
     }
+
 
     @Override
     protected void onDestroy() {

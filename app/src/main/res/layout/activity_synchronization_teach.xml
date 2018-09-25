@@ -40,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:vip_content="提分辅导"
+            app:vip_content="音标学习"
             app:vip_icon="@mipmap/score_tutorship" />
     </LinearLayout>
 </LinearLayout>

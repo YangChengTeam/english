@@ -1,5 +1,7 @@
 package com.yc.english.main.model.domain;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created by zhangkai on 2017/8/1.
  */
@@ -42,5 +44,50 @@ public class Constant {
 
     public static final String DEFAULT_GRADE_KEY = "default_grade_key";
 
+    public static final String REMOVE_ANSWER = "remove_anser";
 
+
+    public static final String INTELLIGENT_POS = "intelligent_pos";
+
+    public static final String INDEX_DIALOG_INFO = "index_dialog_info";//首页弹窗信息
+
+    public static final String INDEX_MENU_STATICS = "index_menu_statics";
+
+    /**
+     * 通知栏上一首action
+     */
+    public static final String NOTIFY_PRE = "notify_pre";
+
+    /**
+     * 通知栏下一首action
+     */
+    public static final String NOTIFY_NEXT = "notify_next";
+    /**
+     * 通知栏播放或暂停action
+     */
+    public static final String NOTIFY_PLAY_PAUSE = "notify_play_pause";
+
+    public static final String NOTIFY_CANCEL = "notify_cancel";
+    /**
+     * 腾讯广告appid
+     */
+    public static final String TENCENT_ADV_ID = "1101152570";//  1107858324
+    /**
+     * banner广告1 id
+     */
+    public static final String BANNER_ADV1 = "7080541005907898";
+    /**
+     * banner广告2 id
+     */
+    public static final String BANNER_ADV2 = "8080547005212072";
+
+    /**
+     * 开屏广告id
+     */
+    public static final String SPLASH_ADV_ID = "8080443035603889";
+
+    /**
+     * 原生广告    8070145095046825
+     */
+    public static final String NATIVE_ADV_ID = "8040447025801807";
 }

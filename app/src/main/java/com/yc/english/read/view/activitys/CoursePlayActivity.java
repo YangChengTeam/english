@@ -16,9 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.app.hubert.guide.NewbieGuide;
-import com.app.hubert.guide.model.GuidePage;
-import com.app.hubert.guide.model.HighLight;
+
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -49,6 +47,7 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.news.utils.ViewUtil;
 import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.contract.CoursePlayContract;
 import com.yc.english.read.model.domain.EnglishCourseInfo;
@@ -186,6 +185,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     @Override
     public void init() {
 
+
         StatusBarCompat.compat(this, mToolbarWarpper, mToolbar);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -251,11 +251,10 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                         isRead = true;
                     } else {
                         if (userInfo != null) {
-                            int isVip = userInfo.getIsVip();
-                            isRead = isVip == 1;
+                            isRead = UserInfoHelper.isVip(userInfo);
                         } else {
                             UserInfoHelper.isGotoLogin(CoursePlayActivity.this);
-                            MobclickAgent.onEvent(CoursePlayActivity.this, "textbook_read", "教材点读");
+
                             return;
                         }
                     }
