@@ -206,7 +206,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="fitXY"
-                            android:src="@mipmap/soundmark_1vs1" />
+                            android:src="@mipmap/soundmark_read" />
                     </LinearLayout>
 
 
@@ -224,7 +224,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="fitXY"
-                            android:src="@mipmap/soundmark_read" />
+                            android:src="@mipmap/teach_tool" />
 
                         <View
                             android:layout_width="7dp"

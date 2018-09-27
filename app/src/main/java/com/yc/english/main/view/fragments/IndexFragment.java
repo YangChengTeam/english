@@ -247,14 +247,15 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-        //音标点读
+        //学习工具
         RxView.clicks(mTeacherTask).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                MobclickAgent.onEvent(getActivity(), "teach_tool", "学习工具");
 //                Intent intent = new Intent(getActivity(), CoachScoreActivity.class);
 //                startActivity(intent);
 
-                SmallProcedureUtils.switchSmallProcedure(getActivity(), "gh_e46e21f44c08", GroupConstant.appid);
+                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.tool_originid, GroupConstant.appid);
 
             }
         });
@@ -287,17 +288,16 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
+        //音标点读
         RxView.clicks(mSpeakImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                MobclickAgent.onEvent(getActivity(), "task_online", "音标1对1");
+                MobclickAgent.onEvent(getActivity(), "photograp_read", "音标点读");
                 // todo 这里是在线作业 融云im模块
-//                Intent intent = new Intent(getActivity(), GroupMainActivity.class);
-//                startActivity(intent);
-
 
 //                ToastUtil.toast2(getActivity(), "功能正在开发中...");
-                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.assistant_originid, GroupConstant.appid);
+//                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.assistant_originid, GroupConstant.appid);
+                SmallProcedureUtils.switchSmallProcedure(getActivity(), "gh_e46e21f44c08", GroupConstant.appid);
 
             }
         });
@@ -440,11 +440,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //            });
 
         }
-        if (isShowDialog()) {
-
-            IndexVipKidDialog indexVipKidDialog = new IndexVipKidDialog(getActivity(), getDialogInfo());
-            indexVipKidDialog.show();
-        }
+//        if (isShowDialog()) {
+//
+//            IndexVipKidDialog indexVipKidDialog = new IndexVipKidDialog(getActivity(), getDialogInfo());
+//            indexVipKidDialog.show();
+//        }
 
         mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primary));
         mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
