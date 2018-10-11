@@ -119,7 +119,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
 
                 if (isRead) {
                     if (mItemAdapter.getData() != null && mItemAdapter.getData().get(position) != null) {
-                        MobclickAgent.onEvent(BookUnitActivity.this, "book_read", "教材点读");
+
                         Intent intent = new Intent(BookUnitActivity.this, CoursePlayActivity.class);
                         intent.putExtra("position", position);
                         intent.putParcelableArrayListExtra("unitInfoList", (ArrayList) mItemAdapter.getData());

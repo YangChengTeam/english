@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
+import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.FullScreenActivity;
@@ -89,6 +90,7 @@ public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> impl
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
                 if (ReadApp.READ_COMMON_TYPE == 2) {
+
                     Intent intent = new Intent(WordUnitActivity.this, ReadWordActivity.class);
                     intent.putExtra("unit_id", ((WordUnitInfo) mItemAdapter.getData().get(position)).getId());
                     intent.putExtra("unit_title", ((WordUnitInfo) mItemAdapter.getData().get(position)).getName());

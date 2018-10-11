@@ -64,7 +64,9 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
         }
         mToolbar.showNavigationIcon();
 
-        mCourseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
+        mCourseRecyclerView.setLayoutManager(layoutManager);
         mCourseAdapter = new CourseAdapter(null);
         mCourseRecyclerView.setAdapter(mCourseAdapter);
 

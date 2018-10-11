@@ -65,14 +65,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
     @BindView(R.id.baseItemView_score_tutorship)
     BasePayItemView baseItemViewScoreTutorship;
 
-    /**
-     * 当前页码
-     */
-    private int currentPage;
-    /**
-     * 每一页数据记录数
-     */
-    private int pageCount;
+
     ReadBookItemClickAdapter mItemAdapter;
 
     private boolean isRead = false;

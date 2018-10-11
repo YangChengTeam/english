@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></com.yc.english.base.view.MainToolBar>
 
-    <WebView
+    <com.yc.english.base.view.CommonWebView
         android:id="@+id/wv_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
-    </WebView>
+    </com.yc.english.base.view.CommonWebView>
 </LinearLayout>

@@ -262,18 +262,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             }
         });
 
-        webView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-                return super.onJsAlert(view, url, message, result);
-            }
 
-            @Override
-            public void onReceivedTitle(WebView view, String title) {
-                super.onReceivedTitle(view, title);
-                Log.e(TAG, "onReceivedTitle: " + title);
-            }
-        });
 
     }
 

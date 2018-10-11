@@ -50,6 +50,7 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
         mToolbar.showNavigationIcon();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mCourseAdapter = new CourseAdapter(null);
+        mRecyclerView.setHasFixedSize(true);//item高度一致，设置属性避免requestLayout 浪费资源
         mRecyclerView.setAdapter(mCourseAdapter);
 
         mCourseAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

@@ -2,10 +2,12 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -59,6 +62,8 @@ import com.yc.english.news.utils.SmallProcedureUtils;
 import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
+import com.yc.english.read.view.activitys.BookUnitActivity;
+import com.yc.english.read.view.activitys.WordUnitActivity;
 import com.yc.english.speak.view.activity.SpeakMainActivity;
 import com.yc.english.speak.view.adapter.IndexRecommendAdapterNew;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
@@ -76,6 +81,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import rx.Observable;
 import rx.functions.Action1;
 
 
@@ -172,6 +178,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     private HashMap<NativeExpressADView, Integer> mAdViewPositionMap = new HashMap<>();
     public static final String TAG = "IndexFragment";
 
+    //TODO 添加TODO标识的都是隐藏的
 
     @Override
     public void init() {
@@ -181,6 +188,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolBar, mStatusBar);
         mPresenter = new IndexPresenter(getActivity(), this);
 
+        //最上面今日热点
         RxView.clicks(mMoreTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -195,12 +203,14 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         RxView.clicks(mReadImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                MobclickAgent.onEvent(getActivity(), "book_read", "教材点读");
                 ReadApp.READ_COMMON_TYPE = 1;
                 Intent intent = new Intent(getActivity(), BookActivity.class);
                 intent.putExtra("tag", "read");
                 startActivity(intent);
             }
         });
+        //单词宝典
         RxView.clicks(mWordImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -212,6 +222,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
+        //todo 已隐藏 最下边广告位
         RxView.clicks(mAd).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -221,6 +232,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
+        //跳转到配音听力
         RxView.clicks(mTaskImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -231,6 +243,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
+        //跳转到我的 个人中心
         RxView.clicks(mAvatarImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -239,6 +252,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
+        //分享
         RxView.clicks(mShareLinearLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -259,7 +273,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
             }
         });
-
+        //51答案小程序
         RxView.clicks(mHomeworkAnswer).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -271,7 +285,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.originid, GroupConstant.appid);
             }
         });
-
+        //todo 下面广告位
         RxView.clicks(mExamImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -302,7 +316,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
-
+        //外接或自身广告
         RxView.clicks(mMorcoclassMoreLinearLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -310,7 +324,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 mainActivity.goToTask();
             }
         });
-
+        //精品推荐更多
         RxView.clicks(mllRecommendMore).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -376,7 +390,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         mHotMircoClassAdapter = new AritleAdapter(null, 1);
         mHotMircoClassRecyclerView.setAdapter(mHotMircoClassAdapter);
 
-
+        //TODO 热门推荐条目点击
         mHotMircoClassAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -393,6 +407,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         mRecommendAdapter = new IndexRecommendAdapterNew(getActivity(), null, mAdViewPositionMap);
         mRvRecommend.setAdapter(mRecommendAdapter);
 
+        //精品推荐条目点击
         mRecommendAdapter.setOnItemClickListener(new IndexRecommendAdapterNew.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -404,6 +419,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
+        //同步微课点击
         RxView.clicks(ivWeike).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -414,6 +430,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 startActivity(intent);
             }
         });
+        //口语学习点击
         RxView.clicks(ivSpoken).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -455,6 +472,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
             }
         });
+//
+
 
     }
 
