@@ -5,12 +5,10 @@
       <GradleProjectSettings>
         <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-4.1" />
+        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-4.4-all" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/IMKit" />
-            <option value="$PROJECT_DIR$/IMLib" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/banner" />
             <option value="$PROJECT_DIR$/guide" />
