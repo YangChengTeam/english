@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/login_tint_bg"
+    android:orientation="vertical"
+    android:padding="@dimen/group_distance_15">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/tint"
+        android:textColor="@color/black"
+        android:textSize="@dimen/group_text_16" />
+
+
+    <TextView
+        android:id="@+id/tv_tint_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/group_distance_5"
+        android:lineSpacingExtra="@dimen/group_distance_5"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_modify_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/group_distance_5"
+        android:autoLink="web"
+        android:text="点此修改"
+        android:textColor="@color/group_red_fb4c30"
+        android:textColorLink="@color/group_blue_21b5f8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/group_distance_10"
+        android:text="如果您已经使用手机号注册过账号"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/group_distance_5"
+        android:autoLink="web"
+        android:text="点此登录"
+        android:textColor="@color/group_red_fb4c30" />
+
+    <TextView
+        android:id="@+id/tv_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="@dimen/group_distance_8"
+        android:text="点此跳过"
+        android:textColor="@color/black"/>
+</LinearLayout>

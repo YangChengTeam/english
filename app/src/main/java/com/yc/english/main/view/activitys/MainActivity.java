@@ -197,7 +197,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
         final AlertDialog alertDialog = new AlertDialog(this);
-        alertDialog.setDesc("确认退出说说英语？");
+        alertDialog.setDesc("确认退出" + getString(R.string.app_name) + "？");
         alertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

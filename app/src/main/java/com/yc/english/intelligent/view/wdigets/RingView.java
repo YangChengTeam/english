@@ -120,7 +120,6 @@ public class RingView extends View {
         }
         drawText(canvas, center);
 
-
     }
 
 

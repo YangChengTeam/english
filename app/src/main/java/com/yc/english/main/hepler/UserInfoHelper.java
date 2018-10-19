@@ -2,6 +2,7 @@ package com.yc.english.main.hepler;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.EmptyUtils;
@@ -10,15 +11,20 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.UIUitls;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.helper.ResultInfoHelper;
+import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.main.view.activitys.LoginActivity;
 
+import org.w3c.dom.Text;
+
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -60,6 +66,10 @@ public class UserInfoHelper {
         return getUserInfo() != null;
     }
 
+    public static boolean isPhoneLogin() {
+        return getUserInfo() != null && !TextUtils.isEmpty(getUserInfo().getMobile());
+    }
+
     public static void clearUserInfo() {
         SPUtils.getInstance().remove(Constant.USER_INFO);
         mUserInfo = null;
@@ -71,9 +81,8 @@ public class UserInfoHelper {
         RxBus.get().post(Constant.USER_INFO, resultInfo.data.getInfo());
 //        RxBus.get().post(BusAction.GROUP_LIST, "from getUserInfo");
         SPUtils.getInstance().put(Constant.PHONE, resultInfo.data.getInfo().getMobile());
-//        UserInfoHelper.connect(context, resultInfo.data.getInfo().getUid());
-    }
 
+    }
 
 
     public static void login(final Context context) {
@@ -119,7 +128,6 @@ public class UserInfoHelper {
                     @Override
                     public void reulstInfoOk() {
                         UserInfoHelper.saveUserInfo(userInfoResultInfo.data.getInfo());
-//                        getOpenShareVip(context, userInfoResultInfo.data.getInfo().getUid());
 //                        UserInfoHelper.connect(context, userInfoResultInfo.data.getInfo().getUid());
                     }
                 });
@@ -129,9 +137,68 @@ public class UserInfoHelper {
     }
 
 
+    public static void guestReg(final Context context) {
+        EngineUtils.guestReg(context).subscribe(new Subscriber<ResultInfo<UserInfo>>() {
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                UIUitls.postDelayed(1500, new Runnable() {
+                    @Override
+                    public void run() {
+                        guestReg(context);
+                    }
+                });
+            }
+
+            @Override
+            public void onNext(final ResultInfo<UserInfo> userInfoResultInfo) {
+                ResultInfoHelper.handleResultInfo(userInfoResultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+                        UIUitls.postDelayed(1500, new Runnable() {
+                            @Override
+                            public void run() {
+                                guestReg(context);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        UserInfo userInfo = userInfoResultInfo.data;
+                        UserInfoHelper.saveUserInfo(userInfo);
+                    }
+                });
+
+            }
+        });
+
+
+    }
+
+
+    public static void selectLogin(Context context) {
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo == null || TextUtils.isEmpty(userInfo.getMobile())) {
+            guestReg(context);
+        } else {
+            login(context);
+        }
+    }
+
 
     public static boolean isGotoLogin(Context context) {
-        if (!isLogin()) {
+        if (!isPhoneLogin()) {
             Intent intent = new Intent(context, LoginActivity.class);
             context.startActivity(intent);
             return true;

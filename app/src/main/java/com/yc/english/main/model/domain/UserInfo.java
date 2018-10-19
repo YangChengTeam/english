@@ -28,6 +28,8 @@ public class UserInfo {
     private long vip_start_time;
     private long test_end_time;//通过分享获得的VIP时间
 
+    private String pwd_text;//原始密码
+
     public String getMobile() {
         return mobile;
     }
@@ -139,5 +141,13 @@ public class UserInfo {
 
     public void setTest_end_time(long test_end_time) {
         this.test_end_time = test_end_time;
+    }
+
+    public String getPwd_text() {
+        return pwd_text;
+    }
+
+    public void setPwd_text(String pwd_text) {
+        this.pwd_text = pwd_text;
     }
 }

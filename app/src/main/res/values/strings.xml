@@ -1,6 +1,7 @@
 <resources>
+    <!--英语考-->
     <!--英语点读学习-->
-    <string name="app_name">英语考</string>
+    <string name="app_name">说说英语</string>
 
     <string name="rc_voice_rec">手指上滑，取消发送</string>
     <string name="rc_voice_cancel">松开手指，取消发送</string>
@@ -20,4 +21,9 @@
     <string name="knowledge">考查知识点</string>
     <string name="select_grade">年级</string>
     <string name="click_to_skip"> 点击跳过 %d</string>
+    <string name="tint">温馨提示</string>
+    <string name="username_pwd">您的用户名是：%1$s，密码是：%2$s，为了保护您的账号安全，建议您修改用户名和密码</string>
+    <string name="scan_qrcode">识别图中二维码</string>
+    <string name="saveto_phone">保存到手机</string>
+
 </resources>

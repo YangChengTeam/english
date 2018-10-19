@@ -1,33 +1,32 @@
 package com.yc.english.read.view.activitys;
 
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.base.utils.TencentAdvManager;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.read.model.domain.Constant;
 import com.yc.english.news.utils.ViewUtil;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.contract.BookContract;
 import com.yc.english.read.model.domain.BookInfo;
-import com.yc.english.read.model.domain.Constant;
+
 import com.yc.english.read.presenter.BookPresenter;
 import com.yc.english.read.view.adapter.ReadBookItemClickAdapter;
 import com.yc.english.vip.views.fragments.BasePayItemView;
@@ -67,6 +66,10 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
 
     ReadBookItemClickAdapter mItemAdapter;
+    @BindView(R.id.topBanner)
+    FrameLayout topBanner;
+    @BindView(R.id.bottomBanner)
+    FrameLayout bottomBanner;
 
     private boolean isRead = false;
 
@@ -79,6 +82,8 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
     public void init() {
 
         mPresenter = new BookPresenter(this, this);
+        TencentAdvManager.showBannerAdv(this, topBanner, com.yc.english.main.model.domain.Constant.READ_TOP_BANNER);
+        TencentAdvManager.showBannerAdv(this, bottomBanner, com.yc.english.main.model.domain.Constant.READ_BOTTOM_BANNER);
 
         String titleName;
         if (ReadApp.READ_COMMON_TYPE == 1) {
@@ -227,4 +232,10 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         mLoadingStateView.showLoading(mContentLinearLayout);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

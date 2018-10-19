@@ -22,7 +22,7 @@ public class SettingPresenter extends BasePresenter<MyEngin, SettingContract.Vie
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if(!forceUpdate) return;
         getCacheSize();
-        if(UserInfoHelper.isLogin()){
+        if(UserInfoHelper.isPhoneLogin()){
             mView.showExitButton();
         }
     }

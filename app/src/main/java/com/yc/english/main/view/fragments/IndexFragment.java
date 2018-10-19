@@ -42,15 +42,18 @@ import com.yc.english.EnglishApp;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.utils.StatusBarCompat;
+import com.yc.english.base.utils.TencentAdvManager;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.IndexVipKidDialog;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
+import com.yc.english.base.view.UserLoginDialog;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
@@ -182,8 +185,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void init() {
-        showTencentAdv(bannerContainer, Constant.BANNER_ADV1);
-        showTencentAdv(bannerBottomContainer, Constant.BANNER_ADV2);
+        TencentAdvManager.showBannerAdv(getActivity(), bannerContainer, Constant.BANNER_ADV1);
+        TencentAdvManager.showBannerAdv(getActivity(), bannerBottomContainer, Constant.BANNER_ADV2);
+
         initNativeExpressAD();
         StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolBar, mStatusBar);
         mPresenter = new IndexPresenter(getActivity(), this);
@@ -262,14 +266,15 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         });
 
         //学习工具
+        //音标学习小助手
         RxView.clicks(mTeacherTask).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                MobclickAgent.onEvent(getActivity(), "teach_tool", "学习工具");
+                MobclickAgent.onEvent(getActivity(), "yinbiao_xiaozhushou", "音标学习小助手");
 //                Intent intent = new Intent(getActivity(), CoachScoreActivity.class);
 //                startActivity(intent);
 
-                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.tool_originid, GroupConstant.appid);
+                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.assistant_originid, GroupConstant.appid);
 
             }
         });
@@ -463,6 +468,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //            indexVipKidDialog.show();
 //        }
 
+
+
+//        UserLoginDialog userLoginDialog = new UserLoginDialog(getActivity());
+//        userLoginDialog.show();
+
         mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primary));
         mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -495,41 +505,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     }
 
     private SlideInfo advInfo;//广告页
-    private BannerView banner;//banner广告
 
-    private void showTencentAdv(ViewGroup viewGroup, String bannerId) {
-        // 创建 Banner 广告 AdView 对象
-        // appId : 在 http://e.qq.com/dev/ 能看到的 app 唯一字符串
-        // posId : 在 http://e.qq.com/dev/ 生成的数字串，并非 appid 或者 appkey
-        if (banner != null) {
-            banner.destroy();
-        }
-        banner = new BannerView(getActivity(), com.qq.e.ads.banner.ADSize.BANNER, Constant.TENCENT_ADV_ID, bannerId);
-        //设置广告轮播时间，为0或30~120之间的数字，单位为s,0标识不自动轮播
-        banner.setRefresh(10);
-        banner.setADListener(new AbstractBannerADListener() {
-            @Override
-            public void onNoAD(AdError adError) {
-                Log.i("AD_DEMO", "BannerNoAD，eCode=" + adError.getErrorCode());
-//                banner.loadAD();
-            }
-
-            @Override
-            public void onADReceiv() {
-                Log.i("AD_DEMO", "ONBannerReceive");
-            }
-
-            @Override
-            public void onADClicked() {
-                super.onADClicked();
-                Log.e("AD_DEMO", "onADClicked: ");
-            }
-        });
-        viewGroup.addView(banner);
-        /* 发起广告请求，收到广告数据后会展示数据   */
-        banner.loadAD();
-
-    }
 
     @Override
     public void onStart() {
@@ -762,6 +738,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     public void onDestroy() {
         super.onDestroy();
         if (view != null) view.destroy();
-        if (banner != null) banner.destroy();
+//        if (banner != null) banner.destroy();
     }
 }

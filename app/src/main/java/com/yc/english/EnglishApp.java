@@ -94,7 +94,8 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
                 "-----END PUBLIC KEY-----");
         setHttpDefaultParams();
 
-        UserInfoHelper.login(this);
+
+        UserInfoHelper.selectLogin(this);
 
         UMShareImpl.Builder builder = new UMShareImpl.Builder();
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.UIUitls;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.SimpleCacheUtils;
@@ -14,6 +15,7 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.main.model.engin.IndexEngin;
 import com.yc.english.pay.PayWayInfo;
 import com.yc.english.pay.PayWayInfoHelper;
@@ -63,7 +65,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                     @Override
                     public void run() {
                         mView.hideStateView();
-                        showIndexInfo(indexInfo, false,isFresh);
+                        showIndexInfo(indexInfo, false, isFresh);
                     }
                 });
             }
@@ -102,7 +104,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                     @Override
                     public void reulstInfoOk() {
                         mView.hideStateView();
-                        showIndexInfo(resultInfo.data, true,isFresh);
+                        showIndexInfo(resultInfo.data, true, isFresh);
                     }
                 });
             }
@@ -110,7 +112,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         mSubscriptions.add(subscription);
     }
 
-    private void showIndexInfo(IndexInfo indexInfo, boolean isCached,boolean isFresh) {
+    private void showIndexInfo(IndexInfo indexInfo, boolean isCached, boolean isFresh) {
         if (indexInfo.getSlideInfo() != null) {
             if (isCached) {
                 SimpleCacheUtils.writeCache(mContext, INDEX_INFO, JSON.toJSONString(indexInfo));
@@ -216,6 +218,9 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         });
         mSubscriptions.add(subscription);
     }
+
+
+
 
 
 }

@@ -36,9 +36,11 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
     override fun init() {
         RxView.clicks(mReportBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
-            var intent = Intent(activity, IntelligentReportActivity::class.java)
+
+            val intent = Intent(activity, IntelligentReportActivity::class.java)
             intent.putExtra("unitId", unitInfo?.id)
             startActivity(intent)
+
         }
 
         if (unitInfo != null) {

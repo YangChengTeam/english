@@ -277,7 +277,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     private boolean judgeVip() {
         boolean isPlay = false;
 
-        if (UserInfoHelper.isVip(userInfo)) {
+        if (UserInfoHelper.isVip(userInfo)||currentCourseInfo.getIsPay()==1) {
             isPlay = true;
         }
         if (isPlay) {

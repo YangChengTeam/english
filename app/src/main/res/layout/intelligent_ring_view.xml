@@ -16,7 +16,7 @@
         app:ringTextColor="#C14C40"
         app:ringTextSize="16sp"
         app:secondColor="#E50002"
-        app:speed="10" />
+        app:speed="50" />
 
     <LinearLayout
         android:layout_width="match_parent"

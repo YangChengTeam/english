@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:eng="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -73,14 +74,30 @@
     <com.yc.english.base.view.StateView
         android:id="@+id/stateView"
         android:layout_width="match_parent"
-        android:background="@color/group_gray_e6f2fb"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/group_gray_e6f2fb" />
 
-    <com.yc.english.base.view.CommonWebView
-        android:id="@+id/wv_main"
+    <LinearLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none" />
+        android:orientation="vertical">
 
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:visibility="gone"
+            eng:indicator_height="6dp"
+            eng:indicator_margin="5dp"
+            eng:indicator_width="6dp" />
+
+        <com.yc.english.base.view.CommonWebView
+            android:id="@+id/wv_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" />
+    </LinearLayout>
 
 </LinearLayout>

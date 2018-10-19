@@ -49,29 +49,8 @@ public class VipBuyPresenter extends BasePresenter<BaseEngin, VipBuyContract.Vie
             @Override
             public void onNext(final ResultInfo<OrderInfo> orderInfoResultInfo) {
                 mView.dismissLoadingDialog();
-//                if (orderInfoResultInfo!= null){
-                mView.showOrderInfo(orderInfoResultInfo, orderParams.getMoney(), orderParams.getTitle());
-//                }
 
-//                ResultInfoHelper.handleResultInfo(orderInfoResultInfo, new ResultInfoHelper.Callback() {
-//                    @Override
-//                    public void resultInfoEmpty(String message) {
-//
-//                        TipsHelper.tips(mContext,message);
-//                    }
-//
-//                    @Override
-//                    public void resultInfoNotOk(String message) {
-//                        mView.dismissLoadingDialog();
-//                        TipsHelper.tips(mContext,message);
-//                    }
-//
-//                    @Override
-//                    public void reulstInfoOk() {
-//                        mView.dismissLoadingDialog();
-//
-//                    }
-//                });
+                mView.showOrderInfo(orderInfoResultInfo, orderParams.getMoney(), orderParams.getTitle());
 
             }
         });

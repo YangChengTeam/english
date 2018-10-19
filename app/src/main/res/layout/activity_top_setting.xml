@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_ivatar"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:textColor="#ffffff"
                 android:textSize="16sp" />
 
@@ -46,10 +46,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_nickname"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+
                 android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:visibility="gone" />
+                android:textSize="14sp" />
         </LinearLayout>
     </FrameLayout>
 

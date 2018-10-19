@@ -47,6 +47,9 @@ public class URLConfig {
 
     public static final String INDEX_MENU_URL = getBaseUrl() + "index/menu_adv";
 
+    public static final String GUEST_REG_URL = getBaseUrl() + "user/name_reg";//游客注册
+
+
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }

@@ -1,6 +1,5 @@
 package com.yc.english.news.view.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
@@ -12,9 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.webkit.JsResult;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -31,6 +27,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.kk.utils.LogUtil;
 import com.yc.english.R;
 import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseToolBar;
@@ -46,6 +43,7 @@ import com.yc.english.news.bean.CourseInfoWrapper;
 import com.yc.english.news.contract.NewsDetailContract;
 import com.yc.english.news.presenter.NewsDetailPresenter;
 import com.yc.english.news.utils.ViewUtil;
+import com.yc.english.news.view.fragment.QRCodeScanFragment;
 import com.yc.english.news.view.widget.MediaPlayerView;
 import com.yc.english.news.view.widget.NewsScrollView;
 import com.yc.english.vip.model.bean.GoodsType;
@@ -263,7 +261,35 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         });
 
 
+        webView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                // 长按事件监听（注意：需要实现LongClickCallBack接口并传入对象）
 
+                final WebView.HitTestResult htr = webView.getHitTestResult();//获取所点击的内容
+                if (htr.getType() == WebView.HitTestResult.IMAGE_TYPE
+                        || htr.getType() == WebView.HitTestResult.IMAGE_ANCHOR_TYPE
+                        || htr.getType() == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
+                    //判断被点击的类型为图片
+
+                    showQRCodeDialog(htr.getExtra());
+
+                }
+
+                LogUtil.msg("url: " + htr.getExtra());
+
+                return false;
+            }
+        });
+    }
+
+
+    public void showQRCodeDialog(String url) {
+        QRCodeScanFragment scanFragment = new QRCodeScanFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("imgurl", url);
+        scanFragment.setArguments(bundle);
+        scanFragment.show(getSupportFragmentManager(), "");
     }
 
     @Override
@@ -439,7 +465,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         @android.webkit.JavascriptInterface
         public void getImgs(String imgPaths) {
-
             LogUtils.e("getImgs " + imgPaths);
         }
 

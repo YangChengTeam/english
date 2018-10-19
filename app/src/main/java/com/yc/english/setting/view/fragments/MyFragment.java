@@ -10,6 +10,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,13 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.UIUitls;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.utils.LogUtil;
+import com.kk.utils.ScreenUtil;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
@@ -132,6 +136,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @BindView(R.id.iv_tutorship_main_bg)
     ImageView ivTutorshipMainBg;
 
+    private String login_tint = "登录/注册";
+
 
     @Override
     public void init() {
@@ -184,12 +190,16 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         RxView.clicks(mBuyVipMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (!UserInfoHelper.isGotoLogin(getActivity())) {
-
-                    Intent intent = new Intent(getActivity(), VipEquitiesActivity.class);
-
-                    startActivity(intent);
+                if (UserInfoHelper.getUserInfo() == null) {
+                    UserInfoHelper.isGotoLogin(getActivity());
+                    return;
                 }
+
+
+                Intent intent = new Intent(getActivity(), VipEquitiesActivity.class);
+
+                startActivity(intent);
+
             }
         });
 
@@ -229,10 +239,14 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         RxView.clicks(mFeedbackMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (!UserInfoHelper.isGotoLogin(getActivity())) {
-                    Intent intent = new Intent(getActivity(), FeedbackActivity.class);
-                    startActivity(intent);
+                if (UserInfoHelper.getUserInfo() == null) {
+                    UserInfoHelper.isGotoLogin(getActivity());
+                    return;
                 }
+
+                Intent intent = new Intent(getActivity(), FeedbackActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -291,13 +305,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.setting_fragment_my;
     }
@@ -316,13 +323,22 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         GlideHelper.circleBorderImageView(getActivity(), mAvatarImageView, userInfo.getAvatar(), R.mipmap
                 .default_avatar, 0.5f, Color.WHITE);
 
-        if (!StringUtils.isEmpty(userInfo.getSchool())) {
-            mSchoolTextView.setText(userInfo.getSchool());
+//        if (!StringUtils.isEmpty(userInfo.getSchool())) {
+
+//        }
+
+        String nickName = userInfo.getNickname();
+        if (TextUtils.isEmpty(nickName)) {
+            nickName = login_tint;
+            mSchoolTextView.setVisibility(View.VISIBLE);
+            mSchoolTextView.setText("用户id: " + userInfo.getUid());
+            setTextParams(false);
+        } else {
+            mSchoolTextView.setVisibility(View.GONE);
+            setTextParams(true);
         }
 
-        if (!StringUtils.isEmpty(userInfo.getNickname())) {
-            mNickNameTextView.setText(userInfo.getNickname());
-        }
+        mNickNameTextView.setText(nickName);
 
         if (UserInfoHelper.isVip(userInfo)) {
             mBuyVipMenuItemView.setTitle("会员信息");
@@ -343,12 +359,23 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     public void showNoLogin(Boolean flag) {
         if (ActivityUtils.isValidContext(getActivity())) {
             mAvatarImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.mipmap.default_big_avatar));
-            mNickNameTextView.setText("还没有登录，点击立即登录");
-            mSchoolTextView.setText("");
+            mNickNameTextView.setText(login_tint);
+            mSchoolTextView.setVisibility(View.GONE);
+            setTextParams(true);
             mBuyVipMenuItemView.setTitle("开通会员");
             restoreScoreData();
         }
 
+    }
+
+    public void setTextParams(boolean isBig) {
+        LinearLayout.MarginLayoutParams params = (LinearLayout.MarginLayoutParams) mNickNameTextView.getLayoutParams();
+        if (isBig) {
+            params.topMargin = ScreenUtil.dip2px(getActivity(), 8);
+        } else {
+            params.topMargin = ScreenUtil.dip2px(getActivity(), 5);
+        }
+        mNickNameTextView.setLayoutParams(params);
     }
 
 

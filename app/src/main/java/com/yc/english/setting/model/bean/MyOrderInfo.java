@@ -36,12 +36,16 @@ public class MyOrderInfo {
 
     @JSONField(name = "order_sn")
     private String orderSn;//订单号
-    @JSONField(name = "order_money")
+    @JSONField(name = "money")
     private String orderMoney;//订单金额
     @JSONField(name = "order_status")
     private int orderStatus;//状态：0(待支付)，1(支付失败)，2(支付成功)，3(发货失败)，4(交易完成)，5（申请退货），6（退货失败），7（退货成功）
     @JSONField(name = "order_add_time")
     private Long orderAddTime;//订单添加时间
+
+    private String status;//状态 文字描述
+
+
 
     public String getId() {
         return id;
@@ -209,5 +213,13 @@ public class MyOrderInfo {
 
     public void setOrderAddTime(Long orderAddTime) {
         this.orderAddTime = orderAddTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

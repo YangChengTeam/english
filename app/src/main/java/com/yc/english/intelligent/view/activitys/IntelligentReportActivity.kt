@@ -3,7 +3,6 @@ package com.yc.english.intelligent.view.activitys
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Rect
-import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -31,10 +30,7 @@ import com.yc.english.intelligent.presenter.IntelligentReportPresenter
 import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.intelligent.view.adpaters.IntelligentReportErrorAdapter
 import com.yc.english.intelligent.view.adpaters.IntelligentReportWeakAdapter
-import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
-import com.yc.english.vip.model.bean.GoodsType
-import com.yc.english.vip.utils.VipDialogHelper
 import kotlinx.android.synthetic.main.intelligent_activity_report.*
 import net.lucode.hackware.magicindicator.buildins.UIUtil
 import java.util.concurrent.TimeUnit

@@ -107,7 +107,8 @@
                 <FrameLayout
                     android:id="@+id/bannerContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></FrameLayout>
+                    android:layout_height="wrap_content"
+                   ></FrameLayout>
 
 
                 <com.youth.banner.Banner
@@ -224,7 +225,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="fitXY"
-                            android:src="@mipmap/teach_tool" />
+                            android:src="@mipmap/phonetic_1vs1" />
 
                         <View
                             android:layout_width="7dp"

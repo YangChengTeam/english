@@ -18,6 +18,11 @@
         android:layout_height="match_parent"
         android:visibility="gone"></com.yc.english.base.view.StateView>
 
+    <FrameLayout
+        android:id="@+id/topBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -132,7 +137,15 @@
 
                 <include layout="@layout/activity_synchronization_teach" />
             </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/bottomBanner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+
 </LinearLayout>

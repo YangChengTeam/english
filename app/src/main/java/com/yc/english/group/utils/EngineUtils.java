@@ -10,7 +10,9 @@ import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.URLConfig;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.news.model.domain.OrderGood;
 import com.yc.english.pay.PayWayInfo;
 import com.yc.english.pay.alipay.OrderInfo;
@@ -148,6 +150,17 @@ public class EngineUtils {
 
         return HttpCoreEngin.get(context).rxpost(NetConstant.share_is_allow, new TypeReference<ResultInfo<Integer>>() {
         }.getType(), params, true, true, true);
+    }
+
+
+    /**
+     * 使用imel注册
+     *
+     * @return
+     */
+    public static Observable<ResultInfo<UserInfo>> guestReg(Context context) {
+        return HttpCoreEngin.get(context).rxpost(URLConfig.GUEST_REG_URL, new TypeReference<ResultInfo<UserInfo>>() {
+        }.getType(), null, true, true, true);
     }
 
 }

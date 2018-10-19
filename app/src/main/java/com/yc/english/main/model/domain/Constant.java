@@ -53,6 +53,8 @@ public class Constant {
 
     public static final String INDEX_MENU_STATICS = "index_menu_statics";
 
+    public static final String INDEX_INFO = "getIndexInfo";
+
     /**
      * 通知栏上一首action
      */
@@ -90,4 +92,22 @@ public class Constant {
      * 原生广告    8070145095046825
      */
     public static final String NATIVE_ADV_ID = "8040447025801807";
+
+    /**
+     * 课本点读头部banner广告
+     */
+    public static final String READ_TOP_BANNER = "4010744144668777";
+
+    /**
+     * 课本点读底部banner广告
+     */
+    public static final String READ_BOTTOM_BANNER = "9000044144969968";
+
+
+    /**
+     * 在线课程banner广告
+     */
+    public static final String ONLINE_BANNER = "3090142104079127";
+
+
 }

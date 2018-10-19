@@ -127,11 +127,14 @@ public class VipScoreTutorshipActivity extends BaseActivity {
         RxView.clicks(mBtnPay).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (!UserInfoHelper.isGotoLogin(VipScoreTutorshipActivity.this)) {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
-                    VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
+                if (UserInfoHelper.getUserInfo() == null) {
+                    UserInfoHelper.isGotoLogin(VipScoreTutorshipActivity.this);
+                    return;
                 }
+
+                Bundle bundle = new Bundle();
+                bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
+                VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
             }
         });
 
