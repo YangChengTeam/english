@@ -1,7 +1,6 @@
 package com.yc.english.main.view.activitys;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -21,7 +20,6 @@ import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.presenter.SplashPresenter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by zhangkai on 2017/8/1.
@@ -128,7 +126,6 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     public void onADTick(long l) {
         skipView.setText(String.format(getString(R.string.click_to_skip),
                 Math.round(l / 1000f)));
-
 
     }
 
