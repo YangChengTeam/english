@@ -3,18 +3,19 @@ package com.yc.english.weixin.views.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.EmptyUtils;
@@ -28,7 +29,6 @@ import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
-import com.yc.english.base.utils.SimpleCacheUtils;
 import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
@@ -40,7 +40,6 @@ import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
-import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.news.model.domain.OrderGood;
@@ -72,15 +71,6 @@ import rx.functions.Action1;
 public class CourseTypeFragment extends BaseFragment<CourseTypePresenter> implements CourseTypeContract.View {
 
 
-    @BindView(R.id.iv_shopping_cart)
-    ImageView mShoppingImageView;
-
-    @BindView(R.id.layout_num)
-    LinearLayout mNumLayout;
-
-    @BindView(R.id.tv_cart_num)
-    TextView mCartNumTextView;
-
     @BindView(R.id.toolbar)
     RelativeLayout mToolbar;
 
@@ -88,16 +78,13 @@ public class CourseTypeFragment extends BaseFragment<CourseTypePresenter> implem
     FrameLayout mToolbarWarpper;
     @BindView(R.id.wv_main)
     CommonWebView wvMain;
-    @BindView(R.id.tv_tb_title)
-    TextView tvTbTitle;
-    @BindView(R.id.stateView)
-    StateView stateView;
 
     @BindView(R.id.content)
     LinearLayout content;
     @BindView(R.id.banner)
     Banner mBanner;
-
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
 
     private String url = "http://m.upkao.com/ssyy.html";
 
@@ -105,10 +92,14 @@ public class CourseTypeFragment extends BaseFragment<CourseTypePresenter> implem
     private IWXPay1Impl iwxPay;
     private LoadingDialog loadingDialog;
 
+    private Handler mHandler;
+
     @Override
     public void init() {
         mPresenter = new CourseTypePresenter(getActivity(), this);
         StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolbar, R.mipmap.base_actionbar);
+        mHandler = new Handler();
+
         initWebview();
         iAliPay = new IAliPay1Impl(getActivity());
         iwxPay = new IWXPay1Impl(getActivity());
@@ -116,14 +107,15 @@ public class CourseTypeFragment extends BaseFragment<CourseTypePresenter> implem
     }
 
     private void initWebview() {
-        stateView.showLoading(content);
 
+
+        progressBar.setMax(100);
 
         SlideInfo slideInfo = JSON.parseObject(SPUtils.getInstance().getString(Constant.INDEX_MENU_STATICS), SlideInfo.class);
         if (null != slideInfo) {
             url = slideInfo.getUrl();
         }
-        url += "?time=" + System.currentTimeMillis();
+//        url += "?time=" + System.currentTimeMillis();
 
 
         wvMain.addJavascriptInterface(new JavascriptInterface(), "study");
@@ -134,9 +126,34 @@ public class CourseTypeFragment extends BaseFragment<CourseTypePresenter> implem
         wvMain.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                stateView.hide();
+
             }
 
+        });
+        wvMain.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+
+                final int progress = newProgress;
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        if (progressBar.getVisibility() == ProgressBar.GONE) {
+                            progressBar.setVisibility(ProgressBar.VISIBLE);
+                        }
+                        progressBar.setProgress(progress);
+                        progressBar.postInvalidate();
+                        if (progress == 100) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+
+                    }
+                });
+
+
+            }
         });
 
         initBanner();
@@ -213,6 +230,7 @@ public class CourseTypeFragment extends BaseFragment<CourseTypePresenter> implem
             }
         });
     }
+
 
     public class JavascriptInterface {
 

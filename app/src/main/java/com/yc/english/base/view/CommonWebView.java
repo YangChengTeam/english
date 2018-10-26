@@ -42,7 +42,7 @@ public class CommonWebView extends WebView {
         webSettings.setLoadsImagesAutomatically(false);
         webSettings.setAllowUniversalAccessFromFileURLs(true);
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
+        webSettings.setDomStorageEnabled(true);// 解决对某些标签的不支持出现白屏
         webSettings.setNeedInitialFocus(false);
         webSettings.setSupportZoom(false);
         webSettings.setBuiltInZoomControls(false);
