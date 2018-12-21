@@ -60,5 +60,23 @@
     <dimen name="text_size_13sp">13sp</dimen>
     <dimen name="text_size_16sp">16sp</dimen>
     <dimen name="text_size_20sp">20sp</dimen>
+    <dimen name="t13sp">13sp</dimen>
+    <dimen name="t15dp">15dp</dimen>
+    <dimen name="t18dp">18dp</dimen>
+    <dimen name="t65dp">65dp</dimen>
+    <dimen name="t25sp">25sp</dimen>
+    <dimen name="t20dp">20dp</dimen>
+    <dimen name="t3dp">3dp</dimen>
+    <dimen name="t18sp">18sp</dimen>
+    <dimen name="t10dp">10dp</dimen>
+    <dimen name="t50dp">50dp</dimen>
+    <dimen name="t1dp">1dp</dimen>
+    <dimen name="t16sp">16sp</dimen>
+    <dimen name="t5dp">5dp</dimen>
+    <dimen name="t40dp">40dp</dimen>
+    <dimen name="t8dp">8dp</dimen>
+    <dimen name="t25dp">25dp</dimen>
+    <dimen name="t2dp">2dp</dimen>
+    <dimen name="t37dp">37dp</dimen>
 
 </resources>

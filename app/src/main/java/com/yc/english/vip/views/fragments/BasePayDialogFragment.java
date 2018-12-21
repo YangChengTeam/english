@@ -675,7 +675,7 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
 
     @Override
-    public void hideStateView() {
+    public void hide() {
 
     }
 

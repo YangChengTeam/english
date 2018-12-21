@@ -958,7 +958,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mStateView.hide();
     }
 

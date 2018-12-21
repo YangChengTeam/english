@@ -104,7 +104,7 @@ public class CourseMoreFragment extends BaseFragment<CoursePresenter> implements
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mLoadingStateView.hide();
     }
 

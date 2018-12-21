@@ -69,7 +69,7 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
 
     private void init() {
         //腾迅自动更新
-        Bugly.init(getApplicationContext(), "965a5326ab", false);
+//        Bugly.init(getApplicationContext(), "965a5326ab", false);
 
         //友盟统计
         UMGameAgent.setDebugMode(false);

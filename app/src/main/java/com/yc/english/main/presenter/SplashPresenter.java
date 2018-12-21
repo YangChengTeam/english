@@ -6,7 +6,6 @@ import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.SPUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
-import com.kk.utils.LogUtil;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.contract.SplashContract;
 import com.yc.english.main.model.domain.Constant;
@@ -24,7 +23,7 @@ public class SplashPresenter extends BasePresenter<SplashEngin, SplashContract.V
 
     public SplashPresenter(Context context, SplashContract.View view) {
         super(context, view);
-        mEngin = new SplashEngin(context);
+        mEngine = new SplashEngin(context);
     }
 
     @Override
@@ -40,7 +39,7 @@ public class SplashPresenter extends BasePresenter<SplashEngin, SplashContract.V
     public void getDialogInfo() {
         final long startTime = System.currentTimeMillis();
 
-        Subscription subscription = mEngin.getDialogInfo().subscribe(new Subscriber<ResultInfo<IndexDialogInfoWrapper>>() {
+        Subscription subscription = mEngine.getDialogInfo().subscribe(new Subscriber<ResultInfo<IndexDialogInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -72,7 +71,7 @@ public class SplashPresenter extends BasePresenter<SplashEngin, SplashContract.V
 
     @Override
     public void getIndexMenuInfo() {
-        Subscription subscription = mEngin.getIndexMenuInfo().subscribe(new Subscriber<ResultInfo<IndexDialogInfoWrapper>>() {
+        Subscription subscription = mEngine.getIndexMenuInfo().subscribe(new Subscriber<ResultInfo<IndexDialogInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -88,7 +87,7 @@ public class SplashPresenter extends BasePresenter<SplashEngin, SplashContract.V
             public void onNext(ResultInfo<IndexDialogInfoWrapper> indexDialogInfoWrapperResultInfo) {
 
                 if (indexDialogInfoWrapperResultInfo != null && indexDialogInfoWrapperResultInfo.code == HttpConfig.STATUS_OK) {
-//                    mView.hideStateView();
+//                    mView.hide();
                     IndexDialogInfoWrapper infoWrapper = indexDialogInfoWrapperResultInfo.data;
                     SPUtils.getInstance().put(Constant.INDEX_MENU_STATICS, JSON.toJSONString(infoWrapper.info));
                 }

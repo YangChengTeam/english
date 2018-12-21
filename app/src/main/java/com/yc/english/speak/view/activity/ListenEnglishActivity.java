@@ -409,7 +409,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
 
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         stateView.hide();
     }
 

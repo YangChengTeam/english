@@ -7,7 +7,6 @@ import com.alibaba.fastjson.TypeReference;
 import com.blankj.utilcode.util.UIUitls;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.base.helper.RxUtils;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.SimpleCacheUtils;
 import com.yc.english.weixin.contract.CourseContract;
@@ -29,7 +28,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
 
     public CoursePresenter(Context context, CourseContract.View iView) {
         super(context, iView);
-        mEngin = new WeixinEngin(context);
+        mEngine = new WeixinEngin(context);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
         }
 
 
-        Subscription subscription = mEngin.getWeixinList(type_id, page, page_size).subscribe(new Subscriber<ResultInfo<CourseInfoWrapper>>() {
+        Subscription subscription = mEngine.getWeixinList(type_id, page, page_size).subscribe(new Subscriber<ResultInfo<CourseInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -120,7 +119,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
             }
             mView.showWeixinList(courseInfos);
             if (page.equals("1")) {
-                mView.hideStateView();
+                mView.hide();
             }
         } else {
             if (page.equals("1")) {

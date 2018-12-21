@@ -248,7 +248,7 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
 
     override fun getLayoutId() = R.layout.intelligent_activity_questions
 
-    override fun hideStateView() {
+    override fun hide() {
         mStateView.hide()
     }
 

@@ -16,7 +16,7 @@ public class MainPresenter extends BasePresenter<MainEngin, MainContract.View> i
     private Context mContext;
     public MainPresenter(Context context, MainContract.View view) {
         super(context, view);
-        mEngin = new MainEngin(context);
+        mEngine = new MainEngin(context);
     }
 
     public void loadData(final boolean forceUpdate, final boolean showLoadingUI) {

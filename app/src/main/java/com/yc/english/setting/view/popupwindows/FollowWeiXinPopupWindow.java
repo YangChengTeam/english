@@ -27,6 +27,8 @@ public class FollowWeiXinPopupWindow extends BasePopupWindow {
 
     @BindView(R.id.tv_cancel)
     TextView mCancelTextView;
+    @BindView(R.id.tv_desc)
+    TextView tvDesc;
 
     public FollowWeiXinPopupWindow(Activity context) {
         super(context);
@@ -38,13 +40,13 @@ public class FollowWeiXinPopupWindow extends BasePopupWindow {
             @Override
             public void call(Void aVoid) {
                 dismiss();
-                ClipboardUtils.copyText("说说英语");
+                ClipboardUtils.copyText(mContext.getString(R.string.app_name));
                 TipsHelper.tips(mContext, "复制成功, 正在前往微信");
                 UIUitls.postDelayed(1000, new Runnable() {
                     @Override
                     public void run() {
                         String weixin = "com.tencent.mm";
-                        if(AppUtils.isInstallApp(weixin)){
+                        if (AppUtils.isInstallApp(weixin)) {
                             AppUtils.launchApp(weixin);
                         }
                     }
@@ -58,6 +60,7 @@ public class FollowWeiXinPopupWindow extends BasePopupWindow {
                 dismiss();
             }
         });
+        tvDesc.setText("已复制微信号: " + mContext.getString(R.string.app_name) + "平台");
     }
 
     @Override

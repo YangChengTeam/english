@@ -12,9 +12,6 @@ import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.contract.GoodsListContract;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
-import com.yc.english.pay.PayWayInfo;
-
-import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -62,7 +59,7 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
 
                     @Override
                     public void reulstInfoOk() {
-                        mView.hideStateView();
+                        mView.hide();
 //                        mView.showGoodVipList(goodInfoWrapperResultInfo.data.getList());
                     }
                 });

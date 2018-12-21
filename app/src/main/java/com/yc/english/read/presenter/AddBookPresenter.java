@@ -27,19 +27,19 @@ public class AddBookPresenter extends BasePresenter<BookEngin, AddBookContract.V
 
     public AddBookPresenter(Context context, AddBookContract.View view) {
         super(context, view);
-        mEngin = new BookEngin(context);
+        mEngine = new BookEngin(context);
     }
 
     @Override
     public void getGradeListFromLocal() {
-        List<GradeInfo> gradeInfos = mEngin.getGradeListFromDB();
+        List<GradeInfo> gradeInfos = mEngine.getGradeListFromDB();
         mView.showGradeListData(gradeInfos);
     }
 
     @Override
     public void gradeList() {
         mView.showLoading();
-        Subscription subscribe = mEngin.gradeList(mContext).subscribe(new Subscriber<ResultInfo<GradeInfoList>>() {
+        Subscription subscribe = mEngine.gradeList(mContext).subscribe(new Subscriber<ResultInfo<GradeInfoList>>() {
             @Override
             public void onCompleted() {
 
@@ -68,7 +68,7 @@ public class AddBookPresenter extends BasePresenter<BookEngin, AddBookContract.V
                     public void reulstInfoOk() {
                         if (resultInfo != null && resultInfo.data != null && resultInfo.data.getList().size() > 0) {
                             mView.showGradeListData(resultInfo.data.list);
-                            mView.hideStateView();
+                            mView.hide();
                         } else {
                             mView.showNoData();
                         }
@@ -83,7 +83,7 @@ public class AddBookPresenter extends BasePresenter<BookEngin, AddBookContract.V
 
     @Override
     public void getCVListByGradeId(String gradeId, String partType) {
-        Subscription subscribe = mEngin.getCVListByGradeId(mContext, gradeId, partType).subscribe(new Subscriber<ResultInfo<CourseVersionInfoList>>() {
+        Subscription subscribe = mEngine.getCVListByGradeId(mContext, gradeId, partType).subscribe(new Subscriber<ResultInfo<CourseVersionInfoList>>() {
             @Override
             public void onCompleted() {
 
@@ -100,7 +100,7 @@ public class AddBookPresenter extends BasePresenter<BookEngin, AddBookContract.V
 
                     final List<CourseVersionInfo> cList = (ArrayList) resultInfo.data.list;
 
-                    mEngin.bookList(0, 0, 1).subscribe(new Subscriber<ArrayList<BookInfo>>() {
+                    mEngine.bookList(0, 0, 1).subscribe(new Subscriber<ArrayList<BookInfo>>() {
                         @Override
                         public void onCompleted() {
 

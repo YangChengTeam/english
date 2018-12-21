@@ -11,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.hwangjr.rxbus.RxBus;
+import com.kk.utils.ScreenUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
@@ -42,11 +44,11 @@ public abstract class BaseDialogFragment<P extends BasePresenter> extends Dialog
         if (rootView == null) {
             getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
             window = getDialog().getWindow();
-            window.setGravity(Gravity.BOTTOM);//((ViewGroup) window.findViewById(android.R.id.content))
+            window.setGravity(getGravity());//((ViewGroup) window.findViewById(android.R.id.content))
             rootView = inflater.inflate(getLayoutId(), ((ViewGroup) window.findViewById(android.R.id.content)), false);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//注意此处
-            window.setLayout(ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight()*3  / 5 + SizeUtils.dp2px(50));//这2行,和上面的一样,注意顺序就行;
-            window.setWindowAnimations(R.style.vip_style);
+//            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//注意此处
+//            window.setLayout(ScreenUtils.getScreenWidth(), ScreenUtils.getScreenHeight() * 3 / 5 + SizeUtils.dp2px(50));//这2行,和上面的一样,注意顺序就行;
+            window.setWindowAnimations(getAnimationId());
             try {
                 ButterKnife.bind(this, rootView);
             } catch (Exception e) {
@@ -55,6 +57,39 @@ public abstract class BaseDialogFragment<P extends BasePresenter> extends Dialog
             init();
         }
         return rootView;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Window window = getDialog().getWindow();
+        if (window != null) {
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//注意此处
+
+            WindowManager.LayoutParams layoutParams = window.getAttributes();
+            layoutParams.width = (int) (ScreenUtil.getWidth(getActivity()) * getWidth());
+            layoutParams.height = getHeight();
+            window.setAttributes(layoutParams);
+        }
+
+    }
+
+    protected float getWidth() {
+        return 1.0f;
+    }
+
+
+    protected int getAnimationId() {
+        return R.style.vip_style;
+    }
+
+    public int getHeight() {
+        return ScreenUtils.getScreenHeight() * 3 / 5 + SizeUtils.dp2px(50);
+    }
+
+    protected int getGravity() {
+        return Gravity.BOTTOM;
     }
 
 

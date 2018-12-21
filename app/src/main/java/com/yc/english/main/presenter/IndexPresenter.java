@@ -5,7 +5,6 @@ import android.content.Context;
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.UIUitls;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.SimpleCacheUtils;
@@ -15,7 +14,6 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.main.model.engin.IndexEngin;
 import com.yc.english.pay.PayWayInfo;
 import com.yc.english.pay.PayWayInfoHelper;
@@ -37,7 +35,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
 
     public IndexPresenter(Context context, IndexContract.View view) {
         super(context, view);
-        mEngin = new IndexEngin(context);
+        mEngine = new IndexEngin(context);
     }
 
     @Override
@@ -64,14 +62,14 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                 UIUitls.post(new Runnable() {
                     @Override
                     public void run() {
-                        mView.hideStateView();
+                        mView.hide();
                         showIndexInfo(indexInfo, false, isFresh);
                     }
                 });
             }
         });
 
-        Subscription subscription = mEngin.getIndexInfo().subscribe(new Subscriber<ResultInfo<IndexInfo>>() {
+        Subscription subscription = mEngine.getIndexInfo().subscribe(new Subscriber<ResultInfo<IndexInfo>>() {
             @Override
             public void onCompleted() {
 
@@ -103,7 +101,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
 
                     @Override
                     public void reulstInfoOk() {
-                        mView.hideStateView();
+                        mView.hide();
                         showIndexInfo(resultInfo.data, true, isFresh);
                     }
                 });

@@ -24,7 +24,7 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
 
     public PersonCenterPresenter(Context context, PersonCenterContract.View iView) {
         super(context, iView);
-        mEngin = new MyEngin(context);
+        mEngine = new MyEngin(context);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
     @Override
     public void uploadAvatar(String avatar) {
         mView.showLoadingDialog("正在上传图像, 请稍后");
-        Subscription subscription = mEngin.updateMessage(avatar, "", "").subscribe(new Subscriber<ResultInfo<UserInfo>>() {
+        Subscription subscription = mEngine.updateMessage(avatar, "", "").subscribe(new Subscriber<ResultInfo<UserInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();

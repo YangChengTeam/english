@@ -12,7 +12,7 @@ import com.yc.english.intelligent.model.engin.IntelligentReportEngin
 open class IntelligentReportPresenter : BasePresenter<IntelligentReportEngin,
         IntelligentReportContract.View> {
     constructor(context: Context?, v: IntelligentReportContract.View?) : super(context, v) {
-        mEngin = IntelligentReportEngin(context)
+        mEngine = IntelligentReportEngin(context)
     }
 
     override fun loadData(forceUpdate: Boolean, showLoadingUI: Boolean) {
@@ -21,8 +21,8 @@ open class IntelligentReportPresenter : BasePresenter<IntelligentReportEngin,
 
     fun getReportInfo(unit_id: String) {
         mView.showLoading()
-        mEngin.getReportInfo(unit_id, "").subscribe({
-            mView.hideStateView()
+        mEngine.getReportInfo(unit_id, "").subscribe({
+            mView.hide()
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK) {
                 if (it?.data != null) {
@@ -33,14 +33,14 @@ open class IntelligentReportPresenter : BasePresenter<IntelligentReportEngin,
             }
             mView.showNoData()
         }, {
-            mView.hideStateView()
+            mView.hide()
             mView.showNoNet()
         })
     }
 
     fun getPlanDetail(report_id: String, type: String) {
 
-        mEngin.getPlanDetail(report_id, type).subscribe({
+        mEngine.getPlanDetail(report_id, type).subscribe({
             val code = it.code
             if (code == HttpConfig.STATUS_OK) {
                 if (it.data != null && it.data.list != null) {

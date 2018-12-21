@@ -35,8 +35,8 @@ public class TaskShowActivity extends FullScreenActivity {
         //设置自适应屏幕，两者合用
         webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-        Glide.with(this).load(R.mipmap.base_loading)
-                .apply(new RequestOptions().override(SizeUtils.dp2px(1080 / 3), SizeUtils.dp2px(408 / 3))).into(mIvLoading);
+//        Glide.with(this).load(R.mipmap.base_loading)
+//                .apply(new RequestOptions().override(SizeUtils.dp2px(1080 / 3), SizeUtils.dp2px(408 / 3))).into(mIvLoading);
         webView.setVisibility(View.GONE);
 
 

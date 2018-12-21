@@ -11,7 +11,7 @@ import com.yc.english.intelligent.model.engin.IntelligentTypeEngin
 open class IntelligentPresenter : BasePresenter<IntelligentTypeEngin,
         IntelligentTypeContract.View> {
     constructor(context: Context?, v: IntelligentTypeContract.View?) : super(context, v) {
-        mEngin = IntelligentTypeEngin(context)
+        mEngine = IntelligentTypeEngin(context)
     }
 
     override fun loadData(forceUpdate: Boolean, showLoadingUI: Boolean) {

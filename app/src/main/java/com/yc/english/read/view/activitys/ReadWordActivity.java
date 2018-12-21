@@ -214,7 +214,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mStateView.hide();
     }
 

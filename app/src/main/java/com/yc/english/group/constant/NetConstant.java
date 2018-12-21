@@ -196,4 +196,14 @@ public interface NetConstant {
      * 是否获得资格
      */
     String share_is_allow = (isDebug ? debug_base_url : baser_url) + "share/reward";
+
+
+    /**
+     * 学习列表
+     */
+    String study_list_url = "http://tic.upkao.com/Xmyinbiao/index/vowel_lists";
+
+    String study_detail_url = "http://tic.upkao.com/Xmyinbiao/index/vowel_detail";
+
+    String vowel_all_url = "http://tic.upkao.com/Xmyinbiao/index/vowel_all";
 }

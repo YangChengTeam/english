@@ -120,7 +120,7 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
 
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         stateView.hide();
     }
 

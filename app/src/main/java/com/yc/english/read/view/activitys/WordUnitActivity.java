@@ -131,7 +131,7 @@ public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> impl
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mStateView.hide();
     }
 

@@ -1,7 +1,7 @@
 <resources>
     <!--英语考-->
     <!--英语点读学习-->
-    <string name="app_name">说说英语</string>
+    <string name="app_name">英语点读学习</string>
 
     <string name="rc_voice_rec">手指上滑，取消发送</string>
     <string name="rc_voice_cancel">松开手指，取消发送</string>
@@ -14,7 +14,7 @@
     <string name="waiting_update_text">请静待更新……</string>
     <string name="intell_correct_answer">正答 %1$d 题</string>
     <string name="intell_error_answer">错答 %1$d 题</string>
-    <string name="weakness_knowledge">您有%1$d个薄弱知识点需改善，说说英语期待帮助您完善薄弱知识点，助您学业进步！</string>
+    <string name="weakness_knowledge">您有%1$d个薄弱知识点需改善，期待帮助您完善薄弱知识点，助您学业进步！</string>
     <string name="your_answer">你的答案:</string>
     <string name="reference_answer">参考答案:</string>
     <string name="analysis">解析</string>
@@ -25,5 +25,10 @@
     <string name="username_pwd">您的用户名是：%1$s，密码是：%2$s，为了保护您的账号安全，建议您修改用户名和密码</string>
     <string name="scan_qrcode">识别图中二维码</string>
     <string name="saveto_phone">保存到手机</string>
+    <string name="study_hint">每天十分钟，十天学会音标</string>
+    <string name="evaluating_good_result">%1$s分，good</string>
+    <string name="play">播放</string>
+    <string name="record">录音</string>
+    <string name="playback">播放录音</string>
 
 </resources>

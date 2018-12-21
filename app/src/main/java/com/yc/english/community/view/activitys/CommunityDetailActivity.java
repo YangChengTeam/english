@@ -173,7 +173,7 @@ public class CommunityDetailActivity extends FullScreenActivity<CommunityInfoPre
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mStateView.hide();
     }
 

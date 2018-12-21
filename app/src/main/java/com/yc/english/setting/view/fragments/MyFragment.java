@@ -385,7 +385,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
 
     }
 

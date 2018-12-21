@@ -146,7 +146,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
 
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mStateView.hide();
     }
 

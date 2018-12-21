@@ -280,7 +280,7 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mStateView.hide();
     }
 

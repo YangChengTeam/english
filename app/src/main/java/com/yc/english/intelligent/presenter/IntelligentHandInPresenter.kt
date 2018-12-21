@@ -13,7 +13,7 @@ import com.yc.english.intelligent.model.engin.IntelligentHandInEngin
 open class IntelligentHandInPresenter : BasePresenter<IntelligentHandInEngin,
         IntelligentHandInContract.View> {
     constructor(context: Context?, v: IntelligentHandInContract.View?) : super(context, v) {
-        mEngin = IntelligentHandInEngin(context)
+        mEngine = IntelligentHandInEngin(context)
     }
 
     override fun loadData(forceUpdate: Boolean, showLoadingUI: Boolean) {
@@ -34,7 +34,7 @@ open class IntelligentHandInPresenter : BasePresenter<IntelligentHandInEngin,
             }
         }
         answersList += "]"
-        mEngin.submitAnwsers(answersList, use_time).subscribe({
+        mEngine.submitAnwsers(answersList, use_time).subscribe({
             mView.dismissLoadingDialog()
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK) {

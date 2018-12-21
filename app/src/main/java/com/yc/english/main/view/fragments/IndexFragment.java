@@ -41,6 +41,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.yc.english.EnglishApp;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.base.utils.PropertyUtil;
 import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.utils.TencentAdvManager;
 import com.yc.english.base.view.BaseActivity;
@@ -81,6 +82,7 @@ import com.youth.banner.listener.OnBannerListener;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -182,9 +184,19 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     public static final String TAG = "IndexFragment";
 
     //TODO 添加TODO标识的都是隐藏的
+    private String isXiaomi = "";
 
     @Override
     public void init() {
+
+        Properties pt = PropertyUtil.getProperties(getActivity());
+
+        isXiaomi = pt.getProperty("isXiaomi");
+
+        if (TextUtils.equals("true", isXiaomi)) {
+            bannerContainer.setVisibility(View.GONE);
+            bannerBottomContainer.setVisibility(View.GONE);
+        }
         TencentAdvManager.showBannerAdv(getActivity(), bannerContainer, Constant.BANNER_ADV1);
         TencentAdvManager.showBannerAdv(getActivity(), bannerBottomContainer, Constant.BANNER_ADV2);
 
@@ -469,7 +481,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //        }
 
 
-
 //        UserLoginDialog userLoginDialog = new UserLoginDialog(getActivity());
 //        userLoginDialog.show();
 
@@ -531,7 +542,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mLoadingStateView.hide();
     }
 
@@ -664,6 +675,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     private NativeExpressADView view;
 
+    //去掉广告
     @Override
     public void onADLoaded(List<NativeExpressADView> adList) {
         if (adList != null && adList.size() > 0) {
@@ -675,7 +687,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             view = mAdViewList.get(0);
             GDTLogger.i("ad load[" + 0 + "]: " + getAdInfo(view));
             mAdViewPositionMap.put(view, FIRST_AD_POSITION);
-            mRecommendAdapter.addADViewToPosition(position, mAdViewList.get(0));
+            if (!TextUtils.equals("true", isXiaomi))
+                mRecommendAdapter.addADViewToPosition(position, mAdViewList.get(0));
         }
     }
 

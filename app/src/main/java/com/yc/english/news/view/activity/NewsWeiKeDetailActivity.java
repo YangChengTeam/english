@@ -350,7 +350,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         stateView.hide();
     }
 

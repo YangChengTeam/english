@@ -29,4 +29,6 @@ public class BusAction {
 
 
     public static final String NOTIFY_PLAY_PAUSE = "NOTIFY_PLAY_PAUSE";
+
+    public static final String PAY_SUCCESS = "pay_success";
 }

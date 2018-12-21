@@ -14,7 +14,6 @@ import com.yc.english.setting.model.engin.MyEngin;
 
 import java.util.List;
 
-import it.sephiroth.android.library.imagezoom.graphics.IBitmapDrawable;
 import rx.Subscriber;
 import rx.Subscription;
 
@@ -26,7 +25,7 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
 
     public MyPresenter(Context context, MyContract.View iView) {
         super(context, iView);
-        mEngin = new MyEngin(context);
+        mEngine = new MyEngin(context);
     }
 
     @Override
@@ -57,7 +56,7 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
         if (currentPage == 1 && mFirstLoad) {
             mView.showLoading();
         }
-        Subscription subscription = mEngin.getMyOrderInfo(currentPage, limit).subscribe(new Subscriber<ResultInfo<List<MyOrderInfo>>>() {
+        Subscription subscription = mEngine.getMyOrderInfo(currentPage, limit).subscribe(new Subscriber<ResultInfo<List<MyOrderInfo>>>() {
             @Override
             public void onCompleted() {
 
@@ -91,7 +90,7 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
                     public void reulstInfoOk() {
                         if (resultInfo != null && resultInfo.data != null) {
                             if (currentPage == 1 && !mFirstLoad) {
-                                mView.hideStateView();
+                                mView.hide();
                             }
 
                             if (resultInfo.data != null && resultInfo.data.size() > 0) {
@@ -117,7 +116,7 @@ public class MyPresenter extends BasePresenter<MyEngin, MyContract.View> impleme
 
 
     public void getAbilityScore(String uid) {
-        Subscription subscription = mEngin.getAbilityScore(uid).subscribe(new Subscriber<ResultInfo<ScoreInfo>>() {
+        Subscription subscription = mEngine.getAbilityScore(uid).subscribe(new Subscriber<ResultInfo<ScoreInfo>>() {
             @Override
             public void onCompleted() {
 

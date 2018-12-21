@@ -107,7 +107,7 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
         anim.start()
     }
 
-    override fun hideStateView() {
+    override fun hide() {
         mStateView.hide()
     }
 
@@ -151,14 +151,14 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
 
         val list = (1..10).map { "" + it }
 
-        val adapter = IntelligentReportWeakAdapter(reportInfo.error_grammar!!)
+        val adapter = IntelligentReportWeakAdapter(reportInfo.error_grammar)
 //        val adapter = IntelligentReportWeakAdapter(list)
         weakness_recyclerView.adapter = adapter
         weakness_recyclerView.addItemDecoration(MyItemDecoration())
-        tv_sum_weakness.text = String.format(getString(R.string.weakness_knowledge), reportInfo.error_grammar!!.size)
+        tv_sum_weakness.text = String.format(getString(R.string.weakness_knowledge), reportInfo.error_grammar?.size)
 
         errorsRecyclerView.layoutManager = LinearLayoutManager(this)
-        errorsRecyclerView.adapter = IntelligentReportErrorAdapter(reportInfo.err_tips!!)
+        errorsRecyclerView.adapter = IntelligentReportErrorAdapter(reportInfo.err_tips)
 
         if (reportInfo.score == 100) {
             mStartPushBtn.visibility = View.GONE

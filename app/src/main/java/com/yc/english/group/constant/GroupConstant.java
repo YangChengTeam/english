@@ -53,11 +53,11 @@ public interface GroupConstant {
 
     String assistant_originid = "gh_ae8f66b61fcb";//英语学习助手小程序
 
-    String tool_originid="gh_8aa3ea375bde";//学习工具小程序
+    String tool_originid = "gh_8aa3ea375bde";//学习工具小程序
 
-    String EVERY_DAY_DIALOG="every_day_dialog";//每天弹窗key
+    String EVERY_DAY_DIALOG = "every_day_dialog";//每天弹窗key
 
-
+    String SOUND_INFO = "sound_info";
 
 
     //  wx12cb08c1129462cd

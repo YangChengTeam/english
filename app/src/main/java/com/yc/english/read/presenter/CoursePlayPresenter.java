@@ -20,7 +20,7 @@ public class CoursePlayPresenter extends BasePresenter<CoursePlayEngin, CoursePl
 
     public CoursePlayPresenter(Context context, CoursePlayContract.View view) {
         super(context, view);
-        mEngin = new CoursePlayEngin(context);
+        mEngine = new CoursePlayEngin(context);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class CoursePlayPresenter extends BasePresenter<CoursePlayEngin, CoursePl
         if(currentPage == 1){
             mView.showLoading();
         }
-        Subscription subscribe = mEngin.getCourseListByUnitId(currentPage, pageCount, unitId).subscribe(new Subscriber<ResultInfo<EnglishCourseInfoList>>() {
+        Subscription subscribe = mEngine.getCourseListByUnitId(currentPage, pageCount, unitId).subscribe(new Subscriber<ResultInfo<EnglishCourseInfoList>>() {
             @Override
             public void onCompleted() {
 
@@ -59,7 +59,7 @@ public class CoursePlayPresenter extends BasePresenter<CoursePlayEngin, CoursePl
                         if(resultInfo.data != null && resultInfo.data.getList() != null && resultInfo.data.getList().size() > 0){
 
                             mView.showCourseListData(resultInfo.data);
-                            mView.hideStateView();
+                            mView.hide();
                         }else{
                             if(currentPage == 1) {
                                 mView.showNoData();

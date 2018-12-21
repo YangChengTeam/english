@@ -191,7 +191,7 @@ public class BuyVipActivity extends FullScreenActivity<GoodsListPresenter> imple
 
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mStateView.hide();
     }
 

@@ -76,7 +76,7 @@ public class AnswerFragment extends BaseFragment<CoursePresenter> implements Cou
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mLoadingStateView.hide();
     }
 

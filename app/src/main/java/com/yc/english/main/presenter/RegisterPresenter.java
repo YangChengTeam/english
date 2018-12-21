@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.blankj.utilcode.util.EmptyUtils;
 import com.blankj.utilcode.util.RegexUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
@@ -13,7 +12,6 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.contract.RegisterContract;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
-import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.main.model.engin.RegisterEngin;
 
@@ -29,7 +27,7 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
 
     public RegisterPresenter(Context context, RegisterContract.View view) {
         super(context, view);
-        mEngin = new RegisterEngin(context);
+        mEngine = new RegisterEngin(context);
     }
 
 
@@ -46,7 +44,7 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
         }
         mView.showLoadingDialog("发送验证码中, 请稍后");
         mView.codeRefresh();
-        Subscription subscription = mEngin.sendCode(mobile).subscribe(new Subscriber<ResultInfo<String>>() {
+        Subscription subscription = mEngine.sendCode(mobile).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -88,7 +86,7 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
         }
 
         mView.showLoadingDialog("正在注册, 请稍后");
-        Subscription subscription = mEngin.register(mobile, pwd, code).subscribe(new Subscriber<ResultInfo<UserInfoWrapper>>() {
+        Subscription subscription = mEngine.register(mobile, pwd, code).subscribe(new Subscriber<ResultInfo<UserInfoWrapper>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();

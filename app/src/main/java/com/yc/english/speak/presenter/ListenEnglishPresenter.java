@@ -21,7 +21,7 @@ public class ListenEnglishPresenter extends BasePresenter<ListenEnglishEngin, Li
     public ListenEnglishPresenter(Context context, ListenEnglishContract.View view) {
         super(context, view);
         mContext = context;
-        mEngin = new ListenEnglishEngin(context);
+        mEngine = new ListenEnglishEngin(context);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ListenEnglishPresenter extends BasePresenter<ListenEnglishEngin, Li
     @Override
     public void getListenEnglishDetail(String id) {
         mView.showLoading();
-        Subscription subscribe = mEngin.getListenReadDetail(mContext, id).subscribe(new Subscriber<ResultInfo<ListenEnglishWarpper>>() {
+        Subscription subscribe = mEngine.getListenReadDetail(mContext, id).subscribe(new Subscriber<ResultInfo<ListenEnglishWarpper>>() {
             @Override
             public void onCompleted() {
 
@@ -62,7 +62,7 @@ public class ListenEnglishPresenter extends BasePresenter<ListenEnglishEngin, Li
 
                         if (resultInfo != null && resultInfo.code == HttpConfig.STATUS_OK && resultInfo.data != null && resultInfo.data.info != null) {
                             mView.showListenEnglishDetail(resultInfo.data.info);
-                            mView.hideStateView();
+                            mView.hide();
                         } else {
                             mView.showNoData();
                         }

@@ -21,26 +21,26 @@ public class BookPresenter extends BasePresenter<BookEngin, BookContract.View> i
 
     public BookPresenter(Context context, BookContract.View view) {
         super(context, view);
-        mEngin = new BookEngin(context);
+        mEngine = new BookEngin(context);
     }
 
     @Override
     public void bookList(int currentPage, int pageCount, int type) {
         mView.showLoading();
-        Subscription subscribe = mEngin.bookList(currentPage, pageCount, type).subscribe(new Subscriber<ArrayList<BookInfo>>() {
+        Subscription subscribe = mEngine.bookList(currentPage, pageCount, type).subscribe(new Subscriber<ArrayList<BookInfo>>() {
             @Override
             public void onCompleted() {
                 UIUitls.postDelayed(500, new Runnable() {
                     @Override
                     public void run() {
-                        mView.hideStateView();
+                        mView.hide();
                     }
                 });
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.hideStateView();
+                mView.hide();
             }
 
             @Override
@@ -60,7 +60,7 @@ public class BookPresenter extends BasePresenter<BookEngin, BookContract.View> i
 
     @Override
     public void addBook(BookInfo bookInfo) {
-        Subscription subscribe = mEngin.addBook(bookInfo).subscribe(new Subscriber<ArrayList<BookInfo>>() {
+        Subscription subscribe = mEngine.addBook(bookInfo).subscribe(new Subscriber<ArrayList<BookInfo>>() {
             @Override
             public void onCompleted() {
 
@@ -86,7 +86,7 @@ public class BookPresenter extends BasePresenter<BookEngin, BookContract.View> i
 
     @Override
     public void deleteBook(BookInfo bookInfo) {
-        Subscription subscribe = mEngin.deleteBook(bookInfo).subscribe(new Subscriber<ArrayList<BookInfo>>() {
+        Subscription subscribe = mEngine.deleteBook(bookInfo).subscribe(new Subscriber<ArrayList<BookInfo>>() {
             @Override
             public void onCompleted() {
 

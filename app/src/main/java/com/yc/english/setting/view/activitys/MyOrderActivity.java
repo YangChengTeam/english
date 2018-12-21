@@ -85,7 +85,7 @@ public class MyOrderActivity extends FullScreenActivity<MyPresenter> implements 
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mStateView.hide();
     }
 

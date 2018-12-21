@@ -42,4 +42,9 @@
     <color name="general_vip_d39200">#D39200</color>
     <color name="green_33CBA5">#33CBA5</color>
     <color name="gray_949595">#949595</color>
+
+    <color name="orange_fef4d6">#fef4d6</color>
+    <color name="red_f86e54">#f86e54</color>
+    <color name="gray_f1f1f1">#F1F1F1</color>
+    <color name="black_2d2825">#2D2825</color>
 </resources>

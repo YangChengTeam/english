@@ -27,7 +27,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
     public CommunityInfoPresenter(Context context, CommunityInfoContract.View view) {
         super(context, view);
-        mEngin = new CommunityInfoEngin(context);
+        mEngine = new CommunityInfoEngin(context);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
         if (currentPage == 1&& mFirstLoad) {
             mView.showLoading();
         }
-        Subscription subscribe = mEngin.communityInfoList(userId, type, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<CommunityInfoList>>() {
+        Subscription subscribe = mEngine.communityInfoList(userId, type, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<CommunityInfoList>>() {
             @Override
             public void onCompleted() {
 
@@ -70,7 +70,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                     public void reulstInfoOk() {
                         if (resultInfo != null && resultInfo.data != null) {
                             if (currentPage == 1 && !mFirstLoad) {
-                                mView.hideStateView();
+                                mView.hide();
                             }
 
                             if (resultInfo.data.list != null && resultInfo.data.list.size() > 0) {
@@ -96,7 +96,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
     @Override
     public void addCommunityInfo(CommunityInfo communityInfo, UpFileInfo upFileInfo) {
         mView.showLoadingDialog("发布中");
-        Subscription subscribe = mEngin.addCommunityInfo(communityInfo, upFileInfo).subscribe(new Subscriber<ResultInfo<CommunityInfo>>() {
+        Subscription subscribe = mEngine.addCommunityInfo(communityInfo, upFileInfo).subscribe(new Subscriber<ResultInfo<CommunityInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -141,7 +141,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
         if (currentPage == 1 && mFirstLoad) {
             mView.showLoading();
         }
-        Subscription subscribe = mEngin.commentInfoList(nid, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<CommentInfoList>>() {
+        Subscription subscribe = mEngine.commentInfoList(nid, currentPage, pageCount).subscribe(new Subscriber<ResultInfo<CommentInfoList>>() {
             @Override
             public void onCompleted() {
 
@@ -175,7 +175,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
                     @Override
                     public void reulstInfoOk() {
                         if (currentPage == 1 && !mFirstLoad) {
-                            mView.hideStateView();
+                            mView.hide();
                         }
 
                         if (resultInfo != null && resultInfo.data != null) {
@@ -194,7 +194,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
     public void addCommentInfo(CommentInfo commentInfo) {
 
         mView.showLoadingDialog("回复中");
-        Subscription subscribe = mEngin.addCommentInfo(commentInfo).subscribe(new Subscriber<ResultInfo<CommentInfo>>() {
+        Subscription subscribe = mEngine.addCommentInfo(commentInfo).subscribe(new Subscriber<ResultInfo<CommentInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -235,7 +235,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
     @Override
     public void addAgreeInfo(String userId, String noteId) {
-        Subscription subscribe = mEngin.addAgreeInfo(userId, noteId).subscribe(new Subscriber<ResultInfo>() {
+        Subscription subscribe = mEngine.addAgreeInfo(userId, noteId).subscribe(new Subscriber<ResultInfo>() {
             @Override
             public void onCompleted() {
             }
@@ -281,7 +281,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
 
     @Override
     public void deleteNote(String userId, String noteId) {
-        Subscription subscribe = mEngin.deleteNote(userId, noteId).subscribe(new Subscriber<ResultInfo>() {
+        Subscription subscribe = mEngine.deleteNote(userId, noteId).subscribe(new Subscriber<ResultInfo>() {
             @Override
             public void onCompleted() {
             }

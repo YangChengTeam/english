@@ -3,16 +3,12 @@ package com.yc.english.vip.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
-import com.yc.english.EnglishApp;
 import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.group.utils.EngineUtils;
-import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.pay.alipay.OrderInfo;
-import com.yc.english.setting.model.bean.ShareStateInfo;
 import com.yc.english.vip.contract.VipBuyContract;
 
 import rx.Subscriber;
@@ -25,7 +21,7 @@ import rx.Subscription;
 public class VipBuyPresenter extends BasePresenter<BaseEngin, VipBuyContract.View> {
     public VipBuyPresenter(Context context, VipBuyContract.View view) {
         super(context, view);
-        mEngin = new BaseEngin(context);
+        mEngine = new BaseEngin(context);
     }
 
     @Override

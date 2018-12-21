@@ -170,7 +170,7 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mStateView.hide();
     }
 

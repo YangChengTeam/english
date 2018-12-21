@@ -12,7 +12,7 @@ import com.yc.english.intelligent.model.engin.IntelligentPushQuestionEngin
 open class IntelligentPushQuestionPresenter : BasePresenter<IntelligentPushQuestionEngin,
         IntelligentPushQuestionContract.View> {
     constructor(context: Context?, v: IntelligentPushQuestionContract.View?) : super(context, v) {
-        mEngin = IntelligentPushQuestionEngin(context)
+        mEngine = IntelligentPushQuestionEngin(context)
     }
 
     override fun loadData(forceUpdate: Boolean, showLoadingUI: Boolean) {
@@ -21,8 +21,8 @@ open class IntelligentPushQuestionPresenter : BasePresenter<IntelligentPushQuest
 
     fun getPlan(report_id: String) {
         mView.showLoading()
-        mEngin.getPlan(report_id).subscribe({
-            mView.hideStateView()
+        mEngine.getPlan(report_id).subscribe({
+            mView.hide()
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK) {
                 if (it?.data != null) {
@@ -32,7 +32,7 @@ open class IntelligentPushQuestionPresenter : BasePresenter<IntelligentPushQuest
             }
             mView.showNoData()
         }, {
-            mView.hideStateView()
+            mView.hide()
             mView.showNoNet()
         })
     }

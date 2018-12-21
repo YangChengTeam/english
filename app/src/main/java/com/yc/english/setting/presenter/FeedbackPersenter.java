@@ -7,7 +7,6 @@ import com.blankj.utilcode.util.UIUitls;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.base.view.IView;
 import com.yc.english.setting.contract.FeedbackContract;
 import com.yc.english.setting.model.engin.MyEngin;
 
@@ -21,7 +20,7 @@ import rx.Subscription;
 public class FeedbackPersenter extends BasePresenter<MyEngin, FeedbackContract.View> implements FeedbackContract.Presenter {
     public FeedbackPersenter(Context context, FeedbackContract.View iView) {
         super(context, iView);
-        mEngin = new MyEngin(context);
+        mEngine = new MyEngin(context);
     }
 
     @Override
@@ -36,7 +35,7 @@ public class FeedbackPersenter extends BasePresenter<MyEngin, FeedbackContract.V
             return;
         }
         mView.showLoadingDialog("正在发送, 请稍后");
-        Subscription subscription = mEngin.postMessage(message).subscribe(new Subscriber<ResultInfo<String>>() {
+        Subscription subscription = mEngine.postMessage(message).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();

@@ -18,7 +18,7 @@ import rx.Subscription;
 public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View> implements OrderContract.Presenter {
     public OrderPresenter(Context context, OrderContract.View view) {
         super(context, view);
-        mEngin = new OrderEngin(context);
+        mEngine = new OrderEngin(context);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View
     @Override
     public void createOrder(OrderParams orderParams) {
         mView.showLoadingDialog("正在下单， 请稍后");
-        Subscription subscription = mEngin.createOrder(orderParams).subscribe(new Subscriber<ResultInfo<OrderInfo>>() {
+        Subscription subscription = mEngine.createOrder(orderParams).subscribe(new Subscriber<ResultInfo<OrderInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
@@ -74,7 +74,7 @@ public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View
 
     @Override
     public void orderPay(String orderSn) {
-        Subscription subscription = mEngin.orderPay(orderSn).subscribe(new Subscriber<ResultInfo>() {
+        Subscription subscription = mEngine.orderPay(orderSn).subscribe(new Subscriber<ResultInfo>() {
             @Override
             public void onCompleted() {
 

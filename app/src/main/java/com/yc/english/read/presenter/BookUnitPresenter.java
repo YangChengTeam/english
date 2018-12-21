@@ -21,13 +21,13 @@ public class BookUnitPresenter extends BasePresenter<BookEngin, BookUnitContract
 
     public BookUnitPresenter(Context context, BookUnitContract.View view) {
         super(context, view);
-        mEngin = new BookEngin(context);
+        mEngine = new BookEngin(context);
     }
 
     @Override
     public void getBookInfoById(final String bookId) {
         mView.showLoading();
-        Subscription subscribe = mEngin.getBookInfoId(bookId).subscribe(new Subscriber<ResultInfo<BookInfoWarpper>>() {
+        Subscription subscribe = mEngine.getBookInfoId(bookId).subscribe(new Subscriber<ResultInfo<BookInfoWarpper>>() {
             @Override
             public void onCompleted() {
 
@@ -54,7 +54,7 @@ public class BookUnitPresenter extends BasePresenter<BookEngin, BookUnitContract
                     @Override
                     public void reulstInfoOk() {
 
-                        mEngin.bookUnitInfo(0, 0, bookId).subscribe(new Subscriber<ResultInfo<UnitInfoList>>() {
+                        mEngine.bookUnitInfo(0, 0, bookId).subscribe(new Subscriber<ResultInfo<UnitInfoList>>() {
                             @Override
                             public void onCompleted() {
 
@@ -70,7 +70,7 @@ public class BookUnitPresenter extends BasePresenter<BookEngin, BookUnitContract
                                 if (resultInfo != null) {
                                     mView.showBookInfo(infoWarpper.data.info);
                                     mView.showBookUnitListData(resultInfo.data);
-                                    mView.hideStateView();
+                                    mView.hide();
                                 } else {
                                     mView.showNoData();
                                 }
@@ -86,7 +86,7 @@ public class BookUnitPresenter extends BasePresenter<BookEngin, BookUnitContract
 
     @Override
     public void bookUnitInfo(int currentPage, int pageCount, String bookId) {
-        Subscription subscribe = mEngin.bookUnitInfo(currentPage, pageCount, bookId).subscribe(new Subscriber<ResultInfo<UnitInfoList>>() {
+        Subscription subscribe = mEngine.bookUnitInfo(currentPage, pageCount, bookId).subscribe(new Subscriber<ResultInfo<UnitInfoList>>() {
             @Override
             public void onCompleted() {
 

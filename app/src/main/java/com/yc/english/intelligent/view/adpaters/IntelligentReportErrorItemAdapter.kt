@@ -9,7 +9,7 @@ import com.yc.english.R
  *
  * Created by wanglin  on 2018/4/19 16:32.
  */
-class IntelligentReportErrorItemAdapter(errors: List<String>, var type: String) : BaseQuickAdapter<String, BaseViewHolder>(R.layout.intelligent_report_error_answer, errors) {
+class IntelligentReportErrorItemAdapter(errors: List<String>?, var type: String?) : BaseQuickAdapter<String, BaseViewHolder>(R.layout.intelligent_report_error_answer, errors) {
 
 
     override fun convert(helper: BaseViewHolder?, item: String?) {

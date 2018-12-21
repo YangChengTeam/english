@@ -557,7 +557,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mStateView.hide();
     }
 

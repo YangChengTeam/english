@@ -5,5 +5,5 @@ package com.yc.english.base.view;
  */
 
 public interface IHide {
-    void hideStateView();
+    void hide();
 }

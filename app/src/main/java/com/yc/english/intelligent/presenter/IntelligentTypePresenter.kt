@@ -16,7 +16,6 @@ import com.yc.english.intelligent.contract.IntelligentTypeContract
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.english.intelligent.model.domain.VGInfoWarpper
 import com.yc.english.intelligent.model.engin.IntelligentTypeEngin
-import com.yc.english.intelligent.view.activitys.IntelligentVGSelectPopupWindow
 import com.yc.english.main.model.domain.Constant
 import java.util.*
 
@@ -26,7 +25,7 @@ import java.util.*
 open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
         IntelligentTypeContract.View> {
     constructor(context: Context?, v: IntelligentTypeContract.View?) : super(context, v) {
-        mEngin = IntelligentTypeEngin(context)
+        mEngine = IntelligentTypeEngin(context)
         RxBus.get().register(this)
     }
 
@@ -112,7 +111,7 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
         SPUtils.getInstance().put(Constant.DEFAULT_GRADE_KEY, JSON.toJSONString(gradeInfo))
         gradeInfo.versionId = versionId
 
-        val subriction = mEngin.getUnit(gradeInfo).subscribe({
+        val subriction = mEngine.getUnit(gradeInfo).subscribe({
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK) {
                 if (it?.data?.list != null) {
@@ -139,7 +138,7 @@ open class IntelligentTypePresenter : BasePresenter<IntelligentTypeEngin,
 
     @Subscribe(thread = EventThread.NEW_THREAD, tags = arrayOf(Tag(Constant.GET_VERSION)))
     fun getVersionInfo(tag: String) {
-        mEngin.getVersion().subscribe({
+        mEngine.getVersion().subscribe({
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK && it.data?.list != null) {
                 SPUtils.getInstance().put(Constant.DEFAULT_VERSION_KEY, JSON.toJSONString(it.data?.list?.get(0)!!))

@@ -92,7 +92,7 @@ public class WeikeUnitActivity extends FullScreenActivity<WeiKePresenter> implem
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mLoadingStateView.hide();
     }
 

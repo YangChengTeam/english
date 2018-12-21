@@ -89,7 +89,7 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
 
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         stateView.hide();
     }
 

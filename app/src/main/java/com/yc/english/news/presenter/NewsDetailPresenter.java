@@ -59,7 +59,7 @@ public class NewsDetailPresenter extends BasePresenter<BaseEngin, NewsDetailCont
                     @Override
                     public void reulstInfoOk() {
                         if (newsInfoWrapper != null && newsInfoWrapper.data != null) {
-                            mView.hideStateView();
+                            mView.hide();
                             mView.showCourseResult(newsInfoWrapper.data);
                         } else {
                             mView.showNoData();
@@ -104,7 +104,7 @@ public class NewsDetailPresenter extends BasePresenter<BaseEngin, NewsDetailCont
                     @Override
                     public void reulstInfoOk() {
                         if (newsInfoWrapper != null && newsInfoWrapper.data != null) {
-                            mView.hideStateView();
+                            mView.hide();
                             mView.showCourseResult(newsInfoWrapper.data);
                         } else {
                             mView.showNoData();

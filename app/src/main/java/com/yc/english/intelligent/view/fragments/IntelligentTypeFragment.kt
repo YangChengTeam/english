@@ -95,7 +95,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
 
     }
 
-    override fun hideStateView() {
+    override fun hide() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

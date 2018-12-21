@@ -129,7 +129,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         stateView.hide();
     }
 

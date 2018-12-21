@@ -12,7 +12,6 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.contract.ModifyPasswordContract;
-import com.yc.english.setting.contract.NameSettingContract;
 import com.yc.english.setting.model.engin.MyEngin;
 
 import rx.Subscriber;
@@ -26,7 +25,7 @@ public class ModifyPasswordPresenter extends BasePresenter<MyEngin, ModifyPasswo
 
     public ModifyPasswordPresenter(Context context, ModifyPasswordContract.View iView) {
         super(context, iView);
-        mEngin = new MyEngin(context);
+        mEngine = new MyEngin(context);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class ModifyPasswordPresenter extends BasePresenter<MyEngin, ModifyPasswo
         }
         mView.showLoadingDialog("正在修改，请稍后");
 
-        Subscription subscription = mEngin.updatePassword(oldPwd, newPwd).subscribe(new Subscriber<ResultInfo<String>>() {
+        Subscription subscription = mEngine.updatePassword(oldPwd, newPwd).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();

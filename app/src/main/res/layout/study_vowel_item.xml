@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/study_vowel_item_bg">
+
+        <ImageView
+            android:id="@+id/iv_cover_layer"
+            android:layout_width="106dp"
+            android:layout_height="@dimen/t65dp"
+            android:layout_centerInParent="true"
+            android:background="#88DEDEDE"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/tv_vowel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="/i:/"
+                android:textColor="@color/black_333"
+                android:textSize="@dimen/t25sp" />
+
+            <ImageView
+                android:id="@+id/iv_lock"
+                android:layout_width="@dimen/t20dp"
+                android:layout_height="@dimen/t20dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/study_vowel_locked" />
+        </FrameLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

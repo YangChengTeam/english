@@ -156,7 +156,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
 
         if (orderInfo != null) {
             //orderInfo.setMoney(0.01f);
-            orderInfo.setName("说说英语微课购买");
+            orderInfo.setName(getString(R.string.app_name)+"微课购买");
         }
 
         if (payWayName.equals(PayConfig.ali_pay)) {

@@ -56,7 +56,7 @@ class IntelligentsPushQuestionActivity : BaseActivity<IntelligentPushQuestionPre
         mPresenter.getPlan(reportId.toString())
     }
 
-    override fun hideStateView() {
+    override fun hide() {
         mStateView.hide()
     }
 

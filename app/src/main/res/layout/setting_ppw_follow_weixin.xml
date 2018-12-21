@@ -42,7 +42,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/base_btn_ripple_bg"
-                android:text="@string/setting_follow_desc"
+            
                 android:textColor="@color/gray_999"
                 android:textSize="@dimen/font_snormal"
                 ></TextView>

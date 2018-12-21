@@ -37,7 +37,7 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
 
     public LoginPresenter(Context context, LoginContract.View view) {
         super(context, view);
-        mEngin = new LoginEngin(context);
+        mEngine = new LoginEngin(context);
     }
 
 
@@ -60,7 +60,7 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
         }
 
         mView.showLoadingDialog("正在登录， 请稍后");
-        Subscription subscription = mEngin.login(username, pwd).subscribe(new Subscriber<ResultInfo<UserInfoWrapper>>() {
+        Subscription subscription = mEngine.login(username, pwd).subscribe(new Subscriber<ResultInfo<UserInfoWrapper>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();

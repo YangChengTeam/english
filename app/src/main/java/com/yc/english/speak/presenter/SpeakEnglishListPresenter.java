@@ -21,7 +21,7 @@ import rx.Subscription;
 public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEngine, SpeakEnglishContract.View> implements SpeakEnglishContract.Presenter {
     public SpeakEnglishListPresenter(Context context, SpeakEnglishContract.View view) {
         super(context, view);
-        mEngin = new SpeakEnglishListEngine(context);
+        mEngine = new SpeakEnglishListEngine(context);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
         if (page == 1 && isFirst) {
             mView.showLoading();
         }
-        Subscription subscription = mEngin.getReadAndSpeakList(type_id, page + "", cnt).subscribe(new Subscriber<ResultInfo<SpeakAndReadInfoWrapper>>() {
+        Subscription subscription = mEngine.getReadAndSpeakList(type_id, page + "", cnt).subscribe(new Subscriber<ResultInfo<SpeakAndReadInfoWrapper>>() {
             @Override
             public void onCompleted() {
 
@@ -70,7 +70,7 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
 
                     @Override
                     public void reulstInfoOk() {
-                        mView.hideStateView();
+                        mView.hide();
                         if (englishInfoWrapper.code == HttpConfig.STATUS_OK && englishInfoWrapper.data != null) {
                             mView.shoReadAndSpeakMorList(englishInfoWrapper.data.getList(), page, isFirst);
                         } else {
@@ -85,7 +85,7 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
 
     @Override
     public void getListenEnglishDetail(String id) {
-        Subscription subscribe = mEngin.getListenReadDetail(mContext, id).subscribe(new Subscriber<ResultInfo<SpeakEnglishWarpper>>() {
+        Subscription subscribe = mEngine.getListenReadDetail(mContext, id).subscribe(new Subscriber<ResultInfo<SpeakEnglishWarpper>>() {
             @Override
             public void onCompleted() {
 
@@ -113,7 +113,7 @@ public class SpeakEnglishListPresenter extends BasePresenter<SpeakEnglishListEng
                     @Override
                     public void reulstInfoOk() {
                         if (resultInfo != null && resultInfo.data != null && resultInfo.data.info != null) {
-                            mView.hideStateView();
+                            mView.hide();
                             mView.showSpeakEnglishDetail(resultInfo.data.info);
                         } else {
                             mView.showNoData();

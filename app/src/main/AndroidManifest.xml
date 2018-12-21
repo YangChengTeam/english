@@ -235,7 +235,12 @@
                 android:resource="@xml/gdt_file_path" />
         </provider>
 
-
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.2" />
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait" />
 
     </application>
 

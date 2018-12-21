@@ -21,13 +21,13 @@ public class WordUnitPresenter extends BasePresenter<WordEngin, WordUnitContract
 
     public WordUnitPresenter(Context context, WordUnitContract.View view) {
         super(context, view);
-        mEngin = new WordEngin(context);
+        mEngine = new WordEngin(context);
     }
 
     @Override
     public void getBookInfoById(final String bookId) {
         mView.showLoading();
-        Subscription subscribe = mEngin.getBookInfoId(bookId).subscribe(new Subscriber<ResultInfo<BookInfoWarpper>>() {
+        Subscription subscribe = mEngine.getBookInfoId(bookId).subscribe(new Subscriber<ResultInfo<BookInfoWarpper>>() {
             @Override
             public void onCompleted() {
 
@@ -41,7 +41,7 @@ public class WordUnitPresenter extends BasePresenter<WordEngin, WordUnitContract
             @Override
             public void onNext(final ResultInfo<BookInfoWarpper> infoWarpper) {
                 if (infoWarpper != null) {
-                    mEngin.getWordUnitByBookId(0, 0, bookId).subscribe(new Subscriber<ResultInfo<WordUnitInfoList>>() {
+                    mEngine.getWordUnitByBookId(0, 0, bookId).subscribe(new Subscriber<ResultInfo<WordUnitInfoList>>() {
                         @Override
                         public void onCompleted() {
 
@@ -69,7 +69,7 @@ public class WordUnitPresenter extends BasePresenter<WordEngin, WordUnitContract
                                 public void reulstInfoOk() {
                                     mView.showBookInfo(infoWarpper.data.info);
                                     mView.showWordUnitListData(resultInfo.data);
-                                    mView.hideStateView();
+                                    mView.hide();
                                 }
                             });
                         }
@@ -83,7 +83,7 @@ public class WordUnitPresenter extends BasePresenter<WordEngin, WordUnitContract
 
     @Override
     public void getWordUnitByBookId(int currentPage, int pageCount, String bookId) {
-        Subscription subscribe = mEngin.getWordUnitByBookId(currentPage, pageCount, bookId).subscribe(new Subscriber<ResultInfo<WordUnitInfoList>>() {
+        Subscription subscribe = mEngine.getWordUnitByBookId(currentPage, pageCount, bookId).subscribe(new Subscriber<ResultInfo<WordUnitInfoList>>() {
             @Override
             public void onCompleted() {
 

@@ -24,7 +24,7 @@ public class CameraTaskPresenter extends BasePresenter<CameraEngine, CameraTaskC
 
     public CameraTaskPresenter(Context context, CameraTaskContract.View view) {
         super(context, view);
-        mEngin = new CameraEngine(context);
+        mEngine = new CameraEngine(context);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class CameraTaskPresenter extends BasePresenter<CameraEngine, CameraTaskC
 
     public void uploadFile(File file) {
         mView.showLoadingDialog("正在上传图片");
-        Subscription subscription = mEngin.uploadFile(file).subscribe(new Subscriber<String>() {
+        Subscription subscription = mEngine.uploadFile(file).subscribe(new Subscriber<String>() {
             @Override
             public void onCompleted() {
 

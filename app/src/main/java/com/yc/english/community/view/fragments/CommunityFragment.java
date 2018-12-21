@@ -233,7 +233,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mStateView.hide();
     }
 

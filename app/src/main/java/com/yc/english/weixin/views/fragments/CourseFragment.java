@@ -115,7 +115,7 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
     }
 
     @Override
-    public void hideStateView() {
+    public void hide() {
         mLoadingStateView.hide();
     }
 

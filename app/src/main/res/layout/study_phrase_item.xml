@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/study_word_selector"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/t5dp"
+            android:paddingLeft="@dimen/t15dp"
+            android:paddingTop="@dimen/t5dp">
+
+            <TextView
+                android:id="@+id/tv_phrase_english"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_2d2825"
+                android:textSize="@dimen/t16sp" />
+
+            <TextView
+                android:id="@+id/tv_phrase_chinese"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t5dp"
+                android:textColor="@color/black_2d2825" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_loading"
+            android:layout_width="@dimen/t40dp"
+            android:layout_height="@dimen/t40dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/progress_anim"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_action_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/t8dp"
+        android:paddingLeft="@dimen/t8dp"
+        android:paddingTop="@dimen/t8dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/ll_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/t25dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/study_essentials_play" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t2dp"
+                android:text="@string/play"
+                android:textColor="@color/black_333" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/t25dp"
+            android:layout_toRightOf="@id/ll_play"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_record"
+                android:layout_width="@dimen/t37dp"
+                android:layout_height="@dimen/t37dp"
+
+                android:src="@mipmap/study_essentials_record_start" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t2dp"
+                android:text="@string/record"
+                android:textColor="@color/black_333" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_record_playback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ll_record"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_record_playback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/study_essentials_playback_start" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t2dp"
+                android:text="@string/playback"
+                android:textColor="@color/black_333" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/t40dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_speak_result"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/tv_result_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/black_333"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

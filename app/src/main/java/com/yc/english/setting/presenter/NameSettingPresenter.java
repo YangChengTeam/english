@@ -25,7 +25,7 @@ public class NameSettingPresenter extends BasePresenter<MyEngin, NameSettingCont
 
     public NameSettingPresenter(Context context, NameSettingContract.View iView) {
         super(context, iView);
-        mEngin = new MyEngin(context);
+        mEngine = new MyEngin(context);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class NameSettingPresenter extends BasePresenter<MyEngin, NameSettingCont
     @Override
     public void udpateUserInfo(final String name, final String school) {
         mView.showLoadingDialog("正在修改，请稍后");
-        Subscription subscription = mEngin.updateMessage("", name, school).subscribe(new Subscriber<ResultInfo<UserInfo>>() {
+        Subscription subscription = mEngine.updateMessage("", name, school).subscribe(new Subscriber<ResultInfo<UserInfo>>() {
             @Override
             public void onCompleted() {
                 mView.dismissLoadingDialog();
