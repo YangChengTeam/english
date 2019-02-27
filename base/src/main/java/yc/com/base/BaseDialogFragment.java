@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 import com.hwangjr.rxbus.RxBus;
 import com.kk.utils.LogUtil;
+import com.kk.utils.ScreenUtil;
 import com.umeng.analytics.MobclickAgent;
 
 
@@ -80,7 +81,7 @@ public abstract class BaseDialogFragment<P extends BasePresenter> extends Dialog
 
             WindowManager.LayoutParams layoutParams = window.getAttributes();
 
-            layoutParams.width = (int) (UIUtils.getScreenWidth(getActivity()) * getWidth());
+            layoutParams.width = (int) (ScreenUtil.getWidth(getActivity()) * getWidth());
             layoutParams.height = getHeight();
             window.setAttributes(layoutParams);
         }
