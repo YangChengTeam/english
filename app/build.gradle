@@ -7,13 +7,13 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "com.yc.english"
+        applicationId "com.yc.junior.english"
 
         minSdkVersion 17
         targetSdkVersion 21
 
-        versionCode 70 //56
-        versionName "2.0"//1.7.6
+        versionCode 10 //56
+        versionName "1.4"//1.7.6
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true

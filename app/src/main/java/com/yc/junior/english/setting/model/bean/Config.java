@@ -1,0 +1,12 @@
+package com.yc.junior.english.setting.model.bean;
+
+/**
+ * Created by wanglin  on 2017/11/9 11:02.
+ */
+
+public class Config {
+
+    public static final long MS_IN_A_DAY = 1000 * 60 * 60 * 24;
+
+    public static final long TEST_DAY = 1000 * 60 ;//1分钟
+}

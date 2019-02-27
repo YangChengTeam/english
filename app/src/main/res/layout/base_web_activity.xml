@@ -4,15 +4,15 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.yc.english.base.view.MainToolBar
+    <com.yc.junior.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.yc.english.base.view.MainToolBar>
+        android:layout_height="wrap_content"></com.yc.junior.english.base.view.MainToolBar>
 
-    <com.yc.english.base.view.CommonWebView
+    <com.yc.junior.english.base.view.CommonWebView
         android:id="@+id/wv_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
-    </com.yc.english.base.view.CommonWebView>
+    </com.yc.junior.english.base.view.CommonWebView>
 </LinearLayout>

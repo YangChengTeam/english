@@ -1,0 +1,113 @@
+package com.yc.junior.english.news.presenter;
+
+import android.content.Context;
+
+import com.kk.securityhttp.domain.ResultInfo;
+import com.yc.junior.english.base.helper.OrderResultInfoHelper;
+import com.yc.junior.english.base.helper.ResultInfoHelper;
+import com.yc.junior.english.base.presenter.BasePresenter;
+import com.yc.junior.english.news.contract.OrderContract;
+import com.yc.junior.english.news.model.domain.OrderParams;
+import com.yc.junior.english.news.model.engin.OrderEngin;
+import com.yc.junior.english.pay.alipay.OrderInfo;
+
+import rx.Subscriber;
+import rx.Subscription;
+import yc.com.blankj.utilcode.util.LogUtils;
+
+public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View> implements OrderContract.Presenter {
+    public OrderPresenter(Context context, OrderContract.View view) {
+        super(context, view);
+        mEngine = new OrderEngin(context);
+    }
+
+    @Override
+    public void loadData(boolean forceUpdate, boolean showLoadingUI) {
+
+    }
+
+    @Override
+    public void createOrder(OrderParams orderParams) {
+        mView.showLoadingDialog("正在下单， 请稍后");
+        Subscription subscription = mEngine.createOrder(orderParams).subscribe(new Subscriber<ResultInfo<OrderInfo>>() {
+            @Override
+            public void onCompleted() {
+                mView.dismissDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.dismissDialog();
+
+            }
+
+            @Override
+            public void onNext(final ResultInfo<OrderInfo> resultInfo) {
+                OrderResultInfoHelper.handleResultInfo(resultInfo, new OrderResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+
+                    }
+
+                    @Override
+                    public void reulstInfoIsBuy() {
+                        mView.isBuy();
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (resultInfo.data != null) {
+                            mView.showOrderInfo(resultInfo.data);
+                        }
+                    }
+                });
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void orderPay(String orderSn) {
+        Subscription subscription = mEngine.orderPay(orderSn).subscribe(new Subscriber<ResultInfo>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtils.e("orderPay error --->");
+            }
+
+            @Override
+            public void onNext(final ResultInfo resultInfo) {
+                ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (resultInfo != null) {
+                            mView.showOrderPayResult(resultInfo);
+                        }
+                    }
+                });
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+}
