@@ -10,12 +10,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.blankj.utilcode.util.FileUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SDCardUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.TimeUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadSampleListener;
 import com.liulishuo.filedownloader.FileDownloader;
@@ -25,6 +19,13 @@ import com.yc.english.speak.utils.EnglishLyricBean;
 
 import java.io.File;
 import java.io.IOException;
+
+import yc.com.blankj.utilcode.util.FileUtils;
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.SDCardUtils;
+import yc.com.blankj.utilcode.util.StringUtils;
+import yc.com.blankj.utilcode.util.TimeUtils;
+import yc.com.blankj.utilcode.util.ToastUtils;
 
 /**
  * 播放服务

@@ -1,13 +1,16 @@
 package com.yc.english.main.view.activitys;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.UIUitls;
+import com.qq.e.ads.nativ.NativeExpressADView;
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADListener;
 import com.qq.e.comm.util.AdError;
@@ -19,13 +22,20 @@ import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.presenter.SplashPresenter;
 
+import java.util.Map;
+
 import butterknife.BindView;
+import yc.com.blankj.utilcode.util.UIUitls;
+import yc.com.tencent_adv.AdvDispatchManager;
+import yc.com.tencent_adv.AdvType;
+import yc.com.tencent_adv.OnAdvManagerListener;
+import yc.com.tencent_adv.OnAdvStateListener;
 
 /**
  * Created by zhangkai on 2017/8/1.
  */
 
-public class SplashActivity extends BaseActivity<SplashPresenter> implements SplashContract.View, SplashADListener {
+public class SplashActivity extends BaseActivity<SplashPresenter> implements SplashContract.View, OnAdvStateListener {
 
 
     @BindView(R.id.status_bar)
@@ -39,16 +49,20 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @BindView(R.id.iv_splash_bg)
     ImageView ivSplashBg;
 
-    private long featchAdTime = 0;//开始拉取广告时间
 
-    private boolean canJump = false;
 
     @Override
     public void init() {
         mPresenter = new SplashPresenter(this, this);
         StatusBarCompat.light(this);
         StatusBarCompat.compat(this, mStatusBar);
-        showSplasAdv();
+        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND)) {
+            skipView.setVisibility(View.GONE);
+            switchMain(null,Time);
+        } else {
+            AdvDispatchManager.getManager().init(this, AdvType.SPLASH, splashContainer, skipView, Constant.TENCENT_ADV_ID, Constant.SPLASH_ADV_ID, this);
+        }
+
     }
 
     @Override
@@ -67,11 +81,11 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     }
 
     private void switchMain(final SlideInfo info, long delay) {
-        long delayTime = 0;
-        if (delay < Time) {
-            delayTime = Time - delay;
-        }
-        UIUitls.postDelayed(delayTime, new Runnable() {
+//        long delayTime = 0;
+//        if (delay < Time) {
+//            delayTime = Time - delay;
+//        }
+        UIUitls.postDelayed(delay, new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
@@ -86,67 +100,19 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     }
 
 
-    private void showSplasAdv() {
-        featchAdTime = System.currentTimeMillis();
-        SplashAD splashAD = new SplashAD(this, splashContainer, skipView, Constant.TENCENT_ADV_ID, Constant.SPLASH_ADV_ID, this, 0);
-
-
-    }
-
-    /**
-     * 设置一个变量来控制当前开屏页面是否可以跳转，当开屏广告为普链类广告时，点击会打开一个广告落地页，此时开发者还不能打开自己的App主页。当从广告落地页返回以后，
-     * 才可以跳转到开发者自己的App主页；当开屏广告是App类广告时只会下载App。
-     */
-    @Override
-    public void onADDismissed() {
-        if (canJump) {
-            switchMain(null, Time);
-        } else {
-            canJump = true;
-        }
-    }
-
-    @Override
-    public void onNoAD(AdError adError) {
-        long alreadyDelayMills = System.currentTimeMillis() - featchAdTime;//从拉广告开始到onNoAD已经消耗了多少时间
-        switchMain(null, alreadyDelayMills);
-    }
-
-    @Override
-    public void onADPresent() {
-        ivSplashBg.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onADClicked() {
-
-    }
-
-    @Override
-    public void onADTick(long l) {
-        skipView.setText(String.format(getString(R.string.click_to_skip),
-                Math.round(l / 1000f)));
-
-    }
-
-    @Override
-    public void onADExposure() {
-
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (canJump) {
-            switchMain(null, Time);
-        }
-        canJump = true;
+
+        AdvDispatchManager.getManager().onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        canJump = false;
+
+        AdvDispatchManager.getManager().onPause();
 
     }
 
@@ -161,4 +127,37 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     }
 
 
+    @Override
+    public void onShow() {
+        ivSplashBg.setVisibility(View.GONE);
+        skipView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onDismiss(long delayTime) {
+        switchMain(null, delayTime);
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onNativeExpressDismiss(NativeExpressADView view) {
+
+    }
+
+    @Override
+    public void onNativeExpressShow(Map<NativeExpressADView, Integer> mDatas) {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND))) {
+            AdvDispatchManager.getManager().onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 }

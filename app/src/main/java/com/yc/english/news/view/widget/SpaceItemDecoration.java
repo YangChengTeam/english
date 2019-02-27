@@ -4,7 +4,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.LogUtils;
 
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     int mSpace;

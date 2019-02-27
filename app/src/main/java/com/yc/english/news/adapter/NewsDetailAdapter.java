@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
@@ -17,6 +16,8 @@ import com.yc.english.weixin.model.domain.CourseInfo;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+
+import yc.com.blankj.utilcode.util.TimeUtils;
 
 /**
  * Created by wanglin  on 2017/9/6 09:55.

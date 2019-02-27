@@ -16,16 +16,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.TimeUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.umeng.analytics.MobclickAgent;
-import com.yc.english.EnglishApp;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.BaseActivity;
@@ -62,6 +56,11 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.AppUtils;
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.ScreenUtils;
+import yc.com.blankj.utilcode.util.TimeUtils;
+import yc.com.blankj.utilcode.util.ToastUtils;
 
 /**
  * Created by wanglin  on 2017/11/27 15:16.
@@ -359,7 +358,6 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     @Override
     public void onResume() {
         super.onResume();
-
         computeTime();
     }
 
@@ -380,48 +378,50 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     private void restoreGoodInfoAndPayWay(int position) {
         mPayWayName = PayConfig.wx_pay;
         GoodInfoWrapper goodInfoWrapper = VipInfoHelper.getGoodInfoWrapper();
-        if (position == 0) {
-            if (isDiandu) {
-                if (goodInfoWrapper.getDiandu() != null && goodInfoWrapper.getDiandu().size() > 0) {
-                    List<GoodInfo> dianduList = VipInfoHelper.getGoodInfoWrapper().getDiandu();
-                    Collections.sort(dianduList, new Comparator<GoodInfo>() {
-                        @Override
-                        public int compare(GoodInfo o1, GoodInfo o2) {
-                            return Integer.parseInt(o1.getUse_time_limit()) - Integer.parseInt(o2.getUse_time_limit());
-                        }
-                    });
-                    mGoodInfo = dianduList.get(0);
+        if (goodInfoWrapper != null) {
+            if (position == 0) {
+                if (isDiandu) {
+                    if (goodInfoWrapper.getDiandu() != null && goodInfoWrapper.getDiandu().size() > 0) {
+                        List<GoodInfo> dianduList = VipInfoHelper.getGoodInfoWrapper().getDiandu();
+                        Collections.sort(dianduList, new Comparator<GoodInfo>() {
+                            @Override
+                            public int compare(GoodInfo o1, GoodInfo o2) {
+                                return Integer.parseInt(o1.getUse_time_limit()) - Integer.parseInt(o2.getUse_time_limit());
+                            }
+                        });
+                        mGoodInfo = dianduList.get(0);
+                    }
+                } else if (isWeike) {
+                    if (goodInfoWrapper.getWvip() != null && goodInfoWrapper.getWvip().size() > 0) {
+                        mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getWvip().get(0);
+                    }
+                } else {
+                    if (goodInfoWrapper.getVip() != null && goodInfoWrapper.getVip().size() > 0)
+                        mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getVip().get(0);
                 }
-            } else if (isWeike) {
-                if (goodInfoWrapper.getWvip() != null && goodInfoWrapper.getWvip().size() > 0) {
-                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getWvip().get(0);
-                }
-            } else {
-                if (goodInfoWrapper.getVip() != null && goodInfoWrapper.getVip().size() > 0)
-                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getVip().get(0);
-            }
 //            else {
 //                if (goodInfoWrapper.getSvip() != null && goodInfoWrapper.getSvip().size() > 0)
 //                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getSvip().get(0);
 //            }
-        } else if (position == 1) {
+            } else if (position == 1) {
 //            if (isOther) {
 //            if (goodInfoWrapper.getSvip() != null && goodInfoWrapper.getSvip().size() > 0)
 //                mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getSvip().get(0);
 //            } else {
-            if (goodInfoWrapper.getVip() != null && goodInfoWrapper.getVip().size() > 0)
-                mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getVip().get(0);
+                if (goodInfoWrapper.getVip() != null && goodInfoWrapper.getVip().size() > 0)
+                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getVip().get(0);
 //            }
-        } else if (position == 2) {
-            if (isDiandu || isWeike) {
-                if (goodInfoWrapper.getSvip() != null && goodInfoWrapper.getSvip().size() > 0)
-                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getSvip().get(0);
-            }
+            } else if (position == 2) {
+                if (isDiandu || isWeike) {
+                    if (goodInfoWrapper.getSvip() != null && goodInfoWrapper.getSvip().size() > 0)
+                        mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getSvip().get(0);
+                }
 //            else if (goodsType == GoodsType.TYPE_SINGLE_WEIKE) {
 //                if (goodInfoWrapper.getWvip() != null && goodInfoWrapper.getWvip().size() > 0) {
 //                    mGoodInfo = VipInfoHelper.getGoodInfoWrapper().getWvip().get(0);
 //                }
 //            }
+            }
         }
 
     }

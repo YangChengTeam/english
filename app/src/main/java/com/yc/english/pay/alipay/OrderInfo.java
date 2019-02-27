@@ -20,6 +20,9 @@ public class OrderInfo implements Serializable {
     @JSONField(name = "charge_order_sn")
     private String order_sn; //订单号
 
+//    @JSONField(name = "order_sn")
+//    private String order_sn; //订单号
+
     private String message;
 
 
@@ -27,6 +30,8 @@ public class OrderInfo implements Serializable {
 
     @JSONField(name = "params")
     private PayInfo payInfo;
+
+    private String goodId;
 
     public OrderInfo() {
     }
@@ -90,4 +95,11 @@ public class OrderInfo implements Serializable {
         this.message = message;
     }
 
+    public String getGoodId() {
+        return goodId;
+    }
+
+    public void setGoodId(String goodId) {
+        this.goodId = goodId;
+    }
 }

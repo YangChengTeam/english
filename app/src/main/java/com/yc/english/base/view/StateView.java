@@ -8,10 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestOptions;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
@@ -20,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.ActivityUtils;
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**
  * Created by zhangkai on 2017/8/7.

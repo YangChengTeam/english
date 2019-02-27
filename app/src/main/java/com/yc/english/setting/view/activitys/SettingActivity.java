@@ -3,7 +3,6 @@ package com.yc.english.setting.view.activitys;
 import android.view.View;
 import android.widget.Button;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.GoagalInfo;

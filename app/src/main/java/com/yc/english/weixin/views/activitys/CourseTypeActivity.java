@@ -1,6 +1,8 @@
 package com.yc.english.weixin.views.activitys;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,10 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
@@ -26,6 +32,7 @@ import com.yc.english.weixin.views.adapters.CourseAdapter;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by zhangkai on 2017/9/6.
@@ -38,7 +45,8 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
     @BindView(R.id.stateView)
     StateView stateView;
     @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
+    SmartRefreshLayout mRefreshSwipeRefreshLayout;
+
     private CourseAdapter mCourseAdapter;
     private int page = 1;
     private int pageSize = 20;
@@ -71,14 +79,22 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
         }, mRecyclerView);
 
         getData();
-        mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.primaryDark), ContextCompat.getColor(this, R.color.primaryDark));
-        mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+
+        initRefresh();
+
+    }
+
+    private void initRefresh() {
+        mRefreshSwipeRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
+        mRefreshSwipeRefreshLayout.setPrimaryColorsId(R.color.primaryDark);
+        mRefreshSwipeRefreshLayout.setEnableLoadMore(false);
+        mRefreshSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 refresh("mRefreshSwipeRefreshLayout");
             }
         });
-
     }
 
 
@@ -110,9 +126,13 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
 
     @Override
     public void showLoading() {
-        if (!mRefreshSwipeRefreshLayout.isRefreshing() || (mCourseAdapter.getData() == null || mCourseAdapter.getData()
+        if ((mCourseAdapter.getData() == null || mCourseAdapter.getData()
                 .size() == 0))
             stateView.showLoading(mRecyclerView);
+
+        if (mRefreshSwipeRefreshLayout != null) {
+            mRefreshSwipeRefreshLayout.finishRefresh();
+        }
     }
 
     @Override
@@ -128,17 +148,25 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
         } else {
             mCourseAdapter.loadMoreEnd();
         }
-        mRefreshSwipeRefreshLayout.setRefreshing(false);
+        if (mRefreshSwipeRefreshLayout != null) {
+            mRefreshSwipeRefreshLayout.finishRefresh();
+        }
     }
 
     @Override
     public void fail() {
         mCourseAdapter.loadMoreFail();
+        if (mRefreshSwipeRefreshLayout != null) {
+            mRefreshSwipeRefreshLayout.finishRefresh();
+        }
     }
 
     @Override
     public void end() {
         mCourseAdapter.loadMoreEnd();
+        if (mRefreshSwipeRefreshLayout != null) {
+            mRefreshSwipeRefreshLayout.finishRefresh();
+        }
     }
 
     private void getData() {
@@ -155,4 +183,6 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
         page = 1;
         getData();
     }
+
+
 }

@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_circle_l_shape"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/t10dp"
+        android:paddingLeft="@dimen/t15dp"
+        android:paddingRight="@dimen/t15dp"
+        android:paddingTop="@dimen/t10dp">
+
+        <LinearLayout
+            android:layout_width="164dp"
+            android:layout_height="@dimen/t32dp"
+            android:background="@drawable/soundmark_introduce_title_bg"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="什么是音标?"
+                android:textColor="@color/black_333" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/t10dp"
+            android:layout_marginRight="@dimen/t10dp"
+            android:layout_marginTop="@dimen/t10dp"
+            android:lineSpacingExtra="@dimen/t5dp"
+            android:text="音标是记录音素的符号，是用来标注单词读音
+的，它帮助我们正确的读出英文单词；和我们
+中文的拼音功能相同。但是中文的拼音是由声
+母和韵母组成的，音标是由元音和辅音构成。"
+            android:textColor="@color/black_333" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:src="@mipmap/soundmark_example" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_f4efee" />
+
+    <!--音标分哪几类-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/white_circle_l_shape"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/t10dp"
+        android:paddingLeft="@dimen/t15dp"
+        android:paddingRight="@dimen/t15dp"
+        android:paddingTop="@dimen/t10dp">
+
+        <LinearLayout
+            android:layout_width="164dp"
+            android:layout_height="@dimen/t32dp"
+            android:background="@drawable/soundmark_introduce_title_bg"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="音标分哪几类?"
+                android:textColor="@color/black_333" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/t10dp"
+            android:layout_marginRight="@dimen/t10dp"
+            android:layout_marginTop="@dimen/t10dp"
+            android:lineSpacingExtra="@dimen/t5dp"
+            android:text="音标分为元音和辅音。英语中共有48个音标，其中元音20个，辅音28个。元音就像汉语拼音中的韵母，辅音就像汉语拼音中的声母，元音、辅音组合可以拼出任何一个英语单词。"
+            android:textColor="@color/black_333" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_f4efee" />
+    <!--元音-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/white_circle_l_shape"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/t10dp"
+        android:paddingLeft="@dimen/t15dp"
+        android:paddingRight="@dimen/t15dp"
+        android:paddingTop="@dimen/t10dp">
+
+        <LinearLayout
+            android:layout_width="164dp"
+            android:layout_height="@dimen/t32dp"
+            android:background="@drawable/soundmark_introduce_title_bg"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元音（20个）"
+                android:textColor="@color/black_333" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:text="单元音"
+            android:textColor="@color/black_333" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:background="@drawable/soundmark_vowel_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/t10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="前元音：/i:/  /ɪ/ /e/ /æ/"
+                android:textColor="@color/black_333" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t10dp"
+                android:text="中元音：/ə/ /ɜ:/ /ʌ/"
+                android:textColor="@color/black_333" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t10dp"
+                android:text="后元音：/ɑ://ɒ/ /ɔ:/ /ʊ/ /u:/"
+                android:textColor="@color/black_333" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:text="双元音"
+            android:textColor="@color/black_333" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:background="@drawable/soundmark_vowel_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/t10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="合口双元音：/eɪ/ /aɪ/ /ɔɪ/ /aʊ//əʊ/"
+                android:textColor="@color/black_333" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t10dp"
+                android:text="集中双元音：/ɪə/  /eə/ /ʊə/"
+                android:textColor="@color/black_333" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_f4efee" />
+    <!--复音-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_circle_l_shape"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/t10dp"
+        android:paddingLeft="@dimen/t15dp"
+        android:paddingRight="@dimen/t15dp"
+        android:paddingTop="@dimen/t10dp">
+
+        <LinearLayout
+            android:layout_width="164dp"
+            android:layout_height="@dimen/t32dp"
+            android:background="@drawable/soundmark_introduce_title_bg"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="辅音（28个）"
+                android:textColor="@color/black_333" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:text="爆破音"
+            android:textColor="@color/black_333" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:background="@drawable/soundmark_vowel_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/t10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="清：/p/  /t/ /k/"
+                android:textColor="@color/black_333" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t10dp"
+                android:text="浊：/b/ /d/ /g/"
+                android:textColor="@color/black_333" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:text="摩擦音"
+            android:textColor="@color/black_333" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:background="@drawable/soundmark_vowel_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/t10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="清：/f/ /s/ /θ/ /∫/ /h/"
+                android:textColor="@color/black_333" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t10dp"
+                android:text="浊：/v/  /z/ /ð/ /ʒ/ /r/"
+                android:textColor="@color/black_333" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:text="破擦音"
+            android:textColor="@color/black_333" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:background="@drawable/soundmark_vowel_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/t10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="清：/ts/ /tʃ/ /tr/"
+                android:textColor="@color/black_333" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t10dp"
+                android:text="浊：/dz/  /dʒ/ /dr/"
+                android:textColor="@color/black_333" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:text="鼻音"
+            android:textColor="@color/black_333" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:background="@drawable/soundmark_vowel_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/t10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/m/ /n/ /ŋ/"
+                android:textColor="@color/black_333" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:text="舌侧音"
+            android:textColor="@color/black_333" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:background="@drawable/soundmark_vowel_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/t10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/l/"
+                android:textColor="@color/black_333" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:text="半元音"
+            android:textColor="@color/black_333" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t10dp"
+            android:background="@drawable/soundmark_vowel_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/t10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/j/ /w/"
+                android:textColor="@color/black_333" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

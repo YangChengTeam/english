@@ -1,11 +1,15 @@
 package com.yc.english.setting.view.activitys;
 
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
@@ -24,16 +28,16 @@ import butterknife.BindView;
  * Created by admin on 2017/11/10.
  */
 
-public class MyOrderActivity extends FullScreenActivity<MyPresenter> implements MyContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class MyOrderActivity extends FullScreenActivity<MyPresenter> implements MyContract.View, OnRefreshListener {
 
     @BindView(R.id.sv_loading)
     StateView mStateView;
 
-    @BindView(R.id.pull_to_refresh)
-    SwipeRefreshLayout swipeLayout;
 
     @BindView(R.id.rv_order_list)
     RecyclerView mOrderListRecyclerView;
+    @BindView(R.id.pull_to_refresh)
+    SmartRefreshLayout swipeLayout;
 
     private MyOrderItemAdapter myOrderItemAdapter;
 
@@ -51,11 +55,9 @@ public class MyOrderActivity extends FullScreenActivity<MyPresenter> implements 
         mToolbar.setTitle("我的订单");
         mToolbar.showNavigationIcon();
 
-        swipeLayout.setColorSchemeResources(
-                R.color.primary,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                R.color.primaryDark);
+        swipeLayout.setRefreshHeader(new ClassicsHeader(this));
+        swipeLayout.setPrimaryColorsId(R.color.primaryDark);
+        swipeLayout.setEnableLoadMore(false);
         swipeLayout.setOnRefreshListener(this);
 
 
@@ -121,7 +123,7 @@ public class MyOrderActivity extends FullScreenActivity<MyPresenter> implements 
 
     @Override
     public void showMyOrderInfoList(List<MyOrderInfo> list) {
-        swipeLayout.setRefreshing(false);
+
         if (list != null && list.size() > 0) {
             if (currentPage == 1) {
                 myOrderItemAdapter.setNewData(list);
@@ -134,6 +136,9 @@ public class MyOrderActivity extends FullScreenActivity<MyPresenter> implements 
         } else {
             myOrderItemAdapter.loadMoreEnd();
         }
+        if (swipeLayout != null) {
+            swipeLayout.finishRefresh();
+        }
     }
 
     @Override
@@ -142,7 +147,7 @@ public class MyOrderActivity extends FullScreenActivity<MyPresenter> implements 
     }
 
     @Override
-    public void onRefresh() {
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         currentPage = 1;
         mPresenter.getMyOrderInfoList(currentPage, pageSize);
     }

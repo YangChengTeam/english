@@ -7,20 +7,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ToastUtils;
-import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.model.domain.OrderGood;
 import com.yc.english.news.model.domain.OrderParams;
-import com.yc.english.news.utils.OrderConstant;
-import com.yc.english.news.view.activity.ConfirmOrderActivity;
 import com.yc.english.pay.PayConfig;
+import com.yc.english.pay.PayWayInfo;
 import com.yc.english.pay.PayWayInfoHelper;
 import com.yc.english.pay.alipay.IAliPay1Impl;
 import com.yc.english.pay.alipay.IPayCallback;
@@ -29,7 +25,6 @@ import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.contract.GoodsListContract;
 import com.yc.english.setting.model.bean.Config;
 import com.yc.english.setting.model.bean.GoodInfo;
-import com.yc.english.pay.PayWayInfo;
 import com.yc.english.setting.presenter.GoodsListPresenter;
 import com.yc.english.setting.view.Listener.onItemClickListener;
 import com.yc.english.setting.view.adapter.GoodPayWayInfoAdapter;
@@ -44,6 +39,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.ToastUtils;
 
 /**
  * Created by admin on 2017/10/31.

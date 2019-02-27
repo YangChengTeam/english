@@ -5,13 +5,10 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.UIUitls;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.kk.utils.LogUtil;
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.group.utils.EngineUtils;
@@ -19,16 +16,23 @@ import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.model.domain.UserInfoWrapper;
 import com.yc.english.main.view.activitys.LoginActivity;
+import com.yc.soundmark.base.constant.Config;
+import com.yc.soundmark.base.constant.SpConstant;
+import com.yc.soundmark.base.model.domain.IndexDialogInfoWrapper;
+import com.yc.soundmark.base.model.domain.VipInfo;
 
-import org.w3c.dom.Text;
+import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import yc.com.base.EmptyUtils;
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.SPUtils;
+import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by zhangkai on 2017/8/1.
@@ -36,6 +40,7 @@ import rx.schedulers.Schedulers;
 
 public class UserInfoHelper {
     private static UserInfo mUserInfo;
+    private static List<VipInfo> mVipInfoList;
 
     public static UserInfo getUserInfo() {
         if (mUserInfo != null) {
@@ -260,4 +265,140 @@ public class UserInfoHelper {
                 + userInfo.getUid() + "\", \"isLogin\":\""
                 + userInfo.isLogin() + "\"}";
     }
+
+    public static List<VipInfo> getVipInfoList() {
+        if (mVipInfoList != null) {
+            return mVipInfoList;
+        }
+        try {
+            String str = SPUtils.getInstance().getString(SpConstant.VIP_INFO_LIST);
+
+            mVipInfoList = JSON.parseArray(str, VipInfo.class);
+
+
+        } catch (Exception e) {
+            LogUtil.msg("to json error->" + e.getMessage());
+        }
+
+
+        return mVipInfoList;
+    }
+
+    public static void setVipInfoList(List<VipInfo> vipInfoList) {
+        UserInfoHelper.mVipInfoList = vipInfoList;
+        try {
+            String str = JSON.toJSONString(vipInfoList);
+            SPUtils.getInstance().put(SpConstant.VIP_INFO_LIST, str);
+        } catch (Exception e) {
+            LogUtil.msg("to json error->" + e.getMessage());
+        }
+
+    }
+
+    public static String getUid() {
+        String userId = "";
+
+        if (mUserInfo != null) {
+            userId = mUserInfo.getUid();
+        }
+
+        return userId;
+    }
+
+
+    public static void saveVip(String vip) {
+        boolean flag = false;
+        String vips = SPUtils.getInstance().getString("vip", "");
+        String[] vipArr = vips.split(",");
+        for (String tmp : vipArr) {
+            if (tmp.equals(vip)) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            SPUtils.getInstance().put("vip", vips + "," + vip);
+        }
+    }
+
+    public static boolean isVip(String vip) {
+        boolean flag = false;
+        String vips = SPUtils.getInstance().getString("vip", "");
+        String[] vipArr = vips.split(",");
+
+        for (String tmp : vipArr) {
+            if (tmp.equals(vip)) {
+                flag = true;
+                break;
+            }
+        }
+
+        if (!flag) {
+            List<VipInfo> vipInfoList = getVipInfoList();
+            if (vipInfoList != null) {
+                for (VipInfo vipInfo : vipInfoList) {
+                    if (vip.equals(vipInfo.getType() + "")) {
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+
+        }
+        return flag;
+    }
+
+    //是否是音标会员
+    public static boolean isYbVip() {
+        return mUserInfo != null && mUserInfo.getYb_vip() == 1;
+    }
+
+
+    //音标点读
+    public static boolean isPhonogramVip() {
+        return isVip(Config.PHONOGRAM_VIP + "") || isPhonogramOrPhonicsVip() || isSuperVip();
+    }
+
+    //微课
+    public static boolean isPhonicsVip() {
+        return isVip(Config.PHONICS_VIP + "") || isPhonogramOrPhonicsVip() || isSuperVip();
+    }
+
+    //音标点读+微课
+    public static boolean isPhonogramOrPhonicsVip() {
+        return isVip(Config.PHONOGRAMORPHONICS_VIP + "") || isSuperVip() || (isVip(Config.PHONOGRAM_VIP + "") && isVip(Config.PHONICS_VIP + ""));
+    }
+
+    //音标点读+微课  超级vip
+    public static boolean isSuperVip() {
+        return isVip(Config.SUPER_VIP + "");
+    }
+
+    public static void getIndexMenuInfo(Context context) {
+        com.yc.soundmark.study.utils.EngineUtils.getIndexMenuInfo(context).subscribe(new Subscriber<ResultInfo<IndexDialogInfoWrapper>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+
+            }
+
+            @Override
+            public void onNext(ResultInfo<IndexDialogInfoWrapper> indexDialogInfoWrapperResultInfo) {
+
+                if (indexDialogInfoWrapperResultInfo != null && indexDialogInfoWrapperResultInfo.code == HttpConfig.STATUS_OK) {
+//                    mView.hideStateView();
+                    IndexDialogInfoWrapper infoWrapper = indexDialogInfoWrapperResultInfo.data;
+                    SPUtils.getInstance().put(SpConstant.INDEX_MENU_STATICS, JSON.toJSONString(infoWrapper.info));
+                }
+            }
+        });
+
+    }
+
+
 }

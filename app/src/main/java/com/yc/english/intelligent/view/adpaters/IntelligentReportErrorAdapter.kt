@@ -4,11 +4,11 @@ import android.graphics.Rect
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.blankj.utilcode.util.SizeUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yc.english.R
 import com.yc.english.intelligent.model.domain.ReportErrorInfo
+import yc.com.blankj.utilcode.util.SizeUtils
 
 /**
  *

@@ -5,13 +5,14 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.speak.model.bean.QuestionInfoBean;
 
 import java.util.List;
+
+import yc.com.blankj.utilcode.util.StringUtils;
 
 public class QuestionItemAdapter extends BaseMultiItemQuickAdapter<QuestionInfoBean, BaseViewHolder> {
 

@@ -7,13 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.base.presenter.BasePresenter;
 
 import butterknife.ButterKnife;
+import yc.com.base.EmptyUtils;
+import yc.com.blankj.utilcode.util.LogUtils;
 
 /**
  * Created by zhangkai on 2017/7/21.

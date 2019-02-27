@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/mImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/study_essentials_play_btn" />
+
+    <TextView
+        android:id="@+id/mTextViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="00:00" />
+
+    <ProgressBar
+        android:id="@+id/mSeekBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/t10dp"
+        android:layout_marginRight="@dimen/t10dp"
+        android:layout_toLeftOf="@id/mTextViewTime"
+        android:layout_toRightOf="@id/mImageView"
+        android:maxHeight="@dimen/t3dp"
+        android:minHeight="@dimen/t3dp"
+        android:progressDrawable="@drawable/study_essentials_progressbar_bg" />
+</RelativeLayout>

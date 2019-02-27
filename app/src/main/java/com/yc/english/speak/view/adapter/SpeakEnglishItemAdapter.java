@@ -3,33 +3,21 @@ package com.yc.english.speak.view.adapter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
-import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.MemoryCategory;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
-import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.group.utils.BitmapUtils;
-import com.yc.english.group.utils.GlideRoundTransform;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
-import com.youth.banner.transformer.DefaultTransformer;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
 import java.util.List;
-
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * Created by wanglin  on 2017/10/12 15:36.

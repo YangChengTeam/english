@@ -3,7 +3,6 @@ package com.yc.english.setting.view.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -11,24 +10,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.ImageUtils;
-import com.blankj.utilcode.util.SizeUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.UIUitls;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.LogUtil;
 import com.kk.utils.ScreenUtil;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
@@ -61,9 +52,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.ActivityUtils;
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**
  * Created by zhangkai on 2017/7/24.
@@ -426,7 +417,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     public void zhongxueClick() {
-        QQUtils.joinQQZhongXueGroup(getActivity(), "_3srBJmmySTC6K7ct-heNvasSGoB9T4M");
+        QQUtils.joinQQZhongXueGroup(getActivity(), "P0XxO7Hvmfq-WiXK_HEjNkfa38cejg1y");
     }
 
     @Override

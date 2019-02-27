@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.text.TextUtils;
 
 import com.alipay.sdk.app.PayTask;
-import com.blankj.utilcode.util.ToastUtils;
 import com.kk.securityhttp.domain.GoagalInfo;
 import com.yc.english.pay.PayConfig;
 
@@ -18,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import yc.com.blankj.utilcode.util.ToastUtils;
 
 /**
  * Created by zhangkai on 2017/3/18.

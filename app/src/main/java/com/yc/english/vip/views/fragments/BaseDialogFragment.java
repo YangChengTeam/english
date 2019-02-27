@@ -13,10 +13,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.utils.ScreenUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -25,6 +21,10 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.view.IView;
 
 import butterknife.ButterKnife;
+import yc.com.base.EmptyUtils;
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.ScreenUtils;
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**
  * Created by wanglin  on 2017/12/1 14:15.

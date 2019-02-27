@@ -54,7 +54,7 @@ public class SharePopupWindow extends BasePopupWindow {
 
     private static ShareInfo.INFO mShareInfo;
 
-    public static void setmShareInfo(ShareInfo.INFO mShareInfo) {
+    public static void setShareInfo(ShareInfo.INFO mShareInfo) {
         SharePopupWindow.mShareInfo = mShareInfo;
     }
 

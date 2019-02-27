@@ -12,8 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.SpeechError;
@@ -41,6 +39,8 @@ import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.subjects.PublishSubject;
+import yc.com.blankj.utilcode.util.ActivityUtils;
+import yc.com.blankj.utilcode.util.ToastUtils;
 
 import static com.yc.english.read.common.SpeechUtils.mContext;
 

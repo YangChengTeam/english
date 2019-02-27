@@ -2,10 +2,8 @@ package com.yc.english.speak.view.adapter;
 
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.weixin.model.domain.CourseInfo;
@@ -13,6 +11,8 @@ import com.yc.english.weixin.model.domain.CourseInfo;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+
+import yc.com.blankj.utilcode.util.TimeUtils;
 
 /**
  * Created by wanglin  on 2017/10/27 13:49.

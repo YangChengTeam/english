@@ -3,7 +3,6 @@ package com.yc.english.main.presenter;
 import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
-import com.blankj.utilcode.util.UIUitls;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.presenter.BasePresenter;
@@ -25,6 +24,7 @@ import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by zhangkai on 2017/7/26.

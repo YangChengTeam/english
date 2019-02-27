@@ -2,7 +2,6 @@ package com.yc.english.base.utils;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.iflytek.cloud.SpeechUtility;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.R;
@@ -12,6 +11,7 @@ import com.yc.english.read.common.AppidsInfo;
 import java.util.List;
 
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.SPUtils;
 
 /**
  * Created by zhangkai on 2017/8/24.

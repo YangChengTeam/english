@@ -4,15 +4,12 @@ package com.yc.english.base.utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Build.VERSION;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.util.Log;
-
-import com.blankj.utilcode.util.SizeUtils;
 
 public class Blur {
 

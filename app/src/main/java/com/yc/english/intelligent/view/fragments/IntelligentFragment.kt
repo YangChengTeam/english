@@ -2,7 +2,6 @@ package com.yc.english.intelligent.view.fragments
 
 import android.content.Intent
 import android.support.v4.content.ContextCompat
-import com.blankj.utilcode.util.SPUtils
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
@@ -19,6 +18,7 @@ import com.yc.english.main.model.domain.Constant
 import com.yc.english.main.view.activitys.LoginActivity
 import com.yc.english.speak.view.activity.QuestionActivity
 import kotlinx.android.synthetic.main.intelligent_fragment_index.*
+import yc.com.blankj.utilcode.util.SPUtils
 import java.util.concurrent.TimeUnit
 
 

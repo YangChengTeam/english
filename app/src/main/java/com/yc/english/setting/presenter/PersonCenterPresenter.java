@@ -2,7 +2,6 @@ package com.yc.english.setting.presenter;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.UIUitls;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.TipsHelper;
@@ -15,6 +14,7 @@ import com.yc.english.setting.model.engin.MyEngin;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by zhangkai on 2017/8/3.

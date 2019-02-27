@@ -9,8 +9,6 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.Utils;
 import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
@@ -18,12 +16,14 @@ import com.kk.share.UMShareImpl;
 import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
+
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.model.ShareInfo;
 import com.yc.english.base.utils.SpeechUtils;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.read.common.ReadApp;
+import com.yc.soundmark.base.EnglishStudyApp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +31,9 @@ import java.util.Map;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+import yc.com.blankj.utilcode.util.SPUtils;
+import yc.com.blankj.utilcode.util.Utils;
+
 
 /**
  * Created by zhangkai on 2017/7/24.
@@ -58,6 +61,7 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
             @Override
             public void call(String s) {
                 ReadApp.init(EnglishApp.this);
+//                EnglishStudyApp.init(EnglishApp.this);
                 SpeechUtils.setDefaultAppid(EnglishApp.this);
                 init();
             }
@@ -69,7 +73,7 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
 
     private void init() {
         //腾迅自动更新
-//        Bugly.init(getApplicationContext(), "965a5326ab", false);
+        Bugly.init(getApplicationContext(), "965a5326ab", false);
 
         //友盟统计
         UMGameAgent.setDebugMode(false);
@@ -110,7 +114,7 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
             public void call(ResultInfo<ShareInfo> shareInfoResultInfo) {
                 if (shareInfoResultInfo != null && shareInfoResultInfo.data != null && shareInfoResultInfo.data.getInfo()
                         != null) {
-                    SharePopupWindow.setmShareInfo(shareInfoResultInfo.data.getInfo());
+                    SharePopupWindow.setShareInfo(shareInfoResultInfo.data.getInfo());
                 }
             }
         });

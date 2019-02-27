@@ -4,12 +4,9 @@ import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import com.blankj.utilcode.util.ScreenUtils
 import com.yc.english.R
 import com.yc.english.base.view.BaseView
-import kotlinx.android.synthetic.main.intelligent_view_item_score.view.*
 
 /**
  * Created by zhangkai on 2017/11/27.

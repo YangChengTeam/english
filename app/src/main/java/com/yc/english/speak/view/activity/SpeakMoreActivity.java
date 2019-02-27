@@ -1,6 +1,8 @@
 package com.yc.english.speak.view.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,6 +12,10 @@ import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
@@ -24,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by wanglin  on 2017/10/13 10:24.
@@ -37,7 +44,8 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
     @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
+    SmartRefreshLayout swipeRefreshLayout;
+
     private SpeakAndReadInfo speakAndReadInfo;
     private SpeakEnglishItemAdapter speakEnglishItemAdapter;
     private int page = 1;
@@ -103,10 +111,18 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
             }
         }, recyclerView);
 
-        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.primary));
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        initRefresh();
+    }
+
+    private void initRefresh() {
+        //设置 Header 为 贝塞尔雷达 样式
+        swipeRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
+        swipeRefreshLayout.setPrimaryColorsId(R.color.primaryDark);
+        swipeRefreshLayout.setEnableLoadMore(false);
+
+        swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
                 getData(false, false);
             }
@@ -132,16 +148,16 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
                 getData(false, true);
             }
         });
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
+        if (swipeRefreshLayout!=null) {
+            swipeRefreshLayout.finishRefresh();
         }
     }
 
     @Override
     public void showNoData() {
         stateView.showNoData(swipeRefreshLayout);
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
+        if (swipeRefreshLayout!=null) {
+            swipeRefreshLayout.finishRefresh();
         }
     }
 
@@ -165,8 +181,8 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
             speakEnglishItemAdapter.loadMoreEnd();
         }
 
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
+        if (swipeRefreshLayout!=null) {
+            swipeRefreshLayout.finishRefresh();
         }
     }
 
@@ -182,4 +198,5 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
     public void showSpeakEnglishDetail(List<SpeakEnglishBean> list) {
 
     }
+
 }

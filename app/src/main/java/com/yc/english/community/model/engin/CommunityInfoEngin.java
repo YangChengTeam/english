@@ -3,7 +3,6 @@ package com.yc.english.community.model.engin;
 import android.content.Context;
 
 import com.alibaba.fastjson.TypeReference;
-import com.blankj.utilcode.util.EncryptUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
@@ -19,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rx.Observable;
+import yc.com.blankj.utilcode.util.EncryptUtils;
 
 import static com.umeng.socialize.utils.DeviceConfig.context;
 

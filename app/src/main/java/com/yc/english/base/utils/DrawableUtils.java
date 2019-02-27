@@ -9,8 +9,9 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.yc.english.R;
+
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**
  * Created by admin on 2017/7/28.

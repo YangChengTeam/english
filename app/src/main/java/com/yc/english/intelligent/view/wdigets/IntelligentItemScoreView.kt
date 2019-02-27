@@ -1,24 +1,15 @@
 package com.yc.english.intelligent.view.wdigets
 
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
+import android.view.animation.AccelerateInterpolator
 import android.widget.TextView
 import com.yc.english.R
 import com.yc.english.base.view.BaseView
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
-import android.os.Build
-import android.view.ViewTreeObserver
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.widget.LinearLayout
-import com.blankj.utilcode.util.ScreenUtils
-import kotlinx.android.synthetic.main.intelligent_view_item_score.view.*
 
 
 /**
@@ -31,7 +22,7 @@ class IntelligentItemScoreView : BaseView {
     var mTitleTextView = findViewById(R.id.tv_title) as TextView
     var mEnTitleTextView = findViewById(R.id.tv_en_title) as TextView
     var mProgressView = findViewById(R.id.v_progress) as View
-    var mScoreTextView = findViewById(R.id.tv_score)as TextView
+    var mScoreTextView = findViewById(R.id.tv_score) as TextView
 
     var mProgressWidth: Int = 0
 

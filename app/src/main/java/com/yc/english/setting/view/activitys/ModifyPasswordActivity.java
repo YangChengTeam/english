@@ -3,11 +3,8 @@ package com.yc.english.setting.view.activitys;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
-import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.setting.contract.ModifyPasswordContract;
 import com.yc.english.setting.presenter.ModifyPasswordPresenter;
@@ -16,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.KeyboardUtils;
 
 /**
  * Created by zhangkai on 2017/7/24.

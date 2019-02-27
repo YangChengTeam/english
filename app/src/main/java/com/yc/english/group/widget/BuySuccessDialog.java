@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import com.blankj.utilcode.util.ScreenUtils;
 import com.yc.english.R;
+
+import yc.com.blankj.utilcode.util.ScreenUtils;
 
 
 public class BuySuccessDialog extends Dialog {

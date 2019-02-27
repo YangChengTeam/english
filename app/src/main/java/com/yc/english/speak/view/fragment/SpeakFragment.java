@@ -6,13 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SDCardUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
-import com.yc.english.base.view.IFinish;
 import com.yc.english.base.view.StateView;
 import com.yc.english.speak.contract.SpeakEnglishContract;
 import com.yc.english.speak.model.bean.SpeakAndReadInfo;
@@ -23,7 +20,6 @@ import com.yc.english.speak.view.adapter.SpeakEnglishAdapter;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
-import java.security.PrivilegedAction;
 import java.util.List;
 
 import butterknife.BindView;

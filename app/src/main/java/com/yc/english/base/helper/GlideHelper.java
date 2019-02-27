@@ -4,10 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.yc.english.read.view.activitys.ReadWordActivity;
+
+import yc.com.blankj.utilcode.util.ActivityUtils;
 
 /**
  * Created by zhangkai on 2017/8/8.

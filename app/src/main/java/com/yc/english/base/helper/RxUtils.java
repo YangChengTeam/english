@@ -2,8 +2,6 @@ package com.yc.english.base.helper;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.PathUtils;
 import com.umeng.socialize.sina.helper.MD5;
 
 import java.io.File;
@@ -17,6 +15,8 @@ import java.net.URL;
 import rx.Observable;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import yc.com.base.EmptyUtils;
+import yc.com.blankj.utilcode.util.PathUtils;
 
 /**
  * Created by zhangkai on 2017/8/14.

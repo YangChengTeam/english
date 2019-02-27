@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
-import com.blankj.utilcode.util.SPUtils
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
@@ -21,12 +20,12 @@ import com.yc.english.intelligent.contract.IntelligentQuestionContract
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentQuestionPresenter
 import com.yc.english.intelligent.utils.getLevel1QuestionInfo
-import com.yc.english.intelligent.view.activitys.IntelligentResultActivity
 import com.yc.english.intelligent.view.fragments.IntelligentQuestionsFragment
 import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_activity_questions.*
+import yc.com.blankj.utilcode.util.SPUtils
 import java.util.*
 import java.util.concurrent.TimeUnit
 

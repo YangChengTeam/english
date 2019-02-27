@@ -3,25 +3,18 @@ package com.yc.english.main.view.wdigets;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.blankj.utilcode.util.SPUtils;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
-import com.kk.utils.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseView;
-import com.yc.english.group.constant.BusAction;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.SlideInfo;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import yc.com.blankj.utilcode.util.SPUtils;
 
 /**
  * Created by zhangkai on 2017/7/24.

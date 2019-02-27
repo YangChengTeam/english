@@ -21,17 +21,16 @@ import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.util.Log;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
 import com.yc.english.base.view.BaseActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import yc.com.blankj.utilcode.util.LogUtils;
 
 /**
  * Created by zhangkai on 2017/8/8.

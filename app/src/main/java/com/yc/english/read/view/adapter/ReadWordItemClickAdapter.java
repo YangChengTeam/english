@@ -3,8 +3,6 @@ package com.yc.english.read.view.adapter;
 import android.content.Context;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -13,6 +11,9 @@ import com.yc.english.read.model.domain.WordDetailInfo;
 import com.yc.english.read.model.domain.WordInfo;
 
 import java.util.List;
+
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.ToastUtils;
 
 
 public class ReadWordItemClickAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder> {

@@ -5,8 +5,6 @@ import android.os.Parcelable
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.alibaba.fastjson.JSON
-import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.hwangjr.rxbus.RxBus
 import com.jakewharton.rxbinding.view.RxView
 import com.umeng.analytics.MobclickAgent
@@ -18,12 +16,12 @@ import com.yc.english.intelligent.contract.IntelligentHandInContract
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentHandInPresenter
 import com.yc.english.intelligent.utils.getLevel1QuestionInfo
-import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
-import com.yc.english.intelligent.view.activitys.IntelligentResultActivity
 import com.yc.english.intelligent.view.adpaters.IntelligentHandInAdapter
 import com.yc.english.main.model.domain.Constant
 import kotlinx.android.synthetic.main.intelligent_avtivity_hand_in.*
-import java.util.ArrayList
+import yc.com.blankj.utilcode.util.SPUtils
+import yc.com.blankj.utilcode.util.ToastUtils
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
@@ -46,12 +44,12 @@ class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), In
 
         RxView.clicks(mSubmitBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
-            mPresenter.submitAnswers(questionInfos!!, IntelligentQuestionsActivity.getInstance()?.usedTime() ?: "")
+            mPresenter.submitAnswers(questionInfos, IntelligentQuestionsActivity.getInstance()?.usedTime() ?: "")
         }
 
         mToolbar.mTimeTextView.text = IntelligentQuestionsActivity.getInstance()?.usedTime() ?: ""
         questionInfos = getLevel1QuestionInfo(IntelligentQuestionsActivity.getInstance()?.questionInfos!!)
-        adapter = IntelligentHandInAdapter(questionInfos!!)
+        adapter = IntelligentHandInAdapter(questionInfos)
         val gridLayoutManager = GridLayoutManager(this, 5)
         gridLayoutManager.setSpanSizeLookup(object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {

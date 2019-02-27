@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <yc.com.english_study.base.widget.MainToolBar
+    <com.yc.soundmark.base.widget.MainToolBar
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <yc.com.english_study.base.widget.StateView
+    <com.yc.english.base.view.StateView
         android:id="@+id/stateView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -75,6 +75,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/t18dp"
                     android:src="@mipmap/study_pre_normal" />
+
+                <ImageView
+                    android:id="@+id/iv_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/t18dp"
+                    android:src="@mipmap/study_category" />
 
             </LinearLayout>
         </FrameLayout>

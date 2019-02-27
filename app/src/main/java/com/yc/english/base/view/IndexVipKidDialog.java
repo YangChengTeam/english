@@ -2,21 +2,14 @@ package com.yc.english.base.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
-import android.view.TextureView;
 import android.widget.ImageView;
 
-import com.alibaba.fastjson.JSON;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.UIUitls;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.jakewharton.rxbinding.view.RxView;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
-import com.yc.english.base.utils.SimpleCacheUtils;
-import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.SlideInfo;
 
 import java.util.concurrent.TimeUnit;

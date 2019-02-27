@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--发音感知-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/t12dp"
+                android:paddingLeft="@dimen/t12dp"
+                android:paddingRight="@dimen/t12dp"
+                android:paddingTop="@dimen/t15dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_perception_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/t3dp"
+                        android:gravity="center_vertical">
+
+                        <View
+                            android:layout_width="@dimen/t4dp"
+                            android:layout_height="@dimen/t16dp"
+                            android:background="@drawable/study_guide_bg" />
+
+                        <TextView
+                            android:id="@+id/tv_perception"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/t5dp"
+                            android:text="@string/faying_perception"
+                            android:textColor="@color/black_2d2825" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/t10dp"
+                            android:text="看图识音标，通过形象图来感知发音，更有趣"
+                            android:textColor="@color/gray_a59d98"
+                            android:textSize="@dimen/t12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/t10dp">
+
+                        <LinearLayout
+                            android:layout_width="114dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/t3dp"
+                            android:background="@drawable/study_essentials_circle_bg"
+                            android:elevation="@dimen/t3dp"
+                            android:orientation="vertical"
+                            android:padding="@dimen/t3dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@mipmap/pronounce_perception_bg">
+
+                                <LinearLayout
+                                    android:id="@+id/ll_perception_voice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tv_perception_voice"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="@dimen/t5dp"
+                                        android:textColor="@color/black_333"
+                                        android:textSize="@dimen/t24sp" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_perception_voice"
+                                        android:layout_width="@dimen/t16dp"
+                                        android:layout_height="@dimen/t13dp"
+                                        android:src="@mipmap/small_trumpet" />
+
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_perception_word"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/t5dp"
+                                android:paddingLeft="@dimen/t8dp"
+                                android:paddingRight="@dimen/t8dp"
+                                android:paddingTop="@dimen/t5dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical">
+
+                                    <ImageView
+                                        android:id="@+id/iv_perception_word"
+                                        android:layout_width="@dimen/t24dp"
+                                        android:layout_height="@dimen/t19dp"
+                                        android:src="@mipmap/big_trumpet" />
+
+                                    <TextView
+                                        android:id="@+id/tv_perception_word_example"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/t10dp"
+                                        android:textColor="@color/black_2d2825"
+                                        android:textSize="@dimen/t16sp" />
+
+                                </LinearLayout>
+
+
+                                <TextView
+                                    android:id="@+id/tv_pronounce"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/t5dp"
+
+                                    android:textColor="@color/black_2d2825" />
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                        <RelativeLayout
+                            android:id="@+id/rl_pronounce"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/t3dp"
+                            android:background="@drawable/study_essentials_circle_bg"
+                            android:elevation="@dimen/t3dp"
+                            android:padding="@dimen/t3dp">
+
+                            <ImageView
+                                android:id="@+id/iv_pronounce_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--发音学习-->
+            <LinearLayout
+                android:id="@+id/ll_study_total_container"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:layout_marginTop="@dimen/t8dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/t15dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_study_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <View
+                            android:layout_width="@dimen/t4dp"
+                            android:layout_height="@dimen/t16dp"
+                            android:background="@drawable/study_guide_bg" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/t5dp"
+                            android:text="@string/faying_study"
+                            android:textColor="@color/black_2d2825" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/t10dp"
+                            android:text="跟着外教一起学音标吧"
+                            android:textColor="@color/gray_a59d98"
+                            android:textSize="@dimen/t12sp" />
+                    </LinearLayout>
+
+                    <com.xinqu.videoplayer.XinQuVideoPlayerStandard
+                        android:id="@+id/videoPlayer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/t15dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--发音练习-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="253dp"
+                android:layout_marginTop="@dimen/t8dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/t15dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_practice_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <View
+                            android:layout_width="@dimen/t4dp"
+                            android:layout_height="@dimen/t16dp"
+                            android:background="@drawable/study_guide_bg" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/t5dp"
+                            android:text="@string/faying_practice"
+                            android:textColor="@color/black_2d2825" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/t10dp"
+                            android:text="跟小马一起练习音标发音吧"
+                            android:textColor="@color/gray_a59d98"
+                            android:textSize="@dimen/t12sp" />
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/t8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@mipmap/study_practice_bg"
+                            android:weightSum="4">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2" />
+
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="@dimen/t40dp"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="跟进度："
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/t22sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/tv_number_progress"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="0/3"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/t22sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/t2dp"
+                                    android:text="自己录音与外教发音原生比对，找到自己的问题"
+                                    android:textColor="@color/white" />
+
+                                <ProgressBar
+                                    android:id="@+id/progressBar"
+                                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                                    android:layout_width="112dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left"
+                                    android:layout_marginTop="@dimen/t5dp"
+                                    android:background="@null"
+                                    android:indeterminate="false"
+                                    android:indeterminateOnly="false"
+                                    android:max="100"
+                                    android:maxHeight="12dp"
+                                    android:minHeight="12dp"
+                                    android:progress="100"
+                                    android:progressDrawable="@drawable/study_practice_progress_drawable"
+                                    android:visibility="invisible" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/t8dp">
+
+
+                                    <TextView
+                                        android:id="@+id/tv_practice_soundmark"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical"
+                                        android:layout_marginRight="@dimen/t7dp"
+                                        android:background="@drawable/guide_bg"
+                                        android:gravity="center"
+                                        android:paddingBottom="@dimen/t2dp"
+                                        android:paddingLeft="@dimen/t8dp"
+                                        android:paddingRight="@dimen/t8dp"
+                                        android:paddingTop="@dimen/t2dp"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/t20sp"
+                                        android:visibility="gone" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_practice"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:src="@mipmap/study_practice_play" />
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="@dimen/t5dp">
+
+                            <ImageView
+                                android:id="@+id/iv_bottom_carton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:src="@mipmap/study_carton_bg" />
+
+                            <ImageView
+                                android:id="@+id/iv_top_carton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/study_carton_record"
+                                android:visibility="gone" />
+                        </FrameLayout>
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--发音要领-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="244dp"
+                android:layout_marginTop="@dimen/t8dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/t12dp"
+                android:paddingLeft="@dimen/t12dp"
+                android:paddingRight="@dimen/t12dp"
+                android:paddingTop="@dimen/t15dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_essentials_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/t5dp"
+                        android:layout_marginLeft="@dimen/t3dp"
+                        android:gravity="center_vertical">
+
+                        <View
+                            android:layout_width="@dimen/t4dp"
+                            android:layout_height="@dimen/t16dp"
+                            android:background="@drawable/study_guide_bg" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/t5dp"
+                            android:text="@string/faying_essentials"
+                            android:textColor="@color/black_2d2825" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/t10dp"
+                            android:text="口型舌位不到位是发音不准的原因"
+                            android:textColor="@color/gray_a59d98"
+                            android:textSize="@dimen/t12sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/t3dp"
+                        android:background="@drawable/study_essentials_circle_bg"
+                        android:elevation="@dimen/t10dp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/t10dp"
+                        android:weightSum="5">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_essentials"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:background="@drawable/study_essentials_stroke_bg">
+
+                            <ImageView
+                                android:id="@+id/iv_essentials_example"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@mipmap/study_essentials_example" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/t15dp"
+                            android:layout_marginLeft="@dimen/t15dp"
+                            android:layout_marginTop="@dimen/t15dp"
+                            android:layout_weight="3">
+
+                            <TextView
+                                android:id="@+id/tv_essentials_desp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="舌尖抵下齿，舌前部尽量向硬腭抬起，嘴唇向两边伸开呈扁平型，注意一定要把音发足。"
+                                android:textColor="@color/black_2d2825" />
+
+
+                            <com.yc.soundmark.study.widget.MediaPlayerView
+                                android:id="@+id/mediaPlayerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true" />
+
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--发音运用-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="362dp"
+                android:layout_marginTop="@dimen/t8dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/t12dp"
+                android:paddingLeft="@dimen/t12dp"
+                android:paddingRight="@dimen/t12dp"
+                android:paddingTop="@dimen/t15dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_apply_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/t3dp"
+                        android:gravity="center_vertical">
+
+                        <View
+                            android:layout_width="@dimen/t4dp"
+                            android:layout_height="@dimen/t16dp"
+                            android:background="@drawable/study_guide_bg" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/t5dp"
+                            android:text="@string/faying_apply"
+                            android:textColor="@color/black_2d2825" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/t10dp"
+                            android:text="单词、短语、句子，由浅入深练习音标"
+                            android:textColor="@color/gray_a59d98"
+                            android:textSize="@dimen/t12sp" />
+                    </LinearLayout>
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/t3dp"
+                        app:tabIndicatorColor="@color/red_eb522b"
+                        app:tabPaddingBottom="@dimen/t2dp"
+                        app:tabSelectedTextColor="@color/red_eb522b"
+                        app:tabTextColor="@color/gray_81817e" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/t1dp"
+                        android:layout_marginBottom="@dimen/t5dp"
+                        android:layout_marginLeft="@dimen/t3dp"
+                        android:background="@color/gray_f4efee" />
+
+
+                    <com.yc.soundmark.study.widget.StudyViewPager
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/t3dp"
+                        android:background="@drawable/study_essentials_circle_bg"
+                        android:elevation="@dimen/t10dp"
+                        android:paddingBottom="@dimen/t5dp"
+                        android:paddingLeft="@dimen/t10dp"
+                        android:paddingRight="@dimen/t10dp"
+                        android:paddingTop="@dimen/t10dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

@@ -6,12 +6,12 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.blankj.utilcode.util.SPUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yc.english.R
 import com.yc.english.base.helper.GlideHelper
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
+import yc.com.blankj.utilcode.util.SPUtils
 
 /**
  * Created by zhangkai on 2017/12/4.

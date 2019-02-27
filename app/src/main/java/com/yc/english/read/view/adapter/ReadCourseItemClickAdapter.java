@@ -7,11 +7,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.app.hubert.guide.NewbieGuide;
+import com.app.hubert.guide.core.Controller;
 import com.app.hubert.guide.listener.OnLayoutInflatedListener;
 import com.app.hubert.guide.model.GuidePage;
 import com.app.hubert.guide.model.HighLight;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -19,6 +18,9 @@ import com.yc.english.R;
 import com.yc.english.read.model.domain.EnglishCourseInfo;
 
 import java.util.List;
+
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.StringUtils;
 
 
 public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<EnglishCourseInfo, BaseViewHolder> {
@@ -67,31 +69,35 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
             NewbieGuide.with((Activity) mContext)
                     .setLabel("guide1")
                     .addGuidePage(GuidePage.newInstance()
-                            .addHighLight(guideLeftView, HighLight.Shape.ROUND_RECTANGLE, 16, 3)
+                            .addHighLight(guideLeftView, HighLight.Shape.ROUND_RECTANGLE, 16)
                             .setLayoutRes(R.layout.read_guide_left_view)
                             .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
                                 @Override
-                                public void onLayoutInflated(View view) {
+                                public void onLayoutInflated(View view, Controller controller) {
 
                                 }
+
                             }))
                     .addGuidePage(GuidePage.newInstance()
-                            .addHighLight(guideCenterView, HighLight.Shape.ROUND_RECTANGLE, 16, 3)
+                            .addHighLight(guideCenterView, HighLight.Shape.ROUND_RECTANGLE, 16)
                             .setLayoutRes(R.layout.read_guide_center_view)
                             .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
                                 @Override
-                                public void onLayoutInflated(View view) {
+                                public void onLayoutInflated(View view, Controller controller) {
 
                                 }
+
+
                             }))
                     .addGuidePage(GuidePage.newInstance()
-                            .addHighLight(guideRightView, HighLight.Shape.ROUND_RECTANGLE, 16, 3)
+                            .addHighLight(guideRightView, HighLight.Shape.ROUND_RECTANGLE, 16)
                             .setLayoutRes(R.layout.read_guide_right_view)
                             .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
                                 @Override
-                                public void onLayoutInflated(View view) {
+                                public void onLayoutInflated(View view, Controller controller) {
 
                                 }
+
                             }))
                     .show();
         }

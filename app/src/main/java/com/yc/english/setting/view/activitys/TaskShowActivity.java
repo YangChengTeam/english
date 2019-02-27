@@ -6,14 +6,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SizeUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 
 import butterknife.BindView;
+import yc.com.blankj.utilcode.util.LogUtils;
 
 /**
  * Created by wanglin  on 2017/12/11 16:16.

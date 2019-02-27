@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.jakewharton.rxbinding.view.RxView;
-import com.tencent.bugly.beta.Beta;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
@@ -18,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.KeyboardUtils;
+import yc.com.blankj.utilcode.util.StringUtils;
 
 /**
  * Created by zhangkai on 2017/7/27.

@@ -10,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.iflytek.cloud.ErrorCode;
@@ -43,6 +41,8 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.OnClick;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.StringUtils;
+import yc.com.blankj.utilcode.util.ToastUtils;
 
 import static com.yc.english.read.common.SpeechUtils.mContext;
 

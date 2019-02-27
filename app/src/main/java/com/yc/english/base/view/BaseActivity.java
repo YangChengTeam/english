@@ -9,11 +9,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.UIUitls;
 import com.hwangjr.rxbus.RxBus;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
@@ -21,6 +16,11 @@ import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.StatusBarCompat;
 
 import butterknife.ButterKnife;
+import yc.com.base.EmptyUtils;
+import yc.com.blankj.utilcode.util.BarUtils;
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.ScreenUtils;
+import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by zhangkai on 2017/7/17.

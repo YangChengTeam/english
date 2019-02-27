@@ -2,14 +2,13 @@ package com.yc.english.base.view;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.R;
 
 import butterknife.ButterKnife;
+import yc.com.blankj.utilcode.util.LogUtils;
 
 /**
  * Created by zhangkai on 2017/7/28.

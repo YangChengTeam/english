@@ -29,7 +29,8 @@
         android:gravity="center"
         android:text="@string/click_to_skip"
         android:textColor="@android:color/white"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:visibility="gone"/>
 
 
     <View

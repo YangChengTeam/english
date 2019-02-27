@@ -3,7 +3,6 @@ package com.yc.english.setting.model.engin;
 import android.content.Context;
 
 import com.alibaba.fastjson.TypeReference;
-import com.blankj.utilcode.util.EmptyUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
@@ -13,12 +12,12 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.model.bean.MyOrderInfo;
 import com.yc.english.setting.model.bean.ScoreInfo;
 
-import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
+import yc.com.base.EmptyUtils;
 
 /**
  * Created by zhangkai on 2017/8/3.

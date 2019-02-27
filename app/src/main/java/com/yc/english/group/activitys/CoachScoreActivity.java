@@ -11,7 +11,6 @@ import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.constant.GroupConstant;
-import com.yc.english.main.model.domain.UserInfo;
 
 import java.util.concurrent.TimeUnit;
 

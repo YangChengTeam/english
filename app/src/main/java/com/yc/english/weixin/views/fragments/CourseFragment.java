@@ -1,18 +1,25 @@
 package com.yc.english.weixin.views.fragments;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.StateView;
@@ -28,6 +35,8 @@ import com.yc.english.weixin.views.adapters.WeiKeCategoryItemAdapter;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by zhangkai on 2017/8/30.
@@ -42,14 +51,18 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
     @BindView(R.id.sv_loading)
     StateView mLoadingStateView;
 
+    @BindView(R.id.refresh)
+    SmartRefreshLayout mRefreshSwipeRefreshLayout;
+
+
     private int page = 1;
 
     private int pageSize = 20;
 
     private WeiKeCategoryItemAdapter mWeiKeCategoryItemAdapter;
 
-    @BindView(R.id.refresh)
-    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
+    //    @BindView(R.id.refresh)
+//    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
     private TextView mTvHeaderView;
     private String type;
     private String cate;
@@ -100,10 +113,25 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
         }, mCourseRecyclerView);
 
         mPresenter.getWeikeCategoryList(type, page + "", cate);
-        mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
-        mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//        mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
+//        mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                refresh("mRefreshSwipeRefreshLayout");
+//            }
+//        });
+        initRefresh();
+    }
+
+
+    private void initRefresh() {
+        //设置 Header 为 贝塞尔雷达 样式
+        mRefreshSwipeRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        mRefreshSwipeRefreshLayout.setPrimaryColorsId(R.color.primaryDark);
+        mRefreshSwipeRefreshLayout.setEnableLoadMore(false);
+        mRefreshSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 refresh("mRefreshSwipeRefreshLayout");
             }
         });
@@ -136,9 +164,12 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
 
     @Override
     public void showLoading() {
-        if (!mRefreshSwipeRefreshLayout.isRefreshing() || (mWeiKeCategoryItemAdapter.getData() == null || mWeiKeCategoryItemAdapter.getData()
+        if ((mWeiKeCategoryItemAdapter.getData() == null || mWeiKeCategoryItemAdapter.getData()
                 .size() == 0))
             mLoadingStateView.showLoading(mCourseRecyclerView);
+        if (mRefreshSwipeRefreshLayout != null) {
+            mRefreshSwipeRefreshLayout.finishRefresh();
+        }
     }
 
     @Override
@@ -156,7 +187,9 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
         } else {
             mWeiKeCategoryItemAdapter.loadMoreEnd();
         }
-        mRefreshSwipeRefreshLayout.setRefreshing(false);
+        if (mRefreshSwipeRefreshLayout != null) {
+            mRefreshSwipeRefreshLayout.finishRefresh();
+        }
         mTvHeaderView.setText(String.format(getString(R.string.update_weike), count + ""));
 
     }
@@ -169,11 +202,18 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
     @Override
     public void fail() {
         mWeiKeCategoryItemAdapter.loadMoreFail();
+        if (mRefreshSwipeRefreshLayout != null) {
+            mRefreshSwipeRefreshLayout.finishRefresh();
+        }
     }
 
 
     @Override
     public void end() {
         mWeiKeCategoryItemAdapter.loadMoreEnd();
+        if (mRefreshSwipeRefreshLayout != null) {
+            mRefreshSwipeRefreshLayout.finishRefresh();
+        }
     }
+
 }

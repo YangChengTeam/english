@@ -2,25 +2,25 @@ package com.yc.english.intelligent.view.activitys
 
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
-import com.blankj.utilcode.util.SPUtils
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
 import com.jakewharton.rxbinding.view.RxView
 import com.kk.securityhttp.net.contains.HttpConfig
 import com.umeng.analytics.MobclickAgent
-import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.R
 import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.base.view.BaseActivity
 import com.yc.english.intelligent.contract.IntelligentPushQuestionContract
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentPushQuestionPresenter
+import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.intelligent.view.adpaters.IntelligentPushAdpater
 import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
 import com.yc.english.speak.view.activity.QuestionActivity
 import kotlinx.android.synthetic.main.intelligent_activity_push_question.*
+import yc.com.blankj.utilcode.util.SPUtils
 import java.util.concurrent.TimeUnit
 
 /**

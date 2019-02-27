@@ -2,7 +2,6 @@ package com.yc.english.read.view.activitys;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,10 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -37,7 +32,6 @@ import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.jakewharton.rxbinding.view.RxView;
-import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.StatusBarCompat;
@@ -47,7 +41,6 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.news.utils.ViewUtil;
 import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.contract.CoursePlayContract;
 import com.yc.english.read.model.domain.EnglishCourseInfo;
@@ -76,6 +69,9 @@ import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.subjects.PublishSubject;
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.StringUtils;
+import yc.com.blankj.utilcode.util.ToastUtils;
 
 public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> implements CoursePlayContract.View {
 

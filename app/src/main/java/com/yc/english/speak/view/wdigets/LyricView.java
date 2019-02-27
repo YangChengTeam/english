@@ -11,10 +11,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.os.Looper;
 import android.support.annotation.IntDef;
-import android.support.v4.content.ContextCompat;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -28,12 +26,7 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.UIUitls;
 import com.kk.utils.LogUtil;
-import com.kk.utils.ScreenUtil;
 import com.yc.english.R;
 
 import org.mozilla.universalchardet.UniversalDetector;
@@ -52,6 +45,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.StringUtils;
 
 /**
  * Created by zhengken.me on 2016/11/27.

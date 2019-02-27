@@ -3,9 +3,6 @@ package com.yc.english.setting.view.popupwindows;
 import android.app.Activity;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.ClipboardUtils;
-import com.blankj.utilcode.util.UIUitls;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
@@ -15,6 +12,9 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.AppUtils;
+import yc.com.blankj.utilcode.util.ClipboardUtils;
+import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by zhangkai on 2017/8/2.

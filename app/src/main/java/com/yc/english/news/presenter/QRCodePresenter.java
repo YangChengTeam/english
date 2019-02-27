@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.blankj.utilcode.util.UIUitls;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.news.contract.QRCodeContract;
@@ -14,6 +13,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by wanglin  on 2018/10/18 15:58.

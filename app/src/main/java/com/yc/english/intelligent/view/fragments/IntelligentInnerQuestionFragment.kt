@@ -1,8 +1,6 @@
 package com.yc.english.intelligent.view.fragments
 
 import android.view.View
-import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.SizeUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
@@ -17,6 +15,7 @@ import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.intelligent.view.adpaters.IntelligentOptionsAdapter
 import com.yc.english.main.model.domain.Constant
 import kotlinx.android.synthetic.main.intelligent_fragment_inner_question.*
+import yc.com.blankj.utilcode.util.SPUtils
 
 /**
  * Created by zhangkai on 2017/12/4.

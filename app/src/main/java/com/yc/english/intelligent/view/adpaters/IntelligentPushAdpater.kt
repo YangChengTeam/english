@@ -2,13 +2,13 @@ package com.yc.english.intelligent.view.adpaters
 
 import android.support.v4.content.ContextCompat
 import android.widget.LinearLayout
-import com.blankj.utilcode.util.SizeUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yc.english.R
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.intelligent.view.wdigets.IntelligentPushQuestionView
+import yc.com.blankj.utilcode.util.SizeUtils
 
 
 /**
@@ -29,12 +29,12 @@ class IntelligentPushAdpater : BaseQuickAdapter<UnitInfoWrapper.ComleteItemInfo,
                     "color='#FB4C30'>已完成</font>)")
         }
         if (helper!!.adapterPosition % 2 == 0) {
-            (questionView!!.layoutParams as LinearLayout.LayoutParams).leftMargin = SizeUtils.dp2px(10f)
-            (questionView!!.layoutParams as LinearLayout.LayoutParams).rightMargin = SizeUtils.dp2px(5f)
+            (questionView?.layoutParams as LinearLayout.LayoutParams).leftMargin = SizeUtils.dp2px(10f)
+            (questionView.layoutParams as LinearLayout.LayoutParams).rightMargin = SizeUtils.dp2px(5f)
 
         } else {
-            (questionView!!.layoutParams as LinearLayout.LayoutParams).leftMargin = SizeUtils.dp2px(5f)
-            (questionView!!.layoutParams as LinearLayout.LayoutParams).rightMargin = SizeUtils.dp2px(10f)
+            (questionView?.layoutParams as LinearLayout.LayoutParams).leftMargin = SizeUtils.dp2px(5f)
+            (questionView.layoutParams as LinearLayout.LayoutParams).rightMargin = SizeUtils.dp2px(10f)
         }
     }
 

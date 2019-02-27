@@ -3,9 +3,9 @@ package com.yc.english.base.utils;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.blankj.subutil.util.ThreadPoolUtils;
-import com.blankj.utilcode.util.FileIOUtils;
-import com.blankj.utilcode.util.PathUtils;
+import yc.com.base.ThreadPoolUtils;
+import yc.com.blankj.utilcode.util.FileIOUtils;
+import yc.com.blankj.utilcode.util.PathUtils;
 
 /**
  * Created by zhangkai on 2017/11/22.

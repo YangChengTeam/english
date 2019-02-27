@@ -3,8 +3,8 @@ package com.yc.english.base.helper;
 import android.app.Activity;
 import android.content.Context;
 
-import com.blankj.utilcode.util.SnackbarUtils;
-import com.blankj.utilcode.util.ToastUtils;
+import yc.com.blankj.utilcode.util.SnackbarUtils;
+import yc.com.blankj.utilcode.util.ToastUtils;
 
 /**
  * Created by zhangkai on 2017/8/3.

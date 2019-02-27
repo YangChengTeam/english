@@ -3,7 +3,6 @@ package com.yc.english.news.view.widget;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -16,10 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.PathUtils;
-import com.blankj.utilcode.util.TimeUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.umeng.socialize.sina.helper.MD5;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
@@ -34,6 +29,11 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.PathUtils;
+import yc.com.blankj.utilcode.util.TimeUtils;
+import yc.com.blankj.utilcode.util.ToastUtils;
 
 /**
  * Created by wanglin  on 2017/9/6 15:15.

@@ -2,7 +2,6 @@ package com.yc.english.news.presenter;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.OrderResultInfoHelper;
 import com.yc.english.base.helper.ResultInfoHelper;
@@ -14,6 +13,7 @@ import com.yc.english.pay.alipay.OrderInfo;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.blankj.utilcode.util.LogUtils;
 
 public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View> implements OrderContract.Presenter {
     public OrderPresenter(Context context, OrderContract.View view) {

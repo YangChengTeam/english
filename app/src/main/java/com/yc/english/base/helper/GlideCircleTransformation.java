@@ -1,17 +1,17 @@
 package com.yc.english.base.helper;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
 import java.security.MessageDigest;
+
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**
  * Created by zhangkai on 2017/8/7.

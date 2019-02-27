@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.yc.english">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -56,6 +57,8 @@
 
         <activity
             android:name=".read.view.activitys.BookActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".read.view.activitys.AddBookActivity"
@@ -211,6 +214,34 @@
             android:name=".group.activitys.GroupPictureDetailActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.yc.soundmark.study.activity.StudyActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.yc.soundmark.study.activity.PreviewActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.yc.soundmark.category.activity.WeikeUnitActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yc.soundmark.category.activity.WeiKeDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+
+        <activity
+            android:name="com.yc.soundmark.category.activity.CategoryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.yc.soundmark.index.activity.PhoneticActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+
         <receiver
             android:name=".speak.view.activity.ListenEnglishActivity$NotificationPlayerReceiver"
             android:exported="true">
@@ -224,6 +255,7 @@
         <activity
             android:name="com.qq.e.ads.ADActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+
         <!-- targetSDKVersion >= 24时才需要添加这个 provider。provider 的 authorities 属性的值为 ${applicationId}.fileprovider，请开发者根据自己的 ${applicationId} 来设置这个值 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -232,7 +264,8 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/gdt_file_path" />
+                android:resource="@xml/gdt_file_path"
+                tools:replace="android:resource" />
         </provider>
 
         <meta-data

@@ -10,13 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.yc.english.R;
 import com.yc.english.read.model.domain.WordDetailInfo;
 import com.yc.english.read.model.domain.WordInfo;
 
 import java.util.List;
+
+import yc.com.blankj.utilcode.util.ActivityUtils;
 
 /**
  * Created by admin on 2017/8/16.

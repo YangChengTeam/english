@@ -8,7 +8,7 @@ import android.webkit.WebView
 import android.widget.LinearLayout
 import android.widget.TextView
 import butterknife.BindView
-import com.blankj.utilcode.util.SnackbarUtils.dismiss
+
 import com.jakewharton.rxbinding.view.RxView
 import com.umeng.analytics.MobclickAgent
 import com.yc.english.R

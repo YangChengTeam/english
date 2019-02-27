@@ -78,5 +78,8 @@
     <dimen name="t25dp">25dp</dimen>
     <dimen name="t2dp">2dp</dimen>
     <dimen name="t37dp">37dp</dimen>
-
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="status_bar_height">0dp</dimen>
+    <dimen name="top_guide">80dp</dimen>
 </resources>

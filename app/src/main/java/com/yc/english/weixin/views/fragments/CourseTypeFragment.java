@@ -2,13 +2,9 @@ package com.yc.english.weixin.views.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -18,10 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSON;
-import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.blankj.utilcode.util.UIUitls;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
@@ -34,7 +26,6 @@ import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.CommonWebView;
 import com.yc.english.base.view.LoadingDialog;
-import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.hepler.BannerImageLoader;
@@ -60,9 +51,11 @@ import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
+import yc.com.base.EmptyUtils;
+import yc.com.blankj.utilcode.util.SPUtils;
+import yc.com.blankj.utilcode.util.ToastUtils;
+import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by zhangkai on 2017/8/30.
@@ -251,7 +244,6 @@ public class CourseTypeFragment extends BaseFragment<CourseTypePresenter> implem
                 UserInfoHelper.isGotoLogin(getActivity());
                 return;
             }
-
 
             if (TextUtils.isEmpty(paywayname)) {
                 paywayname = "alipay";

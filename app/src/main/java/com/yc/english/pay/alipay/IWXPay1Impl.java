@@ -1,18 +1,16 @@
 package com.yc.english.pay.alipay;
 
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.List;
+
+import yc.com.blankj.utilcode.util.ToastUtils;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
 

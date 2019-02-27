@@ -2,13 +2,13 @@ package com.yc.english.intelligent.view.adpaters
 
 import android.graphics.Color
 import android.widget.TextView
-import com.blankj.utilcode.util.SPUtils
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.hwangjr.rxbus.RxBus
 import com.yc.english.R
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.main.model.domain.Constant
+import yc.com.blankj.utilcode.util.SPUtils
 
 /**
  * Created by zhangkai on 2017/12/1.
@@ -26,21 +26,21 @@ class IntelligentResultAdapter : BaseMultiItemQuickAdapter<QuestionInfoWrapper.Q
     override fun convert(helper: BaseViewHolder?, item: QuestionInfoWrapper.QuestionInfo?) {
         when (helper?.itemViewType) {
             0 -> {
-                helper?.setText(R.id.tv_title, item?.title)
+                helper.setText(R.id.tv_title, item?.title)
                 if (!(item?.type.equals("hearing") || item?.type.equals("vocabulary"))) {
                     index = 0
                 }
             }
             1 -> {
-                helper?.setText(R.id.tv_index, (++index).toString())
-                helper?.getView<TextView>(R.id.tv_answer).setTextColor(Color.WHITE)
-                helper?.getView<TextView>(R.id.tv_answer).text = item?.userAnswer ?: SPUtils.getInstance().getString("userAnswer${item?.id}", "")
+                helper.setText(R.id.tv_index, (++index).toString())
+                helper.getView<TextView>(R.id.tv_answer).setTextColor(Color.WHITE)
+                helper.getView<TextView>(R.id.tv_answer).text = item?.userAnswer ?: SPUtils.getInstance().getString("userAnswer${item?.id}", "")
                 if (item?.userAnswer != "" && item?.userAnswer == item?.answer) {
                     rightCount++
-                    helper?.setBackgroundRes(R.id.tv_answer, R.drawable.intelligent_answer_right)
+                    helper.setBackgroundRes(R.id.tv_answer, R.drawable.intelligent_answer_right)
                 } else {
                     errorCount++
-                    helper?.setBackgroundRes(R.id.tv_answer, R.drawable.intelligent_answer_error)
+                    helper.setBackgroundRes(R.id.tv_answer, R.drawable.intelligent_answer_error)
                 }
             }
         }

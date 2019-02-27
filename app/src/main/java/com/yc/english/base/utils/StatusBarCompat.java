@@ -7,9 +7,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.yc.english.base.view.BaseActivity;
+
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**
  * Created by zhangkai on 2017/11/27.

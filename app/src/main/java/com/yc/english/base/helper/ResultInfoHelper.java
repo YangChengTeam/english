@@ -1,8 +1,9 @@
 package com.yc.english.base.helper;
 
-import com.blankj.utilcode.util.EmptyUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
+
+import yc.com.base.EmptyUtils;
 
 /**
  * Created by zhangkai on 2017/8/3.

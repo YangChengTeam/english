@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -29,6 +28,7 @@ import com.yc.english.main.model.domain.Constant;
 import java.util.List;
 
 import butterknife.BindView;
+import yc.com.blankj.utilcode.util.StringUtils;
 
 /**
  * Created by admin on 2017/7/25.

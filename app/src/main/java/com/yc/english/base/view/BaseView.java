@@ -4,9 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import com.blankj.utilcode.util.LogUtils;
-
 import butterknife.ButterKnife;
+import yc.com.blankj.utilcode.util.LogUtils;
 
 /**
  * Created by zhangkai on 2017/7/24.

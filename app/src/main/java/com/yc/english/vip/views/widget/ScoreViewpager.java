@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.LogUtils;
 
 /**
  * Created by wanglin  on 2017/11/28 16:13.

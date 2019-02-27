@@ -2,25 +2,24 @@ package com.yc.english.main.view.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
@@ -28,33 +27,31 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
-import com.qq.e.ads.banner.ADSize;
-import com.qq.e.ads.banner.AbstractBannerADListener;
-import com.qq.e.ads.banner.BannerView;
 import com.qq.e.ads.cfg.MultiProcessFlag;
+import com.qq.e.ads.nativ.ADSize;
 import com.qq.e.ads.nativ.NativeExpressAD;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.qq.e.comm.pi.AdData;
 import com.qq.e.comm.util.AdError;
 import com.qq.e.comm.util.GDTLogger;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.EnglishApp;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.base.utils.PropertyUtil;
 import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.utils.TencentAdvManager;
 import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.BaseFragment;
-import com.yc.english.base.view.IndexVipKidDialog;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
-import com.yc.english.base.view.UserLoginDialog;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
-import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
@@ -66,8 +63,6 @@ import com.yc.english.news.utils.SmallProcedureUtils;
 import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
-import com.yc.english.read.view.activitys.BookUnitActivity;
-import com.yc.english.read.view.activitys.WordUnitActivity;
 import com.yc.english.speak.view.activity.SpeakMainActivity;
 import com.yc.english.speak.view.adapter.IndexRecommendAdapterNew;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
@@ -76,25 +71,32 @@ import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.yc.english.weixin.views.activitys.CourseClassifyActivity;
 import com.yc.english.weixin.views.activitys.CourseTypeActivity;
 import com.yc.english.weixin.views.activitys.WeikeUnitActivity;
+import com.yc.soundmark.study.activity.StudyActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import rx.Observable;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.functions.Action1;
+import yc.com.base.EmptyUtils;
+import yc.com.blankj.utilcode.util.SPUtils;
+import yc.com.tencent_adv.AdvDispatchManager;
+import yc.com.tencent_adv.AdvType;
+import yc.com.tencent_adv.OnAdvStateListener;
 
 
 /**
  * Created by zhangkai on 2017/7/24.
  */
 
-public class IndexFragment extends BaseFragment<IndexPresenter> implements IndexContract.View, NativeExpressAD.NativeExpressADListener {
+public class IndexFragment extends BaseFragment<IndexPresenter> implements IndexContract.View, NativeExpressAD.NativeExpressADListener, OnAdvStateListener {
     @BindView(R.id.sv_content)
     ScrollView mContextScrollView;
 
@@ -149,6 +151,16 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     FrameLayout bannerContainer;
     @BindView(R.id.bannerBottomContainer)
     FrameLayout bannerBottomContainer;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout mRefreshSwipeRefreshLayout;
+    @BindView(R.id.iv_topbanner_close)
+    ImageView ivTopbannerClose;
+    @BindView(R.id.rl_top_banner)
+    RelativeLayout rlTopBanner;
+    @BindView(R.id.iv_bottombanner_close)
+    ImageView ivBottombannerClose;
+    @BindView(R.id.rl_bottom_banner)
+    RelativeLayout rlBottomBanner;
 
 
     private AritleAdapter mHotMircoClassAdapter;
@@ -173,8 +185,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     private IndexRecommendAdapterNew mRecommendAdapter;
 
-    @BindView(R.id.refresh)
-    SwipeRefreshLayout mRefreshSwipeRefreshLayout;
+
     private SlideInfo dialogInfo;
 
     public static final int AD_COUNT = 1;// 加载广告的条数，取值范围为[1, 10]
@@ -189,16 +200,23 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @Override
     public void init() {
 
-        Properties pt = PropertyUtil.getProperties(getActivity());
+//        Properties pt = PropertyUtil.getProperties(getActivity());
 
-        isXiaomi = pt.getProperty("isXiaomi");
 
-        if (TextUtils.equals("true", isXiaomi)) {
-            bannerContainer.setVisibility(View.GONE);
-            bannerBottomContainer.setVisibility(View.GONE);
+//        isXiaomi = pt.getProperty("isXiaomi");
+//        String isShowIndexAdv = pt.getProperty("isShowIndexAdv");
+
+        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND)) {
+            rlTopBanner.setVisibility(View.GONE);
+            rlBottomBanner.setVisibility(View.GONE);
+//            bannerContainer.setVisibility(View.GONE);
+//            bannerBottomContainer.setVisibility(View.GONE);
         }
-        TencentAdvManager.showBannerAdv(getActivity(), bannerContainer, Constant.BANNER_ADV1);
-        TencentAdvManager.showBannerAdv(getActivity(), bannerBottomContainer, Constant.BANNER_ADV2);
+//        AdvDispatchManager.getManager().init(getActivity(), AdvType.BANNER, bannerContainer, null, Constant.TENCENT_ADV_ID, Constant.BANNER_ADV1, this);
+        AdvDispatchManager.getManager().init(getActivity(), AdvType.BANNER, bannerBottomContainer, null, Constant.TENCENT_ADV_ID, Constant.BANNER_ADV2, this);
+
+//        TencentAdvManager.showBannerAdv(getActivity(),bannerBottomContainer, Constant.BANNER_ADV2);
+
 
         initNativeExpressAD();
         StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolBar, mStatusBar);
@@ -328,7 +346,10 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
 //                ToastUtil.toast2(getActivity(), "功能正在开发中...");
 //                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.assistant_originid, GroupConstant.appid);
-                SmallProcedureUtils.switchSmallProcedure(getActivity(), "gh_e46e21f44c08", GroupConstant.appid);
+//                SmallProcedureUtils.switchSmallProcedure(getActivity(), "gh_e46e21f44c08", GroupConstant.appid);
+                Intent intent = new Intent(getActivity(), StudyActivity.class);
+                startActivity(intent);
+
 
             }
         });
@@ -459,6 +480,20 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             }
         });
 
+        RxView.clicks(ivTopbannerClose).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                rlTopBanner.setVisibility(View.GONE);
+            }
+        });
+
+        RxView.clicks(ivBottombannerClose).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                rlBottomBanner.setVisibility(View.GONE);
+            }
+        });
+
 
         if (SPUtils.getInstance().getString("period", "").isEmpty()) {
 
@@ -484,18 +519,26 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //        UserLoginDialog userLoginDialog = new UserLoginDialog(getActivity());
 //        userLoginDialog.show();
 
-        mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primary));
-        mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mPresenter.getIndexInfo(true);
-//                if (null != banner) banner.loadAD();
 
-            }
-        });
+        initRefresh();
+
 //
 
 
+    }
+
+    private void initRefresh() {
+        //设置 Header 为 贝塞尔雷达 样式
+        mRefreshSwipeRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        mRefreshSwipeRefreshLayout.setPrimaryColorsId(R.color.primaryDark);
+        mRefreshSwipeRefreshLayout.setEnableLoadMore(false);
+        mRefreshSwipeRefreshLayout.autoRefresh();
+        mRefreshSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mPresenter.getIndexInfo(true);
+            }
+        });
     }
 
     //1.当天是否弹出过
@@ -592,14 +635,14 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             advInfo = slideInfo;
             GlideHelper.imageView(getContext(), mExamImageView, slideInfo.getImg(), R.mipmap.xiaoxueyinbbiao_ad);
         }
-
-        if (mRefreshSwipeRefreshLayout.isRefreshing())
-            mRefreshSwipeRefreshLayout.setRefreshing(false);
+//
+//        if (mRefreshSwipeRefreshLayout.ref())
+        mRefreshSwipeRefreshLayout.finishRefresh();
     }
 
     private void initNativeExpressAD() {//com.qq.e.ads.nativ.ADSize.FULL_WIDTH
         MultiProcessFlag.setMultiProcess(true);
-        com.qq.e.ads.nativ.ADSize adSize = new com.qq.e.ads.nativ.ADSize(com.qq.e.ads.nativ.ADSize.FULL_WIDTH, com.qq.e.ads.nativ.ADSize.AUTO_HEIGHT); // 消息流中用AUTO_HEIGHT // 消息流中用AUTO_HEIGHT
+        ADSize adSize = new ADSize(ADSize.FULL_WIDTH, ADSize.AUTO_HEIGHT); // 消息流中用AUTO_HEIGHT // 消息流中用AUTO_HEIGHT
         NativeExpressAD mADManager = new NativeExpressAD(getActivity(), adSize, Constant.TENCENT_ADV_ID, Constant.NATIVE_ADV_ID, this);
         mADManager.loadAD(AD_COUNT);
     }
@@ -638,8 +681,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showNoNet() {
-        if (mRefreshSwipeRefreshLayout.isRefreshing())
-            mRefreshSwipeRefreshLayout.setRefreshing(false);
+//        if (mRefreshSwipeRefreshLayout.isRefreshing())
+//            mRefreshSwipeRefreshLayout.setRefreshing(false);
+
+        mRefreshSwipeRefreshLayout.finishRefresh();
+
         mLoadingStateView.showNoNet(mContextScrollView, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -650,8 +696,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showNoData() {
-        if (mRefreshSwipeRefreshLayout.isRefreshing())
-            mRefreshSwipeRefreshLayout.setRefreshing(false);
+//        if (mRefreshSwipeRefreshLayout.isRefreshing())
+//            mRefreshSwipeRefreshLayout.setRefreshing(false);
+        mRefreshSwipeRefreshLayout.finishRefresh();
         mLoadingStateView.showNoData(mContextScrollView);
 
     }
@@ -752,5 +799,33 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         super.onDestroy();
         if (view != null) view.destroy();
 //        if (banner != null) banner.destroy();
+    }
+
+    @Override
+    public void onShow() {
+//        ivTopbannerClose.setVisibility(View.VISIBLE);
+        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND))) {
+            ivBottombannerClose.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onDismiss(long delayTime) {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onNativeExpressDismiss(NativeExpressADView view) {
+
+    }
+
+    @Override
+    public void onNativeExpressShow(Map<NativeExpressADView, Integer> mDatas) {
+
     }
 }

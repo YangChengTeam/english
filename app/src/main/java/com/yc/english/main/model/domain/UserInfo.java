@@ -30,6 +30,8 @@ public class UserInfo {
 
     private String pwd_text;//原始密码
 
+    private int yb_vip;//是否是音标vip
+
     public String getMobile() {
         return mobile;
     }
@@ -149,5 +151,13 @@ public class UserInfo {
 
     public void setPwd_text(String pwd_text) {
         this.pwd_text = pwd_text;
+    }
+
+    public int getYb_vip() {
+        return yb_vip;
+    }
+
+    public void setYb_vip(int yb_vip) {
+        this.yb_vip = yb_vip;
     }
 }

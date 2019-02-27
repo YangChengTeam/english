@@ -3,7 +3,6 @@ package com.yc.english.setting.model.engin;
 import android.content.Context;
 import android.util.Log;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstant;
 
@@ -23,6 +22,7 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import yc.com.blankj.utilcode.util.LogUtils;
 
 
 /**

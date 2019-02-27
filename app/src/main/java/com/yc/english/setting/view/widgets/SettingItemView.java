@@ -3,7 +3,6 @@ package com.yc.english.setting.view.widgets;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -12,11 +11,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseView;
 
 import butterknife.BindView;
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**
  * Created by zhangkai on 2017/7/28.

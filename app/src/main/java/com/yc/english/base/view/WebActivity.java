@@ -6,10 +6,10 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.blankj.utilcode.util.UIUitls;
 import com.yc.english.R;
 
 import butterknife.BindView;
+import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by zhangkai on 2017/8/14.

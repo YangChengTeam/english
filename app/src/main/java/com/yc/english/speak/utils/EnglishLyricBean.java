@@ -1,15 +1,14 @@
 package com.yc.english.speak.utils;
 
 import android.media.MediaMetadataRetriever;
-import android.support.design.internal.ScrimInsetsFrameLayout;
 import android.text.TextUtils;
-
-import com.blankj.utilcode.util.LogUtils;
 
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import yc.com.blankj.utilcode.util.LogUtils;
 
 
 /**

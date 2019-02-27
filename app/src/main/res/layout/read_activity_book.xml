@@ -18,10 +18,27 @@
         android:layout_height="match_parent"
         android:visibility="gone"></com.yc.english.base.view.StateView>
 
-    <FrameLayout
-        android:id="@+id/topBanner"
+    <RelativeLayout
+        android:id="@+id/rl_top_banner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/topBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/iv_topbanner_close"
+            android:layout_width="@dimen/t15dp"
+            android:layout_height="@dimen/t15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/t5dp"
+            android:layout_marginTop="@dimen/t5dp"
+            android:src="@mipmap/banner_close"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -138,11 +155,28 @@
                 <include layout="@layout/activity_synchronization_teach" />
             </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/bottomBanner"
+            <RelativeLayout
+                android:id="@+id/rl_bottom_banner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-               />
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:id="@+id/bottomBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <ImageView
+                    android:id="@+id/iv_bottombanner_close"
+                    android:layout_width="@dimen/t15dp"
+                    android:layout_height="@dimen/t15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/t5dp"
+                    android:layout_marginTop="@dimen/t5dp"
+                    android:src="@mipmap/banner_close"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 

@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.PhoneUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
@@ -22,6 +20,8 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.KeyboardUtils;
+import yc.com.blankj.utilcode.util.PhoneUtils;
 
 /**
  * Created by zhangkai on 2017/7/24.

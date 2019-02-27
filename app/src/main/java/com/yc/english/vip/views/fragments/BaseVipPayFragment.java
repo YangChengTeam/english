@@ -2,17 +2,13 @@ package com.yc.english.vip.views.fragments;
 
 
 import android.graphics.Paint;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseFragment;
@@ -25,15 +21,12 @@ import com.yc.english.vip.utils.VipInfoHelper;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**
  * Created by wanglin  on 2017/11/27 14:46.
@@ -112,9 +105,9 @@ public class BaseVipPayFragment extends BaseFragment {
         baseItemViewTaskTutorship.setVisibility(mType == GoodsType.TYPE_SVIP ? View.VISIBLE : View.GONE);
         GoodInfoWrapper goodInfoWrapper = VipInfoHelper.getGoodInfoWrapper();
 
-
+        if (goodInfoWrapper != null)
 //        sVipList = goodInfoWrapper.getSvip();
-        generalVipList = goodInfoWrapper.getVip();
+            generalVipList = goodInfoWrapper.getVip();
 //        dianduList = goodInfoWrapper.getDiandu();
 //        Collections.sort(dianduList, new Comparator<GoodInfo>() {
 //            @Override
@@ -200,7 +193,7 @@ public class BaseVipPayFragment extends BaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.base_vip_right;
+        return R.layout.base_vip_right_new;
     }
 
 

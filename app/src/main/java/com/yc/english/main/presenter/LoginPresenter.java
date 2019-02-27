@@ -2,10 +2,6 @@ package com.yc.english.main.presenter;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.EmptyUtils;
-import com.blankj.utilcode.util.RegexUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.utils.LogUtil;
@@ -28,6 +24,10 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import yc.com.base.EmptyUtils;
+import yc.com.blankj.utilcode.util.RegexUtils;
+import yc.com.blankj.utilcode.util.SPUtils;
+import yc.com.blankj.utilcode.util.StringUtils;
 
 /**
  * Created by zhangkai on 2017/7/25.

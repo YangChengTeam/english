@@ -5,12 +5,9 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import butterknife.BindView
 import com.alibaba.fastjson.JSON
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.SPUtils
 import com.hwangjr.rxbus.RxBus
 import com.jakewharton.rxbinding.view.RxView
 import com.kk.securityhttp.net.contains.HttpConfig
-import com.kk.utils.LogUtil
 import com.yc.english.EnglishApp
 import com.yc.english.R
 import com.yc.english.base.view.BasePopupWindow
@@ -18,6 +15,7 @@ import com.yc.english.intelligent.model.domain.VGInfoWarpper
 import com.yc.english.intelligent.model.engin.IntelligentTypeEngin
 import com.yc.english.intelligent.view.adpaters.IntelligentVGAdpater
 import com.yc.english.main.model.domain.Constant
+import yc.com.blankj.utilcode.util.SPUtils
 import java.util.concurrent.TimeUnit
 
 

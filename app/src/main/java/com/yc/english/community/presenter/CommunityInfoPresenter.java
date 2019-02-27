@@ -2,7 +2,6 @@ package com.yc.english.community.presenter;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.UIUitls;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.securityhttp.net.entry.UpFileInfo;
@@ -18,6 +17,7 @@ import com.yc.english.community.model.engin.CommunityInfoEngin;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by admin on 2017/8/30.

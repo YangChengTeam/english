@@ -1,6 +1,7 @@
 package com.yc.english.read.view.activitys;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,43 +10,49 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
-import com.kk.utils.LogUtil;
+import com.jakewharton.rxbinding.view.RxView;
+import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.utils.PropertyUtil;
 import com.yc.english.base.utils.TencentAdvManager;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
-import com.yc.english.read.model.domain.Constant;
 import com.yc.english.news.utils.ViewUtil;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.contract.BookContract;
 import com.yc.english.read.model.domain.BookInfo;
-
+import com.yc.english.read.model.domain.Constant;
 import com.yc.english.read.presenter.BookPresenter;
 import com.yc.english.read.view.adapter.ReadBookItemClickAdapter;
 import com.yc.english.vip.views.fragments.BasePayItemView;
 
 import java.util.ArrayList;
-import java.util.Properties;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.tencent_adv.AdvDispatchManager;
+import yc.com.tencent_adv.AdvType;
+import yc.com.tencent_adv.OnAdvStateListener;
 
 /**
  * Created by admin on 2017/7/25.
  */
 
-public class BookActivity extends FullScreenActivity<BookPresenter> implements BookContract.View {
+public class BookActivity extends FullScreenActivity<BookPresenter> implements BookContract.View, OnAdvStateListener {
 
     @BindView(R.id.rv_book_list)
     RecyclerView mBookRecyclerView;
@@ -74,6 +81,14 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
     FrameLayout topBanner;
     @BindView(R.id.bottomBanner)
     FrameLayout bottomBanner;
+    @BindView(R.id.iv_bottombanner_close)
+    ImageView ivBottombannerClose;
+    @BindView(R.id.rl_bottom_banner)
+    RelativeLayout rlBottomBanner;
+    @BindView(R.id.iv_topbanner_close)
+    ImageView ivTopbannerClose;
+    @BindView(R.id.rl_top_banner)
+    RelativeLayout rlTopBanner;
 
     private boolean isRead = false;
 
@@ -86,14 +101,16 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
     public void init() {
 
         mPresenter = new BookPresenter(this, this);
-        Properties pt = PropertyUtil.getProperties(this);
+//        Properties pt = PropertyUtil.getProperties(this);
 
-        if (TextUtils.equals("true", pt.getProperty("isXiaomi"))) {
-            topBanner.setVisibility(View.GONE);
-            bottomBanner.setVisibility(View.GONE);
+        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND)) {
+            rlTopBanner.setVisibility(View.GONE);
+            rlBottomBanner.setVisibility(View.GONE);
         }
-        TencentAdvManager.showBannerAdv(this, topBanner, com.yc.english.main.model.domain.Constant.READ_TOP_BANNER);
-        TencentAdvManager.showBannerAdv(this, bottomBanner, com.yc.english.main.model.domain.Constant.READ_BOTTOM_BANNER);
+
+        AdvDispatchManager.getManager().init(this, AdvType.BANNER, topBanner, null, com.yc.english.main.model.domain.Constant.TENCENT_ADV_ID, com.yc.english.main.model.domain.Constant.READ_TOP_BANNER, this);
+        AdvDispatchManager.getManager().init(this, AdvType.BANNER, bottomBanner, null, com.yc.english.main.model.domain.Constant.TENCENT_ADV_ID, com.yc.english.main.model.domain.Constant.READ_BOTTOM_BANNER, this);
+
 
         String titleName;
         if (ReadApp.READ_COMMON_TYPE == 1) {
@@ -149,7 +166,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
                     @Override
                     public void onClick(View v) {
                         alertDialog.dismiss();
-                        BookInfo bookInfo = (BookInfo) mItemAdapter.getData().get(position);
+                        BookInfo bookInfo = mItemAdapter.getData().get(position);
                         mPresenter.deleteBook(bookInfo);
                     }
                 });
@@ -166,7 +183,18 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         }
         ViewUtil.switchActivity(this, baseItemViewBrainpowerAppraisal, 2);
         ViewUtil.switchActivity(this, baseItemViewScoreTutorship, 3);
-
+        RxView.clicks(ivBottombannerClose).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                rlBottomBanner.setVisibility(View.GONE);
+            }
+        });
+        RxView.clicks(ivTopbannerClose).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                rlTopBanner.setVisibility(View.GONE);
+            }
+        });
 
     }
 
@@ -175,7 +203,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
     public void toUnitActivity(int position, Class cls) {
         if (mItemAdapter.getData() != null) {
             Intent intent = new Intent(BookActivity.this, cls);
-            intent.putExtra("book_id", ((BookInfo) mItemAdapter.getData().get(position)).getBookId());
+            intent.putExtra("book_id", mItemAdapter.getData().get(position).getBookId());
             startActivity(intent);
         } else {
             TipsHelper.tips(BookActivity.this, "数据异常，请稍后重试");
@@ -204,7 +232,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         //TODO,数据处理待完成
         LogUtils.e("Add Book --->");
         if (bookInfos == null) {
-            bookInfos = new ArrayList<BookInfo>();
+            bookInfos = new ArrayList<>();
         }
         mItemAdapter.setEditState(isEdit);
         bookInfos.add(0, new BookInfo(BookInfo.CLICK_ITEM_VIEW));
@@ -242,10 +270,33 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         mLoadingStateView.showLoading(mContentLinearLayout);
     }
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public void onShow() {
+        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND))) {
+            ivBottombannerClose.setVisibility(View.VISIBLE);
+            ivTopbannerClose.setVisibility(View.VISIBLE);
+        }
     }
+
+    @Override
+    public void onDismiss(long delayTime) {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onNativeExpressDismiss(NativeExpressADView view) {
+
+    }
+
+    @Override
+    public void onNativeExpressShow(Map<NativeExpressADView, Integer> mDatas) {
+
+    }
+
 }

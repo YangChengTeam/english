@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.yc.english.R;
 import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.AlertDialog;
@@ -29,6 +29,7 @@ import com.yc.english.setting.view.fragments.MyFragment;
 import com.yc.english.weixin.views.fragments.CourseTypeFragment;
 
 import butterknife.BindView;
+import yc.com.blankj.utilcode.util.SPUtils;
 
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {

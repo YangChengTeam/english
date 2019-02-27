@@ -3,24 +3,20 @@ package com.yc.english.base.view;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.UIUitls;
 import com.yc.english.base.utils.NavgationBarUtils;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by zhangkai on 2017/7/28.

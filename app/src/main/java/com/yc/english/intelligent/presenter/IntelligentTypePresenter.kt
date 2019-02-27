@@ -3,7 +3,6 @@ package com.yc.english.intelligent.presenter
 import android.content.Context
 import android.text.TextUtils
 import com.alibaba.fastjson.JSON
-import com.blankj.utilcode.util.SPUtils
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
@@ -17,6 +16,7 @@ import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.english.intelligent.model.domain.VGInfoWarpper
 import com.yc.english.intelligent.model.engin.IntelligentTypeEngin
 import com.yc.english.main.model.domain.Constant
+import yc.com.blankj.utilcode.util.SPUtils
 import java.util.*
 
 /**

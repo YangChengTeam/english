@@ -47,4 +47,29 @@
     <color name="red_f86e54">#f86e54</color>
     <color name="gray_f1f1f1">#F1F1F1</color>
     <color name="black_2d2825">#2D2825</color>
+
+    <color name="app_selected_color">#FB6E56</color>
+    <color name="app_normal_color">#A59C9A</color>
+    <color name="gray_b3b3b0">#B3B3B0</color>
+    <color name="black_555552">#555552</color>
+    <color name="black_565452">#565452</color>
+    <color name="black_585453">#585453</color>
+    <color name="red_eb522b">#EB522B</color>
+    <color name="gray_a59d98">#A59D98</color>
+    <color name="orange_fff4ba">#FFF4BA</color>
+    <color name="red_fee6e1">#FEE6E1</color>
+    <color name="gray_f4efee">#F4EFEE</color>
+    <color name="gray_81817e">#81817E</color>
+    <color name="red_fb4c30">#FB4C30</color>
+    <color name="orange_ffde7c">#FFDE7C</color>
+    <color name="gray_edece5">#EDECE5</color>
+    <color name="orange_c68f45">#C68F45</color>
+    <color name="gray_b9b9b4">#B9B9B4</color>
+    <color name="orange_fec456">#FEC456</color>
+    <color name="purple_b4770a">#B4770A</color>
+    <color name="pink_feeded">#feeded</color>
+    <color name="orange_ffa40e">#FFA40E</color>
+    <color name="orange_d18400">#D18400</color>
+    <color name="orange_fda510">#FDA510</color>
+    <color name="gray_f3efee">#F3EFEE</color>
 </resources>

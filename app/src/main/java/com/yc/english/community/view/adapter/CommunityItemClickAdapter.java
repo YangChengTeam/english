@@ -11,9 +11,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SizeUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
@@ -24,6 +21,10 @@ import com.yc.english.community.view.activitys.CommunityImageShowActivity;
 import java.io.Serializable;
 import java.net.URLDecoder;
 import java.util.List;
+
+import yc.com.blankj.utilcode.util.SizeUtils;
+import yc.com.blankj.utilcode.util.StringUtils;
+import yc.com.blankj.utilcode.util.TimeUtils;
 
 public class CommunityItemClickAdapter extends BaseQuickAdapter<CommunityInfo, BaseViewHolder> {
 

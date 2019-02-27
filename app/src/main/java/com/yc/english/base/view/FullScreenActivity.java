@@ -6,12 +6,12 @@ import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.StatusBarCompat;
 
 import butterknife.BindView;
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**
  * Created by zhangkai on 2017/7/24.

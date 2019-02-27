@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_circle_bg"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/t5dp">
+
+
+    <ImageView
+        android:id="@+id/iv_item_cover"
+        android:layout_width="wrap_content"
+        android:layout_height="110dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/course_item_default_icon" />
+
+    <TextView
+        android:id="@+id/tv_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/t5dp"
+        android:ellipsize="end"
+        android:lines="2"
+        android:text="说说英语趣味音标课（上）"
+        android:textColor="@color/black_585453" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/t5dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/unit_count_icon" />
+
+        <TextView
+            android:id="@+id/tv_item_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/t5dp"
+            android:text="总共4单元"
+            android:textColor="@color/black_585453" />
+    </LinearLayout>
+
+</LinearLayout>

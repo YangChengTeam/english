@@ -16,10 +16,6 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.TimeUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
@@ -39,6 +35,10 @@ import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
+import yc.com.blankj.utilcode.util.LogUtils;
+import yc.com.blankj.utilcode.util.StringUtils;
+import yc.com.blankj.utilcode.util.TimeUtils;
+import yc.com.blankj.utilcode.util.ToastUtils;
 
 /**
  * Created by admin on 2017/10/19.

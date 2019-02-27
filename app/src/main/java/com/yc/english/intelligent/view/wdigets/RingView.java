@@ -12,8 +12,9 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.yc.english.R;
+
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 
 /**

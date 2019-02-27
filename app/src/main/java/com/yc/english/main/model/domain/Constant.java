@@ -1,7 +1,5 @@
 package com.yc.english.main.model.domain;
 
-import org.jetbrains.annotations.NotNull;
-
 /**
  * Created by zhangkai on 2017/8/1.
  */

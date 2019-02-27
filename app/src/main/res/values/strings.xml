@@ -1,7 +1,7 @@
 <resources>
     <!--英语考-->
     <!--英语点读学习-->
-    <string name="app_name">英语点读学习</string>
+    <string name="app_name">说说英语点读</string>
 
     <string name="rc_voice_rec">手指上滑，取消发送</string>
     <string name="rc_voice_cancel">松开手指，取消发送</string>
@@ -30,5 +30,43 @@
     <string name="play">播放</string>
     <string name="record">录音</string>
     <string name="playback">播放录音</string>
+
+
+    <string name="main_phonetic">音标</string>
+    <string name="main_study">学习</string>
+    <string name="main_category">微课</string>
+    <string name="main_1vs1">1对1</string>
+    <string name="phonetic_introduce">音标简介</string>
+    <string name="international_phonetic_introduce">国际音标简介</string>
+    <string name="service_phone">客服电话：</string>
+    <string name="service_wechat">客服微信：</string>
+    <string name="faying_study">发音学习</string>
+    <string name="faying_perception">发音感知</string>
+    <string name="faying_practice">发音练习</string>
+    <string name="faying_essentials">发音要领</string>
+    <string name="faying_apply">发音运用</string>
+
+    <string name="user_id">用户id:%1$s</string>
+    <string name="vip_price">¥%1$s</string>
+    <string name="origin_price">原价¥%1$s元</string>
+    <string name="phone_tint">为了给您提供更好的服务，请填写您的联系方式</string>
+    <string name="is_exit">是否退出%s？</string>
+
+    <string-array name="study_apply_array">
+        <item>单词</item>
+        <item>短语</item>
+        <item>句子</item>
+    </string-array>
+
+
+
+    <string name="evaluating_bad_result">%1$s分，加油</string>
+    <string name="practice_progress">%1$d/3</string>
+
+
+    <string name="playback_back">回放</string>
+    <string name="diandu">课本点读</string>
+    <string name="soundmark">外教音标</string>
+
 
 </resources>

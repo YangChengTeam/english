@@ -2,7 +2,6 @@ package com.yc.english.base.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,10 +11,11 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.yc.english.R;
 
 import java.math.BigDecimal;
+
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 public class HonourAbilityView extends View {
 

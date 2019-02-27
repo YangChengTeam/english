@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.blankj.utilcode.util.LogUtils;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.model.BaseEngin;
@@ -17,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rx.Observable;
+import yc.com.blankj.utilcode.util.LogUtils;
 
 /**
  *

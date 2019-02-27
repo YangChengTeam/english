@@ -2,17 +2,17 @@ package com.yc.english.main.view.adapters;
 
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.model.domain.WeiKeCategory;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+
+import yc.com.blankj.utilcode.util.TimeUtils;
 
 /**
  * Created by zhangkai on 2017/8/30.

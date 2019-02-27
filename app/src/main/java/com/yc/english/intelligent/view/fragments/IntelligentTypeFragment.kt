@@ -4,10 +4,6 @@ import android.graphics.BitmapFactory
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.view.Gravity
-import com.blankj.subutil.util.ThreadPoolUtils
-import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.SizeUtils
-import com.blankj.utilcode.util.UIUitls
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
@@ -26,6 +22,10 @@ import com.yc.english.intelligent.view.activitys.IntelligentVGSelectPopupWindow
 import com.yc.english.main.model.domain.Constant
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_type_fragment_index.*
+import yc.com.base.ThreadPoolUtils
+import yc.com.blankj.utilcode.util.SPUtils
+import yc.com.blankj.utilcode.util.SizeUtils
+import yc.com.blankj.utilcode.util.UIUitls
 import java.util.concurrent.TimeUnit
 
 /**

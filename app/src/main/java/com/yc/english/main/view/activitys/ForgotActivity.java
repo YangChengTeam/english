@@ -7,11 +7,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.UIUitls;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
-import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.utils.StatusBarCompat;
+import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.main.contract.ForgotContract;
 import com.yc.english.main.presenter.ForgotPresenter;
 
@@ -19,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by zhangkai on 2017/7/26.

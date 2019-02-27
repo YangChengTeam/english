@@ -3,10 +3,7 @@ package com.yc.english.setting.view.activitys;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.TextUtils;
-import android.view.TextureView;
 
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -23,11 +20,12 @@ import com.yc.english.setting.contract.PersonCenterContract;
 import com.yc.english.setting.presenter.PersonCenterPresenter;
 import com.yc.english.setting.view.widgets.SettingItemView;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.SPUtils;
+import yc.com.blankj.utilcode.util.StringUtils;
 
 /**
  * Created by zhangkai on 2017/7/24.

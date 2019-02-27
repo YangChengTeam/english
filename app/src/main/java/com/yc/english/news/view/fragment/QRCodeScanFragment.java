@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.ScreenUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.comm_recyclviewadapter.BaseItemDecoration;
 import com.google.zxing.BinaryBitmap;
@@ -44,6 +43,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import butterknife.BindView;
+import yc.com.blankj.utilcode.util.ScreenUtils;
 
 /**
  * Created by wanglin  on 2018/10/18 13:47.

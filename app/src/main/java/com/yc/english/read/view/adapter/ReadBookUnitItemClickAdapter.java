@@ -2,7 +2,6 @@ package com.yc.english.read.view.adapter;
 
 import android.content.Context;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.english.R;
@@ -11,6 +10,8 @@ import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.UnitInfo;
 
 import java.util.List;
+
+import yc.com.blankj.utilcode.util.StringUtils;
 
 
 public class ReadBookUnitItemClickAdapter extends BaseMultiItemQuickAdapter<UnitInfo, BaseViewHolder> {
