@@ -2,10 +2,12 @@ package com.yc.soundmark.study.fragment;
 
 import android.content.Intent;
 import android.graphics.RectF;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -214,7 +216,8 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
             views.clear();
             views.add(llPerceptionContainer);
             views.add(llStudyContainer);
-            startGuide(views, firstLayoutIds);
+            if (!(TextUtils.equals("meizu", Build.BRAND) || TextUtils.equals("Meizu", Build.BRAND)))
+                startGuide(views, firstLayoutIds);
 
             SPUtils.getInstance().put(SpConstant.IS_SHOW_FIRST, false);
         }
