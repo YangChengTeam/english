@@ -6,10 +6,8 @@ import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.base.utils.DrawableUtils;
-import com.yc.english.read.model.domain.BookInfo;
-import com.yc.english.read.model.domain.LetterInfo;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.utils.DrawableUtils;
 import com.yc.junior.english.read.model.domain.BookInfo;
 import com.yc.junior.english.read.model.domain.LetterInfo;
 

@@ -1,9 +1,7 @@
 package com.yc.junior.english.vip.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.yc.english.main.model.domain.Constant;
-import com.yc.english.setting.model.bean.GoodInfo;
-import com.yc.english.setting.model.bean.GoodInfoWrapper;
+import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.setting.model.bean.GoodInfo;
 import com.yc.junior.english.setting.model.bean.GoodInfoWrapper;
 

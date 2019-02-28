@@ -3,12 +3,10 @@ package com.yc.junior.english.base.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 import java.util.concurrent.TimeUnit;
 

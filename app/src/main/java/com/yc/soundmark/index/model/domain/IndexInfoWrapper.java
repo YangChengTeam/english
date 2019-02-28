@@ -1,7 +1,7 @@
 package com.yc.soundmark.index.model.domain;
 
-import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.pay.PayWayInfo;
+import com.yc.junior.english.main.model.domain.UserInfo;
+import com.yc.junior.english.pay.PayWayInfo;
 import com.yc.soundmark.base.model.domain.VipInfo;
 
 import java.util.List;

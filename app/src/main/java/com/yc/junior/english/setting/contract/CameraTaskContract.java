@@ -1,9 +1,10 @@
 package com.yc.junior.english.setting.contract;
 
-import com.yc.english.base.presenter.IPresenter;
-import com.yc.english.base.view.IDialog;
-import com.yc.english.base.view.IView;
-import com.yc.english.group.model.bean.TaskUploadInfo;
+import com.yc.junior.english.group.model.bean.TaskUploadInfo;
+
+import yc.com.base.IDialog;
+import yc.com.base.IPresenter;
+import yc.com.base.IView;
 
 /**
  * Created by wanglin  on 2017/12/11 15:55.

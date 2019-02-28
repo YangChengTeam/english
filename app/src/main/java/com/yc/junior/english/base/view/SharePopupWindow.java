@@ -11,9 +11,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.kk.share.UMShareImpl;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.yc.english.R;
-import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.model.ShareInfo;
+import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.TipsHelper;
 import com.yc.junior.english.base.model.ShareInfo;
 

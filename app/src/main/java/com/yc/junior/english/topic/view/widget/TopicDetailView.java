@@ -10,9 +10,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.yc.english.R;
-import com.yc.english.topic.model.bean.TopicInfo;
-import com.yc.english.topic.view.adapter.CapacityTopicDetailAdapter;
+import com.yc.junior.english.R;
+import com.yc.junior.english.topic.model.bean.TopicInfo;
+import com.yc.junior.english.topic.view.adapter.CapacityTopicDetailAdapter;
 
 /**
  * Created by wanglin  on 2017/9/29 17:43.

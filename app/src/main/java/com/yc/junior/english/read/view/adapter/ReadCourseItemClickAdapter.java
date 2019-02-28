@@ -14,8 +14,7 @@ import com.app.hubert.guide.model.HighLight;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.read.model.domain.EnglishCourseInfo;
+import com.yc.junior.english.R;
 import com.yc.junior.english.read.model.domain.EnglishCourseInfo;
 
 import java.util.List;

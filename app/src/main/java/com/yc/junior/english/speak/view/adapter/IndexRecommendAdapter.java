@@ -4,9 +4,8 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.weixin.model.domain.CourseInfo;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.helper.GlideHelper;
 import com.yc.junior.english.weixin.model.domain.CourseInfo;
 
 import java.text.SimpleDateFormat;
@@ -40,7 +39,6 @@ public class IndexRecommendAdapter extends BaseQuickAdapter<CourseInfo, BaseView
         }
 
     }
-
 
 
 }

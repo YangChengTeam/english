@@ -6,9 +6,8 @@ import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.ScreenUtil;
-import com.yc.english.R;
-import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.main.model.domain.UserInfo;
+import com.yc.junior.english.R;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.UserInfo;
 
 import java.util.concurrent.TimeUnit;

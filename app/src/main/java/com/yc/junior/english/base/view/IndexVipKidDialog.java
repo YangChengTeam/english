@@ -9,8 +9,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.jakewharton.rxbinding.view.RxView;
 import com.umeng.analytics.MobclickAgent;
-import com.yc.english.R;
-import com.yc.english.main.model.domain.SlideInfo;
+import com.yc.junior.english.R;
 import com.yc.junior.english.main.model.domain.SlideInfo;
 
 import java.util.concurrent.TimeUnit;

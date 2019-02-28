@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.yc.english.R;
+import com.yc.junior.english.R;
 import com.yc.soundmark.study.model.domain.PhraseInfo;
 import com.yc.soundmark.study.model.domain.SentenceInfo;
 import com.yc.soundmark.study.model.domain.WordInfo;

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 import yc.com.blankj.utilcode.util.ScreenUtils;
 

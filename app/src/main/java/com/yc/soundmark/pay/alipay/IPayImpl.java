@@ -5,8 +5,8 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.view.KeyEvent;
 
-import com.yc.english.pay.alipay.IPayCallback;
-import com.yc.english.pay.alipay.OrderInfo;
+import com.yc.junior.english.pay.alipay.IPayCallback;
+import com.yc.junior.english.pay.alipay.OrderInfo;
 
 import java.util.HashMap;
 import java.util.Map;

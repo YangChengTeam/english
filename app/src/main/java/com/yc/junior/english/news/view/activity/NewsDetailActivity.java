@@ -41,12 +41,13 @@ import com.yc.junior.english.news.contract.NewsDetailContract;
 import com.yc.junior.english.news.presenter.NewsDetailPresenter;
 import com.yc.junior.english.news.utils.ViewUtil;
 import com.yc.junior.english.news.view.fragment.QRCodeScanFragment;
+import com.yc.junior.english.news.view.widget.MediaPlayerView;
 import com.yc.junior.english.news.view.widget.NewsScrollView;
 import com.yc.junior.english.vip.model.bean.GoodsType;
 import com.yc.junior.english.vip.utils.VipDialogHelper;
 import com.yc.junior.english.vip.views.fragments.BasePayItemView;
 import com.yc.junior.english.weixin.model.domain.CourseInfo;
-import com.yc.soundmark.study.widget.MediaPlayerView;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

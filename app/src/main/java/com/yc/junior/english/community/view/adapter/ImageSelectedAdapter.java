@@ -7,8 +7,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.base.utils.DrawableUtils;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.utils.DrawableUtils;
 
 import java.util.List;
 

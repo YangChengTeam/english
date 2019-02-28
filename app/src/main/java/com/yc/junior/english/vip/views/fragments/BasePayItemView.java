@@ -10,10 +10,10 @@ import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.yc.english.R;
-import com.yc.english.base.view.BaseView;
+import com.yc.junior.english.R;
 
 import butterknife.BindView;
+import yc.com.base.BaseView;
 
 /**
  * Created by wanglin  on 2017/11/24 15:07.

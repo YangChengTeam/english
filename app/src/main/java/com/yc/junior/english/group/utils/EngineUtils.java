@@ -99,7 +99,7 @@ public class EngineUtils {
         UserInfo userInfo = UserInfoHelper.getUserInfo();
         params.put("user_id", userInfo != null ? userInfo.getUid() : "");
         params.put("user_name", userInfo != null ? userInfo.getName() : "");
-        params.put("app_id", String.valueOf(1));
+        params.put("app_id", String.valueOf(7));
         params.put("title", title);
         params.put("price_total", price_total);
         params.put("money", money);

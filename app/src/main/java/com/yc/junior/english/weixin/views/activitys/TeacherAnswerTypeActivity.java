@@ -10,9 +10,9 @@ import com.shizhefei.view.indicator.Indicator;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.umeng.analytics.MobclickAgent;
-import com.yc.english.R;
-import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.weixin.views.utils.TabsUtils;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.FullScreenActivity;
+import com.yc.junior.english.weixin.views.utils.TabsUtils;
 
 import butterknife.BindView;
 

@@ -14,8 +14,7 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.ScreenUtil;
 import com.umeng.analytics.MobclickAgent;
-import com.yc.english.R;
-import com.yc.soundmark.base.fragment.BasePayFragment;
+import com.yc.junior.english.R;
 import com.yc.soundmark.index.fragment.VipEquitiesFragment;
 
 import java.util.concurrent.TimeUnit;

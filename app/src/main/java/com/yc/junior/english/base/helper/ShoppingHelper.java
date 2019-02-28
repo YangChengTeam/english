@@ -1,8 +1,7 @@
 package com.yc.junior.english.base.helper;
 
-import com.yc.english.base.dao.CourseInfoDao;
-import com.yc.english.read.common.ReadApp;
-import com.yc.english.weixin.model.domain.CourseInfo;
+
+import com.yc.junior.english.base.dao.CourseInfoDao;
 import com.yc.junior.english.read.common.ReadApp;
 import com.yc.junior.english.weixin.model.domain.CourseInfo;
 

@@ -13,7 +13,7 @@ import android.support.v4.content.ContextCompat;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 import java.security.MessageDigest;
 

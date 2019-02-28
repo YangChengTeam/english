@@ -1,8 +1,7 @@
 package com.yc.junior.english.base.helper;
 
-import com.yc.english.base.dao.QuestionInfoBeanDao;
-import com.yc.english.read.common.ReadApp;
-import com.yc.english.speak.model.bean.QuestionInfoBean;
+
+import com.yc.junior.english.base.dao.QuestionInfoBeanDao;
 import com.yc.junior.english.read.common.ReadApp;
 import com.yc.junior.english.speak.model.bean.QuestionInfoBean;
 

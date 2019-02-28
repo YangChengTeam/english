@@ -11,9 +11,7 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.yc.english.R;
-import com.yc.english.group.widget.Rotate3dAnimation;
-import com.yc.english.group.widget.ZoomImageView;
+import com.yc.junior.english.R;
 import com.yc.junior.english.group.widget.Rotate3dAnimation;
 import com.yc.junior.english.group.widget.ZoomImageView;
 
@@ -57,7 +55,7 @@ public class GroupPicTaskDetailAdapter extends PagerAdapter {
 
         View view = View.inflate(container.getContext(), R.layout.group_task_picture_item, null);
 
-        ZoomImageView imageView = (ZoomImageView) view.findViewById(R.id.iv_picture_detail);
+        ZoomImageView imageView = view.findViewById(R.id.iv_picture_detail);
 //        RelativeLayout mContainer = (RelativeLayout) view.findViewById(R.id.container);
 //        applyRotation(0, 90, mContainer);
         container.addView(view);

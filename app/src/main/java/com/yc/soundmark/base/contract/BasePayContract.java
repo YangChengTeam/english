@@ -1,7 +1,7 @@
 package com.yc.soundmark.base.contract;
 
-import com.yc.english.news.model.domain.OrderGood;
-import com.yc.english.pay.alipay.OrderInfo;
+import com.yc.junior.english.news.model.domain.OrderGood;
+import com.yc.junior.english.pay.alipay.OrderInfo;
 import com.yc.soundmark.base.model.domain.GoodInfo;
 
 import java.util.List;

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 import com.yc.soundmark.study.adapter.StudyWordAdapter;
 import com.yc.soundmark.study.listener.OnAVManagerListener;
 import com.yc.soundmark.study.listener.OnUIApplyControllerListener;

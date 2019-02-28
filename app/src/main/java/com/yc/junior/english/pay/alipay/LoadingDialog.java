@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 
 /**
@@ -27,8 +27,8 @@ public class LoadingDialog extends Dialog {
         this.setContentView(view);
 
         this.setCancelable(true);
-        ivCircle = (ImageView) view.findViewById(R.id.iv_circle);
-        tvMsg = (TextView) view.findViewById(R.id.tv_msg);
+        ivCircle = view.findViewById(R.id.iv_circle);
+        tvMsg = view.findViewById(R.id.tv_msg);
     }
 
     public void show(String msg) {

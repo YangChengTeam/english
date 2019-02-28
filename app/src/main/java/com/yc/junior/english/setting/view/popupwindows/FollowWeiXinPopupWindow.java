@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
-import com.yc.english.R;
-import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.view.BasePopupWindow;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.helper.TipsHelper;
+import com.yc.junior.english.base.view.BasePopupWindow;
 
 import java.util.concurrent.TimeUnit;
 

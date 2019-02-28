@@ -1,7 +1,7 @@
 <resources>
     <!--英语考-->
     <!--英语点读学习-->
-    <string name="app_name">说说英语点读</string>
+    <string name="app_name">英语考</string>
 
     <string name="rc_voice_rec">手指上滑，取消发送</string>
     <string name="rc_voice_cancel">松开手指，取消发送</string>

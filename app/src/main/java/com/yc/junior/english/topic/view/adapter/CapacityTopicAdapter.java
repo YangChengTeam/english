@@ -2,7 +2,6 @@ package com.yc.junior.english.topic.view.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.topic.model.bean.TopicInfo;
 import com.yc.junior.english.topic.model.bean.TopicInfo;
 
 import java.util.List;

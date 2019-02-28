@@ -3,14 +3,11 @@ package com.yc.junior.english.setting.view.adapter;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.support.v7.widget.CardView;
 import android.view.View;
 
-import com.alibaba.fastjson.JSON;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 import java.util.List;
 

@@ -6,9 +6,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.yc.english.R;
-import com.yc.english.read.model.domain.WordDetailInfo;
-import com.yc.english.read.model.domain.WordInfo;
+import com.yc.junior.english.R;
 import com.yc.junior.english.read.model.domain.WordDetailInfo;
 import com.yc.junior.english.read.model.domain.WordInfo;
 

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 
 /**

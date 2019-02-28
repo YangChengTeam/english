@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.ScreenUtil;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 import com.yc.soundmark.base.contract.BasePhoneContract;
 import com.yc.soundmark.base.presenter.BasePhonePresenter;
 

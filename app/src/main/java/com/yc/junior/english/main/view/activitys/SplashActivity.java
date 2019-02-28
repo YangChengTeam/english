@@ -11,16 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qq.e.ads.nativ.NativeExpressADView;
-import com.qq.e.ads.splash.SplashAD;
-import com.qq.e.ads.splash.SplashADListener;
-import com.qq.e.comm.util.AdError;
-import com.yc.english.R;
-import com.yc.english.base.utils.StatusBarCompat;
-import com.yc.english.base.view.BaseActivity;
-import com.yc.english.main.contract.SplashContract;
-import com.yc.english.main.model.domain.Constant;
-import com.yc.english.main.model.domain.SlideInfo;
-import com.yc.english.main.presenter.SplashPresenter;
+import com.yc.junior.english.R;
 import com.yc.junior.english.base.utils.StatusBarCompat;
 import com.yc.junior.english.base.view.BaseActivity;
 import com.yc.junior.english.main.contract.SplashContract;
@@ -34,7 +25,6 @@ import butterknife.BindView;
 import yc.com.blankj.utilcode.util.UIUitls;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
-import yc.com.tencent_adv.OnAdvManagerListener;
 import yc.com.tencent_adv.OnAdvStateListener;
 
 /**

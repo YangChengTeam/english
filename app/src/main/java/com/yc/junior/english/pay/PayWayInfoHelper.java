@@ -1,7 +1,7 @@
 package com.yc.junior.english.pay;
 
 import com.alibaba.fastjson.JSON;
-import com.yc.english.main.model.domain.Constant;
+import com.yc.junior.english.main.model.domain.Constant;
 
 import java.util.List;
 

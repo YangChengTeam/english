@@ -3,9 +3,8 @@ package com.yc.junior.english.weixin.views.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.yc.english.R;
-import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.weixin.views.fragments.CourseFragment;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.weixin.views.fragments.CourseFragment;
 
 /**

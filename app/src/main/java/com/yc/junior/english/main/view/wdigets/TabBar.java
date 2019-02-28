@@ -7,14 +7,13 @@ import android.util.AttributeSet;
 
 import com.alibaba.fastjson.JSON;
 import com.umeng.analytics.MobclickAgent;
-import com.yc.english.R;
-import com.yc.english.base.view.BaseView;
-import com.yc.english.main.model.domain.Constant;
-import com.yc.english.main.model.domain.SlideInfo;
+import com.yc.junior.english.R;
+import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.main.model.domain.SlideInfo;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import yc.com.base.BaseView;
 import yc.com.blankj.utilcode.util.SPUtils;
 
 /**

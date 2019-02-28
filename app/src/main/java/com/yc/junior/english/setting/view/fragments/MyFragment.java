@@ -21,32 +21,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.ScreenUtil;
-import com.yc.english.R;
-import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.utils.QQUtils;
-import com.yc.english.base.utils.StatusBarCompat;
-import com.yc.english.base.view.BaseActivity;
-import com.yc.english.base.view.BaseFragment;
-import com.yc.english.base.view.HonourAbilityView;
-import com.yc.english.base.view.QQqunDialog;
-import com.yc.english.base.view.SharePopupWindow;
-import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.main.model.domain.Constant;
-import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.setting.contract.MyContract;
-import com.yc.english.setting.model.bean.MyOrderInfo;
-import com.yc.english.setting.model.bean.ScoreInfo;
-import com.yc.english.setting.presenter.MyPresenter;
-import com.yc.english.setting.view.activitys.CameraTaskActivity;
-import com.yc.english.setting.view.activitys.FeedbackActivity;
-import com.yc.english.setting.view.activitys.MyOrderActivity;
-import com.yc.english.setting.view.activitys.PersonCenterActivity;
-import com.yc.english.setting.view.activitys.SettingActivity;
-import com.yc.english.setting.view.activitys.VipEquitiesActivity;
-import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
-import com.yc.english.setting.view.widgets.MenuItemView;
-import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
+import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.GlideHelper;
 import com.yc.junior.english.base.helper.TipsHelper;
 import com.yc.junior.english.base.utils.QQUtils;
@@ -56,6 +31,8 @@ import com.yc.junior.english.base.view.BaseFragment;
 import com.yc.junior.english.base.view.HonourAbilityView;
 import com.yc.junior.english.base.view.QQqunDialog;
 import com.yc.junior.english.base.view.SharePopupWindow;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
+import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.main.model.domain.UserInfo;
 import com.yc.junior.english.setting.contract.MyContract;
 import com.yc.junior.english.setting.model.bean.MyOrderInfo;
@@ -409,9 +386,10 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     }
 
     @Override
-    public void dismissLoadingDialog() {
+    public void dismissDialog() {
 
     }
+
 
     @Override
     public void finish() {

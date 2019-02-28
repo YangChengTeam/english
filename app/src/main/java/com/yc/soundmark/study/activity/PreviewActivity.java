@@ -5,7 +5,7 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 import com.yc.soundmark.study.widget.ZoomImageView;
 
 import yc.com.base.BaseActivity;

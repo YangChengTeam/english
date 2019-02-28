@@ -89,7 +89,7 @@
 
     </FrameLayout>
 
-    <com.yc.english.base.view.StateView
+    <com.yc.junior.english.base.view.StateView
         android:id="@+id/sv_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -101,7 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.yc.english.base.view.MyScrollview
+        <com.yc.junior.english.base.view.MyScrollview
             android:id="@+id/sv_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -504,6 +504,6 @@
                     android:src="@mipmap/index_exam"
                     android:visibility="gone" />
             </LinearLayout>
-        </com.yc.english.base.view.MyScrollview>
+        </com.yc.junior.english.base.view.MyScrollview>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

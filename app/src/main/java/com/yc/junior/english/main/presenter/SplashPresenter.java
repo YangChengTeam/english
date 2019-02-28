@@ -5,11 +5,11 @@ import android.content.Context;
 import com.alibaba.fastjson.JSON;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
-import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.main.contract.SplashContract;
-import com.yc.english.main.model.domain.Constant;
-import com.yc.english.main.model.domain.IndexDialogInfoWrapper;
-import com.yc.english.main.model.engin.SplashEngin;
+import com.yc.junior.english.base.presenter.BasePresenter;
+import com.yc.junior.english.main.contract.SplashContract;
+import com.yc.junior.english.main.model.domain.Constant;
+import com.yc.junior.english.main.model.domain.IndexDialogInfoWrapper;
+import com.yc.junior.english.main.model.engin.SplashEngin;
 
 import rx.Subscriber;
 import rx.Subscription;

@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 
 import com.hwangjr.rxbus.RxBus;
 import com.umeng.analytics.MobclickAgent;
-import com.yc.english.base.presenter.BasePresenter;
 import com.yc.junior.english.base.presenter.BasePresenter;
 
 import butterknife.ButterKnife;
 import yc.com.base.EmptyUtils;
+import yc.com.base.IView;
 import yc.com.blankj.utilcode.util.LogUtils;
 
 /**

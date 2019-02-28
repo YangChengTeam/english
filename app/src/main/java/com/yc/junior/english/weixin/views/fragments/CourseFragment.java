@@ -1,15 +1,11 @@
 package com.yc.junior.english.weixin.views.fragments;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -20,26 +16,21 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.yc.english.R;
-import com.yc.english.base.view.BaseFragment;
-import com.yc.english.base.view.StateView;
-import com.yc.english.main.model.domain.Constant;
-import com.yc.english.weixin.contract.WeiKeContract;
-import com.yc.english.weixin.model.domain.WeiKeCategory;
-import com.yc.english.weixin.model.domain.WeiKeCategoryWrapper;
-import com.yc.english.weixin.model.domain.WeiKeInfo;
-import com.yc.english.weixin.presenter.WeiKePresenter;
-import com.yc.english.weixin.views.activitys.WeikeUnitActivity;
-import com.yc.english.weixin.views.adapters.WeiKeCategoryItemAdapter;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.BaseFragment;
+import com.yc.junior.english.base.view.StateView;
+import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.weixin.contract.WeiKeContract;
+import com.yc.junior.english.weixin.model.domain.WeiKeCategory;
+import com.yc.junior.english.weixin.model.domain.WeiKeCategoryWrapper;
+import com.yc.junior.english.weixin.model.domain.WeiKeInfo;
 import com.yc.junior.english.weixin.presenter.WeiKePresenter;
 import com.yc.junior.english.weixin.views.activitys.WeikeUnitActivity;
+import com.yc.junior.english.weixin.views.adapters.WeiKeCategoryItemAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by zhangkai on 2017/8/30.
@@ -95,7 +86,7 @@ public class CourseFragment extends BaseFragment<WeiKePresenter> implements WeiK
         mCourseRecyclerView.setAdapter(mWeiKeCategoryItemAdapter);
 
         View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.course_header_view, null);
-        mTvHeaderView = (TextView) headerView.findViewById(R.id.tv_header_view);
+        mTvHeaderView = headerView.findViewById(R.id.tv_header_view);
         mWeiKeCategoryItemAdapter.addHeaderView(headerView);
         mWeiKeCategoryItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

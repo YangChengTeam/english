@@ -3,7 +3,7 @@ package com.yc.junior.english.read.model.domain;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.chad.library.adapter.base.entity.AbstractExpandableItem;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.yc.english.read.view.adapter.ReadWordItemClickAdapter;
+import com.yc.junior.english.read.view.adapter.ReadWordItemClickAdapter;
 
 /**
  * Created by admin on 2017/7/26.

@@ -6,9 +6,7 @@ import android.widget.CheckBox;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.setting.model.bean.GoodInfo;
-import com.yc.english.setting.view.Listener.onItemClickListener;
+import com.yc.junior.english.R;
 import com.yc.junior.english.setting.model.bean.GoodInfo;
 import com.yc.junior.english.setting.view.Listener.onItemClickListener;
 

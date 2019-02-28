@@ -7,11 +7,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.speak.model.bean.SpeakAndReadInfo;
-import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
-import com.yc.english.speak.view.activity.ListenEnglishActivity;
-import com.yc.english.speak.view.activity.SpeakEnglishActivity;
+import com.yc.junior.english.R;
 import com.yc.junior.english.speak.model.bean.SpeakAndReadInfo;
 import com.yc.junior.english.speak.model.bean.SpeakAndReadItemInfo;
 import com.yc.junior.english.speak.view.activity.ListenEnglishActivity;

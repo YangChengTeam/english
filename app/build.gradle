@@ -108,7 +108,7 @@ android {
 
 greendao {
     schemaVersion 2
-    daoPackage 'com.yc.english.base.dao'
+    daoPackage 'com.yc.junior.english.base.dao'
     targetGenDir 'src/main/java'
 }
 

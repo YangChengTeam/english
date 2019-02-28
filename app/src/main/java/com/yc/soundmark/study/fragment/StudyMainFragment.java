@@ -26,7 +26,7 @@ import com.kk.utils.LogUtil;
 import com.kk.utils.ScreenUtil;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 import com.yc.soundmark.base.constant.SpConstant;
 import com.yc.soundmark.base.utils.UIUtils;
 import com.yc.soundmark.study.activity.PreviewActivity;

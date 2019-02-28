@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
 import android.widget.RemoteViews;
 
-import com.yc.english.R;
-import com.yc.english.main.model.domain.Constant;
-import com.yc.english.speak.view.activity.ListenEnglishActivity;
+import com.yc.junior.english.R;
+import com.yc.junior.english.main.model.domain.Constant;
+import com.yc.junior.english.speak.view.activity.ListenEnglishActivity;
 
 
 /**

@@ -22,7 +22,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.kk.utils.ToastUtil;
-import com.yc.english.base.view.BaseActivity;
+import com.yc.junior.english.base.view.BaseActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -145,7 +145,7 @@ public class AvatarHelper {
                 String image = "data:image/png;base64," + streamStr;
                 iAvatar.uploadAvatar(image);
             } catch (Exception e) {
-                context.dismissLoadingDialog();
+                context.dismissDialog();
                 TipsHelper.tips(context, "修改失败" + e);
                 LogUtils.i("修改失败" + e);
             }

@@ -4,14 +4,13 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
-import com.yc.english.group.utils.EngineUtils;
-import com.yc.english.news.model.domain.OrderGood;
-import com.yc.english.pay.alipay.OrderInfo;
+import com.yc.junior.english.group.utils.EngineUtils;
+import com.yc.junior.english.news.model.domain.OrderGood;
+import com.yc.junior.english.pay.alipay.OrderInfo;
 import com.yc.soundmark.base.contract.BasePayContract;
 import com.yc.soundmark.base.model.domain.GoodInfo;
 import com.yc.soundmark.base.model.domain.GoodInfoWrapper;
 import com.yc.soundmark.base.utils.VipInfoHelper;
-
 
 import java.util.List;
 

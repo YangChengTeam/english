@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.utils.ScreenUtil;
 import com.qq.e.ads.nativ.NativeExpressADView;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 import com.yc.soundmark.base.constant.Config;
 import com.yc.soundmark.base.widget.MainToolBar;
 import com.yc.soundmark.category.adapter.CategoryMainAdapter;

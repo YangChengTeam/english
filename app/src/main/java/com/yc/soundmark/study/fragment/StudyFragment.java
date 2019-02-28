@@ -13,8 +13,8 @@ import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
-import com.yc.english.R;
-import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.junior.english.R;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.soundmark.base.constant.Config;
 import com.yc.soundmark.base.fragment.BasePayFragment;
 import com.yc.soundmark.base.utils.UIUtils;
@@ -247,7 +247,7 @@ public class StudyFragment extends BaseFragment<StudyPresenter> implements Study
 
     private boolean isCanNext(int pos) {
         boolean isNext = false;
-        if (UserInfoHelper.isYbVip() || pos < 7) {
+        if (UserInfoHelper.isYbVip() || pos < 4) {
             isNext = true;
         }
         return isNext;

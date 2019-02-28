@@ -6,9 +6,11 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.yc.english.R;
+
+import com.yc.junior.english.R;
 
 import butterknife.BindView;
+import yc.com.base.BaseView;
 
 /**
  * Created by zhangkai on 2017/7/28.

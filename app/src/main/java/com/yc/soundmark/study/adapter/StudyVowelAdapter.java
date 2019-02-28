@@ -2,8 +2,8 @@ package com.yc.soundmark.study.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.junior.english.R;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.soundmark.study.model.domain.WordInfo;
 
 import java.util.List;

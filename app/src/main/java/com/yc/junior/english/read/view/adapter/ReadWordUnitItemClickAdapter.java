@@ -4,9 +4,7 @@ import android.content.Context;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.read.model.domain.BookInfo;
-import com.yc.english.read.model.domain.WordUnitInfo;
+import com.yc.junior.english.R;
 import com.yc.junior.english.read.model.domain.BookInfo;
 import com.yc.junior.english.read.model.domain.WordUnitInfo;
 

@@ -5,10 +5,9 @@ import android.content.Context;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
-import com.yc.english.base.model.BaseEngin;
-import com.yc.english.speak.model.bean.ListenEnglishWarpper;
-import com.yc.english.speak.model.domain.URLConfig;
+import com.yc.junior.english.base.model.BaseEngin;
 import com.yc.junior.english.speak.model.bean.ListenEnglishWarpper;
+import com.yc.junior.english.speak.model.domain.URLConfig;
 
 import java.util.HashMap;
 import java.util.Map;

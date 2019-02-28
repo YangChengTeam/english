@@ -4,9 +4,9 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.weixin.model.domain.WeiKeCategory;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.helper.GlideHelper;
+import com.yc.junior.english.weixin.model.domain.WeiKeCategory;
 
 import java.util.List;
 

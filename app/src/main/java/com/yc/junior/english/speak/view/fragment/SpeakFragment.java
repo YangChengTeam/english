@@ -8,18 +8,15 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
-import com.yc.english.R;
-import com.yc.english.base.view.BaseFragment;
-import com.yc.english.base.view.StateView;
-import com.yc.english.speak.contract.SpeakEnglishContract;
-import com.yc.english.speak.model.bean.SpeakAndReadInfo;
-import com.yc.english.speak.model.bean.SpeakEnglishBean;
-import com.yc.english.speak.presenter.SpeakEnglishListPresenter;
-import com.yc.english.speak.view.activity.SpeakMoreActivity;
-import com.yc.english.speak.view.adapter.SpeakEnglishAdapter;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.BaseFragment;
+import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.speak.contract.SpeakEnglishContract;
+import com.yc.junior.english.speak.model.bean.SpeakAndReadInfo;
 import com.yc.junior.english.speak.model.bean.SpeakEnglishBean;
 import com.yc.junior.english.speak.presenter.SpeakEnglishListPresenter;
+import com.yc.junior.english.speak.view.activity.SpeakMoreActivity;
+import com.yc.junior.english.speak.view.adapter.SpeakEnglishAdapter;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 

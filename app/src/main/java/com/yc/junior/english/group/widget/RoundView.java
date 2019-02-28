@@ -22,7 +22,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 
 /**

@@ -5,9 +5,8 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.community.model.domain.CommentInfo;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.helper.GlideHelper;
 import com.yc.junior.english.community.model.domain.CommentInfo;
 
 import java.net.URLDecoder;

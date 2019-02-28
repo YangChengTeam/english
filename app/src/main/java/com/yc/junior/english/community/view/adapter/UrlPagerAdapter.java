@@ -20,7 +20,7 @@ package com.yc.junior.english.community.view.adapter;
 import android.content.Context;
 import android.view.ViewGroup;
 
-import com.yc.english.community.view.wdigets.UrlTouchImageView;
+import com.yc.junior.english.community.view.wdigets.UrlTouchImageView;
 
 import java.util.List;
 

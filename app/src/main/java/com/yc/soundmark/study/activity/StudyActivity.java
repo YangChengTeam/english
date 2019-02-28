@@ -9,11 +9,10 @@ import android.widget.LinearLayout;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
-import com.qq.e.ads.nativ.NativeExpressADView;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
-import com.yc.english.R;
-import com.yc.english.base.view.StateView;
-import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.StateView;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.soundmark.base.fragment.BasePayFragment;
 import com.yc.soundmark.base.utils.UIUtils;
 import com.yc.soundmark.base.widget.MainToolBar;
@@ -32,13 +31,11 @@ import com.yc.soundmark.study.utils.AVMediaManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;
-import yc.com.tencent_adv.OnAdvStateListener;
 
 /**
  * Created by wanglin  on 2018/10/24 17:21.
@@ -196,7 +193,7 @@ public class StudyActivity extends BaseActivity<StudyPresenter> implements Study
     }
 
     private void initViewPager(Integer data) {
-        LogUtil.msg("data:  " + data);
+
         for (int i = 0; i < data; i++) {
             StudyMainFragment studyMainFragment = new StudyMainFragment();
             studyMainFragment.setPos(i);

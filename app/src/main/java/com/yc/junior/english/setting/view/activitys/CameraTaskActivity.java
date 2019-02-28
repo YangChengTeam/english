@@ -22,11 +22,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.jakewharton.rxbinding.view.RxView;
-import com.yc.english.R;
-import com.yc.english.base.view.BaseActivity;
-import com.yc.english.group.model.bean.TaskUploadInfo;
-import com.yc.english.setting.contract.CameraTaskContract;
-import com.yc.english.setting.presenter.CameraTaskPresenter;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.BaseActivity;
+import com.yc.junior.english.group.model.bean.TaskUploadInfo;
 import com.yc.junior.english.setting.contract.CameraTaskContract;
 import com.yc.junior.english.setting.presenter.CameraTaskPresenter;
 

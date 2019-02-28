@@ -3,8 +3,8 @@ package com.yc.junior.english.setting.model.engin;
 import android.content.Context;
 import android.util.Log;
 
-import com.yc.english.base.model.BaseEngin;
-import com.yc.english.group.constant.NetConstant;
+import com.yc.junior.english.base.model.BaseEngin;
+import com.yc.junior.english.group.constant.NetConstant;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

@@ -33,32 +33,24 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
-import com.yc.english.R;
-import com.yc.english.base.helper.QuestionHelper;
-import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.base.view.StateView;
-import com.yc.english.intelligent.contract.IntelligentQuestionContract;
-import com.yc.english.intelligent.model.domain.QuestionInfoWrapper;
-import com.yc.english.intelligent.model.domain.VGInfoWarpper;
-import com.yc.english.intelligent.model.engin.IntelligentHandInEngin;
-import com.yc.english.intelligent.presenter.IntelligentQuestionPresenter;
-import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.main.model.domain.Constant;
-import com.yc.english.read.common.SpeechUtils;
-import com.yc.english.read.view.wdigets.SpaceItemDecoration;
-import com.yc.english.speak.model.bean.QuestionInfoBean;
-import com.yc.english.speak.utils.IatSettings;
-import com.yc.english.speak.utils.VoiceJsonParser;
-import com.yc.english.speak.view.adapter.QuestionItemAdapter;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.helper.QuestionHelper;
+import com.yc.junior.english.base.helper.TipsHelper;
+import com.yc.junior.english.base.view.FullScreenActivity;
+import com.yc.junior.english.base.view.StateView;
+import com.yc.junior.english.community.view.wdigets.SpaceItemDecoration;
 import com.yc.junior.english.intelligent.contract.IntelligentQuestionContract;
 import com.yc.junior.english.intelligent.model.domain.QuestionInfoWrapper;
 import com.yc.junior.english.intelligent.model.domain.VGInfoWarpper;
 import com.yc.junior.english.intelligent.model.engin.IntelligentHandInEngin;
 import com.yc.junior.english.intelligent.presenter.IntelligentQuestionPresenter;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
+import com.yc.junior.english.main.model.domain.Constant;
+import com.yc.junior.english.read.common.SpeechUtils;
 import com.yc.junior.english.speak.model.bean.QuestionInfoBean;
 import com.yc.junior.english.speak.utils.IatSettings;
 import com.yc.junior.english.speak.utils.VoiceJsonParser;
+import com.yc.junior.english.speak.view.adapter.QuestionItemAdapter;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -281,7 +273,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                         new IntelligentHandInEngin(QuestionActivity.this).submitAnwsers(result.toString()).subscribe(new Action1<ResultInfo<VGInfoWarpper>>() {
                             @Override
                             public void call(ResultInfo<VGInfoWarpper> vgInfoWarpperResultInfo) {
-                                dismissLoadingDialog();
+                                dismissDialog();
                                 if (vgInfoWarpperResultInfo != null && vgInfoWarpperResultInfo.code == HttpConfig.STATUS_OK) {
                                     //ToastUtils.showLong("提交成功");
                                     QuestionHelper.saveQuestionInfoBeanListToDB(mQuestionItemAdapter.getData());
@@ -296,7 +288,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                             @Override
                             public void call(Throwable throwable) {
                                 ToastUtils.showLong("提交失败");
-                                dismissLoadingDialog();
+                                dismissDialog();
                             }
                         });
                     } else {
@@ -1027,7 +1019,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                 playReadProgressBar.setProgress(0);
             } else if (error != null) {
                 if (error.getErrorDescription().contains("权")) {
-                    com.yc.english.base.utils.SpeechUtils.resetAppid(QuestionActivity.this);
+                    com.yc.junior.english.base.utils.SpeechUtils.resetAppid(QuestionActivity.this);
                     return;
                 }
             }

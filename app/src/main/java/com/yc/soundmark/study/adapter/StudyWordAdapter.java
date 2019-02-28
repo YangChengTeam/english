@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 import com.yc.soundmark.study.model.domain.WordInfo;
 import com.yc.soundmark.study.utils.LPUtils;
 

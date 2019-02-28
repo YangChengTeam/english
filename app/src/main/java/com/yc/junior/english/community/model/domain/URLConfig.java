@@ -1,6 +1,6 @@
 package com.yc.junior.english.community.model.domain;
 
-import com.yc.english.base.model.Config;
+import com.yc.junior.english.base.model.Config;
 
 /**
  * Created by zhangkai on 2017/8/1.

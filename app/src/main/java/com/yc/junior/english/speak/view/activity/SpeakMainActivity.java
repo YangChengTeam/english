@@ -6,9 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.yc.english.R;
-import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.speak.view.fragment.SpeakFragment;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.speak.view.fragment.SpeakFragment;
 
 import butterknife.BindView;

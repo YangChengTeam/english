@@ -7,8 +7,7 @@ import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.speak.model.bean.QuestionInfoBean;
+import com.yc.junior.english.R;
 import com.yc.junior.english.speak.model.bean.QuestionInfoBean;
 
 import java.util.List;
@@ -55,7 +54,7 @@ public class QuestionItemAdapter extends BaseMultiItemQuickAdapter<QuestionInfoB
                     helper.setBackgroundColor(R.id.listen_layout, ContextCompat.getColor(mContext, R.color.listen_item_bg_color));
                 }
 
-                LinearLayout resultLayout = (LinearLayout) helper.getConvertView().findViewById(R.id.layout_result);
+                LinearLayout resultLayout = helper.getConvertView().findViewById(R.id.layout_result);
                 if (item.isShowResult()) {
                     resultLayout.setVisibility(View.VISIBLE);
                 } else {

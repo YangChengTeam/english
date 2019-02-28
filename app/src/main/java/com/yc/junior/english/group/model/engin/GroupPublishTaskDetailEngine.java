@@ -5,11 +5,10 @@ import android.content.Context;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
-import com.yc.english.base.model.BaseEngin;
-import com.yc.english.group.constant.NetConstant;
-import com.yc.english.group.model.bean.StudentFinishTaskInfo;
-import com.yc.english.group.model.bean.StudentLookTaskInfo;
+import com.yc.junior.english.base.model.BaseEngin;
 import com.yc.junior.english.group.constant.NetConstant;
+import com.yc.junior.english.group.model.bean.StudentFinishTaskInfo;
+import com.yc.junior.english.group.model.bean.StudentLookTaskInfo;
 
 import java.util.HashMap;
 import java.util.Map;

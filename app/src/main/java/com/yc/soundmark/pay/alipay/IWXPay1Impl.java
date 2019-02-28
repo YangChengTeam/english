@@ -8,9 +8,9 @@ import com.kk.utils.LogUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.yc.english.pay.alipay.IPayCallback;
-import com.yc.english.pay.alipay.OrderInfo;
-import com.yc.english.pay.alipay.PayInfo;
+import com.yc.junior.english.pay.alipay.IPayCallback;
+import com.yc.junior.english.pay.alipay.OrderInfo;
+import com.yc.junior.english.pay.alipay.PayInfo;
 
 import java.util.List;
 

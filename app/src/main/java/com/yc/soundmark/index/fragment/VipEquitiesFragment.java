@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.ScreenUtil;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 import java.util.concurrent.TimeUnit;
 

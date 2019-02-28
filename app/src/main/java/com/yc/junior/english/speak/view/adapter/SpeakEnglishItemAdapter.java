@@ -11,9 +11,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.group.utils.BitmapUtils;
-import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
+import com.yc.junior.english.R;
+import com.yc.junior.english.group.utils.BitmapUtils;
 import com.yc.junior.english.speak.model.bean.SpeakAndReadItemInfo;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;

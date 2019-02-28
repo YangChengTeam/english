@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.kk.utils.ToastUtil;
 import com.kk.utils.security.Md5;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

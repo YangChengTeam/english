@@ -2,8 +2,6 @@ package com.yc.junior.english.speak.contract;
 
 import android.graphics.Bitmap;
 
-import com.yc.english.speak.utils.EnglishLyricBean;
-
 import java.io.File;
 
 public interface ListenPlayContract {

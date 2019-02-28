@@ -1,12 +1,9 @@
 package com.yc.junior.english.base.view;
 
 import android.content.Context;
-import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 
-import com.yc.english.R;
-
-import butterknife.BindView;
+import com.yc.junior.english.R;
 
 /**
  * Created by zhangkai on 2017/7/24.

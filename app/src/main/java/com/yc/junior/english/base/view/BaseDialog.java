@@ -5,9 +5,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 import butterknife.ButterKnife;
+import yc.com.base.IView;
 import yc.com.blankj.utilcode.util.LogUtils;
 
 /**

@@ -3,13 +3,12 @@ package com.yc.junior.english.setting.presenter;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
-import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.group.model.bean.TaskUploadInfo;
-import com.yc.english.group.utils.EngineUtils;
-import com.yc.english.setting.contract.CameraTaskContract;
-import com.yc.english.setting.model.engin.CameraEngine;
+import com.yc.junior.english.base.helper.ResultInfoHelper;
+import com.yc.junior.english.base.presenter.BasePresenter;
+import com.yc.junior.english.group.model.bean.TaskUploadInfo;
+import com.yc.junior.english.group.utils.EngineUtils;
 import com.yc.junior.english.setting.contract.CameraTaskContract;
+import com.yc.junior.english.setting.model.engin.CameraEngine;
 
 import java.io.File;
 
@@ -43,7 +42,7 @@ public class CameraTaskPresenter extends BasePresenter<CameraEngine, CameraTaskC
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
@@ -51,17 +50,17 @@ public class CameraTaskPresenter extends BasePresenter<CameraEngine, CameraTaskC
                 ResultInfoHelper.handleResultInfo(taskUploadInfoResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.dismissLoadingDialog();
+                        mView.dismissDialog();
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.dismissLoadingDialog();
+                        mView.dismissDialog();
                     }
 
                     @Override
                     public void reulstInfoOk() {
-                        mView.dismissLoadingDialog();
+                        mView.dismissDialog();
                         if (taskUploadInfoResultInfo.data != null)
                             mView.showUploadResult(taskUploadInfoResultInfo.data);
 
@@ -85,7 +84,7 @@ public class CameraTaskPresenter extends BasePresenter<CameraEngine, CameraTaskC
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override

@@ -10,18 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
-import com.yc.english.R;
-import com.yc.english.base.view.BaseFragment;
-import com.yc.english.pay.PayConfig;
-import com.yc.english.pay.PayWayInfo;
-import com.yc.english.setting.model.bean.GoodInfo;
-import com.yc.english.setting.model.bean.GoodInfoWrapper;
-import com.yc.english.vip.model.bean.GoodsType;
-import com.yc.english.vip.utils.VipInfoHelper;
-import com.yc.english.weixin.model.domain.CourseInfo;
+import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.BaseFragment;
+import com.yc.junior.english.pay.PayConfig;
+import com.yc.junior.english.pay.PayWayInfo;
 import com.yc.junior.english.setting.model.bean.GoodInfo;
 import com.yc.junior.english.setting.model.bean.GoodInfoWrapper;
+import com.yc.junior.english.vip.model.bean.GoodsType;
+import com.yc.junior.english.vip.utils.VipInfoHelper;
 import com.yc.junior.english.weixin.model.domain.CourseInfo;
 
 import java.util.ArrayList;

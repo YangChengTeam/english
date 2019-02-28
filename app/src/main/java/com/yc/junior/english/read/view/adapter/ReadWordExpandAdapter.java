@@ -11,9 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.yc.english.R;
-import com.yc.english.read.model.domain.WordDetailInfo;
-import com.yc.english.read.model.domain.WordInfo;
+import com.yc.junior.english.R;
 import com.yc.junior.english.read.model.domain.WordDetailInfo;
 import com.yc.junior.english.read.model.domain.WordInfo;
 

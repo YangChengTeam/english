@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
-import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.pay.PayWayInfoHelper;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
+import com.yc.junior.english.pay.PayWayInfoHelper;
 import com.yc.soundmark.index.contract.IndexContract;
 import com.yc.soundmark.index.model.domain.IndexInfoWrapper;
 import com.yc.soundmark.index.model.engine.IndexEngine;

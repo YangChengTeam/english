@@ -6,8 +6,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
-import com.yc.english.R;
-import com.yc.english.base.view.FullScreenActivity;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.FullScreenActivity;
 
 import butterknife.BindView;
 import yc.com.blankj.utilcode.util.LogUtils;

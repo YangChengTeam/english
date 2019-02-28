@@ -6,9 +6,8 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.BaseEngin;
-import com.yc.english.group.constant.NetConstant;
-import com.yc.english.group.model.bean.ClassInfoWarpper;
 import com.yc.junior.english.group.constant.NetConstant;
+import com.yc.junior.english.group.model.bean.ClassInfoWarpper;
 
 import java.util.HashMap;
 import java.util.Map;

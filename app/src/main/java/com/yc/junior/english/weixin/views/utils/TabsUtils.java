@@ -10,15 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.shizhefei.view.indicator.Indicator;
-import com.yc.english.R;
-import com.yc.english.intelligent.model.domain.QuestionInfoWrapper;
-import com.yc.english.intelligent.model.domain.UnitInfoWrapper;
-import com.yc.english.intelligent.view.fragments.IntelligentFragment;
-import com.yc.english.intelligent.view.fragments.IntelligentInnerQuestionFragment;
-import com.yc.english.intelligent.view.fragments.IntelligentQuestionsFragment;
-import com.yc.english.weixin.views.fragments.AnswerFragment;
-import com.yc.english.weixin.views.fragments.CourseFragment;
-import com.yc.english.weixin.views.fragments.CourseMoreFragment;
+import com.yc.junior.english.R;
 import com.yc.junior.english.intelligent.model.domain.QuestionInfoWrapper;
 import com.yc.junior.english.intelligent.model.domain.UnitInfoWrapper;
 import com.yc.junior.english.intelligent.view.fragments.IntelligentFragment;

@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.utils.ScreenUtil;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 import com.yc.soundmark.base.widget.MainToolBar;
 import com.yc.soundmark.category.adapter.WeiKeInfoItemAdapter;
 import com.yc.soundmark.category.contract.CategoryMainContract;

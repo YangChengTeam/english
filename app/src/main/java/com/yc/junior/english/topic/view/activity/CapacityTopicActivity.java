@@ -3,9 +3,9 @@ package com.yc.junior.english.topic.view.activity;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 
-import com.yc.english.R;
-import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.base.view.StateView;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.FullScreenActivity;
+import com.yc.junior.english.base.view.StateView;
 
 import butterknife.BindView;
 

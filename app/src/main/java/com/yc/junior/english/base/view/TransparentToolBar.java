@@ -3,7 +3,7 @@ package com.yc.junior.english.base.view;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 /**
  * Created by zhangkai on 2017/7/25.

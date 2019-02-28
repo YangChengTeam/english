@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 import butterknife.BindView;
 

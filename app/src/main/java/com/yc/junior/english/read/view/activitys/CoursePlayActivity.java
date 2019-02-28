@@ -32,36 +32,27 @@ import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.jakewharton.rxbinding.view.RxView;
-import com.yc.english.R;
-import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.utils.StatusBarCompat;
-import com.yc.english.base.utils.WakeLockUtils;
-import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.base.view.StateView;
-import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.main.model.domain.Constant;
-import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.read.common.SpeechUtils;
-import com.yc.english.read.contract.CoursePlayContract;
-import com.yc.english.read.model.domain.EnglishCourseInfo;
-import com.yc.english.read.model.domain.EnglishCourseInfoList;
-import com.yc.english.read.model.domain.UnitInfo;
-import com.yc.english.read.presenter.CoursePlayPresenter;
-import com.yc.english.read.view.adapter.ReadCourseItemClickAdapter;
-import com.yc.english.read.view.wdigets.PopupWindowFactory;
-import com.yc.english.speak.utils.IatSettings;
-import com.yc.english.speak.utils.VoiceJsonParser;
-import com.yc.english.vip.model.bean.GoodsType;
-import com.yc.english.vip.utils.VipDialogHelper;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.helper.TipsHelper;
+import com.yc.junior.english.base.utils.StatusBarCompat;
+import com.yc.junior.english.base.utils.WakeLockUtils;
+import com.yc.junior.english.base.view.FullScreenActivity;
+import com.yc.junior.english.base.view.StateView;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
+import com.yc.junior.english.main.model.domain.Constant;
+import com.yc.junior.english.main.model.domain.UserInfo;
 import com.yc.junior.english.read.common.SpeechUtils;
 import com.yc.junior.english.read.contract.CoursePlayContract;
 import com.yc.junior.english.read.model.domain.EnglishCourseInfo;
 import com.yc.junior.english.read.model.domain.EnglishCourseInfoList;
 import com.yc.junior.english.read.model.domain.UnitInfo;
 import com.yc.junior.english.read.presenter.CoursePlayPresenter;
+import com.yc.junior.english.read.view.adapter.ReadCourseItemClickAdapter;
 import com.yc.junior.english.read.view.wdigets.PopupWindowFactory;
 import com.yc.junior.english.speak.utils.IatSettings;
 import com.yc.junior.english.speak.utils.VoiceJsonParser;
+import com.yc.junior.english.vip.model.bean.GoodsType;
+import com.yc.junior.english.vip.utils.VipDialogHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -430,8 +421,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
         mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
 
-        if (com.yc.english.base.utils.SpeechUtils.getAppids() == null || com.yc.english.base.utils.SpeechUtils.getAppids().size() <= 0) {
-            com.yc.english.base.utils.SpeechUtils.setAppids(this);
+        if (com.yc.junior.english.base.utils.SpeechUtils.getAppids() == null || com.yc.junior.english.base.utils.SpeechUtils.getAppids().size() <= 0) {
+            com.yc.junior.english.base.utils.SpeechUtils.setAppids(this);
         }
     }
 
@@ -812,7 +803,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 speekContinue(isCountinue ? ++playPosition : playPosition);
             } else if (error != null) {
                 if (error.getErrorDescription().contains("权")) {
-                    com.yc.english.base.utils.SpeechUtils.resetAppid(CoursePlayActivity.this);
+                    com.yc.junior.english.base.utils.SpeechUtils.resetAppid(CoursePlayActivity.this);
                     return;
                 }
                 speekContinue(playPosition);

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import com.qq.e.ads.banner.AbstractBannerADListener;
 import com.qq.e.ads.banner.BannerView;
 import com.qq.e.comm.util.AdError;
-import com.yc.english.main.model.domain.Constant;
+import com.yc.junior.english.main.model.domain.Constant;
 
 /**
  * Created by wanglin  on 2018/10/11 16:41.

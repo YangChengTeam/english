@@ -4,10 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.yc.english.R;
-import com.yc.english.base.view.BaseView;
+import com.yc.junior.english.R;
 
 import butterknife.BindView;
+import yc.com.base.BaseView;
 
 /**
  * Created by wanglin  on 2018/4/17 08:48.

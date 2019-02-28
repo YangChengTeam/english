@@ -20,7 +20,8 @@ import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
-import com.yc.english.R;
+import com.yc.junior.english.R;
+import com.yc.junior.english.speak.utils.IatSettings;
 import com.yc.soundmark.study.listener.OnAVManagerListener;
 import com.yc.soundmark.study.listener.OnUIApplyControllerListener;
 

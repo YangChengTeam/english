@@ -7,7 +7,7 @@ import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
-import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
 
 import java.util.HashMap;
 import java.util.Map;

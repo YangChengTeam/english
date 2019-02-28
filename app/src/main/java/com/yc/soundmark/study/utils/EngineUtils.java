@@ -7,9 +7,9 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.utils.LogUtil;
-import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.pay.alipay.OrderInfo;
-import com.yc.english.pay.alipay.PayInfo;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
+import com.yc.junior.english.pay.alipay.OrderInfo;
+import com.yc.junior.english.pay.alipay.PayInfo;
 import com.yc.soundmark.base.constant.UrlConfig;
 import com.yc.soundmark.base.model.domain.GoodInfoWrapper;
 import com.yc.soundmark.base.model.domain.IndexDialogInfoWrapper;
@@ -172,8 +172,8 @@ public class EngineUtils {
 
 
     public static Observable<ResultInfo<GoodInfoWrapper>> getVipInfoList(Context context) {
-        Map<String,String> params= new HashMap<>();
-        params.put("user_id",UserInfoHelper.getUid());
+        Map<String, String> params = new HashMap<>();
+        params.put("user_id", UserInfoHelper.getUid());
 
         return HttpCoreEngin.get(context).rxpost(UrlConfig.vip_info_url, new TypeReference<ResultInfo<GoodInfoWrapper>>() {
         }.getType(), params, true, true, true);

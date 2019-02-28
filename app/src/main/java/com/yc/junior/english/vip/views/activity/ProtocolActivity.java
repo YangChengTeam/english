@@ -3,8 +3,7 @@ package com.yc.junior.english.vip.views.activity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.yc.english.R;
-import com.yc.english.base.view.BaseActivity;
+import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.BaseActivity;
 
 import butterknife.BindView;

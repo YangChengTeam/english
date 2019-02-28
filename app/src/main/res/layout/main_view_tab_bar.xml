@@ -20,38 +20,38 @@
             android:layout_below="@+id/tab_line"
             android:background="@color/white">
 
-            <com.yc.english.main.view.wdigets.TabItem
+            <com.yc.junior.english.main.view.wdigets.TabItem
                 android:id="@+id/item_index"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 gb:src="@mipmap/main_tab_index_selected"
-                gb:text="@string/main_tab_index"></com.yc.english.main.view.wdigets.TabItem>
+                gb:text="@string/main_tab_index"></com.yc.junior.english.main.view.wdigets.TabItem>
 
-            <com.yc.english.main.view.wdigets.TabItem
+            <com.yc.junior.english.main.view.wdigets.TabItem
                 android:id="@+id/item_intelligent"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 gb:src="@mipmap/main_tab_intelligent"
-                gb:text="@string/main_tab_intelligent"></com.yc.english.main.view.wdigets.TabItem>
+                gb:text="@string/main_tab_intelligent"></com.yc.junior.english.main.view.wdigets.TabItem>
 
-            <com.yc.english.main.view.wdigets.TabItem
+            <com.yc.junior.english.main.view.wdigets.TabItem
                 android:id="@+id/item_task"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 gb:src="@mipmap/main_tab_task"
-                gb:text="@string/main_tab_task"></com.yc.english.main.view.wdigets.TabItem>
+                gb:text="@string/main_tab_task"></com.yc.junior.english.main.view.wdigets.TabItem>
 
 
-            <com.yc.english.main.view.wdigets.TabItem
+            <com.yc.junior.english.main.view.wdigets.TabItem
                 android:id="@+id/item_my"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 gb:src="@mipmap/main_tab_my"
-                gb:text="@string/main_tab_my"></com.yc.english.main.view.wdigets.TabItem>
+                gb:text="@string/main_tab_my"></com.yc.junior.english.main.view.wdigets.TabItem>
 
         </LinearLayout>
     </RelativeLayout>

@@ -27,7 +27,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.kk.utils.LogUtil;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 import org.mozilla.universalchardet.UniversalDetector;
 

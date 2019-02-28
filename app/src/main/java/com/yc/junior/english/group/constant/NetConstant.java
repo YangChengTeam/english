@@ -1,6 +1,6 @@
 package com.yc.junior.english.group.constant;
 
-import com.yc.english.base.model.Config;
+import com.yc.junior.english.base.model.Config;
 
 /**
  * Created by wanglin  on 2017/7/31 15:10.

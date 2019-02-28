@@ -6,11 +6,9 @@ import android.widget.LinearLayout;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
-import com.yc.english.R;
-import com.yc.english.base.view.BaseFragment;
-import com.yc.english.main.model.domain.Constant;
-import com.yc.english.main.model.domain.UserInfo;
+import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.BaseFragment;
+import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.main.model.domain.UserInfo;
 
 import butterknife.BindView;

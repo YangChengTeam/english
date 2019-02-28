@@ -3,13 +3,12 @@ package com.yc.junior.english.weixin.presenter;
 import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
-import com.yc.english.base.model.BaseEngin;
-import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.base.utils.SimpleCacheUtils;
-import com.yc.english.main.model.domain.Constant;
-import com.yc.english.main.model.domain.IndexInfo;
-import com.yc.english.main.model.domain.SlideInfo;
-import com.yc.english.weixin.contract.CourseTypeContract;
+import com.yc.junior.english.base.model.BaseEngin;
+import com.yc.junior.english.base.presenter.BasePresenter;
+import com.yc.junior.english.base.utils.SimpleCacheUtils;
+import com.yc.junior.english.main.model.domain.Constant;
+import com.yc.junior.english.main.model.domain.IndexInfo;
+import com.yc.junior.english.main.model.domain.SlideInfo;
 import com.yc.junior.english.weixin.contract.CourseTypeContract;
 
 import java.util.ArrayList;

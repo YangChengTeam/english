@@ -71,7 +71,7 @@ public class Constant {
     /**
      * 腾讯广告appid
      */
-    public static final String TENCENT_ADV_ID = "1101152570";//  1107858324
+    public static final String TENCENT_ADV_ID = "1107840367";//  1107858324
     /**
      * banner广告1 id
      */
@@ -79,27 +79,27 @@ public class Constant {
     /**
      * banner广告2 id
      */
-    public static final String BANNER_ADV2 = "8080547005212072";
+    public static final String BANNER_ADV2 = "7070649246907997";
 
     /**
      * 开屏广告id
      */
-    public static final String SPLASH_ADV_ID = "8080443035603889";
+    public static final String SPLASH_ADV_ID = "8020345246610044";
 
     /**
      * 原生广告    8070145095046825
      */
-    public static final String NATIVE_ADV_ID = "8040447025801807";
+    public static final String NATIVE_ADV_ID = "8020949256505848";
 
     /**
      * 课本点读头部banner广告
      */
-    public static final String READ_TOP_BANNER = "4010744144668777";
+    public static final String READ_TOP_BANNER = "4080241206317122";
 
     /**
      * 课本点读底部banner广告
      */
-    public static final String READ_BOTTOM_BANNER = "9000044144969968";
+    public static final String READ_BOTTOM_BANNER = "7010243226313123";
 
 
     /**

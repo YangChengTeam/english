@@ -1,16 +1,14 @@
 package com.yc.soundmark.base.adapter;
 
 import android.util.SparseArray;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.soundmark.base.constant.Config;
+import com.yc.junior.english.R;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.soundmark.base.model.domain.GoodInfo;
 
 import java.util.List;

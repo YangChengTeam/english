@@ -1,9 +1,6 @@
 package com.yc.junior.english.main.model.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.yc.english.community.model.domain.CommunityInfo;
-import com.yc.english.weixin.model.domain.CourseInfo;
-import com.yc.english.weixin.model.domain.WeiKeCategory;
 import com.yc.junior.english.community.model.domain.CommunityInfo;
 import com.yc.junior.english.weixin.model.domain.CourseInfo;
 import com.yc.junior.english.weixin.model.domain.WeiKeCategory;

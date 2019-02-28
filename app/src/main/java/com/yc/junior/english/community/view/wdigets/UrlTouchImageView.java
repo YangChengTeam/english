@@ -33,7 +33,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.wang.avi.AVLoadingIndicatorView;
-import com.yc.english.R;
+import com.yc.junior.english.R;
 
 public class UrlTouchImageView extends RelativeLayout {
 

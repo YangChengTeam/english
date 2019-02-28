@@ -16,31 +16,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
-import com.yc.english.R;
-import com.yc.english.base.utils.StatusBarCompat;
-import com.yc.english.base.view.BaseActivity;
-import com.yc.english.group.constant.BusAction;
-import com.yc.english.main.hepler.UserInfoHelper;
-import com.yc.english.main.model.domain.Constant;
-import com.yc.english.main.model.domain.UserInfo;
-import com.yc.english.vip.model.bean.GoodsType;
-import com.yc.english.vip.utils.VipDialogHelper;
-import com.yc.english.vip.views.fragments.VipTutorshipDetailFragment;
-import com.yc.english.vip.views.fragments.VipUserEvaluateFragment;
+import com.yc.junior.english.R;
 import com.yc.junior.english.base.utils.StatusBarCompat;
 import com.yc.junior.english.base.view.BaseActivity;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
+import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.main.model.domain.UserInfo;
-
+import com.yc.junior.english.vip.model.bean.GoodsType;
+import com.yc.junior.english.vip.utils.VipDialogHelper;
+import com.yc.junior.english.vip.views.fragments.VipTutorshipDetailFragment;
+import com.yc.junior.english.vip.views.fragments.VipUserEvaluateFragment;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.functions.Action1;
 
 /**

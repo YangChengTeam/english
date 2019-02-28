@@ -2,8 +2,7 @@ package com.yc.junior.english.setting.view.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.yc.english.R;
-import com.yc.english.setting.model.bean.MyOrderInfo;
+import com.yc.junior.english.R;
 import com.yc.junior.english.setting.model.bean.MyOrderInfo;
 
 import java.util.List;

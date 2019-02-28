@@ -10,11 +10,10 @@ import android.widget.TextView;
 
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
-import com.yc.english.EnglishApp;
-import com.yc.english.R;
-import com.yc.english.base.utils.DrawableUtils;
-import com.yc.english.main.model.domain.Constant;
+import com.yc.junior.english.EnglishApp;
+import com.yc.junior.english.R;
 import com.yc.junior.english.base.utils.DrawableUtils;
+import com.yc.junior.english.main.model.domain.Constant;
 
 import java.util.concurrent.TimeUnit;
 
