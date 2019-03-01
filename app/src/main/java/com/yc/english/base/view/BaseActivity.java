@@ -17,6 +17,8 @@ import com.yc.english.base.utils.StatusBarCompat;
 
 import butterknife.ButterKnife;
 import yc.com.base.EmptyUtils;
+import yc.com.base.IDialog;
+import yc.com.base.IView;
 import yc.com.blankj.utilcode.util.BarUtils;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.ScreenUtils;
@@ -110,7 +112,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     }
 
     @Override
-    public void dismissLoadingDialog() {
+    public void dismissDialog() {
         UIUitls.post(new Runnable() {
             @Override
             public void run() {

@@ -47,12 +47,12 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
         Subscription subscription = mEngine.sendCode(mobile).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
@@ -89,12 +89,12 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
         Subscription subscription = mEngine.register(mobile, pwd, code).subscribe(new Subscriber<ResultInfo<UserInfoWrapper>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override

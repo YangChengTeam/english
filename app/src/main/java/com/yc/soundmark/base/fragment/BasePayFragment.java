@@ -198,7 +198,8 @@ public class BasePayFragment extends BaseDialogFragment<BasePayPresenter> implem
                 payway = getPaywayName(currentPos);
                 List<OrderGood> list = new ArrayList<>();
                 OrderGood orderGood = new OrderGood();
-                orderGood.setGood_id(currentGoodInfo.getId());
+                if (currentGoodInfo != null)
+                    orderGood.setGood_id(currentGoodInfo.getId());
                 orderGood.setNum(1);
                 list.add(orderGood);
 

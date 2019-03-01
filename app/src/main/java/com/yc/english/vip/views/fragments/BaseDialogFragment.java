@@ -18,10 +18,10 @@ import com.kk.utils.ScreenUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.base.view.IView;
 
 import butterknife.ButterKnife;
 import yc.com.base.EmptyUtils;
+import yc.com.base.IView;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.ScreenUtils;
 import yc.com.blankj.utilcode.util.SizeUtils;

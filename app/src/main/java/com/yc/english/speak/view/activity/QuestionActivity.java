@@ -273,7 +273,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                         new IntelligentHandInEngin(QuestionActivity.this).submitAnwsers(result.toString()).subscribe(new Action1<ResultInfo<VGInfoWarpper>>() {
                             @Override
                             public void call(ResultInfo<VGInfoWarpper> vgInfoWarpperResultInfo) {
-                                dismissLoadingDialog();
+                                dismissDialog();
                                 if (vgInfoWarpperResultInfo != null && vgInfoWarpperResultInfo.code == HttpConfig.STATUS_OK) {
                                     //ToastUtils.showLong("提交成功");
                                     QuestionHelper.saveQuestionInfoBeanListToDB(mQuestionItemAdapter.getData());
@@ -288,7 +288,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                             @Override
                             public void call(Throwable throwable) {
                                 ToastUtils.showLong("提交失败");
-                                dismissLoadingDialog();
+                                dismissDialog();
                             }
                         });
                     } else {

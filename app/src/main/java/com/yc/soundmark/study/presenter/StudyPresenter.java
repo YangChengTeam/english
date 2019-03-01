@@ -26,7 +26,6 @@ public class StudyPresenter extends BasePresenter<StudyEngine, StudyContract.Vie
     public void loadData(boolean isForceUI, boolean isLoadingUI) {
         if (!isForceUI) return;
 
-
     }
 
     @Override

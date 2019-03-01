@@ -99,13 +99,13 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
         Subscription subscribe = mEngine.addCommunityInfo(communityInfo, upFileInfo).subscribe(new Subscriber<ResultInfo<CommunityInfo>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
             public void onError(Throwable e) {
                 TipsHelper.tips(mContext, HttpConfig.NET_ERROR);
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
@@ -197,7 +197,7 @@ public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, Co
         Subscription subscribe = mEngine.addCommentInfo(commentInfo).subscribe(new Subscriber<ResultInfo<CommentInfo>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override

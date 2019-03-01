@@ -1,20 +1,22 @@
 package com.yc.english.read.contract;
 
 import com.yc.english.base.presenter.IPresenter;
-import com.yc.english.base.view.IDialog;
-import com.yc.english.base.view.IFinish;
-import com.yc.english.base.view.ILoading;
-import com.yc.english.base.view.IView;
 import com.yc.english.read.model.domain.BookInfo;
 
 import java.util.ArrayList;
+
+import yc.com.base.IDialog;
+import yc.com.base.IFinish;
+import yc.com.base.IHide;
+import yc.com.base.ILoading;
+import yc.com.base.IView;
 
 /**
  * Created by zhangkai on 2017/7/25.
  */
 
 public interface BookContract {
-    interface View extends IView, IDialog, IFinish, ILoading {
+    interface View extends IView, IDialog, IFinish, ILoading,IHide {
         void showBookListData(ArrayList<BookInfo> list,boolean isEdit);
 
         void addBook(BookInfo bookInfo);

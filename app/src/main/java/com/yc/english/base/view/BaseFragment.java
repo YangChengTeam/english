@@ -13,6 +13,7 @@ import com.yc.english.base.presenter.BasePresenter;
 
 import butterknife.ButterKnife;
 import yc.com.base.EmptyUtils;
+import yc.com.base.IView;
 import yc.com.blankj.utilcode.util.LogUtils;
 
 /**

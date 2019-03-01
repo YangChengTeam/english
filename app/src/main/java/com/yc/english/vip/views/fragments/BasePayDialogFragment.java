@@ -454,8 +454,8 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     }
 
     @Override
-    public void dismissLoadingDialog() {
-        ((BaseActivity) getActivity()).dismissLoadingDialog();
+    public void dismissDialog() {
+        ((BaseActivity) getActivity()).dismissDialog();
     }
 
 
@@ -674,10 +674,6 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     }
 
 
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void showNoNet() {

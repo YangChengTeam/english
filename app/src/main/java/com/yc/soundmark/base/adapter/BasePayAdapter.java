@@ -49,7 +49,7 @@ public class BasePayAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder> {
 
 
     private void setIvState(ImageView imageView, LinearLayout layout, int position, GoodInfo item) {
-        int goodId = Integer.parseInt(item.getId());
+//        int goodId = Integer.parseInt(item.getId());
         if (UserInfoHelper.isYbVip()){
             imageView.setImageResource(R.mipmap.pay_selected);
         }else {

@@ -3,15 +3,9 @@
     <!--英语点读学习-->
     <string name="app_name">说说英语点读</string>
 
-    <string name="rc_voice_rec">手指上滑，取消发送</string>
-    <string name="rc_voice_cancel">松开手指，取消发送</string>
-    <string name="rc_voice_short">录音时间太短</string>
-    <string name="rc_voice_failure">录音失败！</string>
-    <string name="rc_voice_too_long">录制时间超长</string>
     <string name="edit_text">编辑</string>
     <string name="done_text">完成</string>
     <string name="weike_every_day_text">同步微课</string>
-    <string name="waiting_update_text">请静待更新……</string>
     <string name="intell_correct_answer">正答 %1$d 题</string>
     <string name="intell_error_answer">错答 %1$d 题</string>
     <string name="weakness_knowledge">您有%1$d个薄弱知识点需改善，期待帮助您完善薄弱知识点，助您学业进步！</string>
@@ -32,10 +26,7 @@
     <string name="playback">播放录音</string>
 
 
-    <string name="main_phonetic">音标</string>
-    <string name="main_study">学习</string>
     <string name="main_category">微课</string>
-    <string name="main_1vs1">1对1</string>
     <string name="phonetic_introduce">音标简介</string>
     <string name="international_phonetic_introduce">国际音标简介</string>
     <string name="service_phone">客服电话：</string>
@@ -50,7 +41,6 @@
     <string name="vip_price">¥%1$s</string>
     <string name="origin_price">原价¥%1$s元</string>
     <string name="phone_tint">为了给您提供更好的服务，请填写您的联系方式</string>
-    <string name="is_exit">是否退出%s？</string>
 
     <string-array name="study_apply_array">
         <item>单词</item>
@@ -59,12 +49,9 @@
     </string-array>
 
 
-
-    <string name="evaluating_bad_result">%1$s分，加油</string>
     <string name="practice_progress">%1$d/3</string>
 
 
-    <string name="playback_back">回放</string>
     <string name="diandu">课本点读</string>
     <string name="soundmark">外教音标</string>
 

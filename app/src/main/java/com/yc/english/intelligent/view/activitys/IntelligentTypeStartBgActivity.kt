@@ -6,9 +6,9 @@ import com.yc.english.R
 import com.yc.english.base.model.BaseEngin
 import com.yc.english.base.presenter.BasePresenter
 import com.yc.english.base.view.BaseActivity
-import com.yc.english.base.view.IView
 import com.yc.english.main.view.activitys.MainActivity
 import kotlinx.android.synthetic.main.intelligent_activity_type_start_bg.*
+import yc.com.base.IView
 import yc.com.blankj.utilcode.util.SPUtils
 import java.util.concurrent.TimeUnit
 

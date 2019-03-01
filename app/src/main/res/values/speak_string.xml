@@ -1,83 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 合成 -->
-    <string-array name="engine_entries">
-        <item>本地合成</item>
-        <item>在线合成</item>
-    </string-array>
-    <string-array name="engine_values">
-        <item>local</item>
-        <item>cloud</item>
-    </string-array>
-    <string-array name="voicer_cloud_entries">
-        <item>小燕—女青、中英、普通话</item>
-        <item>小宇—男青、中英、普通话</item>
-        <item>凯瑟琳—女青、英</item>
-        <item>亨利—男青、英</item>
-        <item>玛丽—女青、英</item>
-        <item>小研—女青、中英、普通话</item>
-        <item>小琪—女青、中英、普通话</item>
-        <item>小峰—男青、中英、普通话</item>
-        <item>小梅—女青、中英、粤语</item>
-        <item>小莉—女青、中英、台湾普通话</item>
-        <item>小蓉—女青、中、四川话</item>
-        <item>小芸—女青、中、东北话</item>
-        <item>小坤—男青、中、河南话</item>
-        <item>小强—男青、中、湖南话</item>
-        <item>小莹—女青、中、陕西话</item>
-        <item>小新—男童、中、普通话</item>
-        <item>楠楠—女童、中、普通话</item>
-        <item>老孙—男老、中、普通话</item>
-    </string-array>
-    <string-array name="voicer_cloud_values">
-        <item>xiaoyan</item>
-        <item>xiaoyu</item>
-        <item>catherine</item>
-        <item>henry</item>
-        <item>vimary</item>
-        <item>vixy</item>
-        <item>xiaoqi</item>
-        <item>vixf</item>
-        <item>xiaomei</item>
-        <item>xiaolin</item>
-        <item>xiaorong</item>
-        <item>xiaoqian</item>
-        <item>xiaokun</item>
-        <item>xiaoqiang</item>
-        <item>vixying</item>
-        <item>xiaoxin</item>
-        <item>nannan</item>
-        <item>vils</item>
-    </string-array>
-    <string-array name="emot_entries">
-        <item>正常</item>
-        <item>高兴</item>
-        <item>悲伤</item>
-        <item>生气</item>
-    </string-array>
-    <string-array name="emot_values">
-        <item>neutral</item>
-        <item>happy</item>
-        <item>sad</item>
-        <item>angry</item>
-    </string-array>
-    <string-array name="stream_entries">
-        <item>通话</item>
-        <item>系统</item>
-        <item>铃声</item>
-        <item>音乐</item>
-        <item>闹铃</item>
-        <item>通知</item>
-    </string-array>
-    <string-array name="stream_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-    </string-array>
-    <string name="tts_toast_format" formatted="false">缓冲进度为%d%%，播放进度为%d%%</string>
     <!-- 语言 -->
     <string-array name="language_entries">
         <item>普通话</item>
@@ -90,33 +13,6 @@
         <item>en_us</item>
     </string-array>
     <!-- 语音评测 -->
-    <string name="text_en_word">"[word]\napple\nbanana\norange"</string>
-    <string name="text_en_sentence">"The quick brown fox jumps over the lazy dog."</string>
-    <string name="text_cn_syllable">"知，痴，是"</string>
-    <string name="text_cn_word">"磁铁，率领，脆弱，动手，古筝"</string>
-    <string name="text_cn_sentence">"一座座雪峰插入云霄，峰顶银光闪闪，大大小小的湖泊，像颗颗宝石镶嵌在彩带般的沟谷中。"</string>
-    <string-array name="ise_language_entries">
-        <item>英语</item>
-        <item>汉语</item>
-    </string-array>
-    <string-array name="ise_language_values">
-        <item>en_us</item>
-        <item>zh_cn</item>
-    </string-array>
-    <string-array name="category_entries">
-        <item>单字</item>
-        <item>词语</item>
-        <item>句子</item>
-    </string-array>
-    <string-array name="category_values">
-        <item>read_syllable</item>
-        <item>read_word</item>
-        <item>read_sentence</item>
-    </string-array>
-    <string-array name="result_level_entries">
-        <item>plain</item>
-        <item>complete</item>
-    </string-array>
     <!-- 标点符号 -->
     <string-array name="punc_entries">
         <item>有标点</item>
@@ -125,10 +21,6 @@
     <string-array name="punc_values">
         <item>1</item>
         <item>0</item>
-    </string-array>
-    <string-array name="dwa_entries">
-        <item>开启</item>
-        <item>关闭</item>
     </string-array>
 
     <string name="pref_key_iat_show">iat_show</string>

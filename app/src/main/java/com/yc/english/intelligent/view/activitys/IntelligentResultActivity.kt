@@ -9,19 +9,18 @@ import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
 import com.jakewharton.rxbinding.view.RxView
 import com.umeng.analytics.MobclickAgent
-import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.R
 import com.yc.english.base.model.BaseEngin
 import com.yc.english.base.presenter.BasePresenter
 import com.yc.english.base.utils.SimpleCacheUtils
 import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.base.view.BaseActivity
-import com.yc.english.base.view.IView
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.intelligent.view.adpaters.IntelligentResultAdapter
 import com.yc.english.main.model.domain.Constant
 import kotlinx.android.synthetic.main.intelligent_activity_result.*
+import yc.com.base.IView
 import java.util.concurrent.TimeUnit
 
 /**

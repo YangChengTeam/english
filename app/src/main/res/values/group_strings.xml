@@ -1,91 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="group_create_class">创建班级</string>
-    <string name="group_join_class">加入班级</string>
-    <string name="create_group">创建班群</string>
-    <string name="join_group">加入班群</string>
-    <string name="homework">家庭作业</string>
-    <string name="share_group">分享班群邀请同学</string>
-    <string name="resolving_group">解散班群</string>
-    <string name="group_manager">班群管理</string>
-    <string name="union_manager">公会管理</string>
-    <string name="confirm">确认</string>
-    <string name="submit">提交</string>
-    <string name="cancel">取消</string>
-    <string name="create">创建</string>
-    <string name="group_name">班群名称</string>
-    <string name="delete_member">删除成员</string>
-    <string name="exit_group">退出班群</string>
-    <string name="exit_union">退出公会</string>
 
-    <string name="confirm_delete">确定移除（%1$d个）</string>
-    <string name="confirm_sync">确定同步（%1$d个）</string>
-    <string name="transfer_group">转让班级</string>
-
-    <string name="confirm_transfer">确认转让</string>
-    <string name="receive_group_phone">请填写接受老师的手机号</string>
-    <string name="receive_union_phone">请填写接受会主的手机号</string>
-    <string name="async_other_class">同步到我其他班级</string>
-    <string name="issue_task">发布作业</string>
-    <string name="group_list">群列表</string>
-    <string name="submit_task">交作业</string>
-    <string name="issue_time">发布时间</string>
-    <string name="task_detail">作业详情</string>
-    <string name="all_task">全部作业</string>
-    <string name="finish_task">完成的作业</string>
-    <string name="my_publish">我发布的</string>
-    <string name="i_want_to_publish">我要发布</string>
-    <string name="grade">快来打个分吧!</string>
-    <string name="group">在线作业</string>
-    <string name="member_count">人数：%1$d</string>
-    <string name="groupId">群号：%1$d</string>
-    <string name="accept">接受</string>
-    <string name="already_add">已添加</string>
-    <string name="friend_verify">好友验证</string>
-
-    <string name="apply_join">申请加入：%1$s</string>
-    <string name="join_verify">加入验证</string>
-    <string name="all_allow">允许所有人加入</string>
-    <string name="all_forbid">不允许任何人加入</string>
-    <string name="verify_join">通过验证才能加入</string>
-    <string name="teacher_education">名师辅导</string>
-    <string name="task">作业</string>
-    <string name="apply">申请</string>
-    <string name="forbid_join">该%1$s禁止所有人加入，请联系群主！</string>
-    <string name="congratulation_join">恭喜你加入该%1$s！</string>
-    <string name="commit_apply_join">你的加%1$s请求已提交，请等待%2$s审核</string>
-    <string name="look_detail">查看详情</string>
-    <string name="pack_up">收起</string>
-    <string name="do_homework">交作业</string>
-    <string name="group_forbid">群内禁言</string>
-    <string name="group_all_forbid">全员禁言</string>
-    <string name="stop_forbid">解禁</string>
-    <string name="group_member">群成员</string>
-    <string name="forbid_confirm">确定(%1$d/%2$d)</string>
-    <string name="add_forbid_member">添加禁言成员</string>
-    <string name="forbid_time">约%1$s后解除禁言</string>
-    <string name="forbid_member">被禁言的成员</string>
-    <string name="english_union">英语公会</string>
-    <string name="create_union">创建公会</string>
-    <string name="join_union">加入公会</string>
     <string name="about_recommend">相关推荐</string>
     <string name="query_more">查看更多</string>
     <string name="share">分享</string>
-    <string name="write_union_name">请填写要创建的公会名称</string>
     <string name="from_author">来自于：%1$s</string>
-    <string name="introduce">介绍</string>
-    <string name="union_image">公会图像</string>
-    <string name="union_name">公会名称</string>
-    <string name="transfer_union">转让公会</string>
-    <string name="resolving_union">解散公会</string>
-    <string name="delete_union_member">移除会员</string>
-    <string name="relief_introduce">英语公会免责声明：我们有正向引导用户、打造健康网络环境的责任。在尊重用户隐私的前提下，
-        我们通过多个维度净化网络环境。公会群内严禁发布色情、反动、涉毒等非法信息，如有违规者责任自负，造成恶劣影响直至触犯法律者，将依法追究法律责任。</string>
-    <string name="i_konw">我知道啦</string>
     <string name="topic_result">点击查看测试分析</string>
     <string name="correct_answer">正确答案</string>
     <string name="more">更多</string>
-    <string name="spoken_language">口语听力</string>
     <string name="dub_language">配音听力</string>
     <string name="tv">经典影视</string>
     <string name="cartoon">卡通动漫</string>
@@ -110,11 +32,8 @@
     <string name="tutorship_vip_right">提分辅导专属特权</string>
     <string name="synchronization_weike_right">同步微课专属特权</string>
     <string name="read_book_right">课本点读专属特权</string>
-    <string name="vip_right">VIP会员专属特权</string>
     <string name="exclusive_right">专属特权</string>
-    <string name="tutorship">提分辅导</string>
     <string name="member">会员</string>
-    <string name="sigle_buy">单次购买</string>
     <string name="original_price">原价%1$s元</string>
     <string name="vip_end_time">%1$s 到期</string>
     <string name="synchronization_teach">同步学习</string>
@@ -123,34 +42,6 @@
     <string name="update_weike">已更新%1$s集</string>
     <string name="forever_vip">永久会员</string>
     <string name="protocol">学习保服务协议</string>
-    <string-array name="task_finish_result">
-        <item>已完成（%1$d）</item>
-        <item>未完成（%1$d）</item>
-    </string-array>
-    <string-array name="task_look">
-        <item>已查阅（%1$d）</item>
-        <item>未查阅（%1$d）</item>
-
-    </string-array>
-
-    <string-array name="forbid_time">
-        <item>5分钟</item>
-        <item>1小时</item>
-        <item>1天</item>
-        <item>7天</item>
-        <item>30天</item>
-    </string-array>
-
-    <string-array name="setting">
-        <item>@string/setting_buy_vip</item>
-        <item>@string/setting_to_market</item>
-        <item>@string/setting_qq_group</item>
-        <item>@string/setting_weixin</item>
-        <item>@string/setting_feedback</item>
-        <item>@string/setting_share</item>
-        <item>@string/setting_setting</item>
-
-    </string-array>
 
     <string name="score_text">恭喜您已成功购买提分辅导，稍后将有提分辅导老师与此账号（手机号）取得联系并为您孩子制定提分辅导计划，请您保持电话畅通。</string>
     <string name="phone_call_text">如果有较长时间未与您取得联系，请您拨打我们的热线电话沟通：15926287915</string>

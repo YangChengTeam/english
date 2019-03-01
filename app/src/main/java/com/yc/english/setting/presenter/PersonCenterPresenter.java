@@ -54,12 +54,12 @@ public class PersonCenterPresenter extends BasePresenter<MyEngin, PersonCenterCo
         Subscription subscription = mEngine.updateMessage(avatar, "", "").subscribe(new Subscriber<ResultInfo<UserInfo>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override

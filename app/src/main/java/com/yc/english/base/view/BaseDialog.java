@@ -8,6 +8,7 @@ import android.view.View;
 import com.yc.english.R;
 
 import butterknife.ButterKnife;
+import yc.com.base.IView;
 import yc.com.blankj.utilcode.util.LogUtils;
 
 /**

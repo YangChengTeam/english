@@ -32,12 +32,12 @@ public class OrderPresenter extends BasePresenter<OrderEngin, OrderContract.View
         Subscription subscription = mEngine.createOrder(orderParams).subscribe(new Subscriber<ResultInfo<OrderInfo>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
 
             }
 

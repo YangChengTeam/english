@@ -34,17 +34,17 @@ public class VipBuyPresenter extends BasePresenter<BaseEngin, VipBuyContract.Vie
         Subscription subscription = EngineUtils.createOrder(mContext, orderParams.getTitle(), orderParams.getMoney(), orderParams.getMoney(), orderParams.getPayWayName(), orderParams.getGoodsList()).subscribe(new Subscriber<ResultInfo<OrderInfo>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
             public void onNext(final ResultInfo<OrderInfo> orderInfoResultInfo) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
 
                 mView.showOrderInfo(orderInfoResultInfo, orderParams.getMoney(), orderParams.getTitle());
 

@@ -54,12 +54,12 @@ public class ModifyPasswordPresenter extends BasePresenter<MyEngin, ModifyPasswo
         Subscription subscription = mEngine.updatePassword(oldPwd, newPwd).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override

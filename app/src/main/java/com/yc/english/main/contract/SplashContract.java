@@ -2,8 +2,9 @@ package com.yc.english.main.contract;
 
 import com.yc.english.base.presenter.IPresenter;
 
-import com.yc.english.base.view.IView;
 import com.yc.english.main.model.domain.SlideInfo;
+
+import yc.com.base.IView;
 
 /**
  * Created by zhangkai on 2017/8/1.

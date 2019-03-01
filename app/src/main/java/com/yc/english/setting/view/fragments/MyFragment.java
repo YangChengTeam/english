@@ -386,7 +386,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     }
 
     @Override
-    public void dismissLoadingDialog() {
+    public void dismissDialog() {
 
     }
 

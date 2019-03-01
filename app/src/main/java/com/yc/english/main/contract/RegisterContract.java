@@ -1,9 +1,10 @@
 package com.yc.english.main.contract;
 
 import com.yc.english.base.presenter.IPresenter;
-import com.yc.english.base.view.IDialog;
-import com.yc.english.base.view.IFinish;
-import com.yc.english.base.view.IView;
+
+import yc.com.base.IDialog;
+import yc.com.base.IFinish;
+import yc.com.base.IView;
 
 /**
  * Created by zhangkai on 2017/7/26.

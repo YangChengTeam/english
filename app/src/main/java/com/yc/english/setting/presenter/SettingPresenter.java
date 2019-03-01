@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.yc.english.base.helper.GlideCatchHelper;
 import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.base.view.IView;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.setting.contract.SettingContract;
 import com.yc.english.setting.model.engin.MyEngin;

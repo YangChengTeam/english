@@ -6,9 +6,9 @@ import android.support.annotation.NonNull;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.view.IView;
 
 import rx.subscriptions.CompositeSubscription;
+import yc.com.base.IView;
 
 /**
  * Created by zhangkai on 2017/7/20.

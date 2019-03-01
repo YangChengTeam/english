@@ -45,12 +45,12 @@ public class ForgotPresenter extends BasePresenter<ForgotEngin, ForgotContract.V
         Subscription subscription = mEngine.sendCode(mobile).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
@@ -87,12 +87,12 @@ public class ForgotPresenter extends BasePresenter<ForgotEngin, ForgotContract.V
         Subscription subscription = mEngine.resetPassword(mobile, pwd, code).subscribe(new Subscriber<ResultInfo<UserInfoWrapper>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override

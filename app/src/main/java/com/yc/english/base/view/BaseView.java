@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import butterknife.ButterKnife;
+import yc.com.base.IView;
 import yc.com.blankj.utilcode.util.LogUtils;
 
 /**

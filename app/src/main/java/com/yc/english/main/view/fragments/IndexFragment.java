@@ -345,7 +345,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 // todo 这里是在线作业 融云im模块
 
 //                ToastUtil.toast2(getActivity(), "功能正在开发中...");
-//                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.assistant_originid, GroupConstant.appid);
 //                SmallProcedureUtils.switchSmallProcedure(getActivity(), "gh_e46e21f44c08", GroupConstant.appid);
                 Intent intent = new Intent(getActivity(), StudyActivity.class);
                 startActivity(intent);
@@ -408,7 +407,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                         String typeValue = slideInfo.getTypeValue();
                         if (TextUtils.isEmpty(typeValue)) return;
                         String[] strs = typeValue.split("\\|");
-                        LogUtil.msg("tag: " + strs[0] + "---" + strs[1]);
+//                        LogUtil.msg("tag: " + strs[0] + "---" + strs[1]);
                         if (strs.length > 1) {
                             // 填应用AppId
                             String appId = strs[1];

@@ -9,13 +9,13 @@ import com.yc.english.R
 import com.yc.english.base.model.BaseEngin
 import com.yc.english.base.presenter.BasePresenter
 import com.yc.english.base.view.BaseFragment
-import com.yc.english.base.view.IView
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.intelligent.view.activitys.IntelligentQuestionDescPopupWindow
 import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_fragment_questions.*
+import yc.com.base.IView
 import java.util.concurrent.TimeUnit
 
 /**

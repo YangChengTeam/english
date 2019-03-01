@@ -38,12 +38,12 @@ public class FeedbackPersenter extends BasePresenter<MyEngin, FeedbackContract.V
         Subscription subscription = mEngine.postMessage(message).subscribe(new Subscriber<ResultInfo<String>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override

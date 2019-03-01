@@ -63,12 +63,12 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
         Subscription subscription = mEngine.login(username, pwd).subscribe(new Subscriber<ResultInfo<UserInfoWrapper>>() {
             @Override
             public void onCompleted() {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override

@@ -66,7 +66,7 @@ public class WebActivity extends FullScreenActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                dismissLoadingDialog();
+                dismissDialog();
             }
 
 

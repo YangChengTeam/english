@@ -228,7 +228,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
     }
 
     @Override
-    public void dismissLoadingDialog() {
+    public void dismissDialog() {
 
     }
 

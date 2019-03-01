@@ -42,7 +42,7 @@ public class CameraTaskPresenter extends BasePresenter<CameraEngine, CameraTaskC
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
@@ -50,17 +50,17 @@ public class CameraTaskPresenter extends BasePresenter<CameraEngine, CameraTaskC
                 ResultInfoHelper.handleResultInfo(taskUploadInfoResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.dismissLoadingDialog();
+                        mView.dismissDialog();
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.dismissLoadingDialog();
+                        mView.dismissDialog();
                     }
 
                     @Override
                     public void reulstInfoOk() {
-                        mView.dismissLoadingDialog();
+                        mView.dismissDialog();
                         if (taskUploadInfoResultInfo.data != null)
                             mView.showUploadResult(taskUploadInfoResultInfo.data);
 
@@ -84,7 +84,7 @@ public class CameraTaskPresenter extends BasePresenter<CameraEngine, CameraTaskC
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override

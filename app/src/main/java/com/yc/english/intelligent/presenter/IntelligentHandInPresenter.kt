@@ -35,7 +35,7 @@ open class IntelligentHandInPresenter : BasePresenter<IntelligentHandInEngin,
         }
         answersList += "]"
         mEngine.submitAnwsers(answersList, use_time).subscribe({
-            mView.dismissLoadingDialog()
+            mView.dismissDialog()
             val code = it?.code ?: -1
             if (code == HttpConfig.STATUS_OK) {
                 mView.showSuccess(it?.message ?: "提交成功")
@@ -43,7 +43,7 @@ open class IntelligentHandInPresenter : BasePresenter<IntelligentHandInEngin,
                 mView.showFail("提交失败，请重试")
             }
         }, {
-            mView.dismissLoadingDialog()
+            mView.dismissDialog()
             mView.showFail("服务器故障，请重试")
         })
     }

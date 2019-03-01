@@ -80,7 +80,7 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
 
             @Override
             public void onError(Throwable e) {
-                mView.dismissLoadingDialog();
+                mView.dismissDialog();
             }
 
             @Override
@@ -88,19 +88,19 @@ public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContra
                 ResultInfoHelper.handleResultInfo(orderInfoResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        mView.dismissLoadingDialog();
+                        mView.dismissDialog();
                         TipsHelper.tips(mContext,message);
                     }
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        mView.dismissLoadingDialog();
+                        mView.dismissDialog();
                         TipsHelper.tips(mContext,message);
                     }
 
                     @Override
                     public void reulstInfoOk() {
-                        mView.dismissLoadingDialog();
+                        mView.dismissDialog();
                         mView.showOrderInfo(orderInfoResultInfo.data, orderParams.getMoney(), orderParams.getTitle());
                     }
                 });

@@ -9,12 +9,12 @@ import com.yc.english.R
 import com.yc.english.base.model.BaseEngin
 import com.yc.english.base.presenter.BasePresenter
 import com.yc.english.base.view.BaseFragment
-import com.yc.english.base.view.IView
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.intelligent.view.adpaters.IntelligentOptionsAdapter
 import com.yc.english.main.model.domain.Constant
 import kotlinx.android.synthetic.main.intelligent_fragment_inner_question.*
+import yc.com.base.IView
 import yc.com.blankj.utilcode.util.SPUtils
 
 /**
