@@ -177,4 +177,8 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
         mCourseAdapter.loadMoreEnd();
     }
 
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 }

@@ -14,6 +14,7 @@ import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.english.R;
 import com.yc.english.base.view.StateView;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.soundmark.base.fragment.BasePayFragment;
 import com.yc.soundmark.base.utils.UIUtils;
 import com.yc.soundmark.base.widget.MainToolBar;
@@ -257,7 +258,7 @@ public class StudyActivity extends BaseActivity<StudyPresenter> implements Study
 
     private boolean isCanNext(int pos) {
         boolean isNext = false;
-        if (UserInfoHelper.isYbVip() || pos < 4) {
+        if (UserInfoHelper.isVip(UserInfoHelper.getUserInfo()) || pos < 4) {
             isNext = true;
         }
         return isNext;
@@ -265,8 +266,10 @@ public class StudyActivity extends BaseActivity<StudyPresenter> implements Study
     }
 
     private void showPayDialog() {
-        BasePayFragment basePayFragment = new BasePayFragment();
-        basePayFragment.show(getSupportFragmentManager(), "");
+//        BasePayFragment basePayFragment = new BasePayFragment();
+//        basePayFragment.show(getSupportFragmentManager(), "");
+
+        VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
     }
 
     @Override
@@ -287,8 +290,6 @@ public class StudyActivity extends BaseActivity<StudyPresenter> implements Study
     public void showNoNet() {
 
     }
-
-
 
 
     @Override

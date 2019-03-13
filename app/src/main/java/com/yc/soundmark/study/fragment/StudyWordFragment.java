@@ -93,7 +93,7 @@ public class StudyWordFragment extends BaseFragment implements OnUIApplyControll
 
         studyWordAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 layoutResult = (LinearLayout) adapter.getViewByPosition(recyclerView, position, R.id.layout_result);
                 currentInfo = studyWordAdapter.getItem(position);
                 int i = view.getId();
@@ -102,7 +102,7 @@ public class StudyWordFragment extends BaseFragment implements OnUIApplyControll
                     startPlay();
 
                 } else if (i == R.id.ll_record) {
-                    if (currentInfo == null) return false;
+                    if (currentInfo == null) return;
                     recordImg = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_record);
 
                     ivSpeakResult = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_speak_result);
@@ -119,7 +119,6 @@ public class StudyWordFragment extends BaseFragment implements OnUIApplyControll
 
                 }
 
-                return false;
             }
         });
 

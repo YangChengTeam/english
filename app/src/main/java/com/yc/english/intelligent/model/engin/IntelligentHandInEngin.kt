@@ -4,17 +4,17 @@ import android.content.Context
 import com.alibaba.fastjson.TypeReference
 import com.kk.securityhttp.domain.ResultInfo
 import com.kk.securityhttp.engin.HttpCoreEngin
-import com.yc.english.base.model.BaseEngin
 import com.yc.english.intelligent.model.domain.URLConfig
 import com.yc.english.intelligent.model.domain.VGInfoWarpper
 import com.yc.english.main.hepler.UserInfoHelper
 import rx.Observable
+import yc.com.base.BaseEngine
 
 /**
  * Created by zhangkai on 2017/12/4.
  */
 
-class IntelligentHandInEngin(context: Context?) : BaseEngin(context) {
+class IntelligentHandInEngin(context: Context?) : BaseEngine(context) {
     fun submitAnwsers(answer_list: String, use_time: String): Observable<ResultInfo<VGInfoWarpper>> {
         var uid = ""
         if (UserInfoHelper.getUserInfo() != null) {

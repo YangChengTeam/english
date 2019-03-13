@@ -22,7 +22,6 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.view.BaseActivity;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
@@ -39,6 +38,7 @@ import com.yc.english.setting.model.bean.GoodInfo;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.english.vip.contract.VipBuyContract;
 import com.yc.english.vip.model.bean.GoodsType;
+import com.yc.english.vip.model.bean.VipGoodInfo;
 import com.yc.english.vip.presenter.VipBuyPresenter;
 import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.vip.utils.VipInfoHelper;
@@ -56,6 +56,8 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.base.BaseActivity;
+import yc.com.base.BaseDialogFragment;
 import yc.com.blankj.utilcode.util.AppUtils;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.ScreenUtils;
@@ -721,5 +723,10 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
         }
 
         RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form pay");
+    }
+
+    @Override
+    public void showVipGoodInfos(List<VipGoodInfo> vipGoodInfos) {
+
     }
 }

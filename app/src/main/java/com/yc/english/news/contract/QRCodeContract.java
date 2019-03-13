@@ -2,8 +2,7 @@ package com.yc.english.news.contract;
 
 import android.graphics.Bitmap;
 
-import com.yc.english.base.presenter.IPresenter;
-
+import yc.com.base.IPresenter;
 import yc.com.base.IView;
 
 /**
@@ -15,6 +14,6 @@ public interface QRCodeContract {
         void showBitmap(Bitmap bitmap);
     }
 
-    interface Presenter extends IPresenter{}
+    interface Presenter extends IPresenter {}
 
 }

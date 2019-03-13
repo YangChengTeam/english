@@ -32,4 +32,9 @@ public class CapacityTopicActivity extends FullScreenActivity {
     public int getLayoutId() {
         return R.layout.topic_activity_detail;
     }
+
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 }

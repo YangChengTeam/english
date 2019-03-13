@@ -5,7 +5,6 @@ import android.content.Context;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.speak.contract.SpeakEnglishContract;
 import com.yc.english.speak.model.bean.SpeakAndReadInfoWrapper;
 import com.yc.english.speak.model.bean.SpeakEnglishWarpper;
@@ -13,6 +12,7 @@ import com.yc.english.speak.model.engine.SpeakEnglishListEngine;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
 
 /**
  * Created by wanglin  on 2017/10/13 08:59.

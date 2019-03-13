@@ -1,7 +1,6 @@
 package com.yc.english.community.contract;
 
 import com.kk.securityhttp.net.entry.UpFileInfo;
-import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.community.model.domain.CommentInfo;
 import com.yc.english.community.model.domain.CommunityInfo;
 
@@ -13,6 +12,7 @@ import yc.com.base.IHide;
 import yc.com.base.ILoading;
 import yc.com.base.INoData;
 import yc.com.base.INoNet;
+import yc.com.base.IPresenter;
 import yc.com.base.IView;
 
 /**

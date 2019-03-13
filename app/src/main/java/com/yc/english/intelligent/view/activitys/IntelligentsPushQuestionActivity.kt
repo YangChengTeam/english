@@ -9,17 +9,16 @@ import com.jakewharton.rxbinding.view.RxView
 import com.kk.securityhttp.net.contains.HttpConfig
 import com.umeng.analytics.MobclickAgent
 import com.yc.english.R
-import com.yc.english.base.utils.StatusBarCompat
-import com.yc.english.base.view.BaseActivity
 import com.yc.english.intelligent.contract.IntelligentPushQuestionContract
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentPushQuestionPresenter
-import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.intelligent.view.adpaters.IntelligentPushAdpater
 import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
 import com.yc.english.speak.view.activity.QuestionActivity
 import kotlinx.android.synthetic.main.intelligent_activity_push_question.*
+import yc.com.base.BaseActivity
+import yc.com.base.StatusBarCompat
 import yc.com.blankj.utilcode.util.SPUtils
 import java.util.concurrent.TimeUnit
 
@@ -29,6 +28,9 @@ import java.util.concurrent.TimeUnit
 
 class IntelligentsPushQuestionActivity : BaseActivity<IntelligentPushQuestionPresenter>(),
         IntelligentPushQuestionContract.View {
+    override fun isStatusBarMateria(): Boolean {
+        return true
+    }
 
 
     var reportId = 0

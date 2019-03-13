@@ -2,7 +2,6 @@ package com.yc.english.read.view.activitys;
 
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,10 +21,10 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.utils.TencentAdvManager;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.news.utils.ViewUtil;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.contract.BookContract;
@@ -40,7 +39,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.functions.Action1;
 import yc.com.blankj.utilcode.util.LogUtils;
@@ -103,14 +101,14 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         mPresenter = new BookPresenter(this, this);
 //        Properties pt = PropertyUtil.getProperties(this);
 
-        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND)) {
+        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             rlTopBanner.setVisibility(View.GONE);
             rlBottomBanner.setVisibility(View.GONE);
+        } else {
+
+            AdvDispatchManager.getManager().init(this, AdvType.BANNER, topBanner, null, com.yc.english.main.model.domain.Constant.TENCENT_ADV_ID, com.yc.english.main.model.domain.Constant.READ_TOP_BANNER, this);
+            AdvDispatchManager.getManager().init(this, AdvType.BANNER, bottomBanner, null, com.yc.english.main.model.domain.Constant.TENCENT_ADV_ID, com.yc.english.main.model.domain.Constant.READ_BOTTOM_BANNER, this);
         }
-
-        AdvDispatchManager.getManager().init(this, AdvType.BANNER, topBanner, null, com.yc.english.main.model.domain.Constant.TENCENT_ADV_ID, com.yc.english.main.model.domain.Constant.READ_TOP_BANNER, this);
-        AdvDispatchManager.getManager().init(this, AdvType.BANNER, bottomBanner, null, com.yc.english.main.model.domain.Constant.TENCENT_ADV_ID, com.yc.english.main.model.domain.Constant.READ_BOTTOM_BANNER, this);
-
 
         String titleName;
         if (ReadApp.READ_COMMON_TYPE == 1) {
@@ -159,7 +157,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
         mItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 final AlertDialog alertDialog = new AlertDialog(BookActivity.this);
                 alertDialog.setDesc("确认删除该教材？");
                 alertDialog.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +169,6 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
                     }
                 });
                 alertDialog.show();
-                return false;
             }
         });
         if (isRead) {
@@ -273,7 +270,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
     @Override
     public void onShow() {
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND))) {
+        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
             ivBottombannerClose.setVisibility(View.VISIBLE);
             ivTopbannerClose.setVisibility(View.VISIBLE);
         }
@@ -299,4 +296,14 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
     }
 
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(com.yc.english.main.model.domain.Constant.COMMUNITY_ACTIVITY_REFRESH)
+            }
+    )
+    public void paySuccess(String info) {
+        rlTopBanner.setVisibility(View.GONE);
+        rlBottomBanner.setVisibility(View.GONE);
+    }
 }

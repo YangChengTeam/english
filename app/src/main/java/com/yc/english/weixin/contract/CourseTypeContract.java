@@ -1,9 +1,8 @@
 package com.yc.english.weixin.contract;
 
-import com.yc.english.base.presenter.IPresenter;
-
 import java.util.List;
 
+import yc.com.base.IPresenter;
 import yc.com.base.IView;
 
 /**

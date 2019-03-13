@@ -6,7 +6,6 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
-import com.yc.english.base.model.BaseEngin;
 import com.yc.english.community.model.domain.CommentInfo;
 import com.yc.english.community.model.domain.CommentInfoList;
 import com.yc.english.community.model.domain.CommunityInfo;
@@ -18,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rx.Observable;
+import yc.com.base.BaseEngine;
 import yc.com.blankj.utilcode.util.EncryptUtils;
 
 import static com.umeng.socialize.utils.DeviceConfig.context;
@@ -26,7 +26,7 @@ import static com.umeng.socialize.utils.DeviceConfig.context;
  * Created by admin on 2017/8/30.
  */
 
-public class CommunityInfoEngin extends BaseEngin {
+public class CommunityInfoEngin extends BaseEngine {
 
     public CommunityInfoEngin(Context context) {
         super(context);

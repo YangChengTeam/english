@@ -3,8 +3,6 @@ package com.yc.english.weixin.presenter;
 import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
-import com.yc.english.base.model.BaseEngin;
-import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.SimpleCacheUtils;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.IndexInfo;
@@ -14,13 +12,15 @@ import com.yc.english.weixin.contract.CourseTypeContract;
 import java.util.ArrayList;
 import java.util.List;
 
+import yc.com.base.BaseEngine;
+import yc.com.base.BasePresenter;
 import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by zhangkai on 2017/8/30.
  */
 
-public class CourseTypePresenter extends BasePresenter<BaseEngin, CourseTypeContract.View> implements CourseTypeContract.Presenter {
+public class CourseTypePresenter extends BasePresenter<BaseEngine, CourseTypeContract.View> implements CourseTypeContract.Presenter {
 
 
     public CourseTypePresenter(Context context, CourseTypeContract.View view) {

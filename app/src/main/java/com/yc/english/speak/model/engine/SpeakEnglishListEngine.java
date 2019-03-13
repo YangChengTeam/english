@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
-import com.yc.english.base.model.BaseEngin;
 import com.yc.english.group.constant.NetConstant;
 import com.yc.english.speak.model.bean.SpeakAndReadInfoWrapper;
 import com.yc.english.speak.model.bean.SpeakEnglishWarpper;
@@ -16,12 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rx.Observable;
+import yc.com.base.BaseEngine;
 
 /**
  * Created by wanglin  on 2017/10/13 09:08.
  */
 
-public class SpeakEnglishListEngine extends BaseEngin {
+public class SpeakEnglishListEngine extends BaseEngine {
 
 
     public SpeakEnglishListEngine(Context context) {

@@ -6,22 +6,22 @@ import android.view.Gravity
 import android.view.View
 import com.jakewharton.rxbinding.view.RxView
 import com.yc.english.R
-import com.yc.english.base.model.BaseEngin
-import com.yc.english.base.presenter.BasePresenter
-import com.yc.english.base.view.BaseFragment
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.intelligent.view.activitys.IntelligentQuestionDescPopupWindow
 import com.yc.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_fragment_questions.*
+import yc.com.base.BaseEngine
+import yc.com.base.BaseFragment
+import yc.com.base.BasePresenter
 import yc.com.base.IView
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by zhangkai on 2017/11/28.
  */
-class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView>>() {
+class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngine, IView>>() {
 
     var questionInfo: QuestionInfoWrapper.QuestionInfo? = null
 
@@ -34,7 +34,7 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
         mQestionView.text = questionInfo?.title
         mQestionView.webview = questionInfo?.desc
         mQestionView.media = questionInfo?.voiceUrl
-        var data: List<QuestionInfoWrapper.QuestionInfo>
+        val data: List<QuestionInfoWrapper.QuestionInfo>
 
         if (questionInfo?.data != null && questionInfo?.data!!.size > 1) {
             mSmallIndexRelativeLayout.visibility = View.VISIBLE
@@ -75,7 +75,7 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
             } else if (questionInfo?.voiceText != "") {
                 ppw.loadHtml(questionInfo?.voiceText ?: "", 2)
             }
-            ppw.show(mRootView, Gravity.BOTTOM)
+            ppw.show(rootView, Gravity.BOTTOM)
         }
 
         showDescView()

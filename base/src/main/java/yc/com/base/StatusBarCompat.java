@@ -1,4 +1,4 @@
-package com.yc.soundmark.base.utils;
+package yc.com.base;
 
 import android.graphics.Color;
 import android.os.Build;
@@ -8,10 +8,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 
-import com.kk.utils.ScreenUtil;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import yc.com.base.BaseActivity;
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**
  * Created by zhangkai on 2017/11/27.
@@ -82,13 +81,13 @@ public final class StatusBarCompat {
             drawableId) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             if (mToolbarWarpper != null) {
-                mToolBar.getLayoutParams().height = ScreenUtil.dip2px(activity,48f);
+                mToolBar.getLayoutParams().height = SizeUtils.dp2px(48f);
                 mToolBar.requestLayout();
                 if (drawableId != 0) {
                     mToolbarWarpper.setBackground(ContextCompat.getDrawable(activity, drawableId));
                     mToolbarWarpper.requestLayout();
                 } else {
-                    mToolbarWarpper.getLayoutParams().height = ScreenUtil.dip2px(activity,48f);
+                    mToolbarWarpper.getLayoutParams().height = SizeUtils.dp2px(48f);
                 }
             }
             if (mStatusBar != null) {
@@ -105,7 +104,7 @@ public final class StatusBarCompat {
             }
 
             if (mToolBar != null) {
-                mToolBar.getLayoutParams().height = ScreenUtil.dip2px(activity,72f) - activity.getStatusHeight();
+                mToolBar.getLayoutParams().height = SizeUtils.dp2px(72f) - activity.getStatusHeight();
                 activity.setToolbarTopMargin(mToolBar);
             }
         }

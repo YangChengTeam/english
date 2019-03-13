@@ -41,6 +41,9 @@
     <string name="vip_price">¥%1$s</string>
     <string name="origin_price">原价¥%1$s元</string>
     <string name="phone_tint">为了给您提供更好的服务，请填写您的联系方式</string>
+    <string name="pay_price">价格</string>
+    <string name="new_vip_price">%1$d元</string>
+    <string name="new_origin_price">原价%1$d元</string>
 
     <string-array name="study_apply_array">
         <item>单词</item>
@@ -52,7 +55,6 @@
     <string name="practice_progress">%1$d/3</string>
 
 
-    <string name="diandu">课本点读</string>
     <string name="soundmark">外教音标</string>
 
 

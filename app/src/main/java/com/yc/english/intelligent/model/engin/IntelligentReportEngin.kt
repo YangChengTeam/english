@@ -1,20 +1,19 @@
 package com.yc.english.intelligent.model.engin
 
 import android.content.Context
-import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference
 import com.kk.securityhttp.domain.ResultInfo
 import com.kk.securityhttp.engin.HttpCoreEngin
-import com.yc.english.base.model.BaseEngin
 import com.yc.english.intelligent.model.domain.*
 import com.yc.english.main.hepler.UserInfoHelper
 import rx.Observable
+import yc.com.base.BaseEngine
 
 /**
  * Created by zhangkai on 2017/12/4.
  */
 
-class IntelligentReportEngin(context: Context?) : BaseEngin(context) {
+class IntelligentReportEngin(context: Context?) : BaseEngine(context) {
     fun getReportInfo(unit_id: String, use_time: String): Observable<ResultInfo<ReportInfo>> {
         var uid = ""
         if (UserInfoHelper.getUserInfo() != null) {

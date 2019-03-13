@@ -18,10 +18,9 @@ import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
 import com.jakewharton.rxbinding.view.RxView
 import com.kk.securityhttp.net.contains.HttpConfig
+import com.kk.utils.ScreenUtil
 import com.umeng.analytics.MobclickAgent
 import com.yc.english.R
-import com.yc.english.base.utils.StatusBarCompat
-import com.yc.english.base.view.BaseActivity
 import com.yc.english.base.view.SharePopupWindow
 import com.yc.english.intelligent.contract.IntelligentReportContract
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
@@ -32,13 +31,17 @@ import com.yc.english.intelligent.view.adpaters.IntelligentReportErrorAdapter
 import com.yc.english.intelligent.view.adpaters.IntelligentReportWeakAdapter
 import com.yc.english.main.model.domain.Constant
 import kotlinx.android.synthetic.main.intelligent_activity_report.*
-import net.lucode.hackware.magicindicator.buildins.UIUtil
+import yc.com.base.BaseActivity
+import yc.com.base.StatusBarCompat
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by zhangkai on 2017/11/28.
  */
 class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), IntelligentReportContract.View {
+    override fun isStatusBarMateria(): Boolean {
+        return true
+    }
 
 
     var unitId: Int = 0
@@ -180,7 +183,7 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
     private inner class MyItemDecoration : RecyclerView.ItemDecoration() {
         override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
             super.getItemOffsets(outRect, view, parent, state)
-            outRect.set(0, 0, UIUtil.dip2px(this@IntelligentReportActivity, 10.0), UIUtil.dip2px(this@IntelligentReportActivity, 10.0))
+            outRect.set(0, 0, ScreenUtil.dip2px(this@IntelligentReportActivity, 10f), ScreenUtil.dip2px(this@IntelligentReportActivity, 10f))
         }
     }
 }

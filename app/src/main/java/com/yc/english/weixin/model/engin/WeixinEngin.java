@@ -3,17 +3,16 @@ package com.yc.english.weixin.model.engin;
 import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
-import com.yc.english.base.model.BaseEngin;
-import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.model.domain.CourseInfoWrapper;
 
 import rx.Observable;
+import yc.com.base.BaseEngine;
 
 /**
  * Created by zhangkai on 2017/9/6.
  */
 
-public class WeixinEngin extends BaseEngin {
+public class WeixinEngin extends BaseEngine {
     public WeixinEngin(Context context) {
         super(context);
     }

@@ -3,10 +3,11 @@ package com.yc.english.setting.presenter;
 import android.content.Context;
 
 import com.yc.english.base.helper.GlideCatchHelper;
-import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.setting.contract.SettingContract;
 import com.yc.english.setting.model.engin.MyEngin;
+
+import yc.com.base.BasePresenter;
 
 /**
  * Created by zhangkai on 2017/8/3.

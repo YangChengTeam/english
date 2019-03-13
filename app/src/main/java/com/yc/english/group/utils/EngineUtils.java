@@ -18,13 +18,19 @@ import com.yc.english.pay.PayWayInfo;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.english.setting.model.bean.ShareStateInfo;
+import com.yc.english.vip.model.bean.VipGoodInfo;
+import com.yc.english.vip.model.bean.VipGoodInfoWrapper;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by wanglin  on 2017/8/2 19:30.
@@ -163,4 +169,11 @@ public class EngineUtils {
         }.getType(), null, true, true, true);
     }
 
+
+    public static Observable<ResultInfo<VipGoodInfoWrapper>> getVipGoodInfos(Context context) {
+        return HttpCoreEngin.get(context).rxpost(URLConfig.VIP_GOOD_URL, new TypeReference<ResultInfo<VipGoodInfoWrapper>>() {
+        }.getType(), null, true, true, true);
+
+
+    }
 }

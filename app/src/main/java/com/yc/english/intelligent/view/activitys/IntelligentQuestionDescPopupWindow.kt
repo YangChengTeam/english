@@ -33,6 +33,7 @@ class IntelligentQuestionDescPopupWindow(context: Activity) : BasePopupWindow(co
     @BindView(R.id.mCloseBtn)
     lateinit var mCloseBtn: LinearLayout
 
+
     override fun init() {
         val webSettings = mWebView.getSettings()
         webSettings.setJavaScriptEnabled(true)

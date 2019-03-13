@@ -7,12 +7,12 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.yc.english.R
-import com.yc.english.base.view.BaseView
 import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.intelligent.utils.timeShortFormat
 import rx.Observable
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
+import yc.com.base.BaseView
 import java.util.concurrent.TimeUnit
 
 /**
@@ -30,7 +30,7 @@ class IntelligentActionbar : BaseView {
 
     override fun getLayoutId() = R.layout.intelligent_actionbar
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context?, attrs: AttributeSet?) : super(context!!, attrs) {
     }
 
     var total: Int = 0

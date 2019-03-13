@@ -8,9 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yc.english.R;
-import com.yc.english.base.view.BaseView;
 
 import butterknife.BindView;
+import yc.com.base.BaseView;
 
 
 /**

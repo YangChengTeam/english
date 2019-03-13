@@ -1,6 +1,5 @@
 package com.yc.english.intelligent.contract
 
-import com.yc.english.base.presenter.IPresenter
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import yc.com.base.*
 
@@ -13,7 +12,7 @@ interface IntelligentPushQuestionContract {
         fun showInfo(comleteInfo: UnitInfoWrapper.ComleteInfo)
     }
 
-    interface Presenter : IPresenter {
+    interface Presenter {
 
     }
 }

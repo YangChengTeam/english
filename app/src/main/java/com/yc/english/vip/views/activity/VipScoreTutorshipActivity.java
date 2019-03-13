@@ -16,15 +16,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
-import com.yc.english.base.utils.StatusBarCompat;
-import com.yc.english.base.view.BaseActivity;
-import com.yc.english.group.constant.BusAction;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
@@ -33,12 +29,12 @@ import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.vip.views.fragments.VipTutorshipDetailFragment;
 import com.yc.english.vip.views.fragments.VipUserEvaluateFragment;
 
-
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.functions.Action1;
+import yc.com.base.BaseActivity;
+import yc.com.base.StatusBarCompat;
 
 /**
  * Created by wanglin  on 2017/11/28 15:05.
@@ -148,6 +144,11 @@ public class VipScoreTutorshipActivity extends BaseActivity {
 
     private VipTutorshipDetailFragment vipTutorshipDetailFragment;
     private VipUserEvaluateFragment vipUserEvaluateFragment;
+
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 
 
     private class MyFragmentPager extends FragmentStatePagerAdapter {

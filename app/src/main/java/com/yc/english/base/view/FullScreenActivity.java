@@ -7,10 +7,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.yc.english.R;
-import com.yc.english.base.presenter.BasePresenter;
-import com.yc.english.base.utils.StatusBarCompat;
 
 import butterknife.BindView;
+import yc.com.base.BaseActivity;
+import yc.com.base.BasePresenter;
+import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**
@@ -34,7 +35,7 @@ public abstract class FullScreenActivity<P extends BasePresenter> extends BaseAc
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                 mToolbar.getLayoutParams().height = SizeUtils.dp2px(48f);
             }
-        } else if (mToolbar instanceof TaskToolBar && hasChangeStatus) {
+        } else if (mToolbar instanceof TaskToolBar && isStatusBarMateria()) {
 
             StatusBarCompat.light(this);
             StatusBarCompat.compat(this, mToolbar, mToolbar.getToolbarWarpper(), ((TaskToolBar) mToolbar).getStatusBar());
@@ -61,5 +62,10 @@ public abstract class FullScreenActivity<P extends BasePresenter> extends BaseAc
             }
         }
         return result;
+    }
+
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
     }
 }

@@ -12,7 +12,6 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
-import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.main.contract.LoginContract;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.presenter.LoginPresenter;
@@ -21,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.base.StatusBarCompat;
 
 /**
  * Created by zhangkai on 2017/7/21.

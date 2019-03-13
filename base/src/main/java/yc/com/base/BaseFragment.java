@@ -21,12 +21,13 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements IView {
 
 
-    private View rootView;
+    protected View rootView;
     protected P mPresenter;
 
     protected boolean isViewInitiated;
     protected boolean isVisibleToUser;
     protected boolean isDataInitiated;
+    protected boolean isUseInKotlin;
 
     private static final String TAG = "BaseFragment";
 
@@ -39,13 +40,16 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         if (rootView == null) {
             rootView = LayoutInflater.from(getActivity()).inflate(getLayoutId(), container, false);
         }
-        try {
-            ButterKnife.bind(this, rootView);
-        } catch (Exception e) {
-            LogUtil.msg("-->:初始化失败 :" + e.getMessage());
+        if (!isUseInKotlin) {
+            try {
+                ButterKnife.bind(this, rootView);
+            } catch (Exception e) {
+                LogUtil.msg("-->:初始化失败 :" + e.getMessage());
+            }
+            init();
+            initView();
         }
-        initView();
-        init();
+
 
         return rootView;
     }
@@ -56,8 +60,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         if (EmptyUtils.isNotEmpty(mPresenter)) {
             mPresenter.subscribe();
         }
+        if (isUseInKotlin)
+            init();
         isViewInitiated = true;
-        Log.e(TAG, "onActivityCreated: ");
+//        Log.e(TAG, "onActivityCreated: ");
         prepareFetchData();
     }
 
@@ -65,7 +71,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         return rootView.findViewById(resId);
     }
 
-    protected abstract void initView();
+    protected void initView() {
+    }
 
 
     @Override
@@ -97,7 +104,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         this.isVisibleToUser = isVisibleToUser;
         LogUtil.msg("TAG ： " + getClass().getName() + "  isVisibleToUser   " + isVisibleToUser + "  isDataInitiated  " + isDataInitiated + "  isViewInitiated  " + isViewInitiated);
         prepareFetchData();
-        Log.e(TAG, "setUserVisibleHint: ");
+//        Log.e(TAG, "setUserVisibleHint: ");
     }
 
     public void fetchData() {

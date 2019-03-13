@@ -7,7 +7,6 @@ import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.securityhttp.net.entry.UpFileInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.community.contract.CommunityInfoContract;
 import com.yc.english.community.model.domain.CommentInfo;
 import com.yc.english.community.model.domain.CommentInfoList;
@@ -17,6 +16,7 @@ import com.yc.english.community.model.engin.CommunityInfoEngin;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
 import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
@@ -24,6 +24,8 @@ import yc.com.blankj.utilcode.util.UIUitls;
  */
 
 public class CommunityInfoPresenter extends BasePresenter<CommunityInfoEngin, CommunityInfoContract.View> implements CommunityInfoContract.Presenter {
+
+
 
     public CommunityInfoPresenter(Context context, CommunityInfoContract.View view) {
         super(context, view);

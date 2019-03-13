@@ -220,7 +220,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
 
         mSpeakItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
                 if (view.getId() == R.id.iv_speak_tape && !isTape && !isPlayTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
@@ -293,7 +293,6 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
                     stopPlay();
                 }
 
-                return false;
             }
         });
     }
@@ -874,6 +873,11 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
         if (mTts != null && mTts.isSpeaking()) {
             mTts.stopSpeaking();
         }
+    }
+
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
     }
 
     @Override

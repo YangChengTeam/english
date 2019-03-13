@@ -13,9 +13,7 @@ import com.jakewharton.rxbinding.view.RxView
 import com.kk.securityhttp.net.contains.HttpConfig
 import com.umeng.analytics.MobclickAgent
 import com.yc.english.R
-import com.yc.english.base.utils.StatusBarCompat
 import com.yc.english.base.view.AlertDialog
-import com.yc.english.base.view.BaseActivity
 import com.yc.english.intelligent.contract.IntelligentQuestionContract
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentQuestionPresenter
@@ -25,6 +23,8 @@ import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_activity_questions.*
+import yc.com.base.BaseActivity
+import yc.com.base.StatusBarCompat
 import yc.com.blankj.utilcode.util.SPUtils
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -33,6 +33,9 @@ import java.util.concurrent.TimeUnit
  * Created by zhangkai on 2017/11/28.
  */
 class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(), IntelligentQuestionContract.View {
+    override fun isStatusBarMateria(): Boolean {
+        return true
+    }
 
     var isHandIn = false
 
@@ -290,7 +293,6 @@ class IntelligentQuestionsActivity : BaseActivity<IntelligentQuestionPresenter>(
         }
         alertDialog.show()
     }
-
 
 
 }

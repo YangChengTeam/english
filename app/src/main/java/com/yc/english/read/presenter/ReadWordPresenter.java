@@ -4,13 +4,13 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.read.contract.ReadWordContract;
 import com.yc.english.read.model.domain.WordInfoList;
 import com.yc.english.read.model.engin.WordEngin;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
 
 /**
  * Created by admin on 2017/8/7.

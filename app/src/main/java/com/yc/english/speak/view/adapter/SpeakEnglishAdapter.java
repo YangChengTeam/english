@@ -89,7 +89,7 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
     private void initListener(final SpeakAndReadInfo info, SpeakEnglishItemAdapter itemAdapter) {
         itemAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 int pos = mData.indexOf(info);
                 SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
                 speakAndReadItemInfo.setOutPos(pos);
@@ -106,7 +106,6 @@ public class SpeakEnglishAdapter extends BaseQuickAdapter<SpeakAndReadInfo, Base
                 }
                 mContext.startActivity(intent);
 
-                return false;
 
             }
         });

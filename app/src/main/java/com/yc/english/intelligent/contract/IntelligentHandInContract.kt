@@ -1,6 +1,5 @@
 package com.yc.english.intelligent.contract
 
-import com.yc.english.base.presenter.IPresenter
 import yc.com.base.IDialog
 import yc.com.base.IView
 
@@ -14,7 +13,7 @@ interface IntelligentHandInContract {
         fun showFail(msg: String)
     }
 
-    interface Presenter : IPresenter {
+    interface Presenter {
 
     }
 }

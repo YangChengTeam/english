@@ -9,7 +9,7 @@ import android.view.ViewTreeObserver
 import android.view.animation.AccelerateInterpolator
 import android.widget.TextView
 import com.yc.english.R
-import com.yc.english.base.view.BaseView
+import yc.com.base.BaseView
 
 
 /**
@@ -26,7 +26,7 @@ class IntelligentItemScoreView : BaseView {
 
     var mProgressWidth: Int = 0
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context?, attrs: AttributeSet?) : super(context!!, attrs) {
         val a = context?.obtainStyledAttributes(attrs, R.styleable.tab_item)
         val title = a?.getText(R.styleable.tab_item_text)
         if (title != null) {

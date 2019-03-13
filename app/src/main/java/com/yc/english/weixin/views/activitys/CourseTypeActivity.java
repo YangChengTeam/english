@@ -185,4 +185,8 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
     }
 
 
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 }

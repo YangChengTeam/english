@@ -34,7 +34,6 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
-import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.utils.WakeLockUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
@@ -69,6 +68,7 @@ import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.subjects.PublishSubject;
+import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.StringUtils;
 import yc.com.blankj.utilcode.util.ToastUtils;
@@ -340,7 +340,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         //点击跟读按钮后操作
         mItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 playPosition = position;
                 if (view.getId() == R.id.iv_tape) {
 
@@ -370,7 +370,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                     } else {
                         //ToastUtils.showLong("开始");
                     }
-                    return false;
                 }
 
                 if (view.getId() == R.id.iv_play && mTts != null) {
@@ -382,7 +381,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                         enableState(playPosition);
                         startSynthesizer(playPosition);
                     }
-                    return false;
                 }
 
                 if (view.getId() == R.id.iv_play_tape && mItemAdapter.getData().get(lastPosition).isShow()) {
@@ -399,7 +397,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                     ToastUtils.showLong("请先录音评测后再回放");
                 }
 
-                return false;
             }
         });
 
@@ -891,6 +888,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 mPlayer.prepare();
                 //播放
                 mPlayer.start();
+//                mPlayer.getPlaybackParams().setSpeed(1.2f);
                 mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {

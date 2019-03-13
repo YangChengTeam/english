@@ -7,9 +7,9 @@ import android.view.View
 import android.webkit.WebView
 import android.widget.TextView
 import com.yc.english.R
-import com.yc.english.base.view.BaseView
 import com.yc.english.news.view.widget.MediaPlayerView
 import kotlinx.android.synthetic.main.intelligent_view_question.view.*
+import yc.com.base.BaseView
 
 /**
  * Created by zhangkai on 2017/12/6.
@@ -22,7 +22,7 @@ class IntelligentQuestionView : BaseView {
     val mDescAudioPlayerView = findViewById(R.id.mDescAudioPlayerView) as MediaPlayerView
     var mWebView = findViewById(R.id.mWebView) as WebView
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context?, attrs: AttributeSet?) : super(context!!, attrs) {
         val webSettings = mWebView.getSettings()
         webSettings.setLoadsImagesAutomatically(false)
         webSettings.setAllowUniversalAccessFromFileURLs(true)

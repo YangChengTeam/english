@@ -8,9 +8,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yc.english.R;
-import com.yc.english.base.view.BaseView;
 
 import butterknife.BindView;
+import yc.com.base.BaseView;
 
 /**
  * Created by wanglin  on 2017/11/28 17:05.

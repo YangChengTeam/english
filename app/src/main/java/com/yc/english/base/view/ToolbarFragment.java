@@ -1,16 +1,11 @@
 package com.yc.english.base.view;
 
-import android.support.v7.app.AppCompatActivity;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-
 import com.yc.english.R;
-import com.yc.english.base.presenter.BasePresenter;
 
 import butterknife.BindView;
+import yc.com.base.BaseActivity;
+import yc.com.base.BaseFragment;
+import yc.com.base.BasePresenter;
 
 /**
  * Created by zhangkai on 2017/7/26.

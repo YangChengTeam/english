@@ -1,6 +1,5 @@
 package com.yc.english.intelligent.contract
 
-import com.yc.english.base.presenter.IPresenter
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import yc.com.base.*
 
@@ -13,7 +12,7 @@ interface IntelligentQuestionContract {
         fun showNoData(message: String);
     }
 
-    interface Presenter : IPresenter {
+    interface Presenter {
 
     }
 }

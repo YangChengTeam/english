@@ -12,9 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yc.english.R;
-import com.yc.english.base.view.BaseView;
 
 import butterknife.BindView;
+import yc.com.base.BaseView;
 import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**

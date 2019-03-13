@@ -23,7 +23,6 @@ import android.widget.RelativeLayout;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseActivity;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.setting.contract.CameraTaskContract;
 import com.yc.english.setting.presenter.CameraTaskPresenter;
@@ -41,6 +40,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.base.BaseActivity;
 import yc.com.blankj.utilcode.util.SDCardUtils;
 
 import static android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE;
@@ -118,6 +118,11 @@ public class CameraTaskActivity extends BaseActivity<CameraTaskPresenter> implem
             }
         });
 
+    }
+
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
     }
 
     @Override

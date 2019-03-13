@@ -12,9 +12,8 @@ import com.shizhefei.view.indicator.slidebar.ColorBar
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener
 import com.yc.english.R
 import com.yc.english.base.utils.Blur
-import com.yc.english.base.utils.StatusBarCompat
-import com.yc.english.base.view.BaseActivity
-import com.yc.english.base.view.BaseFragment
+
+
 import com.yc.english.intelligent.contract.IntelligentTypeContract
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentTypePresenter
@@ -22,6 +21,10 @@ import com.yc.english.intelligent.view.activitys.IntelligentVGSelectPopupWindow
 import com.yc.english.main.model.domain.Constant
 import com.yc.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_type_fragment_index.*
+
+import yc.com.base.BaseActivity
+import yc.com.base.BaseFragment
+import yc.com.base.StatusBarCompat
 import yc.com.base.ThreadPoolUtils
 import yc.com.blankj.utilcode.util.SPUtils
 import yc.com.blankj.utilcode.util.SizeUtils

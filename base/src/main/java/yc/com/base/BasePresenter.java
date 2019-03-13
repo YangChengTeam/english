@@ -3,6 +3,8 @@ package yc.com.base;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.kk.securityhttp.domain.ResultInfo;
+
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -20,7 +22,7 @@ public abstract class BasePresenter<M, V extends IView> implements IPresenter {
     @NonNull
     protected CompositeSubscription mSubscriptions;
 
-    private boolean isFirstLoad = true;
+    protected boolean mFirstLoad = true;
 
     public BasePresenter(V view) {
         this(null, view);
@@ -34,9 +36,9 @@ public abstract class BasePresenter<M, V extends IView> implements IPresenter {
 
     public void loadData(boolean isForceUI) {
 
-        loadData(isFirstLoad | isForceUI, true);
+        loadData(mFirstLoad | isForceUI, true);
 
-        isFirstLoad = false;
+        mFirstLoad = false;
     }
 
 
@@ -53,6 +55,29 @@ public abstract class BasePresenter<M, V extends IView> implements IPresenter {
         mSubscriptions.clear();
     }
 
+    public <T> void handleResultInfo(final ResultInfo<T> resultInfo, final Runnable runnable) {
+        ResultInfoHelper.handleResultInfo(resultInfo, new ResultInfoHelper.Callback() {
+            @Override
+            public void resultInfoEmpty(String message) {
+                TipsHelper.tips(mContext, message);
+            }
 
+            @Override
+            public void resultInfoNotOk(String message) {
+                TipsHelper.tips(mContext, message);
+            }
+
+            @Override
+            public void reulstInfoOk() {
+                if (runnable != null) {
+                    runnable.run();
+                }
+            }
+        });
+    }
+
+    public <T> void handleResultInfo(ResultInfo<T> resultInfo) {
+        handleResultInfo(resultInfo, null);
+    }
 
 }

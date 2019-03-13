@@ -4,19 +4,19 @@ import android.content.Context
 import com.alibaba.fastjson.TypeReference
 import com.kk.securityhttp.domain.ResultInfo
 import com.kk.securityhttp.engin.HttpCoreEngin
-import com.yc.english.base.model.BaseEngin
 import com.yc.english.intelligent.model.domain.URLConfig
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.english.intelligent.model.domain.VGInfoWarpper
 import com.yc.english.main.hepler.UserInfoHelper
 import rx.Observable
+import yc.com.base.BaseEngine
 
 /**
  * Created by zhangkai on 2017/12/4.
  */
 
 //获取版本 获取年级 获取单元
-class IntelligentTypeEngin(context: Context?) : BaseEngin(context) {
+class IntelligentTypeEngin(context: Context?) : BaseEngine(context) {
     fun getVersion(): Observable<ResultInfo<VGInfoWarpper>> {
         return HttpCoreEngin.get(mContext).rxpost(URLConfig.GET_VERSION, object :
                 TypeReference<ResultInfo<VGInfoWarpper>>() {}.type, null,

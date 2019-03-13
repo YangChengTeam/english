@@ -1,6 +1,5 @@
 package com.yc.english.intelligent.contract
 
-import com.yc.english.base.presenter.IPresenter
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.model.domain.ReportInfo
 import yc.com.base.*
@@ -15,7 +14,7 @@ interface IntelligentReportContract {
         fun showPlanDetail(data: List<QuestionInfoWrapper.QuestionInfo>)
     }
 
-    interface Presenter : IPresenter {
+    interface Presenter {
 
     }
 }

@@ -14,7 +14,6 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.english.R;
 import com.yc.english.base.view.AlertDialog;
-import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.StateView;
 import com.yc.english.community.contract.CommunityInfoContract;
 import com.yc.english.community.model.domain.CommentInfo;
@@ -28,6 +27,7 @@ import com.yc.english.main.model.domain.Constant;
 import java.util.List;
 
 import butterknife.BindView;
+import yc.com.base.BaseFragment;
 import yc.com.blankj.utilcode.util.StringUtils;
 
 /**
@@ -116,7 +116,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
 
         mCommunityItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
+            public void onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
 
                 if (view.getId() == R.id.tv_comment_count) {
                     Intent intent = new Intent(getActivity(), CommunityDetailActivity.class);
@@ -135,7 +135,7 @@ public class CommunityFragment extends BaseFragment<CommunityInfoPresenter> impl
                     });
                     alertDialog.show();
                 }
-                return false;
+
             }
         });
 

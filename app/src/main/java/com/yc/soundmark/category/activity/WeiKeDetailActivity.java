@@ -24,8 +24,8 @@ import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.english.R;
 import com.yc.english.main.hepler.UserInfoHelper;
+import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
-import com.yc.soundmark.base.constant.BusAction;
 import com.yc.soundmark.base.fragment.BasePayFragment;
 import com.yc.soundmark.category.contract.WeiKeDetailContract;
 import com.yc.soundmark.category.model.domain.CourseInfo;
@@ -308,7 +308,7 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
     private boolean judgeVip() {
         boolean isPlay = false;
 
-        if (UserInfoHelper.isYbVip() || currentCourseInfo.getIs_vip() == 0) {
+        if (UserInfoHelper.isVip(UserInfoHelper.getUserInfo()) || currentCourseInfo.getIs_vip() == 0) {
             isPlay = true;
         }
 
@@ -327,7 +327,7 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
-                    @Tag(BusAction.PAY_SUCCESS)
+                    @Tag(Constant.COMMUNITY_ACTIVITY_REFRESH)
             }
     )
     public void paySuccess(String info) {

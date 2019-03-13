@@ -88,7 +88,7 @@ public class StudySentenceFragment extends BaseFragment implements OnUIApplyCont
 
         studySentenceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 layoutResult = (LinearLayout) adapter.getViewByPosition(recyclerView, position, R.id.layout_result);
                 currentInfo = studySentenceAdapter.getItem(position);
                 int i = view.getId();
@@ -97,7 +97,7 @@ public class StudySentenceFragment extends BaseFragment implements OnUIApplyCont
                     startPlay();
 
                 } else if (i == R.id.ll_record) {
-                    if (currentInfo == null) return false;
+                    if (currentInfo == null) return;
                     recordImg = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_record);
 
                     ivSpeakResult = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_speak_result);
@@ -114,7 +114,6 @@ public class StudySentenceFragment extends BaseFragment implements OnUIApplyCont
 
                 }
 
-                return false;
             }
         });
 

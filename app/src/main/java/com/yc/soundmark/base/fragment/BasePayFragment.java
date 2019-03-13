@@ -1,21 +1,19 @@
 package com.yc.soundmark.base.fragment;
 
 import android.content.DialogInterface;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.ScreenUtil;
 import com.kk.utils.ToastUtil;
 import com.yc.english.R;
+import com.yc.english.group.constant.BusAction;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.news.model.domain.OrderGood;
@@ -25,7 +23,6 @@ import com.yc.english.pay.alipay.IAliPay1Impl;
 import com.yc.english.pay.alipay.IPayCallback;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.soundmark.base.adapter.BasePayAdapter;
-import com.yc.soundmark.base.constant.BusAction;
 import com.yc.soundmark.base.contract.BasePayContract;
 import com.yc.soundmark.base.model.domain.GoodInfo;
 import com.yc.soundmark.base.presenter.BasePayPresenter;

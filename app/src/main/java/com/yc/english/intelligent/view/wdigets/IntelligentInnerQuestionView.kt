@@ -6,14 +6,13 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
-import android.webkit.WebView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.yc.english.R
-import com.yc.english.base.view.BaseView
 import com.yc.english.intelligent.utils.fromHtml
 import com.yc.english.news.view.widget.MediaPlayerView
 import kotlinx.android.synthetic.main.intelligent_view_inner_question.view.*
+import yc.com.base.BaseView
 
 /**
  * Created by zhangkai on 2017/12/6.
@@ -32,7 +31,7 @@ class IntelligentInnerQuestionView : BaseView {
 
     override fun getLayoutId() = R.layout.intelligent_view_inner_question
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context?, attrs: AttributeSet?) : super(context!!, attrs) {
         mRecyclerView.layoutManager = LinearLayoutManager(context)
         mAnalysisView.visibility = View.GONE
 

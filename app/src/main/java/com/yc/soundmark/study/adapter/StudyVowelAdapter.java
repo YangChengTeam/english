@@ -26,12 +26,12 @@ public class StudyVowelAdapter extends BaseQuickAdapter<WordInfo, BaseViewHolder
 
     private void setItemState(BaseViewHolder helper, WordInfo item) {
 
-        if (UserInfoHelper.isYbVip()){
+        if (UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             helper.setVisible(R.id.iv_cover_layer, false);
             helper.setVisible(R.id.iv_lock, false);
-        }else {
-            helper.setVisible(R.id.iv_cover_layer,item.getIs_vip()==1);
-            helper.setVisible(R.id.iv_lock, item.getIs_vip()==1);
+        } else {
+            helper.setVisible(R.id.iv_cover_layer, item.getIs_vip() == 1);
+            helper.setVisible(R.id.iv_lock, item.getIs_vip() == 1);
         }
 
 

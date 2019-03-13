@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.SimpleCacheUtils;
 import com.yc.english.weixin.contract.WeiKeContract;
 import com.yc.english.weixin.model.domain.WeiKeCategoryWrapper;
@@ -15,6 +14,7 @@ import com.yc.english.weixin.model.engin.WeiKeEngin;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
 import yc.com.blankj.utilcode.util.NetworkUtils;
 import yc.com.blankj.utilcode.util.UIUitls;
 
@@ -26,6 +26,7 @@ public class WeiKePresenter extends BasePresenter<WeiKeEngin, WeiKeContract.View
 
     private final String WEIKE_INFO = "weike_info";
     private final String SPOKEN_INFO = "spoken_info";
+    private boolean cached;
 
     public WeiKePresenter(Context context, WeiKeContract.View iView) {
         super(context, iView);

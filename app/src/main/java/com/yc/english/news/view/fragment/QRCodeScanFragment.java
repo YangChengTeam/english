@@ -32,7 +32,6 @@ import com.yc.english.R;
 import com.yc.english.news.adapter.QRCodeScanAdapter;
 import com.yc.english.news.contract.QRCodeContract;
 import com.yc.english.news.presenter.QRCodePresenter;
-import com.yc.english.vip.views.fragments.BaseDialogFragment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,6 +42,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import butterknife.BindView;
+import yc.com.base.BaseDialogFragment;
 import yc.com.blankj.utilcode.util.ScreenUtils;
 
 /**

@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.base.BaseView;
 import yc.com.blankj.utilcode.util.ActivityUtils;
 import yc.com.blankj.utilcode.util.SizeUtils;
 

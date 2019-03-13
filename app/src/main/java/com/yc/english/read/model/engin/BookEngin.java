@@ -8,7 +8,6 @@ import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.english.base.dao.BookInfoDao;
 import com.yc.english.base.dao.GradeInfoDao;
 import com.yc.english.base.helper.BookHelper;
-import com.yc.english.base.model.BaseEngin;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.BookInfoWarpper;
@@ -24,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
+import yc.com.base.BaseEngine;
 
 import static com.umeng.socialize.utils.DeviceConfig.context;
 
@@ -31,7 +31,7 @@ import static com.umeng.socialize.utils.DeviceConfig.context;
  * Created by admin on 2017/8/7.
  */
 
-public class BookEngin extends BaseEngin {
+public class BookEngin extends BaseEngine {
 
     private BookInfoDao bookInfoDao = ReadApp.getDaoSession().getBookInfoDao();
 

@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.TextView
 import com.yc.english.R
-import com.yc.english.base.view.BaseView
+import yc.com.base.BaseView
 
 /**
  * Created by zhangkai on 2017/11/27.
@@ -18,7 +18,7 @@ class IntelligentTypeItemView : BaseView {
     val mDoTextView = findViewById(R.id.tvDo) as TextView
     val mIconImageView = findViewById(R.id.ivIcon) as ImageView
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context?, attrs: AttributeSet?) : super(context!!, attrs) {
         val a = context?.obtainStyledAttributes(attrs, R.styleable.tab_item)
 
         val title = a?.getText(R.styleable.tab_item_text)

@@ -2,9 +2,9 @@ package com.yc.english.intelligent.presenter
 
 import android.content.Context
 import com.kk.securityhttp.net.contains.HttpConfig
-import com.yc.english.base.presenter.BasePresenter
 import com.yc.english.intelligent.contract.IntelligentPushQuestionContract
 import com.yc.english.intelligent.model.engin.IntelligentPushQuestionEngin
+import yc.com.base.BasePresenter
 
 /**
  * Created by zhangkai on 2017/11/24.

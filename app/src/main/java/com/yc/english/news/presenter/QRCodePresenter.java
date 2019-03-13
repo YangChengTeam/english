@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.yc.english.base.model.BaseEngin;
-import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.news.contract.QRCodeContract;
 
 import java.io.ByteArrayOutputStream;
@@ -14,12 +12,14 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import yc.com.base.BaseEngine;
+import yc.com.base.BasePresenter;
 import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by wanglin  on 2018/10/18 15:58.
  */
-public class QRCodePresenter extends BasePresenter<BaseEngin, QRCodeContract.View> implements QRCodeContract.Presenter {
+public class QRCodePresenter extends BasePresenter<BaseEngine, QRCodeContract.View> implements QRCodeContract.Presenter {
     public QRCodePresenter(Context context, QRCodeContract.View view) {
         super(context, view);
     }

@@ -85,7 +85,7 @@ public class StudyPhraseFragment extends BaseFragment implements OnUIApplyContro
 
         studyPhraseAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 layoutResult = (LinearLayout) adapter.getViewByPosition(recyclerView, position, R.id.layout_result);
                 currentInfo = studyPhraseAdapter.getItem(position);
 
@@ -95,7 +95,7 @@ public class StudyPhraseFragment extends BaseFragment implements OnUIApplyContro
                     startPlay();
 
                 } else if (i == R.id.ll_record) {
-                    if (currentInfo == null) return false;
+                    if (currentInfo == null) return;
                     recordImg = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_record);
 
                     ivSpeakResult = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_speak_result);
@@ -112,7 +112,6 @@ public class StudyPhraseFragment extends BaseFragment implements OnUIApplyContro
 
                 }
 
-                return false;
             }
         });
 

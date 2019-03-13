@@ -5,13 +5,13 @@ import android.content.Context;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.speak.contract.ListenEnglishContract;
 import com.yc.english.speak.model.bean.ListenEnglishWarpper;
 import com.yc.english.speak.model.engine.ListenEnglishEngin;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
 
 
 public class ListenEnglishPresenter extends BasePresenter<ListenEnglishEngin, ListenEnglishContract.View> implements ListenEnglishContract.Presenter {

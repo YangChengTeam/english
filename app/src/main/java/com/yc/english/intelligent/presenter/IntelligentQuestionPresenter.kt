@@ -4,12 +4,12 @@ import android.content.Context
 import com.alibaba.fastjson.JSON
 import com.hwangjr.rxbus.RxBus
 import com.kk.securityhttp.net.contains.HttpConfig
-import com.yc.english.base.presenter.BasePresenter
 import com.yc.english.base.utils.SimpleCacheUtils
 import com.yc.english.intelligent.contract.IntelligentQuestionContract
 import com.yc.english.intelligent.model.engin.IntelligentQuestionEngin
 import com.yc.english.main.hepler.UserInfoHelper
 import com.yc.english.main.model.domain.Constant
+import yc.com.base.BasePresenter
 import yc.com.blankj.utilcode.util.SPUtils
 
 /**
@@ -55,7 +55,7 @@ open class IntelligentQuestionPresenter :
             if (code == HttpConfig.STATUS_OK) {
                 if (it?.data?.list != null) {
                     SimpleCacheUtils.writeCache(mContext, "getQuestion${report_id}${type}", JSON.toJSONString(it.data?.list))
-                    mView.showInfo(it.data?.list!!, it?.data?.use_time)
+                    mView.showInfo(it.data?.list!!, it.data?.use_time)
                     return@subscribe
                 }
             }

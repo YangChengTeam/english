@@ -10,8 +10,6 @@ import com.jakewharton.rxbinding.view.RxView
 import com.umeng.analytics.MobclickAgent
 import com.yc.english.R
 import com.yc.english.base.utils.SimpleCacheUtils
-import com.yc.english.base.utils.StatusBarCompat
-import com.yc.english.base.view.BaseActivity
 import com.yc.english.intelligent.contract.IntelligentHandInContract
 import com.yc.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.english.intelligent.presenter.IntelligentHandInPresenter
@@ -19,6 +17,8 @@ import com.yc.english.intelligent.utils.getLevel1QuestionInfo
 import com.yc.english.intelligent.view.adpaters.IntelligentHandInAdapter
 import com.yc.english.main.model.domain.Constant
 import kotlinx.android.synthetic.main.intelligent_avtivity_hand_in.*
+import yc.com.base.BaseActivity
+import yc.com.base.StatusBarCompat
 import yc.com.blankj.utilcode.util.SPUtils
 import yc.com.blankj.utilcode.util.ToastUtils
 import java.util.*
@@ -28,6 +28,10 @@ import java.util.concurrent.TimeUnit
  * Created by zhangkai on 2017/11/28.
  */
 class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), IntelligentHandInContract.View {
+    override fun isStatusBarMateria(): Boolean {
+        return true
+    }
+
     var adapter: IntelligentHandInAdapter? = null
     lateinit var questionInfos: List<QuestionInfoWrapper.QuestionInfo>
 
@@ -44,7 +48,8 @@ class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), In
 
         RxView.clicks(mSubmitBtn).throttleFirst(200, TimeUnit
                 .MILLISECONDS).subscribe {
-            mPresenter.submitAnswers(questionInfos, IntelligentQuestionsActivity.getInstance()?.usedTime() ?: "")
+            mPresenter.submitAnswers(questionInfos, IntelligentQuestionsActivity.getInstance()?.usedTime()
+                    ?: "")
         }
 
         mToolbar.mTimeTextView.text = IntelligentQuestionsActivity.getInstance()?.usedTime() ?: ""
@@ -70,11 +75,14 @@ class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), In
     override fun showSuccess(msg: String) {
         runOnUiThread {
             finish()
-            SimpleCacheUtils.writeCache(this, IntelligentQuestionsActivity.getInstance()?.getResultKey() ?: "error", JSON
+            SimpleCacheUtils.writeCache(this, IntelligentQuestionsActivity.getInstance()?.getResultKey()
+                    ?: "error", JSON
                     .toJSONString(questionInfos))
-            SPUtils.getInstance().put(IntelligentQuestionsActivity.getInstance()?.getFinishTimeKey() ?: "error", mToolbar
+            SPUtils.getInstance().put(IntelligentQuestionsActivity.getInstance()?.getFinishTimeKey()
+                    ?: "error", mToolbar
                     .mTimeTextView.text.toString())
-            SPUtils.getInstance().put(IntelligentQuestionsActivity.getInstance()?.getFinishKey() ?: "error", 1)
+            SPUtils.getInstance().put(IntelligentQuestionsActivity.getInstance()?.getFinishKey()
+                    ?: "error", 1)
             IntelligentQuestionsActivity.getInstance()?.isResultIn = true
             RxBus.get().post(Constant.RESULT_ANS, "from result")
             val intent = Intent(this@IntelligentHandInActivity, IntelligentResultActivity::class.java)

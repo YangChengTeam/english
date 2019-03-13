@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseFragment;
 import com.yc.english.pay.PayConfig;
 import com.yc.english.pay.PayWayInfo;
 import com.yc.english.setting.model.bean.GoodInfo;
@@ -26,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.base.BaseFragment;
 import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**

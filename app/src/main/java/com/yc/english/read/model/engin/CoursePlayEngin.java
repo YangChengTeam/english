@@ -5,7 +5,6 @@ import android.content.Context;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
-import com.yc.english.base.model.BaseEngin;
 import com.yc.english.read.model.domain.EnglishCourseInfoList;
 import com.yc.english.read.model.domain.URLConfig;
 
@@ -13,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rx.Observable;
+import yc.com.base.BaseEngine;
 
 import static com.umeng.socialize.utils.DeviceConfig.context;
 
@@ -20,7 +20,7 @@ import static com.umeng.socialize.utils.DeviceConfig.context;
  * Created by admin on 2017/8/7.
  */
 
-public class CoursePlayEngin extends BaseEngin {
+public class CoursePlayEngin extends BaseEngine {
 
     public CoursePlayEngin(Context context) {
         super(context);

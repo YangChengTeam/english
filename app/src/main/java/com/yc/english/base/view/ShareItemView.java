@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.yc.english.R;
 
 import butterknife.BindView;
+import yc.com.base.BaseView;
 
 /**
  * Created by zhangkai on 2017/7/28.

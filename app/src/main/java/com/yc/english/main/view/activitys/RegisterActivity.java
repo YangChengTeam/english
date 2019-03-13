@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
-import com.yc.english.base.utils.StatusBarCompat;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.main.contract.RegisterContract;
 import com.yc.english.main.presenter.RegisterPresenter;
@@ -18,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.UIUitls;
 
 /**

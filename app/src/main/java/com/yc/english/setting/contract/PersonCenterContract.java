@@ -1,10 +1,10 @@
 package com.yc.english.setting.contract;
 
-import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.main.model.domain.UserInfo;
 
 import yc.com.base.IDialog;
 import yc.com.base.IFinish;
+import yc.com.base.IPresenter;
 import yc.com.base.IView;
 
 /**

@@ -3,16 +3,13 @@ package com.yc.english.main.view.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,16 +39,13 @@ import com.umeng.analytics.MobclickAgent;
 import com.yc.english.EnglishApp;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
-import com.yc.english.base.utils.StatusBarCompat;
-import com.yc.english.base.utils.TencentAdvManager;
-import com.yc.english.base.view.BaseActivity;
-import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
+import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
@@ -82,10 +76,11 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
+import yc.com.base.BaseActivity;
+import yc.com.base.BaseFragment;
 import yc.com.base.EmptyUtils;
+import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.SPUtils;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
@@ -162,7 +157,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @BindView(R.id.rl_bottom_banner)
     RelativeLayout rlBottomBanner;
 
-
     private AritleAdapter mHotMircoClassAdapter;
 
     @BindView(R.id.ll_morcoclass_more)
@@ -195,30 +189,25 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     public static final String TAG = "IndexFragment";
 
     //TODO 添加TODO标识的都是隐藏的
-    private String isXiaomi = "";
 
     @Override
     public void init() {
 
-//        Properties pt = PropertyUtil.getProperties(getActivity());
 
-
-//        isXiaomi = pt.getProperty("isXiaomi");
-//        String isShowIndexAdv = pt.getProperty("isShowIndexAdv");
-
-        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND)) {
+        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             rlTopBanner.setVisibility(View.GONE);
             rlBottomBanner.setVisibility(View.GONE);
 //            bannerContainer.setVisibility(View.GONE);
 //            bannerBottomContainer.setVisibility(View.GONE);
+        } else {
+
+            AdvDispatchManager.getManager().init(getActivity(), AdvType.BANNER, bannerBottomContainer, null, Constant.TENCENT_ADV_ID, Constant.BANNER_ADV2, this);
+
+            initNativeExpressAD();
         }
 //        AdvDispatchManager.getManager().init(getActivity(), AdvType.BANNER, bannerContainer, null, Constant.TENCENT_ADV_ID, Constant.BANNER_ADV1, this);
-        AdvDispatchManager.getManager().init(getActivity(), AdvType.BANNER, bannerBottomContainer, null, Constant.TENCENT_ADV_ID, Constant.BANNER_ADV2, this);
-
-//        TencentAdvManager.showBannerAdv(getActivity(),bannerBottomContainer, Constant.BANNER_ADV2);
 
 
-        initNativeExpressAD();
         StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolBar, mStatusBar);
         mPresenter = new IndexPresenter(getActivity(), this);
 
@@ -291,7 +280,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void call(Void aVoid) {
                 SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
-                sharePopupWindow.show(mRootView);
+                sharePopupWindow.show(rootView);
             }
         });
 
@@ -344,8 +333,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 MobclickAgent.onEvent(getActivity(), "photograp_read", "音标点读");
                 // todo 这里是在线作业 融云im模块
 
-//                ToastUtil.toast2(getActivity(), "功能正在开发中...");
-//                SmallProcedureUtils.switchSmallProcedure(getActivity(), "gh_e46e21f44c08", GroupConstant.appid);
                 Intent intent = new Intent(getActivity(), StudyActivity.class);
                 startActivity(intent);
 
@@ -579,7 +566,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showLoading() {
-//        if (!mRefreshSwipeRefreshLayout.isRefreshing())
+
         mLoadingStateView.showLoading(mContextScrollView);
     }
 
@@ -634,8 +621,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             advInfo = slideInfo;
             GlideHelper.imageView(getContext(), mExamImageView, slideInfo.getImg(), R.mipmap.xiaoxueyinbbiao_ad);
         }
-//
-//        if (mRefreshSwipeRefreshLayout.ref())
+
         mRefreshSwipeRefreshLayout.finishRefresh();
     }
 
@@ -680,8 +666,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showNoNet() {
-//        if (mRefreshSwipeRefreshLayout.isRefreshing())
-//            mRefreshSwipeRefreshLayout.setRefreshing(false);
 
         mRefreshSwipeRefreshLayout.finishRefresh();
 
@@ -695,8 +679,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showNoData() {
-//        if (mRefreshSwipeRefreshLayout.isRefreshing())
-//            mRefreshSwipeRefreshLayout.setRefreshing(false);
+
         mRefreshSwipeRefreshLayout.finishRefresh();
         mLoadingStateView.showNoData(mContextScrollView);
 
@@ -733,7 +716,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             view = mAdViewList.get(0);
             GDTLogger.i("ad load[" + 0 + "]: " + getAdInfo(view));
             mAdViewPositionMap.put(view, FIRST_AD_POSITION);
-            if (!TextUtils.equals("true", isXiaomi))
+            if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
                 mRecommendAdapter.addADViewToPosition(position, mAdViewList.get(0));
         }
     }
@@ -803,7 +786,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @Override
     public void onShow() {
 //        ivTopbannerClose.setVisibility(View.VISIBLE);
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND))) {
+        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
             ivBottombannerClose.setVisibility(View.VISIBLE);
         }
     }
@@ -825,6 +808,21 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void onNativeExpressShow(Map<NativeExpressADView, Integer> mDatas) {
+
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(Constant.COMMUNITY_ACTIVITY_REFRESH)
+            }
+    )
+    public void paySuccess(String info) {
+        rlBottomBanner.setVisibility(View.GONE);
+        if (mRecommendAdapter != null) {
+            int removedPosition = mAdViewPositionMap.get(view);
+            mRecommendAdapter.removeADView(removedPosition, view);
+        }
 
     }
 }

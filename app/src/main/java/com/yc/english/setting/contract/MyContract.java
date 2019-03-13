@@ -1,6 +1,5 @@
 package com.yc.english.setting.contract;
 
-import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.setting.model.bean.MyOrderInfo;
 import com.yc.english.setting.model.bean.ScoreInfo;
@@ -13,6 +12,7 @@ import yc.com.base.IHide;
 import yc.com.base.ILoading;
 import yc.com.base.INoData;
 import yc.com.base.INoNet;
+import yc.com.base.IPresenter;
 import yc.com.base.IView;
 
 /**

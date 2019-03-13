@@ -9,13 +9,13 @@ import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
 import com.kk.securityhttp.net.contains.HttpConfig
 import com.kk.utils.LogUtil
-import com.yc.english.base.presenter.BasePresenter
 import com.yc.english.base.utils.SimpleCacheUtils
 import com.yc.english.intelligent.contract.IntelligentTypeContract
 import com.yc.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.english.intelligent.model.domain.VGInfoWarpper
 import com.yc.english.intelligent.model.engin.IntelligentTypeEngin
 import com.yc.english.main.model.domain.Constant
+import yc.com.base.BasePresenter
 import yc.com.blankj.utilcode.util.SPUtils
 import java.util.*
 

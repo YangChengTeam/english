@@ -25,9 +25,7 @@ import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.QQUtils;
-import com.yc.english.base.utils.StatusBarCompat;
-import com.yc.english.base.view.BaseActivity;
-import com.yc.english.base.view.BaseFragment;
+
 import com.yc.english.base.view.HonourAbilityView;
 import com.yc.english.base.view.QQqunDialog;
 import com.yc.english.base.view.SharePopupWindow;
@@ -53,6 +51,9 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.base.BaseActivity;
+import yc.com.base.BaseFragment;
+import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.ActivityUtils;
 import yc.com.blankj.utilcode.util.SizeUtils;
 
@@ -214,7 +215,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             @Override
             public void call(Void aVoid) {
                 FollowWeiXinPopupWindow followWeiXinPopupWindow = new FollowWeiXinPopupWindow(getActivity());
-                followWeiXinPopupWindow.show(mRootView);
+                followWeiXinPopupWindow.show(rootView);
             }
         });
 

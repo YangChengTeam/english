@@ -443,6 +443,8 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         mLyricViewPresenter.downAudioFile(listenEnglishBean);
     }
 
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

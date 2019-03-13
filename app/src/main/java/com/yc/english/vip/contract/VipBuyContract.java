@@ -1,11 +1,14 @@
 package com.yc.english.vip.contract;
 
 import com.kk.securityhttp.domain.ResultInfo;
-import com.yc.english.base.presenter.IPresenter;
 import com.yc.english.pay.alipay.OrderInfo;
+import com.yc.english.vip.model.bean.VipGoodInfo;
+
+import java.util.List;
 
 import yc.com.base.IDialog;
 import yc.com.base.INoNet;
+import yc.com.base.IPresenter;
 import yc.com.base.IView;
 
 /**
@@ -14,10 +17,13 @@ import yc.com.base.IView;
 
 public interface VipBuyContract {
 
-    interface View extends IView,IDialog,INoNet {
+    interface View extends IView, IDialog, INoNet {
 
         void showOrderInfo(ResultInfo<OrderInfo> data, String s, String money);
+
         void shareAllow(Integer data);
+
+        void showVipGoodInfos(List<VipGoodInfo> vipGoodInfos);
     }
 
     interface Presenter extends IPresenter {

@@ -146,4 +146,9 @@ public class WeikeUnitActivity extends FullScreenActivity<WeiKePresenter> implem
     public void end() {
         mWeiKeInfoItemAdapter.loadMoreEnd();
     }
+
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 }

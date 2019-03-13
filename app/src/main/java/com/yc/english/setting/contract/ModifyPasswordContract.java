@@ -1,9 +1,8 @@
 package com.yc.english.setting.contract;
 
-import com.yc.english.base.presenter.IPresenter;
-
 import yc.com.base.IDialog;
 import yc.com.base.IFinish;
+import yc.com.base.IPresenter;
 import yc.com.base.IView;
 
 /**

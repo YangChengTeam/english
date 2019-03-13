@@ -3,12 +3,12 @@ package com.yc.english.group.activitys;
 import android.support.v4.view.ViewPager;
 
 import com.yc.english.R;
-import com.yc.english.base.view.BaseActivity;
 import com.yc.english.group.adapter.GroupPicTaskDetailAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
+import yc.com.base.BaseActivity;
 
 /**
  * Created by wanglin  on 2017/8/14 09:21.
@@ -34,4 +34,8 @@ public class GroupPictureDetailActivity extends BaseActivity {
         return R.layout.group_activity_task_picture_item;
     }
 
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 }

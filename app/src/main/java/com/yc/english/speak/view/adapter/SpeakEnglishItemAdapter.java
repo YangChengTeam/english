@@ -11,11 +11,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.kk.utils.ScreenUtil;
 import com.yc.english.R;
 import com.yc.english.group.utils.BitmapUtils;
 import com.yc.english.speak.model.bean.SpeakAndReadItemInfo;
-
-import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
                 layoutParams.height = CardView.LayoutParams.WRAP_CONTENT;
             } else {
                 helper.setVisible(R.id.tv_update_date, false);
-                layoutParams.height = UIUtil.dip2px(mContext, 110);
+                layoutParams.height = ScreenUtil.dip2px(mContext, 110f);
             }
             view.setLayoutParams(layoutParams);
         }
@@ -65,19 +64,19 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) helper.itemView.getLayoutParams();
         if (mIsMore) {
             if (position % 2 == 0) {
-                layoutParams.leftMargin = UIUtil.dip2px(mContext, 2);
+                layoutParams.leftMargin = ScreenUtil.dip2px(mContext, 2f);
             } else {
-                layoutParams.rightMargin = UIUtil.dip2px(mContext, 2);
+                layoutParams.rightMargin = ScreenUtil.dip2px(mContext, 2f);
             }
         } else {
             if (position == 0) {
-                layoutParams.leftMargin = UIUtil.dip2px(mContext, 2);
-                layoutParams.rightMargin = UIUtil.dip2px(mContext, 2);
+                layoutParams.leftMargin = ScreenUtil.dip2px(mContext, 2f);
+                layoutParams.rightMargin = ScreenUtil.dip2px(mContext, 2f);
 
             } else if (position % 2 == 0) {
-                layoutParams.rightMargin = UIUtil.dip2px(mContext, 2);
+                layoutParams.rightMargin = ScreenUtil.dip2px(mContext, 2f);
             } else {
-                layoutParams.leftMargin = UIUtil.dip2px(mContext, 2);
+                layoutParams.leftMargin = ScreenUtil.dip2px(mContext, 2f);
             }
         }
         helper.itemView.setLayoutParams(layoutParams);

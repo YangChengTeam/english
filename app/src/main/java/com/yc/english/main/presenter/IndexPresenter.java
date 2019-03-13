@@ -5,7 +5,6 @@ import android.content.Context;
 import com.alibaba.fastjson.JSON;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
-import com.yc.english.base.presenter.BasePresenter;
 import com.yc.english.base.utils.SimpleCacheUtils;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.contract.IndexContract;
@@ -24,6 +23,7 @@ import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
 import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
@@ -32,6 +32,7 @@ import yc.com.blankj.utilcode.util.UIUitls;
 
 public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View> implements IndexContract.Presenter {
     public static final String INDEX_INFO = "getIndexInfo";
+    private boolean cached;
 
     public IndexPresenter(Context context, IndexContract.View view) {
         super(context, view);

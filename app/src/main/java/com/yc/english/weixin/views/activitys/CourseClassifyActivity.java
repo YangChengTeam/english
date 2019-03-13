@@ -47,4 +47,8 @@ public class CourseClassifyActivity extends FullScreenActivity {
     }
 
 
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 }

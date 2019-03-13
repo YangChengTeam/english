@@ -8,8 +8,8 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.kk.utils.ScreenUtil;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseFragment;
 import com.yc.english.base.view.StateView;
 import com.yc.english.speak.contract.SpeakEnglishContract;
 import com.yc.english.speak.model.bean.SpeakAndReadInfo;
@@ -18,11 +18,10 @@ import com.yc.english.speak.presenter.SpeakEnglishListPresenter;
 import com.yc.english.speak.view.activity.SpeakMoreActivity;
 import com.yc.english.speak.view.adapter.SpeakEnglishAdapter;
 
-import net.lucode.hackware.magicindicator.buildins.UIUtil;
-
 import java.util.List;
 
 import butterknife.BindView;
+import yc.com.base.BaseFragment;
 
 /**
  * Created by wanglin  on 2017/10/12 15:00.
@@ -59,14 +58,13 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
     private void initListener() {
         speakEnglishAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 SpeakAndReadInfo speakAndReadInfo = (SpeakAndReadInfo) adapter.getItem(position);
                 Intent intent = new Intent(getActivity(), SpeakMoreActivity.class);
                 intent.putExtra("speakAndReadInfo", speakAndReadInfo);
                 intent.putExtra("type", type);
                 startActivity(intent);
 
-                return false;
 
             }
         });
@@ -160,7 +158,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             super.getItemOffsets(outRect, view, parent, state);
-            outRect.set(0, 0, 0, UIUtil.dip2px(getActivity(), 10));
+            outRect.set(0, 0, 0, ScreenUtil.dip2px(getActivity(), 10f));
         }
     }
 

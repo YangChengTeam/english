@@ -5,7 +5,6 @@ import android.content.Context;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
-import com.yc.english.base.model.BaseEngin;
 import com.yc.english.speak.model.bean.ListenEnglishWarpper;
 import com.yc.english.speak.model.domain.URLConfig;
 
@@ -13,12 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rx.Observable;
+import yc.com.base.BaseEngine;
 
 /**
  * Created by admin on 2017/10/16.
  */
 
-public class ListenEnglishEngin extends BaseEngin {
+public class ListenEnglishEngin extends BaseEngine {
 
     public ListenEnglishEngin(Context context) {
         super(context);
