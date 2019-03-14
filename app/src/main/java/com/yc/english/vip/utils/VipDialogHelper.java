@@ -3,7 +3,6 @@ package com.yc.english.vip.utils;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
-import com.yc.english.vip.views.fragments.BasePayDialogFragment;
 import com.yc.english.vip.views.fragments.PayNewFragment;
 
 /**

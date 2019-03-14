@@ -18,6 +18,7 @@ import com.yc.soundmark.study.utils.AVManager;
 
 import java.util.List;
 
+import butterknife.BindView;
 import yc.com.base.BaseFragment;
 
 /**
@@ -26,7 +27,9 @@ import yc.com.base.BaseFragment;
 public class StudyWordFragment extends BaseFragment implements OnUIApplyControllerListener {
 
 
-    private RecyclerView recyclerView;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
 
     private StudyWordAdapter studyWordAdapter;
 

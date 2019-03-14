@@ -9,6 +9,7 @@ import com.yc.english.R;
 
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.base.BaseDialogFragment;
 
@@ -16,9 +17,11 @@ import yc.com.base.BaseDialogFragment;
  * Created by wanglin  on 2018/11/12 15:36.
  */
 public class VipEquitiesFragment extends BaseDialogFragment {
-    private TextView tvTint;
+    @BindView(R.id.tv_tint)
+    TextView tvTint;
+    @BindView(R.id.iv_close)
+    ImageView ivClose;
 
-    private ImageView ivClose;
 
 
     @Override

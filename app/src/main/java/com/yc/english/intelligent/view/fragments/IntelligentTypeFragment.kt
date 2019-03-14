@@ -42,7 +42,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
 
     var popupWindow: IntelligentVGSelectPopupWindow? = null
     override fun init() {
-        mPresenter = IntelligentTypePresenter(activity!!, this)
+        mPresenter = IntelligentTypePresenter(activity, this)
         StatusBarCompat.compat(activity as BaseActivity<*>, mToolbarWarpper, mToolbar, R.mipmap.base_actionbar)
 
         mScrollIndicatorView.setScrollBar(ColorBar(activity, ContextCompat.getColor(context!!, R.color
@@ -75,8 +75,8 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
         })
 
         RxView.clicks(mIntelligentType).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe {
-            val popupWindow = IntelligentVGSelectPopupWindow(activity!!)
-            popupWindow.show(activity!!.window.decorView.rootView, Gravity.CENTER)
+            val popupWindow = IntelligentVGSelectPopupWindow(activity)
+            popupWindow.show(activity.window.decorView.rootView, Gravity.CENTER)
             iv_select.setImageResource(R.mipmap.arrow_up)
             popupWindow.setOnDismissListener { iv_select.setImageResource(R.mipmap.arrow_down) }
 
@@ -84,11 +84,11 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
 
 
         ThreadPoolUtils(ThreadPoolUtils.SingleThread, 5).execute {
-            val bimap = Blur.fastblur(activity, BitmapFactory.decodeResource(context!!.resources, R.mipmap
+            val bimap = Blur.fastblur(activity, BitmapFactory.decodeResource(context.resources, R.mipmap
                     .intellgent_main_bg)
                     , 25)
             UIUitls.post {
-                mInfoBg.setImageBitmap(bimap)
+                mInfoBg?.setImageBitmap(bimap)
             }
         }
 
@@ -107,7 +107,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
     }
 
     override fun showTitle(title: String) {
-        activity!!.runOnUiThread {
+        activity.runOnUiThread {
 
             mTitleTextView.text = title
         }
@@ -115,7 +115,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
 
     var unitInfos: Array<UnitInfoWrapper.UnitInfo?>? = null
     override fun showInfo(titles: Array<String?>, types: Array<UnitInfoWrapper.UnitInfo?>) {
-        activity!!.runOnUiThread {
+        activity.runOnUiThread {
             unitInfos = types
             mScrollIndicatorView.setAdapter(TabsUtils.MyAdapter(activity, titles, SizeUtils.dp2px(72f)))
             val mFragmentAdapter = TabsUtils.IntelligentFragmentAdapter(childFragmentManager, types)

@@ -18,13 +18,16 @@ import com.yc.soundmark.study.utils.AVManager;
 
 import java.util.List;
 
+import butterknife.BindView;
 import yc.com.base.BaseFragment;
 
 /**
  * Created by wanglin  on 2018/10/26 14:14.
  */
 public class StudySentenceFragment extends BaseFragment implements OnUIApplyControllerListener {
-    private RecyclerView recyclerView;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
 
 
     private boolean isFirst = true;
@@ -135,7 +138,7 @@ public class StudySentenceFragment extends BaseFragment implements OnUIApplyCont
 
     @Override
     protected void initView() {
-        recyclerView= (RecyclerView) getChildView(R.id.recyclerView);
+        recyclerView = (RecyclerView) getChildView(R.id.recyclerView);
     }
 
     @Override

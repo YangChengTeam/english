@@ -147,7 +147,7 @@ public class VipEquitiesActivity extends BaseActivity {
                     mTvRightsTitle.setText(getString(R.string.general_vip_right));
                     basePayItemViewVip.setVisibility(View.GONE);
 //                    basePayItemViewCeping.setVisibility(View.GONE);
-                    basePayItemViewTaskTutorship.setVisibility(View.GONE);
+//                    basePayItemViewTaskTutorship.setVisibility(View.GONE);
                     mVipIcon.setImageResource(R.mipmap.vip_vip);
                 } else if (userInfo.getIsVip() == 2) {
                     mTvRightsTitle.setText(getString(R.string.tutorship_vip_right));
