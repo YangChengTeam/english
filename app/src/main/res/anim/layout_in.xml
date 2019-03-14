@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:animation="@anim/bqmm_slide_in_from_right"
     android:animationOrder="normal"
     android:delay="30%" />
+    <!--android:animation="@anim/bqmm_slide_in_from_right"-->

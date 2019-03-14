@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.kk.utils.ScreenUtil;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.BaseFragment;
 import com.yc.junior.english.base.view.StateView;
@@ -17,8 +18,6 @@ import com.yc.junior.english.speak.model.bean.SpeakEnglishBean;
 import com.yc.junior.english.speak.presenter.SpeakEnglishListPresenter;
 import com.yc.junior.english.speak.view.activity.SpeakMoreActivity;
 import com.yc.junior.english.speak.view.adapter.SpeakEnglishAdapter;
-
-import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
 import java.util.List;
 
@@ -160,7 +159,7 @@ public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> imple
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             super.getItemOffsets(outRect, view, parent, state);
-            outRect.set(0, 0, 0, UIUtil.dip2px(getActivity(), 10));
+            outRect.set(0, 0, 0, ScreenUtil.dip2px(getActivity(), 10));
         }
     }
 

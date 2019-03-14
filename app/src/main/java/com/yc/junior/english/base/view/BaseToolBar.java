@@ -8,9 +8,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.kk.utils.ScreenUtil;
 import com.yc.junior.english.R;
-
-import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
 import javax.annotation.Nullable;
 
@@ -98,7 +97,7 @@ public abstract class BaseToolBar extends BaseView {
     }
 
     public void setTitleSize(float titleSize) {
-        mTitleTextView.setTextSize(UIUtil.dip2px(mContext, titleSize));
+        mTitleTextView.setTextSize(ScreenUtil.dip2px(mContext, titleSize));
     }
 
     public void setTitleGravity(int gravity) {

@@ -1,4 +1,4 @@
-include ':app',  ':banner', ':share', ':rxbus', ":guide", ':sticker', ':jiaozivideoplayer-lib',':base',':video-player'
+include ':app',  ':banner', ':share', ':rxbus', ":guide",  ':jiaozivideoplayer-lib',':base',':video-player'
 
 
 
