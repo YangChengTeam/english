@@ -1,8 +1,11 @@
 package com.yc.soundmark.study.fragment;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +21,9 @@ import com.yc.soundmark.study.utils.AVManager;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import yc.com.base.BaseFragment;
 
 /**
@@ -25,7 +31,10 @@ import yc.com.base.BaseFragment;
  */
 public class StudyPhraseFragment extends BaseFragment implements OnUIApplyControllerListener {
 
+
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+
 
 
     private PhraseInfo currentInfo;
@@ -85,7 +94,7 @@ public class StudyPhraseFragment extends BaseFragment implements OnUIApplyContro
 
         studyPhraseAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 layoutResult = (LinearLayout) adapter.getViewByPosition(recyclerView, position, R.id.layout_result);
                 currentInfo = studyPhraseAdapter.getItem(position);
 
@@ -95,7 +104,7 @@ public class StudyPhraseFragment extends BaseFragment implements OnUIApplyContro
                     startPlay();
 
                 } else if (i == R.id.ll_record) {
-                    if (currentInfo == null) return false;
+                    if (currentInfo == null) return;
                     recordImg = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_record);
 
                     ivSpeakResult = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_speak_result);
@@ -112,7 +121,6 @@ public class StudyPhraseFragment extends BaseFragment implements OnUIApplyContro
 
                 }
 
-                return false;
             }
         });
 
@@ -196,5 +204,6 @@ public class StudyPhraseFragment extends BaseFragment implements OnUIApplyContro
     public void playErrorUpdateUI() {
         studyPhraseAdapter.resetDrawable();
     }
+
 
 }

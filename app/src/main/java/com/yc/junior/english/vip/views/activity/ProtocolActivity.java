@@ -4,9 +4,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.view.BaseActivity;
 
 import butterknife.BindView;
+import yc.com.base.BaseActivity;
+
 
 /**
  * Created by wanglin  on 2017/12/21 14:16.
@@ -32,4 +33,8 @@ public class ProtocolActivity extends BaseActivity {
     }
 
 
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 }

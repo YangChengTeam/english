@@ -24,11 +24,12 @@ import com.app.hubert.guide.model.GuidePage;
 import com.app.hubert.guide.model.HighLight;
 import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.LogUtil;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.ScreenUtil;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.StateView;
 import com.yc.soundmark.base.constant.SpConstant;
 import com.yc.soundmark.base.utils.UIUtils;
 import com.yc.soundmark.study.activity.PreviewActivity;
@@ -53,12 +54,12 @@ import rx.functions.Action1;
 import yc.com.base.BaseFragment;
 import yc.com.blankj.utilcode.util.SPUtils;
 
+
 /**
  * Created by wanglin  on 2018/10/26 16:23.
  */
 public class StudyMainFragment extends BaseFragment<StudyPresenter> implements StudyContract.View, OnUIPracticeControllerListener {
-    @BindView(R.id.tv_perception)
-    TextView tvPerception;
+
     @BindView(R.id.tv_perception_voice)
     TextView tvPerceptionVoice;
     @BindView(R.id.iv_perception_voice)
@@ -79,8 +80,7 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     RelativeLayout rlPronounce;
     @BindView(R.id.ll_perception_container)
     LinearLayout llPerceptionContainer;
-    @BindView(R.id.tv_faying_study)
-    TextView tvFayingStudy;
+
     @BindView(R.id.videoPlayer)
     XinQuVideoPlayerStandard mJCVideoPlayer;
     @BindView(R.id.ll_study_container)
@@ -95,8 +95,7 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     TextView tvPracticeSoundmark;
     @BindView(R.id.iv_practice)
     ImageView ivPractice;
-    @BindView(R.id.iv_bottom_carton)
-    ImageView ivBottomCarton;
+
     @BindView(R.id.iv_top_carton)
     ImageView ivTopCarton;
     @BindView(R.id.ll_practice_container)
@@ -119,6 +118,8 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     LinearLayout llApplyContainer;
     @BindView(R.id.nestedScrollView)
     NestedScrollView nestedScrollView;
+    @BindView(R.id.stateView)
+    StateView stateView;
 
 
     private int playStep = 1;//播放步骤
@@ -154,36 +155,6 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
 
     @Override
     protected void initView() {
-//        tvPronounce = (TextView) getChildView(R.id.tv_pronounce);
-//        tabLayout = (TabLayout) getChildView(R.id.tabLayout);
-//        viewPager = (StudyViewPager) getChildView(R.id.viewPager);
-//        ivPronounceIcon = (ImageView) getChildView(R.id.iv_pronounce_icon);
-//        tvPerceptionWordExample = (TextView) getChildView(R.id.tv_perception_word_example);
-//        ivPerceptionVoice = (ImageView) getChildView(R.id.iv_perception_voice);
-//        mJCVideoPlayer = (XinQuVideoPlayerStandard) getChildView(R.id.videoPlayer);
-//        ivEssentialsExample = (ImageView) getChildView(R.id.iv_essentials_example);
-//        tvEssentialsDesp = (TextView) getChildView(R.id.tv_essentials_desp);
-//        mediaPlayerView = (MediaPlayerView) getChildView(R.id.mediaPlayerView);
-//        ivPractice = (ImageView) getChildView(R.id.iv_practice);
-//        ivTopCarton = (ImageView) getChildView(R.id.iv_top_carton);
-//        tvNumberProgress = (TextView) getChildView(R.id.tv_number_progress);
-//        tvPerceptionVoice = (TextView) getChildView(R.id.tv_perception_voice);
-//        ivPerceptionWord = (ImageView) getChildView(R.id.iv_perception_word);
-//        progressBar = (ProgressBar) getChildView(R.id.progressBar);
-//        rlPronounce = (RelativeLayout) getChildView(R.id.rl_pronounce);
-//        nestedScrollView = (NestedScrollView) getChildView(R.id.nestedScrollView);
-//        rlEssentials = (RelativeLayout) getChildView(R.id.rl_essentials);
-//        llPerceptionWord = (LinearLayout) getChildView(R.id.ll_perception_word);
-//        llPerceptionVoice = (LinearLayout) getChildView(R.id.ll_perception_voice);
-//        llPerceptionContainer = (LinearLayout) getChildView(R.id.ll_perception_container);
-//        tvPerception = (TextView) getChildView(R.id.tv_perception);
-//        tvFayingStudy = (TextView) getChildView(R.id.tv_faying_study);
-//        llStudyContainer = (LinearLayout) getChildView(R.id.ll_study_container);
-//        llPracticeContainer = (LinearLayout) getChildView(R.id.ll_practice_container);
-//        llStudyTotalContainer = (LinearLayout) getChildView(R.id.ll_study_total_container);
-//        llEssentialsContainer = (LinearLayout) getChildView(R.id.ll_essentials_container);
-//        llApplyContainer = (LinearLayout) getChildView(R.id.ll_apply_container);
-//        tvPracticeSoundmark = (TextView) getChildView(R.id.tv_practice_soundmark);
     }
 
 
@@ -228,7 +199,7 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
         Glide.with(getActivity()).asBitmap().load(studyInfo.getImage()).into(ivPronounceIcon);
         tvPerceptionWordExample.setText(studyInfo.getWord().replaceAll("#", ""));
         tvPronounce.setText(Html.fromHtml(LPUtils.getInstance().addPhraseLetterColor(studyInfo.getVoice())));
-        LogUtil.msg("data: " + studyInfo.getMouth_cover());
+//        LogUtil.msg("data: " + studyInfo.getMouth_cover());
         Glide.with(getActivity()).asBitmap().load(studyInfo.getMouth_cover()).into(ivEssentialsExample);
         tvEssentialsDesp.setText(studyInfo.getMouth_desp());
         mediaPlayerView.setPath(studyInfo.getDesp_mp3());
@@ -352,7 +323,7 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
 
     private Builder getBuilder(String label, final int step, final int scrollHeight) {
 
-        return NewbieGuide.with(StudyMainFragment.this)
+        return NewbieGuide.with(getActivity())
                 .setLabel(label)
                 .alwaysShow(true)
                 .setOnGuideChangedListener(new OnGuideChangedListener() {
@@ -483,10 +454,13 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
 
     @Override
     public void playBeforeUpdateUI() {
-        if (currentView == ivPerceptionVoice) {
-            Glide.with(getActivity()).asGif().load(R.mipmap.small_trumpet_stop).into(ivPerceptionVoice);
-        } else if (currentView == ivPerceptionWord) {
-            Glide.with(getActivity()).asGif().load(R.mipmap.big_trumpet_stop).into(ivPerceptionWord);
+        if (getActivity() != null && !getActivity().isDestroyed()) {
+            if (currentView == ivPerceptionVoice) {
+
+                Glide.with(getActivity()).asGif().load(R.mipmap.small_trumpet_stop).into(ivPerceptionVoice);
+            } else if (currentView == ivPerceptionWord) {
+                Glide.with(getActivity()).asGif().load(R.mipmap.big_trumpet_stop).into(ivPerceptionWord);
+            }
         }
     }
 
@@ -513,7 +487,7 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
 
         playStep = 2;
         if (mStudyInfo == null) return;
-        String mp3 = "http://thumb.1010pic.com/dmt/diandu/27/mp3/000002_Unit%201_Lesson%2001.mp3";
+//        String mp3 = "http://thumb.1010pic.com/dmt/diandu/27/mp3/000002_Unit%201_Lesson%2001.mp3";
         mListener.playMusic(mStudyInfo.getVowel_mp3(), false, playStep);
 
     }
@@ -562,20 +536,28 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
 
     @Override
     public void hide() {
-
+        stateView.hide();
     }
 
     @Override
     public void showLoading() {
+        stateView.showLoading(nestedScrollView);
     }
 
     @Override
     public void showNoData() {
-
+        stateView.showNoData(nestedScrollView);
     }
 
     @Override
     public void showNoNet() {
+        stateView.showNoNet(nestedScrollView, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getStudyDetail(pos);
+            }
+        });
     }
+
 }
 

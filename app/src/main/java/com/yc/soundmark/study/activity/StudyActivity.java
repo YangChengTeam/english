@@ -7,13 +7,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
-import com.yc.soundmark.base.fragment.BasePayFragment;
+import com.yc.junior.english.vip.utils.VipDialogHelper;
 import com.yc.soundmark.base.utils.UIUtils;
 import com.yc.soundmark.base.widget.MainToolBar;
 import com.yc.soundmark.category.activity.CategoryActivity;
@@ -254,7 +253,7 @@ public class StudyActivity extends BaseActivity<StudyPresenter> implements Study
 
     private boolean isCanNext(int pos) {
         boolean isNext = false;
-        if (UserInfoHelper.isYbVip() || pos < 4) {
+        if (UserInfoHelper.isVip(UserInfoHelper.getUserInfo()) || pos < 4) {
             isNext = true;
         }
         return isNext;
@@ -262,8 +261,10 @@ public class StudyActivity extends BaseActivity<StudyPresenter> implements Study
     }
 
     private void showPayDialog() {
-        BasePayFragment basePayFragment = new BasePayFragment();
-        basePayFragment.show(getSupportFragmentManager(), "");
+//        BasePayFragment basePayFragment = new BasePayFragment();
+//        basePayFragment.show(getSupportFragmentManager(), "");
+
+        VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
     }
 
     @Override
@@ -284,8 +285,6 @@ public class StudyActivity extends BaseActivity<StudyPresenter> implements Study
     public void showNoNet() {
 
     }
-
-
 
 
     @Override

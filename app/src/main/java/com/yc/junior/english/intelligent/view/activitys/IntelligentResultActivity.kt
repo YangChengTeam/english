@@ -10,24 +10,23 @@ import com.hwangjr.rxbus.thread.EventThread
 import com.jakewharton.rxbinding.view.RxView
 import com.umeng.analytics.MobclickAgent
 import com.yc.junior.english.R
-import com.yc.junior.english.base.model.BaseEngin
-import com.yc.junior.english.base.presenter.BasePresenter
 import com.yc.junior.english.base.utils.SimpleCacheUtils
-import com.yc.junior.english.base.utils.StatusBarCompat
-import com.yc.junior.english.base.view.BaseActivity
 import com.yc.junior.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.junior.english.intelligent.utils.fromHtml
 import com.yc.junior.english.intelligent.view.adpaters.IntelligentResultAdapter
 import com.yc.junior.english.main.model.domain.Constant
 import kotlinx.android.synthetic.main.intelligent_activity_result.*
-import yc.com.base.IView
+import yc.com.base.*
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by zhangkai on 2017/11/28.
  */
 
-class IntelligentResultActivity : BaseActivity<BasePresenter<BaseEngin, IView>>() {
+class IntelligentResultActivity : BaseActivity<BasePresenter<BaseEngine, IView>>() {
+    override fun isStatusBarMateria(): Boolean {
+        return true
+    }
 
     lateinit var adapter: IntelligentResultAdapter
     override fun init() {
@@ -45,7 +44,8 @@ class IntelligentResultActivity : BaseActivity<BasePresenter<BaseEngin, IView>>(
         }
         var questionInfos: ArrayList<QuestionInfoWrapper.QuestionInfo>? = intent.getParcelableArrayListExtra("questionInfos")
         if (questionInfos == null) {
-            SimpleCacheUtils.readCache(this, IntelligentQuestionsActivity.getInstance()?.getResultKey() ?: "error",
+            SimpleCacheUtils.readCache(this, IntelligentQuestionsActivity.getInstance()?.getResultKey()
+                    ?: "error",
                     object :
                             SimpleCacheUtils
                             .CacheRunnable

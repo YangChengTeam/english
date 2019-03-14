@@ -154,7 +154,7 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
 
         mImageSelectedAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
                 mImageSelectedAdapter.getData().remove(position);
 
@@ -165,7 +165,6 @@ public class CommunityAddActivity extends FullScreenActivity<CommunityInfoPresen
                     }
                 }
                 mImageSelectedAdapter.notifyDataSetChanged();
-                return false;
             }
         });
     }

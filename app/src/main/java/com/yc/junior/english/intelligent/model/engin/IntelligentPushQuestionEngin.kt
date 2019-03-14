@@ -4,17 +4,17 @@ import android.content.Context
 import com.alibaba.fastjson.TypeReference
 import com.kk.securityhttp.domain.ResultInfo
 import com.kk.securityhttp.engin.HttpCoreEngin
-import com.yc.junior.english.base.model.BaseEngin
 import com.yc.junior.english.intelligent.model.domain.URLConfig
 import com.yc.junior.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.junior.english.main.hepler.UserInfoHelper
 import rx.Observable
+import yc.com.base.BaseEngine
 
 /**
  * Created by zhangkai on 2017/12/4.
  */
 
-class IntelligentPushQuestionEngin(context: Context?) : BaseEngin(context) {
+class IntelligentPushQuestionEngin(context: Context?) : BaseEngine(context) {
     fun getPlan(report_id: String): Observable<ResultInfo<UnitInfoWrapper.ComleteInfo>> {
         var uid = ""
         if (UserInfoHelper.getUserInfo() != null) {

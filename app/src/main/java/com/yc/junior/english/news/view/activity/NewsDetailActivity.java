@@ -26,7 +26,6 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.utils.StatusBarCompat;
 import com.yc.junior.english.base.view.BaseToolBar;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.base.view.SharePopupWindow;
@@ -48,7 +47,6 @@ import com.yc.junior.english.vip.utils.VipDialogHelper;
 import com.yc.junior.english.vip.views.fragments.BasePayItemView;
 import com.yc.junior.english.weixin.model.domain.CourseInfo;
 
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -58,9 +56,11 @@ import butterknife.BindView;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 import rx.functions.Action1;
+import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.NetworkUtils;
 import yc.com.blankj.utilcode.util.TimeUtils;
+
 
 /**
  * Created by wanglin  on 2017/9/6 08:32.

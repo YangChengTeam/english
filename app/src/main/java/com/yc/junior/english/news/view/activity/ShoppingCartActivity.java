@@ -109,7 +109,7 @@ public class ShoppingCartActivity extends FullScreenActivity {
 
         mCartItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.ck_cart_item) {
                     CheckBox checkBox = (CheckBox) view;
                     mCartItemAdapter.getData().get(position).setIsChecked(checkBox.isChecked());
@@ -124,7 +124,6 @@ public class ShoppingCartActivity extends FullScreenActivity {
                     }
                     mTotalPriceTextView.setText((totalPrice < 0 ? 0 : totalPrice) + "");
                 }
-                return false;
             }
         });
 

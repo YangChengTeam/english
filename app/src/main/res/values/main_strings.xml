@@ -5,8 +5,6 @@
     <string name="main_tab_intelligent">智能测评</string>
     <string name="main_tab_my">个性学习</string>
 
-    <string name="main_tab_grade">班级</string>
-
     <string name="main_login_username">请输入手机号</string>
     <string name="main_login_password">请输入密码</string>
     <string name="main_check_code">请输入验证码</string>
@@ -18,27 +16,8 @@
     <string name="main_checkcode">获取验证码</string>
     <string name="main_ok">确认</string>
 
-    <string name="main_read">教材点读</string>
-    <string name="main_task">在线作业</string>
-    <string name="main_game">名师辅导</string>
-    <string name="main_word">单词宝典</string>
-    <string name="main_course">每日微课</string>
-    <string name="main_weibo">社区互动</string>
-
-
-    <string name="main_read_desc">教材随心读 学习好帮手</string>
-    <string name="main_task_desc">听说读写背 学习成绩佳</string>
-    <string name="main_game_desc">教学同步行 助学考高分</string>
-    <string name="main_word_desc">闯关学单词 理解记句型</string>
-    <string name="main_course_desc">微课天天上 英语流利说</string>
-    <string name="main_weibo_desc">我学我要秀 交友共提高</string>
-
 
     <string name="main_share">分享</string>
-
-    <string name="main_china">全国已有</string>
-    <string name="main_teacher">位老师正在使用，</string>
-    <string name="main_student">位学生正在使用。</string>
 
     <string name="setting_buy_vip">开通VIP会员</string>
     <string name="setting_to_market">应用市场点评有礼</string>
@@ -47,8 +26,6 @@
     <string name="setting_feedback">在线客服</string>
     <string name="setting_share">好友分享</string>
     <string name="setting_setting">系统设置</string>
-    <string name="setting_qq">客服QQ群</string>
-    <string name="setting_tel">客服电话</string>
     <string name="my_order">我的订单</string>
 
     <string name="setting_complete">完成</string>
@@ -65,8 +42,6 @@
     <string name="setting_phone">手机号码</string>
     <string name="setting_modify_password">修改密码</string>
 
-    <string name="setting_push">推送接受消息</string>
-    <string name="setting_play">允许后台播放</string>
     <string name="setting_cache">清除缓存</string>
     <string name="setting_version">版本检测</string>
 
@@ -82,7 +57,6 @@
     <string name="share_class">班群</string>
 
     <string name="setting_follow_title">关注公众号</string>
-    <string name="setting_follow_desc">已复制微信号: 说说英语平台</string>
     <string name="setting_follow_desc2">打开微信，搜索公众号在关注</string>
 
     <string name="base_refresh_net">重试</string>

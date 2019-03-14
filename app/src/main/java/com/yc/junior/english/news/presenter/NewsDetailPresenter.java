@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.junior.english.base.helper.ResultInfoHelper;
-import com.yc.junior.english.base.model.BaseEngin;
-import com.yc.junior.english.base.presenter.BasePresenter;
 import com.yc.junior.english.group.utils.EngineUtils;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.news.bean.CourseInfoWrapper;
@@ -14,12 +12,15 @@ import com.yc.junior.english.weixin.model.engin.EnginHelper;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BaseEngine;
+import yc.com.base.BasePresenter;
+
 
 /**
  * Created by wanglin  on 2017/9/7 10:27.
  */
 
-public class NewsDetailPresenter extends BasePresenter<BaseEngin, NewsDetailContract.View> implements NewsDetailContract.Presenter {
+public class NewsDetailPresenter extends BasePresenter<BaseEngine, NewsDetailContract.View> implements NewsDetailContract.Presenter {
     public NewsDetailPresenter(Context context, NewsDetailContract.View view) {
         super(context, view);
     }

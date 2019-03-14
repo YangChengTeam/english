@@ -15,12 +15,13 @@ import yc.com.base.INoNet;
 import yc.com.base.IPresenter;
 import yc.com.base.IView;
 
+
 /**
  * Created by zhangkai on 2017/7/25.
  */
 
 public interface CommunityInfoContract {
-    interface View extends IView, IDialog, IFinish, ILoading, INoData, INoNet,IHide {
+    interface View extends IView, IDialog, IFinish, ILoading, INoData, INoNet ,IHide{
         void showCommunityInfoListData(List<CommunityInfo> list);
 
         void showAddCommunityInfo(CommunityInfo communityInfo);

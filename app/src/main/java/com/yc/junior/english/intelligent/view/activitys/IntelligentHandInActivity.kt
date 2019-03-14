@@ -10,8 +10,6 @@ import com.jakewharton.rxbinding.view.RxView
 import com.umeng.analytics.MobclickAgent
 import com.yc.junior.english.R
 import com.yc.junior.english.base.utils.SimpleCacheUtils
-import com.yc.junior.english.base.utils.StatusBarCompat
-import com.yc.junior.english.base.view.BaseActivity
 import com.yc.junior.english.intelligent.contract.IntelligentHandInContract
 import com.yc.junior.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.junior.english.intelligent.presenter.IntelligentHandInPresenter
@@ -19,6 +17,8 @@ import com.yc.junior.english.intelligent.utils.getLevel1QuestionInfo
 import com.yc.junior.english.intelligent.view.adpaters.IntelligentHandInAdapter
 import com.yc.junior.english.main.model.domain.Constant
 import kotlinx.android.synthetic.main.intelligent_avtivity_hand_in.*
+import yc.com.base.BaseActivity
+import yc.com.base.StatusBarCompat
 import yc.com.blankj.utilcode.util.SPUtils
 import yc.com.blankj.utilcode.util.ToastUtils
 import java.util.*
@@ -28,6 +28,10 @@ import java.util.concurrent.TimeUnit
  * Created by zhangkai on 2017/11/28.
  */
 class IntelligentHandInActivity : BaseActivity<IntelligentHandInPresenter>(), IntelligentHandInContract.View {
+    override fun isStatusBarMateria(): Boolean {
+        return true
+    }
+
     var adapter: IntelligentHandInAdapter? = null
     lateinit var questionInfos: List<QuestionInfoWrapper.QuestionInfo>
 

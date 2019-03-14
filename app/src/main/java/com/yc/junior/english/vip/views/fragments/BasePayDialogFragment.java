@@ -22,7 +22,6 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.TipsHelper;
-import com.yc.junior.english.base.view.BaseActivity;
 import com.yc.junior.english.base.view.SharePopupWindow;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.Constant;
@@ -39,6 +38,7 @@ import com.yc.junior.english.setting.model.bean.GoodInfo;
 import com.yc.junior.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.junior.english.vip.contract.VipBuyContract;
 import com.yc.junior.english.vip.model.bean.GoodsType;
+import com.yc.junior.english.vip.model.bean.VipGoodInfo;
 import com.yc.junior.english.vip.presenter.VipBuyPresenter;
 import com.yc.junior.english.vip.utils.VipDialogHelper;
 import com.yc.junior.english.vip.utils.VipInfoHelper;
@@ -56,11 +56,14 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.base.BaseActivity;
+import yc.com.base.BaseDialogFragment;
 import yc.com.blankj.utilcode.util.AppUtils;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.ScreenUtils;
 import yc.com.blankj.utilcode.util.TimeUtils;
 import yc.com.blankj.utilcode.util.ToastUtils;
+
 
 /**
  * Created by wanglin  on 2017/11/27 15:16.
@@ -676,7 +679,6 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
 
 
 
-
     @Override
     public void showNoNet() {
         if (sharePopupWindow != null && sharePopupWindow.isShowing()) {
@@ -723,5 +725,10 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
         }
 
         RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "form pay");
+    }
+
+    @Override
+    public void showVipGoodInfos(List<VipGoodInfo> vipGoodInfos) {
+
     }
 }

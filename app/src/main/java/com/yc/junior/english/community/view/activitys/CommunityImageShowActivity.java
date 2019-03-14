@@ -4,13 +4,14 @@ import android.os.Bundle;
 
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.TipsHelper;
-import com.yc.junior.english.base.view.BaseActivity;
 import com.yc.junior.english.community.view.adapter.GalleryViewPager;
 import com.yc.junior.english.community.view.adapter.UrlPagerAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
+import yc.com.base.BaseActivity;
+
 
 /**
  * Created by admin on 2017/8/30.
@@ -41,5 +42,10 @@ public class CommunityImageShowActivity extends BaseActivity {
         } else {
             TipsHelper.tips(this, "图片地址有误，请稍后重试");
         }
+    }
+
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
     }
 }

@@ -1,9 +1,10 @@
-package com.yc.english.intelligent.presenter
+package com.yc.junior.english.intelligent.presenter
 
 import android.content.Context
-import com.yc.junior.english.base.presenter.BasePresenter
 import com.yc.junior.english.intelligent.contract.IntelligentTypeContract
 import com.yc.junior.english.intelligent.model.engin.IntelligentTypeEngin
+import yc.com.base.BasePresenter
+
 
 /**
  * Created by zhangkai on 2017/11/24.

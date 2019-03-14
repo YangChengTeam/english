@@ -1,5 +1,6 @@
 package yc.com.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -13,8 +14,10 @@ import android.widget.TextView;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.utils.LogUtil;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.UMShareAPI;
 
 import butterknife.ButterKnife;
+import yc.com.blankj.utilcode.util.ScreenUtils;
 
 /**
  * Created by wanglin  on 2018/3/6 10:14.
@@ -45,17 +48,20 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             LogUtil.msg("-->: 初始化失败 " + e.getMessage());
         }
         statusHeight = StatusBarUtil.getStatusBarHeight(this);
+        ScreenUtils.setPortrait(this);
 
         baseLoadingView = new BaseLoadingView(this);
         mHandler = new Handler();
         //顶部透明
 
 //        overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
-        init();
-//        setStatusBar();
+
 
         if (isStatusBarMateria())
             setStatusBarMateria();
+//            StatusBarCompat.transparentStatusBar(this);
+        init();
+
     }
 
     protected void setStatusBar() {
@@ -128,12 +134,24 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         try {
             if (!this.isFinishing()) {
                 if (null != baseLoadingView && baseLoadingView.isShowing()) {
-                    baseLoadingView.dismiss();
+                    UIUtils.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            baseLoadingView.dismiss();
+                        }
+                    });
+
                 }
             }
         } catch (Exception e) {
 
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     /**

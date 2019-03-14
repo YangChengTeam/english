@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="community_line_color">#F8F8F8</color>
-    <color name="ripple_bg_color">#ffcccccc</color>
 
     <color name="black_alpha_30">#DFFFFFFF</color>
     <color name="note_bg_color">#dbdbdb</color>
 
     <color name="comment_item_bg_color">#3Ff1f1f1</color>
     <color name="comment_line_color">#7fdddddd</color>
-    <color name="success_score_color">#39c45d</color>
 </resources>

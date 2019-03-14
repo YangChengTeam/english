@@ -5,8 +5,6 @@ import android.content.Context;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.junior.english.base.helper.ResultInfoHelper;
 import com.yc.junior.english.base.helper.TipsHelper;
-import com.yc.junior.english.base.model.BaseEngin;
-import com.yc.junior.english.base.presenter.BasePresenter;
 import com.yc.junior.english.group.utils.EngineUtils;
 import com.yc.junior.english.news.model.domain.OrderParams;
 import com.yc.junior.english.pay.alipay.OrderInfo;
@@ -15,12 +13,15 @@ import com.yc.junior.english.setting.model.bean.GoodInfoWrapper;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BaseEngine;
+import yc.com.base.BasePresenter;
+
 
 /**
  * Created by wanglin  on 2017/11/6 15:55.
  */
 
-public class GoodsListPresenter extends BasePresenter<BaseEngin, GoodsListContract.View> implements GoodsListContract.Presenter {
+public class GoodsListPresenter extends BasePresenter<BaseEngine, GoodsListContract.View> implements GoodsListContract.Presenter {
     public GoodsListPresenter(Context context, GoodsListContract.View view) {
         super(context, view);
     }

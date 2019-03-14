@@ -12,7 +12,6 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.view.BaseFragment;
 import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.news.view.activity.NewsDetailActivity;
@@ -24,6 +23,8 @@ import com.yc.junior.english.weixin.views.adapters.CourseAdapter;
 import java.util.List;
 
 import butterknife.BindView;
+import yc.com.base.BaseFragment;
+
 
 /**
  * Created by zhangkai on 2017/8/30.

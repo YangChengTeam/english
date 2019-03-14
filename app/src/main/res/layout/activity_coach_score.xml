@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.yc.english.base.view.MainToolBar
+    <com.yc.junior.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

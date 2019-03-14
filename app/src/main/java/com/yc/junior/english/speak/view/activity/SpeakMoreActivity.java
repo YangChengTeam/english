@@ -73,7 +73,7 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
 
         speakEnglishItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 // TODO: 2017/10/13 视频或音频点击跳转
                 List<SpeakAndReadItemInfo> dataList = speakEnglishItemAdapter.getData();
                 SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
@@ -97,7 +97,6 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
                     intent.putParcelableArrayListExtra("infoList", (ArrayList) list);
                 }
                 startActivity(intent);
-                return false;
             }
         });
         speakEnglishItemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -195,4 +194,8 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
 
     }
 
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 }

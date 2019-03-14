@@ -1,4 +1,4 @@
-package com.yc.english;
+package com.yc.junior.english;
 
 import org.junit.Test;
 

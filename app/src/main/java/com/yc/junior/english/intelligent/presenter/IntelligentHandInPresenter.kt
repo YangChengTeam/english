@@ -2,10 +2,10 @@ package com.yc.junior.english.intelligent.presenter
 
 import android.content.Context
 import com.kk.securityhttp.net.contains.HttpConfig
-import com.yc.junior.english.base.presenter.BasePresenter
 import com.yc.junior.english.intelligent.contract.IntelligentHandInContract
 import com.yc.junior.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.junior.english.intelligent.model.engin.IntelligentHandInEngin
+import yc.com.base.BasePresenter
 
 /**
  * Created by zhangkai on 2017/11/24.

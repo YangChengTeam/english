@@ -5,7 +5,6 @@ import android.content.Context;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
-import com.yc.junior.english.base.model.BaseEngin;
 import com.yc.junior.english.main.model.domain.URLConfig;
 import com.yc.junior.english.weixin.model.domain.WeiKeCategoryWrapper;
 import com.yc.junior.english.weixin.model.domain.WeiKeInfoWrapper;
@@ -14,13 +13,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rx.Observable;
+import yc.com.base.BaseEngine;
 import yc.com.blankj.utilcode.util.LogUtils;
+
 
 /**
  * Created by zhangkai on 2017/9/6.
  */
 
-public class WeiKeEngin extends BaseEngin {
+public class WeiKeEngin extends BaseEngine {
 
     private Context mContext;
 

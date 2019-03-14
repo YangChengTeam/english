@@ -1,4 +1,4 @@
-package com.yc.english;
+package com.yc.junior.english;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.yc.english", appContext.getPackageName());
+        assertEquals("com.yc.junior.english", appContext.getPackageName());
     }
 }

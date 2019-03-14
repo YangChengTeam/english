@@ -1,9 +1,12 @@
 package com.yc.junior.english.base.view;
 
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.presenter.BasePresenter;
 
 import butterknife.BindView;
+import yc.com.base.BaseActivity;
+import yc.com.base.BaseFragment;
+import yc.com.base.BasePresenter;
+
 
 /**
  * Created by zhangkai on 2017/7/26.
@@ -17,7 +20,7 @@ public abstract class ToolbarFragment<P extends BasePresenter> extends BaseFragm
     @Override
     public void init() {
         if (mToolbar == null) {
-            throw new NullPointerException("error, please set com.yc.english.main.view.MainToolBar id -> toolbar.");
+            throw new NullPointerException("error, please set com.yc.junior.english.main.view.MainToolBar id -> toolbar.");
         }
 
         if (isInstallToolbar()) {

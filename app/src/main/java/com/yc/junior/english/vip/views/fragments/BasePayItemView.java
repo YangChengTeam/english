@@ -15,6 +15,7 @@ import com.yc.junior.english.R;
 import butterknife.BindView;
 import yc.com.base.BaseView;
 
+
 /**
  * Created by wanglin  on 2017/11/24 15:07.
  */

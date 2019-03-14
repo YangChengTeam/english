@@ -1,6 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
+    <!--Theme.AppCompat.Light.NoActionBar-->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
 
     <style name="TaskToolBarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -24,12 +25,6 @@
         <item name="android:textSize">@dimen/group_text_16</item>
     </style>
 
-    <style name="group_btn_white_style" parent="@style/Widget.AppCompat.Button.Borderless">
-        <item name="android:background">@drawable/group_btn_white_bg</item>
-        <item name="android:textColor">@color/group_blue_21b5f8</item>
-        <item name="android:textSize">@dimen/group_text_16</item>
-    </style>
-
     <style name="customDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
@@ -40,10 +35,6 @@
 
     <style name="ToolBar" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:gravity">center</item>
-    </style>
-
-    <style name="group_switch_style" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">@color/group_blue_21b5f8</item>
     </style>
 
     <style name="ImageShowStyle" parent="AppTheme">

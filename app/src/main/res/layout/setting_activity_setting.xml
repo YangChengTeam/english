@@ -20,12 +20,12 @@
         android:background="@drawable/setting_item_bg"
         android:orientation="vertical"
         >
-        <!--<com.yc.english.setting.view.widgets.SettingItemView-->
+        <!--<com.yc.junior.english.setting.view.widgets.SettingItemView-->
             <!--android:id="@+id/si_play"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="45dp"-->
             <!--eng:text="@string/setting_play">-->
-        <!--</com.yc.english.setting.view.widgets.SettingItemView>-->
+        <!--</com.yc.junior.english.setting.view.widgets.SettingItemView>-->
 
         <!--<View-->
             <!--android:layout_width="match_parent"-->

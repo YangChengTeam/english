@@ -329,7 +329,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
         mQuestionItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtils.e("position--->" + position);
 
                 if (view.getId() == R.id.iv_speak_tape && !isTape && !isPlayTape && !isPlay) {
@@ -410,7 +410,6 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
                 lastPosition = position;
 
-                return false;
             }
         });
     }
@@ -1069,6 +1068,11 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         if (mTts != null && mTts.isSpeaking()) {
             mTts.stopSpeaking();
         }
+    }
+
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
     }
 
     @Override

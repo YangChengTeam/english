@@ -4,13 +4,14 @@ import android.content.Context
 import com.alibaba.fastjson.JSON
 import com.hwangjr.rxbus.RxBus
 import com.kk.securityhttp.net.contains.HttpConfig
-import com.yc.junior.english.base.presenter.BasePresenter
 import com.yc.junior.english.base.utils.SimpleCacheUtils
 import com.yc.junior.english.intelligent.contract.IntelligentQuestionContract
 import com.yc.junior.english.intelligent.model.engin.IntelligentQuestionEngin
 import com.yc.junior.english.main.hepler.UserInfoHelper
 import com.yc.junior.english.main.model.domain.Constant
+import yc.com.base.BasePresenter
 import yc.com.blankj.utilcode.util.SPUtils
+
 
 /**
  * Created by zhangkai on 2017/12/6.

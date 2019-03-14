@@ -2,9 +2,10 @@ package com.yc.junior.english.main.presenter;
 
 import android.content.Context;
 
-import com.yc.junior.english.base.presenter.BasePresenter;
 import com.yc.junior.english.main.contract.MainContract;
 import com.yc.junior.english.main.model.engin.MainEngin;
+
+import yc.com.base.BasePresenter;
 
 
 /**

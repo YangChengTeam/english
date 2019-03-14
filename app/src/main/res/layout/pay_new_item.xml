@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/t8dp"
+    android:background="@drawable/pay_new_bg"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/t5dp"
+    android:paddingLeft="@dimen/t15dp"
+    android:paddingTop="@dimen/t5dp">
+
+    <TextView
+        android:id="@+id/tv_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="1.课本点读"
+        android:textColor="@color/red_db4d2a"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="无限次点读所有版本和年级的课文"
+        android:textColor="@color/gray_8e8e8e"
+        android:textSize="@dimen/t12sp" />
+
+
+</LinearLayout>

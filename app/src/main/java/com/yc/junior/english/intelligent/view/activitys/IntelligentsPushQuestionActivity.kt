@@ -9,8 +9,6 @@ import com.jakewharton.rxbinding.view.RxView
 import com.kk.securityhttp.net.contains.HttpConfig
 import com.umeng.analytics.MobclickAgent
 import com.yc.junior.english.R
-import com.yc.junior.english.base.utils.StatusBarCompat
-import com.yc.junior.english.base.view.BaseActivity
 import com.yc.junior.english.intelligent.contract.IntelligentPushQuestionContract
 import com.yc.junior.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.junior.english.intelligent.presenter.IntelligentPushQuestionPresenter
@@ -19,6 +17,8 @@ import com.yc.junior.english.main.hepler.UserInfoHelper
 import com.yc.junior.english.main.model.domain.Constant
 import com.yc.junior.english.speak.view.activity.QuestionActivity
 import kotlinx.android.synthetic.main.intelligent_activity_push_question.*
+import yc.com.base.BaseActivity
+import yc.com.base.StatusBarCompat
 import yc.com.blankj.utilcode.util.SPUtils
 import java.util.concurrent.TimeUnit
 
@@ -28,6 +28,9 @@ import java.util.concurrent.TimeUnit
 
 class IntelligentsPushQuestionActivity : BaseActivity<IntelligentPushQuestionPresenter>(),
         IntelligentPushQuestionContract.View {
+    override fun isStatusBarMateria(): Boolean {
+        return true
+    }
 
 
     var reportId = 0
@@ -81,7 +84,7 @@ class IntelligentsPushQuestionActivity : BaseActivity<IntelligentPushQuestionPre
 
     lateinit var infos: MutableList<UnitInfoWrapper.ComleteItemInfo>
     override fun showInfo(comleteInfo: UnitInfoWrapper.ComleteInfo) {
-        infos = mutableListOf<UnitInfoWrapper.ComleteItemInfo>()
+        infos = mutableListOf()
         if (comleteInfo.vocabulary != -1) {
             comleteInfo.vocabulary = if (comleteInfo.vocabulary == 1) comleteInfo.vocabulary else SPUtils.getInstance()
                     .getInt(getFinishKey("vocabulary"), 0)

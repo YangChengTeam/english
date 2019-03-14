@@ -18,4 +18,10 @@
         <item name="android:windowEnterAnimation">@anim/tup</item>
         <item name="android:windowExitAnimation">@anim/tdown</item>
     </style>
+
+    <style name="vip_style">
+        <item name="android:windowEnterAnimation">@anim/vip_in_ainm</item>
+        <item name="android:windowExitAnimation">@anim/vip_out_ainm</item>
+    </style>
+
 </resources>

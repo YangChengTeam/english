@@ -1,5 +1,6 @@
 package com.yc.soundmark.study.fragment;
 
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,8 +17,8 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.ScreenUtil;
 import com.yc.junior.english.R;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
-import com.yc.soundmark.base.constant.BusAction;
-import com.yc.soundmark.base.fragment.BasePayFragment;
+import com.yc.junior.english.main.model.domain.Constant;
+import com.yc.junior.english.vip.utils.VipDialogHelper;
 import com.yc.soundmark.category.utils.ItemDecorationHelper;
 import com.yc.soundmark.study.adapter.StudyVowelAdapter;
 import com.yc.soundmark.study.contract.StudyVowelContract;
@@ -32,11 +33,11 @@ import rx.functions.Action1;
 import yc.com.base.BaseDialogFragment;
 
 
+
 /**
  * Created by wanglin  on 2018/11/1 09:01.
  */
 public class StudyVowelFragment extends BaseDialogFragment<StudyVowelPresenter> implements StudyVowelContract.View {
-
 
 
     private LinearLayout llContainer;
@@ -75,7 +76,6 @@ public class StudyVowelFragment extends BaseDialogFragment<StudyVowelPresenter> 
     @Override
     public void init() {
         mPresenter = new StudyVowelPresenter(getActivity(), this);
-
 
 
         initListener();
@@ -118,14 +118,16 @@ public class StudyVowelFragment extends BaseDialogFragment<StudyVowelPresenter> 
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         WordInfo wordInfo = studyVowelAdapter.getItem(position);
-                        if (UserInfoHelper.isYbVip() || wordInfo.getIs_vip() == 0) {
+                        if (UserInfoHelper.isVip(UserInfoHelper.getUserInfo()) || wordInfo.getIs_vip() == 0) {
                             if (clickListener != null) {
                                 clickListener.onClick(wordInfo.getPage());
                                 dismiss();
                             }
                         } else {
-                            BasePayFragment basePayFragment = new BasePayFragment();
-                            basePayFragment.show(getChildFragmentManager(), "");
+//                            BasePayFragment basePayFragment = new BasePayFragment();
+//                            basePayFragment.show(getChildFragmentManager(), "");
+                            VipDialogHelper.showVipDialog(getChildFragmentManager(), "", new Bundle());
+
                         }
 
                     }
@@ -155,7 +157,7 @@ public class StudyVowelFragment extends BaseDialogFragment<StudyVowelPresenter> 
     @Subscribe(
             thread = EventThread.MAIN_THREAD,
             tags = {
-                    @Tag(BusAction.PAY_SUCCESS)
+                    @Tag(Constant.COMMUNITY_ACTIVITY_REFRESH)
             }
     )
     public void paySuccess(String info) {

@@ -8,7 +8,6 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.view.BaseFragment;
 import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.news.view.activity.NewsDetailActivity;
 import com.yc.junior.english.weixin.contract.CourseContract;
@@ -19,6 +18,8 @@ import com.yc.junior.english.weixin.views.adapters.CourseAdapter;
 import java.util.List;
 
 import butterknife.BindView;
+import yc.com.base.BaseFragment;
+
 
 /**
  * Created by admin on 2018/1/17.

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.junior.english.base.helper.ResultInfoHelper;
-import com.yc.junior.english.base.presenter.BasePresenter;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.UserInfo;
 import com.yc.junior.english.setting.contract.MyContract;
@@ -16,6 +15,8 @@ import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
+
 
 /**
  * Created by zhangkai on 2017/8/3.

@@ -6,14 +6,14 @@ import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
 import com.yc.junior.english.R
-import com.yc.junior.english.base.model.BaseEngin
-import com.yc.junior.english.base.presenter.BasePresenter
-import com.yc.junior.english.base.view.BaseFragment
 import com.yc.junior.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.junior.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.junior.english.intelligent.view.adpaters.IntelligentOptionsAdapter
 import com.yc.junior.english.main.model.domain.Constant
 import kotlinx.android.synthetic.main.intelligent_fragment_inner_question.*
+import yc.com.base.BaseEngine
+import yc.com.base.BaseFragment
+import yc.com.base.BasePresenter
 import yc.com.base.IView
 import yc.com.blankj.utilcode.util.SPUtils
 
@@ -21,7 +21,7 @@ import yc.com.blankj.utilcode.util.SPUtils
  * Created by zhangkai on 2017/12/4.
  */
 
-class IntelligentInnerQuestionFragment : BaseFragment<BasePresenter<BaseEngin, IView>>() {
+class IntelligentInnerQuestionFragment : BaseFragment<BasePresenter<BaseEngine, IView>>() {
 
     var questionInfo: QuestionInfoWrapper.QuestionInfo? = null
     var adpater: IntelligentOptionsAdapter? = null

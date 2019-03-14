@@ -32,12 +32,13 @@ allprojects {
     repositories {
         //maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url "https://jitpack.io" }
-        maven { url 'https://maven.google.com' }
+
         jcenter()
         maven {
             url 'https://maven.google.com/'
             name 'Google'
         }
+        mavenCentral()
     }
 }
 

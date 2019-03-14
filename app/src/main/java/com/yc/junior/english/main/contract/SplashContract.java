@@ -5,6 +5,7 @@ import com.yc.junior.english.main.model.domain.SlideInfo;
 import yc.com.base.IPresenter;
 import yc.com.base.IView;
 
+
 /**
  * Created by zhangkai on 2017/8/1.
  */

@@ -6,10 +6,9 @@ import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
 import com.jakewharton.rxbinding.view.RxView
-import com.yc.english.intelligent.presenter.IntelligentPresenter
 import com.yc.junior.english.R
-import com.yc.junior.english.base.view.BaseFragment
 import com.yc.junior.english.intelligent.model.domain.UnitInfoWrapper
+import com.yc.junior.english.intelligent.presenter.IntelligentPresenter
 import com.yc.junior.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.junior.english.intelligent.view.activitys.IntelligentReportActivity
 import com.yc.junior.english.intelligent.view.wdigets.IntelligentTypeItemView
@@ -18,6 +17,7 @@ import com.yc.junior.english.main.model.domain.Constant
 import com.yc.junior.english.main.view.activitys.LoginActivity
 import com.yc.junior.english.speak.view.activity.QuestionActivity
 import kotlinx.android.synthetic.main.intelligent_fragment_index.*
+import yc.com.base.BaseFragment
 import yc.com.blankj.utilcode.util.SPUtils
 import java.util.concurrent.TimeUnit
 

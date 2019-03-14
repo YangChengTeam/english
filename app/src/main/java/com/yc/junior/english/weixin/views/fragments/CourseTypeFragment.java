@@ -21,9 +21,6 @@ import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.utils.StatusBarCompat;
-import com.yc.junior.english.base.view.BaseActivity;
-import com.yc.junior.english.base.view.BaseFragment;
 import com.yc.junior.english.base.view.CommonWebView;
 import com.yc.junior.english.base.view.LoadingDialog;
 import com.yc.junior.english.base.view.WebActivity;
@@ -52,10 +49,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.base.BaseActivity;
+import yc.com.base.BaseFragment;
 import yc.com.base.EmptyUtils;
+import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.SPUtils;
 import yc.com.blankj.utilcode.util.ToastUtils;
 import yc.com.blankj.utilcode.util.UIUitls;
+
 
 /**
  * Created by zhangkai on 2017/8/30.

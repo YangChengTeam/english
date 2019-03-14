@@ -6,7 +6,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.junior.english.base.helper.ResultInfoHelper;
-import com.yc.junior.english.base.presenter.BasePresenter;
 import com.yc.junior.english.base.utils.SimpleCacheUtils;
 import com.yc.junior.english.weixin.contract.CourseContract;
 import com.yc.junior.english.weixin.model.domain.CourseInfo;
@@ -17,7 +16,9 @@ import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
 import yc.com.blankj.utilcode.util.UIUitls;
+
 
 /**
  * Created by zhangkai on 2017/8/30.
@@ -25,6 +26,7 @@ import yc.com.blankj.utilcode.util.UIUitls;
 
 public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.View> implements CourseContract.Presenter {
     public static final String NEWSINFO = "newsListInfo";
+    private boolean cached;
 
     public CoursePresenter(Context context, CourseContract.View iView) {
         super(context, iView);
@@ -97,7 +99,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
                         if (courseInfoResultInfo.data != null) {
                             showNewsListInfo(courseInfoResultInfo.data.getList(), type_id, page, true);
                         } else {
-                            if(cached){
+                            if (cached) {
                                 return;
                             }
                             if (page.equals("1")) {
@@ -112,9 +114,9 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
         mSubscriptions.add(subscription);
     }
 
-    private void showNewsListInfo(final List<CourseInfo> courseInfos,final String type_id, final String page, boolean isCache) {
+    private void showNewsListInfo(final List<CourseInfo> courseInfos, final String type_id, final String page, boolean isCache) {
         if (courseInfos != null && courseInfos.size() > 0) {
-            if(isCache) {
+            if (isCache) {
                 SimpleCacheUtils.writeCache(mContext, NEWSINFO + type_id, JSON.toJSONString(courseInfos));
             }
             mView.showWeixinList(courseInfos);

@@ -4,13 +4,14 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.junior.english.base.helper.ResultInfoHelper;
-import com.yc.junior.english.base.presenter.BasePresenter;
 import com.yc.junior.english.read.contract.CoursePlayContract;
 import com.yc.junior.english.read.model.domain.EnglishCourseInfoList;
 import com.yc.junior.english.read.model.engin.CoursePlayEngin;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
+
 
 /**
  * Created by admin on 2017/8/7.

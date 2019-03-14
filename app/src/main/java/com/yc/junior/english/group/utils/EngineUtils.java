@@ -17,6 +17,7 @@ import com.yc.junior.english.pay.PayWayInfo;
 import com.yc.junior.english.pay.alipay.OrderInfo;
 import com.yc.junior.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.junior.english.setting.model.bean.ShareStateInfo;
+import com.yc.junior.english.vip.model.bean.VipGoodInfoWrapper;
 
 import java.io.File;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
+
 
 /**
  * Created by wanglin  on 2017/8/2 19:30.
@@ -162,4 +164,11 @@ public class EngineUtils {
         }.getType(), null, true, true, true);
     }
 
+
+    public static Observable<ResultInfo<VipGoodInfoWrapper>> getVipGoodInfos(Context context) {
+        return HttpCoreEngin.get(context).rxpost(URLConfig.VIP_GOOD_URL, new TypeReference<ResultInfo<VipGoodInfoWrapper>>() {
+        }.getType(), null, true, true, true);
+
+
+    }
 }

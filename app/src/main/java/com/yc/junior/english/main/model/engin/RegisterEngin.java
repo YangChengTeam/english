@@ -6,7 +6,6 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.yc.junior.english.base.helper.EnginHelper;
-import com.yc.junior.english.base.model.BaseEngin;
 import com.yc.junior.english.main.model.domain.URLConfig;
 import com.yc.junior.english.main.model.domain.UserInfoWrapper;
 
@@ -14,12 +13,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rx.Observable;
+import yc.com.base.BaseEngine;
+
 
 /**
  * Created by zhangkai on 2017/7/26.
  */
 
-public class RegisterEngin extends BaseEngin {
+public class RegisterEngin extends BaseEngine {
 
     public RegisterEngin(Context context) {
         super(context);

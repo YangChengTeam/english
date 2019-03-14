@@ -17,8 +17,6 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.GlideHelper;
-import com.yc.junior.english.base.utils.StatusBarCompat;
-import com.yc.junior.english.base.view.BaseActivity;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.main.model.domain.UserInfo;
@@ -33,7 +31,10 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.base.BaseActivity;
+import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.TimeUtils;
+
 
 /**
  * Created by wanglin  on 2017/11/8 11:19.
@@ -147,7 +148,7 @@ public class VipEquitiesActivity extends BaseActivity {
                     mTvRightsTitle.setText(getString(R.string.general_vip_right));
                     basePayItemViewVip.setVisibility(View.GONE);
 //                    basePayItemViewCeping.setVisibility(View.GONE);
-                    basePayItemViewTaskTutorship.setVisibility(View.GONE);
+//                    basePayItemViewTaskTutorship.setVisibility(View.GONE);
                     mVipIcon.setImageResource(R.mipmap.vip_vip);
                 } else if (userInfo.getIsVip() == 2) {
                     mTvRightsTitle.setText(getString(R.string.tutorship_vip_right));
@@ -191,4 +192,8 @@ public class VipEquitiesActivity extends BaseActivity {
     }
 
 
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 }

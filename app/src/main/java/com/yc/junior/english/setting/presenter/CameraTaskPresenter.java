@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.junior.english.base.helper.ResultInfoHelper;
-import com.yc.junior.english.base.presenter.BasePresenter;
 import com.yc.junior.english.group.model.bean.TaskUploadInfo;
 import com.yc.junior.english.group.utils.EngineUtils;
 import com.yc.junior.english.setting.contract.CameraTaskContract;
@@ -14,6 +13,8 @@ import java.io.File;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
+
 
 /**
  * Created by wanglin  on 2017/12/11 15:55.

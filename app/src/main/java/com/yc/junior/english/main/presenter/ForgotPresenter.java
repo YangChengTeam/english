@@ -5,7 +5,6 @@ import android.content.Context;
 import com.hwangjr.rxbus.RxBus;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.junior.english.base.helper.TipsHelper;
-import com.yc.junior.english.base.presenter.BasePresenter;
 import com.yc.junior.english.main.contract.ForgotContract;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.Constant;
@@ -14,9 +13,11 @@ import com.yc.junior.english.main.model.engin.ForgotEngin;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
 import yc.com.base.EmptyUtils;
 import yc.com.blankj.utilcode.util.RegexUtils;
 import yc.com.blankj.utilcode.util.ToastUtils;
+
 
 /**
  * Created by zhangkai on 2017/7/26.

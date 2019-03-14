@@ -4,19 +4,19 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.yc.english.base.view.TaskToolBar
+    <com.yc.junior.english.base.view.TaskToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.yc.english.base.view.StateView
+    <com.yc.junior.english.base.view.StateView
         android:id="@+id/sv_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primaryDark"
         android:visibility="gone"
         >
-    </com.yc.english.base.view.StateView>
+    </com.yc.junior.english.base.view.StateView>
 
     <RelativeLayout
         android:layout_width="match_parent"

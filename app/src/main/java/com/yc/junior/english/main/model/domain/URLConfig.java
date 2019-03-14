@@ -49,6 +49,8 @@ public class URLConfig {
 
     public static final String GUEST_REG_URL = getBaseUrl() + "user/name_reg";//游客注册
 
+    public static final String VIP_GOOD_URL = getBaseUrl() + "vip/index";//
+
 
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);

@@ -24,6 +24,7 @@ import com.yc.junior.english.base.helper.TipsHelper;
 import com.yc.junior.english.base.view.AlertDialog;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.base.view.StateView;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.news.utils.ViewUtil;
 import com.yc.junior.english.read.common.ReadApp;
 import com.yc.junior.english.read.contract.BookContract;
@@ -44,6 +45,7 @@ import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
+
 
 /**
  * Created by admin on 2017/7/25.
@@ -100,14 +102,15 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
         mPresenter = new BookPresenter(this, this);
 //        Properties pt = PropertyUtil.getProperties(this);
 
-        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND)) {
+        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             rlTopBanner.setVisibility(View.GONE);
             rlBottomBanner.setVisibility(View.GONE);
+
+
+        } else {
+            AdvDispatchManager.getManager().init(this, AdvType.BANNER, topBanner, null, com.yc.junior.english.main.model.domain.Constant.TENCENT_ADV_ID, com.yc.junior.english.main.model.domain.Constant.READ_TOP_BANNER, this);
+            AdvDispatchManager.getManager().init(this, AdvType.BANNER, bottomBanner, null, com.yc.junior.english.main.model.domain.Constant.TENCENT_ADV_ID, com.yc.junior.english.main.model.domain.Constant.READ_BOTTOM_BANNER, this);
         }
-
-        AdvDispatchManager.getManager().init(this, AdvType.BANNER, topBanner, null, com.yc.junior.english.main.model.domain.Constant.TENCENT_ADV_ID, com.yc.junior.english.main.model.domain.Constant.READ_TOP_BANNER, this);
-        AdvDispatchManager.getManager().init(this, AdvType.BANNER, bottomBanner, null, com.yc.junior.english.main.model.domain.Constant.TENCENT_ADV_ID, com.yc.junior.english.main.model.domain.Constant.READ_BOTTOM_BANNER, this);
-
 
         String titleName;
         if (ReadApp.READ_COMMON_TYPE == 1) {
@@ -156,7 +159,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
         mItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 final AlertDialog alertDialog = new AlertDialog(BookActivity.this);
                 alertDialog.setDesc("确认删除该教材？");
                 alertDialog.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +171,6 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
                     }
                 });
                 alertDialog.show();
-                return false;
             }
         });
         if (isRead) {
@@ -270,7 +272,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
     @Override
     public void onShow() {
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND))) {
+        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
             ivBottombannerClose.setVisibility(View.VISIBLE);
             ivTopbannerClose.setVisibility(View.VISIBLE);
         }
@@ -296,4 +298,14 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
     }
 
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {
+                    @Tag(com.yc.junior.english.main.model.domain.Constant.COMMUNITY_ACTIVITY_REFRESH)
+            }
+    )
+    public void paySuccess(String info) {
+        rlTopBanner.setVisibility(View.GONE);
+        rlBottomBanner.setVisibility(View.GONE);
+    }
 }

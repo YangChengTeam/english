@@ -2,7 +2,6 @@ package com.yc.junior.english.read.presenter;
 
 import android.content.Context;
 
-import com.yc.junior.english.base.presenter.BasePresenter;
 import com.yc.junior.english.read.contract.BookContract;
 import com.yc.junior.english.read.model.domain.BookInfo;
 import com.yc.junior.english.read.model.engin.BookEngin;
@@ -11,7 +10,9 @@ import java.util.ArrayList;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
 import yc.com.blankj.utilcode.util.UIUitls;
+
 
 /**
  * Created by admin on 2017/8/7.

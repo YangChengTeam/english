@@ -3,7 +3,6 @@ package com.yc.junior.english.setting.model.engin;
 import android.content.Context;
 import android.util.Log;
 
-import com.yc.junior.english.base.model.BaseEngin;
 import com.yc.junior.english.group.constant.NetConstant;
 
 import java.io.BufferedReader;
@@ -22,14 +21,16 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import yc.com.base.BaseEngine;
 import yc.com.blankj.utilcode.util.LogUtils;
+
 
 
 /**
  * Created by wanglin  on 2017/12/11 16:19.
  */
 
-public class CameraEngine extends BaseEngin {
+public class CameraEngine extends BaseEngine {
 
     public CameraEngine(Context context) {
         super(context);

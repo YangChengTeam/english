@@ -12,9 +12,8 @@ import android.widget.TextView;
 
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.utils.StatusBarCompat;
-import com.yc.junior.english.base.view.BaseActivity;
 import com.yc.junior.english.main.contract.SplashContract;
+import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.main.model.domain.SlideInfo;
 import com.yc.junior.english.main.presenter.SplashPresenter;
@@ -22,16 +21,18 @@ import com.yc.junior.english.main.presenter.SplashPresenter;
 import java.util.Map;
 
 import butterknife.BindView;
+import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.UIUitls;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
 
+
 /**
  * Created by zhangkai on 2017/8/1.
  */
 
-public class SplashActivity extends BaseActivity<SplashPresenter> implements SplashContract.View, OnAdvStateListener {
+public class SplashActivity extends yc.com.base.BaseActivity<SplashPresenter> implements SplashContract.View, OnAdvStateListener {
 
 
     @BindView(R.id.status_bar)
@@ -46,15 +47,14 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     ImageView ivSplashBg;
 
 
-
     @Override
     public void init() {
         mPresenter = new SplashPresenter(this, this);
         StatusBarCompat.light(this);
         StatusBarCompat.compat(this, mStatusBar);
-        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND)) {
+        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             skipView.setVisibility(View.GONE);
-            switchMain(null,Time);
+            switchMain(null, Time);
         } else {
             AdvDispatchManager.getManager().init(this, AdvType.SPLASH, splashContainer, skipView, Constant.TENCENT_ADV_ID, Constant.SPLASH_ADV_ID, this);
         }
@@ -96,19 +96,23 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     }
 
 
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        AdvDispatchManager.getManager().onResume();
+        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
+            AdvDispatchManager.getManager().onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
-        AdvDispatchManager.getManager().onPause();
+        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
+            AdvDispatchManager.getManager().onPause();
 
     }
 
@@ -152,7 +156,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND))) {
+        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
             AdvDispatchManager.getManager().onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }

@@ -14,7 +14,9 @@ import com.yc.junior.english.R;
 import javax.annotation.Nullable;
 
 import butterknife.BindView;
+import yc.com.base.BaseActivity;
 import yc.com.base.BaseView;
+
 
 /**
  * Created by zhangkai on 2017/7/25.

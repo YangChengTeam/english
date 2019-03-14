@@ -13,6 +13,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.ScreenUtil;
 import com.kk.utils.ToastUtil;
 import com.yc.junior.english.R;
+import com.yc.junior.english.group.constant.BusAction;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.UserInfo;
 import com.yc.junior.english.news.model.domain.OrderGood;
@@ -22,7 +23,6 @@ import com.yc.junior.english.pay.alipay.IAliPay1Impl;
 import com.yc.junior.english.pay.alipay.IPayCallback;
 import com.yc.junior.english.pay.alipay.OrderInfo;
 import com.yc.soundmark.base.adapter.BasePayAdapter;
-import com.yc.soundmark.base.constant.BusAction;
 import com.yc.soundmark.base.contract.BasePayContract;
 import com.yc.soundmark.base.model.domain.GoodInfo;
 import com.yc.soundmark.base.presenter.BasePayPresenter;
@@ -37,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;
 import yc.com.base.BaseDialogFragment;
+
 
 /**
  * Created by wanglin  on 2018/10/29 17:18.
@@ -195,7 +196,8 @@ public class BasePayFragment extends BaseDialogFragment<BasePayPresenter> implem
                 payway = getPaywayName(currentPos);
                 List<OrderGood> list = new ArrayList<>();
                 OrderGood orderGood = new OrderGood();
-                orderGood.setGood_id(currentGoodInfo.getId());
+                if (currentGoodInfo != null)
+                    orderGood.setGood_id(currentGoodInfo.getId());
                 orderGood.setNum(1);
                 list.add(orderGood);
 

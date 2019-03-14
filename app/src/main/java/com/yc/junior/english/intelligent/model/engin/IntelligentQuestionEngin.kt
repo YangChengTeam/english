@@ -4,16 +4,16 @@ import android.content.Context
 import com.alibaba.fastjson.TypeReference
 import com.kk.securityhttp.domain.ResultInfo
 import com.kk.securityhttp.engin.HttpCoreEngin
-import com.yc.junior.english.base.model.BaseEngin
 import com.yc.junior.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.junior.english.intelligent.model.domain.URLConfig
 import com.yc.junior.english.main.hepler.UserInfoHelper
 import rx.Observable
+import yc.com.base.BaseEngine
 
 /**
  * Created by zhangkai on 2017/12/4.
  */
-class IntelligentQuestionEngin(context: Context?) : BaseEngin(context) {
+class IntelligentQuestionEngin(context: Context?) : BaseEngine(context) {
 
     fun getQuestions(unitId: String, type: String): Observable<ResultInfo<QuestionInfoWrapper>> {
         var uid = ""

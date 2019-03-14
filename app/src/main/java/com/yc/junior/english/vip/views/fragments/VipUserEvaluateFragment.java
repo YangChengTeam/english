@@ -7,11 +7,12 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.view.BaseFragment;
 import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.main.model.domain.UserInfo;
 
 import butterknife.BindView;
+import yc.com.base.BaseFragment;
+
 
 /**
  * Created by wanglin  on 2017/11/28 15:08.

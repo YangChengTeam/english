@@ -22,7 +22,6 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.kk.utils.ToastUtil;
-import com.yc.junior.english.base.view.BaseActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -30,7 +29,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import yc.com.base.BaseActivity;
 import yc.com.blankj.utilcode.util.LogUtils;
+
 
 /**
  * Created by zhangkai on 2017/8/8.

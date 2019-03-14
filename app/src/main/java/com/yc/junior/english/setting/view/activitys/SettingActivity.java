@@ -96,4 +96,6 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
     public void showExitButton() {
         mExitButton.setVisibility(View.VISIBLE);
     }
+
+
 }

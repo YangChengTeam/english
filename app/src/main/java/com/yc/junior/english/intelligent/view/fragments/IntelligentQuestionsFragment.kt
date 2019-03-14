@@ -6,22 +6,22 @@ import android.view.Gravity
 import android.view.View
 import com.jakewharton.rxbinding.view.RxView
 import com.yc.junior.english.R
-import com.yc.junior.english.base.model.BaseEngin
-import com.yc.junior.english.base.presenter.BasePresenter
-import com.yc.junior.english.base.view.BaseFragment
 import com.yc.junior.english.intelligent.model.domain.QuestionInfoWrapper
 import com.yc.junior.english.intelligent.utils.fromHtml
 import com.yc.junior.english.intelligent.view.activitys.IntelligentQuestionDescPopupWindow
 import com.yc.junior.english.intelligent.view.activitys.IntelligentQuestionsActivity
 import com.yc.junior.english.weixin.views.utils.TabsUtils
 import kotlinx.android.synthetic.main.intelligent_fragment_questions.*
+import yc.com.base.BaseEngine
+import yc.com.base.BaseFragment
+import yc.com.base.BasePresenter
 import yc.com.base.IView
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by zhangkai on 2017/11/28.
  */
-class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView>>() {
+class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngine, IView>>() {
 
     var questionInfo: QuestionInfoWrapper.QuestionInfo? = null
 
@@ -34,7 +34,7 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
         mQestionView.text = questionInfo?.title
         mQestionView.webview = questionInfo?.desc
         mQestionView.media = questionInfo?.voiceUrl
-        var data: List<QuestionInfoWrapper.QuestionInfo>
+        val data: List<QuestionInfoWrapper.QuestionInfo>
 
         if (questionInfo?.data != null && questionInfo?.data!!.size > 1) {
             mSmallIndexRelativeLayout.visibility = View.VISIBLE
@@ -75,7 +75,7 @@ class IntelligentQuestionsFragment : BaseFragment<BasePresenter<BaseEngin, IView
             } else if (questionInfo?.voiceText != "") {
                 ppw.loadHtml(questionInfo?.voiceText ?: "", 2)
             }
-            ppw.show(mRootView, Gravity.BOTTOM)
+            ppw.show(rootView, Gravity.BOTTOM)
         }
 
         showDescView()

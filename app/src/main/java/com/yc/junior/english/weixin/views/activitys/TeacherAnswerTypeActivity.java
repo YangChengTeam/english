@@ -88,4 +88,8 @@ public class TeacherAnswerTypeActivity extends FullScreenActivity {
         return R.layout.activity_teacher_answer_type;
     }
 
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 }

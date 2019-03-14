@@ -18,6 +18,7 @@ import com.yc.junior.english.speak.model.bean.SpeakAndReadItemInfo;
 
 import java.util.List;
 
+
 /**
  * Created by wanglin  on 2017/10/12 15:36.
  */
@@ -49,7 +50,11 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
                 layoutParams.height = CardView.LayoutParams.WRAP_CONTENT;
             } else {
                 helper.setVisible(R.id.tv_update_date, false);
+
                 layoutParams.height = ScreenUtil.dip2px(mContext, 110);
+
+                layoutParams.height = ScreenUtil.dip2px(mContext, 110f);
+
             }
             view.setLayoutParams(layoutParams);
         }
@@ -64,19 +69,20 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) helper.itemView.getLayoutParams();
         if (mIsMore) {
             if (position % 2 == 0) {
-                layoutParams.leftMargin = ScreenUtil.dip2px(mContext, 2);
+
+                layoutParams.leftMargin = ScreenUtil.dip2px(mContext, 2f);
             } else {
-                layoutParams.rightMargin = ScreenUtil.dip2px(mContext, 2);
+                layoutParams.rightMargin = ScreenUtil.dip2px(mContext, 2f);
             }
         } else {
             if (position == 0) {
-                layoutParams.leftMargin = ScreenUtil.dip2px(mContext, 2);
-                layoutParams.rightMargin = ScreenUtil.dip2px(mContext, 2);
+                layoutParams.leftMargin = ScreenUtil.dip2px(mContext, 2f);
+                layoutParams.rightMargin = ScreenUtil.dip2px(mContext, 2f);
 
             } else if (position % 2 == 0) {
-                layoutParams.rightMargin = ScreenUtil.dip2px(mContext, 2);
+                layoutParams.rightMargin = ScreenUtil.dip2px(mContext, 2f);
             } else {
-                layoutParams.leftMargin = ScreenUtil.dip2px(mContext, 2);
+                layoutParams.leftMargin = ScreenUtil.dip2px(mContext, 2f);
             }
         }
         helper.itemView.setLayoutParams(layoutParams);

@@ -132,7 +132,7 @@
             android:value="${UMENG_CHANNEL_VALUE}" />
 
         <meta-data
-            android:name="com.yc.english.base.helper.GlideConfiguration"
+            android:name="com.yc.junior.english.base.helper.GlideConfiguration"
             android:value="AppGlideModule" />
 
         <activity
@@ -259,7 +259,7 @@
         <!-- targetSDKVersion >= 24时才需要添加这个 provider。provider 的 authorities 属性的值为 ${applicationId}.fileprovider，请开发者根据自己的 ${applicationId} 来设置这个值 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.yc.english.fileprovider"
+            android:authorities="com.yc.junior.english.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

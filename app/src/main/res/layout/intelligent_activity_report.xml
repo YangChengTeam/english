@@ -154,7 +154,7 @@
                         eng:honour_ability_line_color="#ffffff"
                         eng:honour_ability_text_size="15dp" />
 
-                    <!--<com.yc.english.intelligent.view.wdigets.IntelligentRingView-->
+                    <!--<com.yc.junior.english.intelligent.view.wdigets.IntelligentRingView-->
                     <!--android:id="@+id/ringView"-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content" />-->

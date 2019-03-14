@@ -8,7 +8,6 @@ import com.kk.utils.LogUtil;
 import com.yc.junior.english.EnglishApp;
 import com.yc.junior.english.base.helper.ResultInfoHelper;
 import com.yc.junior.english.base.helper.TipsHelper;
-import com.yc.junior.english.base.presenter.BasePresenter;
 import com.yc.junior.english.group.utils.EngineUtils;
 import com.yc.junior.english.main.contract.LoginContract;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
@@ -24,10 +23,12 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import yc.com.base.BasePresenter;
 import yc.com.base.EmptyUtils;
 import yc.com.blankj.utilcode.util.RegexUtils;
 import yc.com.blankj.utilcode.util.SPUtils;
 import yc.com.blankj.utilcode.util.StringUtils;
+
 
 /**
  * Created by zhangkai on 2017/7/25.

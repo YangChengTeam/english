@@ -220,11 +220,11 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
 
         mSpeakItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
                 if (view.getId() == R.id.iv_speak_tape && !isTape && !isPlayTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
-                    if(currentView != null) {
+                    if (currentView != null) {
                         currentView.findViewById(R.id.speak_tape_layout).setVisibility(View.VISIBLE);
                         progressBar = (CircularProgressBar) currentView.findViewById(R.id.progress_bar);
                     }
@@ -236,7 +236,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
 
                 if (view.getId() == R.id.speak_tape_layout && isTape && !isPlayTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
-                    if(currentView != null) {
+                    if (currentView != null) {
                         currentView.findViewById(R.id.iv_speak_tape).setVisibility(View.VISIBLE);
                     }
                     view.setVisibility(View.GONE);
@@ -248,7 +248,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
                 if (view.getId() == R.id.iv_play_self_speak && !isPlayTape && !isTape && !isPlay && listenSuccess) {
                     if (audioFile != null && audioFile.exists()) {
                         View currentView = mLinearLayoutManager.findViewByPosition(position);
-                        if(currentView != null) {
+                        if (currentView != null) {
                             playProgressBar = (CircularProgressBar) currentView.findViewById(R.id.play_progress_bar);
                             currentView.findViewById(R.id.play_speak_tape_layout).setVisibility(View.VISIBLE);
                         }
@@ -260,7 +260,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
 
                 if (view.getId() == R.id.play_speak_tape_layout && isPlayTape && !isTape && !isPlay) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
-                    if(currentView != null) {
+                    if (currentView != null) {
                         currentView.findViewById(R.id.iv_play_self_speak).setVisibility(View.VISIBLE);
                     }
                     view.setVisibility(View.GONE);
@@ -270,7 +270,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
                 //播放点读
                 if (view.getId() == R.id.iv_play_read && !isPlay && !isPlayTape && !isTape) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
-                    if(currentView != null) {
+                    if (currentView != null) {
                         playReadProgressBar = (CircularProgressBar) currentView.findViewById(R.id.play_read_progress_bar);
                         currentView.findViewById(R.id.play_layout).setVisibility(View.VISIBLE);
                     }
@@ -284,7 +284,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
                 //停止播放点读
                 if (view.getId() == R.id.play_layout && isPlay && !isPlayTape && !isTape) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
-                    if(currentView != null) {
+                    if (currentView != null) {
                         currentView.findViewById(R.id.iv_play_read).setVisibility(View.VISIBLE);
                     }
                     view.setVisibility(View.GONE);
@@ -293,7 +293,6 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
                     stopPlay();
                 }
 
-                return false;
             }
         });
     }
@@ -312,8 +311,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
     }
 
 
-
-    private void updateProgress(){
+    private void updateProgress() {
         if (progressBar != null && isTape) {
             int max = 5;
             int min = 1;
@@ -342,8 +340,9 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
     }
 
     private Subscription subscriber;
+
     public void initTask() {
-        if(subscriber != null) {
+        if (subscriber != null) {
             return;
         }
         subscriber = Observable.interval(200, TimeUnit.MILLISECONDS).delay(150, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Long>() {
@@ -355,7 +354,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
     }
 
     public void stopTask() {
-        if(subscriber != null && subscriber.isUnsubscribed()){
+        if (subscriber != null && subscriber.isUnsubscribed()) {
             subscriber.unsubscribe();
             subscriber = null;
         }
@@ -418,7 +417,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
                         playProgressBar.setProgress(100);
 
                         View currentView = mLinearLayoutManager.findViewByPosition(position);
-                        if(currentView != null) {
+                        if (currentView != null) {
                             currentView.findViewById(R.id.play_speak_tape_layout).setVisibility(View.GONE);
                             currentView.findViewById(R.id.iv_play_self_speak).setVisibility(View.VISIBLE);
                         }
@@ -511,7 +510,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
 
                 ToastUtils.showLong("听写识别错误，请重试");
                 View currentView = mLinearLayoutManager.findViewByPosition(lastPosition);
-                if(currentView != null) {
+                if (currentView != null) {
                     currentView.findViewById(R.id.iv_speak_tape).setVisibility(View.VISIBLE);
                     currentView.findViewById(R.id.speak_tape_layout).setVisibility(View.GONE);
                 }
@@ -590,7 +589,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
         }
 
         View currentView = mLinearLayoutManager.findViewByPosition(lastPosition);
-        if(currentView != null) {
+        if (currentView != null) {
             currentView.findViewById(R.id.iv_speak_tape).setVisibility(View.VISIBLE);
             currentView.findViewById(R.id.speak_tape_layout).setVisibility(View.GONE);
         }
@@ -816,7 +815,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
             if (error == null) {
 
                 View currentView = mLinearLayoutManager.findViewByPosition(lastPosition);
-                if(currentView != null) {
+                if (currentView != null) {
                     currentView.findViewById(R.id.iv_play_read).setVisibility(View.VISIBLE);
                     currentView.findViewById(R.id.play_layout).setVisibility(View.GONE);
                 }
@@ -874,6 +873,11 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
         if (mTts != null && mTts.isSpeaking()) {
             mTts.stopSpeaking();
         }
+    }
+
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
     }
 
     @Override

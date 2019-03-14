@@ -9,15 +9,16 @@ import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread
 import com.kk.securityhttp.net.contains.HttpConfig
 import com.kk.utils.LogUtil
-import com.yc.junior.english.base.presenter.BasePresenter
 import com.yc.junior.english.base.utils.SimpleCacheUtils
 import com.yc.junior.english.intelligent.contract.IntelligentTypeContract
 import com.yc.junior.english.intelligent.model.domain.UnitInfoWrapper
 import com.yc.junior.english.intelligent.model.domain.VGInfoWarpper
 import com.yc.junior.english.intelligent.model.engin.IntelligentTypeEngin
 import com.yc.junior.english.main.model.domain.Constant
+import yc.com.base.BasePresenter
 import yc.com.blankj.utilcode.util.SPUtils
 import java.util.*
+
 
 /**
  * Created by zhangkai on 2017/11/24.

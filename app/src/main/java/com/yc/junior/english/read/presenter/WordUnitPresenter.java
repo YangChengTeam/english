@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.junior.english.base.helper.ResultInfoHelper;
-import com.yc.junior.english.base.presenter.BasePresenter;
 import com.yc.junior.english.read.contract.WordUnitContract;
 import com.yc.junior.english.read.model.domain.BookInfoWarpper;
 import com.yc.junior.english.read.model.domain.WordUnitInfoList;
@@ -12,6 +11,8 @@ import com.yc.junior.english.read.model.engin.WordEngin;
 
 import rx.Subscriber;
 import rx.Subscription;
+import yc.com.base.BasePresenter;
+
 
 /**
  * Created by admin on 2017/8/7.

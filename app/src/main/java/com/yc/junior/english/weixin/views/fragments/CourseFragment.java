@@ -17,7 +17,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.view.BaseFragment;
 import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.weixin.contract.WeiKeContract;
@@ -31,6 +30,8 @@ import com.yc.junior.english.weixin.views.adapters.WeiKeCategoryItemAdapter;
 import java.util.List;
 
 import butterknife.BindView;
+import yc.com.base.BaseFragment;
+
 
 /**
  * Created by zhangkai on 2017/8/30.

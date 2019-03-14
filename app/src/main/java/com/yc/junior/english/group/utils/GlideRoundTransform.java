@@ -81,7 +81,7 @@ public class GlideRoundTransform extends BitmapTransformation {
 
     @Override
     public void updateDiskCacheKey(MessageDigest messageDigest) {
-        messageDigest.update("com.yc.english.group.utils.GlideRoundTransform".getBytes());
+        messageDigest.update("com.yc.junior.english.group.utils.GlideRoundTransform".getBytes());
 
     }
 

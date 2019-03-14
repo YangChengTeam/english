@@ -18,13 +18,16 @@ import com.yc.soundmark.study.utils.AVManager;
 
 import java.util.List;
 
+import butterknife.BindView;
 import yc.com.base.BaseFragment;
 
 /**
  * Created by wanglin  on 2018/10/26 14:14.
  */
 public class StudySentenceFragment extends BaseFragment implements OnUIApplyControllerListener {
-    private RecyclerView recyclerView;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
 
 
     private boolean isFirst = true;
@@ -88,7 +91,7 @@ public class StudySentenceFragment extends BaseFragment implements OnUIApplyCont
 
         studySentenceAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public boolean onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 layoutResult = (LinearLayout) adapter.getViewByPosition(recyclerView, position, R.id.layout_result);
                 currentInfo = studySentenceAdapter.getItem(position);
                 int i = view.getId();
@@ -97,7 +100,7 @@ public class StudySentenceFragment extends BaseFragment implements OnUIApplyCont
                     startPlay();
 
                 } else if (i == R.id.ll_record) {
-                    if (currentInfo == null) return false;
+                    if (currentInfo == null) return;
                     recordImg = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_record);
 
                     ivSpeakResult = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_speak_result);
@@ -114,7 +117,6 @@ public class StudySentenceFragment extends BaseFragment implements OnUIApplyCont
 
                 }
 
-                return false;
             }
         });
 
@@ -136,7 +138,7 @@ public class StudySentenceFragment extends BaseFragment implements OnUIApplyCont
 
     @Override
     protected void initView() {
-        recyclerView= (RecyclerView) getChildView(R.id.recyclerView);
+        recyclerView = (RecyclerView) getChildView(R.id.recyclerView);
     }
 
     @Override

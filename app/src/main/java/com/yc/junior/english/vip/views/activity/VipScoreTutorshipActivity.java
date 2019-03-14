@@ -21,8 +21,6 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.utils.StatusBarCompat;
-import com.yc.junior.english.base.view.BaseActivity;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.main.model.domain.UserInfo;
@@ -35,6 +33,9 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+import yc.com.base.BaseActivity;
+import yc.com.base.StatusBarCompat;
+
 
 /**
  * Created by wanglin  on 2017/11/28 15:05.
@@ -144,6 +145,11 @@ public class VipScoreTutorshipActivity extends BaseActivity {
 
     private VipTutorshipDetailFragment vipTutorshipDetailFragment;
     private VipUserEvaluateFragment vipUserEvaluateFragment;
+
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 
 
     private class MyFragmentPager extends FragmentStatePagerAdapter {

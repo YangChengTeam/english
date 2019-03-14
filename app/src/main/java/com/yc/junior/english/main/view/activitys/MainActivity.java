@@ -14,9 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.utils.StatusBarCompat;
 import com.yc.junior.english.base.view.AlertDialog;
-import com.yc.junior.english.base.view.BaseActivity;
 import com.yc.junior.english.intelligent.view.activitys.IntelligentTypeStartBgActivity;
 import com.yc.junior.english.intelligent.view.fragments.IntelligentTypeFragment;
 import com.yc.junior.english.main.contract.MainContract;
@@ -28,7 +26,11 @@ import com.yc.junior.english.setting.view.fragments.MyFragment;
 import com.yc.junior.english.weixin.views.fragments.CourseTypeFragment;
 
 import butterknife.BindView;
+import yc.com.base.BaseActivity;
+import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.SPUtils;
+
+
 
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
@@ -61,7 +63,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void init() {
         mainActivity = this;
 
-        StatusBarCompat.light(this);
+        StatusBarCompat.light(MainActivity.this);
         dimBackground(0.5f, 1.0f);
 
         if (getIntent().hasExtra("dialogInfo")) {
@@ -138,6 +140,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private IntelligentTypeFragment mIntelligentFragment;
 
     private MyFragment mMyFragment;
+
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 
     class FragmentAdapter extends FragmentStatePagerAdapter {
         public FragmentAdapter(FragmentManager fm) {

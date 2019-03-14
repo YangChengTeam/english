@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.umeng.analytics.MobclickAgent;
 
 
 import butterknife.ButterKnife;
+import yc.com.blankj.utilcode.util.ScreenUtils;
+import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**
  * Created by wanglin  on 2018/3/6 11:14.
@@ -27,15 +30,16 @@ import butterknife.ButterKnife;
 public abstract class BaseDialogFragment<P extends BasePresenter> extends DialogFragment implements IView {
 
     protected P mPresenter;
-    private View rootView;
+    protected View rootView;
     protected BaseLoadingView loadingView;
     protected BaseActivity mContext;
+    protected Window window;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         RxBus.get().register(this);
-        Window window = getDialog().getWindow();
+        window = getDialog().getWindow();
 
 
         if (rootView == null) {
@@ -88,14 +92,26 @@ public abstract class BaseDialogFragment<P extends BasePresenter> extends Dialog
 
     }
 
-    protected abstract float getWidth();
 
-    public abstract int getAnimationId();
+    protected void initView() {
+    }
 
-    public abstract int getHeight();
+    protected float getWidth() {
+        return 1.0f;
+    }
 
-    protected abstract void initView();
 
+    protected int getAnimationId() {
+        return R.style.vip_style;
+    }
+
+    public int getHeight() {
+        return ScreenUtils.getScreenHeight() * 3 / 5 + SizeUtils.dp2px(50);
+    }
+
+    protected int getGravity() {
+        return Gravity.BOTTOM;
+    }
 
     @Override
     public void onResume() {

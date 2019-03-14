@@ -52,7 +52,7 @@ public class WebActivity extends FullScreenActivity {
                 UIUitls.post(new Runnable() {
                     @Override
                     public void run() {
-                        mLoadingDialog.setMessage("正在加载" + newProgress + "%...");
+                        baseLoadingView.setMessage("正在加载" + newProgress + "%...");
                     }
                 });
             }

@@ -49,6 +49,11 @@ public class SpeakMainActivity extends FullScreenActivity {
     private SpeakFragment speakFragment;
     private SpeakFragment listenFragment;
 
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
+
     private class MyFragmentAdapter extends FragmentStatePagerAdapter {
 
         private MyFragmentAdapter(FragmentManager fm) {

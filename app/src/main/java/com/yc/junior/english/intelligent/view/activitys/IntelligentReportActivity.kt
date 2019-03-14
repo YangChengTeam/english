@@ -21,8 +21,6 @@ import com.kk.securityhttp.net.contains.HttpConfig
 import com.kk.utils.ScreenUtil
 import com.umeng.analytics.MobclickAgent
 import com.yc.junior.english.R
-import com.yc.junior.english.base.utils.StatusBarCompat
-import com.yc.junior.english.base.view.BaseActivity
 import com.yc.junior.english.base.view.SharePopupWindow
 import com.yc.junior.english.intelligent.contract.IntelligentReportContract
 import com.yc.junior.english.intelligent.model.domain.QuestionInfoWrapper
@@ -33,12 +31,17 @@ import com.yc.junior.english.intelligent.view.adpaters.IntelligentReportErrorAda
 import com.yc.junior.english.intelligent.view.adpaters.IntelligentReportWeakAdapter
 import com.yc.junior.english.main.model.domain.Constant
 import kotlinx.android.synthetic.main.intelligent_activity_report.*
+import yc.com.base.BaseActivity
+import yc.com.base.StatusBarCompat
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by zhangkai on 2017/11/28.
  */
 class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), IntelligentReportContract.View {
+    override fun isStatusBarMateria(): Boolean {
+        return true
+    }
 
 
     var unitId: Int = 0

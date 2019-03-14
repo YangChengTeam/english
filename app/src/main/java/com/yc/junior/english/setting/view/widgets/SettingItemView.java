@@ -17,6 +17,7 @@ import butterknife.BindView;
 import yc.com.base.BaseView;
 import yc.com.blankj.utilcode.util.SizeUtils;
 
+
 /**
  * Created by zhangkai on 2017/7/28.
  */
