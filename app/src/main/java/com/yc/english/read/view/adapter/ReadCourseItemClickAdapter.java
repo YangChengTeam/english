@@ -140,6 +140,7 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
             } else {
                 helper.setText(R.id.tv_result_hint, percent + "分,加油");
                 helper.setBackgroundRes(R.id.iv_speak_result, R.mipmap.listen_result_no);
+
             }
         } else {
             helper.setText(R.id.tv_result_hint, "");

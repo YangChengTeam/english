@@ -47,14 +47,14 @@ public class QuestionItemAdapter extends BaseMultiItemQuickAdapter<QuestionInfoB
                 }
 
                 if (item.isShowSpeak()) {
-                    helper.setVisible(R.id.speak_layout, true);
+                    helper.setGone(R.id.speak_layout, true);
                     helper.setBackgroundColor(R.id.listen_layout, ContextCompat.getColor(mContext, R.color.white));
                 } else {
-                    helper.setVisible(R.id.speak_layout, false);
+                    helper.setGone(R.id.speak_layout, false);
                     helper.setBackgroundColor(R.id.listen_layout, ContextCompat.getColor(mContext, R.color.listen_item_bg_color));
                 }
 
-                LinearLayout resultLayout = (LinearLayout) helper.getConvertView().findViewById(R.id.layout_result);
+                LinearLayout resultLayout = helper.getConvertView().findViewById(R.id.layout_result);
                 if (item.isShowResult()) {
                     resultLayout.setVisibility(View.VISIBLE);
                 } else {
