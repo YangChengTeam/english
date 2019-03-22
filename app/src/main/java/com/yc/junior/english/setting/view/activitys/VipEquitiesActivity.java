@@ -137,7 +137,7 @@ public class VipEquitiesActivity extends BaseActivity {
             if (!UserInfoHelper.isVip(userInfo)) {//非会员
                 mBtnOpenVip.setVisibility(View.VISIBLE);
                 llVipContainer.setVisibility(View.GONE);
-                basePayItemViewVip.setVisibility(View.VISIBLE);
+                basePayItemViewVip.setVisibility(View.GONE);
                 basePayItemViewCeping.setVisibility(View.VISIBLE);
                 mTvRightsTitle.setText(getString(R.string.exclusive_right));
             } else {

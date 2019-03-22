@@ -115,6 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:vip_content="教材点读"
+                        app:vip_content_size="@dimen/sp_14"
                         app:vip_icon="@mipmap/vip_equity_diandu" />
 
                 </LinearLayout>
@@ -132,6 +133,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:vip_content="智能测评"
+                        app:vip_content_size="@dimen/sp_14"
                         app:vip_icon="@mipmap/vip_equity_ceping" />
 
                     <com.yc.junior.english.vip.views.fragments.BasePayItemView
@@ -158,6 +160,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:vip_content="会员免广告"
+                        app:vip_content_size="@dimen/sp_14"
                         app:vip_icon="@mipmap/vip_equity_soundmark" />
                 </LinearLayout>
             </LinearLayout>
