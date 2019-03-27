@@ -107,5 +107,7 @@ public class Constant {
      */
     public static final String ONLINE_BANNER = "3090142104079127";
 
+    public static final String COMPOSITION_INDEX_INFO = "composition_index_info";//作文首页
+
 
 }

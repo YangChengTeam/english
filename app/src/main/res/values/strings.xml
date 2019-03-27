@@ -50,12 +50,24 @@
         <item>短语</item>
         <item>句子</item>
     </string-array>
+    <string-array name="composition_array">
+        <item>精选范文</item>
+        <item>写作素材</item>
+    </string-array>
 
 
     <string name="practice_progress">%1$d/3</string>
 
 
     <string name="soundmark">外教音标</string>
+    <string name="exam_sat">考试真题</string>
+    <string name="everyday_exercise">日常练习</string>
+    <string name="search">搜索</string>
+    <string name="grade">年级</string>
+    <string name="topic">话题</string>
+    <string name="type">类型</string>
+    <string name="theme">体裁</string>
+    <string name="all">全部</string>
 
 
 </resources>

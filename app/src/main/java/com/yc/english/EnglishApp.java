@@ -13,17 +13,16 @@ import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.share.UMShareImpl;
+import com.kk.utils.LogUtil;
 import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
-
 import com.yc.english.base.helper.EnginHelper;
 import com.yc.english.base.model.ShareInfo;
 import com.yc.english.base.utils.SpeechUtils;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.read.common.ReadApp;
-import com.yc.soundmark.base.EnglishStudyApp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -72,52 +71,57 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
     }
 
     private void init() {
-        //腾迅自动更新
-        Bugly.init(getApplicationContext(), "965a5326ab", false);
 
-        //友盟统计
-        UMGameAgent.setDebugMode(false);
-        UMGameAgent.init(this);
-        UMGameAgent.setPlayerLevel(1);
-        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
-        //全局信息初始化
-        GoagalInfo.get().init(getApplicationContext());
-        HttpConfig.setPublickey("-----BEGIN PUBLIC KEY-----\n" +
-                "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAy/M1AxLZjZOyJToExpn1\n" +
-                "hudAWySRzS+aGwNVdX9QX6vK38O7WUA7h/bYqBu+6tTRC6RnL9BksMrIf5m6D3rt\n" +
-                "faYYmxfe/FI4ZD5ybIhFuRUi95e/J2vQVElsSNqSz7ewXquZpKZAqlzH4hGgOqmO\n" +
-                "THlrwiQwX66bS7x7kDmvxMd5ZRGhTvz62kpKb/orcnWQ1KElNc/bIzTtv3jsrMgH\n" +
-                "FVdFZfev91ew4Kf1YJbqGBGKslBsIoGsgTxI94T6d6XEFxSzdvrRwKhOobXIaOhZ\n" +
-                "o3GBCZIA/1ZOwLK6RyrWdprz+60xifcYIkILdZ7yPazSfHCVHFY6o/fQjK4dxQDW\n" +
-                "Gw0fxN9QX+v3+48nW7QIBx4KNYNIW/eetGhXpOwV4PjNt15fcwJkKsx2W3VQuh93\n" +
-                "jdYB4xMyDUnRwb9np/QR1rmbzSm5ySGkmD7NAj03V+O82Nx4uxsdg2H7EQdVcY7e\n" +
-                "6dEdpLYp2p+VkDd9t/5y1D8KtC35yDwraaxXveTMfLk8SeI/Yz4QaX6dolZEuUWa\n" +
-                "tLaye2uA0w25Ee35irmaNDLhDr804B7U7M4kkbwY7ijvvhnfb1NwFY5lw/2/dZqJ\n" +
-                "x2gH3lXVs6AM4MTDLs4BfCXiq2WO15H8/4Gg/2iEk8QhOWZvWe/vE8/ciB2ABMEM\n" +
-                "vvSb829OOi6npw9i9pJ8CwMCAwEAAQ==\n" +
-                "-----END PUBLIC KEY-----");
-        setHttpDefaultParams();
+        try {
+            //腾迅自动更新
+            Bugly.init(getApplicationContext(), "965a5326ab", false);
 
-
-        UserInfoHelper.selectLogin(this);
-
-        UMShareImpl.Builder builder = new UMShareImpl.Builder();
-
-        builder.setWeixin("wx97247860e3d30d2f", "68931a7e136b97bebeb46754082aae0a")
-                .setQQ("1106261461", "p1PGwoz27nVHqoC5")
-                .setDebug(false)
-                .build(this);
+            //友盟统计
+            UMGameAgent.setDebugMode(false);
+            UMGameAgent.init(this);
+            UMGameAgent.setPlayerLevel(1);
+            MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+            //全局信息初始化
+            GoagalInfo.get().init(getApplicationContext());
+            HttpConfig.setPublickey("-----BEGIN PUBLIC KEY-----\n" +
+                    "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAy/M1AxLZjZOyJToExpn1\n" +
+                    "hudAWySRzS+aGwNVdX9QX6vK38O7WUA7h/bYqBu+6tTRC6RnL9BksMrIf5m6D3rt\n" +
+                    "faYYmxfe/FI4ZD5ybIhFuRUi95e/J2vQVElsSNqSz7ewXquZpKZAqlzH4hGgOqmO\n" +
+                    "THlrwiQwX66bS7x7kDmvxMd5ZRGhTvz62kpKb/orcnWQ1KElNc/bIzTtv3jsrMgH\n" +
+                    "FVdFZfev91ew4Kf1YJbqGBGKslBsIoGsgTxI94T6d6XEFxSzdvrRwKhOobXIaOhZ\n" +
+                    "o3GBCZIA/1ZOwLK6RyrWdprz+60xifcYIkILdZ7yPazSfHCVHFY6o/fQjK4dxQDW\n" +
+                    "Gw0fxN9QX+v3+48nW7QIBx4KNYNIW/eetGhXpOwV4PjNt15fcwJkKsx2W3VQuh93\n" +
+                    "jdYB4xMyDUnRwb9np/QR1rmbzSm5ySGkmD7NAj03V+O82Nx4uxsdg2H7EQdVcY7e\n" +
+                    "6dEdpLYp2p+VkDd9t/5y1D8KtC35yDwraaxXveTMfLk8SeI/Yz4QaX6dolZEuUWa\n" +
+                    "tLaye2uA0w25Ee35irmaNDLhDr804B7U7M4kkbwY7ijvvhnfb1NwFY5lw/2/dZqJ\n" +
+                    "x2gH3lXVs6AM4MTDLs4BfCXiq2WO15H8/4Gg/2iEk8QhOWZvWe/vE8/ciB2ABMEM\n" +
+                    "vvSb829OOi6npw9i9pJ8CwMCAwEAAQ==\n" +
+                    "-----END PUBLIC KEY-----");
+            setHttpDefaultParams();
 
 
-        EnginHelper.getShareInfo(getApplicationContext()).subscribe(new Action1<ResultInfo<ShareInfo>>() {
-            @Override
-            public void call(ResultInfo<ShareInfo> shareInfoResultInfo) {
-                if (shareInfoResultInfo != null && shareInfoResultInfo.data != null && shareInfoResultInfo.data.getInfo()
-                        != null) {
-                    SharePopupWindow.setShareInfo(shareInfoResultInfo.data.getInfo());
+            UserInfoHelper.selectLogin(this);
+
+            UMShareImpl.Builder builder = new UMShareImpl.Builder();
+
+            builder.setWeixin("wx97247860e3d30d2f", "68931a7e136b97bebeb46754082aae0a")
+                    .setQQ("1106261461", "p1PGwoz27nVHqoC5")
+                    .setDebug(false)
+                    .build(this);
+
+
+            EnginHelper.getShareInfo(getApplicationContext()).subscribe(new Action1<ResultInfo<ShareInfo>>() {
+                @Override
+                public void call(ResultInfo<ShareInfo> shareInfoResultInfo) {
+                    if (shareInfoResultInfo != null && shareInfoResultInfo.data != null && shareInfoResultInfo.data.getInfo()
+                            != null) {
+                        SharePopupWindow.setShareInfo(shareInfoResultInfo.data.getInfo());
+                    }
                 }
-            }
-        });
+            });
+        } catch (Exception e) {
+            LogUtil.msg("ex:  " + e.getMessage());
+        }
     }
 
     private static EnglishApp gEnglishApp;
@@ -160,6 +164,8 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
+
 
 
     @Override

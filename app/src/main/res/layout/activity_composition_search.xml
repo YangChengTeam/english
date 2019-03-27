@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/common_toolbar"
+        android:gravity="center"
+        android:paddingTop="@dimen/status_bar_height">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/t10dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/t5dp"
+                android:src="@mipmap/base_back" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/t30dp"
+                android:layout_marginLeft="@dimen/t5dp"
+                android:layout_marginRight="@dimen/t10dp"
+                android:layout_weight="1"
+                android:background="@drawable/white_circle_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/t8dp">
+
+                <ImageView
+                    android:layout_width="@dimen/t15dp"
+                    android:layout_height="@dimen/t15dp"
+                    android:src="@mipmap/search_icon" />
+
+                <EditText
+                    android:id="@+id/et_search_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/t5dp"
+                    android:background="@null"
+                    android:hint="输入标题搜索英语范文或素材"
+                    android:textColorHint="@color/gray_aaa"
+                    android:textSize="@dimen/t13sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/ll_guide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:id="@+id/ll_grade"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/t5dp"
+                    android:gravity="center"
+                    android:text="@string/grade"
+                    android:textColor="@color/black_333" />
+
+                <ImageView
+                    android:id="@+id/iv_grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/down_arrow_icon" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_topic"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_topic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/t5dp"
+                    android:gravity="center"
+                    android:text="@string/topic"
+                    android:textColor="@color/black_333" />
+
+                <ImageView
+                    android:id="@+id/iv_topic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/down_arrow_icon" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_type"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/t5dp"
+                    android:gravity="center"
+                    android:text="@string/type"
+                    android:textColor="@color/black_333" />
+
+                <ImageView
+                    android:id="@+id/iv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/down_arrow_icon" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_theme"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_theme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/t5dp"
+                    android:gravity="center"
+                    android:text="@string/theme"
+                    android:textColor="@color/black_333" />
+
+                <ImageView
+                    android:id="@+id/iv_theme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/down_arrow_icon" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_ddd" />
+    </LinearLayout>
+
+    <com.yc.english.base.view.StateView
+        android:id="@+id/stateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/group_gray_e6f2fb" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="@dimen/t10dp" />
+
+
+</LinearLayout>

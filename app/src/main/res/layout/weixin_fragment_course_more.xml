@@ -7,7 +7,7 @@
     <com.yc.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.yc.english.base.view.MainToolBar>
+        android:layout_height="wrap_content"/>
 
     <com.yc.english.base.view.StateView
         android:id="@+id/stateView"

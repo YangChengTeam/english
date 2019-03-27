@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:eng="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/status_bar_height">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:background="@color/white"
+        app:popupTheme="@style/Theme.Design.Light.NoActionBar">
+
+        <LinearLayout
+            android:id="@+id/ll_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/t16dp"
+            android:background="@drawable/search_gray_bg"
+            android:gravity="center_vertical"
+            android:padding="@dimen/t8dp">
+
+            <ImageView
+                android:layout_width="@dimen/t12dp"
+                android:layout_height="@dimen/t12dp"
+                android:src="@mipmap/search_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/t8dp"
+                android:text="点击此处搜索英语范文或素材"
+                android:textColor="#cdcdcd"
+                android:textSize="@dimen/t13sp" />
+
+            <com.yc.english.composition.widget.VerticalTextView
+                android:id="@+id/verticalTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/t8dp" />
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/t16dp"
+        android:paddingRight="@dimen/t16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.youth.banner.Banner
+                android:id="@+id/mBanner"
+                android:layout_width="match_parent"
+                android:layout_height="135dp"
+                eng:indicator_height="6dp"
+                eng:indicator_margin="5dp"
+                eng:indicator_width="6dp" />
+
+            <com.yc.english.composition.utils.TabLayout
+                android:id="@+id/tabLayout_composition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="#3DA7FF"
+                app:tabIndicatorHeight="@dimen/t2dp"
+                app:tabSelectedTextColor="#3DA7FF"
+                app:tabTextAppearance="@style/composition_tab_style"
+                app:tabTextColor="@color/gray_81817e" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager_composition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t10dp" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

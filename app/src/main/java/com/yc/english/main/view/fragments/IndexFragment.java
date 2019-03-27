@@ -42,6 +42,7 @@ import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.WebActivity;
+import com.yc.english.composition.activity.CompositionMainActivity;
 import com.yc.english.group.constant.GroupConstant;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
@@ -290,10 +291,10 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void call(Void aVoid) {
                 MobclickAgent.onEvent(getActivity(), "yinbiao_xiaozhushou", "音标学习小助手");
-//                Intent intent = new Intent(getActivity(), CoachScoreActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), CompositionMainActivity.class);
+                startActivity(intent);
 
-                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.assistant_originid, GroupConstant.appid);
+//                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.assistant_originid, GroupConstant.appid);
 
             }
         });

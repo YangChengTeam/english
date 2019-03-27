@@ -42,7 +42,7 @@ public class TaskToolBar extends BaseToolBar {
     }
 
     public void showNavigationIcon() {
-        mToolbar.setNavigationIcon(R.mipmap.task_back);
+        mToolbar.setNavigationIcon(R.mipmap.intelligent_back);
         isShowNavigationIcon = true;
     }
 
