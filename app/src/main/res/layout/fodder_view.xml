@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/t12dp">
+
+    <TextView
+        android:id="@+id/tv_fodder_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exam_sat"
+        android:textColor="@color/black"
+        android:textSize="@dimen/t16sp" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/exam_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/t8dp"
+        android:nestedScrollingEnabled="false" />
+</LinearLayout>

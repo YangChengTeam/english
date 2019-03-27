@@ -51,6 +51,15 @@ public class URLConfig {
 
     public static final String VIP_GOOD_URL = getBaseUrl() + "vip/index";//
 
+    public static final String ZW_INDEX_URL = getBaseUrl() + "zw/index";//作文板块首页
+
+    public static final String ZW_SUCAINAV_URL = getBaseUrl() + "zwattr/sucainav";//作文素材
+
+    public static final String ZW_LISTS_URL = getBaseUrl() + "zw/lists";//作文素材列表
+
+    public static final String ZW_DETAIL_URL = getBaseUrl() + "zw/detail";//作文素材详情页
+
+    public static final String ZW_SEARCH_URL = getBaseUrl() + "zw/search";//作文搜索
 
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);

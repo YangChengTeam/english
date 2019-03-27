@@ -58,10 +58,16 @@
         <item name="android:windowEnterAnimation">@anim/vip_in_ainm</item>
         <item name="android:windowExitAnimation">@anim/vip_out_ainm</item>
     </style>
+
     <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="composition_tab_style">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 

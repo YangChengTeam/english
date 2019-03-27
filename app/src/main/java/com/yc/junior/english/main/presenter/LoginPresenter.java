@@ -96,8 +96,7 @@ public class LoginPresenter extends BasePresenter<LoginEngin, LoginContract.View
         Subscription subscription = Observable.just("").map(new Func1<String, String>() {
             @Override
             public String call(String s) {
-                String phone = SPUtils.getInstance().getString(Constant.PHONE);
-                return phone;
+                return SPUtils.getInstance().getString(Constant.PHONE);
             }
         }).subscribeOn(Schedulers.io()).filter(new Func1<String, Boolean>() {
             @Override

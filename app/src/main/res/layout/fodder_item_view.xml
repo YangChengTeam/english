@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="59dp">
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="60dp"
+            android:layout_height="58dp"
+            android:src="@mipmap/essay_common_proverbs_icon" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/t10dp"
+            android:layout_marginRight="@dimen/t10dp"
+            android:layout_marginTop="@dimen/t5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="写人"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t16sp" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="多积累，可以帮助我们增加语文功底"
+                android:textColor="@color/gray_ccc"
+                android:textSize="@dimen/t12sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/fodder_right_icon" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/t8dp"
+        android:background="@color/gray_ddd" />
+</LinearLayout>

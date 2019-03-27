@@ -175,7 +175,7 @@ public class SpeakEnglishActivity extends FullScreenActivity<SpeakEnglishListPre
         mSpeakSeekBar.setProgress(1);
 
         Intent intent = getIntent();
-        currentItemInfo = (SpeakAndReadItemInfo) intent.getParcelableExtra("itemInfo");
+        currentItemInfo = intent.getParcelableExtra("itemInfo");
 
         mPresenter = new SpeakEnglishListPresenter(this, this);
         mLinearLayoutManager = new LinearLayoutManager(this);

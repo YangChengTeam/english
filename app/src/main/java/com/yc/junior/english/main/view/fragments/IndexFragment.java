@@ -36,6 +36,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.umeng.analytics.MobclickAgent;
+import com.yc.junior.english.composition.activity.CompositionMainActivity;
 import com.yc.junior.english.EnglishApp;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.GlideHelper;
@@ -85,7 +86,6 @@ import yc.com.blankj.utilcode.util.SPUtils;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
-
 
 
 /**
@@ -291,10 +291,10 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void call(Void aVoid) {
                 MobclickAgent.onEvent(getActivity(), "yinbiao_xiaozhushou", "音标学习小助手");
-//                Intent intent = new Intent(getActivity(), CoachScoreActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), CompositionMainActivity.class);
+                startActivity(intent);
 
-                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.assistant_originid, GroupConstant.appid);
+//                SmallProcedureUtils.switchSmallProcedure(getActivity(), GroupConstant.assistant_originid, GroupConstant.appid);
 
             }
         });

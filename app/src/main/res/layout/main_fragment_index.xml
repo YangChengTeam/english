@@ -250,7 +250,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="fitXY"
-                            android:src="@mipmap/phonetic_1vs1" />
+                            android:src="@mipmap/english_composition_icon" />
 
                         <View
                             android:layout_width="7dp"

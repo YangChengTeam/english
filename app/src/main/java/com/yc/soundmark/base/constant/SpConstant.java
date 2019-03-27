@@ -16,7 +16,9 @@ public class SpConstant {
 
     public static final String SOUND_INFO = "sound_info";
 
-    public static final String STUDY_PAGES ="study_pages";
+    public static final String STUDY_PAGES = "study_pages";
 
     public static final String INDEX_MENU_STATICS = "index_menu_statics";
+
+    public static final String INDEX_VERSION = "index_version";
 }
