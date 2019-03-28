@@ -88,7 +88,7 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
     NewsScrollView nestedScrollView;
     private String zwid;
 
-    private static final String TAG = "CompositionDetailActivi";
+    private static final String TAG = "CompositionDetailActiv";
     private String title;
 
     public static void startActivity(Context context, String zwid) {

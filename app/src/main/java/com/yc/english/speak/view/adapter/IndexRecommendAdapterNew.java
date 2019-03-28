@@ -94,6 +94,7 @@ public class IndexRecommendAdapterNew extends RecyclerView.Adapter<IndexRecommen
             holder.tvTitle.setText(item.getTitle());
             holder.tvTime.setText(TimeUtils.millis2String(addTime, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())));
             holder.ivMicroclassType.setVisibility(View.GONE);
+            holder.tvPvNum.setText(String.format(mContext.getString(R.string.count), item.getPv_num()));
 
             GlideHelper.imageView(mContext, holder.ivIcon, item.getImg(), 0);
             if (mData.size() - 1 == position) {
@@ -148,6 +149,7 @@ public class IndexRecommendAdapterNew extends RecyclerView.Adapter<IndexRecommen
 
         public View line;
         public ImageView ivIcon;
+        public TextView tvPvNum;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -157,6 +159,7 @@ public class IndexRecommendAdapterNew extends RecyclerView.Adapter<IndexRecommen
             ivMicroclassType = (ImageView) itemView.findViewById(R.id.iv_microclass_type);
             line = itemView.findViewById(R.id.line);
             ivIcon = (ImageView) itemView.findViewById(R.id.iv_icon);
+            tvPvNum = itemView.findViewById(R.id.tv_pv_num);
         }
     }
 

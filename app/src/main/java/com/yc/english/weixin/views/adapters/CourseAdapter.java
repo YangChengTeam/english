@@ -25,7 +25,8 @@ public class CourseAdapter extends BaseQuickAdapter<CourseInfo, BaseViewHolder> 
 
     @Override
     protected void convert(BaseViewHolder helper, CourseInfo item) {
-        helper.setText(R.id.tv_title, item.getTitle());
+        helper.setText(R.id.tv_title, item.getTitle())
+                .setText(R.id.tv_read_num, String.format(mContext.getString(R.string.count), item.getPv_num()));
         long addTime = Long.parseLong(item.getAdd_time()) * 1000;
         helper.setText(R.id.tv_time, TimeUtils.millis2String(addTime, new SimpleDateFormat("yyyy-MM-dd " +
                 "HH:mm:ss",

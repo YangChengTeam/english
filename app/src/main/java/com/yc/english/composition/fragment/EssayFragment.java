@@ -84,8 +84,10 @@ public class EssayFragment extends BaseFragment<EssayPresenter> implements Essay
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 CompositionInfo compositionInfo = essayAdapter.getItem(position);
-                if (compositionInfo != null)
+                if (compositionInfo != null) {
                     CompositionDetailActivity.startActivity(getActivity(), compositionInfo.getId());
+                    mPresenter.statisticsReadCount(compositionInfo.getId());
+                }
             }
         });
         essayAdapter1.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -94,6 +96,7 @@ public class EssayFragment extends BaseFragment<EssayPresenter> implements Essay
                 CompositionInfo compositionInfo = essayAdapter1.getItem(position);
                 if (compositionInfo != null) {
                     CompositionDetailActivity.startActivity(getActivity(), compositionInfo.getId());
+                    mPresenter.statisticsReadCount(compositionInfo.getId());
                 }
             }
         });

@@ -6,14 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/status_bar_height">
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
-        android:background="@color/white"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:background="@drawable/common_toolbar"
+        android:paddingTop="@dimen/status_bar_height"
         app:popupTheme="@style/Theme.Design.Light.NoActionBar">
 
         <LinearLayout
@@ -26,16 +27,17 @@
             android:padding="@dimen/t8dp">
 
             <ImageView
-                android:layout_width="@dimen/t12dp"
-                android:layout_height="@dimen/t12dp"
-                android:src="@mipmap/search_icon" />
+                android:layout_width="@dimen/t15dp"
+                android:layout_height="@dimen/t15dp"
+                android:src="@mipmap/search_icon"
+                android:tint="@color/gray_999" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/t8dp"
                 android:text="点击此处搜索英语范文或素材"
-                android:textColor="#cdcdcd"
+                android:textColor="@color/gray_999"
                 android:textSize="@dimen/t13sp" />
 
             <com.yc.english.composition.widget.VerticalTextView
@@ -66,6 +68,7 @@
                 android:id="@+id/mBanner"
                 android:layout_width="match_parent"
                 android:layout_height="135dp"
+                android:visibility="gone"
                 eng:indicator_height="6dp"
                 eng:indicator_margin="5dp"
                 eng:indicator_width="6dp" />
@@ -74,6 +77,7 @@
                 android:id="@+id/tabLayout_composition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t5dp"
                 app:tabIndicatorColor="#3DA7FF"
                 app:tabIndicatorHeight="@dimen/t2dp"
                 app:tabSelectedTextColor="#3DA7FF"

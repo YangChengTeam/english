@@ -41,6 +41,7 @@ import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
+import com.yc.english.base.view.UserLoginDialog;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.composition.activity.CompositionMainActivity;
 import com.yc.english.group.constant.GroupConstant;
@@ -364,6 +365,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void OnBannerClick(int position) {
                 SlideInfo slideInfo = mPresenter.getSlideInfo(position);
+
                 //友盟统计各个幻灯点击数
                 MobclickAgent.onEvent(getActivity(), slideInfo.getStatistics());
                 if (slideInfo.getType().equals("0")) {
@@ -380,6 +382,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                         if (TextUtils.isEmpty(typeValue)) return;
                         String[] split = typeValue.split("\\|");
                         Class clazz = Class.forName(split[0]);
+
                         Intent intent = new Intent(getActivity(), clazz);
                         if (split.length == 2) {
                             CourseInfo courseInfo = new CourseInfo();
@@ -441,6 +444,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("info", courseInfo);
                 startActivity(intent);
+                mPresenter.statisticsNewsCount(courseInfo.getId());
             }
         });
 

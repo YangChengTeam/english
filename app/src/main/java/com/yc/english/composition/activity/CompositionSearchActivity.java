@@ -20,6 +20,7 @@ import com.yc.english.composition.contract.CompositionSearchContract;
 import com.yc.english.composition.model.bean.CompositionInfo;
 import com.yc.english.composition.presenter.CompositionSearchPresenter;
 import com.yc.english.composition.widget.FilterPopWindow;
+import com.yc.english.composition.widget.MyLoadMoreView;
 import com.yc.soundmark.category.utils.ItemDecorationHelper;
 
 import java.util.List;
@@ -99,6 +100,7 @@ public class CompositionSearchActivity extends BaseActivity<CompositionSearchPre
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         essayAdapter = new EssayItemAdapter(null, true);
         searchRecyclerView.setAdapter(essayAdapter);
+        essayAdapter.setLoadMoreView(new MyLoadMoreView());
         searchRecyclerView.addItemDecoration(new ItemDecorationHelper(this, 8));
 
 
@@ -152,6 +154,7 @@ public class CompositionSearchActivity extends BaseActivity<CompositionSearchPre
                 CompositionInfo compositionInfo = essayAdapter.getItem(position);
                 if (compositionInfo != null) {
                     CompositionDetailActivity.startActivity(CompositionSearchActivity.this, compositionInfo.getId());
+                    mPresenter.statisticsReadCount(compositionInfo.getId());
                 }
             }
         });

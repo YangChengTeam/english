@@ -11,8 +11,10 @@ import com.yc.english.base.utils.SimpleCacheUtils;
 import com.yc.english.composition.contract.EssayContract;
 import com.yc.english.composition.model.bean.CompositionInfo;
 import com.yc.english.composition.model.bean.CompositionInfoWrapper;
+import com.yc.english.composition.model.bean.ReadNumInfo;
 import com.yc.english.composition.model.bean.VersionInfo;
 import com.yc.english.composition.model.engine.EssayEngine;
+import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
@@ -148,6 +150,26 @@ public class EssayPresenter extends BasePresenter<EssayEngine, EssayContract.Vie
             return mSlideInfos.get(position);
         }
         return null;
+    }
+
+    public void statisticsReadCount(String id) {
+        Subscription subscription = EngineUtils.statisticsReadCount(mContext, id).subscribe(new Subscriber<ResultInfo<ReadNumInfo>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ResultInfo<ReadNumInfo> stringResultInfo) {
+
+            }
+        });
+        mSubscriptions.add(subscription);
     }
 
 }

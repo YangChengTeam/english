@@ -59,7 +59,7 @@ public class CourseMoreFragment extends BaseFragment<CoursePresenter> implements
     )
     public void refresh(String tag) {
         page = 1;
-        mPresenter.getWeiXinList(type, page + "", pageSize + "");
+        mPresenter.getWeiXinList(type, page , pageSize );
     }
 
     @Override
@@ -83,11 +83,11 @@ public class CourseMoreFragment extends BaseFragment<CoursePresenter> implements
         mCourseAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mPresenter.getWeiXinList(type, page + "", pageSize + "");
+                mPresenter.getWeiXinList(type, page , pageSize);
             }
         }, mCourseRecyclerView);
 
-        mPresenter.getWeiXinList(type, page + "", pageSize + "");
+        mPresenter.getWeiXinList(type, page, pageSize );
         mRefreshSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.primaryDark), ContextCompat.getColor(getActivity(), R.color.primaryDark));
         mRefreshSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -112,7 +112,7 @@ public class CourseMoreFragment extends BaseFragment<CoursePresenter> implements
         mLoadingStateView.showNoNet(mRefreshSwipeRefreshLayout, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getWeiXinList(type, page + "", pageSize + "");
+                mPresenter.getWeiXinList(type, page , pageSize);
             }
         });
     }

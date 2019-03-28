@@ -48,14 +48,28 @@
                 android:layout_weight="1"
                 android:clickable="false" />
 
-            <TextView
-                android:id="@+id/tv_item_date"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:text="2019-03-14"
-                android:textColor="@color/gray_aaa" />
+                android:layout_gravity="bottom">
 
+                <TextView
+                    android:id="@+id/tv_item_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2019-03-14"
+                    android:textColor="@color/gray_aaa"
+                    android:textSize="@dimen/t13sp" />
+
+                <TextView
+                    android:id="@+id/tv_read_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="200人阅读"
+                    android:textColor="@color/gray_aaa"
+                    android:textSize="@dimen/t13sp" />
+            </RelativeLayout>
 
         </LinearLayout>
 

@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.base.utils.SimpleCacheUtils;
+import com.yc.english.composition.model.bean.ReadNumInfo;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -219,7 +220,25 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
     }
 
 
+    public void statisticsNewsCount(String news_id) {
+        Subscription subscription = EngineUtils.statisticsNewsCount(mContext, news_id).subscribe(new Subscriber<ResultInfo<ReadNumInfo>>() {
+            @Override
+            public void onCompleted() {
 
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ResultInfo<ReadNumInfo> readNumInfoResultInfo) {
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
 
 
 }

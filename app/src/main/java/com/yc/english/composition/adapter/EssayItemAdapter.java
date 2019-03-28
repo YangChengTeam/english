@@ -35,8 +35,8 @@ public class EssayItemAdapter extends BaseQuickAdapter<CompositionInfo, BaseView
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
         helper.setText(R.id.tv_item_title, item.getTitle())
-                .setText(R.id.tv_item_date, simpleDateFormat.format(new Date(item.getAddtime() * 1000)));
-//                .setImageResource(R.id.iv_item_cover, item.getResId());
+                .setText(R.id.tv_item_date, simpleDateFormat.format(new Date(item.getAddtime() * 1000)))
+                .setText(R.id.tv_read_num, String.format(mContext.getString(R.string.read_num), item.getReadnum()));
         ImageView iv = helper.getView(R.id.iv_item_cover);
 
         GlideHelper.imageView(mContext, iv, item.getImg(), 0);

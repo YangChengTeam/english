@@ -7,6 +7,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.HttpCoreEngin;
 import com.kk.securityhttp.net.entry.UpFileInfo;
+import com.yc.english.composition.model.bean.ReadNumInfo;
 import com.yc.english.group.constant.NetConstant;
 import com.yc.english.group.model.bean.TaskUploadInfo;
 import com.yc.english.main.hepler.UserInfoHelper;
@@ -174,6 +175,19 @@ public class EngineUtils {
         return HttpCoreEngin.get(context).rxpost(URLConfig.VIP_GOOD_URL, new TypeReference<ResultInfo<VipGoodInfoWrapper>>() {
         }.getType(), null, true, true, true);
 
+    }
 
+    public static Observable<ResultInfo<ReadNumInfo>> statisticsReadCount(Context context, String zwid) {
+        Map<String, String> params = new HashMap<>();
+        params.put("zwid", zwid);
+        return HttpCoreEngin.get(context).rxpost(URLConfig.ZW_READ_NUM_URL, new TypeReference<ResultInfo<ReadNumInfo>>() {
+        }.getType(), params, true, true, true);
+    }
+
+    public static Observable<ResultInfo<ReadNumInfo>> statisticsNewsCount(Context context, String news_id) {
+        Map<String, String> params = new HashMap<>();
+        params.put("news_id", news_id);
+        return HttpCoreEngin.get(context).rxpost(URLConfig.NEWS_READ_NUM_URL, new TypeReference<ResultInfo<ReadNumInfo>>() {
+        }.getType(), params, true, true, true);
     }
 }

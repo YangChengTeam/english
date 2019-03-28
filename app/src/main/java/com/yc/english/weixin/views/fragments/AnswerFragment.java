@@ -63,11 +63,11 @@ public class AnswerFragment extends BaseFragment<CoursePresenter> implements Cou
         mCourseAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mPresenter.getWeiXinList(type, page + "", pageSize + "");
+                mPresenter.getWeiXinList(type, page , pageSize );
             }
         }, mCourseRecyclerView);
 
-        mPresenter.getWeiXinList(type, page + "", pageSize + "");
+        mPresenter.getWeiXinList(type, page, pageSize );
     }
 
     @Override
@@ -85,7 +85,7 @@ public class AnswerFragment extends BaseFragment<CoursePresenter> implements Cou
         mLoadingStateView.showNoNet(mCourseRecyclerView, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getWeiXinList(type, page + "", pageSize + "");
+                mPresenter.getWeiXinList(type, page, pageSize );
             }
         });
     }

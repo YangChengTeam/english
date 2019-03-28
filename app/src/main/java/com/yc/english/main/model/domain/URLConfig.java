@@ -61,6 +61,10 @@ public class URLConfig {
 
     public static final String ZW_SEARCH_URL = getBaseUrl() + "zw/search";//作文搜索
 
+    public static final String ZW_READ_NUM_URL = getBaseUrl() + "zw/read_pv";//统计点击数量
+
+    public static final String NEWS_READ_NUM_URL=getBaseUrl()+"news/read_pv";//新闻点击数量
+
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }

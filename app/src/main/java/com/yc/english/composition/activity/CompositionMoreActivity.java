@@ -24,6 +24,7 @@ import com.yc.english.composition.contract.EssayContract;
 import com.yc.english.composition.model.bean.CompositionInfo;
 import com.yc.english.composition.model.bean.CompositionInfoWrapper;
 import com.yc.english.composition.presenter.EssayPresenter;
+import com.yc.english.composition.widget.MyLoadMoreView;
 import com.yc.soundmark.category.utils.ItemDecorationHelper;
 
 import java.util.List;
@@ -78,6 +79,7 @@ public class CompositionMoreActivity extends FullScreenActivity<EssayPresenter> 
 
         weixinFragmentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         essayAdapter = new EssayItemAdapter(null, true);
+        essayAdapter.setLoadMoreView(new MyLoadMoreView());
         weixinFragmentRecyclerView.setAdapter(essayAdapter);
         weixinFragmentRecyclerView.addItemDecoration(new ItemDecorationHelper(this, 8));
         initRefresh();
@@ -93,6 +95,7 @@ public class CompositionMoreActivity extends FullScreenActivity<EssayPresenter> 
                 CompositionInfo compositionInfo = essayAdapter.getItem(position);
                 if (compositionInfo != null) {
                     CompositionDetailActivity.startActivity(CompositionMoreActivity.this, compositionInfo.getId());
+                    mPresenter.statisticsReadCount(compositionInfo.getId());
                 }
             }
         });

@@ -6,7 +6,9 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.composition.contract.CompositionSearchContract;
 import com.yc.english.composition.model.bean.CompositionInfoWrapper;
+import com.yc.english.composition.model.bean.ReadNumInfo;
 import com.yc.english.composition.model.engine.CompositionSearchEngine;
+import com.yc.english.group.utils.EngineUtils;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -57,6 +59,26 @@ public class CompositionSearchPresenter extends BasePresenter<CompositionSearchE
                     if (page == 1)
                         mView.showNoNet();
                 }
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
+
+    public void statisticsReadCount(String id) {
+        Subscription subscription = EngineUtils.statisticsReadCount(mContext, id).subscribe(new Subscriber<ResultInfo<ReadNumInfo>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ResultInfo<ReadNumInfo> stringResultInfo) {
+
             }
         });
         mSubscriptions.add(subscription);

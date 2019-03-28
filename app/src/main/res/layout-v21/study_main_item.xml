@@ -522,6 +522,7 @@
             </LinearLayout>
             <!--发音运用-->
             <LinearLayout
+                android:id="@+id/ll_apply_root"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_marginTop="@dimen/t8dp"
@@ -539,6 +540,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/ll_app_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/t3dp"

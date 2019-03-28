@@ -3,12 +3,16 @@ package com.yc.soundmark.study.fragment;
 import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -51,6 +55,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.functions.Action1;
 import yc.com.base.BaseFragment;
 import yc.com.blankj.utilcode.util.SPUtils;
@@ -120,6 +126,10 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     NestedScrollView nestedScrollView;
     @BindView(R.id.stateView)
     StateView stateView;
+    @BindView(R.id.ll_app_title)
+    LinearLayout llAppTitle;
+    @BindView(R.id.ll_apply_root)
+    LinearLayout llApplyRoot;
 
 
     private int playStep = 1;//播放步骤
@@ -558,6 +568,5 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
             }
         });
     }
-
 }
 

@@ -23,8 +23,6 @@ public interface CourseContract {
     }
 
     interface Presenter extends IPresenter {
-        void getWeiXinList(String type_id, String page,
-                           String
-                                   page_size);
+        void getWeiXinList(String type_id, int page, int page_size);
     }
 }
