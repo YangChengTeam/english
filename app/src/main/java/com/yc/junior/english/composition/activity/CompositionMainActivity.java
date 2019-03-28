@@ -83,18 +83,18 @@ public class CompositionMainActivity extends BaseActivity<EssayPresenter> implem
 
     @Override
     public void init() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            root.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-            toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.transparent));
-            nestedScrollView.setBackgroundColor(ContextCompat.getColor(this, R.color.transparent));
-        }
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+//            root.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+//            toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.transparent));
+//            nestedScrollView.setBackgroundColor(ContextCompat.getColor(this, R.color.transparent));
+//        }
 
         mPresenter = new EssayPresenter(this, this);
         fragmentList = new ArrayList<>();
         fragmentList.add(new EssayFragment());
         fragmentList.add(new FodderFragment());
         mPresenter.getCompositionIndexInfo();
-        StatusBarCompat.light(CompositionMainActivity.this);
+//        StatusBarCompat.light(CompositionMainActivity.this);
         CompositionMainAdapter compositionMainAdapter = new CompositionMainAdapter(getSupportFragmentManager(), this, fragmentList);
         viewPagerComposition.setAdapter(compositionMainAdapter);
         tabLayoutComposition.setupWithViewPager(viewPagerComposition);
@@ -145,9 +145,9 @@ public class CompositionMainActivity extends BaseActivity<EssayPresenter> implem
                         Class clazz = Class.forName(split[0]);
                         Intent intent = new Intent(CompositionMainActivity.this, clazz);
                         if (split.length == 2) {
-                            CourseInfo courseInfo = new CourseInfo();
-                            courseInfo.setId(split[1]);
-                            intent.putExtra("info", courseInfo);
+//                            CourseInfo courseInfo = new CourseInfo();
+//                            courseInfo.setId(split[1]);
+                            intent.putExtra("zwid", split[1]);
                         }
                         startActivity(intent);
                     } catch (Exception e) {
@@ -185,7 +185,7 @@ public class CompositionMainActivity extends BaseActivity<EssayPresenter> implem
         titleList.add("爱好");
 
         verticalTv.setTextList(titleList);//加入显示内容,集合类型
-        verticalTv.setText(13, 0, Color.parseColor("#cdcdcd"));//设置属性,具体跟踪源码
+        verticalTv.setText(13, 0, Color.parseColor("#999999"));//设置属性,具体跟踪源码
         verticalTv.setTextStillTime(3000);//设置停留时长间隔
         verticalTv.setAnimTime(400);//设置进入和退出的时间间隔
         //对单条文字的点击监听

@@ -2,8 +2,7 @@ package com.yc.soundmark.category.activity;
 
 import android.content.Intent;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -11,9 +10,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.ScreenUtil;
 import com.qq.e.ads.nativ.NativeExpressADView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.StateView;
 import com.yc.soundmark.base.constant.Config;
 import com.yc.soundmark.base.widget.MainToolBar;
 import com.yc.soundmark.category.adapter.CategoryMainAdapter;
@@ -30,6 +35,7 @@ import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
 
+
 /**
  * Created by wanglin  on 2018/10/24 17:21.
  */
@@ -39,7 +45,7 @@ public class CategoryActivity extends BaseActivity<CategoryMainPresenter> implem
 
     private MainToolBar mainToolbar;
 
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private SmartRefreshLayout swipeRefreshLayout;
 
     private FrameLayout bottomContainer;
 
@@ -49,6 +55,7 @@ public class CategoryActivity extends BaseActivity<CategoryMainPresenter> implem
 
     private int PAGE_SIZE = 20;
     private RecyclerView.ItemDecoration itemDecoration;
+    private StateView stateView;
 
 
     @Override
@@ -62,6 +69,7 @@ public class CategoryActivity extends BaseActivity<CategoryMainPresenter> implem
         mainToolbar = findViewById(R.id.main_toolbar);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         bottomContainer = findViewById(R.id.bottom_container);
+        stateView = findViewById(R.id.stateView);
 
         mPresenter = new CategoryMainPresenter(this, this);
 
@@ -84,15 +92,6 @@ public class CategoryActivity extends BaseActivity<CategoryMainPresenter> implem
 
         categoryRecyclerView.addItemDecoration(itemDecoration);
 
-
-        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.app_selected_color));
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                page = 1;
-                getData(true);
-            }
-        });
 
         categoryMainAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
@@ -125,6 +124,7 @@ public class CategoryActivity extends BaseActivity<CategoryMainPresenter> implem
                 }
             }
         });
+        initRefresh();
 
 
     }
@@ -144,32 +144,36 @@ public class CategoryActivity extends BaseActivity<CategoryMainPresenter> implem
         } else {
             categoryMainAdapter.loadMoreEnd();
         }
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
+        swipeRefreshLayout.finishRefresh();
     }
 
     @Override
     public void hide() {
+        stateView.hide();
     }
 
     @Override
     public void showLoading() {
+        stateView.showLoading(swipeRefreshLayout);
     }
 
     @Override
     public void showNoData() {
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
+        stateView.showNoData(swipeRefreshLayout);
+        swipeRefreshLayout.finishRefresh();
 
     }
 
     @Override
     public void showNoNet() {
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
+        stateView.showNoNet(swipeRefreshLayout, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                page = 1;
+                getData(false);
+            }
+        });
+        swipeRefreshLayout.finishRefresh();
     }
 
     private void getData(boolean isRefresh) {
@@ -185,6 +189,21 @@ public class CategoryActivity extends BaseActivity<CategoryMainPresenter> implem
         }
     }
 
+
+    private void initRefresh() {
+        //设置 Header 为 贝塞尔雷达 样式
+        swipeRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
+        swipeRefreshLayout.setPrimaryColorsId(R.color.primaryDark);
+        swipeRefreshLayout.setEnableLoadMore(false);
+//        swipeRefreshLayout.autoRefresh();
+        swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page = 1;
+                getData(true);
+            }
+        });
+    }
 
     @Override
     public void onShow() {

@@ -13,13 +13,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.ScreenUtil;
+
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.composition.adapter.EssayItemAdapter;
 import com.yc.junior.english.composition.contract.CompositionSearchContract;
 import com.yc.junior.english.composition.model.bean.CompositionInfo;
 import com.yc.junior.english.composition.presenter.CompositionSearchPresenter;
 import com.yc.junior.english.composition.widget.FilterPopWindow;
-import com.yc.junior.english.R;
-import com.yc.junior.english.base.view.StateView;
+import com.yc.junior.english.composition.widget.MyLoadMoreView;
 import com.yc.soundmark.category.utils.ItemDecorationHelper;
 
 import java.util.List;
@@ -29,6 +31,7 @@ import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;
 import yc.com.blankj.utilcode.util.KeyboardUtils;
+
 
 /**
  * Created by wanglin  on 2019/3/25 11:41.
@@ -99,6 +102,7 @@ public class CompositionSearchActivity extends BaseActivity<CompositionSearchPre
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         essayAdapter = new EssayItemAdapter(null, true);
         searchRecyclerView.setAdapter(essayAdapter);
+        essayAdapter.setLoadMoreView(new MyLoadMoreView());
         searchRecyclerView.addItemDecoration(new ItemDecorationHelper(this, 8));
 
 
@@ -152,6 +156,7 @@ public class CompositionSearchActivity extends BaseActivity<CompositionSearchPre
                 CompositionInfo compositionInfo = essayAdapter.getItem(position);
                 if (compositionInfo != null) {
                     CompositionDetailActivity.startActivity(CompositionSearchActivity.this, compositionInfo.getId());
+                    mPresenter.statisticsReadCount(compositionInfo.getId());
                 }
             }
         });

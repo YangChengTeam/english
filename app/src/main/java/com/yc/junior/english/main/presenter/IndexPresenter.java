@@ -4,8 +4,10 @@ import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
 import com.kk.securityhttp.domain.ResultInfo;
+
 import com.yc.junior.english.base.helper.ResultInfoHelper;
 import com.yc.junior.english.base.utils.SimpleCacheUtils;
+import com.yc.junior.english.composition.model.bean.ReadNumInfo;
 import com.yc.junior.english.group.utils.EngineUtils;
 import com.yc.junior.english.main.contract.IndexContract;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
@@ -25,6 +27,7 @@ import rx.Subscriber;
 import rx.Subscription;
 import yc.com.base.BasePresenter;
 import yc.com.blankj.utilcode.util.UIUitls;
+
 
 
 /**
@@ -220,7 +223,25 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
     }
 
 
+    public void statisticsNewsCount(String news_id) {
+        Subscription subscription = EngineUtils.statisticsNewsCount(mContext, news_id).subscribe(new Subscriber<ResultInfo<ReadNumInfo>>() {
+            @Override
+            public void onCompleted() {
 
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ResultInfo<ReadNumInfo> readNumInfoResultInfo) {
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
 
 
 }

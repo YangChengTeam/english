@@ -1,15 +1,20 @@
 package com.yc.soundmark.category.activity;
 
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.ScreenUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.StateView;
 import com.yc.soundmark.base.widget.MainToolBar;
 import com.yc.soundmark.category.adapter.WeiKeInfoItemAdapter;
 import com.yc.soundmark.category.contract.CategoryMainContract;
@@ -20,6 +25,7 @@ import com.yc.soundmark.category.utils.ItemDecorationHelper;
 import java.util.List;
 
 import yc.com.base.BaseActivity;
+
 
 /**
  * 微课单元列表
@@ -32,7 +38,7 @@ public class WeikeUnitActivity extends BaseActivity<CategoryMainPresenter> imple
 
     private RecyclerView categoryRecyclerView;
 
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private SmartRefreshLayout swipeRefreshLayout;
 
 
     private WeiKeInfoItemAdapter mWeiKeInfoItemAdapter;
@@ -44,6 +50,7 @@ public class WeikeUnitActivity extends BaseActivity<CategoryMainPresenter> imple
     private int page = 1;
 
     private int pageSize = 20;
+    private StateView stateView;
 
     @Override
     public void init() {
@@ -64,13 +71,6 @@ public class WeikeUnitActivity extends BaseActivity<CategoryMainPresenter> imple
         mWeiKeInfoItemAdapter = new WeiKeInfoItemAdapter(null, type);
         categoryRecyclerView.setAdapter(mWeiKeInfoItemAdapter);
         categoryRecyclerView.addItemDecoration(new ItemDecorationHelper(this, 6, 6));
-        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.app_selected_color));
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getData(true);
-            }
-        });
 
 
         mWeiKeInfoItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -104,6 +104,7 @@ public class WeikeUnitActivity extends BaseActivity<CategoryMainPresenter> imple
         });
 
         getData(false);
+        initRefresh();
     }
 
     @Override
@@ -115,28 +116,50 @@ public class WeikeUnitActivity extends BaseActivity<CategoryMainPresenter> imple
         mainToolbar = findViewById(R.id.main_toolbar);
         categoryRecyclerView = findViewById(R.id.category_recyclerView);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        stateView = findViewById(R.id.stateView);
+    }
+
+    private void initRefresh() {
+        //设置 Header 为 贝塞尔雷达 样式
+        swipeRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
+        swipeRefreshLayout.setPrimaryColorsId(R.color.primaryDark);
+        swipeRefreshLayout.setEnableLoadMore(false);
+//        swipeRefreshLayout.autoRefresh();
+        swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page = 1;
+                getData(true);
+            }
+        });
     }
 
     @Override
     public void showNoNet() {
 
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
+        stateView.showNoNet(swipeRefreshLayout, HttpConfig.NET_ERROR, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                page = 1;
+                getData(false);
+            }
+        });
+
+        swipeRefreshLayout.finishRefresh();
 
     }
 
     @Override
     public void showNoData() {
 
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
+        stateView.showNoData(swipeRefreshLayout);
+        swipeRefreshLayout.finishRefresh();
+
     }
 
     @Override
     public void showLoading() {
-
+        stateView.showLoading(swipeRefreshLayout);
     }
 
 
@@ -159,13 +182,12 @@ public class WeikeUnitActivity extends BaseActivity<CategoryMainPresenter> imple
             mWeiKeInfoItemAdapter.loadMoreEnd();
         }
 
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
+        swipeRefreshLayout.finishRefresh();
     }
 
     @Override
     public void hide() {
+        stateView.hide();
 
     }
 

@@ -18,14 +18,15 @@ import rx.Observable;
  */
 
 public class EnginHelper {
-    public static Observable<ResultInfo<com.yc.junior.english.weixin.model.domain.CourseInfoWrapper>> getWeixinList(Context context, String type_id, String page,
-                                                                          String
-                                                                                                                     page_size) {
+
+
+    public static Observable<ResultInfo<com.yc.junior.english.weixin.model.domain.CourseInfoWrapper>> getWeixinList(Context context, String type_id, int page,
+                                                                                                                    int page_size) {
         Map<String, String> params = new HashMap<>();
         params.put("type_id", type_id);
         params.put("flag", "0");
-        params.put("page", page);
-        params.put("page_size", page_size);
+        params.put("page", page + "");
+        params.put("page_size", page_size + "");
         return HttpCoreEngin.get(context).rxpost(URLConfig.NEWS_URL, new TypeReference<ResultInfo<com.yc.junior.english.weixin.model.domain.CourseInfoWrapper>>() {
                 }
                         .getType(),
@@ -45,7 +46,7 @@ public class EnginHelper {
                 true, true);
     }
 
-    public static Observable<ResultInfo<CourseInfoWrapper>> getWeiKeDetail(Context context, String news_id,String userId) {
+    public static Observable<ResultInfo<CourseInfoWrapper>> getWeiKeDetail(Context context, String news_id, String userId) {
         Map<String, String> params = new HashMap<>();
         params.put("news_id", news_id);
         params.put("user_id", userId);

@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="10dp"
-              android:layout_marginRight="10dp"
-              android:layout_marginTop="10dp"
-              android:background="@drawable/weixin_item_ripple_bg"
-              android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/weixin_item_ripple_bg"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="@dimen/t80dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/iv_icon"
-            android:layout_width="78dp"
-            android:layout_height="48dp"
+        <android.support.v7.widget.CardView
+            android:layout_width="90dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:background="@color/primaryDark"
-            android:scaleType="fitXY"
-            />
+            app:cardCornerRadius="@dimen/t5dp">
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@color/primaryDark"
+                android:scaleType="centerCrop" />
+        </android.support.v7.widget.CardView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
@@ -41,19 +47,44 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:textColor="@color/black"
                     android:maxLines="2"
-                    android:textSize="@dimen/font_normal"/>
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_normal" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="2017-09-04"
-                android:textColor="@color/gray_aaa"
-                android:textSize="@dimen/font_snormal"/>
+                android:layout_marginRight="@dimen/t15dp"
+                android:layout_marginTop="@dimen/t8dp">
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2017-09-04"
+                    android:textColor="@color/gray_aaa"
+                    android:textSize="@dimen/font_snormal" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/t18dp"
+                        android:layout_height="@dimen/t18dp"
+                        android:src="@mipmap/readcount_icon" />
+
+                    <TextView
+                        android:id="@+id/tv_read_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/t3dp"
+                        android:text="111次"
+                        android:textColor="@color/gray_aaa" />
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 

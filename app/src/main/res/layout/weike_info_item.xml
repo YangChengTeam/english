@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="6dp"
-              android:background="@drawable/weixin_item_ripple_bg"
-              android:gravity="center"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/weixin_item_ripple_bg"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -19,8 +18,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:scaleType="centerInside"
-            android:src="@mipmap/course_item_default_icon"
-            />
+            android:src="@mipmap/course_item_default_icon" />
 
         <ImageView
             android:id="@+id/iv_is_vip"
@@ -30,7 +28,7 @@
             android:layout_marginRight="12dp"
             android:layout_marginTop="5dp"
             android:src="@mipmap/is_vip_course_icon"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </FrameLayout>
 
     <LinearLayout
@@ -46,11 +44,11 @@
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="6dp"
             android:layout_marginLeft="8dp"
-            android:text="话题口语"
-            android:lines="2"
             android:ellipsize="end"
+            android:lines="2"
+            android:text="话题口语"
             android:textColor="@color/black_333333"
-            android:textSize="@dimen/font_snormal"/>
+            android:textSize="@dimen/font_snormal" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,7 +63,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="6dp"
                 android:layout_marginTop="0.5dp"
-                android:src="@mipmap/buy_person_icon"/>
+                android:src="@mipmap/buy_person_icon" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -81,7 +79,7 @@
                     android:layout_gravity="center_vertical"
                     android:text="12"
                     android:textColor="@color/group_red_fb4c30"
-                    android:textSize="@dimen/font_snormal"/>
+                    android:textSize="@dimen/font_snormal" />
 
                 <TextView
                     android:id="@+id/tv_learn_or_buy"
@@ -91,7 +89,7 @@
                     android:layout_marginLeft="2dp"
                     android:text="人已购买"
                     android:textColor="@color/gray_aaa"
-                    android:textSize="@dimen/font_snormal"/>
+                    android:textSize="@dimen/font_snormal" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

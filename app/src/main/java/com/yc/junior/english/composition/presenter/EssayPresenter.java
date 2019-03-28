@@ -9,8 +9,10 @@ import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.junior.english.base.utils.SimpleCacheUtils;
 import com.yc.junior.english.composition.contract.EssayContract;
 import com.yc.junior.english.composition.model.bean.CompositionInfoWrapper;
+import com.yc.junior.english.composition.model.bean.ReadNumInfo;
 import com.yc.junior.english.composition.model.bean.VersionInfo;
 import com.yc.junior.english.composition.model.engine.EssayEngine;
+import com.yc.junior.english.group.utils.EngineUtils;
 import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.main.model.domain.SlideInfo;
 import com.yc.soundmark.base.constant.SpConstant;
@@ -23,6 +25,7 @@ import rx.Subscription;
 import yc.com.base.BasePresenter;
 import yc.com.base.CommonInfoHelper;
 import yc.com.blankj.utilcode.util.UIUitls;
+
 
 /**
  * Created by wanglin  on 2019/3/22 18:20.
@@ -145,6 +148,26 @@ public class EssayPresenter extends BasePresenter<EssayEngine, EssayContract.Vie
             return mSlideInfos.get(position);
         }
         return null;
+    }
+
+    public void statisticsReadCount(String id) {
+        Subscription subscription = EngineUtils.statisticsReadCount(mContext, id).subscribe(new Subscriber<ResultInfo<ReadNumInfo>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ResultInfo<ReadNumInfo> stringResultInfo) {
+
+            }
+        });
+        mSubscriptions.add(subscription);
     }
 
 }

@@ -18,9 +18,7 @@ public class WeixinEngin extends BaseEngine {
         super(context);
     }
 
-    public Observable<ResultInfo<CourseInfoWrapper>> getWeixinList(String type_id, String page,
-                                                                   String
-                                                                           page_size){
+    public Observable<ResultInfo<CourseInfoWrapper>> getWeixinList(String type_id, int page, int page_size) {
 
         return EnginHelper.getWeixinList(mContext, type_id, page, page_size);
     }

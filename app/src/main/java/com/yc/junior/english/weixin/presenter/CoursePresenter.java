@@ -3,10 +3,11 @@ package com.yc.junior.english.weixin.presenter;
 import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.junior.english.base.helper.ResultInfoHelper;
 import com.yc.junior.english.base.utils.SimpleCacheUtils;
+import com.yc.junior.english.composition.model.bean.ReadNumInfo;
+import com.yc.junior.english.group.utils.EngineUtils;
 import com.yc.junior.english.weixin.contract.CourseContract;
 import com.yc.junior.english.weixin.model.domain.CourseInfo;
 import com.yc.junior.english.weixin.model.domain.CourseInfoWrapper;
@@ -17,7 +18,6 @@ import java.util.List;
 import rx.Subscriber;
 import rx.Subscription;
 import yc.com.base.BasePresenter;
-import yc.com.blankj.utilcode.util.UIUitls;
 
 
 /**
@@ -39,26 +39,26 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
     }
 
     @Override
-    public void getWeiXinList(final String type_id, final String page,
-                              String page_size) {
-        if (page.equals("1")) {
+    public void getWeiXinList(final String type_id, final int page,
+                              int page_size) {
+        if (page == 1) {
             mView.showLoading();
 
-            SimpleCacheUtils.readCache(mContext, NEWSINFO + type_id, new SimpleCacheUtils.CacheRunnable() {
-                @Override
-                public void run() {
-                    final List<CourseInfo> courseInfos = JSON.parseObject(getJson(), new TypeReference<List<CourseInfo>>() {
-                    }
-                            .getType());
-                    cached = true;
-                    UIUitls.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            showNewsListInfo(courseInfos, type_id, page, false);
-                        }
-                    });
-                }
-            });
+//            SimpleCacheUtils.readCache(mContext, NEWSINFO + type_id, new SimpleCacheUtils.CacheRunnable() {
+//                @Override
+//                public void run() {
+//                    final List<CourseInfo> courseInfos = JSON.parseObject(getJson(), new TypeReference<List<CourseInfo>>() {
+//                    }
+//                            .getType());
+//                    cached = true;
+//                    UIUitls.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            showNewsListInfo(courseInfos, type_id, page, false);
+//                        }
+//                    });
+//                }
+//            });
         }
 
 
@@ -70,7 +70,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
 
             @Override
             public void onError(Throwable e) {
-                if (page.equals("1") && !cached) {
+                if (page == 1 && !cached) {
                     mView.showNoNet();
                 }
             }
@@ -80,7 +80,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
                 ResultInfoHelper.handleResultInfo(courseInfoResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        if (page.equals("1") && !cached) {
+                        if (page == 1 && !cached) {
                             mView.showNoData();
                         }
                         mView.fail();
@@ -88,7 +88,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        if (page.equals("1") && !cached) {
+                        if (page == 1 && !cached) {
                             mView.showNoData();
                         }
                         mView.fail();
@@ -102,7 +102,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
                             if (cached) {
                                 return;
                             }
-                            if (page.equals("1")) {
+                            if (page == 1) {
                                 mView.showNoData();
                             }
                             mView.end();
@@ -114,20 +114,40 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
         mSubscriptions.add(subscription);
     }
 
-    private void showNewsListInfo(final List<CourseInfo> courseInfos, final String type_id, final String page, boolean isCache) {
+    private void showNewsListInfo(final List<CourseInfo> courseInfos, final String type_id, final int page, boolean isCache) {
         if (courseInfos != null && courseInfos.size() > 0) {
             if (isCache) {
                 SimpleCacheUtils.writeCache(mContext, NEWSINFO + type_id, JSON.toJSONString(courseInfos));
             }
             mView.showWeixinList(courseInfos);
-            if (page.equals("1")) {
+            if (page == 1) {
                 mView.hide();
             }
         } else {
-            if (page.equals("1")) {
+            if (page == 1) {
                 mView.showNoData();
             }
             mView.end();
         }
+    }
+
+    public void statisticsNewsCount(String news_id) {
+        Subscription subscription = EngineUtils.statisticsNewsCount(mContext, news_id).subscribe(new Subscriber<ResultInfo<ReadNumInfo>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ResultInfo<ReadNumInfo> readNumInfoResultInfo) {
+
+            }
+        });
+        mSubscriptions.add(subscription);
     }
 }

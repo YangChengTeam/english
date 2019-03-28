@@ -7,7 +7,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/group_distance_30"
-        android:background="@drawable/white_circle_bg"
+        android:background="@drawable/weixin_item_ripple_bg"
         android:gravity="center"
         android:paddingLeft="@dimen/group_distance_10"
         android:paddingRight="@dimen/group_distance_10"

@@ -36,13 +36,13 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.umeng.analytics.MobclickAgent;
-import com.yc.junior.english.composition.activity.CompositionMainActivity;
 import com.yc.junior.english.EnglishApp;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.GlideHelper;
 import com.yc.junior.english.base.view.SharePopupWindow;
 import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.base.view.WebActivity;
+import com.yc.junior.english.composition.activity.CompositionMainActivity;
 import com.yc.junior.english.group.constant.GroupConstant;
 import com.yc.junior.english.main.contract.IndexContract;
 import com.yc.junior.english.main.hepler.BannerImageLoader;
@@ -86,6 +86,7 @@ import yc.com.blankj.utilcode.util.SPUtils;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
+
 
 
 /**
@@ -364,6 +365,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void OnBannerClick(int position) {
                 SlideInfo slideInfo = mPresenter.getSlideInfo(position);
+
                 //友盟统计各个幻灯点击数
                 MobclickAgent.onEvent(getActivity(), slideInfo.getStatistics());
                 if (slideInfo.getType().equals("0")) {
@@ -380,6 +382,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                         if (TextUtils.isEmpty(typeValue)) return;
                         String[] split = typeValue.split("\\|");
                         Class clazz = Class.forName(split[0]);
+
                         Intent intent = new Intent(getActivity(), clazz);
                         if (split.length == 2) {
                             CourseInfo courseInfo = new CourseInfo();
@@ -441,6 +444,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("info", courseInfo);
                 startActivity(intent);
+                mPresenter.statisticsNewsCount(courseInfo.getId());
             }
         });
 

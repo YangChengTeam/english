@@ -64,6 +64,7 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
                 Intent intent = new Intent(CourseTypeActivity.this, NewsDetailActivity.class);
                 intent.putExtra("info", mCourseAdapter.getData().get(position));
                 startActivity(intent);
+                mPresenter.statisticsNewsCount(mCourseAdapter.getData().get(position).getId());
             }
         });
 
@@ -75,7 +76,6 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
         }, mRecyclerView);
 
         getData();
-
 
         initRefresh();
 
@@ -138,7 +138,7 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
         } else {
             mCourseAdapter.addData(list);
         }
-        if (list.size() == pageSize) {
+        if (list.size() >= pageSize) {
             page++;
             mCourseAdapter.loadMoreComplete();
         } else {
@@ -166,7 +166,7 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
     }
 
     private void getData() {
-        mPresenter.getWeiXinList("syntax", page + "", pageSize + "");
+        mPresenter.getWeiXinList("syntax", page, pageSize);
     }
 
     @Subscribe(

@@ -15,20 +15,22 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.yc.junior.english.R;
+import com.yc.junior.english.base.view.FullScreenActivity;
+import com.yc.junior.english.base.view.MainToolBar;
+import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.composition.adapter.EssayItemAdapter;
 import com.yc.junior.english.composition.contract.EssayContract;
 import com.yc.junior.english.composition.model.bean.CompositionInfo;
 import com.yc.junior.english.composition.model.bean.CompositionInfoWrapper;
 import com.yc.junior.english.composition.presenter.EssayPresenter;
-import com.yc.junior.english.R;
-import com.yc.junior.english.base.view.FullScreenActivity;
-import com.yc.junior.english.base.view.MainToolBar;
-import com.yc.junior.english.base.view.StateView;
+import com.yc.junior.english.composition.widget.MyLoadMoreView;
 import com.yc.soundmark.category.utils.ItemDecorationHelper;
 
 import java.util.List;
 
 import butterknife.BindView;
+
 
 /**
  * Created by wanglin  on 2019/3/25 10:58.
@@ -78,6 +80,7 @@ public class CompositionMoreActivity extends FullScreenActivity<EssayPresenter> 
 
         weixinFragmentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         essayAdapter = new EssayItemAdapter(null, true);
+        essayAdapter.setLoadMoreView(new MyLoadMoreView());
         weixinFragmentRecyclerView.setAdapter(essayAdapter);
         weixinFragmentRecyclerView.addItemDecoration(new ItemDecorationHelper(this, 8));
         initRefresh();
@@ -93,6 +96,7 @@ public class CompositionMoreActivity extends FullScreenActivity<EssayPresenter> 
                 CompositionInfo compositionInfo = essayAdapter.getItem(position);
                 if (compositionInfo != null) {
                     CompositionDetailActivity.startActivity(CompositionMoreActivity.this, compositionInfo.getId());
+                    mPresenter.statisticsReadCount(compositionInfo.getId());
                 }
             }
         });

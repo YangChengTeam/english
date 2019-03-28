@@ -259,6 +259,7 @@
         <activity
             android:name=".composition.activity.CompositionMainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".composition.activity.CompositionMoreActivity"

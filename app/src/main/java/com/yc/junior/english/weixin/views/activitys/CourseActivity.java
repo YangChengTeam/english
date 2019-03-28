@@ -87,11 +87,11 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
         mCourseAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mPresenter.getWeiXinList(type, page + "", pageSize + "");
+                mPresenter.getWeiXinList(type, page , pageSize);
             }
         }, mCourseRecyclerView);
 
-        mPresenter.getWeiXinList(type, page + "", pageSize + "");
+        mPresenter.getWeiXinList(type, page, pageSize );
 
         RxView.clicks(btnDownload).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -123,7 +123,7 @@ public class CourseActivity extends FullScreenActivity<CoursePresenter> implemen
         mLoadingStateView.showNoNet(rlContainer, "网络不给力", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getWeiXinList(type, page + "", pageSize + "");
+                mPresenter.getWeiXinList(type, page , pageSize );
             }
         });
     }

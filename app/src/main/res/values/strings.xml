@@ -2,10 +2,7 @@
     <!--英语考-->
     <!--英语点读学习-->
 
-
-    <string name="app_name">英语学习考试</string>
-
-
+    <string name="app_name">英语考</string>
 
     <string name="edit_text">编辑</string>
     <string name="done_text">完成</string>
@@ -72,6 +69,8 @@
     <string name="type">类型</string>
     <string name="theme">体裁</string>
     <string name="all">全部</string>
+    <string name="read_num">%1$d人阅读</string>
+    <string name="continue_update">持续更新中</string>
 
 
 </resources>
