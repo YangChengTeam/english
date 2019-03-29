@@ -49,7 +49,7 @@ public class CourseTypeActivity extends FullScreenActivity<CoursePresenter> impl
 
     private CourseAdapter mCourseAdapter;
     private int page = 1;
-    private int pageSize = 10;
+    private int pageSize = 20;
 
     @Override
     public void init() {

@@ -45,21 +45,20 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
         if (page == 1) {
             mView.showLoading();
 
-            SimpleCacheUtils.readCache(mContext, NEWSINFO + type_id, new SimpleCacheUtils.CacheRunnable() {
-                @Override
-                public void run() {
-                    final List<CourseInfo> courseInfos = JSON.parseObject(getJson(), new TypeReference<List<CourseInfo>>() {
-                    }
-                            .getType());
-                    cached = true;
-                    UIUitls.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            showNewsListInfo(courseInfos, type_id, page, false);
-                        }
-                    });
-                }
-            });
+//            SimpleCacheUtils.readCache(mContext, NEWSINFO + type_id, new SimpleCacheUtils.CacheRunnable() {
+//                @Override
+//                public void run() {
+//                    final List<CourseInfo> courseInfos = JSON.parseObject(getJson(), new TypeReference<List<CourseInfo>>() {
+//                    }.getType());
+//                    cached = true;
+//                    UIUitls.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            showNewsListInfo(courseInfos, type_id, page, false);
+//                        }
+//                    });
+//                }
+//            });
         }
 
 

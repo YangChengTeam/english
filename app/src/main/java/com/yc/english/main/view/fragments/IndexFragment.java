@@ -381,7 +381,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                         String typeValue = slideInfo.getTypeValue();
                         if (TextUtils.isEmpty(typeValue)) return;
                         String[] split = typeValue.split("\\|");
-                        Class clazz = Class.forName(split[0]);
+//                        Class clazz = Class.forName(split[0]);
+                        Class clazz = Class.forName(getActivity().getPackageName() + split[0]);
 
                         Intent intent = new Intent(getActivity(), clazz);
                         if (split.length == 2) {
