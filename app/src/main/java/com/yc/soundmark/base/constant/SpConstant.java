@@ -21,4 +21,6 @@ public class SpConstant {
     public static final String INDEX_MENU_STATICS = "index_menu_statics";
 
     public static final String INDEX_VERSION = "index_version";
+
+    public static final String PLAY_SPEED = "play_speed";
 }

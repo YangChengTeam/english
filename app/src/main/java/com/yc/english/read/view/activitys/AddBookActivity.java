@@ -13,6 +13,7 @@ import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.contract.AddBookContract;
 import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.Constant;
@@ -101,18 +102,18 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
                 if (mGradeDatas != null) {
 
                     if (lastGradePosition > -1) {
-                        ((GradeInfo) mGradeAdapter.getData().get(lastGradePosition)).setSelected(false);
+                        mGradeAdapter.getData().get(lastGradePosition).setSelected(false);
                     }
 
-                    ((GradeInfo) mGradeAdapter.getData().get(position)).setSelected(true);
+                    mGradeAdapter.getData().get(position).setSelected(true);
 
                     if (lastGradePosition != position) {
                         lastGradePosition = position;
                         mGradeAdapter.notifyDataSetChanged();
 
                         //获取教材版本
-                        String gradeId = ((GradeInfo) mGradeAdapter.getData().get(position)).getGrade();
-                        String partType = ((GradeInfo) mGradeAdapter.getData().get(position)).getPartType();
+                        String gradeId = mGradeAdapter.getData().get(position).getGrade();
+                        String partType = mGradeAdapter.getData().get(position).getPartType();
                         mPresenter.getCVListByGradeId(gradeId, partType);
                     }
                 }
@@ -136,7 +137,7 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
 
                     if (mGradeDatas != null) {
                         if (lastVersionPosition > -1) {
-                            ((CourseVersionInfo) mCourseVersionAdapter.getData().get(lastVersionPosition)).setSelected(false);
+                            mCourseVersionAdapter.getData().get(lastVersionPosition).setSelected(false);
                         }
                         ((CourseVersionInfo) mCourseVersionAdapter.getData().get(position)).setSelected(true);
                         if (lastVersionPosition != position) {
@@ -157,8 +158,12 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
                         bookInfo.setVersionName(versionName);
 
                         RxBus.get().post(Constant.ADD_BOOK_INFO, bookInfo);
-
-                        Intent intent = new Intent(AddBookActivity.this, BookUnitActivity.class);
+                        Intent intent = null;
+                        if (ReadApp.READ_COMMON_TYPE == 1) {
+                            intent = new Intent(AddBookActivity.this, BookUnitActivity.class);
+                        } else if (ReadApp.READ_COMMON_TYPE == 2) {
+                            intent = new Intent(AddBookActivity.this, WordUnitActivity.class);
+                        }
                         intent.putExtra("book_id", bookId);
                         startActivity(intent);
                         AddBookActivity.this.finish();

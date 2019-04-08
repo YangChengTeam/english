@@ -17,6 +17,7 @@ import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.kk.utils.LogUtil;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.WakeLockUtils;
@@ -276,10 +277,12 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     public void playWord(final int index, final Runnable runnable) {
         if (isSpell) {
             try {
-                String readCurrentWord = mDatas.get(index).getName().replaceAll(" ", "");
+                String readCurrentWord = mDatas.get(index).getName().replaceAll("[\\s\\W]", "");
+
                 if (readCurrentWordIndex < readCurrentWord.length()) {
                     mediaPlayer.reset();
                     String readChat = String.valueOf(readCurrentWord.charAt(readCurrentWordIndex)).toLowerCase();
+
                     AssetFileDescriptor fd = getAssets().openFd(readChat + ".mp3");
                     mediaPlayer.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
                     mediaPlayer.prepare();

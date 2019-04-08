@@ -19,6 +19,7 @@ android {
         multiDexEnabled true
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86"
+
         }
         flavorDimensions 'default'//这句不能少
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
@@ -194,6 +195,7 @@ dependencies {
     api project(':base')
     implementation project(':video-player')
     api 'com.wl.tencent-adv:tencent-adv:4.0'
+//    implementation 'ywl.ywl5320:libmusic:1.2.6'
 
     configurations{
         all*.exclude group:'com.github.promeg',module:'tinypinyin'

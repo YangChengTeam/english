@@ -70,6 +70,7 @@
     <string name="all">全部</string>
     <string name="read_num">%1$d人阅读</string>
     <string name="continue_update">持续更新中</string>
+    <string name="play_speed_result">%1$sx</string>
 
 
 </resources>
