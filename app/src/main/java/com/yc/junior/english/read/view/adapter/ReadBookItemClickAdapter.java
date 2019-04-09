@@ -30,13 +30,6 @@ public class ReadBookItemClickAdapter extends BaseMultiItemQuickAdapter<BookInfo
         addItemType(BookInfo.CLICK_ITEM_VIEW, R.layout.read_book_item);
     }
 
-    public List<BookInfo> getDatas() {
-        return datas;
-    }
-
-    public void setDatas(List<BookInfo> datas) {
-        this.datas = datas;
-    }
 
     public boolean getEditState() {
         return this.isEdit;

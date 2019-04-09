@@ -86,7 +86,7 @@ public class StudyViewPager extends ViewPager  {
                 break;
             case MotionEvent.ACTION_MOVE:
 
-            case MotionEvent.ACTION_UP:
+//            case MotionEvent.ACTION_UP:
 
 
                 float upX = ev.getX();
@@ -119,12 +119,6 @@ public class StudyViewPager extends ViewPager  {
         return super.onInterceptTouchEvent(ev);
     }
 
-
-//    @Override
-//    protected void onPageScrolled(int position, float offset, int offsetPixels) {
-//        super.onPageScrolled(position, offset, offsetPixels);
-//        LogUtil.msg("curPos:  onPageScrolled:   " + position);
-//    }
 
 
 

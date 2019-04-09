@@ -100,7 +100,6 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
     public void init() {
 
         mPresenter = new BookPresenter(this, this);
-//        Properties pt = PropertyUtil.getProperties(this);
 
         if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             rlTopBanner.setVisibility(View.GONE);
@@ -200,13 +199,9 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
     //页面跳转
     public void toUnitActivity(int position, Class cls) {
-        if (mItemAdapter.getData() != null) {
-            Intent intent = new Intent(BookActivity.this, cls);
-            intent.putExtra("book_id", mItemAdapter.getData().get(position).getBookId());
-            startActivity(intent);
-        } else {
-            TipsHelper.tips(BookActivity.this, "数据异常，请稍后重试");
-        }
+        Intent intent = new Intent(BookActivity.this, cls);
+        intent.putExtra("book_id", mItemAdapter.getData().get(position).getBookId());
+        startActivity(intent);
     }
 
     @OnClick(R.id.btn_edit_books)

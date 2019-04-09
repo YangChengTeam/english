@@ -66,9 +66,8 @@
 
                 <TextView
                     android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:text="2017-09-04"
                     android:textColor="@color/gray_aaa"
                     android:textSize="@dimen/font_snormal" />
@@ -105,5 +104,5 @@
         android:layout_height="1px"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/gray_ddd"></View>
+        android:background="@color/gray_ddd"/>
 </LinearLayout>

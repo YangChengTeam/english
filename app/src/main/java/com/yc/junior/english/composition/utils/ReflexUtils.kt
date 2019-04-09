@@ -1,13 +1,9 @@
 package com.yc.junior.english.composition.utils
 
 
-import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-
 import com.kk.utils.ScreenUtil
-
-import java.lang.reflect.Field
 
 /**
  * Created by wanglin  on 2018/11/27 09:20.

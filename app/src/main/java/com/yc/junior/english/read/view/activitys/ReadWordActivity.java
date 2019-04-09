@@ -44,6 +44,7 @@ import yc.com.blankj.utilcode.util.ToastUtils;
 
 
 
+
 /**
  * Created by admin on 2017/7/27.
  */
@@ -276,10 +277,12 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     public void playWord(final int index, final Runnable runnable) {
         if (isSpell) {
             try {
-                String readCurrentWord = mDatas.get(index).getName().replaceAll(" ", "");
+                String readCurrentWord = mDatas.get(index).getName().replaceAll("[\\s\\W]", "");
+
                 if (readCurrentWordIndex < readCurrentWord.length()) {
                     mediaPlayer.reset();
                     String readChat = String.valueOf(readCurrentWord.charAt(readCurrentWordIndex)).toLowerCase();
+
                     AssetFileDescriptor fd = getAssets().openFd(readChat + ".mp3");
                     mediaPlayer.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
                     mediaPlayer.prepare();

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/layout_player_bg"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/t10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请设置播放速度"
+        android:textColor="@color/white" />
+
+    <android.support.v7.widget.AppCompatSeekBar
+        android:id="@+id/speak_seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/t8dp"
+        android:max="80"
+        android:maxHeight="@dimen/t3dp"
+        android:minHeight="@dimen/t3dp"
+        android:progress="40"
+        android:progressDrawable="@drawable/seekbar_speed_progress_bg"
+        android:thumb="@drawable/seekbar_thumb" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/t8dp">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0.2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0.4"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0.6"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0.8"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="1.0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="1.2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="1.4"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="1.6"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t12sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="1.8"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t12sp" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

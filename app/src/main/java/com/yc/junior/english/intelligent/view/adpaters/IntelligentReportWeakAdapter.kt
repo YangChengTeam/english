@@ -10,7 +10,7 @@ import com.yc.junior.english.R
  */
 class IntelligentReportWeakAdapter(reports: List<String>?) : BaseQuickAdapter<String, BaseViewHolder>(R.layout.intelligent_report_item, reports) {
     override fun convert(helper: BaseViewHolder?, item: String?) {
-        helper!!.setText(R.id.tv_title, item)
+        helper?.setText(R.id.tv_title, item)
     }
 
 

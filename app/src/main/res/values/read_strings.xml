@@ -4,7 +4,7 @@
 
     <!--read-values-->
     <string name="read_next_unit_course_text">下一单元</string>
-    <string name="read_course_play_text">播放</string>
+    <string name="read_course_play_text">全文播放</string>
     <string name="read_course_language_blend_text">中英</string>
     <string name="read_course_language_cn_text">中</string>
     <string name="read_course_language_en_text">英</string>
@@ -35,4 +35,5 @@
     <string name="word_sentence_count_text">个单词</string>
     <string name="word_time_out_error_text">很可惜，你超时啦，再试试</string>
     <string name="read_word_finish_text">完成</string>
+    <string name="change_speed">变速</string>
 </resources>

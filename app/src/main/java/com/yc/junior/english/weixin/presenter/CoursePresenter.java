@@ -50,6 +50,7 @@ public class CoursePresenter extends BasePresenter<WeixinEngin, CourseContract.V
 //                    final List<CourseInfo> courseInfos = JSON.parseObject(getJson(), new TypeReference<List<CourseInfo>>() {
 //                    }
 //                            .getType());
+//                    }.getType());
 //                    cached = true;
 //                    UIUitls.post(new Runnable() {
 //                        @Override

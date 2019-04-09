@@ -9,9 +9,11 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.yc.junior.english.base.helper.TipsHelper;
 
+import java.io.File;
+
 /**
  * Created by admin on 2017/8/8.
- * 语音播放
+ * 语音合成播放
  */
 
 public class SpeechUtils {
@@ -22,7 +24,9 @@ public class SpeechUtils {
     public static SpeechSynthesizer mTts;
 
     // 默认云端发音人
-    public static String voicer = "catherine";
+//    public static String voicer = "catherine";
+    public static String voicer = "vimary";//玛丽青年女声
+//    public static String voicer = "henry";//玛丽青年女声
 
     // 引擎类型
     public static String mEngineType = SpeechConstant.TYPE_CLOUD;
@@ -34,9 +38,15 @@ public class SpeechUtils {
     public static int mPercentForPlaying = 0;
 
     public static boolean isSpeechSuccess = true;
+    private static File file;
 
     public static SpeechSynthesizer getTts(Context context) {
         initSpeech(context, 20, 50, 50, 3);
+        return mTts;
+    }
+
+    public static SpeechSynthesizer getTts(Context context, int speed) {
+        initSpeech(context, speed, 50, 50, 3);
         return mTts;
     }
 
@@ -70,7 +80,9 @@ public class SpeechUtils {
         // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
         // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
         mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.wav");
+        String savePath = Environment.getExternalStorageDirectory() + "/msc/tts.wav";
+        file = new File(savePath);
+        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, savePath);
     }
 
     /**
@@ -89,4 +101,7 @@ public class SpeechUtils {
         }
     };
 
+    public static File getFile() {
+        return file;
+    }
 }

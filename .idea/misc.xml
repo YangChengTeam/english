@@ -34,5 +34,11 @@
   </component>
 =======
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8 (1)" project-jdk-type="JavaSDK" />
+<<<<<<< HEAD
+>>>>>>> master
+=======
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
 >>>>>>> master
 </project>
