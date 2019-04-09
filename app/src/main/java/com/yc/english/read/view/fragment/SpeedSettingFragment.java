@@ -35,7 +35,7 @@ public class SpeedSettingFragment extends BaseDialogFragment {
 
         getDialog().setCancelable(true);
         getDialog().setCanceledOnTouchOutside(true);
-        speakSeekBar.setProgress(SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 50));
+        speakSeekBar.setProgress(SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 40));
 
         speakSeekBar.setPadding(ScreenUtil.dip2px(getActivity(), 6), 0, ScreenUtil.dip2px(getActivity(), 6), 0);
         final int max = speakSeekBar.getMax();

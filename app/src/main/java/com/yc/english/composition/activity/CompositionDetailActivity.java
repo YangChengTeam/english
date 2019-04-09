@@ -147,7 +147,7 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
         title = info.getTitle();
         mTextViewTitle.setText(title);
         String str = getString(R.string.from_author);
-        mTextViewFrom.setText(String.format(str, getString(R.string.app_name)));
+        mTextViewFrom.setText(String.format(str, "网络整理"));
         String time = null;
         if (!TextUtils.isEmpty(info.getAddtime())) {
             time = TimeUtils.millis2String(Long.parseLong(info.getAddtime()) * 1000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()));

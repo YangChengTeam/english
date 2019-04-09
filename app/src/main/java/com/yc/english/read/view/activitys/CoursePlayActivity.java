@@ -74,6 +74,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.subjects.PublishSubject;
 import yc.com.base.StatusBarCompat;
+import yc.com.blankj.utilcode.util.IntentUtils;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.SPUtils;
 import yc.com.blankj.utilcode.util.StringUtils;
@@ -122,7 +123,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private int languageType = 1; //1:中英,2:英,3:中
 
-    private PublishSubject mTsSubject;
+    private PublishSubject<Integer> mTsSubject;
 
     private String unitId;
 
@@ -206,7 +207,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
         WakeLockUtils.acquireWakeLock(this);
 
-        int anInt = SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 1);
+        int anInt = SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 40);
 
         float speed = (anInt * 2 + 20) / (100 * 1.0f);
         BigDecimal bd = new BigDecimal(speed);
@@ -798,7 +799,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             return;
         }
 //        if (mTts == null) {
-        int anInt = SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 1);
+        int anInt = SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 40);
         if (anInt == 0) {
             anInt = 1;
         }

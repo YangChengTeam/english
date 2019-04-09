@@ -159,7 +159,6 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
         mJCVideoPlayer.widthRatio = 16;
         mJCVideoPlayer.heightRatio = 9;
 
-
     }
 
 

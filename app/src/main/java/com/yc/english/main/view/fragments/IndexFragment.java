@@ -41,7 +41,6 @@ import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
-import com.yc.english.base.view.UserLoginDialog;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.composition.activity.CompositionMainActivity;
 import com.yc.english.group.constant.GroupConstant;
@@ -60,7 +59,7 @@ import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.read.common.ReadApp;
 import com.yc.english.read.view.activitys.BookActivity;
 import com.yc.english.speak.view.activity.SpeakMainActivity;
-import com.yc.english.speak.view.adapter.IndexRecommendAdapterNew;
+import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
 import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.activitys.CourseActivity;
@@ -179,7 +178,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @BindView(R.id.toolbarWarpper)
     FrameLayout mToolbarWarpper;
 
-    private IndexRecommendAdapterNew mRecommendAdapter;
+    private IndexRecommendAdapter mRecommendAdapter;
 
 
     private SlideInfo dialogInfo;
@@ -199,15 +198,12 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             rlTopBanner.setVisibility(View.GONE);
             rlBottomBanner.setVisibility(View.GONE);
-//            bannerContainer.setVisibility(View.GONE);
-//            bannerBottomContainer.setVisibility(View.GONE);
         } else {
 
             AdvDispatchManager.getManager().init(getActivity(), AdvType.BANNER, bannerBottomContainer, null, Constant.TENCENT_ADV_ID, Constant.BANNER_ADV2, this);
 
             initNativeExpressAD();
         }
-//        AdvDispatchManager.getManager().init(getActivity(), AdvType.BANNER, bannerContainer, null, Constant.TENCENT_ADV_ID, Constant.BANNER_ADV1, this);
 
 
         StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolBar, mStatusBar);
@@ -433,11 +429,11 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         mRvRecommend.setFocusable(false);
         mRvRecommend.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRvRecommend.setHasFixedSize(true);
-        mRecommendAdapter = new IndexRecommendAdapterNew(getActivity(), null, mAdViewPositionMap);
+        mRecommendAdapter = new IndexRecommendAdapter(getActivity(), null, mAdViewPositionMap);
         mRvRecommend.setAdapter(mRecommendAdapter);
 
         //精品推荐条目点击
-        mRecommendAdapter.setOnItemClickListener(new IndexRecommendAdapterNew.OnItemClickListener() {
+        mRecommendAdapter.setOnItemClickListener(new IndexRecommendAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 MobclickAgent.onEvent(getActivity(), "fine_read_click", "精品推荐");
