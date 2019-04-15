@@ -3,9 +3,7 @@ package com.yc.junior.english.composition.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
@@ -32,7 +30,6 @@ import com.yc.junior.english.composition.widget.VerticalTextView;
 import com.yc.junior.english.main.hepler.BannerImageLoader;
 import com.yc.junior.english.main.model.domain.SlideInfo;
 import com.yc.junior.english.news.utils.SmallProcedureUtils;
-import com.yc.junior.english.weixin.model.domain.CourseInfo;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -44,7 +41,7 @@ import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;
 import yc.com.base.EmptyUtils;
-import yc.com.base.StatusBarCompat;
+
 
 /**
  * Created by wanglin  on 2019/3/22 15:13.

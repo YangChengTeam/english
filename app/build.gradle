@@ -13,8 +13,9 @@ android {
         targetSdkVersion 21
 
 
-        versionCode 13 //56
-        versionName "1.5.1"//1.7.6
+
+        versionCode 14 //56
+        versionName "1.5.2"//1.7.6
 
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -201,7 +202,7 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
     api project(':base')
     implementation project(':video-player')
-    api 'com.wl.tencent-adv:tencent-adv:4.0'
+    compile 'com.wl.tencent-adv:tencent-adv:3.0'
 //    implementation 'ywl.ywl5320:libmusic:1.2.6'
 
     //    implementation files('libs/GDTUnionSDK.4.19.574.min.jar')

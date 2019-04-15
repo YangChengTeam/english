@@ -49,6 +49,7 @@ import yc.com.base.BaseDialogFragment;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.TimeUtils;
 
+
 /**
  * Created by wanglin  on 2019/3/12 17:28.
  */
@@ -71,6 +72,9 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
     ImageView ivClose;
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
+    @BindView(R.id.tv_vip_date)
+    TextView tvVipDate;
+
 
     private IAliPay1Impl iAliPay;
     private IWXPay1Impl iwxPay;
@@ -109,6 +113,13 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
 
                 tvCurrentPrice.setText(String.format(getString(R.string.new_vip_price), bd.stripTrailingZeros().intValue()));
                 tvOriginPrice.setText(String.format(getString(R.string.new_origin_price), bd1.stripTrailingZeros().intValue()));
+                int timeLimit = Integer.parseInt(mGoodInfo.getUse_time_limit());
+                String vipDate = timeLimit + "个" + mGoodInfo.getUnit();
+                if (timeLimit > 12) {
+                    vipDate = "永久";
+                }
+                tvVipDate.setText(vipDate);
+
             }
 
         }
@@ -336,4 +347,6 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
         mPresenter.getShareVipAllow(UserInfoHelper.getUid());
 
     }
+
+
 }
