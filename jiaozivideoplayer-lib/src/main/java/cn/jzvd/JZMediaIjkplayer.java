@@ -6,6 +6,7 @@ import android.view.Surface;
 
 import java.io.IOException;
 
+import tv.danmaku.ijk.media.exo.IjkExoMediaPlayer;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkTimedText;
@@ -28,15 +29,26 @@ public class JZMediaIjkplayer extends JZMediaInterface implements IMediaPlayer.O
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "opensles", 0);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "overlay-format", IjkMediaPlayer.SDL_FCC_RV32);
+        // 网络不好的情况下进行丢包
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 0);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "http-detect-range-support", 0);
+        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "packet-buffering", 0L);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_loop_filter", 48);
+
+        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzeduration", 1L);
 
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzemaxduration", 100L);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probesize", 10240L);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "flush_packets", 1L);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 0L);
+        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT,"probesize",80L);
+        // 不查询stream_info，直接使用
+        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER,"find_stream_info", 0);
+        // 等待开始之后才绘制
+        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "render-wait-start", 1);
+
+//        ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "enable-accurate-seek", 1);
 
         ijkMediaPlayer.setOnPreparedListener(JZMediaIjkplayer.this);
         ijkMediaPlayer.setOnVideoSizeChangedListener(JZMediaIjkplayer.this);
@@ -46,6 +58,7 @@ public class JZMediaIjkplayer extends JZMediaInterface implements IMediaPlayer.O
         ijkMediaPlayer.setOnBufferingUpdateListener(JZMediaIjkplayer.this);
         ijkMediaPlayer.setOnSeekCompleteListener(JZMediaIjkplayer.this);
         ijkMediaPlayer.setOnTimedTextListener(JZMediaIjkplayer.this);
+
 
         try {
             ijkMediaPlayer.setDataSource(currentDataSource.toString());
@@ -95,7 +108,8 @@ public class JZMediaIjkplayer extends JZMediaInterface implements IMediaPlayer.O
 
     @Override
     public void onPrepared(IMediaPlayer iMediaPlayer) {
-        ijkMediaPlayer.start();
+//        ijkMediaPlayer.start();
+        iMediaPlayer.start();
         if (currentDataSource.toString().toLowerCase().contains("mp3")) {
             JZMediaManager.instance().mainThreadHandler.post(new Runnable() {
                 @Override

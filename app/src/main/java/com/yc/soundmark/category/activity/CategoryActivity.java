@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.ScreenUtil;
+
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;

@@ -1,10 +1,13 @@
 package com.yc.english.vip.views.fragments;
 
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,6 +29,7 @@ import com.yc.english.pay.alipay.IAliPay1Impl;
 import com.yc.english.pay.alipay.IPayCallback;
 import com.yc.english.pay.alipay.IWXPay1Impl;
 import com.yc.english.pay.alipay.OrderInfo;
+import com.yc.english.setting.model.bean.Config;
 import com.yc.english.setting.model.bean.GoodInfo;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.english.vip.adapter.PayNewAdapter;
@@ -42,6 +46,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;
 import yc.com.base.BaseDialogFragment;
@@ -70,6 +76,9 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
     ImageView ivClose;
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
+    @BindView(R.id.tv_vip_date)
+    TextView tvVipDate;
+
 
     private IAliPay1Impl iAliPay;
     private IWXPay1Impl iwxPay;
@@ -108,6 +117,13 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
 
                 tvCurrentPrice.setText(String.format(getString(R.string.new_vip_price), bd.stripTrailingZeros().intValue()));
                 tvOriginPrice.setText(String.format(getString(R.string.new_origin_price), bd1.stripTrailingZeros().intValue()));
+                int timeLimit = Integer.parseInt(mGoodInfo.getUse_time_limit());
+                String vipDate = timeLimit + "个" + mGoodInfo.getUnit();
+                if (timeLimit > 12) {
+                    vipDate = "永久";
+                }
+                tvVipDate.setText(vipDate);
+
             }
 
         }
@@ -264,7 +280,7 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
         userInfo.setVip_start_time(date.getTime() / 1000);
         if (mGoodInfo.getUse_time_limit() != null) {
             int use_time_Limit = Integer.parseInt(mGoodInfo.getUse_time_limit());
-            long vip_end_time = date.getTime() + use_time_Limit * 30 * (com.yc.english.setting.model.bean.Config.MS_IN_A_DAY);
+            long vip_end_time = date.getTime() + use_time_Limit * 30 * (Config.MS_IN_A_DAY);
             userInfo.setVip_end_time(vip_end_time / 1000);
         }
         UserInfoHelper.saveUserInfo(userInfo);
@@ -290,8 +306,8 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
 
             userInfo.setVip_start_time(TimeUtils.getNowMills() / 1000);
 //MS_IN_A_DAY
-            long vip_end_time = TimeUtils.getNowMills() + data * (com.yc.english.setting.model.bean.Config.MS_IN_A_DAY);
-            long test_end_time = TimeUtils.getNowMills() + data * (com.yc.english.setting.model.bean.Config.MS_IN_A_DAY);
+            long vip_end_time = TimeUtils.getNowMills() + data * (Config.MS_IN_A_DAY);
+            long test_end_time = TimeUtils.getNowMills() + data * (Config.MS_IN_A_DAY);
             userInfo.setVip_end_time(vip_end_time / 1000);
             userInfo.setTest_end_time(test_end_time / 1000);
 
@@ -335,4 +351,6 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
         mPresenter.getShareVipAllow(UserInfoHelper.getUid());
 
     }
+
+
 }

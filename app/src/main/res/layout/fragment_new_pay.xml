@@ -44,11 +44,12 @@
                     android:textSize="@dimen/t12sp" />
 
                 <TextView
+                    android:id="@+id/tv_vip_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/t8dp"
                     android:gravity="right"
-                    android:text="永久"
+                    android:text="一个月"
                     android:textColor="@color/red_db4d2a"
                     android:textSize="@dimen/sp_14"
                     android:textStyle="bold" />

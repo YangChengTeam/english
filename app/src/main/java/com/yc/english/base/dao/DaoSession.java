@@ -9,14 +9,12 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.yc.english.group.model.bean.ClassInfo;
-import com.yc.english.group.model.bean.StudentInfo;
 import com.yc.english.read.model.domain.BookInfo;
 import com.yc.english.read.model.domain.GradeInfo;
 import com.yc.english.speak.model.bean.QuestionInfoBean;
 import com.yc.english.weixin.model.domain.CourseInfo;
 
 import com.yc.english.base.dao.ClassInfoDao;
-import com.yc.english.base.dao.StudentInfoDao;
 import com.yc.english.base.dao.BookInfoDao;
 import com.yc.english.base.dao.GradeInfoDao;
 import com.yc.english.base.dao.QuestionInfoBeanDao;
@@ -32,14 +30,12 @@ import com.yc.english.base.dao.CourseInfoDao;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig classInfoDaoConfig;
-    private final DaoConfig studentInfoDaoConfig;
     private final DaoConfig bookInfoDaoConfig;
     private final DaoConfig gradeInfoDaoConfig;
     private final DaoConfig questionInfoBeanDaoConfig;
     private final DaoConfig courseInfoDaoConfig;
 
     private final ClassInfoDao classInfoDao;
-    private final StudentInfoDao studentInfoDao;
     private final BookInfoDao bookInfoDao;
     private final GradeInfoDao gradeInfoDao;
     private final QuestionInfoBeanDao questionInfoBeanDao;
@@ -51,9 +47,6 @@ public class DaoSession extends AbstractDaoSession {
 
         classInfoDaoConfig = daoConfigMap.get(ClassInfoDao.class).clone();
         classInfoDaoConfig.initIdentityScope(type);
-
-        studentInfoDaoConfig = daoConfigMap.get(StudentInfoDao.class).clone();
-        studentInfoDaoConfig.initIdentityScope(type);
 
         bookInfoDaoConfig = daoConfigMap.get(BookInfoDao.class).clone();
         bookInfoDaoConfig.initIdentityScope(type);
@@ -68,14 +61,12 @@ public class DaoSession extends AbstractDaoSession {
         courseInfoDaoConfig.initIdentityScope(type);
 
         classInfoDao = new ClassInfoDao(classInfoDaoConfig, this);
-        studentInfoDao = new StudentInfoDao(studentInfoDaoConfig, this);
         bookInfoDao = new BookInfoDao(bookInfoDaoConfig, this);
         gradeInfoDao = new GradeInfoDao(gradeInfoDaoConfig, this);
         questionInfoBeanDao = new QuestionInfoBeanDao(questionInfoBeanDaoConfig, this);
         courseInfoDao = new CourseInfoDao(courseInfoDaoConfig, this);
 
         registerDao(ClassInfo.class, classInfoDao);
-        registerDao(StudentInfo.class, studentInfoDao);
         registerDao(BookInfo.class, bookInfoDao);
         registerDao(GradeInfo.class, gradeInfoDao);
         registerDao(QuestionInfoBean.class, questionInfoBeanDao);
@@ -84,7 +75,6 @@ public class DaoSession extends AbstractDaoSession {
     
     public void clear() {
         classInfoDaoConfig.clearIdentityScope();
-        studentInfoDaoConfig.clearIdentityScope();
         bookInfoDaoConfig.clearIdentityScope();
         gradeInfoDaoConfig.clearIdentityScope();
         questionInfoBeanDaoConfig.clearIdentityScope();
@@ -93,10 +83,6 @@ public class DaoSession extends AbstractDaoSession {
 
     public ClassInfoDao getClassInfoDao() {
         return classInfoDao;
-    }
-
-    public StudentInfoDao getStudentInfoDao() {
-        return studentInfoDao;
     }
 
     public BookInfoDao getBookInfoDao() {
