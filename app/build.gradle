@@ -12,8 +12,8 @@ android {
         minSdkVersion 17
         targetSdkVersion 21
 
-        versionCode 74 //56
-        versionName "2.2.6"//1.7.6
+        versionCode 75 //56
+        versionName "2.2.7"//1.7.6
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -195,6 +195,8 @@ dependencies {
     api project(':base')
     implementation project(':video-player')
     compile 'com.wl.tencent-adv:tencent-adv:3.0'
+
+
 //    implementation 'ywl.ywl5320:libmusic:1.2.6'
 
     configurations{

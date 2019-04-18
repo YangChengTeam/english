@@ -121,12 +121,12 @@ public class VipEquitiesActivity extends BaseActivity {
     private void initView() {
         if (userInfo != null) {
             if (UserInfoHelper.isVip(userInfo)) {
-                if (userInfo.getVip_end_time() > userInfo.getTest_end_time()) {
-                    mTvEndTime.setText(getString(R.string.forever_vip));
-                } else {
-                    String endTime = TimeUtils.date2String(new Date(userInfo.getTest_end_time() * 1000), new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
-                    mTvEndTime.setText(String.format(getString(R.string.vip_end_time), endTime));
-                }
+//                if (userInfo.getVip_end_time() > userInfo.getTest_end_time()) {
+//                    mTvEndTime.setText(getString(R.string.forever_vip));
+//                } else {
+                String endTime = TimeUtils.date2String(new Date(userInfo.getVip_end_time() * 1000), new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
+                mTvEndTime.setText(String.format(getString(R.string.vip_end_time), endTime));
+//                }
             }
 
 //            if (userInfo.getIsVip() != 0 && endTime.equals("0")) {
