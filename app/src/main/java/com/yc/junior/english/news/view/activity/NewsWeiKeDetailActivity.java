@@ -158,8 +158,8 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             mLearnCountTextView.setText(courseInfo.getUserNum());
             if (VipInfoHelper.getGoodInfoWrapper() != null && VipInfoHelper.getGoodInfoWrapper().getVip() != null) {
                 if (VipInfoHelper.getGoodInfoWrapper().getVip().size() > 0) {
-                    mNowPriceTextView.setText("永久会员 ¥" + VipInfoHelper.getGoodInfoWrapper().getVip().get(0).getVip_price());
-                    mOldPriceTextView.setText("永久会员 原价:¥" + VipInfoHelper.getGoodInfoWrapper().getVip().get(0).getPrice());
+                    mNowPriceTextView.setText("会员 ¥" + VipInfoHelper.getGoodInfoWrapper().getVip().get(0).getVip_price());
+                    mOldPriceTextView.setText("会员 原价:¥" + VipInfoHelper.getGoodInfoWrapper().getVip().get(0).getPrice());
                 }
             }
 

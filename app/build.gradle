@@ -13,9 +13,8 @@ android {
         targetSdkVersion 21
 
 
-
-        versionCode 14 //56
-        versionName "1.5.2"//1.7.6
+        versionCode 15 //56
+        versionName "1.5.3"//1.7.6
 
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -203,6 +202,8 @@ dependencies {
     api project(':base')
     implementation project(':video-player')
     compile 'com.wl.tencent-adv:tencent-adv:3.0'
+
+
 //    implementation 'ywl.ywl5320:libmusic:1.2.6'
 
     //    implementation files('libs/GDTUnionSDK.4.19.574.min.jar')

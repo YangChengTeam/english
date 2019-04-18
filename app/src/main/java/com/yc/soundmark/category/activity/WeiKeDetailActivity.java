@@ -3,7 +3,6 @@ package com.yc.soundmark.category.activity;
 import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -76,7 +75,7 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
 
     private RelativeLayout llRootView;
     private XinQuVideoPlayerStandard mJCVideoPlayer;
-    private Toolbar toolBar;
+    private android.support.v7.widget.Toolbar toolBar;
     private ImageView ivBack;
 
     private TextView tvShare;
