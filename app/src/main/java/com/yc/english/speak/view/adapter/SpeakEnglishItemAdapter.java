@@ -35,7 +35,7 @@ public class SpeakEnglishItemAdapter extends BaseQuickAdapter<SpeakAndReadItemIn
     protected void convert(BaseViewHolder helper, SpeakAndReadItemInfo item) {
         setItemLayoutParams(helper, helper.getAdapterPosition());
         helper.setText(R.id.tv_play_count, String.format(mContext.getString(R.string.count), item.getView_num()))
-                .setText(R.id.tv_update_date, String.format(mContext.getString(R.string.update_date), item.getAdd_date_format()))
+//                .setText(R.id.tv_update_date, String.format(mContext.getString(R.string.update_date), item.getAdd_date_format()))
                 .setText(R.id.tv_sub_title, item.getTitle()).addOnClickListener(R.id.fl_play_item);
         int position = helper.getLayoutPosition() - getHeaderLayoutCount();
 

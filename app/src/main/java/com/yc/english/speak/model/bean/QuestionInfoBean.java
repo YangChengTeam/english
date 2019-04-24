@@ -35,6 +35,8 @@ public class QuestionInfoBean implements Parcelable, MultiItemEntity {
     @JSONField(name = "name")
     private String enSentence;//英文句子
 
+    private String voice_url;
+
     private String title;
 
     private boolean isShowSpeak;
@@ -107,6 +109,14 @@ public class QuestionInfoBean implements Parcelable, MultiItemEntity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getVoice_url() {
+        return voice_url;
+    }
+
+    public void setVoice_url(String voice_url) {
+        this.voice_url = voice_url;
     }
 
     public QuestionInfoBean() {
@@ -185,15 +195,16 @@ public class QuestionInfoBean implements Parcelable, MultiItemEntity {
         this.percent = in.readString();
     }
 
-    @Generated(hash = 1819355084)
+    @Generated(hash = 506252916)
     public QuestionInfoBean(int itemType, String id, String readId, String cnSentence,
-            String enSentence, String title, boolean isShowSpeak, boolean isShowResult,
-            boolean speakResult, String percent) {
+            String enSentence, String voice_url, String title, boolean isShowSpeak,
+            boolean isShowResult, boolean speakResult, String percent) {
         this.itemType = itemType;
         this.id = id;
         this.readId = readId;
         this.cnSentence = cnSentence;
         this.enSentence = enSentence;
+        this.voice_url = voice_url;
         this.title = title;
         this.isShowSpeak = isShowSpeak;
         this.isShowResult = isShowResult;

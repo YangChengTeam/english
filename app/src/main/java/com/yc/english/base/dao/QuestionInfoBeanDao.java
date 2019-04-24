@@ -29,11 +29,12 @@ public class QuestionInfoBeanDao extends AbstractDao<QuestionInfoBean, String> {
         public final static Property ReadId = new Property(2, String.class, "readId", false, "READ_ID");
         public final static Property CnSentence = new Property(3, String.class, "cnSentence", false, "CN_SENTENCE");
         public final static Property EnSentence = new Property(4, String.class, "enSentence", false, "EN_SENTENCE");
-        public final static Property Title = new Property(5, String.class, "title", false, "TITLE");
-        public final static Property IsShowSpeak = new Property(6, boolean.class, "isShowSpeak", false, "IS_SHOW_SPEAK");
-        public final static Property IsShowResult = new Property(7, boolean.class, "isShowResult", false, "IS_SHOW_RESULT");
-        public final static Property SpeakResult = new Property(8, boolean.class, "speakResult", false, "SPEAK_RESULT");
-        public final static Property Percent = new Property(9, String.class, "percent", false, "PERCENT");
+        public final static Property Voice_url = new Property(5, String.class, "voice_url", false, "VOICE_URL");
+        public final static Property Title = new Property(6, String.class, "title", false, "TITLE");
+        public final static Property IsShowSpeak = new Property(7, boolean.class, "isShowSpeak", false, "IS_SHOW_SPEAK");
+        public final static Property IsShowResult = new Property(8, boolean.class, "isShowResult", false, "IS_SHOW_RESULT");
+        public final static Property SpeakResult = new Property(9, boolean.class, "speakResult", false, "SPEAK_RESULT");
+        public final static Property Percent = new Property(10, String.class, "percent", false, "PERCENT");
     }
 
 
@@ -54,11 +55,12 @@ public class QuestionInfoBeanDao extends AbstractDao<QuestionInfoBean, String> {
                 "\"READ_ID\" TEXT," + // 2: readId
                 "\"CN_SENTENCE\" TEXT," + // 3: cnSentence
                 "\"EN_SENTENCE\" TEXT," + // 4: enSentence
-                "\"TITLE\" TEXT," + // 5: title
-                "\"IS_SHOW_SPEAK\" INTEGER NOT NULL ," + // 6: isShowSpeak
-                "\"IS_SHOW_RESULT\" INTEGER NOT NULL ," + // 7: isShowResult
-                "\"SPEAK_RESULT\" INTEGER NOT NULL ," + // 8: speakResult
-                "\"PERCENT\" TEXT);"); // 9: percent
+                "\"VOICE_URL\" TEXT," + // 5: voice_url
+                "\"TITLE\" TEXT," + // 6: title
+                "\"IS_SHOW_SPEAK\" INTEGER NOT NULL ," + // 7: isShowSpeak
+                "\"IS_SHOW_RESULT\" INTEGER NOT NULL ," + // 8: isShowResult
+                "\"SPEAK_RESULT\" INTEGER NOT NULL ," + // 9: speakResult
+                "\"PERCENT\" TEXT);"); // 10: percent
     }
 
     /** Drops the underlying database table. */
@@ -92,17 +94,22 @@ public class QuestionInfoBeanDao extends AbstractDao<QuestionInfoBean, String> {
             stmt.bindString(5, enSentence);
         }
  
+        String voice_url = entity.getVoice_url();
+        if (voice_url != null) {
+            stmt.bindString(6, voice_url);
+        }
+ 
         String title = entity.getTitle();
         if (title != null) {
-            stmt.bindString(6, title);
+            stmt.bindString(7, title);
         }
-        stmt.bindLong(7, entity.getIsShowSpeak() ? 1L: 0L);
-        stmt.bindLong(8, entity.getIsShowResult() ? 1L: 0L);
-        stmt.bindLong(9, entity.getSpeakResult() ? 1L: 0L);
+        stmt.bindLong(8, entity.getIsShowSpeak() ? 1L: 0L);
+        stmt.bindLong(9, entity.getIsShowResult() ? 1L: 0L);
+        stmt.bindLong(10, entity.getSpeakResult() ? 1L: 0L);
  
         String percent = entity.getPercent();
         if (percent != null) {
-            stmt.bindString(10, percent);
+            stmt.bindString(11, percent);
         }
     }
 
@@ -131,17 +138,22 @@ public class QuestionInfoBeanDao extends AbstractDao<QuestionInfoBean, String> {
             stmt.bindString(5, enSentence);
         }
  
+        String voice_url = entity.getVoice_url();
+        if (voice_url != null) {
+            stmt.bindString(6, voice_url);
+        }
+ 
         String title = entity.getTitle();
         if (title != null) {
-            stmt.bindString(6, title);
+            stmt.bindString(7, title);
         }
-        stmt.bindLong(7, entity.getIsShowSpeak() ? 1L: 0L);
-        stmt.bindLong(8, entity.getIsShowResult() ? 1L: 0L);
-        stmt.bindLong(9, entity.getSpeakResult() ? 1L: 0L);
+        stmt.bindLong(8, entity.getIsShowSpeak() ? 1L: 0L);
+        stmt.bindLong(9, entity.getIsShowResult() ? 1L: 0L);
+        stmt.bindLong(10, entity.getSpeakResult() ? 1L: 0L);
  
         String percent = entity.getPercent();
         if (percent != null) {
-            stmt.bindString(10, percent);
+            stmt.bindString(11, percent);
         }
     }
 
@@ -158,11 +170,12 @@ public class QuestionInfoBeanDao extends AbstractDao<QuestionInfoBean, String> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // readId
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // cnSentence
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // enSentence
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // title
-            cursor.getShort(offset + 6) != 0, // isShowSpeak
-            cursor.getShort(offset + 7) != 0, // isShowResult
-            cursor.getShort(offset + 8) != 0, // speakResult
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // percent
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // voice_url
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // title
+            cursor.getShort(offset + 7) != 0, // isShowSpeak
+            cursor.getShort(offset + 8) != 0, // isShowResult
+            cursor.getShort(offset + 9) != 0, // speakResult
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // percent
         );
         return entity;
     }
@@ -174,11 +187,12 @@ public class QuestionInfoBeanDao extends AbstractDao<QuestionInfoBean, String> {
         entity.setReadId(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setCnSentence(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setEnSentence(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setTitle(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setIsShowSpeak(cursor.getShort(offset + 6) != 0);
-        entity.setIsShowResult(cursor.getShort(offset + 7) != 0);
-        entity.setSpeakResult(cursor.getShort(offset + 8) != 0);
-        entity.setPercent(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setVoice_url(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setTitle(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setIsShowSpeak(cursor.getShort(offset + 7) != 0);
+        entity.setIsShowResult(cursor.getShort(offset + 8) != 0);
+        entity.setSpeakResult(cursor.getShort(offset + 9) != 0);
+        entity.setPercent(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
      }
     
     @Override

@@ -35,7 +35,7 @@ open class IntelligentQuestionPresenter :
             if (code == HttpConfig.STATUS_OK) {
                 if (it?.data?.list != null) {
                     SimpleCacheUtils.writeCache(mContext, "getQuestion${unitId}${type}", JSON.toJSONString(it.data?.list))
-                    mView.showInfo(it.data?.list!!, it?.data?.use_time)
+                    mView.showInfo(it.data?.list!!, it.data?.use_time)
                     return@subscribe
                 }
             }

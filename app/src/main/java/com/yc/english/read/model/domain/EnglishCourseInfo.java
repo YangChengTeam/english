@@ -33,12 +33,18 @@ public class EnglishCourseInfo implements MultiItemEntity {
     @JSONField(name = "s_name")
     private String sname;
 
+    //中文
     private String means;
 
     private String rid;
 
     @JSONField(name = "is_del")
     private String isDel;
+    //播放音频
+    private String mp3url;
+
+    private String voice_url;
+
 
     private boolean isPlay = false;
 
@@ -171,5 +177,21 @@ public class EnglishCourseInfo implements MultiItemEntity {
 
     public void setPercent(String percent) {
         this.percent = percent;
+    }
+
+    public String getMp3url() {
+        return mp3url;
+    }
+
+    public void setMp3url(String mp3url) {
+        this.mp3url = mp3url;
+    }
+
+    public String getVoice_url() {
+        return voice_url;
+    }
+
+    public void setVoice_url(String voice_url) {
+        this.voice_url = voice_url;
     }
 }

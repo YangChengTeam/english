@@ -25,7 +25,7 @@ import yc.com.blankj.utilcode.util.StringUtils;
 
 public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<EnglishCourseInfo, BaseViewHolder> {
 
-//    private Context mContext;
+
 
     private int languageType = 1;
 
@@ -47,9 +47,8 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
         this.lastPosition = lastPosition;
     }
 
-    public ReadCourseItemClickAdapter(Context mContext, List<EnglishCourseInfo> data) {
+    public ReadCourseItemClickAdapter(List<EnglishCourseInfo> data) {
         super(data);
-//        this.mContext = mContext;
         addItemType(EnglishCourseInfo.CLICK_ITEM_VIEW, R.layout.read_course_play_item);
     }
 
@@ -103,18 +102,19 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
         }
 
         if (item.isPlay()) {
-            helper.setGone(R.id.iv_audio_gif_play, true);
+//            helper.setGone(R.id.iv_audio_gif_play, true);
             Glide.with(mContext).load(R.mipmap.read_audio_gif_play).into((ImageView) helper.getView(R.id.iv_audio_gif_play));
             helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.black_333)).setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.black_333));
-            //helper.setVisible(R.id.layout_tape, true);
+
             helper.setGone(R.id.iv_speak_result, true);
             helper.setGone(R.id.tv_result_hint, true);
-            //helper.setVisible(R.id.iv_result, false);
+
             Glide.with(mContext).load(R.mipmap.item_read_press_icon).into(((ImageView) helper.getView(R.id.iv_play)));
         } else {
             Glide.with(mContext).load(R.mipmap.item_read_normal_icon).into(((ImageView) helper.getView(R.id.iv_play)));
 
-            helper.setGone(R.id.iv_audio_gif_play, false);
+            Glide.with(mContext).clear(helper.getView(R.id.iv_audio_gif_play));
+//            helper.setGone(R.id.iv_audio_gif_play, false);
             helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.gray_999)).setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.gray_999));
             if (helper.getAdapterPosition() == getLastPosition()) {
                 helper.setGone(R.id.iv_speak_result, true);
