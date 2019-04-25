@@ -37,7 +37,8 @@ public class NewsDetailAdapter extends BaseQuickAdapter<CourseInfo, BaseViewHold
         long addTime = Long.parseLong(courseInfo.getAdd_time()) * 1000;
         helper.setText(R.id.tv_title, courseInfo.getTitle())
                 .setText(R.id.tv_time, TimeUtils.millis2String(addTime, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())))
-                .setGone(R.id.iv_microclass_type, false);
+                .setGone(R.id.iv_microclass_type, false)
+                .setText(R.id.tv_pv_num, String.format(mContext.getString(R.string.count), courseInfo.getPv_num()));
         GlideHelper.imageView(mContext, (ImageView) helper.getView(R.id.iv_icon), courseInfo.getImg(), 0);
         if (getData().size() - 1 == position) {
             helper.setVisible(R.id.line, false);

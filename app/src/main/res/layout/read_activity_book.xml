@@ -34,8 +34,8 @@
 
         <ImageView
             android:id="@+id/iv_topbanner_close"
-            android:layout_width="@dimen/t15dp"
-            android:layout_height="@dimen/t15dp"
+            android:layout_width="@dimen/t25dp"
+            android:layout_height="@dimen/t25dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/t5dp"
             android:layout_marginTop="@dimen/t5dp"
@@ -172,8 +172,8 @@
 
                 <ImageView
                     android:id="@+id/iv_bottombanner_close"
-                    android:layout_width="@dimen/t15dp"
-                    android:layout_height="@dimen/t15dp"
+                    android:layout_width="@dimen/t25dp"
+                    android:layout_height="@dimen/t25dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/t5dp"
                     android:layout_marginTop="@dimen/t5dp"

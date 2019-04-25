@@ -52,12 +52,12 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
         val selectSize = 15f
         val selectColor = ContextCompat.getColor(context!!, R.color.primary)
         val unSelectColor = ContextCompat.getColor(context!!, R.color.black_333)
-        mScrollIndicatorView.setOnTransitionListener(OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize))
-        mScrollIndicatorView.setOnIndicatorItemClickListener({ clickItemView, position ->
-            mViewPager.setCurrentItem(position)
+        mScrollIndicatorView.onTransitionListener = OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize)
+        mScrollIndicatorView.setOnIndicatorItemClickListener { _, position ->
+            mViewPager.currentItem = position
             false
-        })
-        mViewPager.setOffscreenPageLimit(1)
+        }
+        mViewPager.offscreenPageLimit = 1
         mViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(i: Int, v: Float, i1: Int) {
 

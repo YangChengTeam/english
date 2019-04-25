@@ -13,8 +13,10 @@ android {
         targetSdkVersion 21
 
 
-        versionCode 15 //56
-        versionName "1.5.3"//1.7.6
+
+        versionCode 16 //56
+        versionName "1.6.0"//1.7.6
+
 
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -22,7 +24,6 @@ android {
         multiDexEnabled true
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86"
-
         }
         flavorDimensions 'default'//这句不能少
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
@@ -201,10 +202,10 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
     api project(':base')
     implementation project(':video-player')
-    compile 'com.wl.tencent-adv:tencent-adv:3.0'
+    compile 'com.wl.tencent-adv:tencent-adv:4.0'
 
 
-//    implementation 'ywl.ywl5320:libmusic:1.2.6'
+    implementation 'ywl.ywl5320:libmusic:1.2.6'
 
     //    implementation files('libs/GDTUnionSDK.4.19.574.min.jar')
     //    compile project(path: ':soundmark')

@@ -22,6 +22,8 @@ public class SpeakEnglishBean implements Parcelable {
     @JSONField(name = "name")
     private String enSentence;//英文句子
 
+
+    private String mp3url;//播放的mp3文件
     private boolean isShowSpeak;
 
     private boolean isShowResult;
@@ -76,6 +78,14 @@ public class SpeakEnglishBean implements Parcelable {
 
     public void setPercent(String percent) {
         this.percent = percent;
+    }
+
+    public String getMp3url() {
+        return mp3url;
+    }
+
+    public void setMp3url(String mp3url) {
+        this.mp3url = mp3url;
     }
 
     public SpeakEnglishBean() {

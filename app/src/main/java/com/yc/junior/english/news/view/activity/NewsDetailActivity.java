@@ -148,9 +148,10 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         title = courseInfo.getTitle();
         mTextViewTitle.setText(title);
 
-        String str = getString(R.string.from_author);
-        mTextViewFrom.setText(String.format(str,
-                TextUtils.isEmpty(courseInfo.getAuthor()) ? getString(R.string.app_name) : courseInfo.getAuthor()));
+        String str = getString(R.string.from_author,
+                TextUtils.isEmpty(courseInfo.getAuthor()) ? getString(R.string.app_name) : courseInfo.getAuthor());
+
+        mTextViewFrom.setText(str);
 
         String time = null;
         if (!TextUtils.isEmpty(courseInfo.getAdd_time())) {

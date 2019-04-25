@@ -8,7 +8,7 @@
     <string name="topic_result">点击查看测试分析</string>
     <string name="correct_answer">正确答案</string>
     <string name="more">更多</string>
-    <string name="dub_language">配音听力</string>
+    <string name="dub_language">英语听说</string>
     <string name="tv">经典影视</string>
     <string name="cartoon">卡通动漫</string>
     <string name="live">生活情趣</string>
@@ -40,7 +40,6 @@
     <string name="synchronization_weike">同步微课</string>
     <string name="textbook_read">教材点读</string>
     <string name="update_weike">已更新%1$s集</string>
-    <string name="forever_vip">永久会员</string>
     <string name="protocol">学习保服务协议</string>
 
 </resources>

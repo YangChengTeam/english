@@ -13,8 +13,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.RxBus;
@@ -25,17 +23,13 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
-import com.iflytek.cloud.SpeechSynthesizer;
-import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
-import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.QuestionHelper;
-import com.yc.junior.english.base.helper.TipsHelper;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.community.view.wdigets.SpaceItemDecoration;
@@ -46,7 +40,9 @@ import com.yc.junior.english.intelligent.model.engin.IntelligentHandInEngin;
 import com.yc.junior.english.intelligent.presenter.IntelligentQuestionPresenter;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.Constant;
-import com.yc.junior.english.read.common.SpeechUtils;
+import com.yc.junior.english.read.common.AudioPlayManager;
+import com.yc.junior.english.read.common.MediaPlayerPlayer;
+import com.yc.junior.english.read.common.OnUiUpdateManager;
 import com.yc.junior.english.speak.model.bean.QuestionInfoBean;
 import com.yc.junior.english.speak.utils.IatSettings;
 import com.yc.junior.english.speak.utils.VoiceJsonParser;
@@ -76,11 +72,12 @@ import yc.com.blankj.utilcode.util.SizeUtils;
 import yc.com.blankj.utilcode.util.StringUtils;
 import yc.com.blankj.utilcode.util.ToastUtils;
 
+
 /**
  * Created by admin on 2017/12/12.
  */
 
-public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPresenter> implements IntelligentQuestionContract.View {
+public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPresenter> implements IntelligentQuestionContract.View, OnUiUpdateManager {
 
     @BindView(R.id.sv_loading)
     StateView mStateView;
@@ -138,9 +135,8 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
     /**
      * 用HashMap存储听写结果
      */
-    private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
+    private HashMap<String, String> mIatResults = new LinkedHashMap<>();
 
-    private Toast mToast;
 
     private SharedPreferences mSharedPreferences;
     /**
@@ -152,15 +148,11 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
     private String voiceText;
 
-    private int countNum = 20;
-
     /**
      * 函数调用返回值
      */
     private int ret = 0;
 
-    // 语音合成对象
-    private SpeechSynthesizer mTts;
 
     private int reportId;
     private int unitId;
@@ -171,12 +163,15 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
 
     private List<QuestionInfoBean> lists;
 
+    //    private MediaPlayer mediaPlayer;
+    private int max;
+    private AudioPlayManager manager;
+
     @Override
     public int getLayoutId() {
         return R.layout.question_english_activity;
     }
 
-    private RelativeLayout.LayoutParams params;
 
     private String getFinishKey() {
         String key = "finish";
@@ -193,7 +188,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mToolbar.setTitle("口语练习");
         mToolbar.showNavigationIcon();
         mToolbar.setTitleColor(ContextCompat.getColor(this, R.color.white));
-        mTts = SpeechUtils.getTts(this);
+//        mTts = SpeechUtils.getTts(this);
 
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -249,13 +244,19 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mSharedPreferences = getSharedPreferences(IatSettings.PREFER_NAME,
                 Activity.MODE_PRIVATE);
 
+        initMediaPlayer();
+
+        initListener();
+    }
+
+    private void initListener() {
         RxView.clicks(mCommitLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
 
                 showLoadingDialog("正在提交");
 
-                if (mQuestionItemAdapter.getData() != null && mQuestionItemAdapter.getData().size() > 0) {
+                if (mQuestionItemAdapter.getData().size() > 0) {
                     StringBuffer result = new StringBuffer("[");
                     for (int i = 0; i < mQuestionItemAdapter.getData().size(); i++) {
                         QuestionInfoBean infoBean = mQuestionItemAdapter.getData().get(i);
@@ -336,7 +337,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
                     if (currentView != null) {
                         currentView.findViewById(R.id.speak_tape_layout).setVisibility(View.VISIBLE);
-                        progressBar = (CircularProgressBar) currentView.findViewById(R.id.progress_bar);
+                        progressBar = currentView.findViewById(R.id.progress_bar);
                     }
                     view.setVisibility(View.GONE);
                     initTask();
@@ -361,10 +362,10 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                     audioFilePath = Environment.getExternalStorageDirectory() + "/msc/" + UserInfoHelper.getUserInfo().getUid() + "-" + id + ".wav";
                     audioFile = new File(audioFilePath);
 
-                    if (audioFile != null && audioFile.exists()) {
+                    if (audioFile.exists()) {
                         View currentView = mLinearLayoutManager.findViewByPosition(position);
                         if (currentView != null) {
-                            playProgressBar = (CircularProgressBar) currentView.findViewById(R.id.play_progress_bar);
+                            playProgressBar = currentView.findViewById(R.id.play_progress_bar);
                             currentView.findViewById(R.id.play_speak_tape_layout).setVisibility(View.VISIBLE);
                         }
                         view.setVisibility(View.GONE);
@@ -386,13 +387,13 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                 if (view.getId() == R.id.iv_play_read && !isPlay && !isPlayTape && !isTape) {
                     View currentView = mLinearLayoutManager.findViewByPosition(position);
                     if (currentView != null) {
-                        playReadProgressBar = (CircularProgressBar) currentView.findViewById(R.id.play_read_progress_bar);
+                        playReadProgressBar = currentView.findViewById(R.id.play_read_progress_bar);
                         currentView.findViewById(R.id.play_layout).setVisibility(View.VISIBLE);
                     }
                     view.setVisibility(View.GONE);
                     //TODO
                     //播放点读
-                    startSynthesizer(position);
+                    startPlay(position);
                     isPlay = true;
                 }
 
@@ -405,7 +406,9 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                     view.setVisibility(View.GONE);
                     //TODO
                     //停止播放点读
-                    stopPlay();
+//                    stopPlay();
+//                    resetMediaPlay();
+                    manager.stop();
                 }
 
                 lastPosition = position;
@@ -528,7 +531,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
             audioFilePath = Environment.getExternalStorageDirectory() + "/msc/" + UserInfoHelper.getUserInfo().getUid() + "-" + id + ".wav";
             audioFile = new File(audioFilePath);
 
-            if (audioFile != null && audioFile.exists()) {
+            if (audioFile.exists()) {
                 initTask();
 
                 mPlayer = new MediaPlayer();
@@ -591,32 +594,6 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         }
     };
 
-    /**
-     * 听写UI监听器
-     */
-    private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
-        @Override
-        public void onResult(RecognizerResult results, boolean isLast) {
-            if (mTranslateEnable) {
-                printTransResult(results);
-            } else {
-                printResult(results);
-            }
-        }
-
-        /**
-         * 识别回调错误.
-         */
-        @Override
-        public void onError(SpeechError error) {
-            if (mTranslateEnable && error.getErrorCode() == 14002) {
-                ToastUtils.showLong(error.getPlainDescription(true) + "\n请确认是否已开通翻译功能");
-            } else {
-                ToastUtils.showLong(error.getPlainDescription(true));
-            }
-        }
-
-    };
 
     /**
      * 听写监听器。
@@ -798,7 +775,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                 }
             }
 
-            if (matchCount > 0 && sourceList.size() > 0) {
+            if (matchCount > 0) {
                 percent = (float) matchCount / (float) sourceList.size() * 100;
             } else {
                 percent = 0;
@@ -906,7 +883,7 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                 tempList.add(setBean(questionInfoBean, questionInfo));
                 if (questionInfo.getData() != null && questionInfo.getData().size() > 0) {
                     for (int j = 0; j < questionInfo.getData().size(); j++) {
-                        QuestionInfoWrapper.QuestionInfo optionInfo = (QuestionInfoWrapper.QuestionInfo) questionInfo.getData().get(j);
+                        QuestionInfoWrapper.QuestionInfo optionInfo = questionInfo.getData().get(j);
                         QuestionInfoBean optionItem = new QuestionInfoBean(QuestionInfoBean.MAIN_QUESTION);
                         tempList.add(setBean(optionItem, optionInfo));
                     }
@@ -951,6 +928,8 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         questionInfoBean.setCnSentence(optionInfo.getAnalysis());
         questionInfoBean.setEnSentence(optionInfo.getVoiceText());
         questionInfoBean.setPercent(optionInfo.getUserAnswer());
+        questionInfoBean.setVoice_url(optionInfo.getVoiceUrl());
+
         return questionInfoBean;
     }
 
@@ -976,39 +955,62 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mStateView.showLoading(mSpeakListLayout);
     }
 
-    /**
-     * 合成回调监听。
-     */
-    private SynthesizerListener mTtsListener = new SynthesizerListener() {
-        @Override
-        public void onSpeakBegin() {
+
+    private void initMediaPlayer() {
+
+        manager = new MediaPlayerPlayer(this);
+    }
+
+
+    public void startPlay(int position) {
+        if (position < 0 || position >= mQuestionItemAdapter.getData().size()) {
+            return;
         }
+//        resetMediaPlay();
+        manager.stop();
+        String url = mQuestionItemAdapter.getData().get(position).getVoice_url();
 
+        manager.start(url);
+
+
+    }
+
+
+    private Runnable myRunable = new Runnable() {
         @Override
-        public void onSpeakPaused() {
-            //暂停播放
+        public void run() {
+            if (manager != null && manager.isPlaying()) {
+                int duration = manager.getPlayPosition();
+                duration = (int) ((duration / (max * 1f)) * 100);
+//                LogUtil.msg("duration: " + duration);
+                playReadProgressBar.setProgress(duration);
+
+                mHandler.postDelayed(this, 100);
+            }
         }
+    };
 
-        @Override
-        public void onSpeakResumed() {
-            //继续播放
-        }
 
-        @Override
-        public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
-            // 合成进度
-        }
+    @Override
+    public boolean isStatusBarMateria() {
+        return true;
+    }
 
-        @Override
-        public void onSpeakProgress(int percent, int beginPos, int endPos) {
-            // 播放进度
-            playReadProgressBar.setProgress(percent);
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-        @Override
-        public void onCompleted(SpeechError error) {
-            if (error == null) {
+        manager.onDestroy();
 
+        if (mHandler != null)
+            mHandler.removeCallbacks(myRunable);
+
+    }
+
+    private void setPlayDoneState() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
                 View currentView = mLinearLayoutManager.findViewByPosition(lastPosition);
                 if (currentView != null) {
                     currentView.findViewById(R.id.iv_play_read).setVisibility(View.VISIBLE);
@@ -1016,19 +1018,12 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
                 }
                 isPlay = false;
                 playReadProgressBar.setProgress(0);
-            } else if (error != null) {
-                if (error.getErrorDescription().contains("权")) {
-                    com.yc.junior.english.base.utils.SpeechUtils.resetAppid(QuestionActivity.this);
-                    return;
-                }
-            }
-        }
 
-        @Override
-        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-            // 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因
-        }
-    };
+            }
+        });
+    }
+
+    ;
 
     /**
      * 播放点读
@@ -1039,50 +1034,18 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         if (position < 0 || position >= mQuestionItemAdapter.getData().size()) {
             return;
         }
-        mTts = SpeechUtils.getTts(this);
-        String text = mQuestionItemAdapter.getData().get(position).getEnSentence();
-        int code = mTts.startSpeaking(text, mTtsListener);
-        if (code != ErrorCode.SUCCESS) {
-            if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
-                TipsHelper.tips(QuestionActivity.this, "语音合成失败");
-            } else {
-                TipsHelper.tips(QuestionActivity.this, "语音合成失败");
-                mTts.stopSpeaking();
-            }
-        }
-    }
-
-    /**
-     * 停止点读
-     */
-    public void stopPlay() {
-        if (mTts != null && mTts.isSpeaking()) {
-            mTts.stopSpeaking();
-        }
-        isPlay = false;
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mTts != null && mTts.isSpeaking()) {
-            mTts.stopSpeaking();
-        }
-    }
-
-    @Override
-    public boolean isStatusBarMateria() {
-        return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (null != mTts) {
-            mTts.stopSpeaking();
-            mTts.destroy();
-            mTts = null;
-        }
+//        mTts = SpeechUtils.getTts(this);
+//        String text = mQuestionItemAdapter.getData().get(position).getEnSentence();
+//        int code = mTts.startSpeaking(text, mTtsListener);
+//        if (code != ErrorCode.SUCCESS) {
+//            if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
+//                TipsHelper.tips(QuestionActivity.this, "语音合成失败");
+//            } else {
+//                TipsHelper.tips(QuestionActivity.this, "语音合成失败");
+//                mTts.stopSpeaking();
+//
+//            }
+//        });
     }
 
     @Override
@@ -1091,4 +1054,24 @@ public class QuestionActivity extends FullScreenActivity<IntelligentQuestionPres
         mCommitLayout.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onCompleteUI() {
+        setPlayDoneState();
+    }
+
+    @Override
+    public void onErrorUI(int what, int extra, String msg) {
+
+    }
+
+    @Override
+    public void onStopUI() {
+        isPlay = false;
+    }
+
+    @Override
+    public void onStartUI(int duration) {
+        max = duration;
+        mHandler.postDelayed(myRunable, 100);
+    }
 }

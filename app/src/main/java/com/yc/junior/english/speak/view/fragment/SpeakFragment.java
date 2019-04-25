@@ -28,9 +28,7 @@ import yc.com.base.BaseFragment;
  * Created by wanglin  on 2017/10/12 15:00.
  */
 
-public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> implements SpeakEnglishContract.View
-
-{
+public class SpeakFragment extends BaseFragment<SpeakEnglishListPresenter> implements SpeakEnglishContract.View {
     private static final String TAG = "SpeakFragment";
 
     @BindView(R.id.recyclerView)
