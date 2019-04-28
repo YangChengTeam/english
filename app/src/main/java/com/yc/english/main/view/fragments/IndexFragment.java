@@ -1,10 +1,12 @@
 package com.yc.english.main.view.fragments;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -39,6 +41,10 @@ import com.umeng.analytics.MobclickAgent;
 import com.yc.english.EnglishApp;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.base.utils.PermissionGroup;
+import com.yc.english.base.utils.PermissionManager;
+import com.yc.english.base.utils.PermissionUIListener;
+import com.yc.english.base.view.MyScrollview;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
 import com.yc.english.base.view.WebActivity;
@@ -70,6 +76,7 @@ import com.yc.soundmark.study.activity.StudyActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.security.Permission;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -92,9 +99,9 @@ import yc.com.tencent_adv.OnAdvStateListener;
  * Created by zhangkai on 2017/7/24.
  */
 
-public class IndexFragment extends BaseFragment<IndexPresenter> implements IndexContract.View, NativeExpressAD.NativeExpressADListener, OnAdvStateListener {
+public class IndexFragment extends BaseFragment<IndexPresenter> implements IndexContract.View, NativeExpressAD.NativeExpressADListener, OnAdvStateListener, PermissionUIListener {
     @BindView(R.id.sv_content)
-    ScrollView mContextScrollView;
+    MyScrollview mContextScrollView;
 
     @BindView(R.id.sv_loading)
     StateView mLoadingStateView;
@@ -195,6 +202,12 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     public void init() {
 
 
+        PermissionManager.getInstance().addPermissions(getActivity(), this,
+                new String[]{Manifest.permission.READ_PHONE_STATE}, PermissionGroup.getPermissionGroup(PermissionGroup.GroupType.STORAGE_GROUP),
+                PermissionGroup.getPermissionGroup(PermissionGroup.GroupType.MICROPHONE_GROUP),
+                new String[]{Manifest.permission.CAMERA});
+
+
         if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             rlTopBanner.setVisibility(View.GONE);
             rlBottomBanner.setVisibility(View.GONE);
@@ -204,7 +217,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
             initNativeExpressAD();
         }
-
 
         StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, mToolBar, mStatusBar);
         mPresenter = new IndexPresenter(getActivity(), this);
@@ -825,6 +837,16 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             int removedPosition = mAdViewPositionMap.get(view);
             mRecommendAdapter.removeADView(removedPosition, view);
         }
+
+    }
+
+    @Override
+    public void onPermissionGranted() {
+
+    }
+
+    @Override
+    public void onPermissionDenyed() {
 
     }
 }

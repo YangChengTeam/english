@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kk.utils.LogUtil;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
@@ -120,6 +121,7 @@ public class IndexRecommendAdapter extends RecyclerView.Adapter<IndexRecommendAd
     public void addNewData(List list) {
 
         this.mData = list;
+        LogUtil.msg("list: " + list.size());
         notifyDataSetChanged();
     }
 

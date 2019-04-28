@@ -247,12 +247,12 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private void initListener() {
         mTsSubject = PublishSubject.create();
-//        mTsSubject.subscribe()
+
         mTsSubject.delay(800, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer position) {
 
-                LogUtil.msg("position: " + position);
+
                 if (playPosition < mItemAdapter.getData().size()) {
                     enableState(playPosition);
 //                    startSynthesizer(position);
@@ -263,7 +263,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 }
             }
         });
-//        mTsSubject.onNext(1);
+
 
         //下一单元
         RxView.clicks(mNextUnitImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -838,7 +838,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     }
 
 
-
     /**
      * 语音合成播放
      *
@@ -1069,7 +1068,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     public void getInfo(String loginInfo) {
         userInfo = UserInfoHelper.getUserInfo();
     }
-
 
 
     @Override

@@ -41,18 +41,24 @@ public class WlMusicPlayer implements AudioPlayManager, OnPreparedListener, OnCo
     @Override
     public void start(String url) {
         stop();
+        try {
+            wlMusic.setSource(url); //设置音频源
+            int anInt = SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 40);
+            float speed = anInt / (40 * 1f);
+            if (speed == 0) {
+                speed = 0.25f;
+            }
 
-        wlMusic.setSource(url); //设置音频源
-        int anInt = SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 40);
-        float speed = anInt / (40 * 1f);
-        if (speed == 0) {
-            speed = 0.25f;
+            LogUtil.msg("speed: " + speed);
+            wlMusic.setPlaySpeed(speed); //设置播放速度 (1.0正常) 范围：0.25---4.0f
+
+            wlMusic.prePared();
+        } catch (Exception e) {
+            if (updateManager != null) {
+                updateManager.onErrorUI(0, 0, e.getMessage());
+            }
         }
 
-        LogUtil.msg("speed: " + speed);
-        wlMusic.setPlaySpeed(speed); //设置播放速度 (1.0正常) 范围：0.25---4.0f
-
-        wlMusic.prePared();
     }
 
     @Override

@@ -16,6 +16,7 @@ import android.view.WindowManager;
 
 import com.yc.english.R;
 
+import com.yc.english.base.utils.PermissionManager;
 import com.yc.english.base.view.AlertDialog;
 
 import com.yc.english.intelligent.view.activitys.IntelligentTypeStartBgActivity;
@@ -245,4 +246,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         valueAnimator.start();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 }

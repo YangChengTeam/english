@@ -1,21 +1,20 @@
 package com.yc.english.vip.views.fragments;
 
-import android.graphics.Paint;
-import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.utils.LogUtil;
 import com.kk.utils.ScreenUtil;
 import com.yc.english.R;
 import com.yc.english.base.view.SharePopupWindow;
@@ -31,23 +30,21 @@ import com.yc.english.pay.alipay.IWXPay1Impl;
 import com.yc.english.pay.alipay.OrderInfo;
 import com.yc.english.setting.model.bean.Config;
 import com.yc.english.setting.model.bean.GoodInfo;
-import com.yc.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.english.vip.adapter.PayNewAdapter;
+import com.yc.english.vip.adapter.PayTimeLimitAdapter;
 import com.yc.english.vip.contract.VipBuyContract;
 import com.yc.english.vip.model.bean.VipGoodInfo;
 import com.yc.english.vip.presenter.VipBuyPresenter;
 import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.english.vip.utils.VipInfoHelper;
+import com.yc.soundmark.category.utils.ItemDecorationHelper;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;
 import yc.com.base.BaseDialogFragment;
@@ -58,12 +55,12 @@ import yc.com.blankj.utilcode.util.TimeUtils;
  * Created by wanglin  on 2019/3/12 17:28.
  */
 public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implements VipBuyContract.View, SharePopupWindow.OnShareItemClickListener {
+
+
     @BindView(R.id.vip_recyclerView)
     RecyclerView vipRecyclerView;
-    @BindView(R.id.tv_current_price)
-    TextView tvCurrentPrice;
-    @BindView(R.id.tv_origin_price)
-    TextView tvOriginPrice;
+    @BindView(R.id.timeLimit_recyclerView)
+    RecyclerView timeLimitRecyclerView;
     @BindView(R.id.ll_ali_pay)
     LinearLayout llAliPay;
     @BindView(R.id.ll_wx_pay)
@@ -72,13 +69,10 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
     TextView tvPay;
     @BindView(R.id.tv_share)
     TextView tvShare;
-    @BindView(R.id.iv_close)
-    ImageView ivClose;
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
-    @BindView(R.id.tv_vip_date)
-    TextView tvVipDate;
-
+    @BindView(R.id.iv_close)
+    ImageView ivClose;
 
     private IAliPay1Impl iAliPay;
     private IWXPay1Impl iwxPay;
@@ -87,6 +81,7 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
     private GoodInfo mGoodInfo;
     private String mPayWayName = PayConfig.ali_pay;
     private SharePopupWindow sharePopupWindow;
+    private PayTimeLimitAdapter timeLimitAdapter;
 
     @Override
     public int getLayoutId() {
@@ -100,42 +95,40 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
         iAliPay = new IAliPay1Impl(getActivity());
         iwxPay = new IWXPay1Impl(getActivity());
 
-        tvOriginPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);  // 设置中划线并加清晰
         llAliPay.setSelected(true);
         vipRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         payNewAdapter = new PayNewAdapter(null);
         vipRecyclerView.setAdapter(payNewAdapter);
-//        vipRecyclerView.setsc
 
-        GoodInfoWrapper goodInfoWrapper = VipInfoHelper.getGoodInfoWrapper();
-        if (goodInfoWrapper != null) {
-            List<GoodInfo> wrapperVip = goodInfoWrapper.getVip();
-            if (wrapperVip != null && wrapperVip.size() > 0) {
-                mGoodInfo = wrapperVip.get(0);
-                BigDecimal bd = new BigDecimal(mGoodInfo.getPay_price());
-                BigDecimal bd1 = new BigDecimal(mGoodInfo.getPrice());
+        //时间期限
+        timeLimitRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        timeLimitAdapter = new PayTimeLimitAdapter(null);
+        timeLimitRecyclerView.setAdapter(timeLimitAdapter);
+        timeLimitRecyclerView.addItemDecoration(new ItemDecorationHelper(getActivity(), 5));
 
-                tvCurrentPrice.setText(String.format(getString(R.string.new_vip_price), bd.stripTrailingZeros().intValue()));
-                tvOriginPrice.setText(String.format(getString(R.string.new_origin_price), bd1.stripTrailingZeros().intValue()));
-                int timeLimit = Integer.parseInt(mGoodInfo.getUse_time_limit());
-                String vipDate = timeLimit + "个" + mGoodInfo.getUnit();
-                if (timeLimit > 12) {
-                    vipDate = "永久";
-                }
-                tvVipDate.setText(vipDate);
 
-            }
+        List<GoodInfo> goodInfos = VipInfoHelper.getGoodInfoList();
+        if (goodInfos != null && goodInfos.size() > 0) {
 
+            mGoodInfo = goodInfos.get(0);
+            timeLimitAdapter.setNewData(goodInfos);
         }
 
         RelativeLayout.MarginLayoutParams layoutParams = (RelativeLayout.MarginLayoutParams) ivClose.getLayoutParams();
 
-        int viewHeight = ScreenUtil.getHeight(getActivity()) * 19 / 20;
-        layoutParams.topMargin = viewHeight * 77 / 1000 + 5;
+        int viewHeight = ScreenUtil.getHeight(getActivity()) * 24 / 25;
+        layoutParams.topMargin = viewHeight * 77 / 1000 + 20;
         ivClose.setLayoutParams(layoutParams);
 
+//        LogUtil.msg("height" + ScreenUtil.getHeight(getActivity()));
+        int paddingTop;
+        if (ScreenUtil.getHeight(getActivity()) > 1280) {
+            paddingTop = viewHeight * 3 / 10;
+        } else {
+            paddingTop = viewHeight * 32 / 100;
+        }
 
-        llContainer.setPadding(llContainer.getPaddingLeft(), viewHeight * 13 / 40, llContainer.getPaddingRight(), llContainer.getPaddingBottom());
+        llContainer.setPadding(llContainer.getPaddingLeft(), paddingTop, llContainer.getPaddingRight(), llContainer.getPaddingBottom());
 
         initListener();
     }
@@ -194,7 +187,16 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
                 sharePopupWindow.show(rootView);
             }
         });
+
+        timeLimitAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                timeLimitAdapter.getViewByPostion(position).setSelected(true);
+                mGoodInfo = timeLimitAdapter.getItem(position);
+            }
+        });
     }
+
 
     private void resetPayway() {
         llAliPay.setSelected(false);
@@ -203,7 +205,7 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
 
     @Override
     public int getHeight() {
-        return ScreenUtil.getHeight(getActivity()) * 19 / 20;
+        return ScreenUtil.getHeight(getActivity()) * 24 / 25;
     }
 
     @Override
@@ -279,6 +281,9 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
         Date date = new Date();
         userInfo.setVip_start_time(date.getTime() / 1000);
         if (mGoodInfo.getUse_time_limit() != null) {
+            if (Integer.parseInt(mGoodInfo.getUse_time_limit()) > 12) {
+                userInfo.setIsSVip(1);
+            }
             int use_time_Limit = Integer.parseInt(mGoodInfo.getUse_time_limit());
             long vip_end_time = date.getTime() + use_time_Limit * 30 * (Config.MS_IN_A_DAY);
             userInfo.setVip_end_time(vip_end_time / 1000);
@@ -351,6 +356,4 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
         mPresenter.getShareVipAllow(UserInfoHelper.getUid());
 
     }
-
-
 }

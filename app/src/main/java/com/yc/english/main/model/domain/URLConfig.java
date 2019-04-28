@@ -63,7 +63,9 @@ public class URLConfig {
 
     public static final String ZW_READ_NUM_URL = getBaseUrl() + "zw/read_pv";//统计点击数量
 
-    public static final String NEWS_READ_NUM_URL=getBaseUrl()+"news/read_pv";//新闻点击数量
+    public static final String NEWS_READ_NUM_URL = getBaseUrl() + "news/read_pv";//新闻点击数量
+
+    public static final String VIP_INFO_LIST_URL = getBaseUrl() + "goods/lists";//会员种类
 
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);

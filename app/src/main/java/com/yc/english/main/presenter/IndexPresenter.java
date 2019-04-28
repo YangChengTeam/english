@@ -16,6 +16,7 @@ import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.main.model.engin.IndexEngin;
 import com.yc.english.pay.PayWayInfo;
 import com.yc.english.pay.PayWayInfoHelper;
+import com.yc.english.setting.model.bean.GoodInfo;
 import com.yc.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.english.vip.utils.VipInfoHelper;
 
@@ -46,7 +47,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
 
         getIndexInfo(false);
         getPayWayList();
-        getGoodsList(1);
+        getGoodsList();
 
     }
 
@@ -179,9 +180,9 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         mSubscriptions.add(subscription);
     }
 
-    private void getGoodsList(int goods_type_id) {
+    private void getGoodsList() {
 
-        Subscription subscription = EngineUtils.getGoodsList(mContext, goods_type_id, 1).subscribe(new Subscriber<ResultInfo<GoodInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getVipInfoList(mContext).subscribe(new Subscriber<ResultInfo<List<GoodInfo>>>() {
             @Override
             public void onCompleted() {
 
@@ -193,7 +194,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
             }
 
             @Override
-            public void onNext(final ResultInfo<GoodInfoWrapper> goodInfoWrapperResultInfo) {
+            public void onNext(final ResultInfo<List<GoodInfo>> goodInfoWrapperResultInfo) {
                 ResultInfoHelper.handleResultInfo(goodInfoWrapperResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
@@ -209,7 +210,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                     public void reulstInfoOk() {
                         if (goodInfoWrapperResultInfo.data != null) {
 
-                            VipInfoHelper.setGoodInfoWrapper(goodInfoWrapperResultInfo.data);
+                            VipInfoHelper.setGoodInfoList(goodInfoWrapperResultInfo.data);
                         }
                     }
                 });
