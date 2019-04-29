@@ -29,7 +29,7 @@
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
-                app:titleTextAppearance="@style/ToolBar"></android.support.v7.widget.Toolbar>
+                app:titleTextAppearance="@style/ToolBar"/>
 
             <include layout="@layout/activity_top_setting" />
         </android.support.design.widget.CollapsingToolbarLayout>

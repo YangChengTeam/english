@@ -10,14 +10,13 @@ android {
         applicationId "com.yc.junior.english"
 
         minSdkVersion 17
-        targetSdkVersion 21
+        targetSdkVersion 26
 
 
 
-        versionCode 16 //56
-        versionName "1.6.0"//1.7.6
 
-
+        versionCode 17 //56
+        versionName "1.6.1"//1.7.6
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -143,7 +142,7 @@ dependencies {
     compile 'com.android.support:support-annotations:25.3.1'
     compile 'com.android.support:support-v4:26.1.0'
     //    implementation 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:cardview-v7:26.1.0'
     //        exclude group: 'com.android.support:cardview-v7'
     //    }
     implementation 'com.jakewharton:butterknife:8.8.1'
@@ -185,7 +184,7 @@ dependencies {
     compile files('libs/glide-full-4.3.1.jar')
 
     compile project(':jiaozivideoplayer-lib')
-    compile 'com.android.support:recyclerview-v7:25.0.3'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.google.android:flexbox:0.3.2'
     configurations.all {
         resolutionStrategy {
@@ -202,8 +201,7 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
     api project(':base')
     implementation project(':video-player')
-    compile 'com.wl.tencent-adv:tencent-adv:4.0'
-
+    compile 'com.wl.tencent-adv:tencent-adv:7.0'
 
     implementation 'ywl.ywl5320:libmusic:1.2.6'
 

@@ -194,7 +194,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
                         android:layout_toLeftOf="@+id/tv_more"
-                        android:background="@color/gray_aaa"></View>
+                        android:background="@color/gray_aaa" />
 
                 </RelativeLayout>
 
@@ -224,7 +224,7 @@
 
                         <View
                             android:layout_width="7dp"
-                            android:layout_height="match_parent"></View>
+                            android:layout_height="match_parent" />
 
                         <ImageView
                             android:id="@+id/iv_speak"
@@ -254,7 +254,7 @@
 
                         <View
                             android:layout_width="7dp"
-                            android:layout_height="match_parent"></View>
+                            android:layout_height="match_parent" />
 
                         <ImageView
                             android:id="@+id/iv_word"
@@ -266,7 +266,7 @@
 
                         <View
                             android:layout_width="7dp"
-                            android:layout_height="match_parent"></View>
+                            android:layout_height="match_parent" />
 
                         <ImageView
                             android:id="@+id/iv_task"
@@ -278,7 +278,7 @@
 
                         <View
                             android:layout_width="7dp"
-                            android:layout_height="match_parent"></View>
+                            android:layout_height="match_parent" />
 
 
                         <ImageView
@@ -310,7 +310,7 @@
 
                         <View
                             android:layout_width="7dp"
-                            android:layout_height="match_parent"></View>
+                            android:layout_height="match_parent" />
 
                         <ImageView
                             android:id="@+id/iv_spoken"
@@ -385,12 +385,12 @@
                     android:id="@+id/rv_recommend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"></android.support.v7.widget.RecyclerView>
+                    android:background="@color/white" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/gray_ddd"></View>
+                    android:background="@color/gray_ddd" />
 
                 <ImageView
                     android:id="@+id/iv_exam"
@@ -486,14 +486,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="204dp"
                     android:background="@color/white"
-                    android:visibility="gone"></android.support.v7.widget.RecyclerView>
+                    android:visibility="gone" />
 
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/gray_ddd"
-                    android:visibility="gone"></View>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/iv_ad"

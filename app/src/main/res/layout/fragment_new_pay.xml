@@ -11,93 +11,26 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/t12dp"
         android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:paddingTop="185dp">
+        android:paddingRight="42dp"
+        android:paddingTop="140dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/vip_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginRight="@dimen/t8dp"
             android:layout_weight="1" />
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/timeLimit_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/t8dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/t3dp"
-                android:layout_weight="1"
-                android:background="@drawable/pay_new_bg"
-                android:paddingBottom="@dimen/t8dp"
-                android:paddingLeft="@dimen/t5dp"
-                android:paddingRight="@dimen/t5dp"
-                android:paddingTop="@dimen/t8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="使用期限"
-                    android:textColor="@color/gray_8e8e8e"
-                    android:textSize="@dimen/t12sp" />
-
-                <TextView
-                    android:id="@+id/tv_vip_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/t8dp"
-                    android:gravity="right"
-                    android:text="一个月"
-                    android:textColor="@color/red_db4d2a"
-                    android:textSize="@dimen/sp_14"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/t3dp"
-                android:layout_weight="1"
-                android:background="@drawable/pay_new_bg"
-                android:paddingBottom="@dimen/t8dp"
-                android:paddingLeft="@dimen/t5dp"
-                android:paddingRight="@dimen/t5dp"
-                android:paddingTop="@dimen/t8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pay_price"
-                    android:textColor="@color/gray_8e8e8e"
-                    android:textSize="@dimen/t12sp" />
-
-                <TextView
-                    android:id="@+id/tv_current_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/t5dp"
-                    android:text="119元"
-                    android:textColor="@color/red_db4d2a"
-                    android:textSize="@dimen/sp_14"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_origin_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="原价399元"
-                    android:textColor="@color/red_db4d2a"
-                    android:textSize="@dimen/t10sp" />
-            </LinearLayout>
-        </LinearLayout>
+            android:layout_marginTop="@dimen/t8dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/t8dp">
+            android:layout_marginRight="@dimen/t8dp">
 
             <LinearLayout
                 android:id="@+id/ll_ali_pay"
@@ -105,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/t3dp"
                 android:layout_weight="1"
-
                 android:background="@drawable/pay_way_new_selector"
                 android:padding="@dimen/t3dp">
 
@@ -151,6 +83,7 @@
             android:id="@+id/tv_pay"
             android:layout_width="match_parent"
             android:layout_height="38dp"
+            android:layout_marginRight="@dimen/t8dp"
             android:layout_marginTop="@dimen/t8dp"
             android:background="@drawable/pay_new_btn"
             android:clickable="true"
@@ -164,6 +97,7 @@
             android:id="@+id/tv_share"
             android:layout_width="match_parent"
             android:layout_height="38dp"
+            android:layout_marginRight="@dimen/t8dp"
             android:layout_marginTop="@dimen/t8dp"
             android:background="@drawable/share_new_btn"
             android:clickable="true"
@@ -181,7 +115,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="32dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="80dp"
         android:src="@mipmap/pay_new_close" />
 
 

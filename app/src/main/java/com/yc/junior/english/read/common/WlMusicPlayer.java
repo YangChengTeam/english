@@ -42,6 +42,7 @@ public class WlMusicPlayer implements AudioPlayManager, OnPreparedListener, OnCo
     public void start(String url) {
         stop();
 
+
         try {
             wlMusic.setSource(url); //设置音频源
             int anInt = SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 40);

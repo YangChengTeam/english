@@ -32,6 +32,8 @@ public class UserInfo {
 
     private int yb_vip;//是否是音标vip
 
+    private int isSVip;//是否永久会员 1 是 0 否
+
     public String getMobile() {
         return mobile;
     }
@@ -159,5 +161,13 @@ public class UserInfo {
 
     public void setYb_vip(int yb_vip) {
         this.yb_vip = yb_vip;
+    }
+
+    public int getIsSVip() {
+        return isSVip;
+    }
+
+    public void setIsSVip(int isSVip) {
+        this.isSVip = isSVip;
     }
 }

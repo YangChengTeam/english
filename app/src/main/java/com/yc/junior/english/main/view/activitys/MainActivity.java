@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.yc.junior.english.R;
+import com.yc.junior.english.base.utils.PermissionManager;
 import com.yc.junior.english.base.view.AlertDialog;
 import com.yc.junior.english.intelligent.view.activitys.IntelligentTypeStartBgActivity;
 import com.yc.junior.english.intelligent.view.fragments.IntelligentTypeFragment;
@@ -29,8 +31,6 @@ import butterknife.BindView;
 import yc.com.base.BaseActivity;
 import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.SPUtils;
-
-
 
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
@@ -244,4 +244,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         valueAnimator.start();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 }

@@ -16,6 +16,7 @@ import com.yc.junior.english.main.model.domain.UserInfo;
 import com.yc.junior.english.news.model.domain.OrderGood;
 import com.yc.junior.english.pay.PayWayInfo;
 import com.yc.junior.english.pay.alipay.OrderInfo;
+import com.yc.junior.english.setting.model.bean.GoodInfo;
 import com.yc.junior.english.setting.model.bean.GoodInfoWrapper;
 import com.yc.junior.english.setting.model.bean.ShareStateInfo;
 import com.yc.junior.english.vip.model.bean.VipGoodInfoWrapper;
@@ -184,5 +185,10 @@ public class EngineUtils {
         params.put("news_id", news_id);
         return HttpCoreEngin.get(context).rxpost(URLConfig.NEWS_READ_NUM_URL, new TypeReference<ResultInfo<ReadNumInfo>>() {
         }.getType(), params, true, true, true);
+    }
+
+    public static Observable<ResultInfo<List<GoodInfo>>> getVipInfoList(Context context) {
+        return HttpCoreEngin.get(context).rxpost(URLConfig.VIP_INFO_LIST_URL, new TypeReference<ResultInfo<List<GoodInfo>>>() {
+        }.getType(), null, true, true, true);
     }
 }

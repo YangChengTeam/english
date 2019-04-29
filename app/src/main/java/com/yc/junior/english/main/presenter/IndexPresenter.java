@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
 import com.kk.securityhttp.domain.ResultInfo;
-
 import com.yc.junior.english.base.helper.ResultInfoHelper;
 import com.yc.junior.english.base.utils.SimpleCacheUtils;
 import com.yc.junior.english.composition.model.bean.ReadNumInfo;
@@ -17,7 +16,7 @@ import com.yc.junior.english.main.model.domain.UserInfo;
 import com.yc.junior.english.main.model.engin.IndexEngin;
 import com.yc.junior.english.pay.PayWayInfo;
 import com.yc.junior.english.pay.PayWayInfoHelper;
-import com.yc.junior.english.setting.model.bean.GoodInfoWrapper;
+import com.yc.junior.english.setting.model.bean.GoodInfo;
 import com.yc.junior.english.vip.utils.VipInfoHelper;
 
 import java.util.ArrayList;
@@ -27,6 +26,7 @@ import rx.Subscriber;
 import rx.Subscription;
 import yc.com.base.BasePresenter;
 import yc.com.blankj.utilcode.util.UIUitls;
+
 
 
 
@@ -49,7 +49,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
 
         getIndexInfo(false);
         getPayWayList();
-        getGoodsList(1);
+        getGoodsList();
 
     }
 
@@ -182,9 +182,9 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
         mSubscriptions.add(subscription);
     }
 
-    private void getGoodsList(int goods_type_id) {
+    private void getGoodsList() {
 
-        Subscription subscription = EngineUtils.getGoodsList(mContext, goods_type_id, 1).subscribe(new Subscriber<ResultInfo<GoodInfoWrapper>>() {
+        Subscription subscription = EngineUtils.getVipInfoList(mContext).subscribe(new Subscriber<ResultInfo<List<GoodInfo>>>() {
             @Override
             public void onCompleted() {
 
@@ -196,7 +196,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
             }
 
             @Override
-            public void onNext(final ResultInfo<GoodInfoWrapper> goodInfoWrapperResultInfo) {
+            public void onNext(final ResultInfo<List<GoodInfo>> goodInfoWrapperResultInfo) {
                 ResultInfoHelper.handleResultInfo(goodInfoWrapperResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
@@ -212,7 +212,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
                     public void reulstInfoOk() {
                         if (goodInfoWrapperResultInfo.data != null) {
 
-                            VipInfoHelper.setGoodInfoWrapper(goodInfoWrapperResultInfo.data);
+                            VipInfoHelper.setGoodInfoList(goodInfoWrapperResultInfo.data);
                         }
                     }
                 });

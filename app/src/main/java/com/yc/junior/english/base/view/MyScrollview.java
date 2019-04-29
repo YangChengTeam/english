@@ -1,16 +1,17 @@
 package com.yc.junior.english.base.view;
 
 import android.content.Context;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
-import android.widget.ScrollView;
+
 
 /**
  * Created by zhangkai on 2017/9/6.
  */
 
-public class MyScrollview extends ScrollView {
+public class MyScrollview extends NestedScrollView {
     private int downX;
     private int downY;
     private int mTouchSlop;

@@ -16,10 +16,13 @@ import com.yc.junior.english.weixin.model.domain.WeiKeCategoryWrapper;
 import com.yc.junior.english.weixin.model.domain.WeiKeInfo;
 import com.yc.junior.english.weixin.presenter.WeiKePresenter;
 import com.yc.junior.english.weixin.views.adapters.WeiKeInfoItemAdapter;
+import com.yc.soundmark.category.utils.ItemDecorationHelper;
 
 import java.util.List;
 
 import butterknife.BindView;
+
+
 
 /**
  * 微课单元列表
@@ -59,18 +62,19 @@ public class WeikeUnitActivity extends FullScreenActivity<WeiKePresenter> implem
         mCategoryListRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mWeiKeInfoItemAdapter = new WeiKeInfoItemAdapter(null, type);
         mCategoryListRecyclerView.setAdapter(mWeiKeInfoItemAdapter);
+        mCategoryListRecyclerView.addItemDecoration(new ItemDecorationHelper(this,8, 8));
 
         mWeiKeInfoItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (type.equals("8")) {
                     Intent intent = new Intent(WeikeUnitActivity.this, NewsWeiKeDetailActivity.class);
-                    intent.putExtra("id",mWeiKeInfoItemAdapter.getData().get(position).getId());
+                    intent.putExtra("id", mWeiKeInfoItemAdapter.getData().get(position).getId());
                     //intent.putExtra("info", mWeiKeInfoItemAdapter.getData().get(position));
                     startActivity(intent);
-                }else{
+                } else {
                     Intent intent = new Intent(WeikeUnitActivity.this, NewsDetailActivity.class);
-                    intent.putExtra("id",mWeiKeInfoItemAdapter.getData().get(position).getId());
+                    intent.putExtra("id", mWeiKeInfoItemAdapter.getData().get(position).getId());
                     startActivity(intent);
                 }
             }
