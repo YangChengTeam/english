@@ -41,6 +41,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.yc.english.EnglishApp;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
+import com.yc.english.base.utils.BrandUtils;
 import com.yc.english.base.utils.PermissionGroup;
 import com.yc.english.base.utils.PermissionManager;
 import com.yc.english.base.utils.PermissionUIListener;
@@ -201,14 +202,13 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @Override
     public void init() {
 
-
         PermissionManager.getInstance().addPermissions(getActivity(), this,
                 new String[]{Manifest.permission.READ_PHONE_STATE}, PermissionGroup.getPermissionGroup(PermissionGroup.GroupType.STORAGE_GROUP),
                 PermissionGroup.getPermissionGroup(PermissionGroup.GroupType.MICROPHONE_GROUP),
                 new String[]{Manifest.permission.CAMERA});
 
 
-        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
+        if (BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             rlTopBanner.setVisibility(View.GONE);
             rlBottomBanner.setVisibility(View.GONE);
         } else {
@@ -527,6 +527,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     }
 
+
+
     private void initRefresh() {
         //设置 Header 为 贝塞尔雷达 样式
         mRefreshSwipeRefreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
@@ -730,7 +732,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             view = mAdViewList.get(0);
             GDTLogger.i("ad load[" + 0 + "]: " + getAdInfo(view));
             mAdViewPositionMap.put(view, FIRST_AD_POSITION);
-            if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
+            if (!(BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
                 mRecommendAdapter.addADViewToPosition(position, mAdViewList.get(0));
         }
     }
@@ -800,7 +802,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @Override
     public void onShow() {
 //        ivTopbannerClose.setVisibility(View.VISIBLE);
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
+        if (!(BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
             ivBottombannerClose.setVisibility(View.VISIBLE);
         }
     }
@@ -833,10 +835,15 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     )
     public void paySuccess(String info) {
         rlBottomBanner.setVisibility(View.GONE);
-        if (mRecommendAdapter != null) {
-            int removedPosition = mAdViewPositionMap.get(view);
-            mRecommendAdapter.removeADView(removedPosition, view);
+        try {
+            if (mRecommendAdapter != null) {
+                int removedPosition = mAdViewPositionMap.get(view);
+                mRecommendAdapter.removeADView(removedPosition, view);
+            }
+        } catch (Exception e) {
+            LogUtil.msg("e:  " + e.getMessage());
         }
+
 
     }
 

@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:text="原价：59"
                 android:textColor="@color/gray_8e8e8e"
-                android:textSize="@dimen/t12sp" />
+                android:textSize="@dimen/t10sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:text="399"
                     android:textColor="@color/red_db4d2a"
-                    android:textSize="@dimen/t16sp" />
+                    android:textSize="@dimen/t14sp" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

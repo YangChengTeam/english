@@ -3,14 +3,20 @@ package com.yc.english.setting.view.activitys;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Bundle;
+import android.text.Html;
+import android.text.TextPaint;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.english.R;
+import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.setting.contract.FeedbackContract;
@@ -19,9 +25,13 @@ import com.yc.english.setting.presenter.FeedbackPersenter;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.functions.Action1;
+import yc.com.blankj.utilcode.util.AppUtils;
+import yc.com.blankj.utilcode.util.ClipboardUtils;
 import yc.com.blankj.utilcode.util.KeyboardUtils;
 import yc.com.blankj.utilcode.util.PhoneUtils;
+import yc.com.blankj.utilcode.util.UIUitls;
 
 /**
  * Created by zhangkai on 2017/7/24.
@@ -37,6 +47,10 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
 
     @BindView(R.id.ll_tel)
     LinearLayout llTel;
+    @BindView(R.id.ll_wx)
+    LinearLayout llWx;
+    @BindView(R.id.tv_wx)
+    TextView tvWx;
 
 
     @Override
@@ -45,6 +59,11 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
         mToolbar.showNavigationIcon();
 
         mPresenter = new FeedbackPersenter(this, this);
+
+//        tvWx.setText(  Html.fromHtml("<u>  nuanjiguiren886</u>"));
+//
+        tvWx.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        tvWx.getPaint().setAntiAlias(true);
 
         RxView.clicks(mCompleteButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -64,10 +83,31 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
                 alertDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        PhoneUtils.call("15926287915");
+
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        Uri data = Uri.parse("tel:13164125027");
+                        intent.setData(data);
+                        startActivity(intent);
                     }
                 });
                 alertDialog.show();
+            }
+        });
+
+        RxView.clicks(llWx).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                ClipboardUtils.copyText(tvWx.getText().toString().trim());
+                TipsHelper.tips(FeedbackActivity.this, "复制成功, 正在前往微信");
+                UIUitls.postDelayed(1000, new Runnable() {
+                    @Override
+                    public void run() {
+                        String weixin = "com.tencent.mm";
+                        if (AppUtils.isInstallApp(weixin)) {
+                            AppUtils.launchApp(weixin);
+                        }
+                    }
+                });
             }
         });
 

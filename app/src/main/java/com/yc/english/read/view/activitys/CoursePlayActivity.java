@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -41,6 +42,7 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.read.common.AudioPlayManager;
+import com.yc.english.read.common.MediaPlayerPlayer;
 import com.yc.english.read.common.OnUiUpdateManager;
 import com.yc.english.read.common.WlMusicPlayer;
 import com.yc.english.read.contract.CoursePlayContract;
@@ -190,7 +192,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private PopupWindowFactory mTapePop;
     private UserInfo userInfo;
-    //    private WlMusic wlMusic;
+
     private AudioPlayManager manager;
 
     @Override
@@ -225,7 +227,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 String.valueOf(bd.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue())));
 
 
-//        mTts = SpeechUtils.getTts(this, anInt);
         mPresenter = new CoursePlayPresenter(this, this);
 
         mToolbar.setTitle(unitTitle);
@@ -270,6 +271,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             @Override
             public void call(Void aVoid) {
 
+                manager.stop();
                 if (unitInfoList != null && position + 1 < unitInfoList.size()) {
                     UnitInfo unitInfo = unitInfoList.get(position + 1);
                     position++;
@@ -403,7 +405,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 }
 
                 if (view.getId() == R.id.iv_play) {
-                    if (manager.isPlaying()) {
+                    if (manager != null && manager.isPlaying()) {
                         manager.stop();
                         disableState();
                     } else {
@@ -501,6 +503,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private void initMediaPlayer() {
         manager = new WlMusicPlayer(this);
+//        manager = new MediaPlayerPlayer(this);
     }
 
     /**
@@ -832,8 +835,10 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         }
 
         String url = mItemAdapter.getData().get(position).getMp3url();
-        manager.start(url);
 
+        Log.e("TAG", "startPlay: " + url);
+        if (manager == null) manager = new WlMusicPlayer(this);
+        manager.start(url);
 
     }
 
@@ -949,7 +954,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 //            mTts.stopSpeaking();
 //        }
 //        resetMediaPlay();
-        manager.stop();
+        if (manager != null) manager.stop();
         resetPlay();
         mCoursePlayImageView.setBackgroundResource(R.drawable.read_playing_course_btn_selector);
         mItemAdapter.setLastPosition(playPosition);
@@ -958,6 +963,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     public void enableState(int postion) {
         if (postion < 0 || postion >= mItemAdapter.getData().size()) {
+
             return;
         }
 //        linearLayoutManager.scrollToPositionWithOffset(playPosition, 0);
@@ -966,7 +972,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         }
         try {
 //            resetMediaPlay();
-            manager.stop();
+            if (manager != null) manager.stop();
             resetPlay();
             mCoursePlayImageView.setBackgroundResource(R.drawable.read_playing_course_btn_selector);
             mItemAdapter.getData().get(postion).setPlay(true);
@@ -983,7 +989,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             mCoursePlayImageView.setBackgroundResource(R.drawable.read_play_course_btn_selector);
         }
 //        resetMediaPlay();
-        manager.stop();
+        if (manager != null) manager.stop();
         resetPlay();
         mItemAdapter.setLastPosition(playPosition);
         mItemAdapter.notifyDataSetChanged();
@@ -1039,10 +1045,16 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        manager.onDestroy();
+        if (manager != null)
+            manager.onDestroy();
         WakeLockUtils.releaseWakeLock();
     }
 

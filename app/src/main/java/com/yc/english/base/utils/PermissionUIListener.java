@@ -1,7 +1,5 @@
 package com.yc.english.base.utils;
 
-import java.util.List;
-
 /**
  * Created by wanglin  on 2019/4/25 10:19.
  */

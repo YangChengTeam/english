@@ -125,7 +125,7 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
             }
         }
 
-        LogUtils.i("item--->current position" + helper.getAdapterPosition() + "---last---" + getLastPosition());
+//        LogUtils.i("item--->current position" + helper.getAdapterPosition() + "---last---" + getLastPosition());
 
         int percent = 0;
         if (!StringUtils.isEmpty(item.getPercent())) {

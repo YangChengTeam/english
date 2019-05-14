@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yc.english.R;
+import com.yc.english.base.utils.BrandUtils;
 import com.yc.english.main.contract.SplashContract;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
@@ -52,7 +53,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
         mPresenter = new SplashPresenter(this, this);
         StatusBarCompat.light(this);
         StatusBarCompat.compat(this, mStatusBar);
-        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
+        if (BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             skipView.setVisibility(View.GONE);
             switchMain(null, Time);
         } else {
@@ -104,14 +105,14 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @Override
     protected void onResume() {
         super.onResume();
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
+        if (!(BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
             AdvDispatchManager.getManager().onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
+        if (!(BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
             AdvDispatchManager.getManager().onPause();
 
     }
@@ -156,7 +157,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
+        if (!(BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
             AdvDispatchManager.getManager().onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }

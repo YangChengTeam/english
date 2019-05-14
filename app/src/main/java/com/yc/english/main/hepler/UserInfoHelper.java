@@ -75,9 +75,10 @@ public class UserInfoHelper {
         return getUserInfo() != null && !TextUtils.isEmpty(getUserInfo().getMobile());
     }
 
-    public static void clearUserInfo() {
+    public static void clearUserInfo(Context context) {
         SPUtils.getInstance().remove(Constant.USER_INFO);
         mUserInfo = null;
+        UserInfoHelper.guestReg(context);
     }
 
     public static void utils(Context context, ResultInfo<UserInfoWrapper> resultInfo) {
@@ -127,7 +128,7 @@ public class UserInfoHelper {
 
                     @Override
                     public void resultInfoNotOk(String message) {
-                        clearUserInfo();
+                        clearUserInfo(context);
                     }
 
                     @Override

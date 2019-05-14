@@ -90,7 +90,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
         mToolbar.showNavigationIcon();
 
         mPresenter = new BookUnitPresenter(this, this);
-
+        mPresenter.getBookInfoById(bookId);
         mBookUnitRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mItemAdapter = new ReadBookUnitItemClickAdapter(this, mBookUnitDatas);
         mBookUnitRecyclerView.setAdapter(mItemAdapter);
@@ -118,7 +118,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
                 }
 
                 if (isRead) {
-                    if (mItemAdapter.getData() != null && mItemAdapter.getData().get(position) != null) {
+                    if (mItemAdapter.getData().get(position) != null) {
 
                         Intent intent = new Intent(BookUnitActivity.this, CoursePlayActivity.class);
                         intent.putExtra("position", position);
@@ -141,7 +141,7 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.getBookInfoById(bookId);
+
     }
 
 

@@ -21,6 +21,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yc.english.R;
 import com.yc.english.base.helper.TipsHelper;
+import com.yc.english.base.utils.BrandUtils;
 import com.yc.english.base.view.AlertDialog;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
@@ -100,7 +101,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
         mPresenter = new BookPresenter(this, this);
 
-        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
+        if (BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             rlTopBanner.setVisibility(View.GONE);
             rlBottomBanner.setVisibility(View.GONE);
         } else {
@@ -265,7 +266,8 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
     @Override
     public void onShow() {
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
+        if (!(BrandUtils.isRelatedBrand()
+                || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
             ivBottombannerClose.setVisibility(View.VISIBLE);
             ivTopbannerClose.setVisibility(View.VISIBLE);
         }

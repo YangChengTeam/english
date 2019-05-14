@@ -110,11 +110,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     QQqunDialog qqunDialog;
 
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout coordinatorLayout;
-
-    @BindView(R.id.tv_support)
-    TextView mTvSupport;
 
     @BindView(R.id.credit_view)
     HonourAbilityView abilityView;
@@ -123,8 +118,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     FrameLayout mToolbarWarpper;
     @BindView(R.id.ll_carmer_search)
     LinearLayout mLlCarmerSearch;
-    @BindView(R.id.ll_add_score_tutorship)
-    LinearLayout mLlAddScoreTutorship;
+
     @BindView(R.id.iv_tutorship_main_bg)
     ImageView ivTutorshipMainBg;
 
