@@ -69,7 +69,7 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
         RxView.clicks(mExitButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                UserInfoHelper.clearUserInfo();
+                UserInfoHelper.clearUserInfo(SettingActivity.this);
                 mExitButton.setVisibility(View.GONE);
                 TipsHelper.tips(SettingActivity.this, "成功退出");
                 RxBus.get().post(Constant.NO_LOGIN, true);

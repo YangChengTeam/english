@@ -134,6 +134,11 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
         initListener();
     }
 
+    @Override
+    protected float getWidth() {
+        return super.getWidth();
+    }
+
     private void initListener() {
         RxView.clicks(llAliPay).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override

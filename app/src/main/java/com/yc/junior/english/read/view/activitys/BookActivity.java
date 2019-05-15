@@ -1,11 +1,9 @@
 package com.yc.junior.english.read.view.activitys;
 
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -19,8 +17,8 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.qq.e.ads.nativ.NativeExpressADView;
+import com.yc.junior.english.base.utils.BrandUtils;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.helper.TipsHelper;
 import com.yc.junior.english.base.view.AlertDialog;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.base.view.StateView;
@@ -45,6 +43,8 @@ import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
+
+
 
 
 /**
@@ -101,7 +101,7 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
         mPresenter = new BookPresenter(this, this);
 
-        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
+        if (BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             rlTopBanner.setVisibility(View.GONE);
             rlBottomBanner.setVisibility(View.GONE);
 
@@ -267,7 +267,8 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
 
     @Override
     public void onShow() {
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
+        if (!(BrandUtils.isRelatedBrand()
+                || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
             ivBottombannerClose.setVisibility(View.VISIBLE);
             ivTopbannerClose.setVisibility(View.VISIBLE);
         }

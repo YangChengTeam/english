@@ -1,9 +1,7 @@
 package com.yc.junior.english.main.view.activitys;
 
 import android.content.Intent;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,6 +10,7 @@ import android.widget.TextView;
 
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yc.junior.english.R;
+import com.yc.junior.english.base.utils.BrandUtils;
 import com.yc.junior.english.main.contract.SplashContract;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.Constant;
@@ -26,6 +25,7 @@ import yc.com.blankj.utilcode.util.UIUitls;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
+
 
 
 /**
@@ -52,7 +52,7 @@ public class SplashActivity extends yc.com.base.BaseActivity<SplashPresenter> im
         mPresenter = new SplashPresenter(this, this);
         StatusBarCompat.light(this);
         StatusBarCompat.compat(this, mStatusBar);
-        if (TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
+        if (BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
             skipView.setVisibility(View.GONE);
             switchMain(null, Time);
         } else {
@@ -104,14 +104,14 @@ public class SplashActivity extends yc.com.base.BaseActivity<SplashPresenter> im
     @Override
     protected void onResume() {
         super.onResume();
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
+        if (!(BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
             AdvDispatchManager.getManager().onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
+        if (!(BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo())))
             AdvDispatchManager.getManager().onPause();
 
     }
@@ -156,7 +156,7 @@ public class SplashActivity extends yc.com.base.BaseActivity<SplashPresenter> im
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (!(TextUtils.equals("Xiaomi", Build.BRAND) || TextUtils.equals("xiaomi", Build.BRAND) || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
+        if (!(BrandUtils.isRelatedBrand() || UserInfoHelper.isVip(UserInfoHelper.getUserInfo()))) {
             AdvDispatchManager.getManager().onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }

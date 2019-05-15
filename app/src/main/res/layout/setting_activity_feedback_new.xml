@@ -42,10 +42,10 @@
 
 
     <LinearLayout
-        android:id="@+id/ll_tel"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="20dp">
 
@@ -53,6 +53,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:src="@mipmap/setting_tel" />
 
 
@@ -60,27 +61,57 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/group_distance_20"
+
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="客服电话"
-                android:textColor="@color/black_333"
-                android:textSize="@dimen/font_snormal" />
+            <LinearLayout
+                android:id="@+id/ll_wx"
+                android:layout_width="match_parent"
 
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="13164125027 （微信同号）"
-                android:textColor="@color/black_333"
-                android:textSize="@dimen/font_snormal" />
+                android:layout_marginTop="5dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center"
+                    android:text="客服微信: "
+                    android:textColor="@color/black_333"
+                    android:textSize="@dimen/t18sp" />
+
+                <TextView
+                    android:id="@+id/tv_wx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="  nuanjiguiren886"
+                    android:textColor="@color/black_333"
+                    android:textSize="@dimen/t20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_tel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="客服电话:"
+                    android:textColor="@color/black_333"
+                    android:textSize="@dimen/t18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="   13164125027"
+                    android:textColor="@color/black_333"
+                    android:textSize="@dimen/t20sp" />
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
@@ -88,10 +119,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="20dp"
-        android:text="友情提示：很多亲在使用时，发现课本正常点读，但没有声音，这时请打开手机设置页面，有个声音选项，点选后，调整系统声音，就能放大和听到声音了"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="40dp"
+        android:lineSpacingExtra="@dimen/t3dp"
+        android:text="友情提示：\n很多亲在使用时，发现课本正常点读，但没有声音，这时请打开手机设置页面，有个声音选项，点选后，调整系统声音，就能放大和听到声音了。"
         android:textColor="@color/group_red_fb4c30"
-        android:textSize="@dimen/font_snormal" />
+        android:textSize="@dimen/t16sp" />
 </LinearLayout>

@@ -105,7 +105,7 @@ public class RegisterPresenter extends BasePresenter<RegisterEngin, RegisterCont
                     public void run() {
                         UserInfoHelper.utils(mContext, resultInfo);
                         RxBus.get().post(Constant.FINISH_LOGIN, true);
-                        RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, true);
+                        RxBus.get().post(Constant.COMMUNITY_ACTIVITY_REFRESH, "from getUserInfo");
                         mView.finish();
                     }
                 });

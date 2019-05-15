@@ -96,6 +96,9 @@ public class MediaPlayerPlayer implements AudioPlayManager, MediaPlayer.OnPrepar
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
         LogUtil.msg("what: " + what + "  extra: " + extra);
+        if (updateManager != null) {
+            updateManager.onErrorUI(what, extra, "error");
+        }
         return false;
     }
 }

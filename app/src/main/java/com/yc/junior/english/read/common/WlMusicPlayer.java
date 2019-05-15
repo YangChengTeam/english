@@ -1,5 +1,7 @@
 package com.yc.junior.english.read.common;
 
+import android.util.Log;
+
 import com.kk.utils.LogUtil;
 import com.yc.soundmark.base.constant.SpConstant;
 import com.ywl5320.libenum.MuteEnum;
@@ -44,6 +46,11 @@ public class WlMusicPlayer implements AudioPlayManager, OnPreparedListener, OnCo
 
 
         try {
+            if (wlMusic == null) {
+                wlMusic = WlMusic.getInstance();
+            }
+
+            Log.e("TAG", "start: "+wlMusic.hashCode() );
             wlMusic.setSource(url); //设置音频源
             int anInt = SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 40);
             float speed = anInt / (40 * 1f);
@@ -54,7 +61,9 @@ public class WlMusicPlayer implements AudioPlayManager, OnPreparedListener, OnCo
             LogUtil.msg("speed: " + speed);
             wlMusic.setPlaySpeed(speed); //设置播放速度 (1.0正常) 范围：0.25---4.0f
 
+
             wlMusic.prePared();
+
         } catch (Exception e) {
             LogUtil.msg("e:  " + e.getMessage());
             if (updateManager != null) {
@@ -82,9 +91,13 @@ public class WlMusicPlayer implements AudioPlayManager, OnPreparedListener, OnCo
     @Override
     public void onDestroy() {
         if (null != wlMusic) {
-            if (wlMusic.isPlaying()) {
+            Log.e("TAG", "onDestroy: " );
+            Log.e("TAG", "onDestroy: "+wlMusic.hashCode() );
+//            if (wlMusic.isPlaying()) {
                 wlMusic.stop();
-            }
+
+                Log.e("TAG", "onDestroy: wlMusic" );
+//            }
             wlMusic = null;
         }
     }

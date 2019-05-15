@@ -31,15 +31,12 @@ public class ReadBookUnitItemClickAdapter extends BaseMultiItemQuickAdapter<Unit
         if (item.getFree() == 1) {
             helper.setVisible(R.id.iv_course_vip, false);
         } else {
-            if (UserInfoHelper.getUserInfo() != null) {
-                if (UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
-                    helper.setVisible(R.id.iv_course_vip, false);
-                } else {
-                    helper.setVisible(R.id.iv_course_vip, true);
-                }
+            if (UserInfoHelper.isVip(UserInfoHelper.getUserInfo())) {
+                helper.setVisible(R.id.iv_course_vip, false);
             } else {
                 helper.setVisible(R.id.iv_course_vip, true);
             }
+
         }
     }
 }
