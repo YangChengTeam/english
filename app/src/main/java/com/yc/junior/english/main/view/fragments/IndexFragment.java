@@ -97,6 +97,8 @@ import yc.com.tencent_adv.OnAdvStateListener;
 
 
 
+
+
 /**
  * Created by zhangkai on 2017/7/24.
  */
@@ -520,14 +522,12 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //        UserLoginDialog userLoginDialog = new UserLoginDialog(getActivity());
 //        userLoginDialog.show();
 
-
         initRefresh();
 
 //
 
 
     }
-
 
 
     private void initRefresh() {

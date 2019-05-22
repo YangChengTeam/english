@@ -3,6 +3,7 @@ package com.yc.junior.english.vip.views.fragments;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -301,6 +302,11 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
             RxBus.get().post(Constant.PAY_SIGNAL_SUCCESS, "signal success");
         }
         VipDialogHelper.dismissVipDialog();
+
+        if (UserInfoHelper.getUserInfo() != null && TextUtils.isEmpty(UserInfoHelper.getUserInfo().getMobile())) {
+            BindPhoneFragment bindPhoneFragment = new BindPhoneFragment();
+            bindPhoneFragment.show(getActivity().getSupportFragmentManager(), "");
+        }
     }
 
     @Override

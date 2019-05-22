@@ -16,10 +16,10 @@ public class TipsHelper {
         SNAKE
     }
 
-    public static void tips(Context context, String msg, TipsType tipsType) {
+    public static void tips(Context context, String msg, TipsType tipsType, int duration) {
         if (tipsType == TipsType.SNAKE) {
-            if(context instanceof  Activity) {
-                SnackbarUtils.with(((Activity) context).findViewById(android.R.id.content)).setMessage(msg).show();
+            if (context instanceof Activity) {
+                SnackbarUtils.with(((Activity) context).findViewById(android.R.id.content)).setMessage(msg).show(duration);
             }
             return;
         }
@@ -29,7 +29,25 @@ public class TipsHelper {
         }
     }
 
+    public static void tips(Context context, String msg, TipsType tipsType) {
+        if (tipsType == TipsType.SNAKE) {
+            if (context instanceof Activity) {
+                SnackbarUtils.with(((Activity) context).findViewById(android.R.id.content)).setMessage(msg).show();
+            }
+            return;
+        }
+
+        if (tipsType == TipsType.TOAST) {
+            ToastUtils.showShort(msg);
+        }
+
+    }
+
     public static void tips(Context context, String msg) {
         tips(context, msg, TipsType.SNAKE);
+    }
+
+    public static void tips(Context context, String msg, int duration) {
+        tips(context, msg, TipsType.SNAKE, duration);
     }
 }

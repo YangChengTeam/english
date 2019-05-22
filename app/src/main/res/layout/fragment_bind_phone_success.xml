@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/bind_phone_success_bg"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:gravity="center"
+        android:text="恭喜您！手机号绑定成功!"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_know"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:text="知道了"
+        android:textColor="@color/white" />
+
+</FrameLayout>

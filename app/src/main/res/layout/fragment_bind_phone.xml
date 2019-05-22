@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bind_phone_bg"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/t20dp"
+        android:paddingRight="@dimen/t20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="120dp"
+            android:text="绑定手机号"
+            android:textColor="@color/black"
+            android:textSize="@dimen/t16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/t8dp"
+            android:text="绑定手机号后，您的账号在其他手机上也可登录使用！"
+            android:textColor="@color/gray_666" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="@dimen/t20dp"
+            android:background="@drawable/bind_phone_shape_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/t15dp"
+            android:paddingRight="@dimen/t15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/bind_phone" />
+
+            <EditText
+                android:id="@+id/et_bind_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/t8dp"
+                android:background="@null"
+                android:hint="请输入手机号码"
+                android:maxLength="11"
+                android:textColorHint="@color/gray_999"
+                android:textSize="@dimen/t14sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="@dimen/t8dp"
+            android:background="@drawable/bind_phone_shape_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/t15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/bind_sms_code" />
+
+            <EditText
+                android:id="@+id/et_bind_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/t8dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入短信验证码"
+                android:textColorHint="@color/gray_999"
+                android:textSize="@dimen/t14sp" />
+
+            <TextView
+                android:id="@+id/tv_bind_get_code"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/bind_phone_get_code_bg"
+                android:gravity="center"
+                android:text="获取验证码"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="@dimen/t8dp"
+            android:background="@drawable/bind_phone_shape_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/t15dp"
+            android:paddingRight="@dimen/t15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/bind_pwd" />
+
+            <EditText
+                android:id="@+id/et_bind_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/t8dp"
+                android:background="@null"
+                android:hint="请输入您的密码"
+                android:inputType="textPassword"
+                android:textColorHint="@color/gray_999"
+                android:textSize="@dimen/t14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="@dimen/t8dp"
+            android:background="@drawable/bind_phone_shape_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/t15dp"
+            android:paddingRight="@dimen/t15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/bind_pwd" />
+
+            <EditText
+                android:id="@+id/et_bind_reset_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/t8dp"
+                android:background="@null"
+                android:hint="请再次确认你的密码"
+                android:inputType="textPassword"
+                android:textColorHint="@color/gray_999"
+                android:textSize="@dimen/t14sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_bind_phone"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="@dimen/t15dp"
+            android:background="@drawable/bind_phone_btn_bg"
+            android:gravity="center"
+            android:text="@string/bind"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t16sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/bind_close" />
+</LinearLayout>

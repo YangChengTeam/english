@@ -67,6 +67,8 @@ public class URLConfig {
 
     public static final String VIP_INFO_LIST_URL = getBaseUrl() + "goods/lists";//会员种类
 
+    public static final String BIND_PHONE_URL = getBaseUrl() + "user/bind_mobile";//绑定手机号
+
     public static String getBaseUrl() {
         return (DEBUG ? debugBaseUrl : baseUrl);
     }

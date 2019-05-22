@@ -1,7 +1,9 @@
 package com.yc.junior.english.setting.view.activitys;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.hwangjr.rxbus.RxBus;
 import com.jakewharton.rxbinding.view.RxView;
@@ -15,14 +17,18 @@ import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.group.constant.BusAction;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.Constant;
+import com.yc.junior.english.main.model.domain.UserInfo;
 import com.yc.junior.english.setting.contract.SettingContract;
 import com.yc.junior.english.setting.presenter.SettingPresenter;
 import com.yc.junior.english.setting.view.widgets.SettingItemView;
+import com.yc.junior.english.vip.views.fragments.BindPhoneFragment;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
+
+
 
 
 /**
@@ -38,6 +44,10 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
 
     @BindView(R.id.btn_exit)
     Button mExitButton;
+    @BindView(R.id.si_bind_phone)
+    SettingItemView siBindPhone;
+    @BindView(R.id.ll_phone)
+    LinearLayout llPhone;
 
 
     @Override
@@ -78,6 +88,19 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
 
             }
         });
+
+        RxView.clicks(siBindPhone).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                BindPhoneFragment bindPhoneFragment = new BindPhoneFragment();
+                bindPhoneFragment.show(getSupportFragmentManager(), "");
+            }
+        });
+
+        UserInfo userInfo = UserInfoHelper.getUserInfo();
+        if (userInfo != null && TextUtils.isEmpty(userInfo.getMobile()) && UserInfoHelper.isVip(userInfo)) {
+            llPhone.setVisibility(View.VISIBLE);
+        }
 
         mPresenter = new SettingPresenter(this, this);
     }

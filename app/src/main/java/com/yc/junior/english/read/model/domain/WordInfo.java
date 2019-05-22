@@ -52,6 +52,8 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
     @JSONField(name = "ep_sentence_means")
     private String epSentenceMeans;
 
+    private String mp3url;//播放的音频文件
+
     private boolean isPlay = false;
 
     public WordInfo() {
@@ -198,6 +200,14 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
 
     public void setPlay(boolean play) {
         isPlay = play;
+    }
+
+    public String getMp3url() {
+        return mp3url;
+    }
+
+    public void setMp3url(String mp3url) {
+        this.mp3url = mp3url;
     }
 
     @Override

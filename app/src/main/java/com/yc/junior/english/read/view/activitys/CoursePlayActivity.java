@@ -34,6 +34,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.LogUtil;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.TipsHelper;
+import com.yc.junior.english.base.utils.SpeechUtils;
 import com.yc.junior.english.base.utils.WakeLockUtils;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.base.view.StateView;
@@ -41,8 +42,8 @@ import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.main.model.domain.UserInfo;
 import com.yc.junior.english.read.common.AudioPlayManager;
+import com.yc.junior.english.read.common.MediaPlayerPlayer;
 import com.yc.junior.english.read.common.OnUiUpdateManager;
-import com.yc.junior.english.read.common.WlMusicPlayer;
 import com.yc.junior.english.read.contract.CoursePlayContract;
 import com.yc.junior.english.read.model.domain.EnglishCourseInfo;
 import com.yc.junior.english.read.model.domain.EnglishCourseInfoList;
@@ -80,7 +81,6 @@ import yc.com.blankj.utilcode.util.StringUtils;
 import yc.com.blankj.utilcode.util.ToastUtils;
 
 
-
 public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> implements CoursePlayContract.View, OnUiUpdateManager {
 
 
@@ -111,18 +111,21 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     @BindView(R.id.iv_language_change)
     ImageView mLanguageChangeImageView;
 
-    ReadCourseItemClickAdapter mItemAdapter;
+
     @BindView(R.id.tv_speed)
     TextView tvSpeed;
     @BindView(R.id.ll_speed)
     LinearLayout llSpeed;
+    @BindView(R.id.toolbarWrapper)
+    FrameLayout toolbarWrapper;
+
 
     //播放位置
     private int playPosition = -1;
 
     private LinearLayoutManager linearLayoutManager;
 
-    private boolean isCountinue = false;
+    private boolean isContinue = false;
 
     private int languageType = 1; //1:中英,2:英,3:中
 
@@ -136,8 +139,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private boolean isNext = false;
 
-    @BindView(R.id.toolbarWarpper)
-    FrameLayout mToolbarWarpper;
 
     private int position;
 
@@ -190,6 +191,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private AudioPlayManager manager;
 
+    private ReadCourseItemClickAdapter mItemAdapter;
+
     @Override
     public int getLayoutId() {
         return R.layout.read_activity_course_play;
@@ -198,7 +201,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     @Override
     public void init() {
 
-        StatusBarCompat.compat(this, mToolbarWarpper, mToolbar);
+        StatusBarCompat.compat(this, toolbarWrapper, mToolbar);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             position = bundle.getInt("position");
@@ -236,9 +239,14 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
         if (com.yc.junior.english.base.utils.SpeechUtils.getAppids() == null || com.yc.junior.english.base.utils.SpeechUtils.getAppids().size() <= 0) {
             com.yc.junior.english.base.utils.SpeechUtils.setAppids(this);
+
+            if (SpeechUtils.getAppids() == null || SpeechUtils.getAppids().size() <= 0) {
+                SpeechUtils.setAppids(this);
+
+            }
+            userInfo = UserInfoHelper.getUserInfo();
+            initListener();
         }
-        userInfo = UserInfoHelper.getUserInfo();
-        initListener();
     }
 
     private void initListener() {
@@ -254,7 +262,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 //                    startSynthesizer(position);
                     startPlay(position);
                 } else {
-                    isCountinue = false;
+                    isContinue = false;
                     disableState();
                 }
             }
@@ -309,8 +317,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 if (playPosition == -1) {
                     playPosition = 0;
                 }
-                isCountinue = !isCountinue;
-                if (isCountinue) {
+                isContinue = !isContinue;
+                if (isContinue) {
                     enableState(playPosition);
 //                    startSynthesizer(playPosition);
                     startPlay(playPosition);
@@ -357,7 +365,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 /*if (position == playPosition) {
                     return;
                 }*/
-                isCountinue = false;
+                isContinue = false;
                 playPosition = position;
                 itemChoose(playPosition);
                 //startSynthesizer(playPosition);
@@ -372,7 +380,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 if (view.getId() == R.id.iv_tape) {
 
                     lastPosition = position;
-                    isCountinue = false;
+                    isContinue = false;
                     disableState();
 
                     //弹出录音界面
@@ -404,7 +412,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                         manager.stop();
                         disableState();
                     } else {
-                        isCountinue = false;
+                        isContinue = false;
                         enableState(playPosition);
 //                        startSynthesizer(playPosition);
                         startPlay(playPosition);
@@ -504,8 +512,8 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
 
     private void initMediaPlayer() {
-        manager = new WlMusicPlayer(this);
-//        manager = new MediaPlayerPlayer(this);
+//        manager = new WlMusicPlayer(this);
+        manager = new MediaPlayerPlayer(this);
     }
 
     /**
@@ -630,7 +638,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     private void resetPlayState() {
         linearLayoutManager.scrollToPositionWithOffset(0, 0);
         playPosition = -1;
-        isCountinue = false;
+        isContinue = false;
         disableState();
     }
 
@@ -839,7 +847,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         String url = mItemAdapter.getData().get(position).getMp3url();
 
         Log.e("TAG", "startPlay: " + url);
-        if (manager == null) manager = new WlMusicPlayer(this);
+        if (manager == null) manager = new MediaPlayerPlayer(this);
         manager.start(url);
 
     }
@@ -914,10 +922,14 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
 //            LogUtil.msg("error: " + error.getErrorCode() + " msg:  " + error.getErrorDescription());
             if (error == null) {
-                speekContinue(isCountinue ? ++playPosition : playPosition);
+                speekContinue(isContinue ? ++playPosition : playPosition);
             } else {
                 if (error.getErrorDescription().contains("权")) {
+
                     com.yc.junior.english.base.utils.SpeechUtils.resetAppid(CoursePlayActivity.this);
+
+                    SpeechUtils.resetAppid(CoursePlayActivity.this);
+
                     return;
                 }
                 speekContinue(playPosition);
@@ -931,7 +943,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     };
 
     public void speekContinue(int index) {
-        if (isCountinue) {
+        if (isContinue) {
             mTsSubject.onNext(index);
         } else {
             disableState();
@@ -987,7 +999,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     }
 
     public void disableState() {
-        if (!isCountinue) {
+        if (!isContinue) {
             mCoursePlayImageView.setBackgroundResource(R.drawable.read_play_course_btn_selector);
         }
 //        resetMediaPlay();
@@ -1090,14 +1102,19 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             @Override
             public void run() {
 
-                speekContinue(isCountinue ? ++playPosition : playPosition);
+//                Log.e("TAG", "run: " + playPosition + "  size: " + mItemAdapter.getData().size());
+                speekContinue(isContinue ? ++playPosition : playPosition);
+                if (playPosition == mItemAdapter.getData().size() - 1) {
+                    playPosition = -1;
+                    isContinue = false;
+                }
             }
         });
     }
 
     @Override
     public void onErrorUI(int what, int extra, String msg) {
-        speekContinue(isCountinue ? ++playPosition : playPosition);
+        speekContinue(isContinue ? ++playPosition : playPosition);
         LogUtil.msg("code: " + what + "  msg:  " + msg);
     }
 

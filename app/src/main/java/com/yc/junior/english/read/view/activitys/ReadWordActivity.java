@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -15,13 +17,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.TipsHelper;
 import com.yc.junior.english.base.utils.WakeLockUtils;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.base.view.StateView;
+import com.yc.junior.english.read.common.AudioPlayManager;
+import com.yc.junior.english.read.common.MediaPlayerPlayer;
+import com.yc.junior.english.read.common.OnUiUpdateManager;
 import com.yc.junior.english.read.common.SpeechUtils;
 import com.yc.junior.english.read.contract.ReadWordContract;
 import com.yc.junior.english.read.model.domain.WordDetailInfo;
@@ -42,14 +46,14 @@ import rx.subjects.PublishSubject;
 import yc.com.blankj.utilcode.util.ActivityUtils;
 import yc.com.blankj.utilcode.util.ToastUtils;
 
-
+import static com.yc.junior.english.read.common.SpeechUtils.mTts;
 
 
 /**
  * Created by admin on 2017/7/27.
  */
 
-public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> implements ReadWordContract.View, ReadWordExpandAdapter.ItemViewClickListener {
+public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> implements ReadWordContract.View, ReadWordExpandAdapter.ItemViewClickListener, OnUiUpdateManager {
 
     @BindView(R.id.sv_loading)
     StateView mStateView;
@@ -88,7 +92,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     boolean isSpell = false;
 
     // 语音合成对象
-    private SpeechSynthesizer mTts;
+//    private SpeechSynthesizer mTts;
 
     // 缓冲进度
     private int mPercentForBuffering = 0;
@@ -98,7 +102,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     private int readCurrentWordIndex;
 
-    MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer;
 
     //当前读到的单词
     private int currentIndex;
@@ -122,6 +126,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     private int groupCurrentIndex;
     private View groupCurrentView;
 
+    private AudioPlayManager manager;
+
     @Override
     public int getLayoutId() {
         return R.layout.read_activity_word_play;
@@ -140,9 +146,10 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         mToolbar.setTitle(unitTitle);
         mToolbar.showNavigationIcon();
 
+        initMediaPlayer();
         mediaPlayer = new MediaPlayer();
 
-        mTts = SpeechUtils.getTts(this);
+//        mTts = SpeechUtils.getTts(this);
 
         mReadWordExpandAdapter = new ReadWordExpandAdapter(ReadWordActivity.this, wordInfos, wordDetailInfos);
         mReadWordExpandAdapter.setExpandableListView(mWordListView);
@@ -180,7 +187,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                 }
                 groupCurrentIndex = groupPosition;
                 isWordDetailPlay = true;
-                startSynthesizer(wordDetailInfos.get(groupPosition).getWordExample());
+//                startSynthesizer(wordDetailInfos.get(groupPosition).getWordExample());
+                startPlay(wordDetailInfos.get(groupPosition).getVoice());
                 wordDetailInfos.get(groupPosition).setPlay(true);
                 groupCurrentView = view;
                 mReadWordExpandAdapter.setChildViewPlayState(view, true);
@@ -194,7 +202,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             public void call(Integer position) {
                 if (position < mDatas.size()) {
                     endableState(currentIndex);
-                    startSynthesizer(position);
+//                    startSynthesizer(position);
+                    startPlay(position);
                 } else {
                     isContinue = false;
                     readOver(currentIndex);
@@ -208,11 +217,15 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
         mPresenter.getWordListByUnitId(0, 0, unitId);
 
-        if (com.yc.junior.english.base.utils.SpeechUtils .getAppids() == null || com.yc.junior.english.base.utils.SpeechUtils .getAppids().size() <= 0) {
-            com.yc.junior.english.base.utils.SpeechUtils .setAppids(this);
+        if (com.yc.junior.english.base.utils.SpeechUtils.getAppids() == null || com.yc.junior.english.base.utils.SpeechUtils.getAppids().size() <= 0) {
+            com.yc.junior.english.base.utils.SpeechUtils.setAppids(this);
         }
     }
 
+
+    private void initMediaPlayer() {
+        manager = new MediaPlayerPlayer(this);
+    }
 
     @Override
     public void hide() {
@@ -243,18 +256,17 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     public void showWordListData(List<WordInfo> list) {
         if (list != null && list.size() > 0) {
 
-            if (list != null) {
-                mDatas = list;
-                wordInfos = new ArrayList<WordInfo>();
-                wordDetailInfos = new ArrayList<WordDetailInfo>();
-                setProgressNum(0, list.size());
-            }
+            mDatas = list;
+            wordInfos = new ArrayList<>();
+            wordDetailInfos = new ArrayList<>();
+            setProgressNum(0, list.size());
 
             for (int i = 0; i < list.size(); i++) {
-                WordInfo wordInfo = (WordInfo) list.get(i);
+                WordInfo wordInfo = list.get(i);
                 WordDetailInfo wordDetailInfo = new WordDetailInfo();
                 wordDetailInfo.setWordExample(wordInfo.getEpSentence());
                 wordDetailInfo.setWordCnExample(wordInfo.getEpSentenceMeans());
+                wordDetailInfo.setVoice(wordInfo.getMp3url());
                 wordInfos.add(wordInfo);
                 wordDetailInfos.add(wordDetailInfo);
             }
@@ -311,39 +323,70 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
 
-    //单词朗读
-    public void startSynthesizer(int position) {
-        String text = wordInfos.get(position).getName();
-        if (mTts != null) {
-            int code = mTts.startSpeaking(text, mTtsListener);
-            if (code != ErrorCode.SUCCESS) {
-                if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
-                    // 未安装则跳转到提示安装页面
-                    //mInstaller.install();
-                } else {
-                    ToastUtils.showLong("语音合成失败,错误码: " + code);
-                    mTts.stopSpeaking();
-                }
-            }
-        } else {
-            TipsHelper.tips(SpeechUtils.mContext, "语音播放初始化失败");
+//    //单词朗读
+//    public void startSynthesizer(int position) {
+//        String text = wordInfos.get(position).getName();
+//        if (mTts != null) {
+//            int code = mTts.startSpeaking(text, mTtsListener);
+//            if (code != ErrorCode.SUCCESS) {
+//                if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
+//                    // 未安装则跳转到提示安装页面
+//                    //mInstaller.install();
+//                } else {
+//                    ToastUtils.showLong("语音合成失败,错误码: " + code);
+//                    mTts.stopSpeaking();
+//                }
+//            }
+//        } else {
+//            TipsHelper.tips(mContext, "语音播放初始化失败");
+//        }
+//    }
+
+
+    public void startPlay(int position) {
+        if (position < 0 || position >= wordInfos.size()) {
+            return;
         }
+
+        String url = wordInfos.get(position).getVoice();
+        if (TextUtils.isEmpty(url)) {
+            disableState(position);
+            return;
+
+        }
+
+        Log.e("TAG", "startPlay: " + url);
+        if (manager == null) manager = new MediaPlayerPlayer(this);
+        manager.start(url);
+
     }
 
     //示例句子朗读
-    public void startSynthesizer(String sentence) {
-        String text = sentence;
-        int code = mTts.startSpeaking(text, mTtsListener);
-        if (code != ErrorCode.SUCCESS) {
-            if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
-                // 未安装则跳转到提示安装页面
-                //mInstaller.install();
-            } else {
-                ToastUtils.showLong("语音合成失败,错误码: " + code);
-                mTts.stopSpeaking();
-            }
+    public void startPlay(String url) {
+        if (TextUtils.isEmpty(url)) {
+            disableWordDetailState();
+            return;
         }
+        if (manager == null) manager = new MediaPlayerPlayer(this);
+        manager.start(url);
     }
+
+
+//    //示例句子朗读
+//    public void startSynthesizer(String sentence) {
+//        String text = sentence;
+//        int code = mTts.startSpeaking(text, mTtsListener);
+//        if (code != ErrorCode.SUCCESS) {
+//            if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
+//                // 未安装则跳转到提示安装页面
+//                //mInstaller.install();
+//            } else {
+//                ToastUtils.showLong("语音合成失败,错误码: " + code);
+//                mTts.stopSpeaking();
+//            }
+//        }
+//    }
+
 
     /**
      * 合成回调监听。
@@ -411,8 +454,11 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     private boolean disableWordDetailState() {
         if (isWordDetailPlay) {
-            if (mTts.isSpeaking()) {
-                mTts.stopSpeaking();
+//            if (mTts.isSpeaking()) {
+//                mTts.stopSpeaking();
+//            }
+            if (manager != null) {
+                manager.stop();
             }
             isWordDetailPlay = false;
             if (groupCurrentView != null && groupCurrentIndex != -1) {
@@ -449,17 +495,21 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
         mReadWordExpandAdapter.setViewPlayState(index, mWordListView, false);
         mReadWordExpandAdapter.getWordInfos().get(index).setPlay(false);
-        if (mTts.isSpeaking()) {
-            mTts.stopSpeaking();
+//        if (mTts.isSpeaking()) {
+//            mTts.stopSpeaking();
+//        }
+        if (manager != null) {
+            manager.stop();
         }
     }
 
     private void readOver(int index) {
         resetPlay();
         mReadWordExpandAdapter.setViewPlayState(index, mWordListView, false);
-        if (mTts.isSpeaking()) {
-            mTts.stopSpeaking();
-        }
+//        if (mTts.isSpeaking()) {
+//            mTts.stopSpeaking();
+//        }
+        if (manager != null) manager.stop();
         if (!isContinue && ActivityUtils.isValidContext(this) && ActivityUtils.isValidContext(ReadWordActivity.this)) {
             Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
         }
@@ -474,9 +524,9 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     @Override
     protected void onStop() {
         super.onStop();
-        if (mTts.isSpeaking()) {
-            mTts.stopSpeaking();
-        }
+//        if (mTts.isSpeaking()) {
+//            mTts.stopSpeaking();
+//        }
     }
 
     /**
@@ -502,7 +552,8 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                     Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_gif_play).into(mReadAllImageView);
                 }
                 endableState(currentIndex);
-                startSynthesizer(currentIndex);
+//                startSynthesizer(currentIndex);
+                startPlay(currentIndex);
             }
         } else {
             readOver(currentIndex);
@@ -533,21 +584,61 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         }
         currentIndex = gPosition;
         endableState(currentIndex);
-        startSynthesizer(currentIndex);
+//        startSynthesizer(currentIndex);
+        startPlay(currentIndex);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mediaPlayer.release();
-        if (null != mTts) {
-            mTts.stopSpeaking();
-            // 退出时释放连接
-            mTts.destroy();
-            mTts = null;
-        }
+//        if (null != mTts) {
+//            mTts.stopSpeaking();
+//            // 退出时释放连接
+//            mTts.destroy();
+//            mTts = null;
+//        }
+
+        if (manager != null)
+            manager.onDestroy();
         WakeLockUtils.releaseWakeLock();
     }
 
 
+    @Override
+    public void onCompleteUI() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                playWord(currentIndex, new Runnable() {
+                    @Override
+                    public void run() {
+                        speekContinue();
+                    }
+                });
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onErrorUI(int what, int extra, String msg) {
+        playWord(currentIndex, new Runnable() {
+            @Override
+            public void run() {
+                speekContinue();
+            }
+        });
+    }
+
+    @Override
+    public void onStopUI() {
+
+    }
+
+    @Override
+    public void onStartUI(int duration) {
+
+    }
 }

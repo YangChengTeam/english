@@ -1,8 +1,8 @@
 <resources>
     <!--英语考-->
     <!--英语点读学习-->
+    <string name="app_name">英语考</string>
 
-    <string name="app_name">英语考软件</string>
 
     <string name="edit_text">编辑</string>
     <string name="done_text">完成</string>
@@ -74,6 +74,8 @@
     <string name="play_speed_result">%1$sx</string>
     <string name="go_setting">去设置</string>
     <string name="forever_vip">永久会员</string>
+    <string name="bind">立即绑定</string>
+    <string name="bind_phone">绑定手机号</string>
 
 
 </resources>

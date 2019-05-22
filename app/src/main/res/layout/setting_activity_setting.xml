@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:eng="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/primaryDark"
-              android:orientation="vertical">
+    xmlns:eng="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryDark"
+    android:orientation="vertical">
 
     <com.yc.junior.english.base.view.MainToolBar
         android:id="@id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.yc.junior.english.base.view.MainToolBar>
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/setting_item_bg"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.yc.junior.english.setting.view.widgets.SettingItemView
+            android:id="@+id/si_bind_phone"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            eng:text="@string/bind_phone" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,26 +37,26 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/setting_item_bg"
-        android:orientation="vertical"
-        >
-        <!--<com.yc.junior.english.setting.view.widgets.SettingItemView-->
-            <!--android:id="@+id/si_play"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="45dp"-->
-            <!--eng:text="@string/setting_play">-->
-        <!--</com.yc.junior.english.setting.view.widgets.SettingItemView>-->
+        android:orientation="vertical">
+        <!--<com.yc.english.setting.view.widgets.SettingItemView-->
+        <!--android:id="@+id/si_play"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--eng:text="@string/setting_play">-->
+        <!--</com.yc.english.setting.view.widgets.SettingItemView>-->
+
 
         <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1px"-->
-            <!--android:background="@color/primaryDark"></View>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:background="@color/primaryDark"></View>-->
 
         <com.yc.junior.english.setting.view.widgets.SettingItemView
             android:id="@+id/si_version"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            eng:text="@string/setting_version">
-        </com.yc.junior.english.setting.view.widgets.SettingItemView>
+            eng:text="@string/setting_version"></com.yc.junior.english.setting.view.widgets.SettingItemView>
+
 
         <View
             android:layout_width="match_parent"
@@ -49,8 +68,8 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             eng:desc="0.0Byte"
-            eng:text="@string/setting_cache">
-        </com.yc.junior.english.setting.view.widgets.SettingItemView>
+
+            eng:text="@string/setting_cache"></com.yc.junior.english.setting.view.widgets.SettingItemView>
 
 
     </LinearLayout>
@@ -62,9 +81,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:textColor="@color/white"
         android:background="@drawable/setting_btn_red_bg"
         android:text="退出"
-        android:visibility="gone"/>
+        android:textColor="@color/white"
+        android:visibility="gone" />
 
 </LinearLayout>

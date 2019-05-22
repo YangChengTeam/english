@@ -14,7 +14,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/layout_ap"
             android:layout_gravity="center"
             android:layout_marginBottom="110dp"
             android:layout_marginLeft="12dp"
@@ -28,13 +27,15 @@
                 android:id="@+id/sv_loading"
                 android:layout_width="match_parent"
 
+
                 android:layout_height="match_parent"></com.yc.junior.english.base.view.StateView>
+
 
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_course_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,16 +51,18 @@
         </LinearLayout>
 
         <FrameLayout
-            android:id="@+id/toolbarWarpper"
+            android:id="@+id/toolbarWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.yc.junior.english.base.view.TransparentToolBar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
 
                 android:layout_alignParentTop="true"></com.yc.junior.english.base.view.TransparentToolBar>
+
 
         </FrameLayout>
 
@@ -75,7 +78,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -129,7 +131,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_speed"
@@ -147,7 +150,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-
                 android:layout_marginTop="6dp"
                 android:orientation="horizontal">
 
@@ -203,7 +205,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"

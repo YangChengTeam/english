@@ -73,4 +73,7 @@
     <color name="purple_aa78ff">#AA78FF</color>
     <color name="blue_68aeff">#68AEFF</color>
     <color name="orange_bc4022">#BC4022</color>
+    <color name="gray_666">#666666</color>
+    <color name="gray_dadde2">#DADDE2</color>
+    <color name="blue_439fff">#439FFF</color>
 </resources>
