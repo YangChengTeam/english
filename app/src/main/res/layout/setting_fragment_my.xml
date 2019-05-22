@@ -29,7 +29,7 @@
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
-                app:titleTextAppearance="@style/ToolBar"/>
+                app:titleTextAppearance="@style/ToolBar" />
 
             <include layout="@layout/activity_top_setting" />
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -145,18 +145,18 @@
                         android:orientation="vertical">
 
                         <com.yc.english.setting.view.widgets.MenuItemView
-                            android:id="@+id/miv_qq"
+                            android:id="@+id/miv_to_market"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            eng:src="@mipmap/setting_qq"
-                            eng:text="@string/setting_qq_group"></com.yc.english.setting.view.widgets.MenuItemView>
+                            eng:src="@mipmap/setting_market"
+                            eng:text="@string/setting_to_market"></com.yc.english.setting.view.widgets.MenuItemView>
 
                         <com.yc.english.setting.view.widgets.MenuItemView
-                            android:id="@+id/miv_weixin"
+                            android:id="@+id/miv_setting"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            eng:src="@mipmap/setting_wx"
-                            eng:text="@string/setting_weixin"></com.yc.english.setting.view.widgets.MenuItemView>
+                            eng:src="@mipmap/setting_setting"
+                            eng:text="@string/setting_setting"></com.yc.english.setting.view.widgets.MenuItemView>
                     </LinearLayout>
 
 
@@ -182,7 +182,6 @@
                             eng:text="@string/setting_share"></com.yc.english.setting.view.widgets.MenuItemView>
                     </LinearLayout>
 
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="90dp"
@@ -191,18 +190,18 @@
                         android:orientation="vertical">
 
                         <com.yc.english.setting.view.widgets.MenuItemView
-                            android:id="@+id/miv_to_market"
+                            android:id="@+id/miv_qq"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            eng:src="@mipmap/setting_market"
-                            eng:text="@string/setting_to_market"></com.yc.english.setting.view.widgets.MenuItemView>
+                            eng:src="@mipmap/setting_qq"
+                            eng:text="@string/setting_qq_group"></com.yc.english.setting.view.widgets.MenuItemView>
 
                         <com.yc.english.setting.view.widgets.MenuItemView
-                            android:id="@+id/miv_setting"
+                            android:id="@+id/miv_weixin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            eng:src="@mipmap/setting_setting"
-                            eng:text="@string/setting_setting"></com.yc.english.setting.view.widgets.MenuItemView>
+                            eng:src="@mipmap/setting_wx"
+                            eng:text="@string/setting_weixin"></com.yc.english.setting.view.widgets.MenuItemView>
                     </LinearLayout>
                 </LinearLayout>
 

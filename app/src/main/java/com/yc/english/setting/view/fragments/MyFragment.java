@@ -122,7 +122,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @BindView(R.id.iv_tutorship_main_bg)
     ImageView ivTutorshipMainBg;
 
-    private String login_tint = "登录/注册";
+    private String login_tint = "登录";
 
 
     @Override

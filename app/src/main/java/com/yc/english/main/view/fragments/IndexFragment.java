@@ -48,6 +48,7 @@ import com.yc.english.base.utils.PermissionUIListener;
 import com.yc.english.base.view.MyScrollview;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
+import com.yc.english.base.view.UserLoginDialog;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.composition.activity.CompositionMainActivity;
 import com.yc.english.group.constant.GroupConstant;
@@ -68,6 +69,8 @@ import com.yc.english.read.view.activitys.BookActivity;
 import com.yc.english.speak.view.activity.SpeakMainActivity;
 import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
+import com.yc.english.vip.views.fragments.BindPhoneFragment;
+import com.yc.english.vip.views.fragments.BindPhoneSuccessFragment;
 import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.yc.english.weixin.views.activitys.CourseClassifyActivity;
@@ -519,14 +522,12 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //        UserLoginDialog userLoginDialog = new UserLoginDialog(getActivity());
 //        userLoginDialog.show();
 
-
         initRefresh();
 
 //
 
 
     }
-
 
 
     private void initRefresh() {

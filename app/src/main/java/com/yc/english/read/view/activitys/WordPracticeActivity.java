@@ -22,6 +22,9 @@ import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.DrawableUtils;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.StateView;
+import com.yc.english.read.common.AudioPlayManager;
+import com.yc.english.read.common.MediaPlayerPlayer;
+import com.yc.english.read.common.OnUiUpdateManager;
 import com.yc.english.read.common.SpeechUtils;
 import com.yc.english.read.contract.ReadWordContract;
 import com.yc.english.read.model.domain.LetterInfo;
@@ -50,7 +53,7 @@ import static com.yc.english.read.common.SpeechUtils.mContext;
  * Created by admin on 2017/7/26.
  */
 
-public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> implements ReadWordContract.View {
+public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> implements ReadWordContract.View, OnUiUpdateManager {
 
     @BindView(R.id.sv_loading)
     StateView mStateView;
@@ -103,7 +106,6 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
     @BindView(R.id.tv_word_error_tip)
     TextView mWordErrorTipTextView;
 
-    private String[] mLetterListValues;
 
     private ReadLetterItemClickAdapter mLetterAdapter;
 
@@ -122,13 +124,16 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
 
     private String unitId;
 
-    CountDown countDown;
+    private CountDown countDown;
 
     private int currentWordIndex;
 
     private String currentRightWord;
 
     private String currentRightCnWord;
+
+    private AudioPlayManager manager;
+
 
     @Override
     public int getLayoutId() {
@@ -148,7 +153,8 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
         mToolbar.showNavigationIcon();
 
         mTts = SpeechUtils.getTts(this);
-
+//
+//        initMediaPlayer();
         GridLayoutManager layoutManager = new GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false);
         mLetterRecyclerView.setLayoutManager(layoutManager);
         mLetterRecyclerView.addItemDecoration(new GridSpacingItemDecoration(5, getResources().getDimensionPixelSize(R.dimen.dp_6), true));
@@ -277,6 +283,11 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
         });
 
         mPresenter.getWordListByUnitId(0, 0, unitId);
+    }
+
+    private void initMediaPlayer() {
+//        manager = new WlMusicPlayer(this);
+        manager = new MediaPlayerPlayer(this);
     }
 
     @Override
@@ -421,7 +432,7 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
     public void randomLetterView() {
         if (!StringUtils.isEmpty(currentRightWord)) {
             String randomStr = randomLetters(currentRightWord);
-            mLetterDatas = new ArrayList<LetterInfo>();
+            mLetterDatas = new ArrayList<>();
 
             for (int i = 0; i < randomStr.length(); i++) {
                 LetterInfo letterInfo = new LetterInfo(LetterInfo.CLICK_ITEM_VIEW);
@@ -443,11 +454,10 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
     @Override
     protected void onPause() {
         super.onPause();
-        if(mTts.isSpeaking()) {
+        if (mTts.isSpeaking()) {
             mTts.stopSpeaking();
         }
     }
-
 
 
     /**
@@ -496,5 +506,25 @@ public class WordPracticeActivity extends FullScreenActivity<ReadWordPresenter> 
         }
 
         return result.toString();
+    }
+
+    @Override
+    public void onCompleteUI() {
+
+    }
+
+    @Override
+    public void onErrorUI(int what, int extra, String msg) {
+
+    }
+
+    @Override
+    public void onStopUI() {
+
+    }
+
+    @Override
+    public void onStartUI(int duration) {
+
     }
 }

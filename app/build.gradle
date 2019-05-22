@@ -12,8 +12,8 @@ android {
         minSdkVersion 17
         targetSdkVersion 26
 
-        versionCode 78 //56
-        versionName "2.3.2"//1.7.6
+        versionCode 79 //56
+        versionName "2.3.3"//1.7.6
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -195,7 +195,8 @@ dependencies {
     implementation project(':video-player')
     compile 'com.wl.tencent-adv:tencent-adv:7.0'
 
-    implementation 'ywl.ywl5320:libmusic:1.2.6'
+//    implementation 'ywl.ywl5320:libmusic:1.2.6'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.9.6'
 
     configurations{
         all*.exclude group:'com.github.promeg',module:'tinypinyin'

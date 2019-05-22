@@ -142,7 +142,8 @@
                 android:gravity="center"
                 android:text="@string/main_login_regiter"
                 android:textColor="@color/primary"
-                android:textSize="@dimen/font_normal" />
+                android:textSize="@dimen/font_normal"
+                android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>
 

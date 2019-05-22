@@ -70,7 +70,7 @@ public final class SnackbarUtils {
         messageColor = DEFAULT_COLOR;
         bgColor = DEFAULT_COLOR;
         bgResource = -1;
-        duration = LENGTH_SHORT;
+        duration = LENGTH_LONG;
         actionText = "";
         actionTextColor = DEFAULT_COLOR;
         bottomMargin = 0;
@@ -215,6 +215,41 @@ public final class SnackbarUtils {
             snackbar.setAction(actionText, actionListener);
         }
         snackbar.setDuration(2000);
+        snackbar.show();
+    }
+
+    /**
+     * 显示snackbar
+     */
+    public void show(int duration) {
+        final View view = parent.get();
+        if (view == null) return;
+        if (messageColor != DEFAULT_COLOR) {
+            SpannableString spannableString = new SpannableString(message);
+            ForegroundColorSpan colorSpan = new ForegroundColorSpan(messageColor);
+            spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            snackbarWeakReference = new WeakReference<>(Snackbar.make(view, spannableString, duration));
+        } else {
+            snackbarWeakReference = new WeakReference<>(Snackbar.make(view, message, duration));
+        }
+        final Snackbar snackbar = snackbarWeakReference.get();
+        final View snackbarView = snackbar.getView();
+        if (bgResource != -1) {
+            snackbarView.setBackgroundResource(bgResource);
+        } else if (bgColor != DEFAULT_COLOR) {
+            snackbarView.setBackgroundColor(bgColor);
+        }
+        if (bottomMargin != 0) {
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) snackbarView.getLayoutParams();
+            params.bottomMargin = bottomMargin;
+        }
+        if (actionText.length() > 0 && actionListener != null) {
+            if (actionTextColor != DEFAULT_COLOR) {
+                snackbar.setActionTextColor(actionTextColor);
+            }
+            snackbar.setAction(actionText, actionListener);
+        }
+        snackbar.setDuration(duration);
         snackbar.show();
     }
 
