@@ -26,7 +26,6 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
@@ -172,21 +171,15 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     }
 
     private void initListener() {
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                SharePopupWindow sharePopupWindow = new SharePopupWindow(NewsDetailActivity.this);
-                sharePopupWindow.show(llRootView);
-            }
+        mToolbar.setOnItemClickLisener(() -> {
+            SharePopupWindow sharePopupWindow = new SharePopupWindow(NewsDetailActivity.this);
+            sharePopupWindow.show(llRootView);
         });
-        nestedScrollView.setOnScrollChangeListener(new NewsScrollView.onScrollChangeListener() {
-            @Override
-            public void onScrollChange(int l, int t, int oldl, int oldt) {
-                if (t > mTextViewTitle.getMeasuredHeight()) {
-                    mToolbar.setTitle(title);
-                } else {
-                    mToolbar.setTitle("");
-                }
+        nestedScrollView.setOnScrollChangeListener((l, t, oldl, oldt) -> {
+            if (t > mTextViewTitle.getMeasuredHeight()) {
+                mToolbar.setTitle(title);
+            } else {
+                mToolbar.setTitle("");
             }
         });
 
@@ -307,12 +300,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         mMediaPlayerView.setVisibility(View.VISIBLE);
         mJCVideoPlayer.setVisibility(View.GONE);
         mMediaPlayerView.setPath(path);
-        mMediaPlayerView.setOnMediaClickListener(new MediaPlayerView.onMediaClickListener() {
-            @Override
-            public void onMediaClick() {
-                mPresenter.statisticsStudyTotal(id);
-            }
-        });
+        mMediaPlayerView.setOnMediaClickListener(() -> mPresenter.statisticsStudyTotal(id));
     }
 
     /**

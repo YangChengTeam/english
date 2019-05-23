@@ -8,9 +8,11 @@ import com.yc.english.base.helper.ResultInfoHelper;
 import com.yc.english.group.utils.EngineUtils;
 import com.yc.english.news.model.domain.OrderParams;
 import com.yc.english.pay.alipay.OrderInfo;
+import com.yc.english.setting.model.bean.GoodInfo;
 import com.yc.english.vip.contract.VipBuyContract;
 import com.yc.english.vip.model.bean.VipGoodInfo;
 import com.yc.english.vip.model.bean.VipGoodInfoWrapper;
+import com.yc.english.vip.utils.VipInfoHelper;
 
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class VipBuyPresenter extends BasePresenter<BaseEngine, VipBuyContract.Vi
     public void loadData(boolean forceUpdate, boolean showLoadingUI) {
         if (!forceUpdate) return;
         getVidGoodInfos();
+        getGoodsList();
     }
 
     public void createOrder(final OrderParams orderParams) {
@@ -121,5 +124,45 @@ public class VipBuyPresenter extends BasePresenter<BaseEngine, VipBuyContract.Vi
         mSubscriptions.add(subscription);
     }
 
+
+    private void getGoodsList() {
+
+        Subscription subscription = EngineUtils.getVipInfoList(mContext).subscribe(new Subscriber<ResultInfo<List<GoodInfo>>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.showNoNet();
+            }
+
+            @Override
+            public void onNext(final ResultInfo<List<GoodInfo>> goodInfoWrapperResultInfo) {
+                ResultInfoHelper.handleResultInfo(goodInfoWrapperResultInfo, new ResultInfoHelper.Callback() {
+                    @Override
+                    public void resultInfoEmpty(String message) {
+
+                    }
+
+                    @Override
+                    public void resultInfoNotOk(String message) {
+
+                    }
+
+                    @Override
+                    public void reulstInfoOk() {
+                        if (goodInfoWrapperResultInfo.data != null) {
+                            mView.showGoodInfoList(goodInfoWrapperResultInfo.data);
+                            VipInfoHelper.setGoodInfoList(goodInfoWrapperResultInfo.data);
+                        }
+                    }
+                });
+
+            }
+        });
+        mSubscriptions.add(subscription);
+    }
 
 }

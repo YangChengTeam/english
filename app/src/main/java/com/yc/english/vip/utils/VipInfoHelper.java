@@ -37,12 +37,7 @@ public class VipInfoHelper {
 
     public static void setGoodInfoList(List<GoodInfo> goodInfoList) {
         try {
-            Collections.sort(goodInfoList, new Comparator<GoodInfo>() {
-                @Override
-                public int compare(GoodInfo o1, GoodInfo o2) {
-                    return Integer.parseInt(o1.getUse_time_limit()) - Integer.parseInt(o2.getUse_time_limit());
-                }
-            });
+            Collections.sort(goodInfoList, (o1, o2) -> Integer.parseInt(o1.getUse_time_limit()) - Integer.parseInt(o2.getUse_time_limit()));
             String json = JSON.toJSONString(goodInfoList);
             SPUtils.getInstance().put(Constant.VIP_INFO_LIST_INFO, json);
         } catch (Exception e) {

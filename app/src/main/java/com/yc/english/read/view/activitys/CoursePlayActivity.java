@@ -42,6 +42,7 @@ import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
 import com.yc.english.read.common.AudioPlayManager;
+import com.yc.english.read.common.ExoPlayer;
 import com.yc.english.read.common.MediaPlayerPlayer;
 import com.yc.english.read.common.OnUiUpdateManager;
 import com.yc.english.read.contract.CoursePlayContract;
@@ -245,190 +246,172 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     private void initListener() {
         mTsSubject = PublishSubject.create();
 
-        mTsSubject.delay(800, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Integer>() {
-            @Override
-            public void call(Integer position) {
+        mTsSubject.delay(800, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(position -> {
 
 
-                if (playPosition < mItemAdapter.getData().size()) {
-                    enableState(playPosition);
+            if (playPosition < mItemAdapter.getData().size()) {
+                enableState(playPosition);
 //                    startSynthesizer(position);
-                    startPlay(position);
-                } else {
-                    isContinue = false;
-                    disableState();
-                }
+                startPlay(position);
+            } else {
+                isContinue = false;
+                disableState();
             }
         });
 
 
         //下一单元
-        RxView.clicks(mNextUnitImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
+        RxView.clicks(mNextUnitImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
 
-                manager.stop();
-                if (unitInfoList != null && position + 1 < unitInfoList.size()) {
-                    UnitInfo unitInfo = unitInfoList.get(position + 1);
-                    position++;
-                    //1是免费，2是收费
-                    if (unitInfo.getFree() == 1) {
-                        isRead = true;
+            manager.stop();
+            if (unitInfoList != null && position + 1 < unitInfoList.size()) {
+                UnitInfo unitInfo = unitInfoList.get(position + 1);
+                position++;
+                //1是免费，2是收费
+                if (unitInfo.getFree() == 1) {
+                    isRead = true;
+                } else {
+                    if (userInfo != null) {
+                        isRead = UserInfoHelper.isVip(userInfo);
                     } else {
-                        if (userInfo != null) {
-                            isRead = UserInfoHelper.isVip(userInfo);
-                        } else {
-                            UserInfoHelper.isGotoLogin(CoursePlayActivity.this);
-                            return;
-                        }
-                    }
-                    if (!isRead) {
-                        Bundle bundle = new Bundle();
-                        bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
-                        VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
+                        UserInfoHelper.isGotoLogin(CoursePlayActivity.this);
                         return;
                     }
-
-                    isNext = true;
-                    resetPlayState();
-                    mToolbar.setTitle(unitInfo.getName());
-                    unitId = unitInfo.getId();
-                    currentPage = 1;
-                    mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
-
-                } else {
-                    TipsHelper.tips(CoursePlayActivity.this, "已经是最后一个单元");
+                }
+                if (!isRead) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
+                    VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
+                    return;
                 }
 
+                isNext = true;
+                resetPlayState();
+                mToolbar.setTitle(unitInfo.getName());
+                unitId = unitInfo.getId();
+                currentPage = 1;
+                mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
+
+            } else {
+                TipsHelper.tips(CoursePlayActivity.this, "已经是最后一个单元");
             }
+
         });
 
         //播放
-        RxView.clicks(mCoursePlayImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                if (playPosition == -1) {
-                    playPosition = 0;
-                }
-                isContinue = !isContinue;
-                if (isContinue) {
-                    enableState(playPosition);
+        RxView.clicks(mCoursePlayImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            if (playPosition == -1) {
+                playPosition = 0;
+            }
+            isContinue = !isContinue;
+            if (isContinue) {
+                enableState(playPosition);
 //                    startSynthesizer(playPosition);
-                    startPlay(playPosition);
-                } else {
-                    disableState();
-                }
+                startPlay(playPosition);
+            } else {
+                disableState();
             }
         });
 
         //语言切换
-        RxView.clicks(mLanguageChangeImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                languageType++;
+        RxView.clicks(mLanguageChangeImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            languageType++;
 
-                if (languageType > 3) {
-                    languageType = 1;
-                }
-                if (playPosition > -1 && playPosition < mItemAdapter.getData().size()) {
-                    mItemAdapter.getData().get(playPosition).setPlay(true);
-                }
-                switch (languageType) {
-                    case 1:
-                        mLanguageTextView.setText(getString(R.string.read_course_language_blend_text));
-                        break;
-                    case 2:
-                        mLanguageTextView.setText(getString(R.string.read_course_language_en_text));
-                        break;
-                    case 3:
-                        mLanguageTextView.setText(getString(R.string.read_course_language_cn_text));
-                        break;
-                    default:
-                        break;
-                }
-
-                mItemAdapter.setLanguageType(languageType);
-                mItemAdapter.notifyDataSetChanged();
+            if (languageType > 3) {
+                languageType = 1;
             }
+            if (playPosition > -1 && playPosition < mItemAdapter.getData().size()) {
+                mItemAdapter.getData().get(playPosition).setPlay(true);
+            }
+            switch (languageType) {
+                case 1:
+                    mLanguageTextView.setText(getString(R.string.read_course_language_blend_text));
+                    break;
+                case 2:
+                    mLanguageTextView.setText(getString(R.string.read_course_language_en_text));
+                    break;
+                case 3:
+                    mLanguageTextView.setText(getString(R.string.read_course_language_cn_text));
+                    break;
+                default:
+                    break;
+            }
+
+            mItemAdapter.setLanguageType(languageType);
+            mItemAdapter.notifyDataSetChanged();
         });
 
-        mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, final View view, int position) {
-                /*if (position == playPosition) {
-                    return;
-                }*/
-                isContinue = false;
-                playPosition = position;
-                itemChoose(playPosition);
-                //startSynthesizer(playPosition);
-            }
+        mItemAdapter.setOnItemClickListener((adapter, view, position) -> {
+            /*if (position == playPosition) {
+                return;
+            }*/
+            isContinue = false;
+            playPosition = position;
+            itemChoose(playPosition);
+            //startSynthesizer(playPosition);
         });
 
         //点击跟读按钮后操作
-        mItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                playPosition = position;
-                if (view.getId() == R.id.iv_tape) {
+        mItemAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            playPosition = position;
+            if (view.getId() == R.id.iv_tape) {
 
-                    lastPosition = position;
-                    isContinue = false;
+                lastPosition = position;
+                isContinue = false;
+                disableState();
+
+                //弹出录音界面
+                //mIatDialog.setListener(mRecognizerDialogListener);
+                //mIatDialog.show();
+
+                /*View currentView = linearLayoutManager.findViewByPosition(playPosition);
+                if (currentView != null) {
+                    ((ImageView) currentView.findViewById(R.id.iv_tape)).setImageResource(R.drawable.record_microphone);
+                }*/
+
+                final View tapeView = View.inflate(CoursePlayActivity.this, R.layout.layout_microphone, null);
+                mTapePop = new PopupWindowFactory(CoursePlayActivity.this, tapeView);
+
+                //PopupWindow布局文件里面的控件
+                mTapeImageView = tapeView.findViewById(R.id.iv_recording_icon);
+                mTapePop.showAtLocation(mLayoutContext, Gravity.CENTER, 0, 0);
+
+                ret = mIat.startListening(mRecognizerListener);
+                if (ret != ErrorCode.SUCCESS) {
+                    ToastUtils.showLong("听写失败,错误码：" + ret);
+                } else {
+                    //ToastUtils.showLong("开始");
+                }
+            }
+
+            if (view.getId() == R.id.iv_play) {
+                if (manager != null && manager.isPlaying()) {
+                    manager.stop();
                     disableState();
-
-                    //弹出录音界面
-                    //mIatDialog.setListener(mRecognizerDialogListener);
-                    //mIatDialog.show();
-
-                    /*View currentView = linearLayoutManager.findViewByPosition(playPosition);
-                    if (currentView != null) {
-                        ((ImageView) currentView.findViewById(R.id.iv_tape)).setImageResource(R.drawable.record_microphone);
-                    }*/
-
-                    final View tapeView = View.inflate(CoursePlayActivity.this, R.layout.layout_microphone, null);
-                    mTapePop = new PopupWindowFactory(CoursePlayActivity.this, tapeView);
-
-                    //PopupWindow布局文件里面的控件
-                    mTapeImageView = tapeView.findViewById(R.id.iv_recording_icon);
-                    mTapePop.showAtLocation(mLayoutContext, Gravity.CENTER, 0, 0);
-
-                    ret = mIat.startListening(mRecognizerListener);
-                    if (ret != ErrorCode.SUCCESS) {
-                        ToastUtils.showLong("听写失败,错误码：" + ret);
-                    } else {
-                        //ToastUtils.showLong("开始");
-                    }
-                }
-
-                if (view.getId() == R.id.iv_play) {
-                    if (manager != null && manager.isPlaying()) {
-                        manager.stop();
-                        disableState();
-                    } else {
-                        isContinue = false;
-                        enableState(playPosition);
+                } else {
+                    isContinue = false;
+                    enableState(playPosition);
 //                        startSynthesizer(playPosition);
-                        startPlay(playPosition);
-                    }
+                    startPlay(playPosition);
                 }
+            }
 
-                if (view.getId() == R.id.iv_play_tape) {
-                    if (mItemAdapter.getData().get(lastPosition).isShow()) {
-                        if (mPlayer != null && mPlayer.isPlaying()) {
-                            stopPlayTape();
-                            View currentView = linearLayoutManager.findViewByPosition(position);
-                            if (currentView != null) {
-                                Glide.with(CoursePlayActivity.this).load(R.mipmap.item_tape_play_normal_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
-                            }
-                        } else {
-                            playTape(position);
+            if (view.getId() == R.id.iv_play_tape) {
+                if (mItemAdapter.getData().get(lastPosition).isShow()) {
+                    if (mPlayer != null && mPlayer.isPlaying()) {
+                        stopPlayTape();
+                        View currentView = linearLayoutManager.findViewByPosition(position);
+                        if (currentView != null) {
+                            Glide.with(CoursePlayActivity.this).load(R.mipmap.item_tape_play_normal_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
                         }
                     } else {
-                        ToastUtils.showLong("请先录音评测后再回放");
+                        playTape(position);
                     }
+                } else {
+                    ToastUtils.showLong("请先录音评测后再回放");
                 }
-
             }
+
         });
 
         mCourseRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -448,23 +431,17 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         });
 
 
-        RxView.clicks(llSpeed).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                SpeedSettingFragment speedSettingFragment = new SpeedSettingFragment();
-                speedSettingFragment.show(getSupportFragmentManager(), "");
-                speedSettingFragment.setOnDissmissListener(new SpeedSettingFragment.onDissmissListener() {
-                    @Override
-                    public void onDissmiss() {
-                        int speed = SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 1);
+        RxView.clicks(llSpeed).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            SpeedSettingFragment speedSettingFragment = new SpeedSettingFragment();
+            speedSettingFragment.show(getSupportFragmentManager(), "");
+            speedSettingFragment.setOnDissmissListener(() -> {
+                int speed = SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 1);
 
-                        float result = (speed * 2 + 20) / (100 * 1.0f);
-                        BigDecimal bd = new BigDecimal(result);
+                float result = (speed * 2 + 20) / (100 * 1.0f);
+                BigDecimal bd = new BigDecimal(result);
 
-                        tvSpeed.setText(String.format(getString(R.string.play_speed_result), String.valueOf(bd.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue())));
-                    }
-                });
-            }
+                tvSpeed.setText(String.format(getString(R.string.play_speed_result), String.valueOf(bd.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue())));
+            });
         });
     }
 
@@ -499,20 +476,17 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     private void initMediaPlayer() {
 //        manager = new WlMusicPlayer(this);
-        manager = new MediaPlayerPlayer(this);
+//        manager = new MediaPlayerPlayer(this);
+        manager = new ExoPlayer(this, this);
     }
 
     /**
      * 初始化监听器。
      */
-    private InitListener mInitListener = new InitListener() {
-
-        @Override
-        public void onInit(int code) {
-            LogUtils.e("SpeechRecognizer init() code = " + code);
-            if (code != ErrorCode.SUCCESS) {
-                ToastUtils.showLong("初始化失败，错误码：" + code);
-            }
+    private InitListener mInitListener = code -> {
+        LogUtils.e("SpeechRecognizer init() code = " + code);
+        if (code != ErrorCode.SUCCESS) {
+            ToastUtils.showLong("初始化失败，错误码：" + code);
         }
     };
 
@@ -635,12 +609,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     @Override
     public void showNoNet() {
-        mStateView.showNoNet(mCourseRecyclerView, "网络不给力", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
-            }
-        });
+        mStateView.showNoNet(mCourseRecyclerView, "网络不给力", v -> mPresenter.getCourseListByUnitId(currentPage, 0, unitId));
     }
 
     @Override
@@ -833,7 +802,15 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         String url = mItemAdapter.getData().get(position).getMp3url();
 
         Log.e("TAG", "startPlay: " + url);
-        if (manager == null) manager = new MediaPlayerPlayer(this);
+        if (!url.endsWith(".mp3")) {
+            if (position < mItemAdapter.getData().size() - 1)
+                url = mItemAdapter.getData().get(position + 1).getMp3url();
+            else {
+                onCompleteUI();
+                return;
+            }
+        }
+        if (manager == null) manager = new ExoPlayer(this, this);
         manager.start(url);
 
     }
@@ -1010,16 +987,13 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 //播放
                 mPlayer.start();
 //                mPlayer.getPlaybackParams().setSpeed(1.2f);
-                mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        disableState();
-                        stopPlayTape();
+                mPlayer.setOnCompletionListener(mp -> {
+                    disableState();
+                    stopPlayTape();
 
 //                        View currentView = linearLayoutManager.findViewByPosition(position);
-                        if (currentView != null) {
-                            Glide.with(CoursePlayActivity.this).load(R.mipmap.item_tape_play_normal_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
-                        }
+                    if (currentView != null) {
+                        Glide.with(CoursePlayActivity.this).load(R.mipmap.item_tape_play_normal_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
                     }
                 });
 
@@ -1080,16 +1054,13 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     @Override
     public void onCompleteUI() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+        runOnUiThread(() -> {
 
 //                Log.e("TAG", "run: " + playPosition + "  size: " + mItemAdapter.getData().size());
-                speekContinue(isContinue ? ++playPosition : playPosition);
-                if (playPosition == mItemAdapter.getData().size() - 1) {
-                    playPosition = -1;
-                    isContinue = false;
-                }
+            speekContinue(isContinue ? ++playPosition : playPosition);
+            if (playPosition == mItemAdapter.getData().size() - 1) {
+                playPosition = -1;
+                isContinue = false;
             }
         });
     }

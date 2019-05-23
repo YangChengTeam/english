@@ -1,7 +1,6 @@
 package com.yc.english.news.view.widget;
 
 import android.content.Context;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
@@ -51,11 +50,10 @@ import yc.com.blankj.utilcode.util.ToastUtils;
  * Created by wanglin  on 2017/9/6 15:15.
  */
 
-public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPreparedListener,
-        MediaPlayer.OnCompletionListener, View.OnClickListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnErrorListener, Player.EventListener {
+public class ExoPlayerView extends LinearLayout implements View.OnClickListener, Player.EventListener {
     private Context mContext;
     private boolean isPlay;
-    private MediaPlayer mediaPlayer;
+    private SimpleExoPlayer player;
     private SeekBar mSeekBar;
 
     private TextView mTextViewTime;
@@ -75,15 +73,15 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
     private ExecutorService executorService;
 
 
-    public MediaPlayerView(Context context) {
+    public ExoPlayerView(Context context) {
         this(context, null);
     }
 
-    public MediaPlayerView(Context context, @Nullable AttributeSet attrs) {
+    public ExoPlayerView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MediaPlayerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ExoPlayerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         init(context);
@@ -97,12 +95,17 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
         mTextViewTime = view.findViewById(R.id.mTextViewTime);
 
         executorService = Executors.newSingleThreadExecutor();
-        mediaPlayer = new MediaPlayer();
+//        mediaPlayer = new MediaPlayer();
+        player = ExoPlayerFactory.newSimpleInstance(context);
 
 //        player.setAudioStreamType(C.STREAM_TYPE_MUSIC);
 
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setContentType(C.CONTENT_TYPE_MUSIC)
+                .build();
+        player.setAudioAttributes(audioAttributes);
+//        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        player.setPlayWhenReady(false);
         initListener();
 
     }
@@ -110,11 +113,12 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
     private void initListener() {
         mImageView.setOnClickListener(this);
         mSeekBar.setOnSeekBarChangeListener(new MySeekBarListener());
-        mediaPlayer.setOnPreparedListener(this);
-        mediaPlayer.setOnCompletionListener(this);
-        mediaPlayer.setOnBufferingUpdateListener(this);
-        mediaPlayer.setOnErrorListener(this);
+//        mediaPlayer.setOnPreparedListener(this);
+//        mediaPlayer.setOnCompletionListener(this);
+//        mediaPlayer.setOnBufferingUpdateListener(this);
+//        mediaPlayer.setOnErrorListener(this);
 
+        player.addListener(this);
 
     }
 
@@ -125,10 +129,16 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
         reset();
         try {
             currentState = STATE_INITIALIZE;
+            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(mContext,
+                    Util.getUserAgent(mContext, mContext.getPackageName()));
+            // This is the MediaSource representing the media to be played.
+            Uri mp4VideoUri = Uri.parse(path);
+            MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
+                    .createMediaSource(mp4VideoUri);
+            player.prepare(videoSource);
 
-
-            mediaPlayer.setDataSource(path);
-            mediaPlayer.prepareAsync();
+//            mediaPlayer.setDataSource(path);
+//            mediaPlayer.prepareAsync();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -139,13 +149,14 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
 
     //重置播放器
     private void reset() {
-        if (mediaPlayer == null) mediaPlayer = new MediaPlayer();
+        if (player == null) player = ExoPlayerFactory.newSimpleInstance(mContext);
         if (currentState == STATE_INITIALIZE || currentState == STATE_PAUSE ||
                 currentState == STATE_COMPLETE || currentState == STATE_START
                 || currentState == STATE_PREPARED || currentState == STATE_STOP) {
-            mediaPlayer.stop();
-            mediaPlayer.reset();
+//            mediaPlayer.stop();
+//            mediaPlayer.reset();
 
+            player.stop();
         }
     }
 
@@ -162,7 +173,7 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
         try {
 
 
-            if (null != mediaPlayer) mediaPlayer.start();// 开始
+            if (null != player) player.setPlayWhenReady(true);// 开始
             currentState = STATE_START;
             mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_play));
             mHandler.postDelayed(myRunnable, 0);
@@ -174,10 +185,11 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
     //暂停播放
     public void pause() {
         try {
-            if (null != mediaPlayer && currentState == STATE_START) {
+            if (null != player && currentState == STATE_START) {
                 currentState = STATE_PAUSE;
                 mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_stop));
-                mediaPlayer.pause();
+                player.setPlayWhenReady(false);
+
             }
         } catch (Exception e) {
         }
@@ -185,7 +197,7 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
 
     //播放完成
     private void complete() {
-        if (null != mediaPlayer) {
+        if (null != player) {
             mImageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.media_stop));
             mSeekBar.setProgress(0);
             currentState = STATE_COMPLETE;
@@ -193,23 +205,12 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
     }
 
 
-    @Override
-    public void onPrepared(final MediaPlayer mp) {
-        currentState = STATE_PREPARED;
-        try {
-            mSeekBar.setMax(mp.getDuration());//设置进度条
-            mTextViewTime.setText(TimeUtils.millis2String(mp.getDuration(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
-        } catch (Exception e) {
-            LogUtils.e(e.getMessage());
-            ToastUtils.showShort("播放失败");
-        }
-    }
 
     @Override
     public void onClick(View v) {
 
-        if (null != mediaPlayer)
-            isPlay = mediaPlayer.isPlaying();
+        if (null != player)
+            isPlay = player.isPlayingAd();
 
 
         LogUtils.e("TAG", isPlay);
@@ -223,19 +224,23 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
         }
     }
 
-    @Override
-    public void onBufferingUpdate(MediaPlayer mp, int percent) {
 
-    }
 
-    @Override
-    public boolean onError(MediaPlayer mp, int what, int extra) {
-        return false;
-    }
 
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-
+            if (playbackState==Player.STATE_READY){
+                currentState = STATE_PREPARED;
+                try {
+                    mSeekBar.setMax((int) player.getDuration());//设置进度条
+                    mTextViewTime.setText(TimeUtils.millis2String(player.getDuration(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
+                } catch (Exception e) {
+                    LogUtils.e(e.getMessage());
+                    ToastUtils.showShort("播放失败");
+                }
+            }else if (playbackState ==Player.STATE_ENDED){
+                complete();
+            }
     }
 
     @Override
@@ -254,8 +259,8 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
         }
 
         public void onStopTrackingTouch(SeekBar seekBar) {
-            mediaPlayer.seekTo(seekBar.getProgress());
-            mTextViewTime.setText(TimeUtils.millis2String(mediaPlayer.getCurrentPosition(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
+            player.seekTo(seekBar.getProgress());
+            mTextViewTime.setText(TimeUtils.millis2String(player.getCurrentPosition(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
             play();
         }
 
@@ -266,9 +271,9 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
         @Override
         public void run() {
             try {
-                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                    mSeekBar.setProgress(mediaPlayer.getCurrentPosition());
-                    mTextViewTime.setText(TimeUtils.millis2String(mediaPlayer.getCurrentPosition(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
+                if (player != null && player.isPlayingAd()) {
+                    mSeekBar.setProgress((int) player.getCurrentPosition());
+                    mTextViewTime.setText(TimeUtils.millis2String(player.getCurrentPosition(), new SimpleDateFormat("mm:ss", Locale.getDefault())));
                     mHandler.postDelayed(this, 10);
                 }
             } catch (Exception e) {
@@ -330,18 +335,14 @@ public class MediaPlayerView extends LinearLayout implements MediaPlayer.OnPrepa
     }
 
 
-    @Override
-    public void onCompletion(MediaPlayer mp) {
-        complete();
-    }
+
 
     public void destroy() {
         currentState = STATE_DESTROY;
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.reset();
-            mediaPlayer.release();
-            mediaPlayer = null;
+        if (player != null) {
+            player.stop();
+            player.release();
+            player = null;
         }
 
         mHandler.removeCallbacks(myRunnable);

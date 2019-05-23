@@ -15,4 +15,6 @@ public interface AudioPlayManager {
 
     int getPlayPosition();
 
+//    void pause();
+
 }

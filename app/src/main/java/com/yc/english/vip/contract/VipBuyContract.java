@@ -2,6 +2,7 @@ package com.yc.english.vip.contract;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.english.pay.alipay.OrderInfo;
+import com.yc.english.setting.model.bean.GoodInfo;
 import com.yc.english.vip.model.bean.VipGoodInfo;
 
 import java.util.List;
@@ -24,6 +25,8 @@ public interface VipBuyContract {
         void shareAllow(Integer data);
 
         void showVipGoodInfos(List<VipGoodInfo> vipGoodInfos);
+
+        void showGoodInfoList(List<GoodInfo> data);
     }
 
     interface Presenter extends IPresenter {
