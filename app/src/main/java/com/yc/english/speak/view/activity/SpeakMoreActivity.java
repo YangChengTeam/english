@@ -75,13 +75,11 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
 
     private void initListener() {
 
-        speakEnglishItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                // TODO: 2017/10/13 视频或音频点击跳转
-                List<SpeakAndReadItemInfo> dataList = speakEnglishItemAdapter.getData();
-                SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
-
+        speakEnglishItemAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            // TODO: 2017/10/13 视频或音频点击跳转
+            List<SpeakAndReadItemInfo> dataList = speakEnglishItemAdapter.getData();
+            SpeakAndReadItemInfo speakAndReadItemInfo = (SpeakAndReadItemInfo) adapter.getItem(position);
+            if (speakAndReadItemInfo != null) {
                 speakAndReadItemInfo.setInnerPos(position);
                 speakAndReadItemInfo.setOutPos(0);
                 Intent intent = null;
@@ -103,12 +101,7 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
                 startActivity(intent);
             }
         });
-        speakEnglishItemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                getData(true, false);
-            }
-        }, recyclerView);
+        speakEnglishItemAdapter.setOnLoadMoreListener(() -> getData(true, false), recyclerView);
 
         initRefresh();
     }
@@ -119,12 +112,9 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
         swipeRefreshLayout.setPrimaryColorsId(R.color.primaryDark);
         swipeRefreshLayout.setEnableLoadMore(false);
 
-        swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                page = 1;
-                getData(false, false);
-            }
+        swipeRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            page = 1;
+            getData(false, false);
         });
     }
 
@@ -141,13 +131,8 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
 
     @Override
     public void showNoNet() {
-        stateView.showNoNet(swipeRefreshLayout, HttpConfig.NET_ERROR, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getData(false, true);
-            }
-        });
-        if (swipeRefreshLayout!=null) {
+        stateView.showNoNet(swipeRefreshLayout, HttpConfig.NET_ERROR, v -> getData(false, true));
+        if (swipeRefreshLayout != null) {
             swipeRefreshLayout.finishRefresh();
         }
     }
@@ -155,7 +140,7 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
     @Override
     public void showNoData() {
         stateView.showNoData(swipeRefreshLayout);
-        if (swipeRefreshLayout!=null) {
+        if (swipeRefreshLayout != null) {
             swipeRefreshLayout.finishRefresh();
         }
     }
@@ -167,7 +152,7 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
 
 
     @Override
-    public void shoReadAndSpeakMorList(List<SpeakAndReadInfo> list, int page, boolean isFitst) {
+    public void shoReadAndSpeakMorList(List<SpeakAndReadInfo> list, int page, boolean isFirst) {
         if (list != null && list.size() > 0) {
             if (page == 1) {
                 speakEnglishItemAdapter.setNewData(list.get(0).getData());
@@ -180,7 +165,7 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
             speakEnglishItemAdapter.loadMoreEnd();
         }
 
-        if (swipeRefreshLayout!=null) {
+        if (swipeRefreshLayout != null) {
             swipeRefreshLayout.finishRefresh();
         }
     }
@@ -200,6 +185,11 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
 
     @Override
     public boolean isStatusBarMateria() {
+        return true;
+    }
+
+    @Override
+    protected boolean isSupportSwipeBack() {
         return true;
     }
 }

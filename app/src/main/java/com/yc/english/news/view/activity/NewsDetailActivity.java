@@ -25,6 +25,8 @@ import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
+import com.xinqu.videoplayer.XinQuVideoPlayer;
+import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
@@ -52,8 +54,6 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerStandard;
 import rx.functions.Action1;
 import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.LogUtils;
@@ -67,7 +67,7 @@ import yc.com.blankj.utilcode.util.TimeUtils;
 public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> implements NewsDetailContract.View {
     private static final String TAG = "NewsDetailActivity";
     @BindView(R.id.mJCVideoPlayer)
-    JZVideoPlayerStandard mJCVideoPlayer;
+    XinQuVideoPlayerStandard mJCVideoPlayer;
     @BindView(R.id.webView)
     WebView webView;
     @BindView(R.id.mLinearLayoutMore)
@@ -137,7 +137,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         initRecycleView();
         initListener();
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mSensorEventListener = new JZVideoPlayer.JZAutoFullscreenListener();
+        mSensorEventListener = new XinQuVideoPlayerStandard.XinQuAutoFullscreenListener();
         userInfo = UserInfoHelper.getUserInfo();
     }
 
@@ -312,11 +312,12 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
         mJCVideoPlayer.setVisibility(View.VISIBLE);
         mMediaPlayerView.setVisibility(View.GONE);
-        mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
+//        mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
+        mJCVideoPlayer.setUp(url, XinQuVideoPlayer.SCREEN_WINDOW_LIST, false, "");
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
         mJCVideoPlayer.tinyBackImageView.setVisibility(View.GONE);
-        mJCVideoPlayer.batteryLevel.setVisibility(View.GONE);
+//        mJCVideoPlayer.batteryLevel.setVisibility(View.GONE);
 
 
         if (judgeVip()) {
@@ -416,12 +417,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     @Override
     public void showNoNet() {
-        stateView.showNoNet(nestedScrollView, HttpConfig.NET_ERROR, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.getWeixinInfo(id);
-            }
-        });
+        stateView.showNoNet(nestedScrollView, HttpConfig.NET_ERROR, v -> mPresenter.getWeixinInfo(id));
     }
 
     @Override
@@ -470,7 +466,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         judgeVip();
     }
 
-    private JZVideoPlayer.JZAutoFullscreenListener mSensorEventListener;
+    private XinQuVideoPlayer.XinQuAutoFullscreenListener mSensorEventListener;
 
     private SensorManager mSensorManager;
 
@@ -487,9 +483,9 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
     @Override
     protected void onPause() {
         super.onPause();
-        JZVideoPlayer.releaseAllVideos();
+        XinQuVideoPlayerStandard.releaseAllVideos();
         mSensorManager.unregisterListener(mSensorEventListener);
-        JZVideoPlayer.clearSavedProgress(this, null);
+        XinQuVideoPlayerStandard.clearSavedProgress(this, null);
         webView.onPause();
     }
 
@@ -508,9 +504,14 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     @Override
     public void onBackPressed() {
-        if (JZVideoPlayer.backPress()) {
+        if (XinQuVideoPlayerStandard.backPress()) {
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected boolean isSupportSwipeBack() {
+        return true;
     }
 }

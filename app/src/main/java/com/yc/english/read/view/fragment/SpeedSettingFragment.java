@@ -77,19 +77,19 @@ public class SpeedSettingFragment extends BaseDialogFragment {
 //        LogUtil.msg("progress:  " + progress);
         SPUtils.getInstance().put(SpConstant.PLAY_SPEED, progress);
         if (listener != null) {
-            listener.onDissmiss();
+            listener.onDismiss();
         }
     }
 
 
-    private onDissmissListener listener;
+    private onDismissListener listener;
 
-    public void setOnDissmissListener(onDissmissListener listener) {
+    public void setOnDismissListener(onDismissListener listener) {
         this.listener = listener;
     }
 
-    public interface onDissmissListener {
-        void onDissmiss();
+    public interface onDismissListener {
+        void onDismiss();
     }
 
     @Override

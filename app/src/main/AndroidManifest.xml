@@ -98,11 +98,13 @@
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".news.view.activity.NewsDetailActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/SlideClose.Transparent.Theme"/>
         <activity
             android:name=".news.view.activity.NewsWeiKeDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity android:name=".speak.view.activity.SpeakMoreActivity" />
+        <activity android:name=".speak.view.activity.SpeakMoreActivity"
+            android:theme="@style/SlideClose.Transparent.Theme"/>
         <activity
             android:name=".speak.view.activity.SpeakEnglishActivity"
             android:theme="@style/AppTheme"

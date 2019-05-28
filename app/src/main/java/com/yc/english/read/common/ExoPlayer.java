@@ -34,6 +34,7 @@ public class ExoPlayer implements AudioPlayManager, Player.EventListener {
     private Context mContext;
 
 
+    private boolean isPlaying;
 
     public ExoPlayer(Context context, OnUiUpdateManager updateManager) {
         this.updateManager = updateManager;
@@ -102,12 +103,12 @@ public class ExoPlayer implements AudioPlayManager, Player.EventListener {
 
     @Override
     public boolean isPlaying() {
-        return player != null && player.isPlayingAd();
+        return player != null && isPlaying;
     }
 
     @Override
     public int getPlayPosition() {
-        if (player != null && player.isPlayingAd()) {
+        if (player != null && isPlaying) {
             return (int) player.getCurrentPosition();
         }
         return 0;
@@ -115,6 +116,7 @@ public class ExoPlayer implements AudioPlayManager, Player.EventListener {
 
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+        isPlaying = playWhenReady;
         if (playbackState == Player.STATE_READY) {
             player.setPlayWhenReady(true);
             if (updateManager != null) {

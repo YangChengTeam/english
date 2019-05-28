@@ -1,9 +1,7 @@
 package com.yc.english.main.view.activitys;
 
 import android.content.Intent;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -82,16 +80,13 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 //        if (delay < Time) {
 //            delayTime = Time - delay;
 //        }
-        UIUitls.postDelayed(delay, new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                if (null != info) {
-                    intent.putExtra("dialogInfo", info);
-                }
-                startActivity(intent);
-                finish();
+        UIUitls.postDelayed(delay, () -> {
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            if (null != info) {
+                intent.putExtra("dialogInfo", info);
             }
+            startActivity(intent);
+            finish();
         });
 
     }
@@ -161,4 +156,6 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
             AdvDispatchManager.getManager().onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
+
 }

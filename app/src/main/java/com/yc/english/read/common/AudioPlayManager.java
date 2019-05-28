@@ -5,7 +5,7 @@ package com.yc.english.read.common;
  */
 public interface AudioPlayManager {
 
-    void start(String url);
+    default void start(String url){}
 
     void stop();
 

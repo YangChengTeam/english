@@ -179,7 +179,7 @@ dependencies {
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     compile files('libs/glide-full-4.3.1.jar')
 
-    compile project(':jiaozivideoplayer-lib')
+//    compile project(':jiaozivideoplayer-lib')
     compile 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.google.android:flexbox:0.3.2'
     configurations.all {

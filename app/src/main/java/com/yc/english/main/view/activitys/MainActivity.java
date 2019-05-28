@@ -251,4 +251,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionManager.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+
 }

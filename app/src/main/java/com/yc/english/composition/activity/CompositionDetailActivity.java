@@ -3,7 +3,6 @@ package com.yc.english.composition.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
+import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.english.R;
 import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
@@ -27,8 +27,6 @@ import com.yc.english.composition.contract.CompositionDetailContract;
 import com.yc.english.composition.model.bean.CompositionDetailInfo;
 import com.yc.english.composition.presenter.CompositionDetailPresenter;
 import com.yc.english.group.activitys.GroupPictureDetailActivity;
-import com.yc.english.news.bean.CourseInfoWrapper;
-import com.yc.english.news.view.activity.NewsDetailActivity;
 import com.yc.english.news.view.widget.MediaPlayerView;
 import com.yc.english.news.view.widget.NewsScrollView;
 import com.yc.english.vip.views.fragments.BasePayItemView;
@@ -38,8 +36,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import cn.jzvd.JZVideoPlayerStandard;
 import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.TimeUtils;
@@ -59,7 +55,7 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
     @BindView(R.id.mTextViewTime)
     TextView mTextViewTime;
     @BindView(R.id.mJCVideoPlayer)
-    JZVideoPlayerStandard mJCVideoPlayer;
+    XinQuVideoPlayerStandard mJCVideoPlayer;
     @BindView(R.id.mMediaPlayerView)
     MediaPlayerView mMediaPlayerView;
     @BindView(R.id.fl_player)

@@ -45,15 +45,12 @@ public class PopupWindowFactory {
         mPop.setFocusable(true);
 
         // 重写onKeyListener,按返回键消失
-        view.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    mPop.dismiss();
-                    return true;
-                }
-                return false;
+        view.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                mPop.dismiss();
+                return true;
             }
+            return false;
         });
 
         //点击其他地方消失

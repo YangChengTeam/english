@@ -149,61 +149,52 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         mWordListView.setAdapter(mReadWordExpandAdapter);
         mWordListView.setGroupIndicator(null);
         mReadWordExpandAdapter.setItemDetailClick(this);
-        mWordListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                disableWordDetailState();
-                isContinue = false;
-                readOver(currentIndex);
-                if (groupPosition != lastExpandPosition && lastExpandPosition > -1) {
-                    mWordListView.collapseGroup(lastExpandPosition);
-                }
-
-                if (mWordListView.isGroupExpanded(groupPosition)) {
-                    mWordListView.collapseGroup(groupPosition);
-                } else {
-                    mWordListView.expandGroup(groupPosition);
-                    lastExpandPosition = groupPosition;
-                    mReadWordExpandAdapter.setLastExpandPosition(lastExpandPosition);
-                }
-                return true;
+        mWordListView.setOnGroupClickListener((parent, v, groupPosition, id) -> {
+            disableWordDetailState();
+            isContinue = false;
+            readOver(currentIndex);
+            if (groupPosition != lastExpandPosition && lastExpandPosition > -1) {
+                mWordListView.collapseGroup(lastExpandPosition);
             }
+
+            if (mWordListView.isGroupExpanded(groupPosition)) {
+                mWordListView.collapseGroup(groupPosition);
+            } else {
+                mWordListView.expandGroup(groupPosition);
+                lastExpandPosition = groupPosition;
+                mReadWordExpandAdapter.setLastExpandPosition(lastExpandPosition);
+            }
+            return true;
         });
 
-        mWordListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long id) {
-                isContinue = false;
-                readOver(currentIndex);
-                if (isWordDetailPlay) {
-                    return true;
-                }
-                groupCurrentIndex = groupPosition;
-                isWordDetailPlay = true;
-//                startSynthesizer(wordDetailInfos.get(groupPosition).getWordExample());
-                startPlay(wordDetailInfos.get(groupPosition).getVoice());
-                wordDetailInfos.get(groupPosition).setPlay(true);
-                groupCurrentView = view;
-                mReadWordExpandAdapter.setChildViewPlayState(view, true);
+        mWordListView.setOnChildClickListener((parent, view, groupPosition, childPosition, id) -> {
+            isContinue = false;
+            readOver(currentIndex);
+            if (isWordDetailPlay) {
                 return true;
             }
+            groupCurrentIndex = groupPosition;
+            isWordDetailPlay = true;
+//                startSynthesizer(wordDetailInfos.get(groupPosition).getWordExample());
+            startPlay(wordDetailInfos.get(groupPosition).getVoice());
+            wordDetailInfos.get(groupPosition).setPlay(true);
+            groupCurrentView = view;
+            mReadWordExpandAdapter.setChildViewPlayState(view, true);
+            return true;
         });
 
         mTsSubject = PublishSubject.create();
-        mTsSubject.delay(800, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Integer>() {
-            @Override
-            public void call(Integer position) {
-                if (position < mDatas.size()) {
-                    endableState(currentIndex);
+        mTsSubject.delay(800, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe((Action1<Integer>) position -> {
+            if (position < mDatas.size()) {
+                endableState(currentIndex);
 //                    startSynthesizer(position);
-                    startPlay(position);
-                } else {
-                    isContinue = false;
-                    readOver(currentIndex);
-                    currentIndex = 0;
-                    if (ActivityUtils.isValidContext(ReadWordActivity.this)) {
-                        Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
-                    }
+                startPlay(position);
+            } else {
+                isContinue = false;
+                readOver(currentIndex);
+                currentIndex = 0;
+                if (ActivityUtils.isValidContext(ReadWordActivity.this)) {
+                    Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
                 }
             }
         });
@@ -227,12 +218,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     @Override
     public void showNoNet() {
-        mStateView.showNoNet(mLayoutContext, "网络不给力", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.getWordListByUnitId(0, 0, unitId);
-            }
-        });
+        mStateView.showNoNet(mLayoutContext, "网络不给力", v -> mPresenter.getWordListByUnitId(0, 0, unitId));
     }
 
     @Override
@@ -292,12 +278,9 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
                     mediaPlayer.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
                     mediaPlayer.prepare();
                     mediaPlayer.start();
-                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            readCurrentWordIndex++;
-                            playWord(index, runnable);
-                        }
+                    mediaPlayer.setOnCompletionListener(mp -> {
+                        readCurrentWordIndex++;
+                        playWord(index, runnable);
                     });
                 } else {
                     readCurrentWordIndex = 0;
