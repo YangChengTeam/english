@@ -36,7 +36,7 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
     @JSONField(name = "section_id")
     private String sectionId;
 
-    private String voice;
+    private String voice;//单词音频文件
 
     @JSONField(name = "is_del")
     private String isDel;
@@ -52,7 +52,9 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
     @JSONField(name = "ep_sentence_means")
     private String epSentenceMeans;
 
-    private String mp3url;//播放的音频文件
+    private String mp3url;//播放的句子音频文件
+
+   private String word_voice;
 
     private boolean isPlay = false;
 
@@ -208,6 +210,14 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
 
     public void setMp3url(String mp3url) {
         this.mp3url = mp3url;
+    }
+
+    public String getWord_voice() {
+        return word_voice;
+    }
+
+    public void setWord_voice(String word_voice) {
+        this.word_voice = word_voice;
     }
 
     @Override

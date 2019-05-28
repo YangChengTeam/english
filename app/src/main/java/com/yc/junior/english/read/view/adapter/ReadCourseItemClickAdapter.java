@@ -113,7 +113,7 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
         } else {
             Glide.with(mContext).load(R.mipmap.item_read_normal_icon).into(((ImageView) helper.getView(R.id.iv_play)));
 
-            Glide.with(mContext).clear(helper.getView(R.id.iv_audio_gif_play));
+            Glide.with(mContext).clear((ImageView) helper.getView(R.id.iv_audio_gif_play));
 //            helper.setGone(R.id.iv_audio_gif_play, false);
             helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.gray_999)).setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.gray_999));
             if (helper.getAdapterPosition() == getLastPosition()) {

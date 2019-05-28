@@ -12,8 +12,8 @@ android {
         minSdkVersion 17
         targetSdkVersion 26
 
-        versionCode 19 //56
-        versionName "1.6.3"//1.7.6
+        versionCode 20 //56
+        versionName "1.6.4"//1.7.6
 
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -25,6 +25,12 @@ android {
         flavorDimensions 'default'//这句不能少
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false

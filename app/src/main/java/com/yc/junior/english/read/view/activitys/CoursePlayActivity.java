@@ -237,16 +237,13 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
         mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
 
-        if (com.yc.junior.english.base.utils.SpeechUtils.getAppids() == null || com.yc.junior.english.base.utils.SpeechUtils.getAppids().size() <= 0) {
-            com.yc.junior.english.base.utils.SpeechUtils.setAppids(this);
 
-            if (SpeechUtils.getAppids() == null || SpeechUtils.getAppids().size() <= 0) {
-                SpeechUtils.setAppids(this);
-
-            }
-            userInfo = UserInfoHelper.getUserInfo();
-            initListener();
+        if (SpeechUtils.getAppids() == null || SpeechUtils.getAppids().size() <= 0) {
+            SpeechUtils.setAppids(this);
         }
+
+        userInfo = UserInfoHelper.getUserInfo();
+        initListener();
     }
 
     private void initListener() {
@@ -359,83 +356,77 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
             }
         });
 
-        mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, final View view, int position) {
-                /*if (position == playPosition) {
-                    return;
-                }*/
-                isContinue = false;
-                playPosition = position;
-                itemChoose(playPosition);
-                //startSynthesizer(playPosition);
-            }
+        mItemAdapter.setOnItemClickListener((adapter, view, position) -> {
+            /*if (position == playPosition) {
+                return;
+            }*/
+            isContinue = false;
+            playPosition = position;
+            itemChoose(playPosition);
+            //startSynthesizer(playPosition);
         });
 
         //点击跟读按钮后操作
-        mItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                playPosition = position;
-                if (view.getId() == R.id.iv_tape) {
+        mItemAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            playPosition = position;
+            if (view.getId() == R.id.iv_tape) {
 
-                    lastPosition = position;
-                    isContinue = false;
+                lastPosition = position;
+                isContinue = false;
+                disableState();
+
+                //弹出录音界面
+                //mIatDialog.setListener(mRecognizerDialogListener);
+                //mIatDialog.show();
+
+                /*View currentView = linearLayoutManager.findViewByPosition(playPosition);
+                if (currentView != null) {
+                    ((ImageView) currentView.findViewById(R.id.iv_tape)).setImageResource(R.drawable.record_microphone);
+                }*/
+
+                final View tapeView = View.inflate(CoursePlayActivity.this, R.layout.layout_microphone, null);
+                mTapePop = new PopupWindowFactory(CoursePlayActivity.this, tapeView);
+
+                //PopupWindow布局文件里面的控件
+                mTapeImageView = tapeView.findViewById(R.id.iv_recording_icon);
+                mTapePop.showAtLocation(mLayoutContext, Gravity.CENTER, 0, 0);
+
+                ret = mIat.startListening(mRecognizerListener);
+                if (ret != ErrorCode.SUCCESS) {
+                    ToastUtils.showLong("听写失败,错误码：" + ret);
+                } else {
+                    //ToastUtils.showLong("开始");
+                }
+            }
+
+            if (view.getId() == R.id.iv_play) {
+                if (manager != null && manager.isPlaying()) {
+                    manager.stop();
                     disableState();
-
-                    //弹出录音界面
-                    //mIatDialog.setListener(mRecognizerDialogListener);
-                    //mIatDialog.show();
-
-                    /*View currentView = linearLayoutManager.findViewByPosition(playPosition);
-                    if (currentView != null) {
-                        ((ImageView) currentView.findViewById(R.id.iv_tape)).setImageResource(R.drawable.record_microphone);
-                    }*/
-
-                    final View tapeView = View.inflate(CoursePlayActivity.this, R.layout.layout_microphone, null);
-                    mTapePop = new PopupWindowFactory(CoursePlayActivity.this, tapeView);
-
-                    //PopupWindow布局文件里面的控件
-                    mTapeImageView = tapeView.findViewById(R.id.iv_recording_icon);
-                    mTapePop.showAtLocation(mLayoutContext, Gravity.CENTER, 0, 0);
-
-                    ret = mIat.startListening(mRecognizerListener);
-                    if (ret != ErrorCode.SUCCESS) {
-                        ToastUtils.showLong("听写失败,错误码：" + ret);
-                    } else {
-                        //ToastUtils.showLong("开始");
-                    }
-                }
-
-                if (view.getId() == R.id.iv_play) {
-                    if (manager != null && manager.isPlaying()) {
-                        manager.stop();
-                        disableState();
-                    } else {
-                        isContinue = false;
-                        enableState(playPosition);
+                } else {
+                    isContinue = false;
+                    enableState(playPosition);
 //                        startSynthesizer(playPosition);
-                        startPlay(playPosition);
-                    }
+                    startPlay(playPosition);
                 }
+            }
 
-                if (view.getId() == R.id.iv_play_tape) {
-                    if (mItemAdapter.getData().get(lastPosition).isShow()) {
-                        if (mPlayer != null && mPlayer.isPlaying()) {
-                            stopPlayTape();
-                            View currentView = linearLayoutManager.findViewByPosition(position);
-                            if (currentView != null) {
-                                Glide.with(CoursePlayActivity.this).load(R.mipmap.item_tape_play_normal_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
-                            }
-                        } else {
-                            playTape(position);
+            if (view.getId() == R.id.iv_play_tape) {
+                if (mItemAdapter.getData().get(lastPosition).isShow()) {
+                    if (mPlayer != null && mPlayer.isPlaying()) {
+                        stopPlayTape();
+                        View currentView = linearLayoutManager.findViewByPosition(position);
+                        if (currentView != null) {
+                            Glide.with(CoursePlayActivity.this).load(R.mipmap.item_tape_play_normal_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
                         }
                     } else {
-                        ToastUtils.showLong("请先录音评测后再回放");
+                        playTape(position);
                     }
+                } else {
+                    ToastUtils.showLong("请先录音评测后再回放");
                 }
-
             }
+
         });
 
         mCourseRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -455,30 +446,20 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         });
 
 
-        mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
-
-        if (com.yc.junior.english.base.utils.SpeechUtils.getAppids() == null || com.yc.junior.english.base.utils.SpeechUtils.getAppids().size() <= 0) {
-            com.yc.junior.english.base.utils.SpeechUtils.setAppids(this);
-        }
 
 
-        RxView.clicks(llSpeed).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                SpeedSettingFragment speedSettingFragment = new SpeedSettingFragment();
-                speedSettingFragment.show(getSupportFragmentManager(), "");
-                speedSettingFragment.setOnDissmissListener(new SpeedSettingFragment.onDissmissListener() {
-                    @Override
-                    public void onDissmiss() {
-                        int speed = SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 1);
 
-                        float result = (speed * 2 + 20) / (100 * 1.0f);
-                        BigDecimal bd = new BigDecimal(result);
+        RxView.clicks(llSpeed).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            SpeedSettingFragment speedSettingFragment = new SpeedSettingFragment();
+            speedSettingFragment.show(getSupportFragmentManager(), "");
+            speedSettingFragment.setOnDissmissListener(() -> {
+                int speed = SPUtils.getInstance().getInt(SpConstant.PLAY_SPEED, 1);
 
-                        tvSpeed.setText(String.format(getString(R.string.play_speed_result), String.valueOf(bd.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue())));
-                    }
-                });
-            }
+                float result = (speed * 2 + 20) / (100 * 1.0f);
+                BigDecimal bd = new BigDecimal(result);
+
+                tvSpeed.setText(String.format(getString(R.string.play_speed_result), String.valueOf(bd.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue())));
+            });
         });
     }
 
@@ -519,14 +500,10 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     /**
      * 初始化监听器。
      */
-    private InitListener mInitListener = new InitListener() {
-
-        @Override
-        public void onInit(int code) {
-            LogUtils.e("SpeechRecognizer init() code = " + code);
-            if (code != ErrorCode.SUCCESS) {
-                ToastUtils.showLong("初始化失败，错误码：" + code);
-            }
+    private InitListener mInitListener = code -> {
+        LogUtils.e("SpeechRecognizer init() code = " + code);
+        if (code != ErrorCode.SUCCESS) {
+            ToastUtils.showLong("初始化失败，错误码：" + code);
         }
     };
 
@@ -649,12 +626,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     @Override
     public void showNoNet() {
-        mStateView.showNoNet(mCourseRecyclerView, "网络不给力", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.getCourseListByUnitId(currentPage, 0, unitId);
-            }
-        });
+        mStateView.showNoNet(mCourseRecyclerView, "网络不给力", v -> mPresenter.getCourseListByUnitId(currentPage, 0, unitId));
     }
 
     @Override
@@ -1028,16 +1000,13 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 //播放
                 mPlayer.start();
 //                mPlayer.getPlaybackParams().setSpeed(1.2f);
-                mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        disableState();
-                        stopPlayTape();
+                mPlayer.setOnCompletionListener(mp -> {
+                    disableState();
+                    stopPlayTape();
 
 //                        View currentView = linearLayoutManager.findViewByPosition(position);
-                        if (currentView != null) {
-                            Glide.with(CoursePlayActivity.this).load(R.mipmap.item_tape_play_normal_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
-                        }
+                    if (currentView != null) {
+                        Glide.with(CoursePlayActivity.this).load(R.mipmap.item_tape_play_normal_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
                     }
                 });
 
@@ -1098,16 +1067,13 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
     @Override
     public void onCompleteUI() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+        runOnUiThread(() -> {
 
 //                Log.e("TAG", "run: " + playPosition + "  size: " + mItemAdapter.getData().size());
-                speekContinue(isContinue ? ++playPosition : playPosition);
-                if (playPosition == mItemAdapter.getData().size() - 1) {
-                    playPosition = -1;
-                    isContinue = false;
-                }
+            speekContinue(isContinue ? ++playPosition : playPosition);
+            if (playPosition == mItemAdapter.getData().size() - 1) {
+                playPosition = -1;
+                isContinue = false;
             }
         });
     }
