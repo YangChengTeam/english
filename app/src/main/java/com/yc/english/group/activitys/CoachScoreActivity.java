@@ -3,6 +3,7 @@ package com.yc.english.group.activitys;
 import android.content.Intent;
 import android.widget.ImageView;
 
+import com.app.hubert.guide.util.ViewUtils;
 import com.jakewharton.rxbinding.view.RxView;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -11,6 +12,7 @@ import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.group.constant.GroupConstant;
+import com.yc.english.news.utils.ViewUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -75,6 +77,8 @@ public class CoachScoreActivity extends FullScreenActivity {
                 startActivity(intent);
             }
         });
+
+//        ViewUtils.getLocationInView()
     }
 
 
