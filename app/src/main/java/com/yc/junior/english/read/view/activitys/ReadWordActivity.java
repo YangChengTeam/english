@@ -15,18 +15,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.helper.TipsHelper;
 import com.yc.junior.english.base.utils.WakeLockUtils;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.read.common.AudioPlayManager;
 import com.yc.junior.english.read.common.MediaPlayerPlayer;
 import com.yc.junior.english.read.common.OnUiUpdateManager;
-import com.yc.junior.english.read.common.SpeechUtils;
 import com.yc.junior.english.read.contract.ReadWordContract;
 import com.yc.junior.english.read.model.domain.WordDetailInfo;
 import com.yc.junior.english.read.model.domain.WordInfo;
@@ -44,9 +41,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.subjects.PublishSubject;
 import yc.com.blankj.utilcode.util.ActivityUtils;
-import yc.com.blankj.utilcode.util.ToastUtils;
 
-import static com.yc.junior.english.read.common.SpeechUtils.mTts;
 
 
 /**
@@ -87,18 +82,10 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     ReadWordExpandAdapter mReadWordExpandAdapter;
 
-    List<WordInfo> mDatas;
+    private List<WordInfo> mDatas;
 
-    boolean isSpell = false;
+    private boolean isSpell = false;//是否拼写朗读
 
-    // 语音合成对象
-//    private SpeechSynthesizer mTts;
-
-    // 缓冲进度
-    private int mPercentForBuffering = 0;
-
-    // 播放进度
-    private int mPercentForPlaying = 0;
 
     private int readCurrentWordIndex;
 
@@ -107,13 +94,13 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     //当前读到的单词
     private int currentIndex;
 
-    private boolean isContinue = false;
+    private boolean isContinue = false;//是否全部朗读
 
     private String unitId;
 
     private String unitTitle;
 
-    private PublishSubject mTsSubject;
+    private PublishSubject<Integer> mTsSubject;
 
     private boolean isWordDetailPlay = false;
 
@@ -149,7 +136,6 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         initMediaPlayer();
         mediaPlayer = new MediaPlayer();
 
-//        mTts = SpeechUtils.getTts(this);
 
         mReadWordExpandAdapter = new ReadWordExpandAdapter(ReadWordActivity.this, wordInfos, wordDetailInfos);
         mReadWordExpandAdapter.setExpandableListView(mWordListView);
@@ -182,7 +168,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             }
             groupCurrentIndex = groupPosition;
             isWordDetailPlay = true;
-//                startSynthesizer(wordDetailInfos.get(groupPosition).getWordExample());
+
             startPlay(wordDetailInfos.get(groupPosition).getVoice());
             wordDetailInfos.get(groupPosition).setPlay(true);
             groupCurrentView = view;
@@ -193,8 +179,13 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         mTsSubject = PublishSubject.create();
         mTsSubject.delay(800, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe((Action1<Integer>) position -> {
             if (position < mDatas.size()) {
-                endableState(currentIndex);
+
+
 //                    startSynthesizer(position);
+
+
+                enableState(currentIndex);
+
                 startPlay(position);
             } else {
                 isContinue = false;
@@ -306,32 +297,24 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
 
-//    //单词朗读
-//    public void startSynthesizer(int position) {
-//        String text = wordInfos.get(position).getName();
-//        if (mTts != null) {
-//            int code = mTts.startSpeaking(text, mTtsListener);
-//            if (code != ErrorCode.SUCCESS) {
-//                if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
-//                    // 未安装则跳转到提示安装页面
-//                    //mInstaller.install();
-//                } else {
-//                    ToastUtils.showLong("语音合成失败,错误码: " + code);
-//                    mTts.stopSpeaking();
-//                }
-//            }
-//        } else {
-//            TipsHelper.tips(mContext, "语音播放初始化失败");
-//        }
-//    }
+
+
+
 
 
     public void startPlay(int position) {
         if (position < 0 || position >= wordInfos.size()) {
             return;
         }
+        String url;
 
-        String url = wordInfos.get(position).getWord_voice();
+
+        if (isSpell) {
+            url = wordInfos.get(position).getWord_voice();
+        } else {
+            url = wordInfos.get(position).getVoice();
+        }
+
         if (TextUtils.isEmpty(url)) {
             disableState(position);
             return;
@@ -355,86 +338,13 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     }
 
 
-//    //示例句子朗读
-//    public void startSynthesizer(String sentence) {
-//        String text = sentence;
-//        int code = mTts.startSpeaking(text, mTtsListener);
-//        if (code != ErrorCode.SUCCESS) {
-//            if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
-//                // 未安装则跳转到提示安装页面
-//                //mInstaller.install();
-//            } else {
-//                ToastUtils.showLong("语音合成失败,错误码: " + code);
-//                mTts.stopSpeaking();
-//            }
-//        }
-//    }
 
 
-    /**
-     * 合成回调监听。
-     */
-    private SynthesizerListener mTtsListener = new SynthesizerListener() {
-
-        @Override
-        public void onSpeakBegin() {
-            //开始播放
-        }
-
-        @Override
-        public void onSpeakPaused() {
-            //暂停播放
-        }
-
-        @Override
-        public void onSpeakResumed() {
-            //继续播放
-        }
-
-        @Override
-        public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
-            // 合成进度
-            mPercentForBuffering = percent;
-        }
-
-        @Override
-        public void onSpeakProgress(int percent, int beginPos, int endPos) {
-            // 播放进度
-            mPercentForPlaying = percent;
-        }
-
-        @Override
-        public void onCompleted(SpeechError error) {
-            if (error == null) {
-                if (disableWordDetailState()) {
-                    return;
-                }
-                playWord(currentIndex, () -> speekContinue());
-            } else if (error != null) {
-                if (error.getErrorDescription().contains("权")) {
-                    com.yc.junior.english.base.utils.SpeechUtils.resetAppid(ReadWordActivity.this);
-                    return;
-                }
-                if (disableWordDetailState()) {
-                    return;
-                }
-
-                speekContinue();
-            }
-        }
-
-        @Override
-        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
-            // 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因
-        }
-    };
 
 
     private boolean disableWordDetailState() {
         if (isWordDetailPlay) {
-//            if (mTts.isSpeaking()) {
-//                mTts.stopSpeaking();
-//            }
+
             if (manager != null) {
                 manager.stop();
             }
@@ -447,14 +357,16 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         return isWordDetailPlay;
     }
 
-    private void speekContinue() {
+    private void speakContinue() {
         readOver(currentIndex);
         if (isContinue && currentIndex < mReadWordExpandAdapter.getWordInfos().size()) {
             mTsSubject.onNext(++currentIndex);
+        } else {
+            disableWordDetailState();
         }
     }
 
-    private void endableState(int index) {
+    private void enableState(int index) {
         if (index < 0 || index >= mReadWordExpandAdapter.getWordInfos().size()) {
             return;
         }
@@ -473,9 +385,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
         mReadWordExpandAdapter.setViewPlayState(index, mWordListView, false);
         mReadWordExpandAdapter.getWordInfos().get(index).setPlay(false);
-//        if (mTts.isSpeaking()) {
-//            mTts.stopSpeaking();
-//        }
+
         if (manager != null) {
             manager.stop();
         }
@@ -484,9 +394,7 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     private void readOver(int index) {
         resetPlay();
         mReadWordExpandAdapter.setViewPlayState(index, mWordListView, false);
-//        if (mTts.isSpeaking()) {
-//            mTts.stopSpeaking();
-//        }
+
         if (manager != null) manager.stop();
         if (!isContinue && ActivityUtils.isValidContext(this) && ActivityUtils.isValidContext(ReadWordActivity.this)) {
             Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_stop).into(mReadAllImageView);
@@ -499,13 +407,6 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-//        if (mTts.isSpeaking()) {
-//            mTts.stopSpeaking();
-//        }
-    }
 
     /**
      * 单词闯关
@@ -524,13 +425,22 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     public void readAll() {
         disableWordDetailState();
         isContinue = !isContinue;
-        if (isContinue) {
+        if (isSpell) {
+            isSpell = false;
+            isContinue = true;
+        }
+
+        readAllOrSpell(isContinue, isSpell);
+
+    }
+
+    private void readAllOrSpell(boolean isContinue, boolean isSpell) {
+        if (isContinue || isSpell) {
             if (currentIndex < mDatas.size()) {
                 if (ActivityUtils.isValidContext(ReadWordActivity.this)) {
                     Glide.with(ReadWordActivity.this).load(R.mipmap.read_audio_white_gif_play).into(mReadAllImageView);
                 }
-                endableState(currentIndex);
-//                startSynthesizer(currentIndex);
+                enableState(currentIndex);
                 startPlay(currentIndex);
             }
         } else {
@@ -544,13 +454,18 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
     @OnClick(R.id.layout_spell_word)
     public void spellWord() {
         isSpell = !isSpell;
+        if (!isContinue) {
+            isContinue = true;
+        }
 
         if (isSpell) {
             mSpellWordImageView.setVisibility(View.VISIBLE);
         } else {
             mSpellWordImageView.setVisibility(View.GONE);
         }
+        readAllOrSpell(isContinue, isSpell);
     }
+
 
     @Override
     public void groupWordClick(int gPosition) {
@@ -561,22 +476,19 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
             disableState(currentIndex);
         }
         currentIndex = gPosition;
-        endableState(currentIndex);
-//        startSynthesizer(currentIndex);
+        enableState(currentIndex);
+
         startPlay(currentIndex);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mediaPlayer.release();
-//        if (null != mTts) {
-//            mTts.stopSpeaking();
-//            // 退出时释放连接
-//            mTts.destroy();
-//            mTts = null;
-//        }
-
+        if (mediaPlayer != null) {
+            mediaPlayer.reset();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
         if (manager != null)
             manager.onDestroy();
         WakeLockUtils.releaseWakeLock();
@@ -585,19 +497,26 @@ public class ReadWordActivity extends FullScreenActivity<ReadWordPresenter> impl
 
     @Override
     public void onCompleteUI() {
-        runOnUiThread(() -> playWord(currentIndex, () -> speekContinue()));
+
+
+
+//        runOnUiThread(() ->
+//                if(){
+//
+//        }
+//            playWord(currentIndex, this::speakContinue));
+
+
+        runOnUiThread(this::speakContinue);
+
 
 
     }
 
     @Override
     public void onErrorUI(int what, int extra, String msg) {
-        playWord(currentIndex, new Runnable() {
-            @Override
-            public void run() {
-                speekContinue();
-            }
-        });
+//        playWord(currentIndex, this::speakContinue);
+        speakContinue();
     }
 
     @Override

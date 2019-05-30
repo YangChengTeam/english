@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
+import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.BaseToolBar;
 import com.yc.junior.english.base.view.FullScreenActivity;
@@ -35,10 +36,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import butterknife.BindView;
-import cn.jzvd.JZVideoPlayerStandard;
 import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.TimeUtils;
+
 
 /**
  * Created by wanglin  on 2019/3/26 14:23.
@@ -55,7 +56,7 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
     @BindView(R.id.mTextViewTime)
     TextView mTextViewTime;
     @BindView(R.id.mJCVideoPlayer)
-    JZVideoPlayerStandard mJCVideoPlayer;
+    XinQuVideoPlayerStandard mJCVideoPlayer;
     @BindView(R.id.mMediaPlayerView)
     MediaPlayerView mMediaPlayerView;
     @BindView(R.id.fl_player)
@@ -119,21 +120,15 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
     }
 
     private void initListener() {
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                SharePopupWindow sharePopupWindow = new SharePopupWindow(CompositionDetailActivity.this);
-                sharePopupWindow.show(llRootView);
-            }
+        mToolbar.setOnItemClickLisener(() -> {
+            SharePopupWindow sharePopupWindow = new SharePopupWindow(CompositionDetailActivity.this);
+            sharePopupWindow.show(llRootView);
         });
-        nestedScrollView.setOnScrollChangeListener(new NewsScrollView.onScrollChangeListener() {
-            @Override
-            public void onScrollChange(int l, int t, int oldl, int oldt) {
-                if (t > mTextViewTitle.getMeasuredHeight()) {
-                    mToolbar.setTitle(title);
-                } else {
-                    mToolbar.setTitle("");
-                }
+        nestedScrollView.setOnScrollChangeListener((l, t, oldl, oldt) -> {
+            if (t > mTextViewTitle.getMeasuredHeight()) {
+                mToolbar.setTitle(title);
+            } else {
+                mToolbar.setTitle("");
             }
         });
     }
@@ -209,25 +204,22 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
         });
 
 
-        webView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                // 长按事件监听（注意：需要实现LongClickCallBack接口并传入对象）
+        webView.setOnLongClickListener(v -> {
+            // 长按事件监听（注意：需要实现LongClickCallBack接口并传入对象）
 
-                final WebView.HitTestResult htr = webView.getHitTestResult();//获取所点击的内容
-                if (htr.getType() == WebView.HitTestResult.IMAGE_TYPE
-                        || htr.getType() == WebView.HitTestResult.IMAGE_ANCHOR_TYPE
-                        || htr.getType() == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
-                    //判断被点击的类型为图片
+            final WebView.HitTestResult htr = webView.getHitTestResult();//获取所点击的内容
+            if (htr.getType() == WebView.HitTestResult.IMAGE_TYPE
+                    || htr.getType() == WebView.HitTestResult.IMAGE_ANCHOR_TYPE
+                    || htr.getType() == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
+                //判断被点击的类型为图片
 
 //                    showQRCodeDialog(htr.getExtra());
 
-                }
-
-                LogUtil.msg("url: " + htr.getExtra());
-
-                return false;
             }
+
+            LogUtil.msg("url: " + htr.getExtra());
+
+            return false;
         });
     }
 

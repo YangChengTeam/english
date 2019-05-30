@@ -731,4 +731,9 @@ public class BasePayDialogFragment extends BaseDialogFragment<VipBuyPresenter> i
     public void showVipGoodInfos(List<VipGoodInfo> vipGoodInfos) {
 
     }
+
+    @Override
+    public void showGoodInfoList(List<GoodInfo> data) {
+
+    }
 }

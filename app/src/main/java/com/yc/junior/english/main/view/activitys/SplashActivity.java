@@ -81,16 +81,13 @@ public class SplashActivity extends yc.com.base.BaseActivity<SplashPresenter> im
 //        if (delay < Time) {
 //            delayTime = Time - delay;
 //        }
-        UIUitls.postDelayed(delay, new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                if (null != info) {
-                    intent.putExtra("dialogInfo", info);
-                }
-                startActivity(intent);
-                finish();
+        UIUitls.postDelayed(delay, () -> {
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            if (null != info) {
+                intent.putExtra("dialogInfo", info);
             }
+            startActivity(intent);
+            finish();
         });
 
     }
@@ -160,4 +157,6 @@ public class SplashActivity extends yc.com.base.BaseActivity<SplashPresenter> im
             AdvDispatchManager.getManager().onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
+
 }

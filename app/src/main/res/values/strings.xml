@@ -1,8 +1,8 @@
 <resources>
     <!--英语考-->
     <!--英语点读学习-->
-    <string name="app_name">英语考软件</string>
 
+    <string name="app_name">英语考软件</string>
 
     <string name="edit_text">编辑</string>
     <string name="done_text">完成</string>
@@ -42,8 +42,6 @@
     <string name="vip_price">¥%1$s</string>
     <string name="origin_price">原价¥%1$s元</string>
     <string name="phone_tint">为了给您提供更好的服务，请填写您的联系方式</string>
-    <string name="pay_price">价格</string>
-    <string name="new_vip_price">%1$d元</string>
     <string name="new_origin_price">原价：%1$d元</string>
 
     <string-array name="study_apply_array">

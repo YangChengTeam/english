@@ -1,14 +1,10 @@
 package com.yc.junior.english.read.view.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.app.hubert.guide.NewbieGuide;
-import com.app.hubert.guide.core.Controller;
-import com.app.hubert.guide.listener.OnLayoutInflatedListener;
 import com.app.hubert.guide.model.GuidePage;
 import com.app.hubert.guide.model.HighLight;
 import com.bumptech.glide.Glide;
@@ -19,12 +15,10 @@ import com.yc.junior.english.read.model.domain.EnglishCourseInfo;
 
 import java.util.List;
 
-import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.StringUtils;
 
 
 public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<EnglishCourseInfo, BaseViewHolder> {
-
 
 
     private int languageType = 1;
@@ -70,52 +64,43 @@ public class ReadCourseItemClickAdapter extends BaseMultiItemQuickAdapter<Englis
                     .addGuidePage(GuidePage.newInstance()
                             .addHighLight(guideLeftView, HighLight.Shape.ROUND_RECTANGLE, 16)
                             .setLayoutRes(R.layout.read_guide_left_view)
-                            .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
-                                @Override
-                                public void onLayoutInflated(View view, Controller controller) {
-
-                                }
+                            .setOnLayoutInflatedListener((view, controller) -> {
 
                             }))
                     .addGuidePage(GuidePage.newInstance()
                             .addHighLight(guideCenterView, HighLight.Shape.ROUND_RECTANGLE, 16)
                             .setLayoutRes(R.layout.read_guide_center_view)
-                            .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
-                                @Override
-                                public void onLayoutInflated(View view, Controller controller) {
-
-                                }
-
+                            .setOnLayoutInflatedListener((view, controller) -> {
 
                             }))
                     .addGuidePage(GuidePage.newInstance()
                             .addHighLight(guideRightView, HighLight.Shape.ROUND_RECTANGLE, 16)
                             .setLayoutRes(R.layout.read_guide_right_view)
-                            .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
-                                @Override
-                                public void onLayoutInflated(View view, Controller controller) {
-
-                                }
+                            .setOnLayoutInflatedListener((view, controller) -> {
 
                             }))
                     .show();
         }
 
         if (item.isPlay()) {
-//            helper.setGone(R.id.iv_audio_gif_play, true);
+
             Glide.with(mContext).load(R.mipmap.read_audio_gif_play).into((ImageView) helper.getView(R.id.iv_audio_gif_play));
-            helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.black_333)).setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.black_333));
+            helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.black_333))
+                    .setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.black_333))
+                    .setGone(R.id.iv_speak_result, true)
+                    .setGone(R.id.tv_result_hint, true);
 
-            helper.setGone(R.id.iv_speak_result, true);
-            helper.setGone(R.id.tv_result_hint, true);
-
-            Glide.with(mContext).load(R.mipmap.item_read_press_icon).into(((ImageView) helper.getView(R.id.iv_play)));
+            helper.setImageResource(R.id.iv_play,R.mipmap.item_read_press_icon);
         } else {
-            Glide.with(mContext).load(R.mipmap.item_read_normal_icon).into(((ImageView) helper.getView(R.id.iv_play)));
+            helper.setImageResource(R.id.iv_play,R.mipmap.item_read_normal_icon);
 
             Glide.with(mContext).clear((ImageView) helper.getView(R.id.iv_audio_gif_play));
+
+
 //            helper.setGone(R.id.iv_audio_gif_play, false);
-            helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.gray_999)).setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.gray_999));
+            helper.setTextColor(R.id.tv_chinese_title, ContextCompat.getColor(mContext, R.color.gray_999))
+                    .setTextColor(R.id.tv_english_title, ContextCompat.getColor(mContext, R.color.gray_999));
+
             if (helper.getAdapterPosition() == getLastPosition()) {
                 helper.setGone(R.id.iv_speak_result, true);
                 helper.setGone(R.id.tv_result_hint, true);

@@ -56,6 +56,8 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
 
    private String word_voice;
 
+
+
     private boolean isPlay = false;
 
     public WordInfo() {

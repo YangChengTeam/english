@@ -340,6 +340,15 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
     }
 
     @Override
+    public void showGoodInfoList(List<GoodInfo> goodInfos) {
+
+        if (goodInfos != null && goodInfos.size() > 0) {
+            mGoodInfo = goodInfos.get(0);
+            timeLimitAdapter.setNewData(goodInfos);
+        }
+    }
+
+    @Override
     public void showLoadingDialog(String mess) {
         ((BaseActivity) getActivity()).showLoadingDialog(mess);
     }

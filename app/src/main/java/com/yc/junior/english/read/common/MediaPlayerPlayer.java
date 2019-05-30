@@ -2,6 +2,7 @@ package com.yc.junior.english.read.common;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.util.Log;
 
 import com.kk.utils.LogUtil;
 
@@ -22,6 +23,8 @@ public class MediaPlayerPlayer implements AudioPlayManager, MediaPlayer.OnPrepar
         mediaPlayer.setOnPreparedListener(this);
         mediaPlayer.setOnCompletionListener(this);
         mediaPlayer.setOnErrorListener(this);
+
+        Log.e("TAG", "MediaPlayerPlayer: " + this.getClass().getName());
     }
 
     @Override

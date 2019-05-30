@@ -93,11 +93,11 @@ class IntelligentFragment : BaseFragment<IntelligentPresenter>() {
         if (flag) {
             mReportBtn.isClickable = true
             mReportBtn.text = "查看测评报告"
-            mReportBtn.setTextColor(ContextCompat.getColor(context, R.color.primary))
+            mReportBtn.setTextColor(ContextCompat.getColor(context!!, R.color.primary))
         } else {
             mReportBtn.isClickable = false
             mReportBtn.text = "完成所有练习后,查看测评报告"
-            mReportBtn.setTextColor(ContextCompat.getColor(context, R.color.gray_999))
+            mReportBtn.setTextColor(ContextCompat.getColor(context!!, R.color.gray_999))
         }
     }
 

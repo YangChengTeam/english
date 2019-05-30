@@ -19,6 +19,7 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.utils.LogUtil;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.junior.english.R;
@@ -285,6 +286,8 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
      */
     private void playVideo(CourseInfo courseInfo) {
         Glide.with(this).load(courseInfo.getImg()).thumbnail(0.1f).into(mJCVideoPlayer.thumbImageView);
+
+
 
         mJCVideoPlayer.setUp(courseInfo.getUrl(), XinQuVideoPlayer.SCREEN_WINDOW_LIST, false, null == courseInfo.getTitle() ? "" : courseInfo.getTitle());
 

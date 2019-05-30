@@ -73,22 +73,14 @@ public class WeikeUnitActivity extends BaseActivity<CategoryMainPresenter> imple
         categoryRecyclerView.addItemDecoration(new ItemDecorationHelper(this, 6, 6));
 
 
-        mWeiKeInfoItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(WeikeUnitActivity.this, WeiKeDetailActivity.class);
+        mWeiKeInfoItemAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Intent intent1 = new Intent(WeikeUnitActivity.this, WeiKeDetailActivity.class);
 
-                intent.putExtra("pid", mWeiKeInfoItemAdapter.getItem(position).getId());
-                startActivity(intent);
-            }
+            intent1.putExtra("pid", mWeiKeInfoItemAdapter.getItem(position).getId());
+            startActivity(intent1);
         });
 
-        mWeiKeInfoItemAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                getData(false);
-            }
-        }, categoryRecyclerView);
+        mWeiKeInfoItemAdapter.setOnLoadMoreListener(() -> getData(false), categoryRecyclerView);
 
         categoryRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -125,24 +117,18 @@ public class WeikeUnitActivity extends BaseActivity<CategoryMainPresenter> imple
         swipeRefreshLayout.setPrimaryColorsId(R.color.primaryDark);
         swipeRefreshLayout.setEnableLoadMore(false);
 //        swipeRefreshLayout.autoRefresh();
-        swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                page = 1;
-                getData(true);
-            }
+        swipeRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            page = 1;
+            getData(true);
         });
     }
 
     @Override
     public void showNoNet() {
 
-        stateView.showNoNet(swipeRefreshLayout, HttpConfig.NET_ERROR, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                page = 1;
-                getData(false);
-            }
+        stateView.showNoNet(swipeRefreshLayout, HttpConfig.NET_ERROR, v -> {
+            page = 1;
+            getData(false);
         });
 
         swipeRefreshLayout.finishRefresh();

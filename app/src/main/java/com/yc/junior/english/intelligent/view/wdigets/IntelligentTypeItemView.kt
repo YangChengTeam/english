@@ -18,35 +18,39 @@ class IntelligentTypeItemView : BaseView {
     val mDoTextView = findViewById(R.id.tvDo) as TextView
     val mIconImageView = findViewById(R.id.ivIcon) as ImageView
 
+
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+
         val a = context.obtainStyledAttributes(attrs, R.styleable.tab_item)
 
-        val title = a?.getText(R.styleable.tab_item_text)
-        if (title != null) {
-            mTitleTextView.setText(title)
+        try {
+            val title = a?.getText(R.styleable.tab_item_text)
+            if (title != null) {
+                mTitleTextView.setText(title)
+            }
+            val iconSrc = a?.getDrawable(R.styleable.tab_item_src)
+            if (iconSrc != null) {
+                mIconImageView.setImageDrawable(iconSrc)
+            }
+        } finally {
+            a.recycle()
         }
-        val iconSrc = a?.getDrawable(R.styleable.tab_item_src)
-        if (iconSrc != null) {
-            mIconImageView.setImageDrawable(iconSrc)
-        }
+
+
 //
     }
 
 
-
     var complete: Boolean = false
-        get() {
-            return field
-        }
         set(value) {
-            if (value) {
-                mDoTextView.setText(context.getString(R.string.intelligents_end))
-                mDoTextView.setBackground(ContextCompat.getDrawable(context, (R.drawable.intelligents_type_btn_end_bg)))
-                field = value
+            field = if (value) {
+                mDoTextView.text = context.getString(R.string.intelligents_end)
+                mDoTextView.background = ContextCompat.getDrawable(context, (R.drawable.intelligents_type_btn_end_bg))
+                value
             } else {
-                mDoTextView.setText(context.getString(R.string.intelligents_start))
-                mDoTextView.setBackground(ContextCompat.getDrawable(context, (R.drawable.intelligents_type_btn_bg)))
-                field = value
+                mDoTextView.text = context.getString(R.string.intelligents_start)
+                mDoTextView.background = ContextCompat.getDrawable(context, (R.drawable.intelligents_type_btn_bg))
+                value
             }
         }
 

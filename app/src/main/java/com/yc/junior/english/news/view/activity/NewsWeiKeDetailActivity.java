@@ -21,9 +21,11 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.kk.utils.LogUtil;
 import com.umeng.analytics.MobclickAgent;
+import com.xinqu.videoplayer.XinQuVideoPlayer;
+import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.view.BaseToolBar;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.base.view.SharePopupWindow;
 import com.yc.junior.english.base.view.StateView;
@@ -45,12 +47,12 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerStandard;
 import rx.functions.Action1;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.NetworkUtils;
 import yc.com.blankj.utilcode.util.SizeUtils;
+
+
 
 /**
  * Created by wanglin  on 2017/9/6 08:32.
@@ -64,7 +66,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     StateView stateView;
 
     @BindView(R.id.mJCVideoPlayer)
-    JZVideoPlayerStandard mJCVideoPlayer;
+    XinQuVideoPlayerStandard mJCVideoPlayer;
 
     @BindView(R.id.webView)
     WebView webView;
@@ -138,7 +140,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         mPresenter.getWeiKeDetail(id, userInfo != null ? userInfo.getUid() : "");
         initListener();
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mSensorEventListener = new JZVideoPlayer.JZAutoFullscreenListener();
+        mSensorEventListener = new XinQuVideoPlayer.XinQuAutoFullscreenListener();
 
 
     }
@@ -156,10 +158,10 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             playVideo(url, courseInfo.getImg());
 
             mLearnCountTextView.setText(courseInfo.getUserNum());
-            if (VipInfoHelper.getGoodInfoWrapper() != null && VipInfoHelper.getGoodInfoWrapper().getVip() != null) {
-                if (VipInfoHelper.getGoodInfoWrapper().getVip().size() > 0) {
-                    mNowPriceTextView.setText("会员 ¥" + VipInfoHelper.getGoodInfoWrapper().getVip().get(0).getVip_price());
-                    mOldPriceTextView.setText("会员 原价:¥" + VipInfoHelper.getGoodInfoWrapper().getVip().get(0).getPrice());
+            if (VipInfoHelper.getGoodInfoList() != null ) {
+                if (VipInfoHelper.getGoodInfoList().size() > 0) {
+                    mNowPriceTextView.setText("会员 ¥" + VipInfoHelper.getGoodInfoList().get(0).getVip_price());
+                    mOldPriceTextView.setText("会员 原价:¥" + VipInfoHelper.getGoodInfoList().get(0).getPrice());
                 }
             }
 
@@ -168,24 +170,18 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     }
 
     private void initListener() {
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                SharePopupWindow sharePopupWindow = new SharePopupWindow(NewsWeiKeDetailActivity.this);
-                sharePopupWindow.show(llRootView);
-            }
+        mToolbar.setOnItemClickLisener(() -> {
+            SharePopupWindow sharePopupWindow = new SharePopupWindow(NewsWeiKeDetailActivity.this);
+            sharePopupWindow.show(llRootView);
         });
 
-        RxView.clicks(mBuyNowLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                if (currentCourseInfo != null) {
-                    if (UserInfoHelper.getUserInfo() != null) {
-                        currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
-                        showBuyDialog();
-                    } else {
-                        UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
-                    }
+        RxView.clicks(mBuyNowLayout).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            if (currentCourseInfo != null) {
+                if (UserInfoHelper.getUserInfo() != null) {
+                    currentCourseInfo.setUserId(UserInfoHelper.getUserInfo().getUid());
+                    showBuyDialog();
+                } else {
+                    UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
                 }
             }
         });
@@ -248,12 +244,14 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
      * @param url
      */
     private void playVideo(String url, String imgUrl) {
-        mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
+        LogUtil.msg("url: "+url);
+//        mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
+        mJCVideoPlayer.setUp(url, XinQuVideoPlayer.SCREEN_WINDOW_LIST, false, "");
         Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
         mJCVideoPlayer.backButton.setVisibility(View.GONE);
         mJCVideoPlayer.tinyBackImageView.setVisibility(View.GONE);
-        mJCVideoPlayer.batteryLevel.setVisibility(View.GONE);
 
+//        mJCVideoPlayer.batteryLevel.setVisibility(View.GONE);
 
         if (judgeVip()) {
             if (NetworkUtils.getNetworkType() == NetworkUtils.NetworkType.NETWORK_WIFI)
@@ -350,12 +348,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     @Override
     public void showNoNet() {
-        stateView.showNoNet(llRootView, HttpConfig.NET_ERROR, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.getWeiKeDetail(id, UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : "");
-            }
-        });
+        stateView.showNoNet(llRootView, HttpConfig.NET_ERROR, v -> mPresenter.getWeiKeDetail(id, UserInfoHelper.getUserInfo() != null ? UserInfoHelper.getUserInfo().getUid() : ""));
     }
 
     @Override
@@ -387,7 +380,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     }
 
-    private JZVideoPlayer.JZAutoFullscreenListener mSensorEventListener;
+    private XinQuVideoPlayerStandard.XinQuAutoFullscreenListener mSensorEventListener;
 
     private SensorManager mSensorManager;
 
@@ -405,9 +398,11 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     protected void onPause() {
         super.onPause();
 
-        JZVideoPlayer.releaseAllVideos();
+//        JZVideoPlayer.releaseAllVideos();
+        XinQuVideoPlayerStandard.releaseAllVideos();
         mSensorManager.unregisterListener(mSensorEventListener);
-        JZVideoPlayer.clearSavedProgress(this, null);
+//        JZVideoPlayer.clearSavedProgress(this, null);
+        XinQuVideoPlayerStandard.clearSavedProgress(this, null);
     }
 
     @Override
@@ -424,7 +419,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     @Override
     public void onBackPressed() {
-        if (JZVideoPlayer.backPress()) {
+        if (XinQuVideoPlayerStandard.backPress()) {
             return;
         }
         super.onBackPressed();

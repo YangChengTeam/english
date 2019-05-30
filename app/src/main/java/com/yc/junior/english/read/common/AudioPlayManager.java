@@ -5,7 +5,7 @@ package com.yc.junior.english.read.common;
  */
 public interface AudioPlayManager {
 
-    void start(String url);
+    default void start(String url){}
 
     void stop();
 
@@ -14,5 +14,7 @@ public interface AudioPlayManager {
     boolean isPlaying();
 
     int getPlayPosition();
+
+//    void pause();
 
 }

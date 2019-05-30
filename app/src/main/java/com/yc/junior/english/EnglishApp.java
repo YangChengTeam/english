@@ -55,14 +55,11 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
 
         Utils.init(EnglishApp.this);
 
-        Observable.just("").observeOn(Schedulers.io()).subscribe(new Action1<String>() {
-            @Override
-            public void call(String s) {
-                ReadApp.init(EnglishApp.this);
+        Observable.just("").observeOn(Schedulers.io()).subscribe(s -> {
+            ReadApp.init(EnglishApp.this);
 //                EnglishStudyApp.init(EnglishApp.this);
-                SpeechUtils.setDefaultAppid(EnglishApp.this);
-                init();
-            }
+            SpeechUtils.setDefaultAppid(EnglishApp.this);
+            init();
         });
         SpeechUtils.setAppids(this);
         //监听activity的生命周期强大
@@ -109,13 +106,10 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
                     .build(this);
 
 
-            EnginHelper.getShareInfo(getApplicationContext()).subscribe(new Action1<ResultInfo<ShareInfo>>() {
-                @Override
-                public void call(ResultInfo<ShareInfo> shareInfoResultInfo) {
-                    if (shareInfoResultInfo != null && shareInfoResultInfo.data != null && shareInfoResultInfo.data.getInfo()
-                            != null) {
-                        SharePopupWindow.setShareInfo(shareInfoResultInfo.data.getInfo());
-                    }
+            EnginHelper.getShareInfo(getApplicationContext()).subscribe(shareInfoResultInfo -> {
+                if (shareInfoResultInfo != null && shareInfoResultInfo.data != null && shareInfoResultInfo.data.getInfo()
+                        != null) {
+                    SharePopupWindow.setShareInfo(shareInfoResultInfo.data.getInfo());
                 }
             });
         } catch (Exception e) {
