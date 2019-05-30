@@ -75,8 +75,8 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
         })
 
         RxView.clicks(mIntelligentType).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe {
-            val popupWindow = IntelligentVGSelectPopupWindow(activity)
-            popupWindow.show(activity.window.decorView.rootView, Gravity.CENTER)
+            val popupWindow = IntelligentVGSelectPopupWindow(activity as BaseActivity<*>)
+            popupWindow.show((activity as BaseActivity<*>).window.decorView.rootView, Gravity.CENTER)
             iv_select.setImageResource(R.mipmap.arrow_up)
             popupWindow.setOnDismissListener { iv_select.setImageResource(R.mipmap.arrow_down) }
 
@@ -84,7 +84,7 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
 
 
         ThreadPoolUtils(ThreadPoolUtils.SingleThread, 5).execute {
-            val bimap = Blur.fastblur(activity, BitmapFactory.decodeResource(context.resources, R.mipmap
+            val bimap = Blur.fastblur(activity, BitmapFactory.decodeResource((activity as BaseActivity<*>).resources, R.mipmap
                     .intellgent_main_bg)
                     , 25)
             UIUitls.post {
@@ -99,23 +99,22 @@ open class IntelligentTypeFragment : BaseFragment<IntelligentTypePresenter>(), I
     }
 
     override fun hide() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun showLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun showTitle(title: String) {
-        activity.runOnUiThread {
-
+        activity?.runOnUiThread {
             mTitleTextView.text = title
         }
     }
 
     var unitInfos: Array<UnitInfoWrapper.UnitInfo?>? = null
     override fun showInfo(titles: Array<String?>, types: Array<UnitInfoWrapper.UnitInfo?>) {
-        activity.runOnUiThread {
+        activity?.runOnUiThread {
             unitInfos = types
             mScrollIndicatorView.setAdapter(TabsUtils.MyAdapter(activity, titles, SizeUtils.dp2px(72f)))
             val mFragmentAdapter = TabsUtils.IntelligentFragmentAdapter(childFragmentManager, types)

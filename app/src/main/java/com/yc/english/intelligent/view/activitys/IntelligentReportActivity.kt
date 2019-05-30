@@ -3,6 +3,7 @@ package com.yc.english.intelligent.view.activitys
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Rect
+import android.support.annotation.NonNull
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -181,9 +182,12 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
     }
 
     private inner class MyItemDecoration : RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+
+
+        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
             super.getItemOffsets(outRect, view, parent, state)
             outRect.set(0, 0, ScreenUtil.dip2px(this@IntelligentReportActivity, 10f), ScreenUtil.dip2px(this@IntelligentReportActivity, 10f))
         }
+
     }
 }

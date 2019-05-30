@@ -54,6 +54,8 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
 
     private String mp3url;//播放的音频文件
 
+    private String word_voice;
+
     private boolean isPlay = false;
 
     public WordInfo() {
@@ -208,6 +210,14 @@ public class WordInfo extends AbstractExpandableItem<WordDetailInfo> implements 
 
     public void setMp3url(String mp3url) {
         this.mp3url = mp3url;
+    }
+
+    public String getWord_voice() {
+        return word_voice;
+    }
+
+    public void setWord_voice(String word_voice) {
+        this.word_voice = word_voice;
     }
 
     @Override

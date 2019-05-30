@@ -175,10 +175,10 @@ public class ReadWordExpandAdapter extends BaseExpandableListAdapter {
 
         if (view != null && ActivityUtils.isValidContext(mContext)) {
             if (isPlay) {
-                if ((ImageView) view.findViewById(R.id.iv_word_detail_audio) != null)
+                if (view.findViewById(R.id.iv_word_detail_audio) != null)
                     Glide.with(mContext).load(R.mipmap.read_audio_gif_play).into((ImageView) view.findViewById(R.id.iv_word_detail_audio));
             } else {
-                if ((ImageView) view.findViewById(R.id.iv_word_detail_audio) != null)
+                if (view.findViewById(R.id.iv_word_detail_audio) != null)
                     Glide.with(mContext).load(R.mipmap.read_word_default).into((ImageView) view.findViewById(R.id.iv_word_detail_audio));
             }
         }

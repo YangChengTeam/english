@@ -65,50 +65,35 @@ public class FeedbackActivity extends FullScreenActivity<FeedbackPersenter> impl
         tvWx.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         tvWx.getPaint().setAntiAlias(true);
 
-        RxView.clicks(mCompleteButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                KeyboardUtils.hideSoftInput(FeedbackActivity.this);
-                CharSequence context = mContextEditView.getText().toString();
-                mPresenter.postMessage(context.toString());
-            }
+        RxView.clicks(mCompleteButton).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            KeyboardUtils.hideSoftInput(FeedbackActivity.this);
+            CharSequence context = mContextEditView.getText().toString();
+            mPresenter.postMessage(context.toString());
         });
 
 
-        RxView.clicks(llTel).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
-                alertDialog.setDesc("拨打电话与客服进行沟通？");
-                alertDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        RxView.clicks(llTel).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            AlertDialog alertDialog = new AlertDialog(FeedbackActivity.this);
+            alertDialog.setDesc("拨打电话与客服进行沟通？");
+            alertDialog.setOnClickListener(v -> {
 
-                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                        Uri data = Uri.parse("tel:13164125027");
-                        intent.setData(data);
-                        startActivity(intent);
-                    }
-                });
-                alertDialog.show();
-            }
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:13164125027");
+                intent.setData(data);
+                startActivity(intent);
+            });
+            alertDialog.show();
         });
 
-        RxView.clicks(llWx).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                ClipboardUtils.copyText(tvWx.getText().toString().trim());
-                TipsHelper.tips(FeedbackActivity.this, "复制成功, 正在前往微信");
-                UIUitls.postDelayed(1000, new Runnable() {
-                    @Override
-                    public void run() {
-                        String weixin = "com.tencent.mm";
-                        if (AppUtils.isInstallApp(weixin)) {
-                            AppUtils.launchApp(weixin);
-                        }
-                    }
-                });
-            }
+        RxView.clicks(llWx).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            ClipboardUtils.copyText(tvWx.getText().toString().trim());
+            TipsHelper.tips(FeedbackActivity.this, "复制成功, 正在前往微信");
+            UIUitls.postDelayed(1000, () -> {
+                String weixin = "com.tencent.mm";
+                if (AppUtils.isInstallApp(weixin)) {
+                    AppUtils.launchApp(weixin);
+                }
+            });
         });
 
 //        RxView.clicks(mWeixinTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
