@@ -191,6 +191,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     @Override
     public void init() {
 
+//        ViewUtils.getLocationInView()
         StatusBarCompat.compat(this, toolbarWrapper, mToolbar);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

@@ -310,12 +310,7 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
 
                         .setLayoutRes(layoutIds[i], R.id.iv_next)
 
-                        .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
-                            @Override
-                            public void onLayoutInflated(View view, final Controller controller) {
-
-
-                            }
+                        .setOnLayoutInflatedListener((view, controller) -> {
 
 
                         }));
@@ -378,40 +373,32 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
 
 
     private void practiceGuide(final RectF rect, final RectF rectF) {
-        llPracticeContainer.post(new Runnable() {
-            @Override
-            public void run() {
-                Builder builder = getBuilder("guide2", 2, 0);
-                builder.addGuidePage(GuidePage.newInstance()
-                        .addHighLight(rect, HighLight.Shape.RECTANGLE, 16)
-                        .setEverywhereCancelable(false)
-                        .setLayoutRes(R.layout.study_practice_guide, R.id.iv_next))
-                        .addGuidePage(GuidePage.newInstance()
-                                .addHighLight(rectF, HighLight.Shape.RECTANGLE, 16)
-                                .setEverywhereCancelable(false)
-                                .setLayoutRes(R.layout.study_essentials_guide, R.id.iv_next));
+        llPracticeContainer.post(() -> {
+            Builder builder = getBuilder("guide2", 2, 0);
+            builder.addGuidePage(GuidePage.newInstance()
+                    .addHighLight(rect, HighLight.Shape.RECTANGLE, 16)
+                    .setEverywhereCancelable(false)
+                    .setLayoutRes(R.layout.study_practice_guide, R.id.iv_next))
+                    .addGuidePage(GuidePage.newInstance()
+                            .addHighLight(rectF, HighLight.Shape.RECTANGLE, 16)
+                            .setEverywhereCancelable(false)
+                            .setLayoutRes(R.layout.study_essentials_guide, R.id.iv_next));
 
 
-                builder.show();
-            }
-
+            builder.show();
         });
     }
 
     private void applyGuide(final RectF rect) {
-        llPracticeContainer.post(new Runnable() {
-            @Override
-            public void run() {
-                Builder builder = getBuilder("guide3", 3, 0);
-                builder.addGuidePage(GuidePage.newInstance()
-                        .addHighLight(rect, HighLight.Shape.RECTANGLE, 16)
-                        .setEverywhereCancelable(false)
-                        .setLayoutRes(R.layout.study_apply_guide, R.id.iv_next));
+        llPracticeContainer.post(() -> {
+            Builder builder = getBuilder("guide3", 3, 0);
+            builder.addGuidePage(GuidePage.newInstance()
+                    .addHighLight(rect, HighLight.Shape.RECTANGLE, 16)
+                    .setEverywhereCancelable(false)
+                    .setLayoutRes(R.layout.study_apply_guide, R.id.iv_next));
 
 
-                builder.show();
-            }
-
+            builder.show();
         });
     }
 
@@ -419,19 +406,16 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     private void startGuide(final List<View> views, final int[] layoutIds) {
 
         if (getActivity() != null && !getActivity().isDestroyed())
-            getActivity().getWindow().getDecorView().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    int[] location = new int[2];
-                    llStudyTotalContainer.getLocationOnScreen(location);
+            getActivity().getWindow().getDecorView().postDelayed(() -> {
+                int[] location = new int[2];
+                llStudyTotalContainer.getLocationOnScreen(location);
 
-                    UIUtils instance = UIUtils.getInstance(getActivity());
-                    final int[] topLocation = instance.getLocation();
-                    location[1] = location[1] + llStudyTotalContainer.getBottom() - llStudyTotalContainer.getTop() - topLocation[1];
+                UIUtils instance = UIUtils.getInstance(getActivity());
+                final int[] topLocation = instance.getLocation();
+                location[1] = location[1] + llStudyTotalContainer.getBottom() - llStudyTotalContainer.getTop() - topLocation[1];
 
-                    showGuide(views, layoutIds, location[1]);
+                showGuide(views, layoutIds, location[1]);
 
-                }
             }, 1000);
     }
 
