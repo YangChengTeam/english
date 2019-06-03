@@ -133,18 +133,15 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         qqunDialog.setQqunClick(this);
 
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
-        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset <= -appBarLayout.getHeight() + SizeUtils.dp2px(80)) {
-                    mCollapsingToolbarLayout.setTitle(getString(R.string.main_tab_my) + "  ");
-                    mAvatarImageView.setVisibility(View.GONE);
-                    mNickNameTextView.setVisibility(View.GONE);
-                } else {
-                    mCollapsingToolbarLayout.setTitle("");
-                    mAvatarImageView.setVisibility(View.VISIBLE);
-                    mNickNameTextView.setVisibility(View.VISIBLE);
-                }
+        mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+            if (verticalOffset <= -appBarLayout.getHeight() + SizeUtils.dp2px(80)) {
+                mCollapsingToolbarLayout.setTitle(getString(R.string.main_tab_my) + "  ");
+                mAvatarImageView.setVisibility(View.GONE);
+                mNickNameTextView.setVisibility(View.GONE);
+            } else {
+                mCollapsingToolbarLayout.setTitle("");
+                mAvatarImageView.setVisibility(View.VISIBLE);
+                mNickNameTextView.setVisibility(View.VISIBLE);
             }
         });
         restoreScoreData();

@@ -116,48 +116,62 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="40dp"
-        android:lineSpacingExtra="@dimen/t3dp"
-        android:text="友情提示："
-        android:textColor="@color/group_red_fb4c30"
-        android:textSize="@dimen/t16sp" />
+    <com.yc.english.news.view.widget.NewsScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="8dp"
-        android:lineSpacingExtra="@dimen/t5dp"
-        android:text="1.如果您购买会员后，想更换手机或在其他手机上使用本软件，绑定手机号码就可以了哦！"
-        android:textColor="@color/black"
-        android:textSize="@dimen/t16sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="8dp"
-        android:lineSpacingExtra="@dimen/t5dp"
-        android:text="绑定手机号步骤：打开“个性学习”页面，点开“系统设置”里面的“绑定手机号”，按相应提示操作即可。"
-        android:textColor="@color/black"
-        android:textSize="@dimen/t16sp"
-        android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="40dp"
+                android:lineSpacingExtra="@dimen/t3dp"
+                android:text="友情提示："
+                android:textColor="@color/group_red_fb4c30"
+                android:textSize="@dimen/t16sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="8dp"
-        android:lineSpacingExtra="@dimen/t5dp"
-        android:text="2.很多亲在使用时，发现课本正常点读，但没有声音，这时请打开手机设置页面，有个声音选项，点选后，调整系统声音，就能放大和听到声音了。"
-        android:textColor="@color/black"
-        android:textSize="@dimen/t16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="@dimen/t5dp"
+                android:text="1.如果您购买会员后，想更换手机或在其他手机上使用本软件，绑定手机号码就可以了哦！"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="@dimen/t5dp"
+                android:text="绑定手机号步骤：打开“个性学习”页面，点开“系统设置”里面的“绑定手机号”，按相应提示操作即可。"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="@dimen/t5dp"
+                android:text="2.很多亲在使用时，发现课本正常点读，但没有声音，这时请打开手机设置页面，有个声音选项，点选后，调整系统声音，就能放大和听到声音了。"
+                android:textColor="@color/black"
+                android:textSize="@dimen/t16sp" />
+
+        </LinearLayout>
+    </com.yc.english.news.view.widget.NewsScrollView>
+
+
 </LinearLayout>

@@ -1,6 +1,7 @@
 package yc.com.base;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -53,7 +54,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             LogUtil.msg("-->: 初始化失败 " + e.getMessage());
         }
         statusHeight = StatusBarUtil.getStatusBarHeight(this);
+//        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
         ScreenUtils.setPortrait(this);
+//        }
 
         baseLoadingView = new BaseLoadingView(this);
         mHandler = new Handler();

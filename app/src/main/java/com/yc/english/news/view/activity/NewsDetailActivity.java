@@ -512,6 +512,6 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     @Override
     protected boolean isSupportSwipeBack() {
-        return true;
+        return false;
     }
 }

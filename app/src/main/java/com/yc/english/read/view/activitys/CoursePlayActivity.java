@@ -384,12 +384,12 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
                 isPlay = !isPlay;
 
-                isContinue = !isContinue;
+//                isContinue = !isContinue;
                 if (manager != null && isPlay) {
                     manager.stop();
                     disableState();
                 } else {
-//                    isContinue = false;
+                    isContinue = false;
                     enableState(playPosition);
 
                     startPlay(playPosition);
@@ -475,7 +475,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
 
     private void initMediaPlayer() {
-//        manager = new WlMusicPlayer(this);
 //        manager = new MediaPlayerPlayer(this);
         manager = new ExoPlayer(this, this);
     }

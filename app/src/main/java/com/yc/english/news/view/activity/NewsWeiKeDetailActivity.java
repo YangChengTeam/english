@@ -1,12 +1,17 @@
 package com.yc.english.news.view.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -20,13 +25,14 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
+import com.jarvanmo.exoplayerview.media.SimpleMediaSource;
+import com.jarvanmo.exoplayerview.ui.ExoVideoView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
@@ -48,10 +54,12 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import rx.functions.Action1;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.NetworkUtils;
 import yc.com.blankj.utilcode.util.SizeUtils;
+
+import static com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_LANDSCAPE;
+import static com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_PORTRAIT;
 
 /**
  * Created by wanglin  on 2017/9/6 08:32.
@@ -71,7 +79,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     WebView webView;
 
     @BindView(R.id.ll_rootView)
-    RelativeLayout llRootView;
+    LinearLayout llRootView;
 
     @BindView(R.id.tv_title)
     TextView mTextViewTitle;
@@ -103,6 +111,10 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     BasePayItemView baseItemViewBrainpowerAppraisal;
     @BindView(R.id.baseItemView_score_tutorship)
     BasePayItemView baseItemViewScoreTutorship;
+    @BindView(R.id.exoVideoView)
+    ExoVideoView videoView;
+    @BindView(R.id.rl_container)
+    RelativeLayout rlContainer;
 
 
     private String title;
@@ -138,8 +150,8 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         userInfo = UserInfoHelper.getUserInfo();
         mPresenter.getWeiKeDetail(id, userInfo != null ? userInfo.getUid() : "");
         initListener();
-        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mSensorEventListener = new XinQuVideoPlayer.XinQuAutoFullscreenListener();
+//        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+//        mSensorEventListener = new XinQuVideoPlayer.XinQuAutoFullscreenListener();
 
 
     }
@@ -154,10 +166,11 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             mTextViewTitle.setText(title);
 
             String url = courseInfo.getUrl();
+            initVideoView();
             playVideo(url, courseInfo.getImg());
 
             mLearnCountTextView.setText(courseInfo.getUserNum());
-            if (VipInfoHelper.getGoodInfoList() != null ) {
+            if (VipInfoHelper.getGoodInfoList() != null) {
                 if (VipInfoHelper.getGoodInfoList().size() > 0) {
                     mNowPriceTextView.setText("会员 ¥" + VipInfoHelper.getGoodInfoList().get(0).getVip_price());
                     mOldPriceTextView.setText("会员 原价:¥" + VipInfoHelper.getGoodInfoList().get(0).getPrice());
@@ -243,32 +256,96 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
      * @param url
      */
     private void playVideo(String url, String imgUrl) {
-        LogUtil.msg("url: "+url);
+//        LogUtil.msg("url: " + url + "   imgUrl: " + imgUrl);
 //        mJCVideoPlayer.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL);
-        mJCVideoPlayer.setUp(url, XinQuVideoPlayer.SCREEN_WINDOW_LIST, false, "");
-        Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
-        mJCVideoPlayer.backButton.setVisibility(View.GONE);
-        mJCVideoPlayer.tinyBackImageView.setVisibility(View.GONE);
+//
+        Glide.with(this).load(imgUrl).into(videoView.artworkView);
+        SimpleMediaSource mediaSource = new SimpleMediaSource(url);//uri also supported
 
-//        mJCVideoPlayer.batteryLevel.setVisibility(View.GONE);
+
+//        videoView.play(mediaSource, false);//play from a particular position
+
+
+//        mJCVideoPlayer.setUp(url, XinQuVideoPlayer.SCREEN_WINDOW_LIST, false, "");
+//        Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
+//        mJCVideoPlayer.backButton.setVisibility(View.GONE);
+//        mJCVideoPlayer.tinyBackImageView.setVisibility(View.GONE);
+
+
+        boolean isPlay = false;
 
         if (judgeVip()) {
             if (NetworkUtils.getNetworkType() == NetworkUtils.NetworkType.NETWORK_WIFI)
-                mJCVideoPlayer.startVideo();
+//                mJCVideoPlayer.startVideo();
+                isPlay = true;
+//            videoView.play(mediaSource, true);
             else {
                 click();
             }
         } else {
             click();
         }
+        videoView.setupVideoGesture(isPlay);
+        videoView.play(mediaSource, isPlay);
+
+    }
+
+    private void initVideoView() {
+        videoView.setPortrait(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+        videoView.setBackListener((view, isPortrait) -> {
+            if (isPortrait) {
+                finish();
+            }
+            return false;
+        });
+
+        videoView.setOrientationListener(orientation -> {
+            if (orientation == SENSOR_PORTRAIT) {
+                changeToPortrait();
+            } else if (orientation == SENSOR_LANDSCAPE) {
+                changeToLandscape();
+            }
+        });
 
 
     }
 
+    private void changeToPortrait() {
+
+
+        // WindowManager operation is not necessary
+        WindowManager.LayoutParams attr = getWindow().getAttributes();
+//        attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Window window = getWindow();
+        window.setAttributes(attr);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        mToolbar.setVisibility(View.VISIBLE);
+        rlContainer.setVisibility(View.VISIBLE);
+    }
+
+
+    private void changeToLandscape() {
+
+        // WindowManager operation is not necessary
+
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+
+//        Log.e("TAG", "changeToLandscape: " + layoutParams.width + "  height:  " + layoutParams.height);
+
+//        lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        Window window = getWindow();
+        window.setAttributes(lp);
+        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        mToolbar.setVisibility(View.GONE);
+        rlContainer.setVisibility(View.GONE);
+
+    }
+
+
     private boolean judgeVip() {
         boolean isPlay = false;
 
-        if (UserInfoHelper.isVip(userInfo)||currentCourseInfo.getIsPay()==1) {
+        if (UserInfoHelper.isVip(userInfo) || currentCourseInfo.getIsPay() == 1) {
             isPlay = true;
         }
         if (isPlay) {
@@ -308,27 +385,23 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
 
     private void click() {
-        RxView.clicks(mJCVideoPlayer.thumbImageView).throttleFirst(1000, TimeUnit.MICROSECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                startOrBuy();
-            }
-        });
-        RxView.clicks(mJCVideoPlayer.startButton).throttleFirst(1000, TimeUnit.MICROSECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                startOrBuy();
-            }
-        });
+//        RxView.clicks(mJCVideoPlayer.thumbImageView).throttleFirst(1000, TimeUnit.MICROSECONDS).subscribe(aVoid -> startOrBuy());
+//        RxView.clicks(mJCVideoPlayer.startButton).throttleFirst(1000, TimeUnit.MICROSECONDS).subscribe(aVoid -> startOrBuy());
+
+        startOrBuy();
+
     }
 
     private void startOrBuy() {
         if (userInfo != null) {
-            if (judgeVip()) {
-                mJCVideoPlayer.startVideo();
-            } else {
-                showBuyDialog();
-            }
+//            if (judgeVip()) {
+//                mJCVideoPlayer.startVideo();
+//            } else {
+//                showBuyDialog();
+//            }
+
+            videoView.startVideo(judgeVip(), v -> showBuyDialog());
+
         } else {
             UserInfoHelper.isGotoLogin(NewsWeiKeDetailActivity.this);
         }
@@ -362,6 +435,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     private ArrayList<String> imageList = new ArrayList<>();
 
+
     private class JavascriptInterface {
 
         @android.webkit.JavascriptInterface
@@ -379,30 +453,64 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     }
 
-    private XinQuVideoPlayerStandard.XinQuAutoFullscreenListener mSensorEventListener;
+//    private XinQuVideoPlayerStandard.XinQuAutoFullscreenListener mSensorEventListener;
 
-    private SensorManager mSensorManager;
+//    private SensorManager mSensorManager;
 
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        Sensor accelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener(mSensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+//        Sensor accelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+//        mSensorManager.registerListener(mSensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if ((Build.VERSION.SDK_INT <= 23)) {
+            videoView.resume();
+        }
+
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (Build.VERSION.SDK_INT > 23) {
+            videoView.resume();
+        }
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
 
-//        JZVideoPlayer.releaseAllVideos();
         XinQuVideoPlayerStandard.releaseAllVideos();
-        mSensorManager.unregisterListener(mSensorEventListener);
+//        mSensorManager.unregisterListener(mSensorEventListener);
 //        JZVideoPlayer.clearSavedProgress(this, null);
         XinQuVideoPlayerStandard.clearSavedProgress(this, null);
+
+        if (Build.VERSION.SDK_INT <= 23) {
+            videoView.pause();
+        }
     }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Build.VERSION.SDK_INT > 23) {
+            videoView.pause();
+        }
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return videoView.onKeyDown(keyCode, event);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -414,6 +522,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             llRootView.removeView(webView);
             webView.destroy();
         }
+        videoView.releasePlayer();
     }
 
     @Override

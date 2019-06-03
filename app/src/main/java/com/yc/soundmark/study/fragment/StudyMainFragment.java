@@ -1,6 +1,7 @@
 package com.yc.soundmark.study.fragment;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.RectF;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +28,9 @@ import com.app.hubert.guide.model.GuidePage;
 import com.app.hubert.guide.model.HighLight;
 import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding.view.RxView;
+import com.jarvanmo.exoplayerview.media.SimpleMediaSource;
+import com.jarvanmo.exoplayerview.ui.ExoVideoView;
 import com.kk.securityhttp.net.contains.HttpConfig;
-import com.kk.utils.LogUtil;
 import com.kk.utils.ScreenUtil;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
@@ -60,6 +61,9 @@ import butterknife.Unbinder;
 import rx.functions.Action1;
 import yc.com.base.BaseFragment;
 import yc.com.blankj.utilcode.util.SPUtils;
+
+import static com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_LANDSCAPE;
+import static com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_PORTRAIT;
 
 /**
  * Created by wanglin  on 2018/10/26 16:23.
@@ -130,6 +134,8 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     LinearLayout llAppTitle;
     @BindView(R.id.ll_apply_root)
     LinearLayout llApplyRoot;
+    @BindView(R.id.exoVideoView)
+    ExoVideoView exoVideoView;
 
 
     private int playStep = 1;//播放步骤
@@ -176,7 +182,6 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
         viewPager.setOffscreenPageLimit(3);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.setupWithViewPager(viewPager);
-
 
     }
 
@@ -310,14 +315,7 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
 
                         .setLayoutRes(layoutIds[i], R.id.iv_next)
 
-                        .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
-                            @Override
-                            public void onLayoutInflated(View view, final Controller controller) {
-
-
-                            }
-
-
+                        .setOnLayoutInflatedListener((view, controller) -> {
                         }));
 
             }
@@ -378,40 +376,32 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
 
 
     private void practiceGuide(final RectF rect, final RectF rectF) {
-        llPracticeContainer.post(new Runnable() {
-            @Override
-            public void run() {
-                Builder builder = getBuilder("guide2", 2, 0);
-                builder.addGuidePage(GuidePage.newInstance()
-                        .addHighLight(rect, HighLight.Shape.RECTANGLE, 16)
-                        .setEverywhereCancelable(false)
-                        .setLayoutRes(R.layout.study_practice_guide, R.id.iv_next))
-                        .addGuidePage(GuidePage.newInstance()
-                                .addHighLight(rectF, HighLight.Shape.RECTANGLE, 16)
-                                .setEverywhereCancelable(false)
-                                .setLayoutRes(R.layout.study_essentials_guide, R.id.iv_next));
+        llPracticeContainer.post(() -> {
+            Builder builder = getBuilder("guide2", 2, 0);
+            builder.addGuidePage(GuidePage.newInstance()
+                    .addHighLight(rect, HighLight.Shape.RECTANGLE, 16)
+                    .setEverywhereCancelable(false)
+                    .setLayoutRes(R.layout.study_practice_guide, R.id.iv_next))
+                    .addGuidePage(GuidePage.newInstance()
+                            .addHighLight(rectF, HighLight.Shape.RECTANGLE, 16)
+                            .setEverywhereCancelable(false)
+                            .setLayoutRes(R.layout.study_essentials_guide, R.id.iv_next));
 
 
-                builder.show();
-            }
-
+            builder.show();
         });
     }
 
     private void applyGuide(final RectF rect) {
-        llPracticeContainer.post(new Runnable() {
-            @Override
-            public void run() {
-                Builder builder = getBuilder("guide3", 3, 0);
-                builder.addGuidePage(GuidePage.newInstance()
-                        .addHighLight(rect, HighLight.Shape.RECTANGLE, 16)
-                        .setEverywhereCancelable(false)
-                        .setLayoutRes(R.layout.study_apply_guide, R.id.iv_next));
+        llPracticeContainer.post(() -> {
+            Builder builder = getBuilder("guide3", 3, 0);
+            builder.addGuidePage(GuidePage.newInstance()
+                    .addHighLight(rect, HighLight.Shape.RECTANGLE, 16)
+                    .setEverywhereCancelable(false)
+                    .setLayoutRes(R.layout.study_apply_guide, R.id.iv_next));
 
 
-                builder.show();
-            }
-
+            builder.show();
         });
     }
 
@@ -419,19 +409,16 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     private void startGuide(final List<View> views, final int[] layoutIds) {
 
         if (getActivity() != null && !getActivity().isDestroyed())
-            getActivity().getWindow().getDecorView().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    int[] location = new int[2];
-                    llStudyTotalContainer.getLocationOnScreen(location);
+            getActivity().getWindow().getDecorView().postDelayed(() -> {
+                int[] location = new int[2];
+                llStudyTotalContainer.getLocationOnScreen(location);
 
-                    UIUtils instance = UIUtils.getInstance(getActivity());
-                    final int[] topLocation = instance.getLocation();
-                    location[1] = location[1] + llStudyTotalContainer.getBottom() - llStudyTotalContainer.getTop() - topLocation[1];
+                UIUtils instance = UIUtils.getInstance(getActivity());
+                final int[] topLocation = instance.getLocation();
+                location[1] = location[1] + llStudyTotalContainer.getBottom() - llStudyTotalContainer.getTop() - topLocation[1];
 
-                    showGuide(views, layoutIds, location[1]);
+                showGuide(views, layoutIds, location[1]);
 
-                }
             }, 1000);
     }
 
@@ -442,9 +429,18 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
      * @param studyInfo
      */
     private void playVideo(StudyInfo studyInfo) {
-        Glide.with(this).load(studyInfo.getVideo_cover()).thumbnail(0.1f).into(mJCVideoPlayer.thumbImageView);
+//
+//        Glide.with(this).load(studyInfo.getVideo_cover()).thumbnail(0.1f).into(mJCVideoPlayer.thumbImageView);
+//
+//        mJCVideoPlayer.setUp(studyInfo.getVoice_video(), XinQuVideoPlayer.SCREEN_WINDOW_LIST, false, null == studyInfo.getCn() ? "" : studyInfo.getCn());
 
-        mJCVideoPlayer.setUp(studyInfo.getVoice_video(), XinQuVideoPlayer.SCREEN_WINDOW_LIST, false, null == studyInfo.getCn() ? "" : studyInfo.getCn());
+        exoVideoView.setPortrait(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+        Glide.with(this).load(studyInfo.getVideo_cover()).thumbnail(0.1f).into(exoVideoView.artworkView);
+        SimpleMediaSource mediaSource = new SimpleMediaSource(studyInfo.getVoice_video());//uri also supported
+
+        exoVideoView.play(mediaSource, false);//play from a particular position
+
+        exoVideoView.startVideo(true, null);
     }
 
 
@@ -452,12 +448,42 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     public void onPause() {
         super.onPause();
         XinQuVideoPlayer.goOnPlayOnPause();
+        if (Build.VERSION.SDK_INT <= 23) {
+            exoVideoView.pause();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Build.VERSION.SDK_INT > 23) {
+            exoVideoView.pause();
+        }
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Build.VERSION.SDK_INT > 23) {
+            exoVideoView.resume();
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if ((Build.VERSION.SDK_INT <= 23)) {
+            exoVideoView.resume();
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mediaPlayerView.destroy();
+        exoVideoView.releasePlayer();
     }
 
 
@@ -567,5 +593,6 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
             }
         });
     }
+
 }
 

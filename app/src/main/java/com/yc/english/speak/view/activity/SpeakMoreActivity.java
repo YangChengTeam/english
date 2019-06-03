@@ -190,6 +190,6 @@ public class SpeakMoreActivity extends FullScreenActivity<SpeakEnglishListPresen
 
     @Override
     protected boolean isSupportSwipeBack() {
-        return true;
+        return false;
     }
 }
