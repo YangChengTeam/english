@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import rx.functions.Action1;
 
+
+
 /**
  * Created by admin on 2018/3/12.
  */
@@ -75,6 +77,8 @@ public class CoachScoreActivity extends FullScreenActivity {
                 startActivity(intent);
             }
         });
+
+//        ViewUtils.getLocationInView()
     }
 
 

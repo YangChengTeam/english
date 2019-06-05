@@ -3,12 +3,25 @@ package com.yc.soundmark.study.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
 
+import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.audio.AudioAttributes;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DataSpec;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.upstream.HttpDataSource;
+import com.google.android.exoplayer2.util.Util;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -18,8 +31,6 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
-import com.ksyun.media.player.IMediaPlayer;
-import com.ksyun.media.player.KSYMediaPlayer;
 import com.yc.junior.english.R;
 import com.yc.junior.english.speak.utils.IatSettings;
 import com.yc.soundmark.study.listener.OnAVManagerListener;
@@ -32,6 +43,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -40,6 +52,7 @@ import java.util.regex.Pattern;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.StringUtils;
 import yc.com.blankj.utilcode.util.ToastUtils;
+
 
 /**
  * Created by wanglin  on 2018/11/1 15:32.
@@ -51,7 +64,9 @@ public class AVManager implements OnAVManagerListener {
     private SpeechRecognizer mIat;
     private Context mContext;
     private OnUIApplyControllerListener uiApplyControllerListener;
-    private KSYMediaPlayer mKsyMediaPlayer;//播放MP3
+//    private KSYMediaPlayer mKsyMediaPlayer;
+
+    private SimpleExoPlayer exoPlayer;//播放MP3
 
     /**
      * 引擎类型
@@ -78,14 +93,10 @@ public class AVManager implements OnAVManagerListener {
     /**
      * 初始化监听器。
      */
-    private InitListener mInitListener = new InitListener() {
-
-        @Override
-        public void onInit(int code) {
-            LogUtils.e("SpeechRecognizer init() code = " + code);
-            if (code != ErrorCode.SUCCESS) {
-                ToastUtils.showLong("初始化失败，错误码：" + code);
-            }
+    private InitListener mInitListener = code -> {
+        LogUtils.e("SpeechRecognizer init() code = " + code);
+        if (code != ErrorCode.SUCCESS) {
+            ToastUtils.showLong("初始化失败，错误码：" + code);
         }
     };
 
@@ -167,43 +178,28 @@ public class AVManager implements OnAVManagerListener {
         stopMusic();
 
         if (TextUtils.isEmpty(musicUrl)) return;
-        if (null == mKsyMediaPlayer) {
-            mKsyMediaPlayer = new KSYMediaPlayer.Builder(mContext).build();
-            mKsyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        if (null == exoPlayer) {
+            exoPlayer = ExoPlayerFactory.newSimpleInstance(mContext);
         }
-
-
         try {
-            mKsyMediaPlayer.setDataSource(musicUrl);
-            mKsyMediaPlayer.prepareAsync();
-        } catch (IOException e) {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setContentType(C.CONTENT_TYPE_MUSIC)
+                    .build();
+            exoPlayer.setAudioAttributes(audioAttributes, true);
+            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(mContext,
+                    Util.getUserAgent(mContext, mContext.getPackageName()));
+
+            Uri mp4VideoUri = Uri.parse(musicUrl);
+            MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
+
+                    .createMediaSource(mp4VideoUri);
+
+            exoPlayer.prepare(videoSource);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        mKsyMediaPlayer.setOnPreparedListener(new IMediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(IMediaPlayer mp) {
-                uiApplyControllerListener.playBeforeUpdateUI();
-                //开始播放动画，如果当前有动画正在播放
-                //开始播放
-                mp.start();
-            }
-        });
-        mKsyMediaPlayer.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(IMediaPlayer mp) {
-                uiApplyControllerListener.playAfterUpdateUI();
-                stopMusic();
-            }
-        });
-
-        mKsyMediaPlayer.setOnErrorListener(new IMediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(IMediaPlayer mp, int what, int extra) {
-                ToastUtil.toast2(mContext, "播放失败！");
-                uiApplyControllerListener.playErrorUpdateUI();
-                return false;
-            }
-        });
+        exoPlayer.addListener(eventListener);
 
     }
 
@@ -233,32 +229,77 @@ public class AVManager implements OnAVManagerListener {
         //停止ItemView缩放动画播放
 //        uiApplyControllerListener.playAfterUpdateUI();
         //停止音乐播放
-        if (null != mKsyMediaPlayer) {
-            if (mKsyMediaPlayer.isPlaying()) {
-                mKsyMediaPlayer.stop();
+
+        if (null != exoPlayer) {
+            if (isPlaying()) {
+                exoPlayer.stop();
             }
-            mKsyMediaPlayer.release();
-            mKsyMediaPlayer.reset();
-            mKsyMediaPlayer.resetListeners();
-            mKsyMediaPlayer = null;
+
+            exoPlayer.release();
+            exoPlayer.removeListener(eventListener);
+            exoPlayer = null;
         }
+
     }
+
+
+    private Player.EventListener eventListener = new Player.EventListener() {
+        @Override
+        public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+            if (playbackState == Player.STATE_BUFFERING || playbackState == Player.STATE_READY) {
+                uiApplyControllerListener.playBeforeUpdateUI();
+                exoPlayer.setPlayWhenReady(true);
+            } else if (playbackState == Player.STATE_ENDED) {
+                uiApplyControllerListener.playAfterUpdateUI();
+                stopMusic();
+            }
+        }
+
+        @Override
+        public void onPlayerError(ExoPlaybackException error) {
+            ToastUtil.toast2(mContext, "播放失败！");
+            uiApplyControllerListener.playErrorUpdateUI();
+            if (error.type == ExoPlaybackException.TYPE_SOURCE) {
+                IOException cause = error.getSourceException();
+                if (cause instanceof HttpDataSource.HttpDataSourceException) {
+                    // An HTTP error occurred.
+                    HttpDataSource.HttpDataSourceException httpError = (HttpDataSource.HttpDataSourceException) cause;
+                    // This is the request for which the error occurred.
+                    DataSpec requestDataSpec = httpError.dataSpec;
+
+                    LogUtil.msg("dataSpec error:  " + requestDataSpec.key + "  httpBody  " + Arrays.toString(requestDataSpec.httpBody));
+                    // It's possible to find out more about the error both by casting and by
+                    // querying the cause.
+                    if (httpError instanceof HttpDataSource.InvalidResponseCodeException) {
+                        // Cast to InvalidResponseCodeException and retrieve the response code,
+                        // message and headers.
+                        HttpDataSource.InvalidResponseCodeException httpError1 = (HttpDataSource.InvalidResponseCodeException) httpError;
+                        LogUtil.msg("error: code: " + httpError1.responseCode + "  message  " + httpError1.responseMessage);
+
+                    } else {
+                        // Try calling httpError.getCause() to retrieve the underlying cause,
+                        // although note that it may be null.
+                    }
+                }
+            }
+        }
+    };
 
 
     @Override
     public void playAssetFile(String assetFilePath, final int step) {
 
-
     }
 
     @Override
     public boolean isPlaying() {
-        return false;
+        return exoPlayer != null && exoPlayer.getPlayWhenReady() &&
+                (exoPlayer.getPlaybackState() != Player.STATE_IDLE ||
+                        exoPlayer.getPlaybackState() != Player.STATE_ENDED);
     }
 
     @Override
     public void destroy() {
-
     }
 
 
@@ -302,27 +343,18 @@ public class AVManager implements OnAVManagerListener {
                 if (mPlayer == null)
                     mPlayer = new MediaPlayer();
 
-
                 //设置要播放的文件
                 mPlayer.setDataSource(audioFile.getAbsolutePath());
                 mPlayer.prepare();
                 uiApplyControllerListener.playRecordBeforeUpdateUI();
                 //播放
                 mPlayer.start();
-                mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        uiApplyControllerListener.playRecordAfterUpdateUI();
-                    }
-                });
-                mPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                    @Override
-                    public boolean onError(MediaPlayer mp, int what, int extra) {
-                        uiApplyControllerListener.playRecordAfterUpdateUI();
-                        ToastUtil.toast2(mContext, "文件播放失败");
-                        return false;
+                mPlayer.setOnCompletionListener(mp -> uiApplyControllerListener.playRecordAfterUpdateUI());
+                mPlayer.setOnErrorListener((mp, what, extra) -> {
+                    uiApplyControllerListener.playRecordAfterUpdateUI();
+                    ToastUtil.toast2(mContext, "文件播放失败");
+                    return false;
 
-                    }
                 });
             } else {
                 ToastUtil.toast2(mContext, "请先录音，再播放");
@@ -476,7 +508,7 @@ public class AVManager implements OnAVManagerListener {
                 }
             }
 
-            if (matchCount > 0 && sourceList.size() > 0) {
+            if (matchCount > 0) {
                 percent = (float) matchCount / (float) sourceList.size() * 100;
             }
 

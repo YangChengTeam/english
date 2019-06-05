@@ -8,7 +8,8 @@
     <com.yc.junior.english.base.view.StateView
         android:id="@+id/stateView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -233,12 +234,15 @@
                             android:textSize="@dimen/t12sp" />
                     </LinearLayout>
 
-                    <com.xinqu.videoplayer.XinQuVideoPlayerStandard
-                        android:id="@+id/videoPlayer"
+
+                    <com.jarvanmo.exoplayerview.ui.ExoVideoView
+                        android:id="@+id/exoVideoView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
-                        android:layout_marginTop="@dimen/t15dp" />
+                        android:layout_marginTop="@dimen/t15dp"
+                        app:show_timeout="0"
+                        app:controller_display_mode="none"
+                        app:controller_layout_id="@layout/exo_video_playback_my_controller_view" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -1,6 +1,7 @@
 package yc.com.base;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -8,6 +9,8 @@ import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -53,7 +56,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             LogUtil.msg("-->: 初始化失败 " + e.getMessage());
         }
         statusHeight = StatusBarUtil.getStatusBarHeight(this);
+//        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
         ScreenUtils.setPortrait(this);
+//        }
 
         baseLoadingView = new BaseLoadingView(this);
         mHandler = new Handler();
@@ -64,7 +69,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
         if (isStatusBarMateria())
             setStatusBarMateria();
-//            StatusBarCompat.transparentStatusBar(this);
         init();
 
     }
@@ -174,6 +178,40 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             if (null != mHandler) mHandler.postDelayed(taskRunnable, 0);
         }
     }
+
+    protected void changeToPortrait() {
+
+
+        // WindowManager operation is not necessary
+        WindowManager.LayoutParams attr = getWindow().getAttributes();
+//        attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Window window = getWindow();
+        window.setAttributes(attr);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        updateUIToPortrait();
+    }
+
+
+    protected void changeToLandscape() {
+
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+
+//        Log.e("TAG", "changeToLandscape: " + layoutParams.width + "  height:  " + layoutParams.height);
+
+//        lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        Window window = getWindow();
+        window.setAttributes(lp);
+        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        updateUIToLandscape();
+
+    }
+
+    protected void updateUIToPortrait() {
+    }
+
+    protected void updateUIToLandscape() {
+    }
+
 
     /**
      * 定时任务，模拟倒计时广告

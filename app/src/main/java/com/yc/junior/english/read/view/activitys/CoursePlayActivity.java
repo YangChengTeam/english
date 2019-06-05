@@ -384,12 +384,12 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
 
                 isPlay = !isPlay;
 
-                isContinue = !isContinue;
+//                isContinue = !isContinue;
                 if (manager != null && isPlay) {
                     manager.stop();
                     disableState();
                 } else {
-//                    isContinue = false;
+                    isContinue = false;
                     enableState(playPosition);
 
 

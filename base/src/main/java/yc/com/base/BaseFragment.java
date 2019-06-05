@@ -102,7 +102,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
-        LogUtil.msg("TAG ： " + getClass().getName() + "  isVisibleToUser   " + isVisibleToUser + "  isDataInitiated  " + isDataInitiated + "  isViewInitiated  " + isViewInitiated);
+//        LogUtil.msg("TAG ： " + getClass().getName() + "  isVisibleToUser   " + isVisibleToUser + "  isDataInitiated  " + isDataInitiated + "  isViewInitiated  " + isViewInitiated);
         prepareFetchData();
 //        Log.e(TAG, "setUserVisibleHint: ");
     }

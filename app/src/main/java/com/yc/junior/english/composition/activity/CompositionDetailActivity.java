@@ -15,11 +15,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jarvanmo.exoplayerview.ui.ExoVideoView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
-import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.view.BaseToolBar;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.base.view.SharePopupWindow;
 import com.yc.junior.english.base.view.StateView;
@@ -41,6 +40,7 @@ import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.TimeUtils;
 
 
+
 /**
  * Created by wanglin  on 2019/3/26 14:23.
  */
@@ -55,8 +55,7 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
     TextView mTextViewFrom;
     @BindView(R.id.mTextViewTime)
     TextView mTextViewTime;
-    @BindView(R.id.mJCVideoPlayer)
-    XinQuVideoPlayerStandard mJCVideoPlayer;
+
     @BindView(R.id.mMediaPlayerView)
     MediaPlayerView mMediaPlayerView;
     @BindView(R.id.fl_player)
@@ -83,6 +82,8 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
     LinearLayout llRootView;
     @BindView(R.id.nestedScrollView)
     NewsScrollView nestedScrollView;
+    @BindView(R.id.exoVideoView)
+    ExoVideoView exoVideoView;
     private String zwid;
 
     private static final String TAG = "CompositionDetailActiv";
@@ -241,16 +242,12 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
 
     @Override
     public void showNoNet() {
-        stateView.showNoNet(nestedScrollView, HttpConfig.NET_ERROR, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.getCompositionDetail(zwid);
-            }
-        });
+        stateView.showNoNet(nestedScrollView, HttpConfig.NET_ERROR, v -> mPresenter.getCompositionDetail(zwid));
 
     }
 
     private ArrayList<String> imageList = new ArrayList<>();
+
 
     private class JavascriptInterface {
 
