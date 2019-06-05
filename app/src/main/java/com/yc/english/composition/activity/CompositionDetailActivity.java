@@ -15,11 +15,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jarvanmo.exoplayerview.ui.ExoVideoView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
-import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.english.R;
-import com.yc.english.base.view.BaseToolBar;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
@@ -54,8 +53,7 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
     TextView mTextViewFrom;
     @BindView(R.id.mTextViewTime)
     TextView mTextViewTime;
-    @BindView(R.id.mJCVideoPlayer)
-    XinQuVideoPlayerStandard mJCVideoPlayer;
+
     @BindView(R.id.mMediaPlayerView)
     MediaPlayerView mMediaPlayerView;
     @BindView(R.id.fl_player)
@@ -82,6 +80,8 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
     LinearLayout llRootView;
     @BindView(R.id.nestedScrollView)
     NewsScrollView nestedScrollView;
+    @BindView(R.id.exoVideoView)
+    ExoVideoView exoVideoView;
     private String zwid;
 
     private static final String TAG = "CompositionDetailActiv";
@@ -119,21 +119,15 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
     }
 
     private void initListener() {
-        mToolbar.setOnItemClickLisener(new BaseToolBar.OnItemClickLisener() {
-            @Override
-            public void onClick() {
-                SharePopupWindow sharePopupWindow = new SharePopupWindow(CompositionDetailActivity.this);
-                sharePopupWindow.show(llRootView);
-            }
+        mToolbar.setOnItemClickLisener(() -> {
+            SharePopupWindow sharePopupWindow = new SharePopupWindow(CompositionDetailActivity.this);
+            sharePopupWindow.show(llRootView);
         });
-        nestedScrollView.setOnScrollChangeListener(new NewsScrollView.onScrollChangeListener() {
-            @Override
-            public void onScrollChange(int l, int t, int oldl, int oldt) {
-                if (t > mTextViewTitle.getMeasuredHeight()) {
-                    mToolbar.setTitle(title);
-                } else {
-                    mToolbar.setTitle("");
-                }
+        nestedScrollView.setOnScrollChangeListener((l, t, oldl, oldt) -> {
+            if (t > mTextViewTitle.getMeasuredHeight()) {
+                mToolbar.setTitle(title);
+            } else {
+                mToolbar.setTitle("");
             }
         });
     }
@@ -209,25 +203,22 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
         });
 
 
-        webView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                // 长按事件监听（注意：需要实现LongClickCallBack接口并传入对象）
+        webView.setOnLongClickListener(v -> {
+            // 长按事件监听（注意：需要实现LongClickCallBack接口并传入对象）
 
-                final WebView.HitTestResult htr = webView.getHitTestResult();//获取所点击的内容
-                if (htr.getType() == WebView.HitTestResult.IMAGE_TYPE
-                        || htr.getType() == WebView.HitTestResult.IMAGE_ANCHOR_TYPE
-                        || htr.getType() == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
-                    //判断被点击的类型为图片
+            final WebView.HitTestResult htr = webView.getHitTestResult();//获取所点击的内容
+            if (htr.getType() == WebView.HitTestResult.IMAGE_TYPE
+                    || htr.getType() == WebView.HitTestResult.IMAGE_ANCHOR_TYPE
+                    || htr.getType() == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
+                //判断被点击的类型为图片
 
 //                    showQRCodeDialog(htr.getExtra());
 
-                }
-
-                LogUtil.msg("url: " + htr.getExtra());
-
-                return false;
             }
+
+            LogUtil.msg("url: " + htr.getExtra());
+
+            return false;
         });
     }
 
@@ -249,16 +240,12 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
 
     @Override
     public void showNoNet() {
-        stateView.showNoNet(nestedScrollView, HttpConfig.NET_ERROR, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.getCompositionDetail(zwid);
-            }
-        });
+        stateView.showNoNet(nestedScrollView, HttpConfig.NET_ERROR, v -> mPresenter.getCompositionDetail(zwid));
 
     }
 
     private ArrayList<String> imageList = new ArrayList<>();
+
 
     private class JavascriptInterface {
 

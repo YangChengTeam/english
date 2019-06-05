@@ -9,13 +9,10 @@ import android.widget.LinearLayout;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
-import com.qq.e.ads.nativ.NativeExpressADView;
-import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.english.R;
 import com.yc.english.base.view.StateView;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.vip.utils.VipDialogHelper;
-import com.yc.soundmark.base.fragment.BasePayFragment;
 import com.yc.soundmark.base.utils.UIUtils;
 import com.yc.soundmark.base.widget.MainToolBar;
 import com.yc.soundmark.category.activity.CategoryActivity;
@@ -33,13 +30,11 @@ import com.yc.soundmark.study.utils.AVMediaManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;
-import yc.com.tencent_adv.OnAdvStateListener;
 
 /**
  * Created by wanglin  on 2018/10/24 17:21.
@@ -89,79 +84,63 @@ public class StudyActivity extends BaseActivity<StudyPresenter> implements Study
         mPresenter.getStudyPages();
         UIUtils.getInstance(this).measureViewLoction(llTopTint);
 
-
     }
 
 
     private void initListener() {
-        RxView.clicks(ivShowVowel).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                StudyVowelFragment studyVowelFragment = new StudyVowelFragment();
-                studyVowelFragment.setOnClickListener(new StudyVowelFragment.onClickListener() {
-                    @Override
-                    public void onClick(int pos) {
-                        if (pos < totalPages) {
-                            studyViewPager.setCurrentItem(pos);
-                            currentPos = pos;
-                        }
+        RxView.clicks(ivShowVowel).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            StudyVowelFragment studyVowelFragment = new StudyVowelFragment();
+            studyVowelFragment.setOnClickListener(pos -> {
+                if (pos < totalPages) {
+                    studyViewPager.setCurrentItem(pos);
+                    currentPos = pos;
+                }
 
-                        if (pos == 0) {
-                            ivPre.setImageResource(R.mipmap.study_pre_normal);
-                        } else if (pos == totalPages - 1) {
-                            ivNext.setImageResource(R.mipmap.study_next_normal_);
-                        }
-                    }
-                });
+                if (pos == 0) {
+                    ivPre.setImageResource(R.mipmap.study_pre_normal);
+                } else if (pos == totalPages - 1) {
+                    ivNext.setImageResource(R.mipmap.study_next_normal_);
+                }
+            });
 
-                studyVowelFragment.show(getSupportFragmentManager(), "");
-            }
+            studyVowelFragment.show(getSupportFragmentManager(), "");
         });
 
-        RxView.clicks(ivNext).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                //todo 下一页
+        RxView.clicks(ivNext).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            //todo 下一页
 
-                currentPos++;
-                if (currentPos < totalPages) {
-                    if (isCanNext(currentPos)) {
-                        next(currentPos);
-                    } else {
-                        currentPos--;
-                        showPayDialog();
-                    }
+            currentPos++;
+            if (currentPos < totalPages) {
+                if (isCanNext(currentPos)) {
+                    next(currentPos);
                 } else {
                     currentPos--;
-                    ToastUtil.toast2(StudyActivity.this, "已经是最后一页了");
+                    showPayDialog();
                 }
+            } else {
+                currentPos--;
+                ToastUtil.toast2(StudyActivity.this, "已经是最后一页了");
+            }
 
 //                LogUtil.msg("currentPos: next--> " + currentPos);
 
 
-            }
         });
-        RxView.clicks(ivPre).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
+        RxView.clicks(ivPre).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
 
-                // TODO: 2018/11/2 上一页
-                if (currentPos > 0) {
-                    currentPos--;
-                    pre(currentPos);
-                } else {
-                    ivPre.setImageResource(R.mipmap.study_pre_normal);
-                    ToastUtil.toast2(StudyActivity.this, "已经是第一页了");
-                }
+            // TODO: 2018/11/2 上一页
+            if (currentPos > 0) {
+                currentPos--;
+                pre(currentPos);
+            } else {
+                ivPre.setImageResource(R.mipmap.study_pre_normal);
+                ToastUtil.toast2(StudyActivity.this, "已经是第一页了");
+            }
 //                LogUtil.msg("currentPos: pre--> " + currentPos);
-            }
         });
-        RxView.clicks(ivCategory).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                Intent intent = new Intent(StudyActivity.this, CategoryActivity.class);
-                startActivity(intent);
-            }
+        RxView.clicks(ivCategory).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            Intent intent = new Intent(StudyActivity.this, CategoryActivity.class);
+            startActivity(intent);
         });
 
 
@@ -223,7 +202,7 @@ public class StudyActivity extends BaseActivity<StudyPresenter> implements Study
 
             @Override
             public void onPageSelected(int position) {
-                XinQuVideoPlayer.releaseAllVideos();
+//                XinQuVideoPlayer.releaseAllVideos();
                 AVMediaManager.getInstance().releaseAudioManager();
 
 //                LogUtil.msg("currentPos: scroll-->" + currentPos + "--position-->" + position);

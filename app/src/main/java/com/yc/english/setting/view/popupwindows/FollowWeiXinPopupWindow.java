@@ -36,31 +36,20 @@ public class FollowWeiXinPopupWindow extends BasePopupWindow {
 
     @Override
     public void init() {
-        RxView.clicks(mOkTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                dismiss();
-                ClipboardUtils.copyText(mContext.getString(R.string.app_name));
-                TipsHelper.tips(mContext, "复制成功, 正在前往微信");
-                UIUitls.postDelayed(1000, new Runnable() {
-                    @Override
-                    public void run() {
-                        String weixin = "com.tencent.mm";
-                        if (AppUtils.isInstallApp(weixin)) {
-                            AppUtils.launchApp(weixin);
-                        }
-                    }
-                });
-            }
+        RxView.clicks(mOkTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            dismiss();
+            ClipboardUtils.copyText("说说英语");
+            TipsHelper.tips(mContext, "复制成功, 正在前往微信");
+            UIUitls.postDelayed(1000, () -> {
+                String weixin = "com.tencent.mm";
+                if (AppUtils.isInstallApp(weixin)) {
+                    AppUtils.launchApp(weixin);
+                }
+            });
         });
 
-        RxView.clicks(mCancelTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                dismiss();
-            }
-        });
-        tvDesc.setText("已复制微信号: " + mContext.getString(R.string.app_name) + "平台");
+        RxView.clicks(mCancelTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> dismiss());
+        tvDesc.setText("已复制微信号: " + "说说英语" + "平台");
     }
 
     @Override

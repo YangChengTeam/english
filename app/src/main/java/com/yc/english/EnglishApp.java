@@ -164,7 +164,7 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        Log.e(TAG, "onActivityCreated: ");
+//        Log.e(TAG, "onActivityCreated: ");
     }
 
     @Override
@@ -174,28 +174,28 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
 
     @Override
     public void onActivityResumed(Activity activity) {
-        Log.e(TAG, "onActivityResumed: ");
+//        Log.e(TAG, "onActivityResumed: ");
         isBackground = false;
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-        Log.e(TAG, "onActivityPaused: ");
+//        Log.e(TAG, "onActivityPaused: ");
         isBackground = true;
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
-        Log.e(TAG, "onActivityStopped: ");
+//        Log.e(TAG, "onActivityStopped: ");
     }
 
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-        Log.e(TAG, "onActivitySaveInstanceState: ");
+//        Log.e(TAG, "onActivitySaveInstanceState: ");
     }
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        Log.e(TAG, "onActivityDestroyed: ");
+//        Log.e(TAG, "onActivityDestroyed: ");
     }
 }

@@ -149,139 +149,97 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 .parseColor("#0cacfe"), Color.parseColor("#ff8b01"), Color.parseColor("#fdbb12"),
                 Color.parseColor("#ff5252"), Color.parseColor("#97d107"), Color.parseColor("#b0eb02")});
 
-        RxView.clicks(mAvatarImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                if (!UserInfoHelper.isGotoLogin(getActivity())) {
-                    Intent intent = new Intent(getActivity(), PersonCenterActivity.class);
-                    startActivity(intent);
-                }
+        RxView.clicks(mAvatarImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            if (!UserInfoHelper.isGotoLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), PersonCenterActivity.class);
+                startActivity(intent);
             }
         });
 
-        RxView.clicks(mNickNameTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                if (!UserInfoHelper.isGotoLogin(getActivity())) {
-                    Intent intent = new Intent(getActivity(), PersonCenterActivity.class);
-                    startActivity(intent);
-                }
+        RxView.clicks(mNickNameTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            if (!UserInfoHelper.isGotoLogin(getActivity())) {
+                Intent intent = new Intent(getActivity(), PersonCenterActivity.class);
+                startActivity(intent);
             }
         });
 
         //TODO
-        RxView.clicks(mBuyVipMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                if (UserInfoHelper.getUserInfo() == null) {
-                    UserInfoHelper.isGotoLogin(getActivity());
-                    return;
-                }
+        RxView.clicks(mBuyVipMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            if (UserInfoHelper.getUserInfo() == null) {
+                UserInfoHelper.isGotoLogin(getActivity());
+                return;
+            }
 
 
-                Intent intent = new Intent(getActivity(), VipEquitiesActivity.class);
+            Intent intent = new Intent(getActivity(), VipEquitiesActivity.class);
 
+            startActivity(intent);
+
+        });
+
+        RxView.clicks(mMarketMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+
+            try {
+                Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-
+            } catch (Exception e) {
+                e.printStackTrace();
+                TipsHelper.tips(getActivity(), "你手机安装的应用市场没有上线该应用，请前往其他应用市场进行点评");
             }
         });
 
-        RxView.clicks(mMarketMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-
-                try {
-                    Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    TipsHelper.tips(getActivity(), "你手机安装的应用市场没有上线该应用，请前往其他应用市场进行点评");
-                }
-            }
+        RxView.clicks(mWeixinMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            FollowWeiXinPopupWindow followWeiXinPopupWindow = new FollowWeiXinPopupWindow(getActivity());
+            followWeiXinPopupWindow.show(rootView);
         });
 
-        RxView.clicks(mWeixinMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                FollowWeiXinPopupWindow followWeiXinPopupWindow = new FollowWeiXinPopupWindow(getActivity());
-                followWeiXinPopupWindow.show(rootView);
+        RxView.clicks(mQQMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> qqunDialog.show());
+
+
+        RxView.clicks(mFeedbackMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            if (UserInfoHelper.getUserInfo() == null) {
+                UserInfoHelper.isGotoLogin(getActivity());
+                return;
             }
+
+            Intent intent = new Intent(getActivity(), FeedbackActivity.class);
+            startActivity(intent);
+
         });
 
-        RxView.clicks(mQQMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
+        RxView.clicks(mShareMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
+            sharePopupWindow.show(mContentScrollView);
 
-                qqunDialog.show();
-            }
         });
 
 
-        RxView.clicks(mFeedbackMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                if (UserInfoHelper.getUserInfo() == null) {
-                    UserInfoHelper.isGotoLogin(getActivity());
-                    return;
-                }
-
-                Intent intent = new Intent(getActivity(), FeedbackActivity.class);
-                startActivity(intent);
-
-            }
+        RxView.clicks(mSettingMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            Intent intent = new Intent(getActivity(), SettingActivity.class);
+            startActivity(intent);
         });
+        RxView.clicks(mOrderMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            Intent intent = new Intent(getActivity(), MyOrderActivity.class);
 
-        RxView.clicks(mShareMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
-                sharePopupWindow.show(mContentScrollView);
-
-            }
-        });
-
-
-        RxView.clicks(mSettingMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), SettingActivity.class);
-                startActivity(intent);
-            }
-        });
-        RxView.clicks(mOrderMenuItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), MyOrderActivity.class);
-
-                startActivity(intent);
-            }
+            startActivity(intent);
         });
 
         StatusBarCompat.compat((BaseActivity) getActivity(), mToolbarWarpper, toolbar, R.mipmap.setting_head_bg2);
-        RxView.clicks(mLlCarmerSearch).throttleFirst(200, TimeUnit.MICROSECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), CameraTaskActivity.class);
-                startActivity(intent);
-            }
+        RxView.clicks(mLlCarmerSearch).throttleFirst(200, TimeUnit.MICROSECONDS).subscribe(aVoid -> {
+            Intent intent = new Intent(getActivity(), CameraTaskActivity.class);
+            startActivity(intent);
         });
 
-        RxView.clicks(ivTutorshipMainBg).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                Intent intent = new Intent(getActivity(), VipScoreTutorshipActivity.class);
-                startActivity(intent);
-            }
+        RxView.clicks(ivTutorshipMainBg).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            Intent intent = new Intent(getActivity(), VipScoreTutorshipActivity.class);
+            startActivity(intent);
         });
 
-        RxView.clicks(mIvShare).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                final SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
-                sharePopupWindow.show();
-            }
+        RxView.clicks(mIvShare).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            final SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
+            sharePopupWindow.show();
         });
 
     }

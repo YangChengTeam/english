@@ -3,8 +3,6 @@ package com.yc.english.news.view.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Paint;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,10 +26,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.jarvanmo.exoplayerview.media.SimpleMediaSource;
 import com.jarvanmo.exoplayerview.ui.ExoVideoView;
 import com.kk.securityhttp.net.contains.HttpConfig;
-import com.kk.utils.LogUtil;
 import com.umeng.analytics.MobclickAgent;
-import com.xinqu.videoplayer.XinQuVideoPlayer;
-import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.english.R;
 import com.yc.english.base.view.FullScreenActivity;
 import com.yc.english.base.view.SharePopupWindow;
@@ -72,9 +67,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @BindView(R.id.stateView)
     StateView stateView;
 
-    @BindView(R.id.mJCVideoPlayer)
-    XinQuVideoPlayerStandard mJCVideoPlayer;
-
     @BindView(R.id.webView)
     WebView webView;
 
@@ -83,7 +75,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     @BindView(R.id.tv_title)
     TextView mTextViewTitle;
-
 
     @BindView(R.id.layout_buy_now)
     LinearLayout mBuyNowLayout;
@@ -96,7 +87,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     @BindView(R.id.tv_old_price)
     TextView mOldPriceTextView;
-
 
     @BindView(R.id.nestedScrollView)
     ScrollView scrollView;
@@ -166,7 +156,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             mTextViewTitle.setText(title);
 
             String url = courseInfo.getUrl();
-            initVideoView();
+
             playVideo(url, courseInfo.getImg());
 
             mLearnCountTextView.setText(courseInfo.getUserNum());
@@ -263,15 +253,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         SimpleMediaSource mediaSource = new SimpleMediaSource(url);//uri also supported
 
 
-//        videoView.play(mediaSource, false);//play from a particular position
-
-
-//        mJCVideoPlayer.setUp(url, XinQuVideoPlayer.SCREEN_WINDOW_LIST, false, "");
-//        Glide.with(this).load(imgUrl).into(mJCVideoPlayer.thumbImageView);
-//        mJCVideoPlayer.backButton.setVisibility(View.GONE);
-//        mJCVideoPlayer.tinyBackImageView.setVisibility(View.GONE);
-
-
         boolean isPlay = false;
 
         if (judgeVip()) {
@@ -285,12 +266,13 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         } else {
             click();
         }
-        videoView.setupVideoGesture(isPlay);
+        videoView.setGestureEnabled(isPlay);
         videoView.play(mediaSource, isPlay);
+        initVideoView(isPlay);
 
     }
 
-    private void initVideoView() {
+    private void initVideoView(boolean isPlay) {
         videoView.setPortrait(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
         videoView.setBackListener((view, isPortrait) -> {
             if (isPortrait) {
@@ -298,49 +280,33 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
             }
             return false;
         });
-
-        videoView.setOrientationListener(orientation -> {
-            if (orientation == SENSOR_PORTRAIT) {
-                changeToPortrait();
-            } else if (orientation == SENSOR_LANDSCAPE) {
-                changeToLandscape();
-            }
-        });
+        if (isPlay) {
+            videoView.setOrientationListener(orientation -> {
+                if (orientation == SENSOR_PORTRAIT) {
+                    changeToPortrait();
+                } else if (orientation == SENSOR_LANDSCAPE) {
+                    changeToLandscape();
+                }
+            });
+        }
 
 
     }
 
-    private void changeToPortrait() {
+    @Override
+    protected void updateUIToLandscape() {
+        super.updateUIToLandscape();
+        mToolbar.setVisibility(View.GONE);
+        rlContainer.setVisibility(View.GONE);
+    }
 
+    @Override
+    protected void updateUIToPortrait() {
+        super.updateUIToPortrait();
 
-        // WindowManager operation is not necessary
-        WindowManager.LayoutParams attr = getWindow().getAttributes();
-//        attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        Window window = getWindow();
-        window.setAttributes(attr);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         mToolbar.setVisibility(View.VISIBLE);
         rlContainer.setVisibility(View.VISIBLE);
     }
-
-
-    private void changeToLandscape() {
-
-        // WindowManager operation is not necessary
-
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-
-//        Log.e("TAG", "changeToLandscape: " + layoutParams.width + "  height:  " + layoutParams.height);
-
-//        lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        Window window = getWindow();
-        window.setAttributes(lp);
-        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        mToolbar.setVisibility(View.GONE);
-        rlContainer.setVisibility(View.GONE);
-
-    }
-
 
     private boolean judgeVip() {
         boolean isPlay = false;
@@ -385,8 +351,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
 
     private void click() {
-//        RxView.clicks(mJCVideoPlayer.thumbImageView).throttleFirst(1000, TimeUnit.MICROSECONDS).subscribe(aVoid -> startOrBuy());
-//        RxView.clicks(mJCVideoPlayer.startButton).throttleFirst(1000, TimeUnit.MICROSECONDS).subscribe(aVoid -> startOrBuy());
 
         startOrBuy();
 
@@ -453,10 +417,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     }
 
-//    private XinQuVideoPlayerStandard.XinQuAutoFullscreenListener mSensorEventListener;
-
-//    private SensorManager mSensorManager;
-
 
     @Override
     protected void onResume() {
@@ -481,11 +441,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
     @Override
     protected void onPause() {
         super.onPause();
-
-        XinQuVideoPlayerStandard.releaseAllVideos();
-//        mSensorManager.unregisterListener(mSensorEventListener);
-//        JZVideoPlayer.clearSavedProgress(this, null);
-        XinQuVideoPlayerStandard.clearSavedProgress(this, null);
 
         if (Build.VERSION.SDK_INT <= 23) {
             videoView.pause();
@@ -525,13 +480,6 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
         videoView.releasePlayer();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (XinQuVideoPlayerStandard.backPress()) {
-            return;
-        }
-        super.onBackPressed();
-    }
 
     private void showBuyDialog() {
         VipDialogHelper.dismissVipDialog();

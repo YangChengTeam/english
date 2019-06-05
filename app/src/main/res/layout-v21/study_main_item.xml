@@ -234,13 +234,6 @@
                             android:textSize="@dimen/t12sp" />
                     </LinearLayout>
 
-                    <com.xinqu.videoplayer.XinQuVideoPlayerStandard
-                        android:id="@+id/videoPlayer"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/t15dp"
-                        android:visibility="gone"
-                        />
 
                     <com.jarvanmo.exoplayerview.ui.ExoVideoView
                         android:id="@+id/exoVideoView"

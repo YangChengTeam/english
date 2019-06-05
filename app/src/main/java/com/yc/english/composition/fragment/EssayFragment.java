@@ -80,24 +80,18 @@ public class EssayFragment extends BaseFragment<EssayPresenter> implements Essay
                 CompositionMoreActivity.startActivity(getActivity(), getString(R.string.everyday_exercise), exerciseId);
             }
         });
-        essayAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CompositionInfo compositionInfo = essayAdapter.getItem(position);
-                if (compositionInfo != null) {
-                    CompositionDetailActivity.startActivity(getActivity(), compositionInfo.getId());
-                    mPresenter.statisticsReadCount(compositionInfo.getId());
-                }
+        essayAdapter.setOnItemClickListener((adapter, view, position) -> {
+            CompositionInfo compositionInfo = essayAdapter.getItem(position);
+            if (compositionInfo != null) {
+                CompositionDetailActivity.startActivity(getActivity(), compositionInfo.getId());
+                mPresenter.statisticsReadCount(compositionInfo.getId());
             }
         });
-        essayAdapter1.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CompositionInfo compositionInfo = essayAdapter1.getItem(position);
-                if (compositionInfo != null) {
-                    CompositionDetailActivity.startActivity(getActivity(), compositionInfo.getId());
-                    mPresenter.statisticsReadCount(compositionInfo.getId());
-                }
+        essayAdapter1.setOnItemClickListener((adapter, view, position) -> {
+            CompositionInfo compositionInfo = essayAdapter1.getItem(position);
+            if (compositionInfo != null) {
+                CompositionDetailActivity.startActivity(getActivity(), compositionInfo.getId());
+                mPresenter.statisticsReadCount(compositionInfo.getId());
             }
         });
 

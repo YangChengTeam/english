@@ -34,13 +34,6 @@
             android:layout_weight="1"
             android:minHeight="200dp">
 
-            <com.xinqu.videoplayer.XinQuVideoPlayerStandard
-                android:id="@+id/mJCVideoPlayer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" />
-
-
             <com.jarvanmo.exoplayerview.ui.ExoVideoView
                 android:id="@+id/exoVideoView"
                 android:layout_width="match_parent"

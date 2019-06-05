@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.RectF;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.text.Html;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -23,7 +20,6 @@ import com.app.hubert.guide.NewbieGuide;
 import com.app.hubert.guide.core.Builder;
 import com.app.hubert.guide.core.Controller;
 import com.app.hubert.guide.listener.OnGuideChangedListener;
-import com.app.hubert.guide.listener.OnLayoutInflatedListener;
 import com.app.hubert.guide.model.GuidePage;
 import com.app.hubert.guide.model.HighLight;
 import com.bumptech.glide.Glide;
@@ -32,8 +28,6 @@ import com.jarvanmo.exoplayerview.media.SimpleMediaSource;
 import com.jarvanmo.exoplayerview.ui.ExoVideoView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.ScreenUtil;
-import com.xinqu.videoplayer.XinQuVideoPlayer;
-import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.english.R;
 import com.yc.english.base.view.StateView;
 import com.yc.soundmark.base.constant.SpConstant;
@@ -56,14 +50,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
 import yc.com.base.BaseFragment;
 import yc.com.blankj.utilcode.util.SPUtils;
-
-import static com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_LANDSCAPE;
-import static com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_PORTRAIT;
 
 /**
  * Created by wanglin  on 2018/10/26 16:23.
@@ -91,8 +80,6 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     @BindView(R.id.ll_perception_container)
     LinearLayout llPerceptionContainer;
 
-    @BindView(R.id.videoPlayer)
-    XinQuVideoPlayerStandard mJCVideoPlayer;
     @BindView(R.id.ll_study_container)
     LinearLayout llStudyContainer;
     @BindView(R.id.ll_study_total_container)
@@ -162,8 +149,6 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     public void init() {
 
         mPresenter = new StudyPresenter(getActivity(), this);
-        mJCVideoPlayer.widthRatio = 16;
-        mJCVideoPlayer.heightRatio = 9;
 
     }
 
@@ -430,9 +415,6 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
      */
     private void playVideo(StudyInfo studyInfo) {
 //
-//        Glide.with(this).load(studyInfo.getVideo_cover()).thumbnail(0.1f).into(mJCVideoPlayer.thumbImageView);
-//
-//        mJCVideoPlayer.setUp(studyInfo.getVoice_video(), XinQuVideoPlayer.SCREEN_WINDOW_LIST, false, null == studyInfo.getCn() ? "" : studyInfo.getCn());
 
         exoVideoView.setPortrait(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
         Glide.with(this).load(studyInfo.getVideo_cover()).thumbnail(0.1f).into(exoVideoView.artworkView);
@@ -447,7 +429,6 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     @Override
     public void onPause() {
         super.onPause();
-        XinQuVideoPlayer.goOnPlayOnPause();
         if (Build.VERSION.SDK_INT <= 23) {
             exoVideoView.pause();
         }

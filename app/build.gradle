@@ -12,8 +12,8 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
 
-        versionCode 80 //56
-        versionName "2.3.4"//1.7.6
+        versionCode 81 //56
+        versionName "2.3.5"//1.7.6
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -138,7 +138,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-//    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-annotations:25.3.1'
     compile 'com.android.support:support-v4:28.0.0'
     //    implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -194,7 +194,6 @@ dependencies {
     compile 'com.google.zxing:android-core:3.3.0'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
     api project(':base')
-    implementation project(':video-player')
     compile 'com.wl.tencent-adv:tencent-adv:7.0'
     implementation 'com.google.android.exoplayer:exoplayer-core:2.9.6'
     configurations {

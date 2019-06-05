@@ -28,19 +28,22 @@ class IntelligentPushAdpater : BaseQuickAdapter<UnitInfoWrapper.ComleteItemInfo,
             questionView?.mTitleTextView?.text = fromHtml("${questionView?.mTitleTextView?.text}(<font " +
                     "color='#FB4C30'>已完成</font>)")
         }
-        if (helper!!.adapterPosition % 2 == 0) {
-            (questionView?.layoutParams as LinearLayout.LayoutParams).leftMargin = SizeUtils.dp2px(10f)
-            (questionView.layoutParams as LinearLayout.LayoutParams).rightMargin = SizeUtils.dp2px(5f)
 
-        } else {
-            (questionView?.layoutParams as LinearLayout.LayoutParams).leftMargin = SizeUtils.dp2px(5f)
-            (questionView.layoutParams as LinearLayout.LayoutParams).rightMargin = SizeUtils.dp2px(10f)
+        helper?.let {
+            if (helper.adapterPosition % 2 == 0) {
+                (questionView?.layoutParams as LinearLayout.LayoutParams).leftMargin = SizeUtils.dp2px(10f)
+                (questionView.layoutParams as LinearLayout.LayoutParams).rightMargin = SizeUtils.dp2px(5f)
+
+            } else {
+                (questionView?.layoutParams as LinearLayout.LayoutParams).leftMargin = SizeUtils.dp2px(5f)
+                (questionView.layoutParams as LinearLayout.LayoutParams).rightMargin = SizeUtils.dp2px(10f)
+            }
         }
+
     }
 
     private fun getResourceId(resourceName: String, type: String): Int {
-        val packageName = mContext.getPackageName()
-        val resourceId = mContext.getResources().getIdentifier(resourceName, type, packageName)
-        return resourceId
+        val packageName = mContext.packageName
+        return mContext.resources.getIdentifier(resourceName, type, packageName)
     }
 }

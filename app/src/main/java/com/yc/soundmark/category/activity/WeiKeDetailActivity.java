@@ -1,13 +1,17 @@
 package com.yc.soundmark.category.activity;
 
+import android.content.res.Configuration;
 import android.graphics.Paint;
-import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Build;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,10 +23,11 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.LogUtil;
-import com.xinqu.videoplayer.XinQuVideoPlayer;
-import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
+import com.jarvanmo.exoplayerview.media.SimpleMediaSource;
+import com.jarvanmo.exoplayerview.ui.ExoVideoView;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.english.R;
+import com.yc.english.base.view.StateView;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
@@ -33,11 +38,15 @@ import com.yc.soundmark.category.presenter.WeiKeDetailPresenter;
 
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.NetworkUtils;
 import yc.com.blankj.utilcode.util.SizeUtils;
+
+import static com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_LANDSCAPE;
+import static com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_PORTRAIT;
 
 
 /**
@@ -47,37 +56,42 @@ import yc.com.blankj.utilcode.util.SizeUtils;
 public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> implements WeiKeDetailContract.View {
 
     private static final String TAG = "NewsDetailActivity";
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.tv_share)
+    TextView tvShare;
+    @BindView(R.id.exoVideoView)
+    ExoVideoView exoVideoView;
 
+    @BindView(R.id.tv_learn_count)
+    TextView mLearnCountTextView;
+    @BindView(R.id.layout_learn_count)
+    LinearLayout layoutLearnCount;
 
-    private FrameLayout layoutVideo;
-
-    private TextView mLearnCountTextView;
-
-    private LinearLayout layoutLearnCount;
-
-    private View lineView;
-
-    private TextView mTextViewTitle;
-
-    private TextView mNowPriceTextView;
-
-    private TextView mOldPriceTextView;
-
-    private LinearLayout layoutTitlePrice;
-
-    private LinearLayout layoutContent;
-
-    private WebView webView;
-
-    private ScrollView nestedScrollView;
-    private LinearLayout mBuyNowLayout;
-
-    private RelativeLayout llRootView;
-    private XinQuVideoPlayerStandard mJCVideoPlayer;
-    private android.support.v7.widget.Toolbar toolBar;
-    private ImageView ivBack;
-
-    private TextView tvShare;
+    @BindView(R.id.tv_title)
+    TextView mTextViewTitle;
+    @BindView(R.id.tv_now_price)
+    TextView mNowPriceTextView;
+    @BindView(R.id.tv_old_price)
+    TextView mOldPriceTextView;
+    @BindView(R.id.layout_title_price)
+    LinearLayout layoutTitlePrice;
+    @BindView(R.id.layout_content)
+    LinearLayout layoutContent;
+    @BindView(R.id.webView)
+    WebView webView;
+    @BindView(R.id.nestedScrollView)
+    ScrollView nestedScrollView;
+    @BindView(R.id.layout_buy_now)
+    LinearLayout mBuyNowLayout;
+    @BindView(R.id.rl_container)
+    RelativeLayout rlContainer;
+    @BindView(R.id.ll_rootView)
+    LinearLayout llRootView;
+    @BindView(R.id.stateView)
+    StateView stateView;
+    @BindView(R.id.toolBar)
+    Toolbar toolBar;
 
 
     private String title;
@@ -91,7 +105,6 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
 
     private UserInfo userInfo;
     private SensorManager mSensorManager;
-    private XinQuVideoPlayer.XinQuAutoFullscreenListener mSensorEventListener;
 
     @Override
     public int getLayoutId() {
@@ -100,7 +113,7 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
 
     @Override
     public void init() {
-        initView();
+
         mPresenter = new WeiKeDetailPresenter(this, this);
 
         mOldPriceTextView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -116,51 +129,28 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
         initListener();
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        mSensorEventListener = new XinQuVideoPlayer.XinQuAutoFullscreenListener();
-        mJCVideoPlayer.widthRatio = 16;
-        mJCVideoPlayer.heightRatio = 9;
-
 
     }
 
-    private void initView() {
-        layoutVideo = findViewById(R.id.layout_video);
-        mLearnCountTextView = findViewById(R.id.tv_learn_count);
-        layoutLearnCount = findViewById(R.id.layout_learn_count);
-        lineView = findViewById(R.id.line_view);
-        mTextViewTitle = findViewById(R.id.tv_title);
-        mNowPriceTextView = findViewById(R.id.tv_now_price);
-        mOldPriceTextView = findViewById(R.id.tv_old_price);
-        layoutTitlePrice = findViewById(R.id.layout_title_price);
-        layoutContent = findViewById(R.id.layout_content);
-        webView = findViewById(R.id.webView);
-        nestedScrollView = findViewById(R.id.nestedScrollView);
-        mBuyNowLayout = findViewById(R.id.layout_buy_now);
-        llRootView = findViewById(R.id.ll_rootView);
-        mJCVideoPlayer = findViewById(R.id.mJCVideoPlayer);
-        toolBar = findViewById(R.id.toolBar);
-        ivBack = findViewById(R.id.iv_back);
-        tvShare = findViewById(R.id.tv_share);
-    }
 
     @Override
     public void showLoading() {
-
+        stateView.showLoading(llRootView);
     }
 
     @Override
     public void showNoData() {
-
+        stateView.showNoData(llRootView);
     }
 
     @Override
     public void showNoNet() {
-
+        stateView.showNoNet(llRootView, HttpConfig.NET_ERROR, v -> mPresenter.getWeikeCategoryInfo(id));
     }
 
     @Override
     public void hide() {
-
+        stateView.hide();
     }
 
     @Override
@@ -215,18 +205,10 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
             }
         });
 
-        RxView.clicks(ivBack).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                finish();
-            }
-        });
+        RxView.clicks(ivBack).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> finish());
 
-        RxView.clicks(tvShare).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                //分享
-            }
+        RxView.clicks(tvShare).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            //分享
         });
     }
 
@@ -277,32 +259,68 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
     }
 
 
+    private void initVideoView(boolean isPlay) {
+        exoVideoView.setPortrait(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+        exoVideoView.setBackListener((view, isPortrait) -> {
+            if (isPortrait) {
+                finish();
+            }
+            return false;
+        });
+
+        if (isPlay) {
+            exoVideoView.setOrientationListener(orientation -> {
+                if (orientation == SENSOR_PORTRAIT) {
+                    changeToPortrait();
+                } else if (orientation == SENSOR_LANDSCAPE) {
+                    changeToLandscape();
+                }
+            });
+        }
+
+    }
+
+    @Override
+    protected void updateUIToPortrait() {
+        super.updateUIToPortrait();
+        toolBar.setVisibility(View.VISIBLE);
+        rlContainer.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void updateUIToLandscape() {
+        super.updateUIToLandscape();
+        toolBar.setVisibility(View.GONE);
+        rlContainer.setVisibility(View.GONE);
+    }
+
+
     /**
      * 播放视频
      *
      * @param courseInfo
      */
     private void playVideo(CourseInfo courseInfo) {
-        Glide.with(this).load(courseInfo.getImg()).thumbnail(0.1f).into(mJCVideoPlayer.thumbImageView);
 
+        Glide.with(this).load(courseInfo.getImg()).into(exoVideoView.artworkView);
+        SimpleMediaSource mediaSource = new SimpleMediaSource(courseInfo.getUrl());//uri also supported
 
-
-        mJCVideoPlayer.setUp(courseInfo.getUrl(), XinQuVideoPlayer.SCREEN_WINDOW_LIST, false, null == courseInfo.getTitle() ? "" : courseInfo.getTitle());
-
-        mJCVideoPlayer.backButton.setVisibility(View.GONE);
-        mJCVideoPlayer.tinyBackImageView.setVisibility(View.GONE);
-
+        boolean isPlay = false;
 
         if (judgeVip()) {
             if (NetworkUtils.getNetworkType() == NetworkUtils.NetworkType.NETWORK_WIFI)
-                mJCVideoPlayer.startVideo();
+//                mJCVideoPlayer.startVideo();
+                isPlay = true;
+//            videoView.play(mediaSource, true);
             else {
                 click();
             }
         } else {
             click();
         }
-
+        exoVideoView.setGestureEnabled(isPlay);
+        exoVideoView.play(mediaSource, isPlay);
+        initVideoView(isPlay);
 
     }
 
@@ -337,32 +355,36 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
     }
 
     private void click() {
-        RxView.clicks(mJCVideoPlayer.startButton).throttleFirst(1000, TimeUnit.MICROSECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                startOrBuy();
-            }
-        });
+
+        startOrBuy();
     }
 
 
     private void startOrBuy() {
         if (userInfo != null) {
-            if (judgeVip()) {
-                mJCVideoPlayer.startVideo();
-            } else {
-                showBuyDialog();
-            }
+            exoVideoView.startVideo(judgeVip(), v -> showBuyDialog());
         }
     }
 
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        if (Build.VERSION.SDK_INT > 23) {
+            exoVideoView.resume();
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+//
+//        Sensor accelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+//        mSensorManager.registerListener(mSensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
-        Sensor accelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener(mSensorEventListener, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if ((Build.VERSION.SDK_INT <= 23)) {
+            exoVideoView.resume();
+        }
     }
 
 
@@ -370,12 +392,27 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
     protected void onPause() {
         super.onPause();
 
-        XinQuVideoPlayerStandard.releaseAllVideos();
-
-        mSensorManager.unregisterListener(mSensorEventListener);
-        XinQuVideoPlayerStandard.clearSavedProgress(this, null);
+        if (Build.VERSION.SDK_INT <= 23) {
+            exoVideoView.pause();
+        }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (Build.VERSION.SDK_INT > 23) {
+            exoVideoView.pause();
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return exoVideoView.onKeyDown(keyCode, event);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     protected void onDestroy() {
@@ -387,16 +424,9 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
             llRootView.removeView(webView);
             webView.destroy();
         }
+        exoVideoView.releasePlayer();
     }
 
-
-    @Override
-    public void onBackPressed() {
-        if (XinQuVideoPlayer.backPress()) {
-            return;
-        }
-        super.onBackPressed();
-    }
 
     //显示支付弹窗
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -77,12 +78,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.xinqu.videoplayer.XinQuVideoPlayerStandard
-                    android:id="@+id/mJCVideoPlayer"
+
+                <com.jarvanmo.exoplayerview.ui.ExoVideoView
+                    android:id="@+id/exoVideoView"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:layout_margin="@dimen/group_distance_10"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    app:controller_display_mode="bottom|bottom_landscape"
+                    app:resize_mode="fill" />
 
                 <com.yc.english.news.view.widget.MediaPlayerView
                     android:id="@+id/mMediaPlayerView"
