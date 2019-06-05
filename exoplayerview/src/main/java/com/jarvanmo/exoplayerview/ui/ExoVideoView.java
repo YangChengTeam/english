@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -27,24 +28,29 @@ import android.widget.ImageView;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ControlDispatcher;
+import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackPreparer;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.metadata.Metadata;
 import com.google.android.exoplayer2.metadata.id3.ApicFrame;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.text.Cue;
 import com.google.android.exoplayer2.text.TextOutput;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.PlayerControlView;
+import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.SubtitleView;
+import com.google.android.exoplayer2.upstream.DefaultAllocator;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
@@ -56,6 +62,7 @@ import com.jarvanmo.exoplayerview.media.MediaSourceCreator;
 import java.util.List;
 
 import static android.content.Context.AUDIO_SERVICE;
+import static com.google.android.exoplayer2.DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON;
 
 /**
  * Created by mo on 16-11-7.
@@ -673,10 +680,10 @@ public class ExoVideoView extends FrameLayout implements ExoVideoPlaybackControl
 
     }
 
-    public void setupVideoGesture(boolean enableGesture) {
-        Assertions.checkState(controller != null);
-        controller.setupVideoGesture(enableGesture);
-    }
+//    public void setupVideoGesture(boolean enableGesture) {
+//        Assertions.checkState(controller != null);
+//        controller.setupVideoGesture(enableGesture);
+//    }
 
     /**
      * Gets the view onto which video is rendered. This is a:
@@ -897,6 +904,8 @@ public class ExoVideoView extends FrameLayout implements ExoVideoPlaybackControl
         play(mediaSource, true, where);
     }
 
+    private long startTime;
+
     public void play(ExoMediaSource mediaSource, boolean playWhenReady, long where) {
         this.mPlayWhenReady = playWhenReady;
         releasePlayer();
@@ -910,7 +919,9 @@ public class ExoVideoView extends FrameLayout implements ExoVideoPlaybackControl
             addMultiQualitySelector(mediaSource);
         }
 
+
         playInternal(mediaSource, playWhenReady, where, creator);
+        startTime = System.currentTimeMillis();
     }
 
     public void pause() {
@@ -966,7 +977,18 @@ public class ExoVideoView extends FrameLayout implements ExoVideoPlaybackControl
             releasePlayer();
         }
 
-        SimpleExoPlayer internalPlayer = ExoPlayerFactory.newSimpleInstance(getContext());
+        SimpleExoPlayer internalPlayer = ExoPlayerFactory.newSimpleInstance(getContext(),
+                new DefaultRenderersFactory(getContext()),//.setAllowedVideoJoiningTimeMs(1000).setExtensionRendererMode(EXTENSION_RENDERER_MODE_ON)
+                new DefaultTrackSelector(), new DefaultLoadControl.Builder()
+                        .setBufferDurationsMs(8000, DefaultLoadControl.DEFAULT_MAX_BUFFER_MS,
+                                500, 1000).createDefaultLoadControl());
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setContentType(C.CONTENT_TYPE_MUSIC)
+                .build();
+
+        internalPlayer.setAudioAttributes(audioAttributes);
+
+
 
         internalPlayer.addListener(componentListener);
         internalPlayer.addListener(creator.getExoEventLogger());
@@ -1145,6 +1167,7 @@ public class ExoVideoView extends FrameLayout implements ExoVideoPlaybackControl
         }
     }
 
+
     private final class ComponentListener implements TextOutput, Player.EventListener,
             com.google.android.exoplayer2.video.VideoListener {
 
@@ -1187,6 +1210,14 @@ public class ExoVideoView extends FrameLayout implements ExoVideoPlaybackControl
 
             if (playWhenReady && playbackState == Player.STATE_READY) {
                 hideArtwork();
+
+                long endTime = System.currentTimeMillis();
+
+                Log.e("TAG", "onPlayerStateChanged: " + (endTime - startTime));
+
+            }
+            if (playbackState == Player.STATE_ENDED) {
+                startTime = System.currentTimeMillis();
             }
 
             if (isPlayingAd()) {
@@ -1206,5 +1237,7 @@ public class ExoVideoView extends FrameLayout implements ExoVideoPlaybackControl
         }
 
     }
+
+
 
 }

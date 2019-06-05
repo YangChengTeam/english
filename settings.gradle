@@ -1,4 +1,4 @@
-include ':app',  ':banner', ':share', ':rxbus', ":guide",  ':base',':video-player',':exoplayerview'
+include ':app',  ':banner', ':share', ':rxbus', ":guide",  ':base',':exoplayerview'
 
 
 

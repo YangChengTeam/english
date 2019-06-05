@@ -14,7 +14,6 @@ import android.os.SystemClock;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -30,8 +29,6 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.C;
@@ -52,7 +49,6 @@ import com.jarvanmo.exoplayerview.gesture.VideoGesture;
 import com.jarvanmo.exoplayerview.media.ExoMediaSource;
 import com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener;
 import com.jarvanmo.exoplayerview.orientation.SensorOrientation;
-import com.jarvanmo.exoplayerview.util.ScreenUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -500,6 +496,7 @@ public class ExoVideoPlaybackControlView extends FrameLayout {
         centerError = findViewById(R.id.exo_player_center_error);
 //        loadingBar = findViewById(R.id.exo_player_loading);
         ivLoading = findViewById(R.id.exo_player_iv_loading);
+
         animationDrawable = (AnimationDrawable) ivLoading.getDrawable();
         sensorOrientation = new SensorOrientation(getContext(), this::changeOrientation);
         showControllerByDisplayMode();
@@ -508,8 +505,8 @@ public class ExoVideoPlaybackControlView extends FrameLayout {
     }
 
 
-    public void setupVideoGesture(boolean enableGesture) {
-        this.enableGesture = enableGesture;
+    private void setupVideoGesture(boolean enableGesture) {
+
         if (!enableGesture) return;
         OnVideoGestureChangeListener onVideoGestureChangeListener = new OnVideoGestureChangeListener() {
 
@@ -588,8 +585,8 @@ public class ExoVideoPlaybackControlView extends FrameLayout {
 
     private void playStop() {
         if (animationDrawable != null) {
-            ivLoading.setVisibility(View.GONE);
             animationDrawable.stop();
+            ivLoading.setVisibility(View.GONE);
         }
     }
 
@@ -1597,6 +1594,8 @@ public class ExoVideoPlaybackControlView extends FrameLayout {
     }
 
     public void setGestureEnabled(boolean enabled) {
+        this.enableGesture =enabled;
+        setupVideoGesture(enabled);
         if (centerInfoWrapper == null) {
             return;
         }
@@ -1707,7 +1706,6 @@ public class ExoVideoPlaybackControlView extends FrameLayout {
                 hide();
 
             }
-
 
 
             updatePlayPauseButton();
