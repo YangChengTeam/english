@@ -207,7 +207,7 @@ dependencies {
     compile 'com.google.zxing:android-core:3.3.0'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
     api project(':base')
-    implementation project(':video-player')
+//    implementation project(':video-player')
     compile 'com.wl.tencent-adv:tencent-adv:7.0'
 
 
