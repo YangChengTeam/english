@@ -11,6 +11,7 @@
         android:id="@+id/widget_album"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/t10dp"
         android:contentDescription="这是专辑图片"
         android:src="@mipmap/lanucher" />
 

@@ -169,7 +169,7 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
 
     @Override
     public void onActivityStarted(Activity activity) {
-        Log.e(TAG, "onActivityStarted: ");
+//        Log.e(TAG, "onActivityStarted: ");
     }
 
     @Override

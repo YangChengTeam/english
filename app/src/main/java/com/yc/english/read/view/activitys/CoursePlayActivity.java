@@ -415,10 +415,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
         });
 
         mCourseRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -873,7 +869,6 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
                 mPlayer.setOnCompletionListener(mp -> {
                     disableState();
                     stopPlayTape();
-
 //                        View currentView = linearLayoutManager.findViewByPosition(position);
                     if (currentView != null) {
                         Glide.with(CoursePlayActivity.this).load(R.mipmap.item_tape_play_normal_icon).into((ImageView) currentView.findViewById(R.id.iv_play_tape));
@@ -948,6 +943,7 @@ public class CoursePlayActivity extends FullScreenActivity<CoursePlayPresenter> 
     public void onErrorUI(int what, int extra, String msg) {
         speakContinue(isContinue ? ++playPosition : playPosition);
         LogUtil.msg("code: " + what + "  msg:  " + msg);
+
     }
 
     @Override

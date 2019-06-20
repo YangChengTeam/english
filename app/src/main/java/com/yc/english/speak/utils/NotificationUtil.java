@@ -1,10 +1,14 @@
 package com.yc.english.speak.utils;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
@@ -22,7 +26,36 @@ public class NotificationUtil {
     public static void showNotify(Context context, String title, boolean isPlay, int flags) {
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        NotificationCompat.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //分组（可选）
+            //groupId要唯一
+//            String groupId = "group_001";
+//            NotificationChannelGroup group = new NotificationChannelGroup(groupId, "音乐");
+//
+//            //创建group
+//            nm.createNotificationChannelGroup(group);
+
+            //channelId要唯一
+            String channelId = "channel_001";
+
+            NotificationChannel adChannel = new NotificationChannel(channelId,
+                    "歌曲欣赏", NotificationManager.IMPORTANCE_DEFAULT);
+            //补充channel的含义（可选）
+//            adChannel.setDescription("推广信息");
+            //将渠道添加进组（先创建组才能添加）
+//            adChannel.setGroup(groupId);
+            //创建channel
+            nm.createNotificationChannel(adChannel);
+
+            //创建通知时，标记你的渠道id
+
+            builder = new NotificationCompat.Builder(context, channelId);
+
+        } else {
+            builder = new NotificationCompat.Builder(context);
+
+        }
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.notifacation_player_view);
 
         if (isPlay) {
@@ -74,6 +107,7 @@ public class NotificationUtil {
         notification.tickerText = "播放通知";
         notification.icon = R.mipmap.lanucher;
         notification.flags |= flags;
+
 
         nm.notify(100, notification);
 

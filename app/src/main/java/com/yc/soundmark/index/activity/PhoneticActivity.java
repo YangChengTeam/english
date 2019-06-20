@@ -57,25 +57,19 @@ public class PhoneticActivity extends BaseActivity<IndexPresenter> implements In
         mainToolbar.setRightContainerVisible(false);
         mainToolbar.setTitle(getString(R.string.phonetic_introduce));
 
-        RxView.clicks(ivVip).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                MobclickAgent.onEvent(PhoneticActivity.this, "VIP-click", "会员权益");
+        RxView.clicks(ivVip).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            MobclickAgent.onEvent(PhoneticActivity.this, "VIP-click", "会员权益");
 //                Intent intent = new Intent(getActivity(), VipEquitiesActivity.class);
 //                startActivity(intent);
-                VipEquitiesFragment vipEquitiesFragment = new VipEquitiesFragment();
-                vipEquitiesFragment.show(getSupportFragmentManager(), "");
+            VipEquitiesFragment vipEquitiesFragment = new VipEquitiesFragment();
+            vipEquitiesFragment.show(getSupportFragmentManager(), "");
 
-            }
         });
 
-        RxView.clicks(tvServiceWechat).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                cm.setPrimaryClip(ClipData.newPlainText("weixin", tvServiceWechat.getText().toString().trim()));
-                gotoWeixin();
-            }
+        RxView.clicks(tvServiceWechat).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            cm.setPrimaryClip(ClipData.newPlainText("weixin", tvServiceWechat.getText().toString().trim()));
+            gotoWeixin();
         });
 
     }

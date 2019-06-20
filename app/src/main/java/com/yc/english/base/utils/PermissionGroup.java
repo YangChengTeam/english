@@ -12,7 +12,6 @@ public class PermissionGroup {
         CAMERA_GROUP, CALENDAR_GROUP, CONTACT_GROUP, LOCATION_GROUP, MICROPHONE_GROUP, PHONE_GROUP, SENSORS_GROUP, SMS_GROUP, STORAGE_GROUP
     }
 
-
     public static String[] getPermissionGroup(GroupType type) {
         String[] strs = null;
 

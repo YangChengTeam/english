@@ -79,6 +79,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:visibility="gone"
                         android:src="@mipmap/index_vip_equities" />
 
 
@@ -102,6 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/t15dp"
                     android:layout_marginRight="@dimen/t15dp"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/t10dp">
 
                     <LinearLayout

@@ -98,14 +98,11 @@ public class CompositionMainActivity extends BaseActivity<EssayPresenter> implem
         tabLayoutComposition.setupWithViewPager(viewPagerComposition);
         tabLayoutComposition.setTabMode(TabLayout.MODE_SCROLLABLE);
         ReflexUtils.INSTANCE.reflex(tabLayoutComposition);
-        toolbar.post(new Runnable() {
-            @Override
-            public void run() {
-                int toolbarHeight = toolbar.getHeight();
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) viewPagerComposition.getLayoutParams();
-                layoutParams.height = ScreenUtil.getHeight(CompositionMainActivity.this) - toolbarHeight - tabLayoutComposition.getHeight();
-                viewPagerComposition.setLayoutParams(layoutParams);
-            }
+        toolbar.post(() -> {
+            int toolbarHeight = toolbar.getHeight();
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) viewPagerComposition.getLayoutParams();
+            layoutParams.height = ScreenUtil.getHeight(CompositionMainActivity.this) - toolbarHeight - tabLayoutComposition.getHeight();
+            viewPagerComposition.setLayoutParams(layoutParams);
         });
 
         initListener();
@@ -121,52 +118,49 @@ public class CompositionMainActivity extends BaseActivity<EssayPresenter> implem
             }
         });
 
-        mBanner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                SlideInfo slideInfo = mPresenter.getSlideInfo(position);
-                //友盟统计各个幻灯点击数
-                MobclickAgent.onEvent(CompositionMainActivity.this, slideInfo.getStatistics());
-                if (slideInfo.getType().equals("0")) {
-                    if (EmptyUtils.isEmpty(slideInfo.getTypeValue())) {
-                        return;
-                    }
-                    Intent intent = new Intent(CompositionMainActivity.this, WebActivity.class);
-                    intent.putExtra("title", slideInfo.getTitle());
-                    intent.putExtra("url", slideInfo.getTypeValue());
-                    startActivity(intent);
-                } else if (slideInfo.getType().equals("1")) {
-                    try {
-                        String typeValue = slideInfo.getTypeValue();
-                        if (TextUtils.isEmpty(typeValue)) return;
-                        String[] split = typeValue.split("\\|");
-                        Class clazz = Class.forName(split[0]);
-                        Intent intent = new Intent(CompositionMainActivity.this, clazz);
-                        if (split.length == 2) {
+        mBanner.setOnBannerListener(position -> {
+            SlideInfo slideInfo = mPresenter.getSlideInfo(position);
+            //友盟统计各个幻灯点击数
+            MobclickAgent.onEvent(CompositionMainActivity.this, slideInfo.getStatistics());
+            if (slideInfo.getType().equals("0")) {
+                if (EmptyUtils.isEmpty(slideInfo.getTypeValue())) {
+                    return;
+                }
+                Intent intent = new Intent(CompositionMainActivity.this, WebActivity.class);
+                intent.putExtra("title", slideInfo.getTitle());
+                intent.putExtra("url", slideInfo.getTypeValue());
+                startActivity(intent);
+            } else if (slideInfo.getType().equals("1")) {
+                try {
+                    String typeValue = slideInfo.getTypeValue();
+                    if (TextUtils.isEmpty(typeValue)) return;
+                    String[] split = typeValue.split("\\|");
+                    Class clazz = Class.forName(split[0]);
+                    Intent intent = new Intent(CompositionMainActivity.this, clazz);
+                    if (split.length == 2) {
 //                            CourseInfo courseInfo = new CourseInfo();
 //                            courseInfo.setId(split[1]);
-                            intent.putExtra("zwid", split[1]);
-                        }
-                        startActivity(intent);
-                    } catch (Exception e) {
+                        intent.putExtra("zwid", split[1]);
+                    }
+                    startActivity(intent);
+                } catch (Exception e) {
 
-                    }
-                } else if (slideInfo.getType().equals("2")) {
-                    try {
-                        String typeValue = slideInfo.getTypeValue();
-                        if (TextUtils.isEmpty(typeValue)) return;
-                        String[] strs = typeValue.split("\\|");
+                }
+            } else if (slideInfo.getType().equals("2")) {
+                try {
+                    String typeValue = slideInfo.getTypeValue();
+                    if (TextUtils.isEmpty(typeValue)) return;
+                    String[] strs = typeValue.split("\\|");
 //                        LogUtil.msg("tag: " + strs[0] + "---" + strs[1]);
-                        if (strs.length > 1) {
-                            // 填应用AppId
-                            String appId = strs[1];
-                            String originId = strs[0];
-                            SmallProcedureUtils.switchSmallProcedure(CompositionMainActivity.this, originId, appId);
-                        }
-                    } catch (Exception e) {
-                        LogUtil.msg("e :" + e.getMessage());
-                        ToastUtil.toast(CompositionMainActivity.this, "");
+                    if (strs.length > 1) {
+                        // 填应用AppId
+                        String appId = strs[1];
+                        String originId = strs[0];
+                        SmallProcedureUtils.switchSmallProcedure(CompositionMainActivity.this, originId, appId);
                     }
+                } catch (Exception e) {
+                    LogUtil.msg("e :" + e.getMessage());
+                    ToastUtil.toast(CompositionMainActivity.this, "");
                 }
             }
         });
@@ -187,11 +181,8 @@ public class CompositionMainActivity extends BaseActivity<EssayPresenter> implem
         verticalTv.setTextStillTime(3000);//设置停留时长间隔
         verticalTv.setAnimTime(400);//设置进入和退出的时间间隔
         //对单条文字的点击监听
-        verticalTv.setOnItemClickListener(new VerticalTextView.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                // TO DO
-            }
+        verticalTv.setOnItemClickListener(position -> {
+            // TO DO
         });
     }
 
@@ -258,10 +249,5 @@ public class CompositionMainActivity extends BaseActivity<EssayPresenter> implem
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

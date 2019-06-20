@@ -93,12 +93,7 @@ public class EssayPresenter extends BasePresenter<EssayEngine, EssayContract.Vie
                 String json = getJson();
                 if (!TextUtils.isEmpty(json)) {
                     final CompositionInfoWrapper compositionInfoWrapper = JSON.parseObject(this.getJson(), CompositionInfoWrapper.class);
-                    UIUitls.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mView.showCompositionIndexInfo(compositionInfoWrapper);
-                        }
-                    });
+                    UIUitls.post(() -> mView.showCompositionIndexInfo(compositionInfoWrapper));
                 }
             }
         });

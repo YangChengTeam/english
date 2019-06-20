@@ -91,12 +91,7 @@ public class VipEquitiesActivity extends BaseActivity {
         userInfo = UserInfoHelper.getUserInfo();
 
         toolbar.setNavigationIcon(R.mipmap.vip_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
         StatusBarCompat.compat(this, appbarLayout, toolbar);
 
         mTvNickname.setText(userInfo.getNickname());
@@ -108,13 +103,10 @@ public class VipEquitiesActivity extends BaseActivity {
     }
 
     private void initListener() {
-        RxView.clicks(mBtnOpenVip).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                Bundle bundle = new Bundle();
-                bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
-                VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
-            }
+        RxView.clicks(mBtnOpenVip).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
+            VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
         });
     }
 
