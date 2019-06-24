@@ -310,13 +310,15 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     }
 
     public void setTextParams(boolean isBig) {
-        LinearLayout.MarginLayoutParams params = (LinearLayout.MarginLayoutParams) mNickNameTextView.getLayoutParams();
-        if (isBig) {
-            params.topMargin = ScreenUtil.dip2px(getActivity(), 8);
-        } else {
-            params.topMargin = ScreenUtil.dip2px(getActivity(), 5);
+        if (ActivityUtils.isValidContext(getActivity())) {
+            LinearLayout.MarginLayoutParams params = (LinearLayout.MarginLayoutParams) mNickNameTextView.getLayoutParams();
+            if (isBig) {
+                params.topMargin = ScreenUtil.dip2px(getActivity(), 8);
+            } else {
+                params.topMargin = ScreenUtil.dip2px(getActivity(), 5);
+            }
+            mNickNameTextView.setLayoutParams(params);
         }
-        mNickNameTextView.setLayoutParams(params);
     }
 
 

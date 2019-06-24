@@ -13,8 +13,8 @@ android {
         targetSdkVersion 28
 
 
-        versionCode 21 //56
-        versionName "1.6.5"//1.7.6
+        versionCode 22 //56
+        versionName "1.6.6"//1.7.6
 
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
