@@ -74,12 +74,13 @@
                         android:src="@mipmap/index_avtor" />
 
                     <ImageView
-                        android:visibility="gone"
+
                         android:id="@+id/iv_vip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:visibility="gone"
                         android:src="@mipmap/index_vip_equities" />
 
 
@@ -99,11 +100,12 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:visibility="gone"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/t15dp"
                     android:layout_marginRight="@dimen/t15dp"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/t10dp">
 
                     <LinearLayout

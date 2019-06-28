@@ -134,7 +134,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
             listenEnglishBean = new ListenEnglishBean();
 
         }
-        registerReciver();
+        registerReceiver();
     }
 
     public boolean getPrevInfo() {
@@ -415,12 +415,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
 
     @Override
     public void showNoNet() {
-        stateView.showNoNet(linearLayoutMusicCover, HttpConfig.NET_ERROR, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.getListenEnglishDetail(currentItemInfo.getId());
-            }
-        });
+        stateView.showNoNet(linearLayoutMusicCover, HttpConfig.NET_ERROR, v -> mPresenter.getListenEnglishDetail(currentItemInfo.getId()));
     }
 
     @Override
@@ -455,6 +450,7 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
             unregisterReceiver(receiver);
         }
         setNotifyFlag(true, false);
+        NotificationUtil.clear(this);
 
     }
 
@@ -484,13 +480,14 @@ public class ListenEnglishActivity extends FullScreenActivity<ListenEnglishPrese
         NotificationUtil.showNotify(this, currentItemInfo.getTitle(), isPlay, flag);
     }
 
-    private void registerReciver() {
+    private void registerReceiver() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constant.NOTIFY_NEXT);
         intentFilter.addAction(Constant.NOTIFY_PRE);
         intentFilter.addAction(Constant.NOTIFY_PLAY_PAUSE);
         intentFilter.addAction(Constant.NOTIFY_CANCEL);
         receiver = new NotificationPlayerReceiver();
+
         this.registerReceiver(receiver, intentFilter);
     }
 

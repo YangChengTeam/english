@@ -30,6 +30,9 @@ public class MediaPlayerPlayer implements AudioPlayManager, MediaPlayer.OnPrepar
     @Override
     public void start(String url) {
         stop();
+        if (mediaPlayer == null) {
+            mediaPlayer = new MediaPlayer();
+        }
 
         try {
             mediaPlayer.setDataSource(url);
