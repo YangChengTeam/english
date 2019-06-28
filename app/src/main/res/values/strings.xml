@@ -1,7 +1,7 @@
 <resources>
     <!--英语考-->
     <!--英语点读学习-->
-    <string name="app_name">英语点读学习</string>
+    <string name="app_name">说说英语点读学习</string>
 
     <string name="edit_text">编辑</string>
     <string name="done_text">完成</string>
@@ -73,6 +73,8 @@
     <string name="forever_vip">永久会员</string>
     <string name="bind">立即绑定</string>
     <string name="bind_phone">绑定手机号</string>
+    <string name="wx_pay">微信支付</string>
+    <string name="ali_pay">支付宝支付</string>
 
 
 </resources>

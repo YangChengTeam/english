@@ -26,12 +26,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/t8dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/t8dp">
+            android:layout_marginRight="@dimen/t8dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/ll_ali_pay"
@@ -78,6 +79,62 @@
                         android:src="@mipmap/payway_new_wx" />
                 </LinearLayout>
             </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/t8dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_wx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/selectot_btn_pay_vip_green">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+
+                    android:drawableLeft="@mipmap/icon_pay_wx"
+                    android:drawablePadding="12dp"
+
+                    android:gravity="center"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/wx_pay"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_ali"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/t8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/selectot_btn_pay_vip_blue">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+
+                    android:drawableLeft="@mipmap/icon_pay_ali"
+                    android:drawablePadding="12dp"
+                    android:gravity="center"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/ali_pay"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
         </LinearLayout>
 
         <TextView
@@ -92,7 +149,8 @@
             android:gravity="center"
             android:text="@string/promptly_open"
             android:textColor="@color/red_db4d2a"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_share"
