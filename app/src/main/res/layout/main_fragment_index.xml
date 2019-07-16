@@ -105,7 +105,8 @@
             android:id="@+id/sv_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/primaryDark">
+            android:background="@color/primaryDark"
+            android:scrollbars="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -385,7 +386,8 @@
                     android:id="@+id/rv_recommend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    android:background="@color/white"
+                    android:nestedScrollingEnabled="false" />
 
                 <View
                     android:layout_width="match_parent"
