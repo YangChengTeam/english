@@ -205,13 +205,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         startActivity(new Intent(this, MainActivity.class));
         final AlertDialog alertDialog = new AlertDialog(this);
         alertDialog.setDesc("确认退出" + getString(R.string.app_name) + "？");
-        alertDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-                finish();
-                System.exit(0);
-            }
+        alertDialog.setOnClickListener(v -> {
+            alertDialog.dismiss();
+            finish();
+            System.exit(0);
         });
         alertDialog.show();
     }

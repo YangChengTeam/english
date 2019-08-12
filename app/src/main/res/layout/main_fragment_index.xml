@@ -105,7 +105,8 @@
             android:id="@+id/sv_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/primaryDark">
+            android:background="@color/primaryDark"
+            android:scrollbars="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -214,17 +215,6 @@
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/iv_book_read"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:scaleType="fitXY"
-                            android:src="@mipmap/index_book_read" />
-
-                        <View
-                            android:layout_width="7dp"
-                            android:layout_height="match_parent" />
 
                         <ImageView
                             android:id="@+id/iv_speak"
@@ -233,6 +223,21 @@
                             android:layout_weight="1"
                             android:scaleType="fitXY"
                             android:src="@mipmap/soundmark_read" />
+
+
+                        <View
+                            android:layout_width="7dp"
+                            android:layout_height="match_parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_weike"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/index_weike" />
+
+
                     </LinearLayout>
 
 
@@ -257,12 +262,12 @@
                             android:layout_height="match_parent" />
 
                         <ImageView
-                            android:id="@+id/iv_word"
+                            android:id="@+id/iv_spoken"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="fitXY"
-                            android:src="@mipmap/index_word" />
+                            android:src="@mipmap/index_spoken" />
 
                         <View
                             android:layout_width="7dp"
@@ -301,24 +306,25 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/iv_weike"
+                            android:id="@+id/iv_book_read"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="fitXY"
-                            android:src="@mipmap/index_weike" />
+                            android:src="@mipmap/index_book_read" />
 
                         <View
                             android:layout_width="7dp"
                             android:layout_height="match_parent" />
 
+
                         <ImageView
-                            android:id="@+id/iv_spoken"
+                            android:id="@+id/iv_word"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="fitXY"
-                            android:src="@mipmap/index_spoken" />
+                            android:src="@mipmap/index_word" />
                     </LinearLayout>
 
                     <View
@@ -385,7 +391,8 @@
                     android:id="@+id/rv_recommend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    android:background="@color/white"
+                    android:nestedScrollingEnabled="false" />
 
                 <View
                     android:layout_width="match_parent"

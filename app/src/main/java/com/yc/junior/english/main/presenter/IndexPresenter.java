@@ -64,12 +64,9 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
             public void run() {
                 final IndexInfo indexInfo = JSON.parseObject(this.getJson(), IndexInfo.class);
                 cached = true;
-                UIUitls.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mView.hide();
-                        showIndexInfo(indexInfo, false, isFresh);
-                    }
+                UIUitls.post(() -> {
+                    mView.hide();
+                    showIndexInfo(indexInfo, false, isFresh);
                 });
             }
         });
@@ -171,12 +168,7 @@ public class IndexPresenter extends BasePresenter<IndexEngin, IndexContract.View
 
             @Override
             public void onNext(final ResultInfo<List<PayWayInfo>> payWayInfoResultInfo) {
-                handleResultInfo(payWayInfoResultInfo, new Runnable() {
-                    @Override
-                    public void run() {
-                        PayWayInfoHelper.setPayWayInfoList(payWayInfoResultInfo.data);
-                    }
-                });
+                handleResultInfo(payWayInfoResultInfo, () -> PayWayInfoHelper.setPayWayInfoList(payWayInfoResultInfo.data));
             }
         });
         mSubscriptions.add(subscription);

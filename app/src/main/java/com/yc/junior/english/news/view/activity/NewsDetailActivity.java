@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -55,10 +56,13 @@ import butterknife.BindView;
 import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.NetworkUtils;
+import yc.com.blankj.utilcode.util.SizeUtils;
 import yc.com.blankj.utilcode.util.TimeUtils;
 
 import static com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_LANDSCAPE;
 import static com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_PORTRAIT;
+
+
 
 
 
@@ -207,6 +211,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
     private void initWebView(final CourseInfoWrapper data) {
 
+        webView.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent));
         final WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
@@ -222,7 +227,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
 //        webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
-        webSettings.setBlockNetworkImage(true);//设置是否加载网络图片 true 为不加载 false 为加载
+        webSettings.setBlockNetworkImage(false);//设置是否加载网络图片 true 为不加载 false 为加载
 
         String body = data.getInfo().getBody();
         webView.loadDataWithBaseURL(null, body, "text/html", "utf-8", null);
@@ -232,11 +237,16 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
 //                view.loadUrl("javascript:window.HTML.getContentHeight(document.getElementsByTagName('html')[0].scrollHeight);");
 
+                Log.e(TAG, "onPageFinished: ");
                 llRootView.setVisibility(View.VISIBLE);
+//                webSettings.setBlockNetworkImage(false);
 
-                webSettings.setBlockNetworkImage(false);
+                //  getBoundingClientRect().height
+                webView.loadUrl("javascript:window.HTML.resize(document.body.getScrollHeight())");
+
 
                 LogUtils.e("startTime-->" + (System.currentTimeMillis() - startTime));
 
@@ -258,6 +268,7 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
 
             }
         });
+
 
 
         webView.setOnLongClickListener(v -> {
@@ -476,6 +487,22 @@ public class NewsDetailActivity extends FullScreenActivity<NewsDetailPresenter> 
             LogUtils.e("getImgs " + imgPaths);
         }
 
+
+        @android.webkit.JavascriptInterface
+        public void resize(float height) {
+            Log.e("TAG", "resize: " + height);
+            runOnUiThread(() -> {
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) webView.getLayoutParams();
+//                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(getResources().getDisplayMetrics().widthPixels - SizeUtils.dp2px(15f), (int) (height * getResources().getDisplayMetrics().density));
+                layoutParams.width = getResources().getDisplayMetrics().widthPixels - SizeUtils.dp2px(15f);
+                layoutParams.height = (int) (height * getResources().getDisplayMetrics().density) + SizeUtils.dp2px(100f);
+
+                layoutParams.leftMargin = SizeUtils.dp2px(15f);
+                layoutParams.topMargin = SizeUtils.dp2px(5f);
+
+                webView.setLayoutParams(layoutParams);
+            });
+        }
     }
 
     @Subscribe(

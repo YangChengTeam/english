@@ -138,39 +138,30 @@ public class BookActivity extends FullScreenActivity<BookPresenter> implements B
     }
 
     private void initListener() {
-        mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (!mItemAdapter.getEditState()) {
-                    if (position == 0) {
-                        Intent intent = new Intent(BookActivity.this, AddBookActivity.class);
-                        startActivity(intent);
+        mItemAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (!mItemAdapter.getEditState()) {
+                if (position == 0) {
+                    Intent intent = new Intent(BookActivity.this, AddBookActivity.class);
+                    startActivity(intent);
+                } else {
+                    if (ReadApp.READ_COMMON_TYPE == 1) {
+                        toUnitActivity(position, BookUnitActivity.class);
                     } else {
-                        if (ReadApp.READ_COMMON_TYPE == 1) {
-                            toUnitActivity(position, BookUnitActivity.class);
-                        } else {
-                            toUnitActivity(position, WordUnitActivity.class);
-                        }
+                        toUnitActivity(position, WordUnitActivity.class);
                     }
                 }
             }
         });
 
-        mItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
-                final AlertDialog alertDialog = new AlertDialog(BookActivity.this);
-                alertDialog.setDesc("确认删除该教材？");
-                alertDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                        BookInfo bookInfo = mItemAdapter.getData().get(position);
-                        mPresenter.deleteBook(bookInfo);
-                    }
-                });
-                alertDialog.show();
-            }
+        mItemAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            final AlertDialog alertDialog = new AlertDialog(BookActivity.this);
+            alertDialog.setDesc("确认删除该教材？");
+            alertDialog.setOnClickListener(v -> {
+                alertDialog.dismiss();
+                BookInfo bookInfo = mItemAdapter.getData().get(position);
+                mPresenter.deleteBook(bookInfo);
+            });
+            alertDialog.show();
         });
         if (isRead) {
             ViewUtil.switchActivity(this, baseItemViewTextbookRead, 4);

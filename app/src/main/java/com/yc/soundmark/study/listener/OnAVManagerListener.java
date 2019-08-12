@@ -20,7 +20,7 @@ public interface OnAVManagerListener {
 
     void playRecordFile();
 
-    void playAssetFile(String assetFilePath, int step);
+    void playAssetFile(String assetFilePath,boolean isOnce, int step);
 
     boolean isPlaying();//是否在播放
 

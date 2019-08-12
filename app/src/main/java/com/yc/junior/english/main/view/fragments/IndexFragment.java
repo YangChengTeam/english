@@ -3,7 +3,6 @@ package com.yc.junior.english.main.view.fragments;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.alibaba.fastjson.JSON;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -31,9 +30,7 @@ import com.qq.e.comm.pi.AdData;
 import com.qq.e.comm.util.AdError;
 import com.qq.e.comm.util.GDTLogger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.junior.english.EnglishApp;
 import com.yc.junior.english.R;
@@ -72,7 +69,6 @@ import com.yc.junior.english.weixin.views.activitys.CourseTypeActivity;
 import com.yc.junior.english.weixin.views.activitys.WeikeUnitActivity;
 import com.yc.soundmark.study.activity.StudyActivity;
 import com.youth.banner.Banner;
-import com.youth.banner.listener.OnBannerListener;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -81,7 +77,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import rx.functions.Action1;
 import yc.com.base.BaseActivity;
 import yc.com.base.BaseFragment;
 import yc.com.base.EmptyUtils;
@@ -90,13 +85,6 @@ import yc.com.blankj.utilcode.util.SPUtils;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
-
-
-
-
-
-
-
 
 
 /**
@@ -204,6 +192,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void init() {
+
 
         PermissionManager.getInstance().addPermissions(getActivity(), this,
                 new String[]{Manifest.permission.READ_PHONE_STATE}, PermissionGroup.getPermissionGroup(PermissionGroup.GroupType.STORAGE_GROUP),
@@ -452,7 +441,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //        }
 
 
-
         initRefresh();
 
 //
@@ -531,6 +519,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showInfo(final IndexInfo indexInfo, boolean isFresh) {
+        mReadImageView.setVisibility(indexInfo.getShow() == 1 ? View.VISIBLE : View.GONE);
+        mWordImageView.setVisibility(indexInfo.getShow() == 1 ? View.VISIBLE : View.GONE);
+
         if (indexInfo.getRedian() != null && indexInfo.getRedian().size() > 0) {
             mHotTitleTextView.setText(indexInfo.getRedian().get(0).getTitle());
             RxView.clicks(mHotTitleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
@@ -606,6 +597,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showNoNet() {
+
 
         mRefreshSwipeRefreshLayout.finishRefresh();
 
