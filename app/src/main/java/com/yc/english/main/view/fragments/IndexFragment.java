@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -57,6 +58,7 @@ import com.yc.english.main.contract.IndexContract;
 import com.yc.english.main.hepler.BannerImageLoader;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
+import com.yc.english.main.model.domain.IndexDialogInfoWrapper;
 import com.yc.english.main.model.domain.IndexInfo;
 import com.yc.english.main.model.domain.SlideInfo;
 import com.yc.english.main.model.domain.UserInfo;
@@ -98,6 +100,8 @@ import yc.com.blankj.utilcode.util.SPUtils;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
+
+import static com.yc.english.main.model.domain.Constant.INDEX_DIALOG_INFO;
 
 
 /**
@@ -205,6 +209,10 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void init() {
+
+        IndexDialogInfoWrapper infoWrapper = JSON.parseObject(SPUtils.getInstance().getString(Constant.INDEX_DIALOG_INFO), IndexDialogInfoWrapper.class);
+
+
 
         PermissionManager.getInstance().addPermissions(getActivity(), this,
                 new String[]{Manifest.permission.READ_PHONE_STATE}, PermissionGroup.getPermissionGroup(PermissionGroup.GroupType.STORAGE_GROUP),
@@ -453,7 +461,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 //        }
 
 
-
         initRefresh();
 
 //
@@ -532,6 +539,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     public void showInfo(final IndexInfo indexInfo, boolean isFresh) {
+        mReadImageView.setVisibility(indexInfo.getShow() == 1 ? View.VISIBLE : View.GONE);
+        mWordImageView.setVisibility(indexInfo.getShow() == 1 ? View.VISIBLE : View.GONE);
+
         if (indexInfo.getRedian() != null && indexInfo.getRedian().size() > 0) {
             mHotTitleTextView.setText(indexInfo.getRedian().get(0).getTitle());
             RxView.clicks(mHotTitleTextView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {

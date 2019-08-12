@@ -50,7 +50,8 @@ public class ReadBookItemClickAdapter extends BaseMultiItemQuickAdapter<BookInfo
         helper.setText(R.id.tv_book_version_name, item.getVersionName()).setText(R.id.tv_book_grade_name, item.getGradeName());
 
         if (helper.getAdapterPosition() > 0) {
-            GlideHelper.imageView(mContext, mBookCover, item.getCoverImg(), R.mipmap.default_book);
+//            GlideHelper.imageView(mContext, mBookCover, item.getCoverImg(), R.mipmap.default_book);
+            mBookCover.setImageResource(R.mipmap.book_read_placeholder);
         } else {
             mBookCover.setImageResource(R.mipmap.read_book_add);
             showJoinGuide(mBookCover);

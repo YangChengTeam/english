@@ -59,7 +59,7 @@ public class SplashPresenter extends BasePresenter<SplashEngin, SplashContract.V
                 if (indexDialogInfoWrapperResultInfo != null && indexDialogInfoWrapperResultInfo.code == HttpConfig.STATUS_OK) {
                     IndexDialogInfoWrapper infoWrapper = indexDialogInfoWrapperResultInfo.data;
                     mView.showAdvInfo(infoWrapper.info, delay);
-                    SPUtils.getInstance().put(Constant.INDEX_DIALOG_INFO, JSON.toJSONString(infoWrapper.info));
+                    SPUtils.getInstance().put(Constant.INDEX_DIALOG_INFO, JSON.toJSONString(infoWrapper));
                 } else {
                     mView.gotToMain(delay);
                 }

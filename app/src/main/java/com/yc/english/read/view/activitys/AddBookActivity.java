@@ -96,26 +96,23 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
         mPresenter.getCVListByGradeId(null, null);//获取所有的教材版本
 
         //选择年级
-        mGradeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (mGradeDatas != null) {
+        mGradeAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (mGradeDatas != null) {
 
-                    if (lastGradePosition > -1) {
-                        mGradeAdapter.getData().get(lastGradePosition).setSelected(false);
-                    }
+                if (lastGradePosition > -1) {
+                    mGradeAdapter.getData().get(lastGradePosition).setSelected(false);
+                }
 
-                    mGradeAdapter.getData().get(position).setSelected(true);
+                mGradeAdapter.getData().get(position).setSelected(true);
 
-                    if (lastGradePosition != position) {
-                        lastGradePosition = position;
-                        mGradeAdapter.notifyDataSetChanged();
+                if (lastGradePosition != position) {
+                    lastGradePosition = position;
+                    mGradeAdapter.notifyDataSetChanged();
 
-                        //获取教材版本
-                        String gradeId = mGradeAdapter.getData().get(position).getGrade();
-                        String partType = mGradeAdapter.getData().get(position).getPartType();
-                        mPresenter.getCVListByGradeId(gradeId, partType);
-                    }
+                    //获取教材版本
+                    String gradeId = mGradeAdapter.getData().get(position).getGrade();
+                    String partType = mGradeAdapter.getData().get(position).getPartType();
+                    mPresenter.getCVListByGradeId(gradeId, partType);
                 }
             }
         });

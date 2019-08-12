@@ -182,7 +182,8 @@ public class PpAudioManager implements OnAVManagerListener {
 
 
     @Override
-    public void playAssetFile(String assetFilePath, final int step) {
+    public void playAssetFile(String assetFilePath,boolean isOnce, final int step) {
+        this.mIsOnce= isOnce;
         stopMusic();
         mStep = step;
         if (TextUtils.isEmpty(assetFilePath)) return;

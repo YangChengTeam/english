@@ -61,6 +61,8 @@ public class IndexInfo {
 
     private List<CommunityInfo> shequ;
 
+    private int show;
+
     public List<CourseInfo> getRedian() {
         return redian;
     }
@@ -139,5 +141,13 @@ public class IndexInfo {
 
     public void setAdvInfo(List<SlideInfo> advInfo) {
         this.advInfo = advInfo;
+    }
+
+    public int getShow() {
+        return show;
+    }
+
+    public void setShow(int show) {
+        this.show = show;
     }
 }

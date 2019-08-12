@@ -104,12 +104,9 @@ public class IndexRecommendAdapter extends RecyclerView.Adapter<IndexRecommendAd
                 holder.line.setVisibility(View.VISIBLE);
             }
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(v, position);
-                    }
+            holder.itemView.setOnClickListener(v -> {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(v, position);
                 }
             });
 

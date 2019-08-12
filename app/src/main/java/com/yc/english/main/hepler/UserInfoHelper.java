@@ -153,12 +153,7 @@ public class UserInfoHelper {
 
             @Override
             public void onError(Throwable e) {
-                UIUitls.postDelayed(1500, new Runnable() {
-                    @Override
-                    public void run() {
-                        guestReg(context);
-                    }
-                });
+                UIUitls.postDelayed(1500, () -> guestReg(context));
             }
 
             @Override
@@ -166,12 +161,7 @@ public class UserInfoHelper {
                 ResultInfoHelper.handleResultInfo(userInfoResultInfo, new ResultInfoHelper.Callback() {
                     @Override
                     public void resultInfoEmpty(String message) {
-                        UIUitls.postDelayed(1500, new Runnable() {
-                            @Override
-                            public void run() {
-                                guestReg(context);
-                            }
-                        });
+                        UIUitls.postDelayed(1500, () -> guestReg(context));
                     }
 
                     @Override

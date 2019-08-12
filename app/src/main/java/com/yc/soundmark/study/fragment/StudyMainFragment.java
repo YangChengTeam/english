@@ -237,7 +237,7 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
                 } else {
                     //todo 播放并录音
                     playStep = 1;
-                    mListener.playAssetFile("guide_01.mp3", playStep);
+                    mListener.playAssetFile("guide_01.mp3",false, playStep);
                     if (mStudyInfo != null) {
                         tvPracticeSoundmark.setVisibility(View.VISIBLE);
                         tvPracticeSoundmark.setText(mStudyInfo.getName());
@@ -512,7 +512,7 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     public void playPracticeSecondUpdateUI() {
 
         playStep = 3;
-        mListener.playAssetFile("user_tape_tips.mp3", playStep);
+        mListener.playAssetFile("user_tape_tips.mp3",false, playStep);
     }
 
     @Override
@@ -545,7 +545,7 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
     @Override
     public void playPracticeThirdUpdateUI() {
         playStep = 1;
-        mListener.playAssetFile("guide_02.mp3", playStep);
+        mListener.playAssetFile("guide_02.mp3", false,playStep);
         ivTopCarton.setVisibility(View.GONE);
     }
 

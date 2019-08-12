@@ -150,6 +150,7 @@ public class EnglishApp extends MultiDexApplication implements Application.Activ
         if (GoagalInfo.get().packageInfo != null) {
             params.put("app_version", GoagalInfo.get().packageInfo.versionCode + "");
         }
+        params.put("package_name",getPackageName());
         HttpConfig.setDefaultParams(params);
     }
 

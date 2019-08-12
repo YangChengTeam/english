@@ -96,43 +96,40 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
         mBookUnitRecyclerView.setAdapter(mItemAdapter);
         mBookUnitRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(10)));
         userInfo = UserInfoHelper.getUserInfo();
-        mItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                LogUtils.e("position --->" + position);
+        mItemAdapter.setOnItemClickListener((adapter, view, position) -> {
+            LogUtils.e("position --->" + position);
 
-                boolean isRead = true;
+            boolean isRead = true;
 
-                UnitInfo unitInfo = mItemAdapter.getData().get(position);
+            UnitInfo unitInfo = mItemAdapter.getData().get(position);
 
-                //1是免费，2是收费
-                if (unitInfo.getFree() == 1) {
-                    isRead = true;
+            //1是免费，2是收费
+            if (unitInfo.getFree() == 1) {
+                isRead = true;
+            } else {
+                if (userInfo != null) {
+                    isRead = UserInfoHelper.isVip(userInfo);
                 } else {
-                    if (userInfo != null) {
-                        isRead = UserInfoHelper.isVip(userInfo);
-                    } else {
-                        UserInfoHelper.isGotoLogin(BookUnitActivity.this);
-                        return;
-                    }
+                    UserInfoHelper.isGotoLogin(BookUnitActivity.this);
+                    return;
                 }
+            }
 
-                if (isRead) {
-                    if (mItemAdapter.getData().get(position) != null) {
+            if (isRead) {
+                if (mItemAdapter.getData().get(position) != null) {
 
-                        Intent intent = new Intent(BookUnitActivity.this, CoursePlayActivity.class);
-                        intent.putExtra("position", position);
-                        intent.putParcelableArrayListExtra("unitInfoList", (ArrayList) mItemAdapter.getData());
-                        startActivity(intent);
-                    } else {
-                        TipsHelper.tips(BookUnitActivity.this, "教材数据异常，请稍后重试");
-                    }
+                    Intent intent = new Intent(BookUnitActivity.this, CoursePlayActivity.class);
+                    intent.putExtra("position", position);
+                    intent.putParcelableArrayListExtra("unitInfoList", (ArrayList) mItemAdapter.getData());
+                    startActivity(intent);
                 } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
-                    VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle);
-                    MobclickAgent.onEvent(BookUnitActivity.this, "textbook_read", "教材点读购买");
+                    TipsHelper.tips(BookUnitActivity.this, "教材数据异常，请稍后重试");
                 }
+            } else {
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt(GoodsType.GOODS_KEY, GoodsType.TYPE_GENERAL_VIP);
+                VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", bundle1);
+                MobclickAgent.onEvent(BookUnitActivity.this, "textbook_read", "教材点读购买");
             }
         });
 
@@ -185,7 +182,9 @@ public class BookUnitActivity extends FullScreenActivity<BookUnitPresenter> impl
     @Override
     public void showBookInfo(BookInfo bookInfo) {
         if (bookInfo != null) {
-            GlideHelper.imageView(BookUnitActivity.this, mBookGradeImageView, bookInfo.getCoverImg(), R.mipmap.default_detail_book);
+//            GlideHelper.imageView(BookUnitActivity.this, mBookGradeImageView, bookInfo.getCoverImg(), R.mipmap.default_detail_book);
+
+            mBookGradeImageView.setImageResource(R.mipmap.book_read_placeholder);
             mBookGradeNameTextView.setText(bookInfo.getName());
             mBookPressTextView.setText(bookInfo.getPress());
             mBookUnitTotalTextView.setText(bookInfo.getSentenceCount() + getString(R.string.read_sentence_text));

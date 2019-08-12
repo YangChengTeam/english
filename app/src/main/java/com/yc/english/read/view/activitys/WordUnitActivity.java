@@ -124,7 +124,8 @@ public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> impl
     @Override
     public void showBookInfo(BookInfo bookInfo) {
         if (bookInfo != null) {
-            GlideHelper.imageView(WordUnitActivity.this, mBookGradeImageView, bookInfo.getCoverImg(), R.mipmap.default_detail_book);
+//            GlideHelper.imageView(WordUnitActivity.this, mBookGradeImageView, bookInfo.getCoverImg(), R.mipmap.default_detail_book);
+            mBookGradeImageView.setImageResource(R.mipmap.book_read_placeholder);
             mBookGradeNameTextView.setText(bookInfo.getName());
             mBookPressTextView.setText(bookInfo.getPress());
         }
@@ -137,12 +138,7 @@ public class WordUnitActivity extends FullScreenActivity<WordUnitPresenter> impl
 
     @Override
     public void showNoNet() {
-        mStateView.showNoNet(mContentLinearLayout, "网络不给力", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.getBookInfoById(bookId);
-            }
-        });
+        mStateView.showNoNet(mContentLinearLayout, "网络不给力", v -> mPresenter.getBookInfoById(bookId));
     }
 
     @Override

@@ -5,4 +5,5 @@ package com.yc.english.main.model.domain;
  */
 public class IndexDialogInfoWrapper {
     public SlideInfo info;
+    public int show;
 }
