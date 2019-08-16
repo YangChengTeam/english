@@ -117,7 +117,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.yc.english.news.view.widget.NewsScrollView
+    <com.yc.junior.english.news.view.widget.NewsScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -172,7 +172,7 @@
                 android:textSize="@dimen/t16sp" />
 
         </LinearLayout>
-    </com.yc.english.news.view.widget.NewsScrollView>
+    </com.yc.junior.english.news.view.widget.NewsScrollView>
 
 
 </LinearLayout>
