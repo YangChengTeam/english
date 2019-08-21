@@ -1,14 +1,11 @@
 package com.yc.junior.english.vip.views.fragments;
 
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -48,8 +45,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;
 import yc.com.base.BaseDialogFragment;
@@ -151,64 +146,44 @@ public class PayNewFragment extends BaseDialogFragment<VipBuyPresenter> implemen
     }
 
     private void initListener() {
-        RxView.clicks(llAliPay).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                resetPayway();
-                llAliPay.setSelected(true);
-                mPayWayName = PayConfig.ali_pay;
-                pay();
+        RxView.clicks(llAliPay).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            resetPayway();
+            llAliPay.setSelected(true);
+            mPayWayName = PayConfig.ali_pay;
+            pay();
+        });
+        RxView.clicks(llWxPay).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            resetPayway();
+            llWxPay.setSelected(true);
+            mPayWayName = PayConfig.wx_pay;
+            pay();
+        });
+        RxView.clicks(ivClose).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> dismiss());
+
+        RxView.clicks(tvPay).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            OrderParams orderParams = new OrderParams();
+            if (mGoodInfo != null) {
+                orderParams.setTitle(mGoodInfo.getName());
+                orderParams.setMoney(mGoodInfo.getPay_price());
+                orderParams.setPayWayName(mPayWayName);
+                List<OrderGood> list = new ArrayList<>();
+                OrderGood orderGood = new OrderGood();
+                orderGood.setGood_id(mGoodInfo.getId());
+                orderGood.setNum(1);
+
+                list.add(orderGood);
+                orderParams.setGoodsList(list);
+                mPresenter.createOrder(orderParams);
             }
         });
-        RxView.clicks(llWxPay).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                resetPayway();
-                llWxPay.setSelected(true);
-                mPayWayName = PayConfig.wx_pay;
-                pay();
-            }
-        });
-        RxView.clicks(ivClose).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                dismiss();
-            }
+        RxView.clicks(rlWx).throttleFirst(200,TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            mPayWayName = PayConfig.wx_pay;
+            pay();
         });
 
-        RxView.clicks(tvPay).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                OrderParams orderParams = new OrderParams();
-                if (mGoodInfo != null) {
-                    orderParams.setTitle(mGoodInfo.getName());
-                    orderParams.setMoney(mGoodInfo.getPay_price());
-                    orderParams.setPayWayName(mPayWayName);
-                    List<OrderGood> list = new ArrayList<>();
-                    OrderGood orderGood = new OrderGood();
-                    orderGood.setGood_id(mGoodInfo.getId());
-                    orderGood.setNum(1);
-
-                    list.add(orderGood);
-                    orderParams.setGoodsList(list);
-                    mPresenter.createOrder(orderParams);
-                }
-            }
-        });
-        RxView.clicks(rlWx).throttleFirst(200,TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                mPayWayName = PayConfig.wx_pay;
-                pay();
-            }
-        });
-
-        RxView.clicks(rlAli).throttleFirst(200,TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                mPayWayName = PayConfig.ali_pay;
-                pay();
-            }
+        RxView.clicks(rlAli).throttleFirst(200,TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            mPayWayName = PayConfig.ali_pay;
+            pay();
         });
 
         RxView.clicks(tvShare).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {

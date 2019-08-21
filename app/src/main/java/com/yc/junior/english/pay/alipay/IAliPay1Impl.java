@@ -109,33 +109,18 @@ public class IAliPay1Impl extends IPayImpl {
             if (TextUtils.equals(resultStatus, "9000")) {
                 orderInfo.setMessage("支付成功");
                 iPayCallback.onSuccess(orderInfo);
-                mContext.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ToastUtils.showShort("支付成功");
-                    }
-                });
+                mContext.runOnUiThread(() -> ToastUtils.showShort("支付成功"));
 
                 checkOrder(orderInfo);
             } else if (TextUtils.equals(resultStatus, "6001")) {
                 orderInfo.setMessage("支付取消");
-                mContext.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ToastUtils.showShort("支付取消");
-                    }
-                });
+                mContext.runOnUiThread(() -> ToastUtils.showShort("支付取消"));
 
                 iPayCallback.onFailure(orderInfo);
             } else {
 
                 orderInfo.setMessage("支付失败");
-                mContext.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ToastUtils.showShort("支付失败");
-                    }
-                });
+                mContext.runOnUiThread(() -> ToastUtils.showShort("支付失败"));
 
                 iPayCallback.onFailure(orderInfo);
             }
