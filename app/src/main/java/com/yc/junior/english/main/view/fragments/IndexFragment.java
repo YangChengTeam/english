@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -67,6 +66,7 @@ import com.yc.junior.english.weixin.views.activitys.CourseActivity;
 import com.yc.junior.english.weixin.views.activitys.CourseClassifyActivity;
 import com.yc.junior.english.weixin.views.activitys.CourseTypeActivity;
 import com.yc.junior.english.weixin.views.activitys.WeikeUnitActivity;
+import com.yc.soundmark.base.constant.SpConstant;
 import com.yc.soundmark.study.activity.StudyActivity;
 import com.youth.banner.Banner;
 
@@ -85,6 +85,8 @@ import yc.com.blankj.utilcode.util.SPUtils;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
+
+
 
 
 /**
@@ -194,6 +196,14 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     public void init() {
 
 
+        boolean isFirstOpen = SPUtils.getInstance().getBoolean(SpConstant.FIRST_OPEN, true);
+        if (isFirstOpen) {
+            IndexNoticeFragment indexNoticeFragment = new IndexNoticeFragment();
+            indexNoticeFragment.show(getChildFragmentManager(), "");
+            SPUtils.getInstance().put(SpConstant.FIRST_OPEN, false);
+        }
+
+
         PermissionManager.getInstance().addPermissions(getActivity(), this,
                 new String[]{Manifest.permission.READ_PHONE_STATE}, PermissionGroup.getPermissionGroup(PermissionGroup.GroupType.STORAGE_GROUP),
                 PermissionGroup.getPermissionGroup(PermissionGroup.GroupType.MICROPHONE_GROUP),
@@ -241,7 +251,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         //todo 已隐藏 最下边广告位
         RxView.clicks(mAd).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
             Intent intent = new Intent(getActivity(), VipScoreTutorshipActivity.class);
-
             startActivity(intent);
         });
 

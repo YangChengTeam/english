@@ -73,6 +73,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/group_distance_15">
 
+                    <com.yc.junior.english.vip.views.fragments.BasePayItemView
+                        android:id="@+id/baseItemView_book_read"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        app:vip_content="课本点读"
+                        app:vip_content_size="@dimen/sp_14"
+                        app:vip_icon="@mipmap/vip_equity_diandu" />
+
 
 
                     <com.yc.junior.english.vip.views.fragments.BasePayItemView
@@ -109,14 +119,26 @@
                         app:vip_icon="@mipmap/vip_equity_teach_plan" />
 
 
+
                     <com.yc.junior.english.vip.views.fragments.BasePayItemView
-                        android:id="@+id/baseItemView_book_read"
+
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:vip_content="教材点读"
                         app:vip_content_size="@dimen/sp_14"
+                        android:visibility="gone"
                         app:vip_icon="@mipmap/vip_equity_diandu" />
+
+
+                    <com.yc.junior.english.vip.views.fragments.BasePayItemView
+                        android:id="@+id/basePayItemView_ceping"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:vip_content="智能测评"
+                        app:vip_content_size="@dimen/sp_14"
+                        app:vip_icon="@mipmap/vip_equity_ceping" />
 
                 </LinearLayout>
 
@@ -127,14 +149,8 @@
                     android:layout_marginTop="@dimen/group_distance_10"
                     android:weightSum="3">
 
-                    <com.yc.junior.english.vip.views.fragments.BasePayItemView
-                        android:id="@+id/basePayItemView_ceping"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:vip_content="智能测评"
-                        app:vip_content_size="@dimen/sp_14"
-                        app:vip_icon="@mipmap/vip_equity_ceping" />
+
+
 
                     <com.yc.junior.english.vip.views.fragments.BasePayItemView
                         android:layout_width="0dp"

@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +20,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.ScreenUtil;
+import com.yc.junior.english.setting.view.activitys.PrivacyActivity;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.GlideHelper;
 import com.yc.junior.english.base.helper.TipsHelper;
@@ -49,12 +49,13 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import rx.functions.Action1;
 import yc.com.base.BaseActivity;
 import yc.com.base.BaseFragment;
 import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.ActivityUtils;
 import yc.com.blankj.utilcode.util.SizeUtils;
+
+
 
 
 /**
@@ -121,6 +122,9 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @BindView(R.id.iv_tutorship_main_bg)
     ImageView ivTutorshipMainBg;
+    @BindView(R.id.miv_to_privacy)
+    MenuItemView mivToPrivacy;
+
 
     private String login_tint = "登录";
 
@@ -241,6 +245,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             final SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
             sharePopupWindow.show();
         });
+
+        RxView.clicks(mivToPrivacy).throttleFirst(200,TimeUnit.MILLISECONDS).subscribe(aVoid -> startActivity(new Intent(getActivity(), PrivacyActivity.class)));
 
     }
 

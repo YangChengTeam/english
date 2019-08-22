@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.hardware.SensorManager;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,12 +25,13 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.jarvanmo.exoplayerview.media.SimpleMediaSource;
 import com.jarvanmo.exoplayerview.ui.ExoVideoView;
 import com.kk.securityhttp.net.contains.HttpConfig;
+
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
 import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.main.model.domain.UserInfo;
-import com.yc.soundmark.base.fragment.BasePayFragment;
+import com.yc.junior.english.vip.utils.VipDialogHelper;
 import com.yc.soundmark.category.contract.WeiKeDetailContract;
 import com.yc.soundmark.category.model.domain.CourseInfo;
 import com.yc.soundmark.category.presenter.WeiKeDetailPresenter;
@@ -45,6 +47,8 @@ import yc.com.blankj.utilcode.util.SizeUtils;
 
 import static com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_LANDSCAPE;
 import static com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_PORTRAIT;
+
+
 
 
 
@@ -216,6 +220,7 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
 
     private void initWebView(final CourseInfo data) {
 
+        webView.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent));
         final WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
@@ -430,8 +435,10 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
     //显示支付弹窗
 
     private void showBuyDialog() {
-        BasePayFragment basePayFragment = new BasePayFragment();
-        basePayFragment.show(getSupportFragmentManager(), "");
+//        BasePayFragment basePayFragment = new BasePayFragment();
+//        basePayFragment.show(getSupportFragmentManager(), "");
+
+        VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
     }
 
 

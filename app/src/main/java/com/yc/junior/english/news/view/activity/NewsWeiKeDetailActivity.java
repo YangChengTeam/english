@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -196,6 +197,7 @@ public class NewsWeiKeDetailActivity extends FullScreenActivity<NewsDetailPresen
 
     private void initWebView(final CourseInfoWrapper data) {
 
+        webView.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent));
         final WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
