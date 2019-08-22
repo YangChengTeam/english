@@ -23,4 +23,6 @@ public class SpConstant {
     public static final String INDEX_VERSION = "index_version";
 
     public static final String PLAY_SPEED = "play_speed";
+
+    public static final String FIRST_OPEN = "first_open";
 }

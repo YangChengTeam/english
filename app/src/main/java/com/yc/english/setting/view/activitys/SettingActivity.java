@@ -1,6 +1,5 @@
 package com.yc.english.setting.view.activitys;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +25,6 @@ import com.yc.english.vip.views.fragments.BindPhoneFragment;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.functions.Action1;
 
 
@@ -56,13 +54,10 @@ public class SettingActivity extends FullScreenActivity<SettingPresenter> implem
 
         mCacheSettingItemView.rightInfo();
 
-        RxView.clicks(mCacheSettingItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
-            @Override
-            public void call(Void aVoid) {
-                if (GlideCatchHelper.getInstance(SettingActivity.this).cleanCatchDisk()) {
-                    TipsHelper.tips(SettingActivity.this, "清除缓存成功");
-                    mCacheSettingItemView.setInfo("0.0Byte");
-                }
+        RxView.clicks(mCacheSettingItemView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(aVoid -> {
+            if (GlideCatchHelper.getInstance(SettingActivity.this).cleanCatchDisk()) {
+                TipsHelper.tips(SettingActivity.this, "清除缓存成功");
+                mCacheSettingItemView.setInfo("0.0Byte");
             }
         });
 

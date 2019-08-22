@@ -3,14 +3,16 @@ package com.yc.english.setting.view.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,7 +27,6 @@ import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.helper.TipsHelper;
 import com.yc.english.base.utils.QQUtils;
-
 import com.yc.english.base.view.HonourAbilityView;
 import com.yc.english.base.view.QQqunDialog;
 import com.yc.english.base.view.SharePopupWindow;
@@ -40,6 +41,7 @@ import com.yc.english.setting.view.activitys.CameraTaskActivity;
 import com.yc.english.setting.view.activitys.FeedbackActivity;
 import com.yc.english.setting.view.activitys.MyOrderActivity;
 import com.yc.english.setting.view.activitys.PersonCenterActivity;
+import com.yc.english.setting.view.activitys.PrivacyActivity;
 import com.yc.english.setting.view.activitys.SettingActivity;
 import com.yc.english.setting.view.activitys.VipEquitiesActivity;
 import com.yc.english.setting.view.popupwindows.FollowWeiXinPopupWindow;
@@ -50,6 +52,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;
 import yc.com.base.BaseFragment;
@@ -121,6 +125,9 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @BindView(R.id.iv_tutorship_main_bg)
     ImageView ivTutorshipMainBg;
+    @BindView(R.id.miv_to_privacy)
+    MenuItemView mivToPrivacy;
+
 
     private String login_tint = "登录";
 
@@ -241,6 +248,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             final SharePopupWindow sharePopupWindow = new SharePopupWindow(getActivity());
             sharePopupWindow.show();
         });
+
+        RxView.clicks(mivToPrivacy).throttleFirst(200,TimeUnit.MILLISECONDS).subscribe(aVoid -> startActivity(new Intent(getActivity(), PrivacyActivity.class)));
 
     }
 

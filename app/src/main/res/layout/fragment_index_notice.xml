@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/share_vip_bg"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/t20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="公告"
+        android:textColor="@color/black"
+        android:textSize="@dimen/t16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/t15dp"
+        android:lineSpacingExtra="@dimen/t5dp"
+        android:text="尊敬的用户:\n
+        您好！因近段时间课本点读和单词宝典涉及到版权问题，我们忍痛下架该功能，对此给您带来的不便请您谅解！我们正在积极协商解决该问题，请您耐心等待！同时您也可以尝试我们其他的功能，感谢您的支持与配合！" />
+
+    <TextView
+        android:id="@+id/tv_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/t20dp"
+        android:background="@drawable/group_btn_blue_bg"
+        android:paddingBottom="@dimen/t8dp"
+        android:paddingLeft="@dimen/t30dp"
+        android:paddingRight="@dimen/t30dp"
+        android:paddingTop="@dimen/t8dp"
+        android:text="朕知道了"
+        android:textColor="@color/white" />
+
+</LinearLayout>

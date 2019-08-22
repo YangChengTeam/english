@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.hardware.SensorManager;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.yc.english.base.view.StateView;
 import com.yc.english.main.hepler.UserInfoHelper;
 import com.yc.english.main.model.domain.Constant;
 import com.yc.english.main.model.domain.UserInfo;
+import com.yc.english.vip.utils.VipDialogHelper;
 import com.yc.soundmark.base.fragment.BasePayFragment;
 import com.yc.soundmark.category.contract.WeiKeDetailContract;
 import com.yc.soundmark.category.model.domain.CourseInfo;
@@ -215,6 +217,7 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
 
     private void initWebView(final CourseInfo data) {
 
+        webView.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent));
         final WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
@@ -431,8 +434,10 @@ public class WeiKeDetailActivity extends BaseActivity<WeiKeDetailPresenter> impl
     //显示支付弹窗
 
     private void showBuyDialog() {
-        BasePayFragment basePayFragment = new BasePayFragment();
-        basePayFragment.show(getSupportFragmentManager(), "");
+//        BasePayFragment basePayFragment = new BasePayFragment();
+//        basePayFragment.show(getSupportFragmentManager(), "");
+
+        VipDialogHelper.showVipDialog(getSupportFragmentManager(), "", null);
     }
 
 
