@@ -3,10 +3,7 @@ package com.yc.english.main.view.fragments;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -16,12 +13,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
-import com.bumptech.glide.Glide;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -36,21 +29,15 @@ import com.qq.e.comm.pi.AdData;
 import com.qq.e.comm.util.AdError;
 import com.qq.e.comm.util.GDTLogger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.english.EnglishApp;
 import com.yc.english.R;
 import com.yc.english.base.helper.GlideHelper;
 import com.yc.english.base.utils.BrandUtils;
-import com.yc.english.base.utils.PermissionGroup;
-import com.yc.english.base.utils.PermissionManager;
-import com.yc.english.base.utils.PermissionUIListener;
 import com.yc.english.base.view.MyScrollview;
 import com.yc.english.base.view.SharePopupWindow;
 import com.yc.english.base.view.StateView;
-import com.yc.english.base.view.UserLoginDialog;
 import com.yc.english.base.view.WebActivity;
 import com.yc.english.composition.activity.CompositionMainActivity;
 import com.yc.english.group.constant.GroupConstant;
@@ -72,8 +59,6 @@ import com.yc.english.read.view.activitys.BookActivity;
 import com.yc.english.speak.view.activity.SpeakMainActivity;
 import com.yc.english.speak.view.adapter.IndexRecommendAdapter;
 import com.yc.english.vip.views.activity.VipScoreTutorshipActivity;
-import com.yc.english.vip.views.fragments.BindPhoneFragment;
-import com.yc.english.vip.views.fragments.BindPhoneSuccessFragment;
 import com.yc.english.weixin.model.domain.CourseInfo;
 import com.yc.english.weixin.views.activitys.CourseActivity;
 import com.yc.english.weixin.views.activitys.CourseClassifyActivity;
@@ -82,9 +67,7 @@ import com.yc.english.weixin.views.activitys.WeikeUnitActivity;
 import com.yc.soundmark.base.constant.SpConstant;
 import com.yc.soundmark.study.activity.StudyActivity;
 import com.youth.banner.Banner;
-import com.youth.banner.listener.OnBannerListener;
 
-import java.security.Permission;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -92,17 +75,17 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import rx.functions.Action1;
 import yc.com.base.BaseActivity;
 import yc.com.base.BaseFragment;
 import yc.com.base.EmptyUtils;
 import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.SPUtils;
+import yc.com.permission_manager.PermissionGroup;
+import yc.com.permission_manager.PermissionManager;
+import yc.com.permission_manager.PermissionUIListener;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
-
-import static com.yc.english.main.model.domain.Constant.INDEX_DIALOG_INFO;
 
 
 /**
@@ -211,12 +194,20 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     @Override
     public void init() {
 
-        boolean isFirstOpen = SPUtils.getInstance().getBoolean(SpConstant.FIRST_OPEN, true);
-        if (isFirstOpen) {
-            IndexNoticeFragment indexNoticeFragment = new IndexNoticeFragment();
-            indexNoticeFragment.show(getChildFragmentManager(), "");
-            SPUtils.getInstance().put(SpConstant.FIRST_OPEN, false);
+
+        if (!SPUtils.getInstance().getBoolean(SpConstant.INDEX_DIALOG)) {
+            IndexDialogFragment indexDialogFragment = new IndexDialogFragment();
+            indexDialogFragment.show(getChildFragmentManager(), "");
+            indexDialogFragment.setOnShowListener(() -> {
+                boolean isFirstOpen = SPUtils.getInstance().getBoolean(SpConstant.FIRST_OPEN, true);
+                if (isFirstOpen) {
+                    IndexNoticeFragment indexNoticeFragment = new IndexNoticeFragment();
+                    indexNoticeFragment.show(getChildFragmentManager(), "");
+                    SPUtils.getInstance().put(SpConstant.FIRST_OPEN, false);
+                }
+            });
         }
+
 
         PermissionManager.getInstance().addPermissions(getActivity(), this,
                 new String[]{Manifest.permission.READ_PHONE_STATE}, PermissionGroup.getPermissionGroup(PermissionGroup.GroupType.STORAGE_GROUP),

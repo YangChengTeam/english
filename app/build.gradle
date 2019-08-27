@@ -12,8 +12,8 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
 
-        versionCode 86 //56
-        versionName "2.4.0"//1.7.6
+        versionCode 87 //56
+        versionName "2.4.1"//1.7.6
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
@@ -200,4 +200,5 @@ dependencies {
         all*.exclude group: 'com.github.promeg', module: 'tinypinyin'
     }
     implementation project(':exoplayerview')
+    compile 'com.wl:permission-manager:1.0'
 }

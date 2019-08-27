@@ -10,13 +10,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.yc.english.R;
 
-import com.yc.english.base.utils.PermissionManager;
 import com.yc.english.base.view.AlertDialog;
 
 import com.yc.english.intelligent.view.activitys.IntelligentTypeStartBgActivity;
@@ -33,6 +31,7 @@ import butterknife.BindView;
 import yc.com.base.BaseActivity;
 import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.SPUtils;
+import yc.com.permission_manager.PermissionManager;
 
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
@@ -231,13 +230,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         final Window window = getWindow();
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(from, to);
         valueAnimator.setDuration(500);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                WindowManager.LayoutParams params = window.getAttributes();
-                params.alpha = (Float) animation.getAnimatedValue();
-                window.setAttributes(params);
-            }
+        valueAnimator.addUpdateListener(animation -> {
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.alpha = (Float) animation.getAnimatedValue();
+            window.setAttributes(params);
         });
 
         valueAnimator.start();
