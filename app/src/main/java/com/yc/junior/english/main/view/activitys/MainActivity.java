@@ -10,12 +10,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.utils.PermissionManager;
 import com.yc.junior.english.base.view.AlertDialog;
 import com.yc.junior.english.intelligent.view.activitys.IntelligentTypeStartBgActivity;
 import com.yc.junior.english.intelligent.view.fragments.IntelligentTypeFragment;
@@ -31,6 +29,9 @@ import butterknife.BindView;
 import yc.com.base.BaseActivity;
 import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.SPUtils;
+import yc.com.permission_manager.PermissionManager;
+
+
 
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
@@ -71,15 +72,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
 
         mPresenter = new MainPresenter(this, this);
-        mTabBar.setOnTabSelectedListener(new TabBar.OnTabSelectedListener() {
-            @Override
-            public void onSelected(int idx) {
-                if (idx == 1 && SPUtils.getInstance().getString(BGKEY, "").isEmpty()) {
-                    startActivity(new Intent(MainActivity.this, IntelligentTypeStartBgActivity.class));
-                    return;
-                }
-                mViewPager.setCurrentItem(idx, false);
+        mTabBar.setOnTabSelectedListener(idx -> {
+            if (idx == 1 && SPUtils.getInstance().getString(BGKEY, "").isEmpty()) {
+                startActivity(new Intent(MainActivity.this, IntelligentTypeStartBgActivity.class));
+                return;
             }
+            mViewPager.setCurrentItem(idx, false);
         });
         mTabBar.tab(mCurrentIndex);
 
@@ -229,13 +227,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         final Window window = getWindow();
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(from, to);
         valueAnimator.setDuration(500);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                WindowManager.LayoutParams params = window.getAttributes();
-                params.alpha = (Float) animation.getAnimatedValue();
-                window.setAttributes(params);
-            }
+        valueAnimator.addUpdateListener(animation -> {
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.alpha = (Float) animation.getAnimatedValue();
+            window.setAttributes(params);
         });
 
         valueAnimator.start();

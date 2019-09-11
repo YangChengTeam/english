@@ -19,8 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/t15dp"
         android:lineSpacingExtra="@dimen/t5dp"
-        android:text="尊敬的用户:\n
-        您好！因近段时间课本点读和单词宝典涉及到版权问题，我们忍痛下架该功能，对此给您带来的不便请您谅解！我们正在积极协商解决该问题，请您耐心等待！同时您也可以尝试我们其他的功能，感谢您的支持与配合！" />
+        android:text="尊敬的用户您好！\n
+       因产品结构升级调整中，目前单词宝典和课本点读功能无法使用，敬请谅解！" />
 
     <TextView
         android:id="@+id/tv_btn"

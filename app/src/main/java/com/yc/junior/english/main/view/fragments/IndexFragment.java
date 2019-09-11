@@ -35,9 +35,6 @@ import com.yc.junior.english.EnglishApp;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.GlideHelper;
 import com.yc.junior.english.base.utils.BrandUtils;
-import com.yc.junior.english.base.utils.PermissionGroup;
-import com.yc.junior.english.base.utils.PermissionManager;
-import com.yc.junior.english.base.utils.PermissionUIListener;
 import com.yc.junior.english.base.view.MyScrollview;
 import com.yc.junior.english.base.view.SharePopupWindow;
 import com.yc.junior.english.base.view.StateView;
@@ -82,11 +79,12 @@ import yc.com.base.BaseFragment;
 import yc.com.base.EmptyUtils;
 import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.SPUtils;
+import yc.com.permission_manager.PermissionGroup;
+import yc.com.permission_manager.PermissionManager;
+import yc.com.permission_manager.PermissionUIListener;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
-
-
 
 
 /**
@@ -196,11 +194,18 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     public void init() {
 
 
-        boolean isFirstOpen = SPUtils.getInstance().getBoolean(SpConstant.FIRST_OPEN, true);
-        if (isFirstOpen) {
-            IndexNoticeFragment indexNoticeFragment = new IndexNoticeFragment();
-            indexNoticeFragment.show(getChildFragmentManager(), "");
-            SPUtils.getInstance().put(SpConstant.FIRST_OPEN, false);
+        if (!SPUtils.getInstance().getBoolean(SpConstant.INDEX_DIALOG)) {
+            IndexDialogFragment indexDialogFragment = new IndexDialogFragment();
+            indexDialogFragment.show(getChildFragmentManager(), "");
+            indexDialogFragment.setOnShowListener(() -> {
+                boolean isFirstOpen = SPUtils.getInstance().getBoolean(SpConstant.FIRST_OPEN, true);
+                if (isFirstOpen) {
+                    IndexNoticeFragment indexNoticeFragment = new IndexNoticeFragment();
+                    indexNoticeFragment.show(getChildFragmentManager(), "");
+                    SPUtils.getInstance().put(SpConstant.FIRST_OPEN, false);
+                }
+            });
+
         }
 
 
