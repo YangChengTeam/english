@@ -2,8 +2,7 @@
 
     <!-- Base application theme. -->
     <!--Theme.AppCompat.Light.NoActionBar-->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
 
     <style name="TaskToolBarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="actionMenuTextColor">@color/primary</item>
@@ -66,6 +65,11 @@
     <style name="composition_tab_style">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.Notification">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?android:attr/textAppearance</item>
     </style>
 
 
