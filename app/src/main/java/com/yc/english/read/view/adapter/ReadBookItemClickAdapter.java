@@ -71,19 +71,11 @@ public class ReadBookItemClickAdapter extends BaseMultiItemQuickAdapter<BookInfo
 
     private void showJoinGuide(View view) {
         GuidePopupWindow.Builder builder = new GuidePopupWindow.Builder();
-        final GuidePopupWindow guideAddBookPopupWindow = builder.setDelay(0).setTargetView(view).setCorner(5).setGuideCallback(new GuideCallback() {
-            @Override
-            public void onClick(GuidePopupWindow guidePopupWindow) {
+        final GuidePopupWindow guideAddBookPopupWindow = builder.setDelay(0).setTargetView(view).setCorner(5).setGuideCallback(guidePopupWindow -> {
 //                goToActivity(GroupJoinActivity.class);
-            }
         })
                 .build(((Activity) mContext));
-        guideAddBookPopupWindow.addCustomView(R.layout.add_book_guide, R.id.m_btn_OK, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                guideAddBookPopupWindow.dismiss();
-            }
-        });
+        guideAddBookPopupWindow.addCustomView(R.layout.add_book_guide, R.id.m_btn_OK, v -> guideAddBookPopupWindow.dismiss());
 //        guideAddBookPopupWindow.setDebug(true);
         guideAddBookPopupWindow.show(((Activity) mContext).getWindow().getDecorView(), "add book");
     }

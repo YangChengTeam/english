@@ -149,7 +149,7 @@ public class CompositionDetailActivity extends FullScreenActivity<CompositionDet
     }
 
     private void initWebView(final CompositionDetailInfo data) {
-
+        webView.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent));
         final WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
