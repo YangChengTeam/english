@@ -45,7 +45,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        initSlideBackClose();
+//        initSlideBackClose();
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
 

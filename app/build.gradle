@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.yc.english"
 
@@ -26,6 +26,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -36,6 +37,7 @@ android {
 
     lintOptions {
         checkReleaseBuilds false
+        abortOnError false
     }
 
     packagingOptions {
@@ -107,6 +109,9 @@ android {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
 
+    dexOptions {
+        preDexLibraries = false
+    }
 }
 
 
@@ -134,14 +139,14 @@ kapt {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    //    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    //        exclude group: 'com.android.support', module: 'support-annotations'
+    //    })
     testCompile 'junit:junit:4.12'
     //    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-annotations:28.0.0'
     compile 'com.android.support:support-v4:28.0.0'
-    //    implementation 'com.android.support:appcompat-v7:26.1.0'
+//    implementation 'com.android.support:appcompat-v7:28.0.0'
     compile 'com.android.support:cardview-v7:28.0.0'
     //        exclude group: 'com.android.support:cardview-v7'
     //    }
@@ -154,8 +159,8 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:+'
     compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:+'
     compile 'com.jakewharton.rxbinding:rxbinding-design:+'
-    compile project(':banner')
-//    compile 'com.google.code.gson:gson:2.8.1'
+//    compile project(':banner')
+    //    compile 'com.google.code.gson:gson:2.8.1'
     //    compile 'com.github.hackware1993:MagicIndicator:1.5.0'
     compile files('libs/Msc.jar')
     compile files('libs/Sunflower.jar')
@@ -171,13 +176,12 @@ dependencies {
     compile 'com.wang.avi:library:2.1.3'
     compile project(':guide')
     compile 'com.mikhaellopez:circularprogressbar:1.1.1'
-//    compile 'org.greenrobot:eventbus:3.0.0'
+    //    compile 'org.greenrobot:eventbus:3.0.0'
     compile files('libs/juniversalchardet-1.0.3.jar')
     compile 'com.liulishuo.filedownloader:library:1.7.5'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     // 添加下面的内容
-    compile (name: 'alipaySdk-15.6.5-20190718211159-noUtdid', ext: 'aar')
+    compile(name: 'alipaySdk-15.6.5-20190718211159-noUtdid', ext: 'aar')
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     compile files('libs/glide-full-4.3.1.jar')
     compile 'com.android.support:recyclerview-v7:28.0.0'
@@ -203,4 +207,5 @@ dependencies {
     }
     implementation project(':exoplayerview')
     compile 'com.wl:permission-manager:1.0'
+    compile 'com.youth.banner:banner:1.4.10'
 }
