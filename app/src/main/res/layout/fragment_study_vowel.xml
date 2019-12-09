@@ -7,15 +7,15 @@
     android:orientation="vertical">
 
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="370dp"
         android:background="@mipmap/study_vowel_bg"
         android:fillViewport="true"
-        android:paddingBottom="@dimen/t10dp"
         android:paddingLeft="@dimen/t10dp"
+        android:paddingTop="@dimen/t15dp"
         android:paddingRight="@dimen/t10dp"
-        android:paddingTop="@dimen/t15dp">
+        android:paddingBottom="@dimen/t10dp">
 
         <LinearLayout
             android:id="@+id/ll_container"
@@ -23,13 +23,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/vowel_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <ImageView
         android:id="@+id/iv_vowel_close"

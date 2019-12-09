@@ -1,7 +1,8 @@
 package com.yc.junior.english.intelligent.view.adpaters
 
-import android.support.v4.content.ContextCompat
+
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yc.junior.english.R

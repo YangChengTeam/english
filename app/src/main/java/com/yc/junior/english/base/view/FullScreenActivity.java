@@ -2,12 +2,12 @@ package com.yc.junior.english.base.view;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.yc.junior.english.R;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import yc.com.base.BaseActivity;
 import yc.com.base.BasePresenter;

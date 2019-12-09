@@ -1,7 +1,6 @@
 package com.yc.junior.english.read.view.fragment;
 
 import android.content.DialogInterface;
-import android.support.v7.widget.AppCompatSeekBar;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
@@ -12,6 +11,7 @@ import com.yc.soundmark.base.constant.SpConstant;
 
 import java.math.BigDecimal;
 
+import androidx.appcompat.widget.AppCompatSeekBar;
 import butterknife.BindView;
 import yc.com.base.BaseDialogFragment;
 import yc.com.blankj.utilcode.util.SPUtils;

@@ -15,7 +15,6 @@
  */
 package com.jarvanmo.exoplayerview.media;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Surface;
 
@@ -38,6 +37,8 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.video.VideoRendererEventListener;
 
 import java.io.IOException;
+
+import androidx.annotation.Nullable;
 
 /**
  * Logs player events using {@link Log}.

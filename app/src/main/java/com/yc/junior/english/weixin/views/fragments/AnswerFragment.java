@@ -1,8 +1,6 @@
 package com.yc.junior.english.weixin.views.fragments;
 
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -17,6 +15,9 @@ import com.yc.junior.english.weixin.views.adapters.CourseAdapter;
 
 import java.util.List;
 
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import yc.com.base.BaseFragment;
 
@@ -46,6 +47,7 @@ public class AnswerFragment extends BaseFragment<CoursePresenter> implements Cou
             mToolbar.setTitle(intent.getStringExtra("title") + "");
             type = intent.getStringExtra("type") + "";
         }*/
+
 
         mCourseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mCourseAdapter = new CourseAdapter(null);

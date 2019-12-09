@@ -2,7 +2,6 @@ package com.yc.junior.english.speak.view.adapter;
 
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.CardView;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -17,6 +16,8 @@ import com.yc.junior.english.group.utils.BitmapUtils;
 import com.yc.junior.english.speak.model.bean.SpeakAndReadItemInfo;
 
 import java.util.List;
+
+import androidx.cardview.widget.CardView;
 
 
 /**

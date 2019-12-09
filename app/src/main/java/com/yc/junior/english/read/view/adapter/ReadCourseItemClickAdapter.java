@@ -1,7 +1,6 @@
 package com.yc.junior.english.read.view.adapter;
 
 import android.app.Activity;
-import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
 import com.app.hubert.guide.NewbieGuide;
@@ -15,6 +14,7 @@ import com.yc.junior.english.read.model.domain.EnglishCourseInfo;
 
 import java.util.List;
 
+import androidx.core.content.ContextCompat;
 import yc.com.blankj.utilcode.util.StringUtils;
 
 

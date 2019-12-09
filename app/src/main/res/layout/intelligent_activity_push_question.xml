@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:eng="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:eng="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/mToolbarWarpper"
@@ -24,7 +24,7 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/base_tran_ripple_bg"
                 android:scaleType="center"
-                android:src="@mipmap/intelligent_push_back"/>
+                android:src="@mipmap/intelligent_push_back" />
 
             <TextView
                 android:id="@+id/mTitleTextView"
@@ -33,8 +33,7 @@
                 android:layout_centerInParent="true"
                 android:text="个性化学习计划"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_large"
-                />
+                android:textSize="@dimen/font_large" />
 
             <ImageView
                 android:id="@+id/mShareBtn"
@@ -54,8 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"></com.yc.junior.english.base.view.StateView>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

@@ -1,7 +1,6 @@
 package com.yc.junior.english.base.view;
 
 import android.app.Activity;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,6 +16,7 @@ import com.yc.junior.english.main.model.domain.Constant;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.blankj.utilcode.util.SPUtils;

@@ -1,7 +1,6 @@
 package com.yc.junior.english.base.view;
 
 import android.content.Context;
-import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +12,7 @@ import com.yc.junior.english.R;
 
 import javax.annotation.Nullable;
 
+import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import yc.com.base.BaseActivity;
 import yc.com.base.BaseView;

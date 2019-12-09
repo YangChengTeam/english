@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -47,6 +46,7 @@ import com.yc.junior.english.weixin.model.domain.CourseInfo;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.NetworkUtils;

@@ -3,9 +3,6 @@ package com.yc.soundmark.study.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 
 import com.yc.junior.english.R;
 import com.yc.soundmark.study.model.domain.PhraseInfo;
@@ -14,6 +11,10 @@ import com.yc.soundmark.study.model.domain.WordInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 /**
  * Created by wanglin  on 2018/10/26 14:02.

@@ -100,8 +100,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/white"
                 android:focusable="true"
                 android:focusableInTouchMode="true" />
@@ -205,7 +205,7 @@
                     android:layout_height="@dimen/group_distance_05"
                     android:background="@color/group_gary_ddd" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -18,11 +18,13 @@ package com.yc.junior.english.composition.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.design.R;
-import android.support.design.widget.TabLayout;
-import android.support.v7.widget.TintTypedArray;
+
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.yc.junior.english.R;
+
+import androidx.appcompat.widget.TintTypedArray;
 
 /**
  * TabItem is a special 'view' which allows you to declare tab items for a {@link TabLayout}
@@ -49,7 +51,7 @@ public final class TabItem extends View {
         super(context, attrs);
 
         final TintTypedArray a = TintTypedArray.obtainStyledAttributes(context, attrs,
-                R.styleable.TabItem);
+                com.google.android.material.R.styleable.TabItem);
         mText = a.getText(R.styleable.TabItem_android_text);
         mIcon = a.getDrawable(R.styleable.TabItem_android_icon);
         mCustomLayout = a.getResourceId(R.styleable.TabItem_android_layout, 0);

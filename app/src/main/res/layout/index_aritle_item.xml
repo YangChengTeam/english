@@ -11,7 +11,7 @@
         android:background="@drawable/base_tran_ripple_bg"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="90dp"
             android:layout_height="60dp"
             android:layout_marginLeft="10dp"
@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:scaleType="centerCrop" />
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"

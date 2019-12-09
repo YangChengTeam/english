@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,8 @@ import com.kk.utils.LogUtil;
 import com.kk.utils.ScreenUtil;
 import com.umeng.analytics.MobclickAgent;
 
-
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import butterknife.ButterKnife;
 import yc.com.blankj.utilcode.util.ScreenUtils;
 import yc.com.blankj.utilcode.util.SizeUtils;

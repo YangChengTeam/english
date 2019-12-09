@@ -1,7 +1,6 @@
 package com.yc.junior.english.main.view.activitys;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -19,6 +18,7 @@ import com.yc.junior.english.main.presenter.SplashPresenter;
 
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.UIUitls;

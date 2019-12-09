@@ -2,19 +2,18 @@ package com.yc.junior.english.speak.utils;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
-import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.yc.junior.english.R;
 import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.speak.view.activity.ListenEnglishActivity;
+
+import androidx.core.app.NotificationCompat;
 
 
 /**

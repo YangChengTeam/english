@@ -4,9 +4,6 @@ package com.yc.junior.english.main.view.fragments;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +16,16 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.ScreenUtil;
 import com.kk.utils.ToastUtil;
-
 import com.yc.junior.english.R;
 import com.yc.soundmark.base.constant.SpConstant;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import yc.com.blankj.utilcode.util.SPUtils;
 
 
@@ -37,7 +38,7 @@ public class IndexDialogFragment extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         Window window = getDialog().getWindow();
 

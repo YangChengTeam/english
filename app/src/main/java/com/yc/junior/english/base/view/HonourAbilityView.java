@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -15,6 +14,7 @@ import com.yc.junior.english.R;
 
 import java.math.BigDecimal;
 
+import androidx.annotation.Nullable;
 import yc.com.blankj.utilcode.util.SizeUtils;
 
 public class HonourAbilityView extends View {

@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.RectF;
 import android.os.Build;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,6 +20,7 @@ import com.app.hubert.guide.listener.OnGuideChangedListener;
 import com.app.hubert.guide.model.GuidePage;
 import com.app.hubert.guide.model.HighLight;
 import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayout;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jarvanmo.exoplayerview.media.SimpleMediaSource;
 import com.jarvanmo.exoplayerview.ui.ExoVideoView;
@@ -49,6 +47,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.base.BaseFragment;
@@ -418,7 +418,7 @@ public class StudyMainFragment extends BaseFragment<StudyPresenter> implements S
 //
 
         exoVideoView.setPortrait(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
-        Glide.with(this).load(studyInfo.getVideo_cover()).thumbnail(0.1f).into(exoVideoView.artworkView);
+        Glide.with(getActivity()).load(studyInfo.getVideo_cover()).thumbnail(0.1f).into(exoVideoView.artworkView);
         SimpleMediaSource mediaSource = new SimpleMediaSource(studyInfo.getVoice_video());//uri also supported
 
         exoVideoView.play(mediaSource, false);//play from a particular position

@@ -6,7 +6,6 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -20,6 +19,7 @@ import com.yc.junior.english.speak.utils.EnglishLyricBean;
 import java.io.File;
 import java.io.IOException;
 
+import androidx.annotation.Nullable;
 import yc.com.blankj.utilcode.util.FileUtils;
 import yc.com.blankj.utilcode.util.LogUtils;
 import yc.com.blankj.utilcode.util.SDCardUtils;

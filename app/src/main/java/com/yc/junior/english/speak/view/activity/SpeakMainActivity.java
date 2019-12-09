@@ -1,15 +1,14 @@
 package com.yc.junior.english.speak.view.activity;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-
+import com.google.android.material.tabs.TabLayout;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.speak.view.fragment.SpeakFragment;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 
 /**

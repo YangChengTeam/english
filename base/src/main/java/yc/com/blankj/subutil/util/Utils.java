@@ -2,7 +2,8 @@ package yc.com.blankj.subutil.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 /**
  * <pre>

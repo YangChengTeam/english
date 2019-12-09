@@ -5,13 +5,14 @@
       <GradleProjectSettings>
         <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-4.10.1-all" />
+        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-5.4.1-all" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/banner" />
             <option value="$PROJECT_DIR$/base" />
+            <option value="$PROJECT_DIR$/common-library" />
             <option value="$PROJECT_DIR$/exoplayerview" />
             <option value="$PROJECT_DIR$/guide" />
             <option value="$PROJECT_DIR$/rxbus" />
@@ -19,6 +20,7 @@
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>

@@ -2,9 +2,6 @@ package com.yc.junior.english.weixin.views.utils;
 
 import android.app.Activity;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -22,6 +19,10 @@ import com.yc.junior.english.weixin.views.fragments.CourseMoreFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 /**
  * Created by zhangkai on 2017/9/6.

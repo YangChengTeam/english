@@ -1,11 +1,11 @@
 package com.jarvanmo.exoplayerview.ads;
 
-import android.support.annotation.Nullable;
-
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.source.ads.AdsLoader;
 
 import java.io.IOException;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by mo on 17-11-30.

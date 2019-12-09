@@ -1,18 +1,18 @@
 package com.yc.soundmark.study.widget;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 
 import com.kk.utils.LogUtil;
+
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by wanglin  on 2018/10/26 14:38.
  */
-public class StudyViewPager extends ViewPager  {
+public class StudyViewPager extends ViewPager {
 
 
     private static final String TAG = "StudyViewPager";

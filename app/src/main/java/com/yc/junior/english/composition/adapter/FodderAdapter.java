@@ -1,8 +1,5 @@
 package com.yc.junior.english.composition.adapter;
 
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -14,6 +11,10 @@ import com.yc.junior.english.composition.model.bean.FodderInfo;
 import com.yc.soundmark.category.utils.ItemDecorationHelper;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by wanglin  on 2019/3/25 09:56.

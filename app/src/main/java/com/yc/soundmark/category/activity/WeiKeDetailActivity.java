@@ -4,8 +4,6 @@ import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.hardware.SensorManager;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -25,7 +23,6 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.jarvanmo.exoplayerview.media.SimpleMediaSource;
 import com.jarvanmo.exoplayerview.ui.ExoVideoView;
 import com.kk.securityhttp.net.contains.HttpConfig;
-
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.main.hepler.UserInfoHelper;
@@ -38,6 +35,8 @@ import com.yc.soundmark.category.presenter.WeiKeDetailPresenter;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;

@@ -1,8 +1,6 @@
 package com.yc.soundmark.study.activity;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -31,9 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import yc.com.base.BaseActivity;
-
 
 
 /**

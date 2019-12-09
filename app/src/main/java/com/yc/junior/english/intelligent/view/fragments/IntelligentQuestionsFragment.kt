@@ -1,9 +1,10 @@
 package com.yc.junior.english.intelligent.view.fragments
 
-import android.support.v4.view.ViewPager
+
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
+import androidx.viewpager.widget.ViewPager
 import com.jakewharton.rxbinding.view.RxView
 import com.yc.junior.english.R
 import com.yc.junior.english.intelligent.model.domain.QuestionInfoWrapper

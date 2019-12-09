@@ -1,12 +1,11 @@
 package com.yc.junior.english.group.activitys;
 
-import android.support.v4.view.ViewPager;
-
 import com.yc.junior.english.R;
 import com.yc.junior.english.group.adapter.GroupPicTaskDetailAdapter;
 
 import java.util.List;
 
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import yc.com.base.BaseActivity;
 

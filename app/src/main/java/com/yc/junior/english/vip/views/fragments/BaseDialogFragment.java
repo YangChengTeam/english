@@ -4,8 +4,6 @@ package com.yc.junior.english.vip.views.fragments;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +17,8 @@ import com.umeng.analytics.MobclickAgent;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.presenter.BasePresenter;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import butterknife.ButterKnife;
 import yc.com.base.EmptyUtils;
 import yc.com.base.IView;

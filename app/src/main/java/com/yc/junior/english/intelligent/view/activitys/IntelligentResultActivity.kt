@@ -1,7 +1,7 @@
 package com.yc.junior.english.intelligent.view.activitys
 
-import android.support.v7.widget.GridLayoutManager
 import android.view.KeyEvent
+import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference
 import com.hwangjr.rxbus.annotation.Subscribe

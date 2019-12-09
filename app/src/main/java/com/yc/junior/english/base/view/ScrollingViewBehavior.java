@@ -5,12 +5,14 @@ package com.yc.junior.english.base.view;
  */
 
 import android.content.Context;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.google.android.material.appbar.AppBarLayout;
+
 import java.lang.ref.WeakReference;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 public class ScrollingViewBehavior extends CoordinatorLayout.Behavior<View> {
     private AppBarLayout mAppBarLayout = null;

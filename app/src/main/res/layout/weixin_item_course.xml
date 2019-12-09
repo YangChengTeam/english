@@ -14,7 +14,7 @@
         android:layout_height="@dimen/t80dp"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="90dp"
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
@@ -28,7 +28,7 @@
                 android:layout_gravity="center_vertical"
                 android:background="@color/primaryDark"
                 android:scaleType="centerCrop" />
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"

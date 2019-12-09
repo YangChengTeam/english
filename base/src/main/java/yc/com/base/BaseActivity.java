@@ -1,12 +1,9 @@
 package yc.com.base;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SlidingPaneLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -23,6 +20,9 @@ import com.umeng.socialize.UMShareAPI;
 
 import java.lang.reflect.Field;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 import butterknife.ButterKnife;
 import yc.com.blankj.utilcode.util.ScreenUtils;
 
@@ -45,7 +45,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        initSlideBackClose();
+//        initSlideBackClose();
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
 
@@ -55,21 +55,26 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         } catch (Exception e) {
             LogUtil.msg("-->: 初始化失败 " + e.getMessage());
         }
-        statusHeight = StatusBarUtil.getStatusBarHeight(this);
+        try {
+            statusHeight = StatusBarUtil.getStatusBarHeight(this);
 //        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-        ScreenUtils.setPortrait(this);
+            ScreenUtils.setPortrait(this);
 //        }
 
-        baseLoadingView = new BaseLoadingView(this);
-        mHandler = new Handler();
-        //顶部透明
+            baseLoadingView = new BaseLoadingView(this);
+            mHandler = new Handler();
+            //顶部透明
 
 //        overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
 
 
-        if (isStatusBarMateria())
-            setStatusBarMateria();
-        init();
+            if (isStatusBarMateria())
+                setStatusBarMateria();
+            init();
+        } catch (Exception e) {
+            Log.e("TAG", "onCreate: " + e.getMessage());
+        }
+
 
     }
 

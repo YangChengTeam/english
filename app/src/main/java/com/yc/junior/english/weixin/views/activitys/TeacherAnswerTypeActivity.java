@@ -1,8 +1,6 @@
 package com.yc.junior.english.weixin.views.activitys;
 
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.shizhefei.view.indicator.FixedIndicatorView;
@@ -14,6 +12,8 @@ import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.weixin.views.utils.TabsUtils;
 
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 
 /**

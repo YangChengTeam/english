@@ -1,7 +1,5 @@
 package com.yc.junior.english.composition.activity;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,7 +11,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.ScreenUtil;
-
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.composition.adapter.EssayItemAdapter;
@@ -27,6 +24,8 @@ import com.yc.soundmark.category.utils.ItemDecorationHelper;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;

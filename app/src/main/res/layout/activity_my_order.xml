@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.yc.junior.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
-    </com.yc.junior.english.base.view.MainToolBar>
+        android:layout_alignParentTop="true"></com.yc.junior.english.base.view.MainToolBar>
 
     <com.yc.junior.english.base.view.StateView
         android:id="@+id/sv_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryDark">
-    </com.yc.junior.english.base.view.StateView>
+        android:background="@color/primaryDark"></com.yc.junior.english.base.view.StateView>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/pull_to_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_order_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/primaryDark"></android.support.v7.widget.RecyclerView>
+            android:background="@color/primaryDark"></androidx.recyclerview.widget.RecyclerView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

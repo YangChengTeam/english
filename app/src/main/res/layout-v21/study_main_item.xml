@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -73,7 +73,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/t10dp">
 
-                        <android.support.v7.widget.CardView
+                        <androidx.cardview.widget.CardView
                             android:layout_width="114dp"
                             android:layout_height="match_parent"
                             android:layout_margin="@dimen/t3dp"
@@ -160,9 +160,9 @@
                                 </LinearLayout>
                             </LinearLayout>
 
-                        </android.support.v7.widget.CardView>
+                        </androidx.cardview.widget.CardView>
 
-                        <android.support.v7.widget.CardView
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="@dimen/t3dp"
@@ -183,7 +183,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true" />
                             </RelativeLayout>
-                        </android.support.v7.widget.CardView>
+                        </androidx.cardview.widget.CardView>
 
 
                     </LinearLayout>
@@ -466,7 +466,7 @@
                     </LinearLayout>
 
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/t3dp"
@@ -520,7 +520,7 @@
                             </RelativeLayout>
 
                         </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
             </LinearLayout>
@@ -571,7 +571,7 @@
                             android:textSize="@dimen/t12sp" />
                     </LinearLayout>
 
-                    <android.support.design.widget.TabLayout
+                    <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -588,7 +588,7 @@
                         android:layout_marginLeft="@dimen/t3dp"
                         android:background="@color/gray_f4efee" />
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/t3dp"
@@ -606,12 +606,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 </LinearLayout>

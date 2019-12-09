@@ -5,7 +5,7 @@
              android:layout_height="wrap_content"
              android:background="@mipmap/toolbar_bg2">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_sub"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -23,5 +23,5 @@
             android:textColor="@color/white"
             android:textSize="@dimen/font_large"/>
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 </FrameLayout>

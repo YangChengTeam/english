@@ -7,10 +7,10 @@ import android.database.Cursor;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
 
 import com.yc.junior.english.R;
 
+import androidx.core.content.ContextCompat;
 import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**

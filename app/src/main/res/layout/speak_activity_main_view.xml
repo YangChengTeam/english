@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/m_tabLayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/group_distance_40"
@@ -27,11 +27,11 @@
             app:tabTextAppearance="@style/tabLayout_style"
             app:tabTextColor="@color/black_333">
 
-        </android.support.design.widget.TabLayout>
+        </com.google.android.material.tabs.TabLayout>
 
         <include layout="@layout/group_common_divider" />
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

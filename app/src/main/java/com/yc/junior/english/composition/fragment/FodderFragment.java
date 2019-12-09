@@ -1,8 +1,5 @@
 package com.yc.junior.english.composition.fragment;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-
 import com.yc.junior.english.R;
 import com.yc.junior.english.composition.adapter.FodderAdapter;
 import com.yc.junior.english.composition.contract.FodderContract;
@@ -11,6 +8,8 @@ import com.yc.junior.english.composition.presenter.FodderPresenter;
 
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import yc.com.base.BaseFragment;
 

@@ -1,7 +1,6 @@
 package com.yc.junior.english.speak.view.adapter;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -12,6 +11,7 @@ import com.yc.junior.english.speak.model.bean.QuestionInfoBean;
 
 import java.util.List;
 
+import androidx.core.content.ContextCompat;
 import yc.com.blankj.utilcode.util.StringUtils;
 
 public class QuestionItemAdapter extends BaseMultiItemQuickAdapter<QuestionInfoBean, BaseViewHolder> {

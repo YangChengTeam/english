@@ -9,12 +9,12 @@
         android:layout_height="match_parent"
         android:background="@drawable/index_privacy_bg"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/t30dp"
-        android:paddingEnd="@dimen/t5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="@dimen/t5dp"
         android:paddingStart="5dp"
-        android:paddingTop="@dimen/t15dp">
+        android:paddingLeft="5dp"
+        android:paddingTop="@dimen/t15dp"
+        android:paddingEnd="@dimen/t5dp"
+        android:paddingRight="@dimen/t5dp"
+        android:paddingBottom="@dimen/t30dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:textColor="@color/black"
             android:textSize="16sp" />
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -36,7 +36,7 @@
                 android:text="@string/privacy_statement" />
 
 
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
 
@@ -62,10 +62,10 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@color/primary"
-            android:paddingBottom="10dp"
             android:paddingLeft="15dp"
-            android:paddingRight="15dp"
             android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp"
             android:text="进入应用"
             android:textColor="@color/white" />
 

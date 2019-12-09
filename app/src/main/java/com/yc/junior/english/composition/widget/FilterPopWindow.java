@@ -1,22 +1,22 @@
 package com.yc.junior.english.composition.widget;
 
 import android.app.Activity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.fastjson.TypeReference;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.yc.junior.english.R;
 import com.yc.junior.english.composition.adapter.FilterItemAdapter;
 import com.yc.junior.english.composition.model.bean.VersionDetailInfo;
 import com.yc.junior.english.composition.model.bean.VersionInfo;
-import com.yc.junior.english.R;
 import com.yc.soundmark.base.constant.SpConstant;
 import com.yc.soundmark.category.utils.ItemDecorationHelper;
 
 import java.util.List;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import yc.com.base.BasePopwindow;
 import yc.com.base.CommonInfoHelper;

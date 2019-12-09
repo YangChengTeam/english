@@ -1,9 +1,10 @@
 package com.yc.junior.english.vip.utils;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 
 import com.yc.junior.english.vip.views.fragments.PayNewFragment;
+
+import androidx.fragment.app.FragmentManager;
 
 
 /**

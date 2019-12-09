@@ -2,12 +2,11 @@ package com.yc.junior.english.read.view.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.android.material.tabs.TabLayout;
 import com.hwangjr.rxbus.RxBus;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.helper.TipsHelper;
@@ -25,6 +24,10 @@ import com.yc.junior.english.read.view.adapter.GradeItemClickAdapter;
 
 import java.util.List;
 
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 
 
@@ -69,6 +72,7 @@ public class AddBookActivity extends FullScreenActivity<AddBookPresenter> implem
 
     @Override
     public void init() {
+
 
 
         Bundle bundle = getIntent().getExtras();

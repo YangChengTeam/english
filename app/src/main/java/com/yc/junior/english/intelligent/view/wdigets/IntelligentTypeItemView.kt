@@ -1,10 +1,11 @@
 package com.yc.junior.english.intelligent.view.wdigets
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
+
 import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.yc.junior.english.R
 import yc.com.base.BaseView
 

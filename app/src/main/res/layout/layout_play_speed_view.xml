@@ -13,7 +13,7 @@
         android:text="请设置播放速度"
         android:textColor="@color/white" />
 
-    <android.support.v7.widget.AppCompatSeekBar
+    <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/speak_seekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

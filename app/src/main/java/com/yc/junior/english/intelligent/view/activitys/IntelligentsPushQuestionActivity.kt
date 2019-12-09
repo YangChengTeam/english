@@ -1,7 +1,8 @@
 package com.yc.junior.english.intelligent.view.activitys
 
 import android.content.Intent
-import android.support.v7.widget.GridLayoutManager
+
+import androidx.recyclerview.widget.GridLayoutManager
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread

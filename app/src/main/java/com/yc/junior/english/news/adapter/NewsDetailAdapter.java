@@ -2,7 +2,6 @@ package com.yc.junior.english.news.adapter;
 
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -17,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.appcompat.app.AppCompatActivity;
 import yc.com.blankj.utilcode.util.TimeUtils;
 
 /**

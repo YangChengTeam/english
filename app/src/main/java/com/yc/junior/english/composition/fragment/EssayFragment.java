@@ -1,12 +1,9 @@
 package com.yc.junior.english.composition.fragment;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
+import com.yc.junior.english.R;
 import com.yc.junior.english.composition.activity.CompositionDetailActivity;
 import com.yc.junior.english.composition.activity.CompositionMoreActivity;
 import com.yc.junior.english.composition.adapter.EssayItemAdapter;
@@ -14,12 +11,13 @@ import com.yc.junior.english.composition.contract.EssayContract;
 import com.yc.junior.english.composition.model.bean.CompositionInfo;
 import com.yc.junior.english.composition.model.bean.CompositionInfoWrapper;
 import com.yc.junior.english.composition.presenter.EssayPresenter;
-import com.yc.junior.english.R;
 import com.yc.soundmark.category.utils.ItemDecorationHelper;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.base.BaseFragment;

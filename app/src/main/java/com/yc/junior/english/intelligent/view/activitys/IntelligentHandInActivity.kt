@@ -2,8 +2,8 @@ package com.yc.junior.english.intelligent.view.activitys
 
 import android.content.Intent
 import android.os.Parcelable
-import android.support.v7.widget.GridLayoutManager
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.fastjson.JSON
 import com.hwangjr.rxbus.RxBus
 import com.jakewharton.rxbinding.view.RxView

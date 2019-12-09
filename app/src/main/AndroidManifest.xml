@@ -36,6 +36,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="n">
 
         <activity
@@ -169,17 +170,17 @@
 
 
         <!--<activity-->
-            <!--android:name="com.alipay.sdk.app.H5PayActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden|navigation|screenSize"-->
-            <!--android:exported="false"-->
-            <!--android:screenOrientation="behind"-->
-            <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
+        <!--android:name="com.alipay.sdk.app.H5PayActivity"-->
+        <!--android:configChanges="orientation|keyboardHidden|navigation|screenSize"-->
+        <!--android:exported="false"-->
+        <!--android:screenOrientation="behind"-->
+        <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
         <!--<activity-->
-            <!--android:name="com.alipay.sdk.app.H5AuthActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden|navigation"-->
-            <!--android:exported="false"-->
-            <!--android:screenOrientation="behind"-->
-            <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
+        <!--android:name="com.alipay.sdk.app.H5AuthActivity"-->
+        <!--android:configChanges="orientation|keyboardHidden|navigation"-->
+        <!--android:exported="false"-->
+        <!--android:screenOrientation="behind"-->
+        <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
 
 
         <activity android:name=".intelligent.view.activitys.IntelligentQuestionsActivity" />
@@ -263,13 +264,14 @@
             android:name=".composition.activity.CompositionDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
-        <activity android:name=".setting.view.activitys.PrivacyActivity"
+        <activity
+            android:name=".setting.view.activitys.PrivacyActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <!-- targetSDKVersion >= 24时才需要添加这个 provider。provider 的 authorities 属性的值为 ${applicationId}.fileprovider，请开发者根据自己的 ${applicationId} 来设置这个值 -->
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="com.yc.junior.english.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">

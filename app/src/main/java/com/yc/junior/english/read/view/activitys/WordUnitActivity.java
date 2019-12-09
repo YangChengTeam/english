@@ -2,8 +2,6 @@ package com.yc.junior.english.read.view.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,20 +11,20 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.junior.english.R;
-import com.yc.junior.english.base.helper.GlideHelper;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.base.view.SharePopupWindow;
 import com.yc.junior.english.base.view.StateView;
 import com.yc.junior.english.read.common.ReadApp;
 import com.yc.junior.english.read.contract.WordUnitContract;
 import com.yc.junior.english.read.model.domain.BookInfo;
-import com.yc.junior.english.read.model.domain.WordUnitInfo;
 import com.yc.junior.english.read.model.domain.WordUnitInfoList;
 import com.yc.junior.english.read.presenter.WordUnitPresenter;
 import com.yc.junior.english.read.view.adapter.ReadWordUnitItemClickAdapter;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import rx.functions.Action1;
 

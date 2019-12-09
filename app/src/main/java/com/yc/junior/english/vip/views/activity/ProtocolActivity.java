@@ -1,10 +1,10 @@
 package com.yc.junior.english.vip.views.activity;
 
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.yc.junior.english.R;
 
+import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import yc.com.base.BaseActivity;
 

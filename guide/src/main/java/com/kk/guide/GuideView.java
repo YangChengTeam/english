@@ -12,8 +12,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.annotation.Size;
 import android.util.AttributeSet;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -46,7 +44,7 @@ public class GuideView extends View {
         setBgAlpha(0.4f);
     }
 
-    public GuideView(Context context, @Nullable AttributeSet attrs) {
+    public GuideView(Context context,  AttributeSet attrs) {
         super(context, attrs);
     }
 

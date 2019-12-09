@@ -23,10 +23,10 @@
         android:visibility="gone"></com.yc.junior.english.news.view.widget.MediaPlayerView>
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:id="@+id/ll_analysis"

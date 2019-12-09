@@ -5,18 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 
 import com.jarvanmo.exoplayerview.R;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by mo on 17-4-19.
  * Copyright © 2017, cnyanglao, Co,. Ltd. All Rights Reserve
  */
 
-public class BatteryStatusView extends AppCompatImageView {
+public class BatteryStatusView extends ImageView {
 
 
     public BatteryStatusView(Context context) {

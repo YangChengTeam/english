@@ -14,14 +14,14 @@
         android:paddingRight="42dp"
         android:paddingTop="140dp">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/vip_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginRight="@dimen/t8dp"
             android:layout_weight="1" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/timeLimit_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

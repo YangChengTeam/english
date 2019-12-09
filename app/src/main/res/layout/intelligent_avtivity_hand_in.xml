@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <com.yc.junior.english.intelligent.view.wdigets.IntelligentActionbar
             android:id="@+id/mToolbar"
@@ -18,10 +16,10 @@
             android:layout_height="wrap_content"
             android:background="@color/white"></com.yc.junior.english.intelligent.view.wdigets.IntelligentActionbar>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
     <LinearLayout
@@ -39,6 +37,6 @@
             android:gravity="center"
             android:text="提交练习"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_big"/>
+            android:textSize="@dimen/font_big" />
     </LinearLayout>
 </RelativeLayout>

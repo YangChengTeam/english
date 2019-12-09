@@ -2,7 +2,6 @@ package com.yc.junior.english.main.view.wdigets;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
 import com.alibaba.fastjson.JSON;
@@ -11,6 +10,7 @@ import com.yc.junior.english.R;
 import com.yc.junior.english.main.model.domain.Constant;
 import com.yc.junior.english.main.model.domain.SlideInfo;
 
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.OnClick;
 import yc.com.base.BaseView;

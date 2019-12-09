@@ -1,6 +1,5 @@
 package com.yc.junior.english.vip.adapter;
 
-import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -9,6 +8,8 @@ import com.yc.junior.english.R;
 import com.yc.junior.english.vip.model.bean.VipGoodInfo;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by wanglin  on 2019/3/13 08:32.

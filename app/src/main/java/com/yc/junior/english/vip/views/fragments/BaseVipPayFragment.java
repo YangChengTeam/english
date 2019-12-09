@@ -2,13 +2,14 @@ package com.yc.junior.english.vip.views.fragments;
 
 
 import android.graphics.Paint;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.junior.english.R;
 import com.yc.junior.english.pay.PayConfig;
@@ -23,6 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.base.BaseFragment;
@@ -105,6 +110,7 @@ public class BaseVipPayFragment extends BaseFragment {
         baseItemViewPlan.setVisibility(mType == GoodsType.TYPE_SVIP ? View.VISIBLE : View.GONE);
         baseItemViewTaskTutorship.setVisibility(mType == GoodsType.TYPE_SVIP ? View.VISIBLE : View.GONE);
         GoodInfoWrapper goodInfoWrapper = VipInfoHelper.getGoodInfoWrapper();
+
 
         if (goodInfoWrapper != null)
 //        sVipList = goodInfoWrapper.getSvip();

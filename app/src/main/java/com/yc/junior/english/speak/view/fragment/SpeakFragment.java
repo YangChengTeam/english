@@ -2,8 +2,6 @@ package com.yc.junior.english.speak.view.fragment;
 
 import android.content.Intent;
 import android.graphics.Rect;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -20,6 +18,8 @@ import com.yc.junior.english.speak.view.adapter.SpeakEnglishAdapter;
 
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import yc.com.base.BaseFragment;
 

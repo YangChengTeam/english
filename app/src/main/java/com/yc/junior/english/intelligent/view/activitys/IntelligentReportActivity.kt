@@ -3,13 +3,12 @@ package com.yc.junior.english.intelligent.view.activitys
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Rect
-import android.support.annotation.NonNull
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -96,12 +95,13 @@ class IntelligentReportActivity : BaseActivity<IntelligentReportPresenter>(), In
 
     var star: Int = 0
         set(value) {
-            for (i in 0..(mStarLinearLayout.childCount - 1)) {
+            for (i in 0 until mStarLinearLayout.childCount) {
                 val starImageView = mStarLinearLayout.getChildAt(i) as ImageView
                 if (i < value) {
                     starImageView.setImageDrawable(ContextCompat.getDrawable(this, R.mipmap.intelligents_report_star_hover))
                 }
             }
+            field = value
         }
 
     fun star(n: Int) {

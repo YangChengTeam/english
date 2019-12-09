@@ -1,13 +1,14 @@
 package com.yc.junior.english.intelligent.view.wdigets
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.yc.junior.english.R
 import com.yc.junior.english.intelligent.utils.fromHtml
 import com.yc.junior.english.news.view.widget.MediaPlayerView

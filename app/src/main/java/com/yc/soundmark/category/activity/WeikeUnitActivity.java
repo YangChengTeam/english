@@ -1,18 +1,12 @@
 package com.yc.soundmark.category.activity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.ScreenUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.StateView;
 import com.yc.soundmark.base.widget.MainToolBar;
@@ -24,6 +18,8 @@ import com.yc.soundmark.category.utils.ItemDecorationHelper;
 
 import java.util.List;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import yc.com.base.BaseActivity;
 
 

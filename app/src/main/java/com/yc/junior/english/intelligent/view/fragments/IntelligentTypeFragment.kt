@@ -1,9 +1,10 @@
 package com.yc.junior.english.intelligent.view.fragments
 
 import android.graphics.BitmapFactory
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewPager
+
 import android.view.Gravity
+import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.ViewPager
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread

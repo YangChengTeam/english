@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +14,8 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Timeline;
 import com.jarvanmo.exoplayerview.ui.ExoVideoPlaybackControlView;
 import com.jarvanmo.exoplayerview.util.Permissions;
+
+import androidx.annotation.NonNull;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static com.jarvanmo.exoplayerview.gesture.OnVideoGestureChangeListener.VOLUME_CHANGED_INCREMENT;

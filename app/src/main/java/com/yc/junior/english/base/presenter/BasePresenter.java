@@ -1,12 +1,12 @@
 package com.yc.junior.english.base.presenter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import com.kk.securityhttp.domain.ResultInfo;
 import com.yc.junior.english.base.helper.ResultInfoHelper;
 import com.yc.junior.english.base.helper.TipsHelper;
 
+import androidx.annotation.NonNull;
 import rx.subscriptions.CompositeSubscription;
 import yc.com.base.IPresenter;
 import yc.com.base.IView;

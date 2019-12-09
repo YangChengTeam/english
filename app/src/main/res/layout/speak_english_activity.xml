@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.yc.junior.english.base.view.MainToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
-    </com.yc.junior.english.base.view.MainToolBar>
+        android:layout_alignParentTop="true"></com.yc.junior.english.base.view.MainToolBar>
 
     <com.yc.junior.english.base.view.StateView
         android:id="@+id/sv_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
-    </com.yc.junior.english.base.view.StateView>
+        android:visibility="gone"></com.yc.junior.english.base.view.StateView>
 
     <LinearLayout
         android:id="@+id/speak_list_layout"
@@ -32,21 +30,21 @@
                 android:id="@+id/speak_seek_bar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:layout_gravity="center"
                 android:maxHeight="8dp"
                 android:progressDrawable="@drawable/seek_bar_bg"
-                android:thumb="@drawable/seek_bar_thumb"/>
+                android:thumb="@drawable/seek_bar_thumb" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
-                android:gravity="center"
                 android:layout_marginRight="6dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
@@ -54,28 +52,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1"
-                    android:textColor="@color/black_333"/>
+                    android:textColor="@color/black_333" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/"/>
+                    android:text="/" />
 
                 <TextView
                     android:id="@+id/tv_total_speak_pos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1"
-                    android:textColor="@color/black_333"/>
+                    android:textColor="@color/black_333" />
             </LinearLayout>
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listen_english_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/listen_line_color"
-            android:dividerHeight="1dp"/>
+            android:dividerHeight="1dp" />
     </LinearLayout>
 
 </LinearLayout>

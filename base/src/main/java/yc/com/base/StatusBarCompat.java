@@ -2,11 +2,11 @@ package yc.com.base;
 
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.core.content.ContextCompat;
 import yc.com.blankj.utilcode.util.SizeUtils;
 
 /**

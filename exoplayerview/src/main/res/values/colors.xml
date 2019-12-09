@@ -3,5 +3,5 @@
     <color name="default_playback_background">#3D000000</color>
 
     <!-- 30% white -->
-
+    <color name="colorAccent">#21b5f8</color>
 </resources>

@@ -3,7 +3,6 @@ package com.yc.junior.english.setting.view.widgets;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 import com.yc.junior.english.R;
 
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import yc.com.base.BaseView;
 import yc.com.blankj.utilcode.util.SizeUtils;

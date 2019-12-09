@@ -1,7 +1,8 @@
 package com.yc.junior.english.intelligent.view.fragments
 
 import android.content.Intent
-import android.support.v4.content.ContextCompat
+
+import androidx.core.content.ContextCompat
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.hwangjr.rxbus.thread.EventThread

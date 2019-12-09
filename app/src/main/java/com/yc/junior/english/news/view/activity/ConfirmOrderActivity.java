@@ -1,8 +1,6 @@
 package com.yc.junior.english.news.view.activity;
 
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -41,6 +39,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.functions.Action1;
@@ -144,7 +144,7 @@ public class ConfirmOrderActivity extends FullScreenActivity<OrderPresenter> imp
 
     public View getFootView() {
         View footView = getLayoutInflater().inflate(R.layout.activity_order_foot, (ViewGroup) mOrderRecyclerView.getParent(), false);
-        mRecyclerPayWay = ButterKnife.findById(footView, R.id.recycler_pay_way);
+        mRecyclerPayWay = footView.findViewById(R.id.recycler_pay_way);
         return footView;
     }
 

@@ -1,12 +1,12 @@
 package com.yc.junior.english.topic.view.activity;
 
-import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 
 import com.yc.junior.english.R;
 import com.yc.junior.english.base.view.FullScreenActivity;
 import com.yc.junior.english.base.view.StateView;
 
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
 /**

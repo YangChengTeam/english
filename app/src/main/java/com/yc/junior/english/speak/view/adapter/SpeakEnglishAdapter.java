@@ -1,12 +1,11 @@
 package com.yc.junior.english.speak.view.adapter;
 
 import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.google.android.material.tabs.TabLayout;
 import com.yc.junior.english.R;
 import com.yc.junior.english.speak.model.bean.SpeakAndReadInfo;
 import com.yc.junior.english.speak.model.bean.SpeakAndReadItemInfo;
@@ -17,6 +16,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by wanglin  on 2017/10/12 15:24.

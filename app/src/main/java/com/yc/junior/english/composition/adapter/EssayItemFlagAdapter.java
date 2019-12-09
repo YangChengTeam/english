@@ -1,7 +1,5 @@
 package com.yc.junior.english.composition.adapter;
 
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -10,6 +8,9 @@ import com.yc.junior.english.R;
 import com.yc.junior.english.composition.model.bean.VersionDetailInfo;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 /**
  * Created by wanglin  on 2019/3/23 09:47.

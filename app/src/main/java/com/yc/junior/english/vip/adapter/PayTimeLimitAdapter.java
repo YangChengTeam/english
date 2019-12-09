@@ -1,7 +1,6 @@
 package com.yc.junior.english.vip.adapter;
 
 import android.graphics.Paint;
-import android.support.annotation.Nullable;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.TextView;
@@ -13,6 +12,8 @@ import com.yc.junior.english.setting.model.bean.GoodInfo;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by wanglin  on 2019/4/28 10:59.

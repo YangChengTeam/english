@@ -1,7 +1,6 @@
 package com.yc.junior.english.main.view.activitys;
 
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,6 +14,7 @@ import com.yc.junior.english.main.presenter.RegisterPresenter;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import rx.functions.Action1;
 import yc.com.base.StatusBarCompat;

@@ -1,6 +1,5 @@
 package com.yc.junior.english.composition.adapter;
 
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -11,6 +10,8 @@ import com.yc.junior.english.base.helper.GlideHelper;
 import com.yc.junior.english.composition.model.bean.CompositionInfo;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by wanglin  on 2019/3/25 09:50.

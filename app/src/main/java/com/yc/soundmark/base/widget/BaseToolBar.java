@@ -2,7 +2,6 @@ package com.yc.soundmark.base.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +18,7 @@ import com.yc.soundmark.index.fragment.VipEquitiesFragment;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.appcompat.widget.Toolbar;
 import rx.functions.Action1;
 import yc.com.base.BaseActivity;
 import yc.com.base.BaseView;

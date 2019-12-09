@@ -4,11 +4,6 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,13 +20,16 @@ import com.yc.junior.english.main.view.wdigets.TabBar;
 import com.yc.junior.english.setting.view.fragments.MyFragment;
 import com.yc.junior.english.weixin.views.fragments.CourseTypeFragment;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import yc.com.base.BaseActivity;
 import yc.com.base.StatusBarCompat;
 import yc.com.blankj.utilcode.util.SPUtils;
 import yc.com.permission_manager.PermissionManager;
-
-
 
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {

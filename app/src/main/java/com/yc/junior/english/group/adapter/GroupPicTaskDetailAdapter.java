@@ -1,8 +1,6 @@
 package com.yc.junior.english.group.adapter;
 
 
-import android.support.v4.view.PagerAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -16,6 +14,9 @@ import com.yc.junior.english.group.widget.Rotate3dAnimation;
 import com.yc.junior.english.group.widget.ZoomImageView;
 
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
 
 
 /**
